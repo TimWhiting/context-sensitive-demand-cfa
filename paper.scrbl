@@ -1655,7 +1655,7 @@ if the key is present in the map, then the results it locates are sound with res
 @omit{
 In each definition, the most-nested expression in tail position provides the values of the query.
 For instance, the expression \texttt{(unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})} denotes the singleton set $\{ @(pair (cursor (lam (var 'x) (e)) (∘e)) "\\rho") \}$ and, as the definition of \texttt{(eval \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})}, the constraint $\{ @(pair (cursor (lam (var 'x) (e)) (∘e)) "\\rho") \} \subseteq @(list C (pair (cursor (lam (var 'x) (e)) (∘e)) "\\rho"))$.
-Moreover, the monadic bind \texttt{>{}>=} implements quantified constraints which are instantiated for each result of a a bound expression.
+Moreover, the monadic bind \texttt{>{}>=} implements quantified constraints which are instantiated for each result of a bound expression.
 For instance, as the definition of \texttt{(expr \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho})}, the expression \texttt{(>{}>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)}
 denotes the constraint $\forall @(pair (cursor (app (e 0) (e 1)) (∘e "'")) "\\rho'") \in @(list R (pair (cursor (e) (bod (var 'x) (∘e))) "\\rho")).@(expr (cursor (app (e 0) (e 1)) (∘e "'")) "\\rho'") \wedge @(list E (pair (cursor (app (e 0) (e 1)) (∘e "'")) "\\rho'")) \subseteq @(list E (pair (cursor (e) (bod (var 'x) (∘e))) "\\rho"))$
 (where \texttt{expr} $\eta$-expands to \texttt{(λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho}) (expr \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho}))} and, since \texttt{unit} is a right identity for \texttt{>{}>=}, is equivalent to ).
