@@ -13,13 +13,19 @@
 ; calling contexts
 
 (define current-m (make-parameter 1))
+(define demand-kind (make-parameter '_))
 
-(define cc-determined?
+; Can the environment be refined further?
+(define cc-determined? 
   (match-lambda
     [(list)
      #t]
-    [`(□ ,_)
+    ['! #t] ; Cut known
+    ['? #t] ; Cut unknown (can be reinstantiated to an indeterminate context)
+    [`(□? ,_)
      #f]
+    [`(cenv ,Ce ,ρ)
+     (and (map cc-determined? ρ))]
     [(cons Ce cc)
      (cc-determined? cc)]))
 
@@ -27,47 +33,88 @@
   (let loop ([m (current-m)]
              [cc cc])
     (if (zero? m)
-      (list)
+      (match cc
+         [`(cenv ,Ce ,ρ) '!]; Cut known
+         [`(cons Ce cc) '!]; Cut known
+         ['! '!]
+         [(list) (list)]; Already 0
+         [_ '?]) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
       (match cc
         [(list)
          (list)]
-        [`(□ ,x)
-         `(□ ,x)]
+        ['! '!] ; Cut known
+        ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
+        [`(□? ,x)
+         `(□? ,x)]
+        [`(cenv ,Ce ,ρ)
+          `(cenv ,Ce ,(map (loop (- m 1)) ρ))]
         [(cons Ce cc)
          (cons Ce (loop (- m 1) cc))]))))
 
-(define (enter-cc Ce ρ)
-  (take-cc (cons Ce
-                 (match ρ
-                   [(list)
-                    (list)]
-                   [(cons cc _)
-                    cc]))))
+(define (head-env ρ)
+  (match ρ
+    [(list) (list)]
+    [(cons cc _) cc])
+)
 
+(define (enter-cc Ce ρ)
+  (match (demand-kind)
+    ['basic (take-cc (cons Ce (head-env ρ)))]
+    [_ (take-cc (cons Ce ρ))]
+  )
+)
+
+; Is cc0 more refined or equal to cc1?
 (define (⊑-cc cc₀ cc₁)
   (match cc₀
     [(list)
      (match cc₁
-       [(list)
-        #t]
-       [`(□ ,_)
-        #t]
-       [(cons _ _)
-        #f])]
-    [`(□ ,x)
+       [(list) #t] ; top is equal
+       ['? #f]; top is more refined -- should never happen?
+       ['! #f]; top is more refined -- should never happen?
+       [`(□? ,_) #f]; top is more refined -- should never happen?
+       [`(cenv ,Ce ,ρ) #f]; top is not more refined -- should never happen?
+       [(cons _ _) #f])]; top is not more refined -- should never happen?
+    ['! 
+      (match cc₁
+        [(list) #f]; cut is not more refined
+        ['! #t]; cut is equal
+        ['? #f]; cut is not more refined
+        [`(□? ,_) #f]; cut is not more refined
+        [`(cenv ,Ce ,ρ) #f]; cut is not more refined
+        [(cons _ _) #f])]; cut is not more refined
+    ['? 
+      (match cc₁
+        [(list) #f]; cut is not more refined
+        ['! #t]; cut unknown is more refined
+        ['? #t]; cut is equal
+        [`(□? ,_) #f]; cut is not more refined
+        [`(cenv ,Ce ,ρ) #f]; cut is not more refined
+        [(cons _ _) #f])]; cut is not more refined
+    [`(□? ,x)
      (match cc₁
-       [(list)
-        #f]
-       [`(□ ,y)
-        (equal? x y)]
-       [(cons _ _)
-        #f])]
+       [(list) #f]; indeterminate is not more refined
+       ['! #f]; indeterminate is more refined - we know more
+       ['? #f]; indeterminate is more refined - we know the variables
+       [`(□? ,y) (equal? x y)]; indeterminate is equal if they are equal otherwise false
+       [`(cenv ,Ce ,ρ) #f]; indeterminate is not more refined
+       [(cons _ _) #f])]
+    [`(cenv ,Ce₀ ,ρ₀)
+        (match cc₁
+        [(list) #f]; call-env is not more refined
+        ['! #t]; call-env is more refined 
+        ['? #t]; call-env is more refined
+        [`(□? ,_) #t]; call-env is more refined
+        [`(cenv ,Ce₁ ,ρ₁) 
+          (and (equal? Ce₀ Ce₁)
+               (and (map ⊑-cc ρ₀ ρ₁)))]
+      )]
     [(cons Ce₀ cc₀)
      (match cc₁
-       [(list)
-        #f]
-       [`(□ ,_)
-        #t]
+       [(list) #f]
+       ['! #t]
+       ['? #t]
+       [`(□? ,_) #t]
        [(cons Ce₁ cc₁)
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
@@ -98,7 +145,7 @@
 (define (bod Ce ρ)
   (match Ce
     [(cons C `(λ (,x) ,e))
-     (unit (cons `(bod ,x ,C) e) (cons (take-cc `(□ ,x)) ρ))]
+     (unit (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
@@ -225,7 +272,7 @@
     [(cons C `(λ (,y) ,e))
      (if (equal? x y)
        ⊥
-       (find x (cons `(bod ,y ,C) e) (cons (take-cc `(□ ,y)) ρ)))]
+       (find x (cons `(bod ,y ,C) e) (cons (take-cc `(□? ,y)) ρ)))]
     [(cons C `(app ,e₀ ,e₁))
      (⊔ (find x (cons `(rat ,e₁ ,C) e₀) ρ)
         (find x (cons `(ran ,e₀ ,C) e₁) ρ))]
@@ -235,10 +282,10 @@
           ⊥
           (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))]))
 
+
 (module+ main
   (require racket/pretty)
 
-  #;
   (pretty-print
    (run (>>= (>>= (unit (cons `(top)
                               `(app (λ (x) x)
@@ -247,7 +294,6 @@
                   rat)
              eval)))
 
-  #;
   (pretty-print
    (run (>>= (>>= (unit (cons `(top)
                               `(app (λ (x) x)
@@ -256,7 +302,6 @@
                   ran)
              eval)))
 
-  #;
   (pretty-print
    (run (>>= (>>= (>>= (unit (cons `(top)
                                    `(app (λ (x) x)
@@ -266,7 +311,6 @@
                   bod)
              eval)))
 
-  #;
   (pretty-print
    (run (>>= (>>= (>>= (unit (cons `(top)
                                    `(app (λ (x) x)
@@ -276,7 +320,6 @@
                   bod)
              eval)))
 
-  #;
   (pretty-print
    (run (>>= (>>= (>>= (unit (cons `(top)
                                    `(app (λ (x) x)
@@ -288,8 +331,8 @@
 
   (current-m 4)
 
-  "QUERY"
-  (pretty-print
+  #;"QUERY"
+  #;(pretty-print
    (run (>>= (>>= (>>= (unit (cons `(top)
                                    `(app (λ (x) (app x x))
                                          (λ (y) (app y y))))
@@ -298,8 +341,8 @@
                   bod)
              eval)))
 
-  "QUERY"
-  (pretty-print
+  #;"QUERY"
+  #;(pretty-print
    (run (>>= (>>= (>>= (>>= (unit (cons `(top)
                                         `(app (λ (x) (app x x))
                                               (λ (y) (app y y))))
@@ -309,8 +352,8 @@
                   rat)
              eval)))
 
-  "QUERY"
-  (pretty-print
+  #;"QUERY"
+  #;(pretty-print
    (run (>>= (>>= (unit (cons `(top)
                               `(app (λ (x) (app x x))
                                     (λ (y) (app y y))))
@@ -318,8 +361,8 @@
                   ran)
              expr)))
 
-  "QUERY"
-  (pretty-print
+  #;"QUERY"
+  #;(pretty-print
    (run (>>= (>>= (unit (cons `(top)
                               `(let ([x (λ (y) y)])
                                  x))
