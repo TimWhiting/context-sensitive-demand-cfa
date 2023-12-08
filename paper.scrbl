@@ -299,9 +299,11 @@ Demand-Driven Program Analysis (DDPA)@~cite{palmer2016higher},
 a higher-order program analysis which provides a dataflow ``lookup'' facility.
 However, DDPA's lookup facility depends on a global control-flow graph which it must bootstrap before it can resolve general dataflow queries;
 consequently, it is not suitable for the same applications of demand analysis as we have described it.
+
+@omit{
 We evaluate both Demand $m$-CFA and Lightweight Demand $m$-CFA\footnote{From this point on, we will refer to these together as \emph{(Lightweight) Demand $m$-CFA}.} against DDPA in \S~\ref{sec:evaluation} and compare them in depth in \S~\ref{sec:related-work} along with other related work.
 We additionally benchmark (Lightweight) Demand $m$-CFA to obtain empirical evidence that each is a genuine demand CFA.
-
+}
 %\subsection{Contributions}
 
 This paper makes the following contributions:
