@@ -13,7 +13,7 @@
 ; calling contexts
 
 (define current-m (make-parameter 1))
-(define demand-kind (make-parameter '_))
+(define demand-kind (make-parameter 'basic))
 
 ; Can the environment be refined further?
 (define cc-determined? 
@@ -62,9 +62,25 @@
 (define (enter-cc Ce ρ)
   (match (demand-kind)
     ['basic (take-cc (cons Ce (head-env ρ)))]
-    [_ (take-cc (cons Ce ρ))]
+    [_ (take-cc `(cenv ,Ce ,ρ))]
   )
 )
+
+(define (indeterminate-env Ce)
+  (match Ce
+    [(cons `(bod ,y ,C) e)
+     (cons `(□? ,y) (indeterminate-env (cons C e)))]
+    [`(top)
+      (list)]
+    [_
+      (indeterminate-env (oute Ce))]
+  ))
+
+(define (calibrate staticEnv env) 
+  env) ; TODO: Implement
+
+(define (calibrate-env Ce ρ)
+  (map calibrate (indeterminate-env Ce) p))
 
 ; Is cc0 more refined or equal to cc1?
 (define (⊑-cc cc₀ cc₁)
@@ -122,6 +138,20 @@
              (⊑-cc cc₀ cc₁))])]))
 
 ; syntax traversal
+
+(define (oute Ce)
+  (match Ce
+    [(cons `(rat ,e₁ ,C) e₀)
+     (cons C `(app ,e₀ ,e₁))]
+    [(cons `(ran ,e₀ ,C) e₁)
+     (cons C `(app ,e₀ ,e₁))]
+    [(cons `(bod ,y ,C) e)
+     (cons C `(λ (,y) e))]
+    [(cons `(let-bod ,x ,e₀ ,C) e₁)
+     (cons C `(let ([,x ,e₀]) ,e₁))]
+    [(cons `(let-bin ,x ,e₁ ,C) e₀)
+     (cons C `(let ([,x ,e₀]) ,e₁))]
+    [`(top) (error 'out "top")]))
 
 (define (out Ce ρ)
   (match Ce
