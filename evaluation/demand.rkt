@@ -33,12 +33,14 @@
   (let loop ([m (current-m)]
              [cc cc])
     (if (zero? m)
-      (match cc
-         [`(cenv ,Ce ,ρ) '!]; Cut known
-         [`(cons Ce cc) '!]; Cut known
-         ['! '!]
-         [(list) (list)]; Already 0
-         [_ '?]) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
+      (if (equal? 'basic (demand-kind)) 
+          (list)
+          (match cc
+            [`(cenv ,Ce ,ρ) '!]; Cut known
+            [`(cons Ce cc) '!]; Cut known
+            ['! '!]
+            [(list) (list)]; Already 0
+            [_ '?])) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
       (match cc
         [(list)
          (list)]
