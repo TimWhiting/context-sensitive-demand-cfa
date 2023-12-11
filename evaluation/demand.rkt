@@ -13,7 +13,7 @@
 ; calling contexts
 
 (define current-m (make-parameter 1))
-(define demand-kind (make-parameter 'basic))
+(define demand-kind (make-parameter '_))
 
 ; Can the environment be refined further?
 (define cc-determined? 
@@ -30,28 +30,29 @@
      (cc-determined? cc)]))
 
 (define (take-cc cc)
-  (let loop ([m (current-m)]
-             [cc cc])
-    (if (zero? m)
-      (if (equal? 'basic (demand-kind)) 
-          (list)
-          (match cc
-            [`(cenv ,Ce ,ρ) '!]; Cut known
-            [`(cons Ce cc) '!]; Cut known
-            ['! '!]
-            [(list) (list)]; Already 0
-            [_ '?])) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
-      (match cc
-        [(list)
-         (list)]
-        ['! '!] ; Cut known
-        ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
-        [`(□? ,x)
-         `(□? ,x)]
-        [`(cenv ,Ce ,ρ)
-          `(cenv ,Ce ,(map (loop (- m 1)) ρ))]
-        [(cons Ce cc)
-         (cons Ce (loop (- m 1) cc))]))))
+  (take-ccm (current-m) cc))
+
+(define (take-ccm m cc)
+  (if (zero? m)
+    (if (equal? 'basic (demand-kind)) 
+        (list)
+        (match cc
+          [`(cenv ,Ce ,ρ) '!]; Cut known
+          [`(cons Ce cc) '!]; Cut known
+          ['! '!]
+          [(list) (list)]; Already 0
+          [_ '?])) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
+    (match cc
+      [(list)
+        (list)]
+      ['! '!] ; Cut known
+      ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
+      [`(□? ,x)
+        `(□? ,x)]
+      [`(cenv ,Ce ,ρ)
+        `(cenv ,Ce ,(map (λ (cc) (take-ccm (- m 1) cc)) ρ))]
+      [(cons Ce cc)
+        (cons Ce (take-ccm (- m 1) cc))])))
 
 (define (head-env ρ)
   (match ρ
@@ -76,36 +77,60 @@
       (indeterminate-env (oute Ce))]
   ))
 
-(define (calibrate staticEnv env) 
-  env) ; TODO: Implement
+(define (calibrate-envs ρ₀ ρ₁); Adds one level of missing context
+  (let [(res (map calibrate-ccs ρ₀ ρ₁))] 
+    (if (and res)
+      res
+      #f)
+  ))
 
-(define (calibrate-env Ce ρ)
-  (map calibrate (indeterminate-env Ce) p))
+(define (calibrate-ccs cc₀ cc₁)
+  (match cc₀
+    [(list) (list)]
+    ['! #f]
+    ['? cc₁]
+    [`(□? ,x) `(□? ,x)]
+    [`(cenv ,Ce₀ ,ρ₀)
+      (let [(res (calibrate-envs (indeterminate-env Ce₀) cc₁))]
+        (if res
+          `(cenv ,Ce₀ ,res)
+          #f))]
+    )
+)
 
-; Is cc0 more refined or equal to cc1?
+(define (calibrate-env ρ)
+  (match ρ 
+    [`(cenv ,Ce ,ρ) 
+      (let [(res (calibrate-envs (indeterminate-env Ce) ρ))] 
+        (if res (cons Ce res) #f))]
+    [_ #f]
+  ))
+
+; Is cc0 more refined or equal to cc1? 
+;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
 (define (⊑-cc cc₀ cc₁)
   (match cc₀
     [(list)
      (match cc₁
-       [(list) #t] ; top is equal
-       ['? #f]; top is more refined -- should never happen?
-       ['! #f]; top is more refined -- should never happen?
-       [`(□? ,_) #f]; top is more refined -- should never happen?
-       [`(cenv ,Ce ,ρ) #f]; top is not more refined -- should never happen?
-       [(cons _ _) #f])]; top is not more refined -- should never happen?
+       [(list) #t] ; equal
+       ['? #f]
+       ['! #f]
+       [`(□? ,_) #f]
+       [`(cenv ,Ce ,ρ) #f]
+       [(cons _ _) #f])]
     ['! 
       (match cc₁
+        ['! #t]; cut unknown is equal
         [(list) #f]; cut is not more refined
-        ['! #t]; cut is equal
-        ['? #f]; cut is not more refined
+        ['? #f]; cut known is not more refined
         [`(□? ,_) #f]; cut is not more refined
         [`(cenv ,Ce ,ρ) #f]; cut is not more refined
         [(cons _ _) #f])]; cut is not more refined
     ['? 
       (match cc₁
+        ['? #t]; cut known is equal
+        ['! #f]; cut unknown is not more refined (it is but we don't need to run under unknown if we know)
         [(list) #f]; cut is not more refined
-        ['! #t]; cut unknown is more refined
-        ['? #t]; cut is equal
         [`(□? ,_) #f]; cut is not more refined
         [`(cenv ,Ce ,ρ) #f]; cut is not more refined
         [(cons _ _) #f])]; cut is not more refined
@@ -113,7 +138,7 @@
      (match cc₁
        [(list) #f]; indeterminate is not more refined
        ['! #f]; indeterminate is more refined - we know more
-       ['? #f]; indeterminate is more refined - we know the variables
+       ['? #t]; indeterminate is more refined - we know the variables
        [`(□? ,y) (equal? x y)]; indeterminate is equal if they are equal otherwise false
        [`(cenv ,Ce ,ρ) #f]; indeterminate is not more refined
        [(cons _ _) #f])]
@@ -258,7 +283,9 @@
   #;
   (pretty-print `(call ,x ,e ,ρ))
   (match-let ([(cons cc₀ ρ₀) ρ])
-    (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
+    (match (demand-kind)
+      ['basic
+       (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
          (λ (Cee ρee)
            (let ([cc₁ (enter-cc Cee ρee)])
              (cond
@@ -268,7 +295,21 @@
                 ; strictly refines because of above
                 (put-refines (cons cc₁ ρ₀) ρ)]
                [else
-                ⊥]))))))
+                ⊥]))))]
+      [_ (match (calibrate-env ρ)
+          [(cons c ρ′) (unit c ρ′)]
+          [#f (>>= (expr (cons C `(λ (,x) ,e)) ρ₀); Fallback to normal basic evaluation
+                (λ (Cee ρee)
+                  (let ([cc₁ (enter-cc Cee ρee)])
+                    (cond
+                      [(equal? cc₀ cc₁)
+                        (unit Cee ρee)]
+                      [(⊑-cc cc₁ cc₀)
+                        ; strictly refines because of above
+                        (put-refines (cons cc₁ ρ₀) ρ)]
+                      [else
+                        ⊥]))))]
+          )])))
 
 (define expr
   (memo 'expr
