@@ -15,10 +15,10 @@ comprehensive-ci.pdf: plot.rkt evaluation/results/ddpa.sexp evaluation/results/k
 	racket $< > $@ || (rm %.tex && false)
 
 clean:
-	-rm *.tex
-	-rm *.pdf
-	-rm *.out
-	-rm *.log
-	-rm *.aux
-	-rm *.bbl
-	-rm *.blg
+	-rm -f *.tex
+	-rm -f *.pdf
+	-rm -f *.out
+	-rm -f *.log
+	-rm -f *.aux
+	-rm -f *.bbl
+	-rm -f *.blg

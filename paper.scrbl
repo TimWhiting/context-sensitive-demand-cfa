@@ -22,7 +22,8 @@
 \citestyle{acmauthoryear}
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
-
+\author{Tim Whiting}
+\affiliation{Brigham Young University}
 \author{Kimball Germane}
 \affiliation{Brigham Young University}
 \author{Jay McCarthy}
@@ -294,6 +295,7 @@ To illustrate its directness, we reproduce and discuss the core of Demand $m$-CF
 One virtue of using the ADI approach is that it endows the implemented analyzer with ``pushdown precision'' with respect to the reference semantics---which, for our analyzer, are the demand semantics.
 However, as we discuss in \S~\ref{sec:implementation}, Demand $m$-CFA satisfies the \emph{Pushdown for Free} criteria@~cite{local:p4f} which ensures that it has pushdown precision with respect to the direct semantics as well.
 
+TODO: THIS NEEDS TO BE UPDATED> THE MOST RECENT & CLOSELY RELATED WORK IS THE AMAZON PAPER
 The concept of context-sensitive demand-driven CFA is also found in
 Demand-Driven Program Analysis (DDPA)@~cite{palmer2016higher},
 a higher-order program analysis which provides a dataflow ``lookup'' facility.
@@ -312,7 +314,7 @@ This paper makes the following contributions:
 \item Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (\S~\ref{sec:demand-mcfa-correctness});
 \item Lightweight Demand $m$-CFA, a hierarchy of demand CFAs using a different approach to achieving context sensitivity;
 \item an empirical evalution of Demand 0CFA to demonstrate that it is a genuine demand CFA; and
-\item an empirical evaluation of (Lightweight) Demand $m$-CFA against $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA} and DDPA@~cite{palmer2016higher}.
+\item an empirical evaluation of (Lightweight) Demand $m$-CFA against $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA}.
 \end{itemize}
 
 
@@ -1101,92 +1103,16 @@ its definition is presented in Figure~\ref{fig:mcfa-bind}.
 \end{figure}
 However, the @|mcfa-call-name| relation changes substantially.
 
-The particular changes to the @|mcfa-call-name| require us to make the reachability relation @|mcfa-reach-name| explicit.
-We define reachability over queries themselves;
-the judgment @(mcfa-reach "q" "q'") captures that, if query $q$ is reachable in analysis, then $q'$ is also, where $q$ is of the form
-\[
-\mathit{Query} \ni q ::= \mathsf{eval}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{expr}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{call}(@(cursor (e) (∘e)),@(mcfa-ρ))
-\]
-Figure~\ref{fig:demand-mcfa-reachability} presents a formal definition of @|mcfa-reach-name|.
-\begin{figure}
-@mathpar[mcfa-parse-judgement]{
-Reflexivity
-——
-q ⇑ q
-
-
-Ref-Caller
-q ⇑ ev C[x] ρ  (C'[e],ρ') = bind(x,C[x],ρ)
-——
-q ⇑ ca C'[e] ρ'
-
-Ref-Argument
-q ⇑ ev C[x] ρ  (C'[e],ρ') = bind(x,C[x],ρ)  C'[e] ρ' ⇐ C''[(e₀ e₁)] ρ''
-——
-q ⇑ ev C''[(e₀ [e₁])] ρ''
-
-
-App-Operator
-q ⇑ ev C[(e₀ e₁)] ρ
-——
-q ⇑ ev C[([e₀] e₁)] ρ
-
-App-Body
-q ⇑ ev C[(e₀ e₁)] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
-——
-q ⇑ ev C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ'
-
-
-Call-Trace
-q ⇑ ca C[λx.[e]] ctx::ρ
-——
-q ⇑ ex C[λx.e] ρ
-
-
-Rand-Operator
-q ⇑ ex C[(e₀ [e₁])] ρ
-——
-q ⇑ ev C[([e₀] e₁)] ρ
-
-Rand-Body
-q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' F Cx[x] ρ-x
-——
-q ⇑ ex Cx[x] ρ-x
-
-
-Body-Caller-Find
-q ⇑ ex C[λx.[e]] ρ
-——
-q ⇑ ca C[λx.[e]] ρ
-
-Body-Caller-Trace
-q ⇑ ex C[λx.[e]] ρ  C[λx.[e]] ρ ⇐ C'[(e₀ e₁)] ρ'
-——
-q ⇑ ex C'[(e₀ e₁)] ρ'
-
-}
-\caption{Demand $m$-CFA Reachability}
-\label{fig:demand-mcfa-reachability}
-\end{figure}
-The @clause-label{Reflexivity} rule ensures that the top-level query is considered reachable.
-The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish reachability corresponding to the @clause-label{Ref} rule of @|mcfa-eval-name|:
-@clause-label{Ref-Caller} makes the caller query reachable and, if it succeeds, @clause-label{Ref-Argument} makes the ensuing evaluation query reachable.
-@clause-label{App-Operator} and @clause-label{App-Body} do the same for the @clause-label{App} rule of @|mcfa-eval-name|, making, respectively, the operator evaluation query reachable and, if it yields a value, the body evaluation query reachable.
-@clause-label{Rand-Operator} makes the evaluation query of the @clause-label{Rand} rule reachable and @clause-label{Rand-Body} makes the trace query of any references in the operator body reachable.
-@clause-label{Body-Caller-Find} makes the caller query of @clause-label{Body} reachable;
-if a caller is found, @clause-label{Body-Caller-Trace} makes the trace query of that caller reachable.
-Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosing $\lambda$ of a caller query is reachable.
-
 Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Known-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
+C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
 ——
 C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
 
 Unknown-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
+C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
 ——
 ctx₀::ρ R ctx₁::ρ
 
@@ -1208,50 +1134,23 @@ If @(mcfa-cc 1) refines @(mcfa-cc 1), @clause-label{Unknown-Call} does not concl
 It is by this instantiation that @clause-label{Known-Call} will be triggered.
 When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignore which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
 
-Figure~\ref{fig:demand-mcfa-instantiation} presents an extension of @|mcfa-reach-name| which propagates instantiations to all reachable queries.
+Figure~\ref{fig:demand-mcfa-instantiation} presents inference rules which propagates discovered instantiations.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
-Instantiate-Reachable-Eval
-q ⇑ ev C[e] ρ  ρ₀ R ρ₁
-——
-q ⇑ ev C[e] ρ[ρ₁/ρ₀]
-
 Instantiate-Eval
 ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇓ Cv[λx.e] ρ-v
 ——
 C[e] ρ ⇓ Cv[λx.e] ρ-v
-
-
-Instantiate-Reachable-Expr
-q ⇑ ex C[e] ρ  ρ₀ R ρ₁
-——
-q ⇑ ex C[e] ρ[ρ₁/ρ₀]
 
 Instantiate-Expr
 ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇒ C'[(e₀ e₁)] ρ'
 ——
 C[e] ρ ⇒ C'[(e₀ e₁)] ρ'
 
-
-Instantiate-Reachable-Call
-q ⇑ ca C[e] ρ  ρ₀ R ρ₁
-——
-q ⇑ ca C[e] ρ[ρ₁/ρ₀]
-
 Instantiate-Call
 ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇐ C'[(e₀ e₁)] ρ'
 ——
 C[e] ρ ⇐ C'[(e₀ e₁)] ρ'
-
-App-Body-Instantiation
-q ⇑ ev C[(e₀ e₁)] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
-——
-?C'[λx.[e]]::ρ' R time-succ(C[(e₀ e₁)],ρ)::ρ'
-
-Rand-Body-Instantiation
-q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
-——
-?C'[λx.[e]]::ρ' R time-succ(C[(e₀ e₁)],ρ)::ρ'
 
 }
 \caption{Demand $m$-CFA Instantiation}
@@ -1701,15 +1600,7 @@ We evaluate (Lightweight) Demand $m$-CFA with respect to three questions:
 Although this paper focuses on context-sensitive demand CFA, we include an evaluation of context-insensitive demand CFA as well.
 Specifically, we evaluate Demand 0CFA against 0DDPA, the context-insensitive base of DDPA@~cite{palmer2016higher} hierarchy, and (exhaustive) 0CFA.
 Likewise, we evaluate both Demand 1CFA and Lightweight Demand 1CFA against 1DDPA and (exhaustive) $[k=1]$-CFA.
-We use DDPA's own implementation in OCaml for benchmarks, using a lightly-modified testbench (described next).
-We implement all other analyses in Racket@~cite{plt-tr1}, each using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation strategy, so that we obtain as close to an apples-to-apples comparison as possible.
-
-To benchmark DDPA, we lightly modified its own implementation in OCaml@~cite{facchinetti2019ddpa}.
-We altered the top level of DDPA's evaluator to time only the resolution of the query, omitting the time taken to transform the program into DDPA's IR as well as that of the the evaluator process to start up and initialize.
-At least conceptually, DDPA has an initialization phase in which it constructs a global CFG along which it performs ``lookups''.
-Ideally, we would measure the time of this construction alone and each individual lookup alone to get a sense for how this initialization cost is amortized over an analysis session.
-It appeared to us that this phase was entangled with general lookups in the implementation.
-Instead, we report the same metric as @citet{facchinetti2019ddpa}: the time to both construct the global CFG and perform lookups over the entire program.
+We implement the analyses in Racket@~cite{plt-tr1}, each using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation strategy, so that we obtain a close comparison.
 
 We evaluate each analysis against a suite of 19 R6RS programs, compiled from a variety of benchmarks by @citet{facchinetti2019ddpa}.
 This suite includes, among others,
@@ -1722,8 +1613,7 @@ We ensure each program is alphatized to aid $k$-CFA.
 None of the programs in our benchmark suite use mutation.
 
 We ran our benchmarks on a 2015 MacBook Pro with a four-core Intel Core i7 processor and 16 GB RAM.
-For $k$-CFA and (Lightweight) Demand $m$-CFA, we used Racket CS 7.7.
-For DDPA, we used OCaml 4.0.6.
+For $k$-CFA and (Lightweight) Demand $m$-CFA, we used Racket CS 7.7..
 
 \subsection{Demand CFA Overhead}
 
@@ -1732,42 +1622,11 @@ Demand analysis is viable only because not all facts require the same amount of 
 Thus, a demand analysis can often obtain a useful subset of facts in a fraction of the time of an exhaustive analysis.
 
 Nevertheless, some idea of the raw overhead of demand analysis is useful.
-To get such an idea, we measured the time taken by (Lightweight) Demand $m$-CFA, DDPA, and $k$-CFA to analyze each program.
+To get such an idea, we measured the time taken by (Lightweight) Demand $m$-CFA, and $k$-CFA to analyze each program.
 Each analysis was tasked with analyzing the entire given program.
 For $k$-CFA, we simply ran it on the program.
-For DDPA, we used the testbench of @citet{facchinetti2019ddpa}\footnote{Accessed from \url{https://github.com/JHU-PL-Lab/odefa/tree/toplas}.} which preprocesses the program, builds a CFG, and performs lookups on all program variables.
 For (Lightweight) Demand $k$-CFA, we issued an evaluation query for each expression.
 We performed the measurement both without and with context sensitivity.
-
-Figure~\ref{fig:v-ddpa} presents the measurements for 0CFA, 0DDPA, and Demand 0CFA.
-(We excluded Lightweight Demand 0CFA because it is the same analysis as Demand 0CFA.)
-\begin{figure}
-\includegraphics[scale=0.4]{comprehensive-ci.pdf}
-\caption{This table presents the analysis time taken by 0DDPA and Demand 0CFA, normalized to the time taken by exhaustive 0CFA, for each program in our benchmark suite.
-Note that the y-axis is log-scaled.}
-\label{fig:v-ddpa}
-\end{figure}
-In all cases, Demand 0CFA is within a factor of three from exhaustive 0CFA.
-This is promising because, as the size of programs scales up, the cost to obtain many control flow facts remains constant.
-Thus, even as exhaustive CFA becomes impractically expensive, Demand 0CFA remains practical for many parts of the program.
-In every case, Demand 0CFA is substantially faster than 0DDPA.
-This difference is due in part to the reachability assumptions Demand 0CFA makes and, relatedly, its reliance on lexical scope.
-
-Figure~\ref{fig:v-ddpa-2} presents the measurements for 1CFA, 1DDPA, and (Lightweight) Demand 1CFA.
-\begin{figure}
-\includegraphics[scale=0.4]{comprehensive-cs.pdf}
-\caption{This table presents the analysis time taken by 1DDPA and (Lightweight) Demand 1CFA, normalized to the time taken by exhaustive 1CFA, for each program in our benchmark suite.
-Note that the y-axis is log-scaled.}
-\label{fig:v-ddpa-2}
-\end{figure}
-The overhead of Demand 1CFA is in some cases 4--11$\times$;
-for a few programs, the overhead is lower (but still >1$\times$) and, for one program (\textsf{regex}), Demand 1CFA is more than $5\times$ faster.
-However, Demand 1CFA is many times 50--500$\times$ slower.
-Demand 1CFA's performance relative to 1DDPA varies widely.
-It is at times $20\times$ slower and at other times $100\times$ faster.
-The performance of Lightweight Demand 1CFA, on the other hand, is remarkable:
-it is typically faster than 1CFA by $5\times$ and, for some programs, even more than $100\times$.
-We discuss possible reasons for this performance below.
 
 \subsection{A demand CFA in practice?}
 
