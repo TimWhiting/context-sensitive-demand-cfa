@@ -194,10 +194,22 @@
     [`(top)
      (error 'out "top")]))
 
+(define (bin-e Ce ρ)
+  (match Ce
+    [(cons C `(let ([,x ,e₀]) ,e₁))
+     (list (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
+
 (define (bin Ce ρ)
   (match Ce
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
+
+(define (bod-e Ce ρ)
+  (match Ce
+    [(cons C `(λ (,x) ,e))
+     (list (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
+    [(cons C `(let ([,x ,e₀]) ,e₁))
+     (list (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
 (define (bod Ce ρ)
   (match Ce
@@ -206,15 +218,39 @@
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
+(define (rat-e Ce ρ)
+  (match Ce
+    [(cons C `(app ,e₀ ,e₁))
+     (list (cons `(rat ,e₁ ,C) e₀) ρ)]))
+
 (define (rat Ce ρ)
   (match Ce
     [(cons C `(app ,e₀ ,e₁))
      (unit (cons `(rat ,e₁ ,C) e₀) ρ)]))
 
+(define (ran-e Ce ρ)
+  (match Ce
+    [(cons C `(app ,e₀ ,e₁))
+     (list (cons `(ran ,e₀ ,C) e₁) ρ)]))
+
 (define (ran Ce ρ)
   (match Ce
     [(cons C `(app ,e₀ ,e₁))
      (unit (cons `(ran ,e₀ ,C) e₁) ρ)]))
+
+(define (gen-queries Ce ρ)
+  (define self-query (list Ce ρ))
+  (define child-queries (match Ce 
+    [(cons C `(app ,e₀ ,e₁))
+      (set-union (apply gen-queries (ran-e Ce ρ))
+                 (apply gen-queries (rat-e Ce ρ)))]
+    [(cons C `(λ (,x) ,e))
+      (apply gen-queries (bod-e Ce ρ))]
+    [(cons C `(let ([,x ,e₀]) ,e₁))
+      (set-union (apply gen-queries (bod-e Ce ρ))
+                 (apply gen-queries (bin-e Ce ρ)))]
+    [_ (set)]))
+  (set-add child-queries self-query))
 
 ; environment refinement
 
@@ -243,8 +279,7 @@
 (define eval
   (memo 'eval
         (λ (Ce ρ)
-          #;
-          (pretty-print `(eval ,Ce ,ρ))
+          #; (pretty-print `(eval ,Ce ,ρ))
           (⊔ (match Ce
                [(cons C (? symbol? x))
                 (>>= (bind x C x ρ)
@@ -442,3 +477,5 @@
                     (list))
                   bod)
              eval))))
+
+(provide (all-defined-out))
