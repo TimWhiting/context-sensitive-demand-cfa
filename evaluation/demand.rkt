@@ -10,6 +10,12 @@
         id))
    (hash)))
 
+(define (run-with-hash c h)
+  ((c (λ (xs)
+        (pretty-print xs)
+        id))
+   h))
+
 ; calling contexts
 
 (define current-m (make-parameter 1))
@@ -292,7 +298,10 @@
                [(cons _ `(λ (,_) ,_))
                 (unit Ce ρ)]
                [(cons _ `(app ,_ ,_))
-                (>>= (>>= (>>= (rat Ce ρ) eval) bod) eval)])
+                (>>= (>>= (>>= (rat Ce ρ) eval) bod) eval)]
+               [(cons _ `(let ,_ ,_))
+                (>>= (bod Ce ρ) eval)]
+                )
              (>>= (get-refines* ρ) (λ (ρ) (eval Ce ρ)))))))
 
 (define (bind x C e ρ)
@@ -367,6 +376,8 @@
                                      expr))))))]
                [(cons `(bod ,x ,C) e)
                 (>>= (call C x e ρ) expr)]
+               [(cons `(let-bin ,x ,e ,C) e1)
+                (>>= (out Ce ρ) expr)]
                [(cons `(top) _)
                 ⊥])
              (>>= (get-refines* ρ) (λ (ρ) (expr Ce ρ)))))))
