@@ -1,5 +1,5 @@
 #lang racket/base
-(require "fixpoint.rkt" "demand.rkt" "simple-examples.rkt" racket/match)
+(require "demand.rkt" "simple-examples.rkt" racket/match)
 
 (module+ main
   (require racket/pretty)
@@ -9,23 +9,24 @@
     (displayln "")
     (let ([h1 (hash)]
           [h2 (hash)])
+      ; TODO: Is it okay for the continuations to escape and be reused later?
       (for ([q (gen-queries (cons `(top) exp) (list))])
         (match-let ([(list c p) q])
-          (define evalq (>>= (unit c p) eval))
+          (define evalq (eval c p))
           (pretty-print "Running query: ")
           (pretty-print q)
           (displayln "")
           
           (pretty-print "Basic ")
           (demand-kind 'basic)
-          (set! h1 (run-with-hash evalq h1))
-          (pretty-print (foldl + 0 (map length (hash-values h1))))
+          (set! h1 (run-get-hash evalq h1))
+          (pretty-print (foldl (lambda (acc y) add1 acc) 0 (hash-keys h1)))
           (displayln "")
 
           (pretty-print "Hybrid ")
           (demand-kind 'hybrid)
-          (set! h2 (run-with-hash evalq h2))
-          (pretty-print (foldl + 0 (map length (hash-values h2))))
+          (set! h2 (run-get-hash evalq h2))
+          (pretty-print (foldl (lambda (acc y) add1 acc) 0 (hash-keys h2)))
           (displayln "")
           )
       )
