@@ -258,17 +258,18 @@
 
 (define-key (refine p) fail)
 
-(define get-refines*
-  (match-lambda
+(define (get-refines* name p)
+  (match p
     [(list)
      ⊥]
     [(and ρ (cons cc ρ′))
      (pretty-print "GET-REFINES")
+     (pretty-print name)
      (⊔ (if (cc-determined? cc)
             ; won't have any refinements at this scope
             ⊥
             (refine ρ))
-        (>>= (get-refines* ρ′) (λ (ρ′) (unit (cons cc ρ′)))))]))
+        (>>= (get-refines* name ρ′) (λ (ρ′) (unit (cons cc ρ′)))))]))
 
 ; demand evaluation
 
@@ -283,7 +284,7 @@
                  (match Ce
                    [(cons `(bod ,x ,C) e)
                     (pretty-print "REF-BOD")
-                    (>>= (>>= (call C x e ρ) (λ (Ce ρ) (pretty-print Ce) (ran Ce ρ))) eval)]
+                    (>>= (>>= (call C x e ρ) (λ (Ce ρ) (pretty-print "RESULT-CALL-REF-BOD") (ran Ce ρ))) (λ (Ce ρ) (pretty-print "REF-BOD-RESULT") (eval Ce ρ)))]
                    [(cons `(let-bod ,_ ,_ ,_) e)
                     (pretty-print "REF-LETBOD")
                     (>>= (>>= (out Ce ρ) bin) eval)])))]
@@ -297,7 +298,7 @@
           (pretty-print "LET")
           (>>= (bod Ce ρ) eval)]
          )
-       (>>= (get-refines* ρ) (λ (ρ) (pretty-print ρ) (eval Ce ρ))))))
+       (>>= (unit) (λ () (>>= (get-refines* "eval" ρ) (λ (ρ) (pretty-print ρ) (eval Ce ρ))))))))
 
 (define (bind x C e ρ)
   (match C
@@ -324,6 +325,7 @@
     (match-let ([(cons cc₀ ρ₀) ρ])
       (match (demand-kind)
         ['basic
+         (pretty-print "CALL-BASIC")
          (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
               (λ (Cee ρee)
                 (pretty-print Cee)
@@ -381,7 +383,7 @@
           (>>= (out Ce ρ) expr)]
          [(cons `(top) _)
           ⊥])
-       (>>= (get-refines* ρ) (λ (ρ) (expr Ce ρ))))))
+       (>>= (unit) (λ () (>>= (get-refines* "call" ρ) (λ (ρ) (expr Ce ρ))))))))
 
 (define (find x Ce ρ)
   (match Ce

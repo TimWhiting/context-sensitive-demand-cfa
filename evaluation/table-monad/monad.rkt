@@ -20,7 +20,7 @@ and explain what it provides. Then I would take away the return values.)
 
 |#
 
-(define ((∘ . s→ss) s) (foldl (λ (s→s s) (s→s s)) s s→ss))
+(define ((∘ . s→ss) s) (foldr (λ (s→s s) (s→s s)) s s→ss))
 
 (provide ∘)
 
