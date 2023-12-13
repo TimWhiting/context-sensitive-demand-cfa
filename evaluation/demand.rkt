@@ -2,7 +2,72 @@
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require racket/pretty)
 (require racket/match
-         racket/set)
+         racket/set
+         racket/hash)
+
+; abstract values
+(struct abvalue (closures constrs) #:transparent)
+(struct lazyconstr (name params env) #:transparent)
+(struct literal (intL floatL charL stringL) #:transparent)
+(struct simpleLattice () #:transparent)
+(struct top simpleLattice () #:transparent)
+(struct bottom simpleLattice () #:transparent)
+(struct singleton simpleLattice (x) #:transparent)
+
+(define (lit-int x env)
+  (abvalue (set) (hash env (cons (set) (literal (singleton x) bottom bottom bottom)))))
+
+(define (lit-float x env)
+  (abvalue (set) (hash env (cons (set) (literal bottom (singleton x) bottom bottom)))))
+
+(define (lit-char x env)
+  (abvalue (set) (hash env (cons (set) (literal bottom bottom (singleton x) bottom)))))
+
+(define (lit-string x env)
+  (abvalue (set) (hash env (cons (set) (literal bottom bottom bottom (singleton x))))))
+
+(define litbottom (literal bottom bottom bottom bottom))
+
+(define (constr name params env)
+  (abvalue (set) (hash env (cons (set (lazyconstr name params env)) litbottom))))
+
+(define (clos e env)
+  (abvalue (set (cons e env)) (hash)))
+
+(define (closures ab)
+  (match ab
+    [(abvalue c _) c])
+  )
+
+(define (constrs ab)
+  (match ab
+    [(abvalue _ l) l])
+  )
+
+(define ab-bottom (abvalue (set) (hash)))
+
+(define (ab-union a1 a2)
+  (match (cons a1 a2)
+    [(cons (abvalue c1 l1) (abvalue c2 l2))
+     (abvalue (set-union c1 c2) (hash-union l1 l2 #:combine (λ (l1 l2) (cons (set-union (car l1) (car l2)) (map simple-union (cdr l1) (cdr l2))))))]))
+
+(define (ab-lte a1 a2)
+  (match (cons a1 a2)
+    [(cons (abvalue c1 l1) (abvalue c2 l2))
+     (and (subset? c1 c2)
+          (eq? l1 l2); TODO: THIS NEEDS FIXING
+          )]
+    ))
+
+(define (simple-union s1 s2)
+  (match (cons s1 s2)
+    [(cons top _) top]
+    [(cons _ top) top]
+    [(cons bottom x) x]
+    [(cons x bottom) x]
+    [(cons (singleton x) (singleton y)) (if (equal? x y) (singleton x) top)]
+    ))
+
 
 ; calling contexts
 
@@ -271,6 +336,9 @@
         (>>= (get-refines* ρ′) (λ (ρ′) (unit (cons cc ρ′)))))]))
 
 ; demand evaluation
+
+; Runs f over all closures in the abstract value and combines the results
+(define (>>=cl m f) (>>= m (λ (x) (⊔ (map (λ (x) (apply f x)) (closures x))))))
 
 (define-key (eval Ce ρ)
   (begin
