@@ -20,7 +20,7 @@ and explain what it provides. Then I would take away the return values.)
 
 |#
 
-(define ((∘ . s→ss) s) (foldr (λ (s→s s) (s→s s)) s s→ss))
+(define ((∘ . s→ss) s) (foldl (λ (s→s s) (s→s s)) s s→ss))
 
 (provide ∘)
 
@@ -34,7 +34,7 @@ and explain what it provides. Then I would take away the return values.)
 (λ (k) (m₀ (λ xs ((apply (λ _ m₁) xs) k))))
 (λ (k) (m₀ (λ xs (m₁ k))))
 |#
-(define ((>> m . ms) k) (m (foldr (λ (m k) (λ _ (m k))) k ms)))
+(define ((>> m . ms) k) (m (foldl (λ (m k) (λ _ (m k))) k ms)))
 
 (define ((each m . ms) k) (foldl (λ (m s→s) (∘ (m k) s→s)) (m k) ms))
 
