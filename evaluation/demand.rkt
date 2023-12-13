@@ -173,6 +173,8 @@
     [`(top) (error 'out "top")]))
 
 (define (out Ce ρ)
+  (pretty-print "Out")
+  (pretty-print Ce)
   (match Ce
     [(cons `(rat ,e₁ ,C) e₀)
      (unit (cons C `(app ,e₀ ,e₁)) ρ)]
@@ -261,6 +263,7 @@
     [(list)
      ⊥]
     [(and ρ (cons cc ρ′))
+     (pretty-print "GET-REFINES")
      (⊔ (if (cc-determined? cc)
           ; won't have any refinements at this scope
           ⊥
@@ -271,29 +274,30 @@
 
 (define-key (eval Ce ρ)
   (begin
-          (pretty-print `(eval ,Ce ,ρ))
-          (⊔ (match Ce
-               [(cons C (? symbol? x))
-                (>>= (bind x C x ρ)
-                     (λ (Ce ρ)
-                       (match Ce
-                         [(cons `(bod ,x ,C) e)
-                          (pretty-print "REF-BOD")
-                          (>>= (>>= (call C x e ρ) ran) eval)]
-                         [(cons `(let-bod ,_ ,_ ,_) e)
-                          (pretty-print "REF-LETBOD")
-                          (>>= (>>= (out Ce ρ) bin) eval)])))]
-               [(cons _ `(λ (,_) ,_))
-                (pretty-print "LAM")
-                (unit Ce ρ)]
-               [(cons _ `(app ,_ ,_))
-                (pretty-print "APP")
-                (>>= (>>= (>>= (rat Ce ρ) eval) bod) eval)]
-               [(cons _ `(let ,_ ,_))
-                (pretty-print "LET")
-                (>>= (bod Ce ρ) eval)]
-                )
-             (>>= (get-refines* ρ) (λ (ρ) (eval Ce ρ))))))
+    (pretty-print `(eval ,Ce ,ρ))
+    (⊔ (match Ce
+          [(cons C (? symbol? x))
+          (pretty-print "REF")
+          (>>= (bind x C x ρ)
+                (λ (Ce ρ)
+                  (match Ce
+                    [(cons `(bod ,x ,C) e)
+                    (pretty-print "REF-BOD")
+                    (>>= (>>= (call C x e ρ) (λ (Ce ρ) (pretty-print Ce) (ran Ce ρ))) eval)]
+                    [(cons `(let-bod ,_ ,_ ,_) e)
+                    (pretty-print "REF-LETBOD")
+                    (>>= (>>= (out Ce ρ) bin) eval)])))]
+          [(cons _ `(λ (,_) ,_))
+          (pretty-print "LAM")
+          (unit Ce ρ)]
+          [(cons _ `(app ,_ ,_))
+          (pretty-print "APP")
+          (>>= (>>= (>>= (rat Ce ρ) eval) bod) eval)]
+          [(cons _ `(let ,_ ,_))
+          (pretty-print "LET")
+          (>>= (bod Ce ρ) eval)]
+          )
+        (>>= (get-refines* ρ) (λ (ρ) (eval Ce ρ))))))
 
 (define (bind x C e ρ)
   (match C
@@ -322,6 +326,7 @@
       ['basic
        (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
          (λ (Cee ρee)
+           (pretty-print Cee)
            (let ([cc₁ (enter-cc Cee ρee)])
              (cond
                [(equal? cc₀ cc₁)
@@ -354,28 +359,29 @@
 
 (define-key (expr Ce ρ)
   (begin 
-          (pretty-print `(expr ,Ce ,ρ))
-          (⊔ (match Ce
-               [(cons `(rat ,_ ,_) _)
-                (out Ce ρ)]
-               [(cons `(ran ,_ ,_) _)
-                (>>= (out Ce ρ)
-                     (λ (Cee ρee)
-                       (>>= (>>= (rat Cee ρee) eval)
-                            (λ (Cλx.e ρλx.e)
-                              (match-let ([(cons C `(λ (,x) ,e)) Cλx.e])
-                                (>>= (find x
-                                         (cons `(bod ,x ,C) e)
-                                         (cons (enter-cc Cee ρee)
-                                               ρλx.e))
-                                     expr))))))]
-               [(cons `(bod ,x ,C) e)
-                (>>= (call C x e ρ) expr)]
-               [(cons `(let-bin ,x ,e ,C) e1)
-                (>>= (out Ce ρ) expr)]
-               [(cons `(top) _)
-                ⊥])
-             (>>= (get-refines* ρ) (λ (ρ) (expr Ce ρ))))))
+    (pretty-print `(expr ,Ce ,ρ))
+    (⊔ (match Ce
+          [(cons `(rat ,_ ,_) _)
+          (pretty-print "RAT")
+          (>>= (out Ce ρ) (λ (Cee ρee) (pretty-print Cee) (unit Cee ρee)) )]
+          [(cons `(ran ,_ ,_) _)
+          (>>= (out Ce ρ)
+                (λ (Cee ρee)
+                  (>>= (>>= (rat Cee ρee) eval)
+                      (λ (Cλx.e ρλx.e)
+                        (match-let ([(cons C `(λ (,x) ,e)) Cλx.e])
+                          (>>= (find x
+                                    (cons `(bod ,x ,C) e)
+                                    (cons (enter-cc Cee ρee)
+                                          ρλx.e))
+                                expr))))))]
+          [(cons `(bod ,x ,C) e)
+          (>>= (call C x e ρ) expr)]
+          [(cons `(let-bin ,x ,e ,C) e1)
+          (>>= (out Ce ρ) expr)]
+          [(cons `(top) _)
+          ⊥])
+        (>>= (get-refines* ρ) (λ (ρ) (expr Ce ρ))))))
 
 (define (find x Ce ρ)
   (match Ce
@@ -388,13 +394,64 @@
        ⊥
        (find x (cons `(bod ,y ,C) e) (cons (take-cc `(□? ,y)) ρ)))]
     [(cons C `(app ,e₀ ,e₁))
-     (⊔ (find x (cons `(rat ,e₁ ,C) e₀) ρ)
+     (each (find x (cons `(rat ,e₁ ,C) e₀) ρ)
         (find x (cons `(ran ,e₀ ,C) e₁) ρ))]
     [(cons C `(let ([,y ,e₀]) ,e₁))
-     (⊔ (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
+     (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
         (if (equal? x y)
           ⊥
           (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))]))
 
 (provide (all-defined-out)
           (all-from-out "table-monad/main.rkt"))
+
+(define (run-print-query q)
+  (pretty-print q)
+  (run q))
+
+(module+ main
+  (require racket/pretty)
+  (define example0 (list (cons `(top)
+                        `(app (λ (x) x)
+                              (λ (y) y))) (list)))
+
+  (demand-kind 'basic)
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply rat-e example0))))
+
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply ran-e example0))))
+
+  (pretty-print
+   (run-print-query (apply eval (apply bod-e (apply rat-e example0)))))
+
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply bod-e (apply ran-e example0)))))
+
+  ; (current-m 4)
+
+  ; (define example1 (list (cons `(top)
+  ;                                  `(app (λ (x) (app x x))
+  ;                                        (λ (y) (app y y))))
+  ;                        (list)))
+  ; #;"QUERY"
+  ; (pretty-print
+  ;     (run-print-query (apply eval (apply bod-e (apply rat-e example1)))))
+
+  ; #;"QUERY"
+  ; (pretty-print 
+  ;     (run-print-query (apply eval (apply rat-e (apply bod-e (apply ran-e example1))))))
+
+  ; #;"QUERY"
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply ran-e example1))))
+
+  ; #;"QUERY"
+
+  ; (define example2 (list (cons `(top)
+  ;                             `(let ([x (λ (y) y)])
+  ;                                x))
+  ;                   (list)))
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply bod-e example2))))
+)
