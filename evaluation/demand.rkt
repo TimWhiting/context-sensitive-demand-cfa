@@ -339,7 +339,7 @@
                      (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
                      ]
                     [else
-                     (pretty-print "CALL-NOREFINE")
+                     #;(pretty-print "CALL-NOREFINE")
                      ⊥]))))]
         [_ (match (calibrate-env ρ)
              [(cons c ρ′) (unit c ρ′)]
@@ -363,7 +363,7 @@
     (⊔ (match Ce
          [(cons `(rat ,_ ,_) _)
           #;(pretty-print "RAT")
-          (>>= (out Ce ρ) (λ (Cee ρee) (pretty-print Cee) (unit Cee ρee)) )]
+          (out Ce ρ)]
          [(cons `(ran ,_ ,_) _)
           (>>= (out Ce ρ)
                (λ (Cee ρee)
