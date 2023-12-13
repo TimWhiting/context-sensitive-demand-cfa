@@ -232,14 +232,6 @@
     [(cons C `(app ,e₀ ,e₁))
      (unit (cons `(ran ,e₀ ,C) e₁) ρ)]))
 
-(define (unpack-values c)
-  (match c
-    [(eval Ce p) (values Ce p)]
-    [(expr Ce p) (values Ce p)]
-  ))
-
-(define (>>=! m f) (>>= m (λ (x) (let-values ([(Ce p) (unpack-values x)]) (f Ce p)))))
-
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce 
