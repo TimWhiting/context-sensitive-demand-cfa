@@ -91,13 +91,19 @@
 
 (define (run m [s (hash)])
   (match (hash-ref (run* m s) m)
-    [(powerset-node _ xss) (xss)]
+    [(powerset-node _ xss) xss]
     [(lattice-node _ n _ _) n]))
 
 (define (run-get-hash m [s (hash)])
   (run* m s))
 
+(define (from-hash m s)
+  (match (hash-ref s m)
+    [(powerset-node _ xss) xss]
+    [(lattice-node _ n _ _) n]))
+
 (provide (all-from-out "monad.rkt")
          run
          run-get-hash
+         from-hash
          define-key)
