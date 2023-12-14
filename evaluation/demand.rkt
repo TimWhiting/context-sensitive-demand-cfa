@@ -5,15 +5,17 @@
          racket/set
          racket/hash)
 
-(define ((unit1 . xs) k) (k (product/set xs)))
-(define ((unit2 xs) k) (k (product/lattice xs)))
+
+
+(define ((clos . xs) k) (k (product/set xs)))
+(define ((lit xs) k) (k (product/lattice xs)))
 (define ((>>=clos m f) k) (m (λ (xs)
   #;(displayln xs)
   (match xs 
     [(product/set xs) ((apply f xs) k)]
     [(product/lattice n) (id k)]
     ))))
-(define ((>>=2 m f) k) (m (λ (xs)
+(define ((>>=lit m f) k) (m (λ (xs)
   #;(displayln xs)
   (match xs
     [(product/set xs) (id k)]
@@ -29,15 +31,15 @@
 (struct bottom simple-lattice () #:transparent)
 (struct singleton simple-lattice (x) #:transparent)
 
-(define litbottom (literal (list bottom bottom bottom bottom)))
+(define litbottom (literal (list (bottom) (bottom) (bottom) (bottom))))
 
 (define (simple-union s1 s2)
   (match (cons s1 s2)
-    [(cons top _) top]
-    [(cons _ top) top]
-    [(cons bottom x) x]
-    [(cons x bottom) x]
-    [(cons (singleton x) (singleton y)) (if (equal? x y) (singleton x) top)]
+    [(cons (top) _) (top)]
+    [(cons _ (top)) (top)]
+    [(cons (bottom) x) x]
+    [(cons x (bottom)) x]
+    [(cons (singleton x) (singleton y)) (if (equal? x y) (singleton x) (top))]
     ))
 
 (define (simple-lte s1 s2)
@@ -229,16 +231,16 @@
 (define (out Ce ρ)
   (match Ce
     [(cons `(rat ,e₁ ,C) e₀)
-     (unit1 (cons C `(app ,e₀ ,e₁)) ρ)]
+     (clos (cons C `(app ,e₀ ,e₁)) ρ)]
     [(cons `(ran ,e₀ ,C) e₁)
-     (unit1 (cons C `(app ,e₀ ,e₁)) ρ)]
+     (clos (cons C `(app ,e₀ ,e₁)) ρ)]
     [(cons `(bod ,y ,C) e)
-     (unit1 (cons C `(λ (,y) e))
+     (clos (cons C `(λ (,y) e))
            (match-let ([(cons _ ρ) ρ]) ρ))]
     [(cons `(let-bod ,x ,e₀ ,C) e₁)
-     (unit1 (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
+     (clos (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
     [(cons `(let-bin ,x ,e₁ ,C) e₀)
-     (unit1 (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
+     (clos (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
     [`(top)
      (error 'out "top")]))
 
@@ -250,7 +252,7 @@
 (define (bin Ce ρ)
   (match Ce
     [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit1 (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
+     (clos (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
 
 (define (bod-e Ce ρ)
   (match Ce
@@ -262,9 +264,9 @@
 (define (bod Ce ρ)
   (match Ce
     [(cons C `(λ (,x) ,e))
-     (unit1 (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
+     (clos (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit1 (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+     (clos (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
 (define (rat-e Ce ρ)
   (match Ce
@@ -274,7 +276,7 @@
 (define (rat Ce ρ)
   (match Ce
     [(cons C `(app ,e₀ ,e₁))
-     (unit1 (cons `(rat ,e₁ ,C) e₀) ρ)]))
+     (clos (cons `(rat ,e₁ ,C) e₀) ρ)]))
 
 (define (ran-e Ce ρ)
   (match Ce
@@ -284,7 +286,7 @@
 (define (ran Ce ρ)
   (match Ce
     [(cons C `(app ,e₀ ,e₁))
-     (unit1 (cons `(ran ,e₀ ,C) e₁) ρ)]))
+     (clos (cons `(ran ,e₀ ,C) e₁) ρ)]))
 
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
@@ -320,12 +322,12 @@
             ; won't have any refinements at this scope
             ⊥
             (refine ρ))
-        (>>=clos (get-refines* ρ′) (λ (ρ′) (unit1 (cons cc ρ′)))))]))
+        (>>=clos (get-refines* ρ′) (λ (ρ′) (clos (cons cc ρ′)))))]))
 
 ; demand evaluation
 
 
-(define-key (eval Ce ρ)
+(define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   (begin
     #;(pretty-print `(eval ,Ce ,ρ))
     (⊔ (match Ce
@@ -342,7 +344,7 @@
                     (>>=clos (>>=clos (out Ce ρ) bin) eval)])))]
          [(cons _ `(λ (,_) ,_))
           #;(pretty-print "LAM")
-          (unit1 Ce ρ)]
+          (clos Ce ρ)]
          [(cons _ `(app ,_ ,_))
           #;(pretty-print "APP")
           (>>=clos (>>=clos (>>=clos (rat Ce ρ) eval) bod) eval)]
@@ -360,11 +362,11 @@
      (bind x C `(app ,e₀ ,e) ρ)]
     [`(bod ,y ,C)
      (if (equal? x y)
-         (unit1 (cons `(bod ,y ,C) e) ρ)
+         (clos (cons `(bod ,y ,C) e) ρ)
          (bind x C `(λ (,y) ,e) (match-let ([(cons _ ρ) ρ]) ρ)))]
     [`(let-bod ,y ,e₀ ,C′)
      (if (equal? x y)
-         (unit1 (cons C e) ρ)
+         (clos (cons C e) ρ)
          (bind x C′ `(let ([,y ,e₀]) ,e) ρ))]
     [`(let-bin ,y ,e₁ ,C)
      (bind x C `(let ([,y ,e]) ,e₁) ρ)]
@@ -385,7 +387,7 @@
                   (cond
                     [(equal? cc₀ cc₁)
                      #;(pretty-print "CALL-EQUAL")
-                     (unit1 Cee ρee)]
+                     (clos Cee ρee)]
                     [(⊑-cc cc₁ cc₀)
                      #;(pretty-print "CALL-FOUND-REFINES")
                      ; strictly refines because of above
@@ -395,13 +397,13 @@
                      #;(pretty-print "CALL-NOREFINE")
                      ⊥]))))]
         [_ (match (calibrate-env ρ)
-             [(cons c ρ′) (unit1 c ρ′)]
+             [(cons c ρ′) (clos c ρ′)]
              [#f (>>=clos (expr (cons C `(λ (,x) ,e)) ρ₀); Fallback to normal basic evaluation
                       (λ (Cee ρee)
                         (let ([cc₁ (enter-cc Cee ρee)])
                           (cond
                             [(equal? cc₀ cc₁)
-                             (unit1 Cee ρee)]
+                             (clos Cee ρee)]
                             [(⊑-cc cc₁ cc₀)
                              ; strictly refines because of above
                              (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
@@ -440,7 +442,7 @@
   (match Ce
     [(cons C (? symbol? y))
      (if (equal? x y)
-         (unit1 Ce ρ)
+         (clos Ce ρ)
          ⊥)]
     [(cons C `(λ (,y) ,e))
      (if (equal? x y)
