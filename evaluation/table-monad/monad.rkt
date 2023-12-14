@@ -39,12 +39,13 @@ and explain what it provides. Then I would take away the return values.)
 (define ((each m . ms) k) (foldl (λ (m s→s) (∘ (m k) s→s)) (m k) ms))
 
 (define (run m [s (hash)]) ((m mt-κ) s))
+(define (run2 m [s (hash)]) ((m mt-κ mt-κ) s))
 
 (define (id s) s)
 (define ((⊔ . cs) κ)
   (foldl (λ (c s→s) (∘ (c κ) s→s)) id cs))
 (define ⊥ (⊔))
-(provide unit void >>= >> each run ⊔ ⊥ id)
+(provide unit void >>= >> each run run2 ⊔ ⊥ id)
 
 #|
 '(>>= m unit)

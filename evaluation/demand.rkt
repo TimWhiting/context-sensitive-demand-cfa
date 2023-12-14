@@ -9,10 +9,10 @@
 (struct abvalue (closure/constr literal) #:transparent)
 (struct lazyconstr (name params env) #:transparent)
 (struct literal (litLattices) #:transparent)
-(struct simpleLattice () #:transparent)
-(struct top simpleLattice () #:transparent)
-(struct bottom simpleLattice () #:transparent)
-(struct singleton simpleLattice (x) #:transparent)
+(struct simple-lattice () #:transparent)
+(struct top simple-lattice () #:transparent)
+(struct bottom simple-lattice () #:transparent)
+(struct singleton simple-lattice (x) #:transparent)
 
 (define litbottom (literal bottom bottom bottom bottom))
 
