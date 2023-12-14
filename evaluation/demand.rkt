@@ -2,8 +2,7 @@
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require racket/pretty)
 (require racket/match
-         racket/set
-         racket/hash)
+         racket/set)
 
 
 #|
