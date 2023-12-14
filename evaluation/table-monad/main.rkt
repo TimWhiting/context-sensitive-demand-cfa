@@ -21,6 +21,10 @@
 (struct powerset-node node (xss) #:transparent)
 (struct lattice-node node (n ⊑ ⊔) #:transparent)
 (struct product-node node (xss n ⊥ ⊑ ⊔) #:transparent)
+(struct product () #:transparent)
+(struct product/set product (xss) #:transparent)
+(struct product/lattice product (n) #:transparent)
+(provide product/set product/lattice)
 
 (define ((node-depend/powerset nm k) s)
   (match (hash-ref s nm #f)
@@ -39,10 +43,10 @@
   #;(displayln "Node depend product")
   (match-let ([(product-node ks xss n ⊥ ⊑ ⊔) (hash-ref s nm)])
     (define new-deps-hash (hash-set s nm (product-node (cons k ks) xss n ⊥ ⊑ ⊔)))
-    ((k (cons (list) n)) 
+    ((k (product/lattice n)) 
       (for/fold ([s new-deps-hash])
                 ([xs (in-set xss)])
-        ((k (cons xs ⊥)) s)))))
+        ((k (product/set xs)) s)))))
 
 (provide node-depend/powerset
          node-depend/lattice
@@ -69,19 +73,18 @@
   #;(displayln nm)
   #;(displayln i)
   #;(pretty-print s)
-  (match-let ([(product-node ks xss n₀ ⊥ ⊑ ⊔) (hash-ref s nm)]
-              [(cons xs n) i])
-    (match xs
-      [(list) 
+  (match-let ([(product-node ks xss n₀ ⊥ ⊑ ⊔) (hash-ref s nm)])
+    (match i
+      [(product/lattice n) 
         (if (⊑ n n₀)
           s
           (let* ([n-new (⊔ n₀ n)]
                  [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
-            (foldl (λ (k s) ((k (cons (list) n-new)) s)) (hash-set s nm new-node) ks)))]
-      [(list xs) (if (set-member? xss xs)
+            (foldl (λ (k s) ((k (product/lattice n-new)) s)) (hash-set s nm new-node) ks)))]
+      [(product/set xs) (if (set-member? xss xs)
           s
           (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
-            (foldl (λ (k s) ((k (cons xs ⊥)) s)) (hash-set s nm new-node) ks)))]
+            (foldl (λ (k s) ((k (product/set xs)) s)) (hash-set s nm new-node) ks)))]
     )))
 
 (provide node-absorb/powerset

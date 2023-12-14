@@ -23,27 +23,27 @@
     ))
 
 
-(define ((unit1 xs) k) (k (cons (list xs) (bottom))))
-(define ((unit2 xs) k) (k (cons (list) xs)))
+(define ((unit1 . xs) k) (k (product/set xs)))
+(define ((unit2 xs) k) (k (product/lattice xs)))
 (define ((void k) s) s)
 (define ((>>=1 m f) k) (m (λ (xs)
   #;(displayln xs)
   (match xs 
-    [(cons (list ...xs) n) ((f xs) k)]
-    [(cons (list) n) (id k)]
+    [(product/set xs) ((f xs) k)]
+    [(product/lattice n) (id k)]
     ))))
 (define ((>>=2 m f) k) (m (λ (xs)
   #;(displayln xs)
   (match xs
-    [(cons (list ...xs) n) (id k)]
-    [(cons (list) n) ((f n) k)]
+    [(product/set xs) (id k)]
+    [(product/lattice n) ((f n) k)]
     ))))
 
 (define-key (test1 x) #:⊥ (bottom) #:⊑ simple-lte #:⊔ simple-union #:product
   (begin #;(pretty-print "test1")
     (match x
       [10 (>>=1 (unit1 x) (λ (x) (unit2 (singleton 1))))]
-      [8 (>>=2 (test1 10) (λ (x) (unit2 x)))] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
+      [8 (>>=2 (test1 10) unit2)] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
       )))
 
 (pretty-print (run (test1 8)))
