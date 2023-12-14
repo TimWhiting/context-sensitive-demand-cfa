@@ -23,17 +23,27 @@
     ))
 
 
-(define ((unit1 xs) k1 k2) (k1 (cons (list xs) (bottom))))
-(define ((unit2 xs) k1 k2) (k2 (cons (list) xs)))
-(define ((void k1 k2) s) s)
-(define ((>>=1 m f) k1 k2) (m (λ xs ((apply f xs) k1 k2)) (λ xs xs)))
-(define ((>>=2 m f) k1 k2) (m (λ xs xs) (λ xs ((f xs) k1 k2))))
+(define ((unit1 xs) k) (k (cons (list xs) (bottom))))
+(define ((unit2 xs) k) (k (cons (list) xs)))
+(define ((void k) s) s)
+(define ((>>=1 m f) k) (m (λ (xs)
+  #;(displayln xs)
+  (match xs 
+    [(cons (list ...xs) n) ((f xs) k)]
+    [(cons (list) n) (id k)]
+    ))))
+(define ((>>=2 m f) k) (m (λ (xs)
+  #;(displayln xs)
+  (match xs
+    [(cons (list ...xs) n) (id k)]
+    [(cons (list) n) ((f n) k)]
+    ))))
 
 (define-key (test1 x) #:⊥ (bottom) #:⊑ simple-lte #:⊔ simple-union #:product
   (begin #;(pretty-print "test1")
     (match x
       [10 (>>=1 (unit1 x) (λ (x) (unit2 (singleton 1))))]
-      [8 (>>=2 (test1 10) (λ (x) (unit1 x)))] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
+      [8 (>>=2 (test1 10) (λ (x) (unit2 x)))] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
       )))
 
-(pretty-print (run2-get-hash (test1 8)))
+(pretty-print (run (test1 8)))

@@ -2,7 +2,7 @@
 (require racket/match
          racket/set
          racket/pretty
-         (rename-in "monad.rkt" [run run*] [run2 run2*]))
+         (rename-in "monad.rkt" [run run*]))
 
 (provide powerset-node)
 
@@ -20,7 +20,7 @@
 (struct node (ks) #:transparent)
 (struct powerset-node node (xss) #:transparent)
 (struct lattice-node node (n ⊑ ⊔) #:transparent)
-(struct product-node (node1 node2) #:transparent)
+(struct product-node node (xss n ⊥ ⊑ ⊔) #:transparent)
 
 (define ((node-depend/powerset nm k) s)
   (match (hash-ref s nm #f)
@@ -35,14 +35,14 @@
   (match-let ([(lattice-node ks n ⊑ ⊔) (hash-ref s nm)])
     ((k n) (hash-set s nm (lattice-node (cons k ks) n ⊑ ⊔)))))
 
-(define ((node-depend/product nm k1 k2) s)
+(define ((node-depend/product nm k) s)
   #;(displayln "Node depend product")
-  (match-let ([(product-node (powerset-node ks1 xss) (lattice-node ks2 n ⊑ ⊔)) (hash-ref s nm)])
-    (define new-deps-hash (hash-set s nm (product-node (powerset-node (cons k1 ks1) xss) (lattice-node (cons k2 ks2) n ⊑ ⊔))))
-    ((k2 n) 
+  (match-let ([(product-node ks xss n ⊥ ⊑ ⊔) (hash-ref s nm)])
+    (define new-deps-hash (hash-set s nm (product-node (cons k ks) xss n ⊥ ⊑ ⊔)))
+    ((k (cons (list) n)) 
       (for/fold ([s new-deps-hash])
                 ([xs (in-set xss)])
-        ((apply k1 xs) s)))))
+        ((k (cons xs ⊥)) s)))))
 
 (provide node-depend/powerset
          node-depend/lattice
@@ -64,24 +64,24 @@
       (let ([n (⊔ n₀ n)])
         (foldl (λ (k s) ((k n) s)) (hash-set s nm (lattice-node ks n ⊑ ⊔)) ks)))))
 
-(define ((node-absorb/product nm n) s)
+(define ((node-absorb/product nm i) s)
   #;(displayln "Node absorb product")
   #;(displayln nm)
-  #;(displayln n)
+  #;(displayln i)
   #;(pretty-print s)
-  (match-let ([(product-node (powerset-node ks1 xss) (lattice-node ks2 n₀ ⊑ ⊔)) (hash-ref s nm)]
-              [(cons xs n) n])
+  (match-let ([(product-node ks xss n₀ ⊥ ⊑ ⊔) (hash-ref s nm)]
+              [(cons xs n) i])
     (match xs
       [(list) 
         (if (⊑ n n₀)
           s
-          (let* ([n (⊔ n₀ n)]
-                 [new-node (product-node (powerset-node ks1 xss) (lattice-node ks2 n ⊑ ⊔))])
-            (foldl (λ (k s) ((k n) s)) (hash-set s nm new-node) ks2)))]
+          (let* ([n-new (⊔ n₀ n)]
+                 [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
+            (foldl (λ (k s) ((k (cons (list) n-new)) s)) (hash-set s nm new-node) ks)))]
       [(list xs) (if (set-member? xss xs)
           s
-          (let ([new-node (product-node (powerset-node ks1 (set-add xss xs)) (lattice-node ks2 n₀ ⊑ ⊔))])
-            (foldl (λ (k s) ((apply k xs) s)) (hash-set s nm new-node) ks1)))]
+          (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
+            (foldl (λ (k s) ((k (cons xs ⊥)) s)) (hash-set s nm new-node) ks)))]
     )))
 
 (provide node-absorb/powerset
@@ -106,13 +106,13 @@
     ((node-depend/lattice nm k) s)
     (((f nm) (id-κ/lattice nm)) (hash-set s nm (lattice-node (list k) ⊥ ⊑ ⊔)))))
 
-(define ((memoize/product nm ⊥ ⊑ ⊔ k1 k2 f) s)
+(define ((memoize/product nm ⊥ ⊑ ⊔ k f) s)
   #;(displayln nm)
   (if (hash-has-key? s nm)
-    ((node-depend/product nm k1 k2) s)
+    ((node-depend/product nm k) s)
     (begin
-      (let ([initial-hash (hash-set s nm (product-node (powerset-node (list k1) (set)) (lattice-node (list k2) ⊥ ⊑ ⊔)))])
-        (((f nm) (id-κ/product nm) (id-κ/product nm)) initial-hash)))))
+      (let ([initial-hash (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔))])
+        (((f nm) (id-κ/product nm)) initial-hash)))))
 
 (define-syntax define-key
   (syntax-rules ()
@@ -129,7 +129,7 @@
        (struct name (param ...)
          #:transparent
          #:property prop:procedure
-         (λ (self k1 k2) (memoize/product self ⊥ ⊑ ⊔ k1 k2 (match-lambda [(name param ...) body])))))]
+         (λ (self k) (memoize/product self ⊥ ⊑ ⊔ k (match-lambda [(name param ...) body])))))]
     [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr body)
      (begin
        (define ⊥ ⊥-expr)
@@ -143,29 +143,21 @@
 (define (run m [s (hash)])
   (match (hash-ref (run* m s) m)
     [(powerset-node _ xss) xss]
-    [(lattice-node _ n _ _) n]))
-
-(define (run2 m [s (hash)])
-  (match (hash-ref (run2* m s) m)
-    [(product-node (powerset-node _ xss) (lattice-node _ n _ _)) (cons xss n)]))
+    [(lattice-node _ n _ _) n]
+    [(product-node _ xss n _ _ _) (cons xss n)]))
 
 (define (run-get-hash m [s (hash)])
   (run* m s))
-
-(define (run2-get-hash m [s (hash)])
-  (run2* m s))
 
 (define (from-hash m s)
   (match (hash-ref s m)
     [(powerset-node _ xss) xss]
     [(lattice-node _ n _ _) n]
-    [(product-node (powerset-node _ xss) (lattice-node _ n _ _)) (cons xss n)]))
+    [(product-node _ xss n _ _ _) (cons xss n)]))
 
 (provide (all-from-out "monad.rkt")
          run
          run-get-hash
-         run2
-         run2-get-hash
          from-hash
          define-key)
 
