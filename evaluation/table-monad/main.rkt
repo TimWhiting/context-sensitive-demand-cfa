@@ -43,10 +43,13 @@
   #;(displayln "Node depend product")
   (match-let ([(product-node ks xss n ⊥ ⊑ ⊔) (hash-ref s nm)])
     (define new-deps-hash (hash-set s nm (product-node (cons k ks) xss n ⊥ ⊑ ⊔)))
-    ((k (product/lattice n)) 
+    (define new-hash-set
       (for/fold ([s new-deps-hash])
                 ([xs (in-set xss)])
-        ((k (product/set xs)) s)))))
+        ((k (product/set xs)) s)))
+    (if (equal? n ⊥)
+        new-hash-set
+        ((k (product/lattice n)) new-hash-set))))
 
 (provide node-depend/powerset
          node-depend/lattice
@@ -58,15 +61,15 @@
      (hash-set s nm (powerset-node (list) (set xs)))]
     [(powerset-node ks xss)
      (if (set-member? xss xs)
-       s
-       (foldl (λ (k s) ((apply k xs) s)) (hash-set s nm (powerset-node ks (set-add xss xs))) ks))]))
+         s
+         (foldl (λ (k s) ((apply k xs) s)) (hash-set s nm (powerset-node ks (set-add xss xs))) ks))]))
 
 (define ((node-absorb/lattice nm n) s)
   (match-let ([(lattice-node ks n₀ ⊑ ⊔) (hash-ref s nm)])
     (if (⊑ n n₀)
-      s
-      (let ([n (⊔ n₀ n)])
-        (foldl (λ (k s) ((k n) s)) (hash-set s nm (lattice-node ks n ⊑ ⊔)) ks)))))
+        s
+        (let ([n (⊔ n₀ n)])
+          (foldl (λ (k s) ((k n) s)) (hash-set s nm (lattice-node ks n ⊑ ⊔)) ks)))))
 
 (define ((node-absorb/product nm i) s)
   #;(displayln "Node absorb product")
@@ -75,17 +78,17 @@
   #;(pretty-print s)
   (match-let ([(product-node ks xss n₀ ⊥ ⊑ ⊔) (hash-ref s nm)])
     (match i
-      [(product/lattice n) 
-        (if (⊑ n n₀)
-          s
-          (let* ([n-new (⊔ n₀ n)]
-                 [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
-            (foldl (λ (k s) ((k (product/lattice n-new)) s)) (hash-set s nm new-node) ks)))]
+      [(product/lattice n)
+       (if (⊑ n n₀)
+           s
+           (let* ([n-new (⊔ n₀ n)]
+                  [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
+             (foldl (λ (k s) ((k (product/lattice n-new)) s)) (hash-set s nm new-node) ks)))]
       [(product/set xs) (if (set-member? xss xs)
-          s
-          (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
-            (foldl (λ (k s) ((k (product/set xs)) s)) (hash-set s nm new-node) ks)))]
-    )))
+                            s
+                            (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
+                              (foldl (λ (k s) ((k (product/set xs)) s)) (hash-set s nm new-node) ks)))]
+      )))
 
 (provide node-absorb/powerset
          node-absorb/lattice
@@ -101,21 +104,21 @@
 
 (define ((memoize/powerset nm k f) s)
   (if (hash-has-key? s nm)
-    ((node-depend/powerset nm k) s)
-    (((f nm) (id-κ/powerset nm)) (hash-set s nm (powerset-node (list k) (set))))))
+      ((node-depend/powerset nm k) s)
+      (((f nm) (id-κ/powerset nm)) (hash-set s nm (powerset-node (list k) (set))))))
 
 (define ((memoize/lattice nm ⊥ ⊑ ⊔ k f) s)
   (if (hash-has-key? s nm)
-    ((node-depend/lattice nm k) s)
-    (((f nm) (id-κ/lattice nm)) (hash-set s nm (lattice-node (list k) ⊥ ⊑ ⊔)))))
+      ((node-depend/lattice nm k) s)
+      (((f nm) (id-κ/lattice nm)) (hash-set s nm (lattice-node (list k) ⊥ ⊑ ⊔)))))
 
 (define ((memoize/product nm ⊥ ⊑ ⊔ k f) s)
   #;(displayln nm)
   (if (hash-has-key? s nm)
-    ((node-depend/product nm k) s)
-    (begin
-      (let ([initial-hash (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔))])
-        (((f nm) (id-κ/product nm)) initial-hash)))))
+      ((node-depend/product nm k) s)
+      (begin
+        (let ([initial-hash (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔))])
+          (((f nm) (id-κ/product nm)) initial-hash)))))
 
 (define-syntax define-key
   (syntax-rules ()
@@ -123,7 +126,7 @@
      (struct name (param ...)
        #:transparent
        #:property prop:procedure
-      (λ (self k) (memoize/powerset self k (match-lambda [(name param ...) body]))))]
+       (λ (self k) (memoize/powerset self k (match-lambda [(name param ...) body]))))]
     [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr #:product body)
      (begin
        (define ⊥ ⊥-expr)

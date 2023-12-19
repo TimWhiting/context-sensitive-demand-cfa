@@ -7,8 +7,6 @@
 
 #|
 TODO:
-Fix Hybrid, some queries are not returning equal
-
 Add in some samples with basic numbers
 
 Add in a small sample with constructors / pattern matching
@@ -21,21 +19,25 @@ Presentation
 |#
 
 (define ((clos . xs) k) (k (product/set xs)))
-(define ((lit xs) k) (k (product/lattice xs)))
-(define ((>>=clos m f) k)
+(define ((lit x) k) (k (product/lattice x)))
+
+; (define ((>>= m f) k)
+;   ((>>=1 m
+;          (λ x
+;            (begin
+;              ;  (pretty-trace x)
+;              (apply f x))))
+;    k))
+
+(define ((>>=eval m fclos flit) k)
   (m (λ (xs)
-       #;(displayln xs)
+       ;  (pretty-trace xs)
        (match xs
-         [(product/set xs) ((apply f xs) k)]
-         [(product/lattice n) (⊥ k)]
+         [(product/set xs) ((apply fclos xs) k)]
+         [(product/lattice n) ((flit n) k)]
          ))))
-(define ((>>=lit m f) k)
-  (m (λ (xs)
-       #;(displayln xs)
-       (match xs
-         [(product/set xs) (error 'invalid-set)]
-         [(product/lattice n) (⊥ k)]
-         ))))
+(define ((>>=lit m f) k) ((>>=eval m ⊥ f) k))
+(define ((>>=clos m f) k) ((>>=eval m f ⊥) k))
 
 ; abstract values
 (struct abvalue (closure/constr literal) #:transparent)
@@ -79,6 +81,7 @@ Presentation
 
 (define current-m (make-parameter 1))
 (define demand-kind (make-parameter '_))
+(define trace (make-parameter #f))
 
 ; Can the environment be refined further?
 (define cc-determined?
@@ -164,12 +167,15 @@ Presentation
   )
 
 (define (calibrate-env ρ)
-  (match ρ
-    [`(cenv ,Ce ,ρ)
-     (let [(res (calibrate-envs (indeterminate-env Ce) ρ))]
-       (if res (cons Ce res) #f))]
-    [_ #f]
-    ))
+  (begin
+    ; (pretty-print "Calibrating env")
+    ; (pretty-print ρ)
+    (match ρ
+      [`(cenv ,Ce ,ρ)
+       (let [(res (calibrate-envs (indeterminate-env Ce) ρ))]
+         (if res (cons Ce res) #f))]
+      [_ #f]
+      )))
 
 ; Is cc0 more refined or equal to cc1?
 ;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
@@ -283,6 +289,13 @@ Presentation
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
+(define (bod-calibrate Ce call ρ ρ′)
+  (match Ce
+    [(cons C `(λ (,x) ,e))
+     (unit (cons `(bod ,x ,C) e) (cons (take-cc `(cenv ,call ,ρ)) ρ′))]
+    [(cons C `(let ([,x ,e₀]) ,e₁))
+     (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+
 (define (rat-e Ce ρ)
   (match Ce
     [(cons C `(app ,e₀ ,e₁))
@@ -320,7 +333,7 @@ Presentation
 ; environment refinement
 
 (define (((put-refines ρ₀ ρ₁) k) s)
-  #;(pretty-print `(refines ,ρ₀ ,ρ₁))
+  (pretty-trace `(refines ,ρ₀ ,ρ₁))
   ((k #f) ((node-absorb/powerset (refine ρ₁) (list ρ₀)) s)))
 
 (define-key (refine p) fail)
@@ -330,12 +343,11 @@ Presentation
     [(list)
      ⊥]
     [(and ρ (cons cc ρ′))
-     #;(pretty-print "GET-REFINES")
-     #;(pretty-print name)
-     #;(pretty-print ρ)
+     (pretty-trace "GET-REFINES")
+     (pretty-trace ρ)
      (⊔ (if (cc-determined? cc)
             ; won't have any refinements at this scope
-            ⊥
+            fail
             (refine ρ))
         (>>= (get-refines* ρ′) (λ (ρ′) (unit (cons cc ρ′)))))]))
 
@@ -343,31 +355,51 @@ Presentation
 
 
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  (begin
-    #;(pretty-print `(eval ,Ce ,ρ))
-    (⊔ (match Ce
-         [(cons C (? symbol? x))
-          #;(pretty-print "REF")
-          (>>= (bind x C x ρ)
-               (λ (Ce ρ)
-                 (match Ce
-                   [(cons `(bod ,x ,C) e)
-                    #;(pretty-print "REF-BOD")
-                    (>>= (>>= (call C x e ρ) ran) eval)]
-                   [(cons `(let-bod ,_ ,_ ,_) e)
-                    #;(pretty-print "REF-LETBOD")
-                    (>>= (>>= (out Ce ρ) bin) eval)])))]
-         [(cons _ `(λ (,_) ,_))
-          #;(pretty-print "LAM")
-          (clos Ce ρ)]
-         [(cons _ `(app ,_ ,_))
-          #;(pretty-print "APP")
-          (>>= (>>=clos (>>= (rat Ce ρ) eval) bod) eval)]
-         [(cons _ `(let ,_ ,_))
-          #;(pretty-print "LET")
-          (>>= (bod Ce ρ) eval)]
-         )
-       (>>= (get-refines* ρ) (λ (ρ′) (eval Ce ρ′))))))
+  (print-eval-result
+   `(eval-x ,Ce ,ρ)
+   (λ ()
+     (⊔ (match Ce
+          [(cons C (? symbol? x))
+           (pretty-trace "REF")
+           (>>= (bind x C x ρ)
+                (λ (Ce ρ)
+                  (match Ce
+                    [(cons `(bod ,x ,C) e)
+                     (pretty-trace "REF-BOD")
+                     (pretty-trace `(bod ,x ,C, e))
+                     (>>= (>>= (call C x e ρ) ran) eval)]
+                    [(cons `(let-bod ,_ ,_ ,_) e)
+                     (pretty-trace "REF-LETBOD")
+                     (>>= (>>= (out Ce ρ) bin) eval)])))]
+          [(cons _ `(λ (,_) ,_))
+           (pretty-trace "LAM")
+           (clos Ce ρ)]
+          [(cons _ `(app ,_ ,_))
+           (pretty-trace "APP")
+           (>>=
+            (>>=clos
+             (>>= (rat Ce ρ) eval)
+             (λ (Ce′ ρ′)
+               (print-result
+                `('bodof ,Ce ,ρ ,Ce′ ,ρ′)
+                (λ () (match (demand-kind)
+                        ['basic (bod Ce′ ρ′)]
+                        [_ (bod-calibrate Ce′ Ce ρ ρ′)]
+                        )))
+
+               ))
+            eval)]
+          [(cons _ `(let ,_ ,_))
+           (pretty-trace "LET")
+           (>>= (bod Ce ρ) eval)]
+          )
+        (>>= (get-refines* ρ)
+             (λ (ρ′)
+               (begin
+                 (pretty-trace "REFINES")
+                 (pretty-trace ρ′)
+                 (eval Ce ρ′)
+                 )))))))
 
 (define (bind x C e ρ)
   (match C
@@ -388,70 +420,133 @@ Presentation
     [`(top)
      ⊥]))
 
+
+(define (print-eval-result input computation)
+  (>>=eval
+   (computation)
+   (λ (Cee ρee)
+     (if (trace)
+         (begin
+           (pretty-print input)
+           (pretty-print `(result ,Cee ,ρee))
+           (clos Cee ρee))
+         (clos Cee ρee)
+         )
+     )
+   (λ (num)
+     (if (trace)
+         (begin
+           (pretty-print input)
+           (pretty-print `(result ,num))
+           (lit num))
+         (lit num)
+         )
+     )
+   )
+  )
+
+(define (print-result input computation)
+  (>>=
+   (computation)
+   (λ (Cee ρee)
+     (if (trace)
+         (begin
+           (pretty-print input)
+           (pretty-print `(result ,Cee ,ρee))
+           (unit Cee ρee))
+         (unit Cee ρee)))))
+
+(define (pretty-tracen n p)
+  (if (trace)
+      (if (> (trace) n)
+          (pretty-print p)
+          (void))
+      (void)))
+
+(define (pretty-trace p)
+  (if (trace)
+      (pretty-print p)
+      (void)))
+
 (define (call C x e ρ)
-  (begin
-    #;(pretty-print `(call ,x ,e ,ρ))
-    (match-let ([(cons cc₀ ρ₀) ρ])
-      (match (demand-kind)
-        ['basic
-         #;(pretty-print "CALL-BASIC")
-         (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
-              (λ (Cee ρee)
-                #;(pretty-print Cee)
-                (let ([cc₁ (enter-cc Cee ρee)])
-                  (cond
-                    [(equal? cc₀ cc₁)
-                     #;(pretty-print "CALL-EQUAL")
-                     (unit Cee ρee)]
-                    [(⊑-cc cc₁ cc₀)
-                     #;(pretty-print "CALL-FOUND-REFINES")
-                     ; strictly refines because of above
-                     (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
-                     ]
-                    [else
-                     #;(pretty-print "CALL-NOREFINE")
-                     ⊥]))))]
-        [_ (match (calibrate-env ρ)
-             [(cons c ρ′) (unit c ρ′)]
-             [#f (>>= (expr (cons C `(λ (,x) ,e)) ρ₀); Fallback to normal basic evaluation
-                      (λ (Cee ρee)
-                        (let ([cc₁ (enter-cc Cee ρee)])
-                          (cond
-                            [(equal? cc₀ cc₁)
-                             (unit Cee ρee)]
-                            [(⊑-cc cc₁ cc₀)
-                             ; strictly refines because of above
-                             (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
-                             ⊥]
-                            [else
-                             ⊥]))))]
-             )]))))
+  (print-result
+   `(call ,C ,x ,ρ)
+   (λ () (match-let ([(cons cc₀ ρ₀) ρ])
+           (match (demand-kind)
+             ['basic
+              (pretty-trace "CALL-BASIC")
+              (>>= (expr (cons C `(λ (,x) ,e)) ρ₀)
+                   (λ (Cee ρee)
+                     (pretty-trace Cee)
+                     (let ([cc₁ (enter-cc Cee ρee)])
+                       (cond
+                         [(equal? cc₀ cc₁)
+                          (pretty-trace "CALL-EQUAL")
+                          (unit Cee ρee)]
+                         [(⊑-cc cc₁ cc₀)
+                          (pretty-trace "CALL-FOUND-REFINES")
+                          ; strictly refines because of above
+                          (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
+                          ]
+                         [else
+                          (pretty-tracen 1 "CALL-NOREFINE")
+                          ⊥]))))]
+             [_ (match (calibrate-env ρ)
+                  [(cons Ce ρ′)
+                   (pretty-trace "CALL-KNOWN")
+                   (unit Ce ρ′)]
+                  [#f
+                   (begin
+                     (pretty-trace "CALL UNKNOWN")
+                     (>>= (expr (cons C `(λ (,x) ,e)) ρ₀); Fallback to normal basic evaluation
+                          (λ (Cee ρee)
+                            (pretty-trace `(,Cee ,ρee))
+                            (let ([cc₁ (enter-cc Cee ρee)])
+                              (cond
+                                [(equal? cc₀ cc₁)
+                                 (pretty-trace "CALL-EQ")
+                                 (unit Cee ρee)]
+                                [(⊑-cc cc₁ cc₀)
+                                 (pretty-trace "CALL-REFINE")
+                                 (pretty-trace `(,cc₁ ,cc₀))
+                                 ; strictly refines because of above
+                                 (>>= (put-refines (cons cc₁ ρ₀) ρ) (λ _ ⊥))
+                                 ]
+                                [x
+                                 (pretty-trace "CALL-NOREF")
+                                 (pretty-trace `(cc₀ ,cc₀))
+                                 ⊥])))))]
+                  )])
+           )
+     )
+   )
+  )
 
 (define-key (expr Ce ρ)
-  (begin
-    #;(pretty-print `(expr ,Ce ,ρ))
-    (⊔ (match Ce
-         [(cons `(rat ,_ ,_) _)
-          #;(pretty-print "RAT")
-          (out Ce ρ)]
-         [(cons `(ran ,_ ,_) _)
-          (>>= (out Ce ρ)
-               (λ (Cee ρee)
-                 (>>=clos (>>= (rat Cee ρee) eval)
-                          (λ (Cλx.e ρλx.e)
-                            (match-let ([(cons C `(λ (,x) ,e)) Cλx.e])
-                              (>>= (find x
-                                         (cons `(bod ,x ,C) e)
-                                         (cons (enter-cc Cee ρee)
-                                               ρλx.e))
-                                   expr))))))]
-         [(cons `(bod ,x ,C) e)
-          (>>= (call C x e ρ) expr)]
-         [(cons `(let-bin ,x ,e ,C) e1)
-          (>>= (out Ce ρ) expr)]
-         [(cons `(top) _)
-          ⊥])
-       (>>= (get-refines* ρ) (λ (ρ′) (expr Ce ρ′))))))
+  (print-result
+   `(expr ,Ce ,ρ)
+   (λ () (⊔ (match Ce
+              [(cons `(rat ,_ ,_) _)
+               (pretty-trace "RAT")
+               (out Ce ρ)]
+              [(cons `(ran ,_ ,_) _)
+               (>>= (out Ce ρ)
+                    (λ (Cee ρee)
+                      (>>=clos (>>= (rat Cee ρee) eval)
+                               (λ (Cλx.e ρλx.e)
+                                 (match-let ([(cons C `(λ (,x) ,e)) Cλx.e])
+                                   (>>= (find x
+                                              (cons `(bod ,x ,C) e)
+                                              (cons (enter-cc Cee ρee)
+                                                    ρλx.e))
+                                        expr))))))]
+              [(cons `(bod ,x ,C) e)
+               (>>= (call C x e ρ) expr)]
+              [(cons `(let-bin ,x ,e ,C) e1)
+               (>>= (out Ce ρ) expr)]
+              [(cons `(top) _)
+               ⊥])
+            (>>= (get-refines* ρ) (λ (ρ′) (expr Ce ρ′)))))))
 
 (define (find x Ce ρ)
   (match Ce
@@ -485,13 +580,22 @@ Presentation
                                `(app (λ (x) x)
                                      (λ (y) y))) (list)))
 
-  (demand-kind 'basic)
+  ; (demand-kind 'basic)
+  ; (pretty-print (run-print-query (apply eval example0)))
+
+  ; (demand-kind 'hybrid)
+  ; (pretty-print (run-print-query (apply eval example0)))
+
   ; (pretty-print
   ;  (run-print-query (apply eval (apply rat-e example0))))
 
   ; (pretty-print
   ;  (run-print-query (apply eval (apply ran-e example0))))
-
+  (trace 1)
+  ; (demand-kind 'basic)
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply bod-e (apply rat-e example0)))))
+  ; (demand-kind 'hybrid)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply rat-e example0)))))
 
@@ -500,10 +604,17 @@ Presentation
 
   ; (current-m 4)
 
-  ; (define example1 (list (cons `(top)
-  ;                              `(app (λ (x) (app x x))
-  ;                                    (λ (y) (app y y))))
-  ;                        (list)))
+  (define example1 (list (cons `(top)
+                               `(app (λ (x) (app x x))
+                                     (λ (y) (app y y))))
+                         (list)))
+  ; (demand-kind 'basic)
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
+  (demand-kind 'hybrid)
+  (pretty-print
+   (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
+
   ; #;"QUERY"
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply rat-e example1)))))
