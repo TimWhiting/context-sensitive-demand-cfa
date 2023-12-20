@@ -36,12 +36,10 @@ Presentation
          [(product/set xs) ((apply fclos xs) k)]
          [(product/lattice n) ((flit n) k)]
          ))))
-(define ((>>=lit m f) k) ((>>=eval m ⊥ f) k))
-(define ((>>=clos m f) k) ((>>=eval m f ⊥) k))
+(define ((>>=lit m f) k) ((>>=eval m (λ (_ __) ⊥) f) k))
+(define ((>>=clos m f) k) ((>>=eval m f (λ (_) ⊥)) k))
 
 ; abstract values
-(struct abvalue (closure/constr literal) #:transparent)
-(struct lazyconstr (name params env) #:transparent)
 (struct literal (litLattices) #:transparent)
 (struct simple-lattice () #:transparent)
 (struct top simple-lattice () #:transparent)
