@@ -47,6 +47,10 @@ Presentation
 (struct singleton simple-lattice (x) #:transparent)
 
 (define litbottom (literal (list (bottom) (bottom) (bottom) (bottom))))
+(define (litint i) (literal (list (singleton i) (bottom) (bottom) (bottom))))
+(define (litfloat f) (literal (list (bottom) (singleton f) (bottom) (bottom))))
+(define (litchar c) (literal (list (bottom) (bottom) (singleton c) (bottom))))
+(define (litstring s) (literal (list (bottom) (bottom) (bottom) (singleton s))))
 
 (define (simple-union s1 s2)
   (match (cons s1 s2)
@@ -357,6 +361,7 @@ Presentation
    `(eval-x ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
+          [(cons _ (? integer? x)) (lit (litint x))]
           [(cons C (? symbol? x))
            (pretty-trace "REF")
            (>>= (bind x C x ρ)
@@ -366,7 +371,7 @@ Presentation
                      (pretty-trace "REF-BOD")
                      (pretty-trace `(bod ,x ,C, e))
                      (>>= (>>= (call C x e ρ) ran) eval)]
-                    [(cons `(let-bod ,_ ,_ ,_) e)
+                    [(cons `(let-bod ,_ ,_ ,_) _)
                      (pretty-trace "REF-LETBOD")
                      (>>= (>>= (out Ce ρ) bin) eval)])))]
           [(cons _ `(λ (,_) ,_))
@@ -453,6 +458,16 @@ Presentation
            (pretty-print `(result ,Cee ,ρee))
            (unit Cee ρee))
          (unit Cee ρee)))))
+
+(define (pretty-result r)
+  (match r
+    [(cons s l)
+     (define (pretty-closure c) (match c [(cons (cons _ e) _) e]))
+     (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
+     (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
+     (if (set-empty? s) (pretty-print '⊥) (pretty-print (map pretty-closure (set->list s))))
+     (pretty-print (pretty-lit l))
+     ]))
 
 (define (pretty-tracen n p)
   (if (trace)
@@ -610,8 +625,8 @@ Presentation
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
   (demand-kind 'hybrid)
-  (pretty-print
-   (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
+  ; (pretty-print
+  ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
 
   ; #;"QUERY"
   ; (pretty-print
@@ -627,10 +642,12 @@ Presentation
 
   ; #;"QUERY"
 
-  ; (define example2 (list (cons `(top)
-  ;                              `(let ([x (λ (y) y)])
-  ;                                 x))
-  ;                        (list)))
+  (define example2 (list (cons `(top)
+                               `(let ([x (λ (y) y)])
+                                  x))
+                         (list)))
+  (pretty-result
+   (run-print-query (apply eval example2)))
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e example2))))
   )
