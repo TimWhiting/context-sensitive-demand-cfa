@@ -1,16 +1,16 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require "config.rkt")
-(require racket/set racket/match)
+(require racket/set racket/match racket/list)
 (provide (all-defined-out))
 ; syntax traversal
 
 (define (oute Ce)
   (match Ce
-    [(cons `(rat ,e₁ ,C) e₀)
-     (cons C `(app ,e₀ ,e₁))]
-    [(cons `(ran ,e₀ ,C) e₁)
-     (cons C `(app ,e₀ ,e₁))]
+    [(cons `(rat ,es ,C) e₀)
+     (cons C `(app ,@(cons e₀ es)))]
+    [(cons `(ran ,f ,b ,a ,C) e)
+     (cons C `(app ,@(cons f (append b (list e) a))))]
     [(cons `(bod ,y ,C) e)
      (cons C `(λ (,y) e))]
     [(cons `(let-bod ,x ,e₀ ,C) e₁)
@@ -21,10 +21,10 @@
 
 (define (out Ce ρ)
   (match Ce
-    [(cons `(rat ,e₁ ,C) e₀)
-     (unit (cons C `(app ,e₀ ,e₁)) ρ)]
-    [(cons `(ran ,e₀ ,C) e₁)
-     (unit (cons C `(app ,e₀ ,e₁)) ρ)]
+    [(cons `(rat ,es ,C) e₀)
+     (unit (cons C `(app ,@(cons e₀ es))) ρ)]
+    [(cons `(ran ,f ,b ,a ,C) e)
+     (unit (cons C `(app ,@(cons f (append b (list e) a)))) ρ)]
     [(cons `(bod ,y ,C) e)
      (unit (cons C `(λ (,y) e))
            (match-let ([(cons _ ρ) ρ]) ρ))]
@@ -32,7 +32,7 @@
      (unit (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
     [(cons `(let-bin ,x ,e₁ ,C) e₀)
      (unit (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
-    [`(top)
+    [(cons `(top) _)
      (error 'out "top")]))
 
 (define (bin-e Ce ρ)
@@ -75,30 +75,39 @@
 
 (define (rat-e Ce ρ)
   (match Ce
-    [(cons C `(app ,e₀ ,e₁))
-     (list (cons `(rat ,e₁ ,C) e₀) ρ)]))
+    [(cons C `(app ,@es))
+     (list (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
 
 (define (rat Ce ρ)
   (match Ce
-    [(cons C `(app ,e₀ ,e₁))
-     (unit (cons `(rat ,e₁ ,C) e₀) ρ)]))
+    [(cons C `(app ,@es))
+     (unit (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
 
-(define (ran-e Ce ρ)
+(define (ran-e Ce ρ i)
   (match Ce
-    [(cons C `(app ,e₀ ,e₁))
-     (list (cons `(ran ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(app ,@es))
+     (define args (drop es 1))
+     (define prev-args (take args i))
+     (define after-args (drop args i))
+     (list (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
-(define (ran Ce ρ)
+(define (ran Ce ρ i)
   (match Ce
-    [(cons C `(app ,e₀ ,e₁))
-     (unit (cons `(ran ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(app ,@es))
+     (define args (drop es 1))
+     (define prev-args (take args i))
+     (define after-args (drop args i))
+     (unit (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce
-                          [(cons C `(app ,e₀ ,e₁))
-                           (set-union (apply gen-queries (ran-e Ce ρ))
-                                      (apply gen-queries (rat-e Ce ρ)))]
+                          [(cons C `(app ,@es))
+                           (foldl set-union (set)
+                                  (cons (apply gen-queries (rat-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries (ran-e Ce ρ i)))
+                                             (range 0 (- (length es) 1)))))]
                           [(cons C `(λ (,x) ,e))
                            (apply gen-queries (bod-e Ce ρ))]
                           [(cons C `(let ([,x ,e₀]) ,e₁))

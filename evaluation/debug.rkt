@@ -61,10 +61,10 @@
 (define (pretty-result r)
   (match r
     [(cons s l)
-     (define (pretty-closure c) (match c [(cons (cons _ e) _) e]))
+     (define (pretty-closure/cons c) (match c [(cons (cons _ e) _) e] [(cons e _) e]))
      (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
      (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
-     (if (set-empty? s) (pretty-print '⊥) (pretty-print (map pretty-closure (set->list s))))
+     (if (set-empty? s) (pretty-print '⊥) (pretty-print (map pretty-closure/cons (set->list s))))
      (pretty-print (pretty-lit l))
      ]))
 

@@ -12,6 +12,7 @@
       (pretty-display "Using expression: ")
       (pretty-print exp)
       (displayln "")
+      ; (trace 1)
       ; TODO: Is it okay for the continuations to escape and be reused later?
       (for ([q (gen-queries (cons `(top) exp) (list))])
         (let ([h1 (hash)]

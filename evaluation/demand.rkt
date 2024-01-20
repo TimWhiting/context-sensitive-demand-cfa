@@ -3,7 +3,8 @@
 (require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt" "debug.rkt")
 (require racket/pretty)
 (require racket/match
-         racket/set)
+         racket/set
+         racket/list)
 
 
 #|
@@ -58,6 +59,7 @@ Presentation
 
 
 (define (find x Ce ρ)
+  (pretty-trace `(find ,x ,Ce ,ρ))
   (match Ce
     [(cons _ (? symbol? y))
      (if (equal? x y)
@@ -68,33 +70,32 @@ Presentation
      (if (equal? x y)
          ⊥
          (find x (cons `(bod ,y ,C) e) (cons (take-cc `(□? ,y)) ρ)))]
-    [(cons C `(app ,e₀ ,e₁))
-     (each (find x (cons `(rat ,e₁ ,C) e₀) ρ)
-           (find x (cons `(ran ,e₀ ,C) e₁) ρ))]
+    [(cons C `(app ,@es))
+     (apply each (cons (>>= (rat Ce ρ) (λ (Ce ρ) (find x Ce ρ)))
+                       (map (λ (i) (>>= (ran Ce ρ i) (λ (Ce ρ) (find x Ce ρ)))) (range (- (length es) 1))))
+            )]
     [(cons C `(let ([,y ,e₀]) ,e₁))
      (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
            (if (equal? x y)
                ⊥
                (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))]))
 
-(define (bind x C e ρ)
-  (match C
-    [`(rat ,e₁ ,C)
-     (bind x C `(app ,e ,e₁) ρ)]
-    [`(ran ,e₀ ,C)
-     (bind x C `(app ,e₀ ,e) ρ)]
-    [`(bod ,y ,C)
+(define (bind x Ce ρ)
+  (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
+  (match Ce
+    [(cons `(rat ,_ ,_) _) (search-out)]
+    [(cons `(ran ,_ ,_ ,_ ,_) _) (search-out)]
+    [(cons `(let-bin ,_ ,_ ,_) _) (search-out)]
+    [(cons `(top) _) (unit x ρ)]
+    [(cons `(bod ,y ,C) e)
      (if (equal? x y)
          (unit (cons `(bod ,y ,C) e) ρ)
-         (bind x C `(λ (,y) ,e) (match-let ([(cons _ ρ) ρ]) ρ)))]
-    [`(let-bod ,y ,e₀ ,C′)
+         (search-out))]
+    [(cons `(let-bod ,y ,e₀ ,C′) e)
      (if (equal? x y)
-         (unit (cons C e) ρ)
-         (bind x C′ `(let ([,y ,e₀]) ,e) ρ))]
-    [`(let-bin ,y ,e₁ ,C)
-     (bind x C `(let ([,y ,e]) ,e₁) ρ)]
-    [`(top)
-     ⊥]))
+         (unit (cons `(let-bod ,y ,e₀ ,C′) e) ρ)
+         (search-out))]
+    ))
 
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
@@ -102,26 +103,29 @@ Presentation
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
+          [(? symbol? x) (clos x ρ)]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons C (? symbol? x))
            ;  (pretty-trace "REF")
-           (>>= (bind x C x ρ)
+           (>>= (bind x Ce ρ)
                 (λ (Ce ρ)
                   (match Ce
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace "REF-BOD")
                      ;  (pretty-trace `(bod ,x ,C, e))
-                     (>>= (>>= (call C x e ρ) ran) eval)]
+                     (>>= (>>= (call C x e ρ) (λ (Ce ρ) (ran Ce ρ 0))) eval)]
                     [(cons `(let-bod ,_ ,_ ,_) _)
                      ;  (print-eval-result "REF-LETBOD"
                      ; (λ ()
                      (>>= (>>= (out Ce ρ) bin) eval)
                      ; ))
-                     ])))]
+                     ]
+                    [(? symbol? x) (clos x ρ)]
+                    )))]
           [(cons _ `(λ (,_) ,_))
            ;  (pretty-trace "LAM")
            (clos Ce ρ)]
-          [(cons _ `(app ,_ ,_))
+          [(cons _ `(app ,@xs))
            ;  (pretty-trace "APP")
            (>>=
             (>>=clos
@@ -130,10 +134,14 @@ Presentation
                ;  (print-result
                ;   `('bodof ,Ce ,ρ ,Ce′ ,ρ′)
                ; (λ ()
-               (match (demand-kind) ; TODO: WE NEED TO REFINE THE EVALUATION BASED ON THIS APP
-                 ['basic (bod-enter Ce′ Ce ρ ρ′)]
-                 [_ (bod-calibrate Ce′ Ce ρ ρ′)]
-                 )
+               (match Ce′
+                 [(? symbol? x) (unit x ρ′)]
+                 [_
+                  (match (demand-kind)
+                    ['basic (bod-enter Ce′ Ce ρ ρ′)]
+                    [_ (bod-calibrate Ce′ Ce ρ ρ′)]
+                    )
+                  ])
                ))
             ;  ))
             (debug-eval 'app-eval eval))]
@@ -208,7 +216,7 @@ Presentation
                 [(cons `(rat ,_ ,_) _)
                  ;  (pretty-trace "RAT")
                  (out Ce ρ)]
-                [(cons `(ran ,_ ,_) _)
+                [(cons `(ran ,_ ,_ ,_ ,_) _)
                  (>>= (out Ce ρ)
                       (λ (Cee ρee)
                         (>>=clos (>>= (rat Cee ρee) eval)
