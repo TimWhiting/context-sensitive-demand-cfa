@@ -108,8 +108,8 @@ Presentation
           [(cons C (? symbol? x))
            ;  (pretty-trace "REF")
            (>>= (bind x Ce ρ)
-                (λ (Ce ρ)
-                  (match Ce
+                (λ (Cex ρ)
+                  (match Cex
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace "REF-BOD")
                      ;  (pretty-trace `(bod ,x ,C, e))
@@ -117,15 +117,15 @@ Presentation
                     [(cons `(let-bod ,_ ,_ ,_) _)
                      ;  (print-eval-result "REF-LETBOD"
                      ; (λ ()
-                     (>>= (>>= (out Ce ρ) bin) eval)
+                     (>>= (>>= (out Cex ρ) bin) eval)
                      ; ))
                      ]
-                    [(? symbol? x) (clos x ρ)]
+                    [(? symbol? _) (clos Ce ρ)]
                     )))]
           [(cons _ `(λ (,_) ,_))
            ;  (pretty-trace "LAM")
            (clos Ce ρ)]
-          [(cons _ `(app ,@xs))
+          [(cons _ `(app ,@_))
            ;  (pretty-trace "APP")
            (>>=
             (>>=clos
@@ -135,7 +135,7 @@ Presentation
                ;   `('bodof ,Ce ,ρ ,Ce′ ,ρ′)
                ; (λ ()
                (match Ce′
-                 [(? symbol? x) (unit x ρ′)]
+                 [(cons _ (? symbol? _)) (unit Ce′ ρ′)]
                  [_
                   (match (demand-kind)
                     ['basic (bod-enter Ce′ Ce ρ ρ′)]
