@@ -5,11 +5,16 @@
 (define example-0 `(app (λ (x) (app x x)) (λ (y) (app y y))))
 (define example-let-0 `(let ([x (λ (y) y)]) x))
 (define example-let-num `(let ([x (λ (y) y)]) (app x 1)))
-(define example-num-2 `(app (app (λ (x) (app x x)) (λ (y) (app y y))) 2))
+(define example-error `(app (λ (x) (app x x)) 2)); Error
+
+
+(define example-2 `(let ([x (λ (y) y)]) (let ([_ (app x 1)]) (app x 2))))
 
 (define all-simple-examples (list
-                             ; example-id-0
-                             ; example-0
-                             ; example-let-0
+                             example-id-0
+                             example-0
+                             example-let-0
                              example-let-num
-                             )); )); example-num-2))
+                             example-error
+                             example-2
+                             ))
