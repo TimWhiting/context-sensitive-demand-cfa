@@ -1,5 +1,5 @@
 #lang racket/base
-(require "demand.rkt" "simple-examples.rkt" racket/match)
+(require "demand.rkt" "simple-examples.rkt" "static-contexts.rkt" "config.rkt" "debug.rkt" racket/match)
 
 (define (hash-num-keys h) (foldl (lambda (_ acc) (add1 acc)) 0 (hash-keys h)))
 
