@@ -15,13 +15,16 @@
 ; Constructor examples
 (define example-con `(let ([x (app cons 1 nil)]) x))
 
+; Multiple parameters
+(define example-app-2 `(app (λ (x y) (app x y)) (λ (z) z) 2))
 
 (define all-simple-examples (list
                              ;  example-id-0
+                             example-app-2
                              ;  example-0
                              ;  example-let-0
                              ;  example-let-num
                              ;  example-error
                              ;  example-2
-                             example-con
+                             ;  example-con
                              ))

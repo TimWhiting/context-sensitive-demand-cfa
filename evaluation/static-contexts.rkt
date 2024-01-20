@@ -1,7 +1,7 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require "config.rkt")
-(require racket/set racket/match racket/list)
+(require racket/set racket/match racket/list racket/pretty)
 (provide (all-defined-out))
 ; syntax traversal
 
@@ -12,7 +12,7 @@
     [(cons `(ran ,f ,b ,a ,C) e)
      (cons C `(app ,@(cons f (append b (list e) a))))]
     [(cons `(bod ,y ,C) e)
-     (cons C `(λ (,y) e))]
+     (cons C `(λ ,y ,e))]
     [(cons `(let-bod ,x ,e₀ ,C) e₁)
      (cons C `(let ([,x ,e₀]) ,e₁))]
     [(cons `(let-bin ,x ,e₁ ,C) e₀)
@@ -20,13 +20,14 @@
     [`(top) (error 'out "top")]))
 
 (define (out Ce ρ)
+  ; (pretty-print `(out ,Ce ,ρ))
   (match Ce
     [(cons `(rat ,es ,C) e₀)
      (unit (cons C `(app ,@(cons e₀ es))) ρ)]
     [(cons `(ran ,f ,b ,a ,C) e)
      (unit (cons C `(app ,@(cons f (append b (list e) a)))) ρ)]
     [(cons `(bod ,y ,C) e)
-     (unit (cons C `(λ (,y) e))
+     (unit (cons C `(λ ,y ,e))
            (match-let ([(cons _ ρ) ρ]) ρ))]
     [(cons `(let-bod ,x ,e₀ ,C) e₁)
      (unit (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
@@ -47,28 +48,28 @@
 
 (define (bod-e Ce ρ)
   (match Ce
-    [(cons C `(λ (,x) ,e))
+    [(cons C `(λ ,x ,e))
      (list (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (list (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
 (define (bod Ce ρ)
   (match Ce
-    [(cons C `(λ (,x) ,e))
+    [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
 (define (bod-enter Ce call ρ ρ′)
   (match Ce
-    [(cons C `(λ (,x) ,e))
+    [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (enter-cc call ρ) ρ′))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
 
 (define (bod-calibrate Ce call ρ ρ′)
   (match Ce
-    [(cons C `(λ (,x) ,e))
+    [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (take-cc `(cenv ,call ,ρ)) ρ′))]
     [(cons C `(let ([,x ,e₀]) ,e₁))
      (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
@@ -108,7 +109,7 @@
                                         (map (λ (i)
                                                (apply gen-queries (ran-e Ce ρ i)))
                                              (range 0 (- (length es) 1)))))]
-                          [(cons C `(λ (,x) ,e))
+                          [(cons C `(λ ,x ,e))
                            (apply gen-queries (bod-e Ce ρ))]
                           [(cons C `(let ([,x ,e₀]) ,e₁))
                            (set-union (apply gen-queries (bod-e Ce ρ))

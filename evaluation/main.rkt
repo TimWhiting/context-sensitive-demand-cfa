@@ -5,7 +5,8 @@
 
 (module+ main
   (require racket/pretty)
-  (let ([basic-cost 0][hybrid-cost 0])
+  (let ([basic-cost 0]
+        [hybrid-cost 0])
     (for ([exp all-simple-examples])
       (displayln "")
       (displayln "")
@@ -13,6 +14,7 @@
       (pretty-print exp)
       (displayln "")
       ; (trace 1)
+      ; TODO: Add a test suite of results so I can compare against it anytime I update to prevent regressions
       ; TODO: Is it okay for the continuations to escape and be reused later?
       (for ([q (gen-queries (cons `(top) exp) (list))])
         (let ([h1 (hash)]
