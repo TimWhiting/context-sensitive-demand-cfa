@@ -321,6 +321,6 @@ Presentation
   (demand-kind 'basic)
   (pretty-result
    (run-print-query (apply eval (list (cons `(top)
-                                            example-app-2) (list)))))
+                                            app-2-params) (list)))))
 
   )

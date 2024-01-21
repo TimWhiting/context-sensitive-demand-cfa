@@ -1,30 +1,38 @@
 #lang racket/base
 (provide (all-defined-out))
 
-(define example-id-0 `(app (λ (x) x) (λ (y) y)))
-(define example-0 `(app (λ (x) (app x x)) (λ (y) (app y y))))
-(define example-let-0 `(let ([x (λ (y) y)]) x))
+(define-syntax-rule (example name x)
+  (define name `(name ,x))
+  )
 
-
-(define example-error `(app (λ (x) (app x x)) 2)); Error
+(example id-0 `(app (λ (x) x) (λ (y) y)))
+(example structural-rec-0 `(app (λ (x) (app x x)) (λ (y) (app y y))))
+(example let-0 `(let ([x (λ (y) y)]) x))
+(example err-0 `(app (λ (x) (app x x)) 2)); Error
 
 ; Integer examples
-(define example-let-num `(let ([x (λ (y) y)]) (app x 1)))
-(define example-2 `(let ([x (λ (y) y)]) (let ([_ (app x 1)]) (app x 2))))
+(example let-num-0 `(let ([x (λ (y) y)]) (app x 1)))
+(example app-num-0 `(let ([x (λ (y) y)]) (let ([_ (app x 1)]) (app x 2))))
 
 ; Constructor examples
-(define example-con `(let ([x (app cons 1 nil)]) x))
+(example constr-0 `(let ([x (app cons 1 nil)]) x))
 
 ; Multiple parameters
-(define example-app-2 `(app (λ (x y) (app x y)) (λ (z) z) 2))
+(example app-2-params `(app (λ (x y) (app x y)) (λ (z) z) 2))
+
 
 (define all-simple-examples (list
-                             ;  example-id-0
-                             example-app-2
-                             ;  example-0
-                             ;  example-let-0
-                             ;  example-let-num
-                             ;  example-error
-                             ;  example-2
-                             ;  example-con
+                             id-0
+                             structural-rec-0
+                             let-0
+                             err-0
+                             let-num-0
+                             app-num-0
+                             constr-0
+                             app-2-params
                              ))
+
+; (module+ main
+;   (require racket/pretty)
+;   (pretty-print id-0)
+;   )
