@@ -9,8 +9,12 @@
   (match Ce
     [(cons `(rat ,es ,C) e₀)
      (cons C `(app ,@(cons e₀ es)))]
+    [(cons `(match-e ,es ,C) e₀)
+     (cons C `(match ,(cons e₀ es)))]
     [(cons `(ran ,f ,b ,a ,C) e)
      (cons C `(app ,@(cons f (append b (list e) a))))]
+    [(cons `(match-clause ,m ,f ,b ,a ,C) e)
+     (cons C `(match ,@(cons f (append b (list `(,m ,e)) a))))]
     [(cons `(bod ,y ,C) e)
      (cons C `(λ ,y ,e))]
     [(cons `(let-bod ,x ,e₀ ,C) e₁)
@@ -24,8 +28,12 @@
   (match Ce
     [(cons `(rat ,es ,C) e₀)
      (unit (cons C `(app ,@(cons e₀ es))) ρ)]
+    [(cons `(match-e ,es ,C) e₀)
+     (unit (cons C `(match ,(cons e₀ es))) ρ)]
     [(cons `(ran ,f ,b ,a ,C) e)
      (unit (cons C `(app ,@(cons f (append b (list e) a)))) ρ)]
+    [(cons `(match-clause ,m ,f ,b ,a ,C) e)
+     (unit (cons C `(match ,@(cons f (append b (list `(,m ,e)) a)))) ρ)]
     [(cons `(bod ,y ,C) e)
      (unit (cons C `(λ ,y ,e))
            (match-let ([(cons _ ρ) ρ]) ρ))]
@@ -84,6 +92,39 @@
     [(cons C `(app ,@es))
      (unit (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
 
+
+(define (focus-match-e Ce ρ)
+  (match Ce
+    [(cons C `(match ,m ,@ms))
+     (list (cons `(match-e ,ms ,C) m) ρ)]
+    ))
+
+(define (focus-match Ce ρ)
+  (match Ce
+    [(cons C `(match ,m ,@ms))
+     (unit (cons `(match-e ,ms ,C) m) ρ)]
+    ))
+
+(define (focus-clause-e Ce ρ i)
+  (match Ce
+    [(cons C `(match ,@ms))
+     (define matches (drop ms 1))
+     (define prev-ms (take matches i))
+     (define after-ms (drop matches i))
+     (define mat (car after-ms))
+     (list (cons `(match-clause ,(car mat) ,(car ms) ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
+    ))
+
+(define (focus-clause Ce ρ i)
+  (match Ce
+    [(cons C `(match ,@ms))
+     (define matches (drop ms 1))
+     (define prev-ms (take matches i))
+     (define after-ms (drop matches i))
+     (define mat (car after-ms))
+     (unit (cons `(match-clause ,(car mat) ,(car ms) ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
+    ))
+
 (define (ran-e Ce ρ i)
   (match Ce
     [(cons C `(app ,@es))
@@ -114,6 +155,12 @@
                           [(cons C `(let ([,x ,e₀]) ,e₁))
                            (set-union (apply gen-queries (bod-e Ce ρ))
                                       (apply gen-queries (bin-e Ce ρ)))]
+                          [(cons C `(match ,e ,@ms))
+                           (foldl set-union (set)
+                                  (cons (apply gen-queries (focus-match-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries (focus-clause-e Ce ρ i)))
+                                             (range 0 (length ms)))))]
                           [_ (set)]))
   (set-add child-queries self-query))
 

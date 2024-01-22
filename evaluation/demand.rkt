@@ -84,7 +84,9 @@ Presentation
   (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
   (match Ce
     [(cons `(rat ,_ ,_) _) (search-out)]
+    [(cons `(match-e ,_ ,_) _) (search-out)]
     [(cons `(ran ,_ ,_ ,_ ,_) _) (search-out)]
+    [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _) (search-out)]
     [(cons `(let-bin ,_ ,_ ,_) _) (search-out)]
     [(cons `(top) _) (unit x ρ -1)]
     [(cons `(bod ,ys ,C) e)
@@ -148,10 +150,26 @@ Presentation
           [(cons _ `(let ,_ ,_))
            ;  (pretty-trace "LET")
            (>>= (bod Ce ρ) eval)]
+          [(cons _ `(match ,_ ,@clauses))
+           (>>= (focus-match Ce ρ)
+                (λ (Cm ρm)
+                  (>>= (eval Cm ρm)
+                       (λ (Ce′ ρ′)
+                         (eval-clause Ce′ ρ′ Ce clauses 0)))))]
+          [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
           )
         (>>= (get-refines* `(eval ,Ce ,ρ) ρ)
              (λ (ρ′) (eval Ce ρ′)))))))
 
+(define (eval-clause c p Ce clauses i)
+  (match clauses
+    [(cons `(,m ,_) clauses)
+     (if (equal? m c)
+         (>>= (focus-clause Ce i)
+              (λ (Ce ρ)
+                (eval Ce ρ)))
+         (eval-clause c p Ce clauses (+ i 1)))]
+    [(list) ⊥]))
 
 (define (call C xs e ρ)
   (print-result

@@ -1,12 +1,22 @@
 #lang racket
 
 (provide (all-defined-out))
-(define (file-name file) (build-path "examples" file))
-(define all-examples
+
+(define (is-dir p)
+  (match (file-or-directory-type p)
+    ['directory #t]
+    [_ #f])
+  )
+(define (get-all-examples dir)
   (map (lambda (file)
-         `(example,(dynamic-require (file-name file) 'example-name) ,(dynamic-require (file-name file) 'example-expr))
-         )
-       (directory-list "examples")))
+         (if (is-dir file)
+             (apply append (get-all-examples file))
+             (if (string-suffix? (path->string file) ".rkt")
+                 (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr)))
+                 (list))))
+       (directory-list dir #:build? #t)))
+
+(define all-examples (apply append (get-all-examples "examples")))
 
 (define (get-example s)
   (let loop ([l all-examples])
@@ -24,9 +34,10 @@
 (define (get-examples ls)
   (map get-example ls))
 
-(define basic-num-examples (get-examples '(let-num app-num)))
-(define basic-lambda-examples (get-examples '(id let structural-rec err)))
-(define multiple-param-examples (get-examples '(multi-param)))
-(define constructor-examples (get-examples '(constr)))
+; (define basic-num-examples (get-examples '(let-num app-num)))
+; (define basic-lambda-examples (get-examples '(id let structural-rec err)))
+; (define multiple-param-examples (get-examples '(multi-param)))
+; (define constructor-examples (get-examples '(constr)))
+(define r6rs (get-examples '(ack)))
 
-(pretty-print all-examples)
+(pretty-print r6rs)
