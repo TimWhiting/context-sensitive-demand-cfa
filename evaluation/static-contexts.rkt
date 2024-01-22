@@ -134,6 +134,7 @@
      (list (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (ran Ce ρ i)
+  (pretty-print `(ran ,i))
   (match Ce
     [(cons C `(app ,@es))
      (define args (drop es 1))

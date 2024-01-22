@@ -3,7 +3,6 @@
 (require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt" "debug.rkt")
 (require racket/pretty)
 (require racket/match
-         racket/set
          racket/list)
 
 
@@ -66,19 +65,41 @@ Presentation
          (unit Ce ρ)
          ⊥)]
     [(cons _ (? integer?)) ⊥]
+    [(cons _ `(match ,_ ,@ms))
+     (apply each
+            (cons (>>= (focus-match-e Ce ρ)
+                       (λ (Cm ρm) (find x Cm ρm)))
+                  (map (λ (i)
+                         (>>= (focus-clause Ce ρ i)
+                              (λ (Cm ρm) (find x Cm ρm))))
+                       (range (length ms)))))]
     [(cons C `(λ ,ys ,e))
-     (if (or (map (λ (y) (equal? x y)) ys))
+     (if (ors (map (λ (y) (equal? x y)) ys))
          ⊥
-         (find x (cons `(bod ,ys ,C) e) (cons (take-cc `(□? ,ys)) ρ)))]
-    [(cons C `(app ,@es))
-     (apply each (cons (>>= (rat Ce ρ) (λ (Ce ρ) (find x Ce ρ)))
-                       (map (λ (i) (>>= (ran Ce ρ i) (λ (Ce ρ) (find x Ce ρ)))) (range (- (length es) 1))))
+         (find x
+               (cons `(bod ,ys ,C) e)
+               (cons (take-cc `(□? ,ys)) ρ)))]
+    [(cons _ `(app ,_ ,@es))
+     (apply each
+            (cons (>>= (rat Ce ρ)
+                       (λ (Ce ρ) (find x Ce ρ)))
+                  (map (λ (i)
+                         (pretty-print i)
+                         (>>= (ran Ce ρ i)
+                              (λ (Ce ρ) (find x Ce ρ))))
+                       (range (length es))))
             )]
     [(cons C `(let ([,y ,e₀]) ,e₁))
      (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
            (if (equal? x y)
                ⊥
                (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))]))
+
+(define (ors xs)
+  (match xs
+    [(list) #f]
+    [(cons x xs) (or x (ors xs))])
+  )
 
 (define (bind x Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
@@ -89,13 +110,13 @@ Presentation
     [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _) (search-out)]
     [(cons `(let-bin ,_ ,_ ,_) _) (search-out)]
     [(cons `(top) _) (unit x ρ -1)]
-    [(cons `(bod ,ys ,C) e)
-     (if (or (map (λ (y) (equal? x y)) ys))
-         (unit (cons `(bod ,ys ,C) e) ρ (index-of ys x))
+    [(cons `(bod ,ys ,_) _)
+     (if (ors (map (λ (y) (equal? x y)) ys))
+         (unit Ce ρ (index-of ys x))
          (search-out))]
-    [(cons `(let-bod ,y ,e₀ ,C′) e)
+    [(cons `(let-bod ,y ,_ ,_) _)
      (if (equal? x y)
-         (unit (cons `(let-bod ,y ,e₀ ,C′) e) ρ 0)
+         (unit Ce ρ 0)
          (search-out))]
     ))
 
@@ -106,7 +127,7 @@ Presentation
    (λ ()
      (⊔ (match Ce
           [(cons _ (? integer? x)) (lit (litint x))]
-          [(cons C (? symbol? x))
+          [(cons _ (? symbol? x))
            ;  (pretty-trace "REF")
            (>>= (bind x Ce ρ)
                 (λ (Cex ρ i)
@@ -114,11 +135,14 @@ Presentation
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace "REF-BOD")
                      ;  (pretty-trace `(bod ,x ,C, e))
-                     (>>= (>>= (call C x e ρ) (λ (Ce ρ) (ran Ce ρ i))) (debug-eval `(ref ,i) eval))]
+                     (>>= (>>= (call C x e ρ)
+                               (λ (Ce ρ)
+                                 (pretty-print i)
+                                 (ran Ce ρ i))) (debug-eval `(ref ,i) eval))]
                     [(cons `(let-bod ,_ ,_ ,_) _)
                      ;  (print-eval-result "REF-LETBOD"
                      ; (λ ()
-                     (>>= (>>= (out Cex ρ) bin) eval)
+                     (>>= (>>= (out Cex ρ) bin) (debug-eval `(letbin) eval))
                      ; ))
                      ]
                     [(? symbol? _) (clos Ce ρ)]
@@ -249,7 +273,7 @@ Presentation
                                   expr-r))))))]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
-                [(cons `(let-bod ,x ,_ ,C) e)
+                [(cons `(let-bod ,_ ,_ ,_) _)
                  (>>= (out Ce ρ) expr-r)]
                 [(cons `(let-bin ,x ,_ ,_) _)
                  (>>= (out Ce ρ)
@@ -260,7 +284,6 @@ Presentation
                 [(cons `(top) _)
                  ⊥])
               (>>= (get-refines* `(expr ,Ce ,ρ) ρ) (λ (ρ′) (expr-r Ce ρ′))))))))
-
 
 (provide (all-defined-out)
          (all-from-out "table-monad/main.rkt"))
