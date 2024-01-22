@@ -10,3 +10,6 @@
 
 ; what level to trace at (set to a number)
 (define trace (make-parameter #f))
+
+; number for n deep environments, or true for full depth
+(define show-envs (make-parameter #f))

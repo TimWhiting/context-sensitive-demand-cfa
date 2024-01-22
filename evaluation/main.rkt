@@ -1,5 +1,5 @@
 #lang racket/base
-(require "demand.rkt" "simple-examples.rkt" "static-contexts.rkt" "config.rkt" "debug.rkt" racket/match)
+(require "demand.rkt" "all-examples.rkt" "static-contexts.rkt" "config.rkt" "debug.rkt" racket/match)
 
 (define (hash-num-keys h) (foldl (lambda (_ acc) (add1 acc)) 0 (hash-keys h)))
 
@@ -7,8 +7,8 @@
   (require racket/pretty)
   (let ([basic-cost 0]
         [hybrid-cost 0])
-    (for ([example all-simple-examples])
-      (match-let ([`(,name ,exp) example])
+    (for ([example constructor-examples])
+      (match-let ([`(example ,name ,exp) example])
         (define out (open-output-file (string-append "tests/" (symbol->string name) "-results.txt") #:exists 'replace))
         (displayln "")
         (displayln "")

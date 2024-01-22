@@ -58,15 +58,20 @@
            (unit Cee ρee))
          (unit Cee ρee)))))
 
+
 (define (pretty-result r)
   (pretty-result-out (current-output-port) r))
 
 (define (pretty-result-out out r)
   (match r
     [(cons s l)
-     (define (pretty-closure/cons c) (match c [(cons (cons _ e) _) e] [(cons e _) e]))
+     (define (pretty-closure/cons c)
+       (match c
+         [(cons (cons ctx ex) env) (if (show-envs) `(expr: ,ex env: ,env) ex )]
+         ))
      (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
      (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
+     (define (pretty-env e) (pretty-print `(env: ,e)))
      (if (set-empty? s) (pretty-print `(clos/con: ⊥) out) (pretty-print `(clos/con: ,(map pretty-closure/cons (set->list s))) out))
      (pretty-print `(literals: ,(pretty-lit l)) out)
      ]))
