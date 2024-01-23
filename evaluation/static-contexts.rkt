@@ -20,7 +20,7 @@
     [(cons `(let-bod ,binds ,C) e₁)
      (cons C `(let ,binds ,e₁))]
     [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
-     (cons C `(let (,@(append before (list `(,x ,e₀)) after)) ,e₁))]
+     (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [`(top) (error 'out "top")]))
 
 (define (out Ce ρ)
@@ -40,27 +40,30 @@
     [(cons `(let-bod ,binds ,C) e₁)
      (unit (cons C `(let ,binds ,e₁)) ρ)]
     [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
-     (unit (cons C `(let (,@(append before (list `(,x ,e₀)) after)) ,e₁)) ρ)]
+     (unit (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁)) ρ)]
     [(cons `(top) _)
      (error 'out "top")]))
 
 (define (bin-e Ce ρ i)
   (match Ce
-    [(cons C `(let (,@binds) ,e₁))
+    [(cons C `(let ,binds ,e₁))
      (define before (take binds i))
      (define eqafter (drop binds i))
      (define after (cdr eqafter))
      (define bind (car eqafter))
-     (list (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cdr bind)) ρ)]))
+     (list (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
 
 (define (bin Ce ρ i)
   (match Ce
-    [(cons C `(let (,@binds) ,e₁))
+    [(cons C `(let ,binds ,e₁))
      (define before (take binds i))
      (define eqafter (drop binds i))
      (define after (cdr eqafter))
      (define bind (car eqafter))
-     (unit (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cdr bind)) ρ)]))
+     ;  (pretty-print bind)
+     ;  (pretty-print (car bind))
+     ;  (pretty-print (cadr bind))
+     (unit (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
 
 (define (bod-e Ce ρ)
   (match Ce
@@ -161,7 +164,7 @@
                                              (range (length args)))))]
                           [(cons _ `(λ ,_ ,_))
                            (apply gen-queries (bod-e Ce ρ))]
-                          [(cons _ `(let (,@binds) ,_))
+                          [(cons _ `(let ,binds ,_))
                            (foldl set-union (set)
                                   (cons (apply gen-queries (bod-e Ce ρ))
                                         (map (λ (i)

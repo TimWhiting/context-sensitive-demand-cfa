@@ -7,7 +7,7 @@
   (require racket/pretty)
   (let ([basic-cost 0]
         [hybrid-cost 0])
-    (for ([example r6rs])
+    (for ([example all-examples])
       (match-let ([`(example ,name ,exp) example])
         (define out (open-output-file (string-append "tests/" (symbol->string name) "-results.txt") #:exists 'replace))
         (displayln "")

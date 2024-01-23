@@ -8,13 +8,9 @@
 
 #|
 TODO:
-Add in a small sample with constructors / pattern matching
-
 Implement pattern matchings / constructors
 
 Finish the paper
-
-Presentation
 |#
 
 
@@ -59,6 +55,8 @@ Presentation
 (define (find x Ce ρ)
   ; (pretty-print `(find ,x ,(drop Ce 1) ,ρ))
   (match Ce
+    [(cons _ #t) ⊥]
+    [(cons _ #f) ⊥]
     [(cons _ (? symbol? y))
      (if (equal? x y)
          (unit Ce ρ)
@@ -95,7 +93,7 @@ Presentation
                       (>>= (bod Ce ρ)
                            (λ (Ce ρ) (find x Ce ρ))))
                   (map (λ (i)
-                         (>>= (ran Ce ρ i)
+                         (>>= (bin Ce ρ i)
                               (λ (Ce ρ)
                                 (match Ce
                                   [(cons `(let-bin ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ (find x Ce ρ))]
@@ -106,7 +104,9 @@ Presentation
      ;        (if (equal? x y)
      ;            ⊥
      ;            (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))
-     ]))
+     ]
+    [(cons _ e) (error 'find (pretty-format `(no match for find ,e)))]
+    ))
 
 (define (ors xs)
   (match xs
@@ -119,22 +119,22 @@ Presentation
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _) (unit x ρ -1)] ; Constructors
-    [(cons `(let-bin ,y ,_ ,_ ,before ,after) _)
+    [(cons `(let-bin ,y ,_ ,before ,after ,_) _)
      ;  (pretty-print `(let-bin-bind ,y ,x))
      (define defs (append (map car before) (list y) (map car after)))
-     (if (ors (map (λ (y) (equal? x y)) (map car after)))
-         (unit Ce ρ (+ 1 (length before) (index-of (map car after) x)))
-
+     (if (ors (map (λ (y) (equal? x y)) defs))
+         (unit Ce ρ (index-of defs x))
          (search-out))]
     [(cons `(bod ,ys ,_) _)
      ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))
      (if (ors (map (λ (y) (equal? x y)) ys))
          (unit Ce ρ (index-of ys x))
          (search-out))]
-    [(cons `(let-bod ,y ,_ ,_) _)
-     ;  (pretty-print `(let-bind ,y ,x))
-     (if (equal? x y)
-         (unit Ce ρ 0)
+    [(cons `(let-bod ,binds ,_) _)
+     (define defs (map car binds))
+     ;  (pretty-print `(let-bind ,defs))
+     (if (ors (map (λ (y) (equal? x y)) defs))
+         (unit Ce ρ (index-of defs x))
          (search-out))]
     ; All other forms do not introduce bindings
     [(cons _ _) (search-out)]
@@ -156,11 +156,14 @@ Presentation
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
+          [(cons _ #t) (clos Ce ρ)]
+          [(cons _ #f) (clos Ce ρ)]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
            (>>= (bind x Ce ρ)
                 (λ (Cex ρ i)
+                  ; (pretty-print `(bound to ,Cex ,i))
                   (match Cex
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace `(bound ,C ,e ,x ,Cex))
@@ -169,22 +172,27 @@ Presentation
                                (λ (Ce ρ)
                                  ;  (pretty-print i)
                                  (ran Ce ρ i))) (debug-eval `(ref ,i) eval))]
-                    [(cons `(let-bod ,_ ,_ ,_) _)
-                     ;  (print-eval-result "REF-LETBOD"
-                     ; (λ ()
-                     (>>= (>>= (out Cex ρ) bin) (debug-eval `(letbin) eval))
-                     ; ))
+                    [(cons `(let-bod ,_ ,_) _)
+                     ;  (print-eval-result `(ref-let-bod)
+                     ;                     (λ ()
+                     (>>= (>>= (out Cex ρ)
+                               (λ (Ce ρ)
+                                 ;  (pretty-print `(,Ce))
+                                 (bin Ce ρ i)))
+                          (debug-eval `(letbin) eval))
+                     ; ) #t)
                      ]
-                    [(cons `(let-bin ,_ ,_ ,_) _) ; Recursive bindings
-                     (>>= (>>= (out Cex ρ) bin) eval)
+                    [(cons `(let-bin ,_ ,_ ,_ ,_ ,_) _) ; Recursive bindings
+                     (>>= (>>= (out Cex ρ) (λ (Ce ρ) (bin Ce ρ i))) eval)
                      ]
                     [(? symbol? x)
                      (match (lookup-primitive x)
-                       [Ce (clos Ce ρ)]
                        [#f
                         (pretty-print `(constructor? ,x))
                         (clos Ce ρ)]
+                       [Ce (clos Ce ρ)]
                        )]
+
                     )))]
           [(cons _ `(λ ,_ ,_))
            ;  (pretty-trace "LAM")
@@ -214,6 +222,7 @@ Presentation
                         [_ (bod-calibrate Ce′ Ce ρ ρ′)]
                         ) (debug-eval 'app-eval eval))
                  ]
+                [(cons C con) (clos con ρ′)]
                 )
               ))
            ;  ))
@@ -325,9 +334,9 @@ Presentation
                                   expr))))))]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
-                [(cons `(let-bod ,_ ,_ ,_) _)
+                [(cons `(let-bod ,_ ,_) _)
                  (>>= (out Ce ρ) expr)]
-                [(cons `(let-bin ,x ,_ ,_) _)
+                [(cons `(let-bin ,x ,_ ,_ ,_ ,_) _)
                  (>>= (out Ce ρ)
                       (λ (Cex ρe)
                         ; (pretty-print `(let-bin find ,x))
