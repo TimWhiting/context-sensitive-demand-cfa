@@ -1,0 +1,27 @@
+'(expression:
+  (let ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (app
+            if
+            (app <= n 1)
+            (app id a)
+            (let ((r (app (app blur id) #t)) (s (app (app blur id) #t)))
+              (app not (app (app blur lp) s (app - n 1))))))))
+    (app lp #t 2)))
+'(query:
+  (((top)
+    let
+    ((id (λ (x) x))
+     (blur (λ (y) y))
+     (lp
+      (λ (a n)
+        (app
+         if
+         (app <= n 1)
+         (app id a)
+         (let ((r (app (app blur id) #t)) (s (app (app blur id) #t)))
+           (app not (app (app blur lp) s (app - n 1))))))))
+    (app lp #t 2))
+   ()))

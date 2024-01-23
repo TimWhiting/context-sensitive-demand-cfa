@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 
 (letrec ((id (lambda (x) x))
 

@@ -38,6 +38,6 @@
 ; (define basic-lambda-examples (get-examples '(id let structural-rec err)))
 ; (define multiple-param-examples (get-examples '(multi-param)))
 ; (define constructor-examples (get-examples '(constr)))
-(define r6rs (get-examples '(ack)))
+(define r6rs (get-examples '(ack blur)))
 
 (pretty-print r6rs)

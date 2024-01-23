@@ -16,8 +16,8 @@
         (pretty-print exp)
         (pretty-print `(expression: ,exp) out)
         (displayln "")
+        ; (show-envs #t)
         ; (trace 1)
-        ; TODO: Add a test suite of results so I can compare against it anytime I update to prevent regressions
         ; TODO: Is it okay for the continuations to escape and be reused later?
         (for ([q (gen-queries (cons `(top) exp) (list))])
           (let ([h1 (hash)]

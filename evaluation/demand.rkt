@@ -88,11 +88,25 @@ Presentation
                               (λ (Ce ρ) (find x Ce ρ))))
                        (range (length es))))
             )]
-    [(cons C `(let ([,y ,e₀]) ,e₁))
-     (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
-           (if (equal? x y)
-               ⊥
-               (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))]))
+    [(cons _ `(let (,@binds) ,_))
+     (apply each
+            (cons (if (ors (map (λ (n) (equal? n x)) (map car binds)))
+                      ⊥
+                      (>>= (bod Ce ρ)
+                           (λ (Ce ρ) (find x Ce ρ))))
+                  (map (λ (i)
+                         (>>= (ran Ce ρ i)
+                              (λ (Ce ρ)
+                                (match Ce
+                                  [(cons `(let-bin ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ (find x Ce ρ))]
+                                  [_(find x Ce ρ)])
+                                )))
+                       (range (length binds)))))
+     ;  (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
+     ;        (if (equal? x y)
+     ;            ⊥
+     ;            (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))
+     ]))
 
 (define (ors xs)
   (match xs
@@ -105,10 +119,12 @@ Presentation
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _) (unit x ρ -1)] ; Constructors
-    [(cons `(let-bin ,y ,_ ,_) _)
+    [(cons `(let-bin ,y ,_ ,_ ,before ,after) _)
      ;  (pretty-print `(let-bin-bind ,y ,x))
-     (if (equal? x y)
-         (unit Ce ρ 0)
+     (define defs (append (map car before) (list y) (map car after)))
+     (if (ors (map (λ (y) (equal? x y)) (map car after)))
+         (unit Ce ρ (+ 1 (length before) (index-of (map car after) x)))
+
          (search-out))]
     [(cons `(bod ,ys ,_) _)
      ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))

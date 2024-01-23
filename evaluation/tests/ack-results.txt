@@ -28,7 +28,7 @@
     1)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((match-clause
      #f
@@ -42,7 +42,7 @@
     (#f (app ack (app - m 1) (app ack m (app - n 1)))))
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((ran
      -
@@ -119,7 +119,7 @@
     (app - n 1))
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((let-bin ack (app ack 3 12) (top))
     λ
@@ -212,7 +212,7 @@
     n)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (12 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((ran
      ack
@@ -237,7 +237,7 @@
     m)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (3 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((bod (m n) (let-bin ack (app ack 3 12) (top)))
     match
@@ -289,7 +289,7 @@
     (app ack m (app - n 1)))
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((rat
      (m 1)
@@ -328,7 +328,7 @@
     n
     0)
    ((□? (m n)))))
-'(clos/con: (#t #f #f #t))
+'(clos/con: (#t #t #f #f #t #t #f #f #t #t #f #t #f #f #t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 '(query:
   (((ran
@@ -354,7 +354,7 @@
     m)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (3 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((ran
      =
@@ -373,7 +373,7 @@
     n)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (12 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((rat
      (3 12)
@@ -438,7 +438,7 @@
     (app ack 3 12))
    ()))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((ran
      -
@@ -496,7 +496,7 @@
     m
     0)
    ((□? (m n)))))
-'(clos/con: (#t #f #f #t))
+'(clos/con: (#t #t #f #f #t #t #f #f #t #t #f #t #f #f #t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 '(query:
   (((ran
@@ -543,7 +543,7 @@
     m)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (3 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((rat
      ((app - m 1) (app ack m (app - n 1)))
@@ -611,7 +611,7 @@
     m)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (3 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((rat
      (m (app - n 1))
@@ -713,7 +713,7 @@
     n)
    ((□? (m n)))))
 '(clos/con: ⊥)
-'(literals: (12 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((rat
      (m 1)
@@ -756,7 +756,7 @@
     12)
    ()))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 '(query:
   (((ran
      ack

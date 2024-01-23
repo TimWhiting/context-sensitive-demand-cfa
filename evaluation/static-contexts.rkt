@@ -17,10 +17,10 @@
      (cons C `(match ,@(cons f (append b (list `(,m ,e)) a))))]
     [(cons `(bod ,y ,C) e)
      (cons C `(λ ,y ,e))]
-    [(cons `(let-bod ,x ,e₀ ,C) e₁)
-     (cons C `(let ([,x ,e₀]) ,e₁))]
-    [(cons `(let-bin ,x ,e₁ ,C) e₀)
-     (cons C `(let ([,x ,e₀]) ,e₁))]
+    [(cons `(let-bod ,binds ,C) e₁)
+     (cons C `(let ,binds ,e₁))]
+    [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
+     (cons C `(let (,@(append before (list `(,x ,e₀)) after)) ,e₁))]
     [`(top) (error 'out "top")]))
 
 (define (out Ce ρ)
@@ -37,50 +37,58 @@
     [(cons `(bod ,y ,C) e)
      (unit (cons C `(λ ,y ,e))
            (match-let ([(cons _ ρ) ρ]) ρ))]
-    [(cons `(let-bod ,x ,e₀ ,C) e₁)
-     (unit (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
-    [(cons `(let-bin ,x ,e₁ ,C) e₀)
-     (unit (cons C `(let ([,x ,e₀]) ,e₁)) ρ)]
+    [(cons `(let-bod ,binds ,C) e₁)
+     (unit (cons C `(let ,binds ,e₁)) ρ)]
+    [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
+     (unit (cons C `(let (,@(append before (list `(,x ,e₀)) after)) ,e₁)) ρ)]
     [(cons `(top) _)
      (error 'out "top")]))
 
-(define (bin-e Ce ρ)
+(define (bin-e Ce ρ i)
   (match Ce
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (list (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
+    [(cons C `(let (,@binds) ,e₁))
+     (define before (take binds i))
+     (define eqafter (drop binds i))
+     (define after (cdr eqafter))
+     (define bind (car eqafter))
+     (list (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cdr bind)) ρ)]))
 
-(define (bin Ce ρ)
+(define (bin Ce ρ i)
   (match Ce
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit (cons `(let-bin ,x ,e₁ ,C) e₀) ρ)]))
+    [(cons C `(let (,@binds) ,e₁))
+     (define before (take binds i))
+     (define eqafter (drop binds i))
+     (define after (cdr eqafter))
+     (define bind (car eqafter))
+     (unit (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cdr bind)) ρ)]))
 
 (define (bod-e Ce ρ)
   (match Ce
     [(cons C `(λ ,x ,e))
      (list (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (list (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(let ,binds ,e₁))
+     (list (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
 (define (bod Ce ρ)
   (match Ce
     [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (take-cc `(□? ,x)) ρ))]
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(let ,binds ,e₁))
+     (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
 (define (bod-enter Ce call ρ ρ′)
   (match Ce
     [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (enter-cc call ρ) ρ′))]
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(let ,binds ,e₁))
+     (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
 (define (bod-calibrate Ce call ρ ρ′)
   (match Ce
     [(cons C `(λ ,x ,e))
      (unit (cons `(bod ,x ,C) e) (cons (take-cc `(cenv ,call ,ρ)) ρ′))]
-    [(cons C `(let ([,x ,e₀]) ,e₁))
-     (unit (cons `(let-bod ,x ,e₀ ,C) e₁) ρ)]))
+    [(cons C `(let ,binds ,e₁))
+     (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
 (define (rat-e Ce ρ)
   (match Ce
@@ -145,23 +153,27 @@
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce
-                          [(cons C `(app ,@es))
+                          [(cons _ `(app ,_ ,@args))
                            (foldl set-union (set)
                                   (cons (apply gen-queries (rat-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries (ran-e Ce ρ i)))
-                                             (range 0 (- (length es) 1)))))]
-                          [(cons C `(λ ,x ,e))
+                                             (range (length args)))))]
+                          [(cons _ `(λ ,_ ,_))
                            (apply gen-queries (bod-e Ce ρ))]
-                          [(cons C `(let ([,x ,e₀]) ,e₁))
-                           (set-union (apply gen-queries (bod-e Ce ρ))
-                                      (apply gen-queries (bin-e Ce ρ)))]
-                          [(cons C `(match ,e ,@ms))
+                          [(cons _ `(let (,@binds) ,_))
+                           (foldl set-union (set)
+                                  (cons (apply gen-queries (bod-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries (bin-e Ce ρ i)))
+                                             (range (length binds)))))
+                           ]
+                          [(cons _ `(match ,_ ,@ms))
                            (foldl set-union (set)
                                   (cons (apply gen-queries (focus-match-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries (focus-clause-e Ce ρ i)))
-                                             (range 0 (length ms)))))]
+                                             (range (length ms)))))]
                           [_ (set)]))
   (set-add child-queries self-query))
 
