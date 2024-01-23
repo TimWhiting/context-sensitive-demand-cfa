@@ -10,7 +10,7 @@
     [(cons `(rat ,es ,C) e₀)
      (cons C `(app ,@(cons e₀ es)))]
     [(cons `(match-e ,es ,C) e₀)
-     (cons C `(match ,(cons e₀ es)))]
+     (cons C `(match ,e₀ ,@es))]
     [(cons `(ran ,f ,b ,a ,C) e)
      (cons C `(app ,@(cons f (append b (list e) a))))]
     [(cons `(match-clause ,m ,f ,b ,a ,C) e)
@@ -29,7 +29,7 @@
     [(cons `(rat ,es ,C) e₀)
      (unit (cons C `(app ,@(cons e₀ es))) ρ)]
     [(cons `(match-e ,es ,C) e₀)
-     (unit (cons C `(match ,(cons e₀ es))) ρ)]
+     (unit (cons C `(match ,e₀ ,@es)) ρ)]
     [(cons `(ran ,f ,b ,a ,C) e)
      (unit (cons C `(app ,@(cons f (append b (list e) a)))) ρ)]
     [(cons `(match-clause ,m ,f ,b ,a ,C) e)
@@ -134,7 +134,7 @@
      (list (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (ran Ce ρ i)
-  (pretty-print `(ran ,i))
+  ; (pretty-print `(ran ,i))
   (match Ce
     [(cons C `(app ,@es))
      (define args (drop es 1))

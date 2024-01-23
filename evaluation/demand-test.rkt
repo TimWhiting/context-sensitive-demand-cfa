@@ -67,7 +67,7 @@
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e example2))))
 
-  (trace 1)
+  ;   (trace 1)
   (demand-kind 'basic)
   (pretty-result
    (run-print-query (apply eval (list (cons `(top)

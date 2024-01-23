@@ -5,12 +5,13 @@
 
 (provide (all-defined-out))
 
-(define (print-eval-result input computation)
-  (if (trace) (pretty-print `(start ,input)) '())
+(define (print-eval-result input computation [override #f])
+  (define show (or (trace) override))
+  (if show (pretty-print `(start ,input)) '())
   (>>=eval
    (computation)
    (λ (Cee ρee)
-     (if (trace)
+     (if show
          (begin
            (pretty-print `(end ,input))
            (pretty-print `(result ,Cee ,ρee))
@@ -19,7 +20,7 @@
          )
      )
    (λ (num)
-     (if (trace)
+     (if show
          (begin
            (pretty-print `(end ,input))
            (pretty-print `(result ,num))
@@ -30,8 +31,11 @@
    )
   )
 
-(define (debug-eval name comp)
-  (λ (Ce p) (print-eval-result `(,name ,Ce ,p) (λ () (comp Ce p))))
+(define ((debug-eval name comp) . args)
+  (apply (λ (Ce p)
+           (print-eval-result `(,name ,Ce ,p)
+                              (λ () (comp Ce p))))
+         args)
   )
 
 (define (print-result-env input computation)
@@ -68,6 +72,7 @@
      (define (pretty-closure/cons c)
        (match c
          [(cons (cons ctx ex) env) (if (show-envs) `(expr: ,ex env: ,env) ex )]
+         [(cons con env) (if (show-envs) `(con: ,con env: ,env) con)]
          ))
      (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
      (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
@@ -80,10 +85,10 @@
   (if (trace)
       (if (> (trace) n)
           (pretty-print p)
-          (void))
-      (void)))
+          '())
+      '()))
 
 (define (pretty-trace p)
   (if (trace)
       (pretty-print p)
-      (void)))
+      '()))

@@ -1,6 +1,6 @@
 #lang racket/base
 (require "table-monad/main.rkt")
-(require racket/match)
+(require racket/match racket/pretty)
 (provide (all-defined-out))
 
 (define ((clos . xs) k) (k (product/set xs)))
