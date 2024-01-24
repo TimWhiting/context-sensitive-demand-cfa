@@ -1,6 +1,7 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;;; CPSTAK -- A continuation-passing version of the TAK benchmark.
 ;;; A good test of first class procedures and tail recursion.
- 
+
 (define (cpstak x y z)
 
   (define (tak x y z k)

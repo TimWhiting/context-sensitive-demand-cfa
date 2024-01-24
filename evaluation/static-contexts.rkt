@@ -25,11 +25,14 @@
   )
 
 (define (show-simple-env ρ)
-  (match ρ
-    [(list) (list)]
-    [(cons cc ρ)
-     (cons (show-simple-call cc) (show-simple-env ρ))]
-    )
+  (if (show-envs-simple)
+      (match ρ
+        [(list) (list)]
+        [(cons cc ρ)
+         (cons (show-simple-call cc) (show-simple-env ρ))]
+        )
+      ρ
+      )
   )
 
 (define (show-simple-call cc)
@@ -144,7 +147,6 @@
     [(cons C `(app ,@es))
      (unit (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
 
-
 (define (focus-match-e Ce ρ)
   (match Ce
     [(cons C `(match ,m ,@ms))
@@ -198,7 +200,7 @@
   (define self-query (list Ce ρ))
   (define child-queries (match Ce
                           [(cons _ `(app ,_ ,@args))
-                           (foldl set-union (set)
+                           (foldl append (list)
                                   (cons (apply gen-queries (rat-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries (ran-e Ce ρ i)))
@@ -206,20 +208,20 @@
                           [(cons _ `(λ ,_ ,_))
                            (apply gen-queries (bod-e Ce ρ))]
                           [(cons _ `(let ,binds ,_))
-                           (foldl set-union (set)
+                           (foldl append (list)
                                   (cons (apply gen-queries (bod-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries (bin-e Ce ρ i)))
                                              (range (length binds)))))
                            ]
                           [(cons _ `(match ,_ ,@ms))
-                           (foldl set-union (set)
+                           (foldl append (list)
                                   (cons (apply gen-queries (focus-match-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries (focus-clause-e Ce ρ i)))
                                              (range (length ms)))))]
-                          [_ (set)]))
-  (set-add child-queries self-query))
+                          [_ (list)]))
+  (cons self-query child-queries))
 
 
 ; calling contexts
@@ -246,11 +248,13 @@
       (if (equal? 'basic (demand-kind))
           (list)
           (match cc
-            [`(cenv ,Ce ,ρ) '!]; Cut known
-            [`(cons Ce cc) '!]; Cut known
-            ['! '!]
             [(list) (list)]; Already 0
-            [_ '?])) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
+            [`(cenv ,_ ,_) '!]; Cut known
+            ['! '!]
+            ['? '?]
+            [`(□? ,_) '?]
+            [`(cons _ _) '!]; Cut known
+            )) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
       (match cc
         [(list)
          (list)]
@@ -317,6 +321,32 @@
          (if res (cons Ce res) #f))]
       [_ #f]
       )))
+
+(define (simple-env ρ)
+  ; (pretty-print `(simple-env ρ))
+  (match ρ
+    [(list) (list)]
+    [(cons cc ρ)
+     (cons (simple-call-env cc) (simple-env ρ))]
+    )
+  )
+
+(define (simple-call-env cc)
+  ; (pretty-print `(simple-call-env ,cc))
+  (match cc
+    [(list)
+     (list)]
+    ['! (list)] ; Cut known
+    ['? (list)] ; Cut unknown (can be reinstantiated to an indeterminate context)
+    [`(□? ,x)
+     `(□? ,x)]
+    [`(cenv ,Ce ,ρ)
+     ;  (pretty-print `(simplifying ,Ce ,ρ))
+     (cons Ce (simple-call-env (head-env ρ)))]
+    [(cons Ce cc)
+     (cons Ce cc)]
+    )
+  )
 
 ; Is cc0 more refined or equal to cc1?
 ;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?

@@ -108,11 +108,6 @@ Finish the paper
     [(cons _ e) (error 'find (pretty-format `(no match for find ,e)))]
     ))
 
-(define (ors xs)
-  (match xs
-    [(list) #f]
-    [(cons x xs) (or x (ors xs))])
-  )
 
 (define (bind x Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
@@ -156,8 +151,8 @@ Finish the paper
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
-          [(cons _ #t) (clos Ce ρ)]
-          [(cons _ #f) (clos Ce ρ)]
+          [(cons _ #t) (clos #t ρ)]
+          [(cons _ #f) (clos #f ρ)]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
@@ -188,7 +183,7 @@ Finish the paper
                     [(? symbol? x)
                      (match (lookup-primitive x)
                        [#f
-                        (pretty-print `(constructor? ,x))
+                        (pretty-tracen 0 `(constructor? ,x))
                         (clos x ρ)]
                        [Ce (clos Ce ρ)]
                        )]

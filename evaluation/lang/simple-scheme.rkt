@@ -36,21 +36,25 @@
   (define binds (map to-let-bind (filter (λ (x) (not (is-def x))) tops)))
   (match binds
     [(cons _ _) `(let ,binds ,@exprs)]
-    [(list) (match exprs
-              [(list e) e]
-              )])
+    [(list)
+     (let loop ([exprs exprs])
+       (match exprs
+         [(list e) e]
+         [(cons e es) `(let ([_ ,e]) ,(loop es))]
+         ))
+     ])
   )
-
 
 (define (translate-top s)
   (match (translate s)
     [`(app ,e) e]
+    [e e]
     )
   )
 
 (define (translate-def d)
   (match d
-    [`(,x ,e) `(,x ,(translate e))]
+    [`(,x ,e) `(,x ,(translate-top-defs e))]
     )
   )
 
@@ -60,15 +64,15 @@
     [#t #t]
     [(? number? x) x]
     [(? symbol? x) x]
-    [`(λ (,@args) ,e) `(λ (,@args) ,(translate e))]
-    [`(lambda (,@args) ,e) `(λ (,@args) ,(translate e))]
-    [`(letrec ,defs ,e) `(let ,(map translate-def defs) ,(translate e))]
-    [`(let ,defs ,e) `(let ,(map translate-def defs) ,(translate e))]
-    [`(let* ,defs ,e) `(let ,(map translate-def defs) ,(translate e))]
+    [`(λ (,@args) ,@es) `(λ (,@args) ,(apply translate-top-defs es))]
+    [`(lambda (,@args) ,@es) `(λ (,@args) ,(apply translate-top-defs es))]
+    [`(letrec ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
+    [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
+    [`(let* ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
     [`(if ,c ,t ,f) `(match ,(translate c) [#t ,(translate t)] [#f ,(translate f)])]
     [`(cond ,@mchs) (unwrap-translate mchs)]
-    [`(define (,id ,@args) ,expr) `(define ,id (λ (,@args) ,(translate expr)))]
-    [`(define ,id ,expr) `(define ,id ,(translate expr))]
+    [`(define (,id ,@args) ,@exprs) `(define ,id (λ (,@args) ,(apply translate-top-defs exprs)))]
+    [`(define ,id ,expr) `(define ,id ,(translate-top-defs expr))]
     [`(,@es) `(app ,@(map translate es))]
     )
   )

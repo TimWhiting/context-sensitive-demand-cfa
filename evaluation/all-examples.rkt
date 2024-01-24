@@ -38,7 +38,19 @@
 (define basic-lambda-examples (get-examples '(id let structural-rec err)))
 (define multiple-param-examples (get-examples '(multi-param)))
 (define constructor-examples (get-examples '(constr)))
-(define r6rs (get-examples '(ack blur)))
-(define test-examples (get-examples '(church)))
+(define r6rs (get-examples '(ack blur church cpstak sat-1 kcfa-2)))
+(define test-examples (get-examples '(kcfa-2)))
+
+(define hybrid-failures (get-examples '(church kcfa-2 ack multi-param structural-rec constr id app-num let-num err)))
+(define general-failures (get-examples '(cpstak)))
+(define bad-results (get-examples '(blur sat-1)))
+
+(define successful-examples
+  (filter (lambda (x)
+            (not (or
+                  (member x hybrid-failures)
+                  (member x bad-results)
+                  (member x general-failures) #f)))
+          all-examples))
 
 (pretty-print test-examples)

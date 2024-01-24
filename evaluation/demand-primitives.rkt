@@ -7,6 +7,10 @@
     ['= `(prim ,do-equal)]
     ['- `(prim ,do-sub)]
     ['+ `(prim ,do-add)]
+    ['<= `(prim ,do-lte)]
+    ['not `(prim ,do-not)]
+    ['or `(prim ,do-or)]
+    ['and `(prim ,do-and)]
     [_ #f]
     )
   )
@@ -34,10 +38,63 @@
        [_ (clos #f p)]
        )
      ]
+    [_ (each (clos #t p) (clos #f p))])
+  )
+(define (do-lte p a1 a2)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1)))
+     (match a2
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos #t p) (clos #f p))]
+       [_ (clos #f p)]
+       )
+     ]
     [_ (clos #f p)])
   )
 
-(define (do-sub p a1 a2)
+(define (do-not p a1)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1))) (each (clos #f p) (clos #t p))]
+    [(product/set (list #f _)) (clos #t p)]
+    [(product/set (list #t _)) (clos #f p)]
+    )
+  )
+(define (ors xs)
+  (match xs
+    [(list) #f]
+    [(cons x xs) (or x (ors xs))])
+  )
+(define (alls xs)
+  (match xs
+    [(list) #t]
+    [(cons x xs) (and x (alls xs))])
+  )
+
+(define (do-or p . args)
+  (if (ors (map is-true args))
+      (clos #t p)
+      (clos #f p)
+      ))
+
+(define (do-and p . args)
+  (if (alls (map is-true args))
+      (clos #t p)
+      (clos #f p)
+      ))
+
+(define (is-true r)
+  (match r
+    [(product/set (list #t _)) #t]
+    [_ #f]
+    )
+  )
+(define (is-false r)
+  (match r
+    [(product/set (list #f _)) #t]
+    [_ #f]
+    )
+  )
+
+(define (do-add p a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
@@ -48,7 +105,7 @@
     [_ ⊥])
   )
 
-(define (do-add p a1 a2)
+(define (do-sub p a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2

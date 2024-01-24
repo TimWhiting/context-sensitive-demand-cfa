@@ -3,7 +3,7 @@
 (require racket/match racket/pretty)
 (provide (all-defined-out))
 
-(define ((clos . xs) k) (k (product/set xs)))
+(define ((clos Ce p) k) (k (product/set (list Ce p))))
 (define ((lit x) k) (k (product/lattice x)))
 
 (define ((>>=eval m fclos flit) k)

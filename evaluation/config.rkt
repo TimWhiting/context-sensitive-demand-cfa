@@ -8,6 +8,9 @@
 ; 'basic or 'hybrid
 (define demand-kind (make-parameter '_))
 
+; Show simple environments that match between hybrid and basic
+(define show-envs-simple (make-parameter #f))
+
 ; what level to trace at (set to a number)
 (define trace (make-parameter #f))
 

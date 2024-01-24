@@ -66,14 +66,36 @@
 (define (pretty-result r)
   (pretty-result-out (current-output-port) r))
 
+(define (equal-simplify-envs? result1 result2)
+  (define r1 (simplify-envs result1))
+  (define r2 (simplify-envs result2))
+  (if (not (equal? r1 r2))
+      (pretty-print `(,r1 == ,r2)) '())
+  (equal? r1 r2)
+  )
+
+(define (simplify-envs result)
+  (match result
+    [(cons s l)
+     (define (simple-closure-envs c)
+       (match c
+         [(list `(prim ,l) env) (list `(prim ,l) (simple-env env))]
+         [(list (cons C e) env) (list (cons C e) (simple-env env))]
+         [(list const env) (list const (simple-env env))]
+         ))
+     (cons (apply set (map simple-closure-envs (set->list s))) l)
+     ]
+    )
+  )
+
 (define (pretty-result-out out r)
   (match r
     [(cons s l)
      (define (pretty-closure/cons c)
        (match c
-         [(cons `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-         [(cons (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
-         [(cons const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
+         [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
+         [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
+         [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
          ))
      (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
      (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
@@ -86,6 +108,13 @@
   (if (trace)
       (if (> (trace) n)
           (pretty-print p)
+          '())
+      '()))
+
+(define (pretty-displayn n p)
+  (if (trace)
+      (if (> (trace) n)
+          (displayln p)
           '())
       '()))
 
