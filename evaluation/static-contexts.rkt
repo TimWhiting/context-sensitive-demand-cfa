@@ -5,6 +5,47 @@
 (provide (all-defined-out))
 ; syntax traversal
 
+(define (show-simple-ctx Ce)
+  (match Ce
+    [(cons `(rat ,es ,_) e₀)
+     `(app (->,e₀ <-) ,@es)]
+    [(cons `(match-e ,es ,_) e₀)
+     `(match (->,e₀ <-) ,@es)]
+    [(cons `(ran ,f ,b ,a ,_) e)
+     `(app ,f ,@b (->,e <-) ,@a)]
+    [(cons `(match-clause ,m ,f ,b ,a ,_) e)
+     `(match ,f ,@b (->,m ,e <-) ,@a)]
+    [(cons `(bod ,y ,_) e)
+     `(λ ,y (->,e <-))]
+    [(cons `(let-bod ,binds ,_) e₁)
+     `(let ,(map car binds) (->,e₁ <-))]
+    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
+     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
+    [(cons `(top) _) `(top)])
+  )
+
+(define (show-simple-env ρ)
+  (match ρ
+    [(list) (list)]
+    [(cons cc ρ)
+     (cons (show-simple-call cc) (show-simple-env ρ))]
+    )
+  )
+
+(define (show-simple-call cc)
+  (match cc
+    [(list)
+     (list)]
+    ['! '!] ; Cut known
+    ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
+    [`(□? ,x)
+     `(□? ,x)]
+    [`(cenv ,Ce ,ρ)
+     `(cenv ,(show-simple-ctx Ce) ,(show-simple-env ρ))]
+    [(cons Ce cc)
+     (cons (show-simple-ctx Ce) (show-simple-call cc))])
+  )
+
 (define (oute Ce)
   (match Ce
     [(cons `(rat ,es ,C) e₀)

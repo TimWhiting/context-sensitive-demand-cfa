@@ -1,48 +1,31 @@
 '(expression: (let ((x (λ (y) y))) (let ((_ (app x 1))) (app x 2))))
-'(query: (((let-bod ((x (λ (y) y))) (top)) let ((_ (app x 1))) (app x 2)) ()))
+'(query: (let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) ())
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
-'(query:
-  (((rat (1) (let-bin _ (app x 2) () () (let-bod ((x (λ (y) y))) (top)))) . x)
-   ()))
+'(query: (app (-> x <-) 1) ())
 '(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (((bod (y) (let-bin x (let ((_ (app x 1))) (app x 2)) () () (top))) . y)
-   ((□? (y)))))
+'(query: (λ (y) (-> y <-)) ((□? (y))))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (((top) let ((x (λ (y) y))) (let ((_ (app x 1))) (app x 2))) ()))
+'(query: (top) ())
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
-'(query:
-  (((let-bin _ (app x 2) () () (let-bod ((x (λ (y) y))) (top))) app x 1) ()))
+'(query: (let ((-> _ = (app x 1) <-)) bod) ())
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query:
-  (((let-bod ((_ (app x 1))) (let-bod ((x (λ (y) y))) (top))) app x 2) ()))
+'(query: (let (_) (-> (app x 2) <-)) ())
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
-'(query:
-  (((rat (2) (let-bod ((_ (app x 1))) (let-bod ((x (λ (y) y))) (top)))) . x)
-   ()))
+'(query: (app (-> x <-) 2) ())
 '(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (((let-bin x (let ((_ (app x 1))) (app x 2)) () () (top)) λ (y) y) ()))
+'(query: (let ((-> x = (λ (y) y) <-)) bod) ())
 '(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (((ran x () () (let-bod ((_ (app x 1))) (let-bod ((x (λ (y) y))) (top))))
-    .
-    2)
-   ()))
+'(query: (app x (-> 2 <-)) ())
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
-'(query:
-  (((ran x () () (let-bin _ (app x 2) () () (let-bod ((x (λ (y) y))) (top))))
-    .
-    1)
-   ()))
+'(query: (app x (-> 1 <-)) ())
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))

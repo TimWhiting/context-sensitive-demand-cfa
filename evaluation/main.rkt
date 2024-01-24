@@ -25,8 +25,8 @@
             (match-let ([(list c p) q])
               (define evalq (eval c p))
               (pretty-display "Running query ")
-              (pretty-print `(query: ,q) out)
-              (pretty-print q)
+              (pretty-print `(query: ,(show-simple-ctx c) ,p) out)
+              (pretty-print `(query: ,(show-simple-ctx c) ,p))
 
               (demand-kind 'basic)
               (set! h1 (run-get-hash evalq h1))

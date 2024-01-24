@@ -18,13 +18,29 @@
 (define-syntax-rule (unbound-as-quoted . id)
   #`id)
 
-(define (translate-top-defs . ss)
-  (let loop ([defs (map translate-top ss)])
-    (match defs
-      [(cons `(let ([,id ,expr]) 'hole) xs) `(let ([,id ,expr]) ,(loop xs))]
-      [(list x) x])
-    )
+(define (is-def d)
+  (match d
+    [`(define ,id ,expr) #f]
+    [_ #t])
   )
+
+(define (to-let-bind d)
+  (match d
+    [`(define ,id ,expr) `(,id ,expr)]
+    [_ d]
+    ))
+
+(define (translate-top-defs . ss)
+  (define tops (map translate-top ss))
+  (define exprs (filter is-def tops))
+  (define binds (map to-let-bind (filter (λ (x) (not (is-def x))) tops)))
+  (match binds
+    [(cons _ _) `(let ,binds ,@exprs)]
+    [(list) (match exprs
+              [(list e) e]
+              )])
+  )
+
 
 (define (translate-top s)
   (match (translate s)
@@ -51,8 +67,8 @@
     [`(let* ,defs ,e) `(let ,(map translate-def defs) ,(translate e))]
     [`(if ,c ,t ,f) `(match ,(translate c) [#t ,(translate t)] [#f ,(translate f)])]
     [`(cond ,@mchs) (unwrap-translate mchs)]
-    [`(define (,id ,@args) ,expr) `(let ([,id (λ (,@args) ,(translate expr))]) 'hole)]
-    [`(define ,id ,expr) `(let ([,id ,(translate expr)]) 'hole)]
+    [`(define (,id ,@args) ,expr) `(define ,id (λ (,@args) ,(translate expr)))]
+    [`(define ,id ,expr) `(define ,id ,(translate expr))]
     [`(,@es) `(app ,@(map translate es))]
     )
   )

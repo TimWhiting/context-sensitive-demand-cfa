@@ -1,0 +1,911 @@
+'(expression:
+  (let ((plus
+         (λ (p1)
+           (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))))
+        (mult (λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+        (pred
+         (λ (n)
+           (λ (rf)
+             (λ (rx)
+               (app
+                (app
+                 (app n (λ (g) (λ (h) (app h (app g rf)))))
+                 (λ (ignored) rx))
+                (λ (id) id))))))
+        (sub (λ (s1) (λ (s2) (app (app s2 pred) s1))))
+        (church0 (λ (f0) (λ (x0) x0)))
+        (church1 (λ (f1) (λ (x1) (app f1 x1))))
+        (church2 (λ (f2) (λ (x2) (app f2 (app f2 x2)))))
+        (church3 (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))))
+        (church0? (λ (z) (app (app z (λ (zx) #t)) #t)))
+        (church=?
+         (λ (e1)
+           (λ (e2)
+             (match
+              (app church0? e1)
+              (#t (app church0? e2))
+              (#f
+               (match
+                (app church0? e2)
+                (#t #t)
+                (#f
+                 (app
+                  (app church=? (app (app sub e1) church1))
+                  (app (app sub e2) church1))))))))))
+    (app
+     (app church=? (app (app mult church2) (app (app plus church1) church3)))
+     (app
+      (app plus (app (app mult church2) church1))
+      (app (app mult church2) church3)))))
+'(query: (λ (m1) (-> (λ (m2) (λ (mf) (app m2 (app m1 mf)))) <-)) ((□? (m1))))
+'(clos/con: ((λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app church0? e1)
+   (-> #t (app church0? e2) <-)
+   (#f
+    (match
+     (app church0? e2)
+     (#t #t)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (-> n <-) (λ (g) (λ (h) (app h (app g rf)))))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> g <-) rf) ((□? (h)) (□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        church0
+        church1
+        church2
+        church3
+        (-> church0? = (λ (z) (app (app z (λ (zx) #t)) #t)) <-)
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (z) (app (app z (λ (zx) #t)) #t))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app mult (-> church2 <-)) ())
+'(clos/con: ((λ (f2) (λ (x2) (app f2 (app f2 x2))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app plus (-> church1 <-)) ())
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> m2 <-) (app m1 mf)) ((□? (mf)) (□? (m2)) (□? (m1))))
+'(clos/con:
+  ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))
+   (λ (f1) (λ (x1) (app f1 x1)))
+   (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f3 (-> (app f3 (app f3 x3)) <-)) ((□? (x3)) (□? (f3))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app mult church2) <-) church3) ())
+'(clos/con: ((λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (p1)
+    (-> (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))) <-))
+  ((□? (p1))))
+'(clos/con: ((λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (-> (app church=? (app (app sub e1) church1)) <-)
+   (app (app sub e2) church1))
+  ((□? (e2)) (□? (e1))))
+'(clos/con:
+  ((λ (e2)
+     (match
+      (app church0? e1)
+      (#t (app church0? e2))
+      (#f
+       (match
+        (app church0? e2)
+        (#t #t)
+        (#f
+         (app
+          (app church=? (app (app sub e1) church1))
+          (app (app sub e2) church1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x2) (-> (app f2 (app f2 x2)) <-)) ((□? (x2)) (□? (f2))))
+'(clos/con: (#t #t #t #t #t #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        church0
+        church1
+        church2
+        (-> church3 = (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) <-)
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (app church=? (app (app mult church2) (app (app plus church1) church3)))
+   (->
+    (app
+     (app plus (app (app mult church2) church1))
+     (app (app mult church2) church3))
+    <-))
+  ())
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app mult church2) <-) church1) ())
+'(clos/con: ((λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app p2 pf) <-) x) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con:
+  ((λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (mf) (-> (app m2 (app m1 mf)) <-)) ((□? (mf)) (□? (m2)) (□? (m1))))
+'(clos/con:
+  ((λ (x1) (app f1 x1))
+   (λ (x1) (app f1 x1))
+   (λ (x1) (app f1 x1))
+   (λ (x1) (app f1 x1))
+   (λ (x) (app (app p1 pf) (app (app p2 pf) x)))
+   (λ (x) (app (app p1 pf) (app (app p2 pf) x)))
+   (λ (x) (app (app p1 pf) (app (app p2 pf) x)))
+   (λ (x) (app (app p1 pf) (app (app p2 pf) x)))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))
+   (λ (x3) (app f3 (app f3 (app f3 x3))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (f3) (-> (λ (x3) (app f3 (app f3 (app f3 x3)))) <-)) ((□? (f3))))
+'(clos/con: ((λ (x3) (app f3 (app f3 (app f3 x3))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (e2)
+    (->
+     (match
+      (app church0? e1)
+      (#t (app church0? e2))
+      (#f
+       (match
+        (app church0? e2)
+        (#t #t)
+        (#f
+         (app
+          (app church=? (app (app sub e1) church1))
+          (app (app sub e2) church1))))))
+     <-))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (-> (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx)) <-)
+   (λ (id) id))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app sub e2) (-> church1 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f3 <-) x3) ((□? (x3)) (□? (f3))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (n)
+    (->
+     (λ (rf)
+       (λ (rx)
+         (app
+          (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+          (λ (id) id))))
+     <-))
+  ((□? (n))))
+'(clos/con:
+  ((λ (rf)
+     (λ (rx)
+       (app
+        (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+        (λ (id) id))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+   (-> (λ (id) id) <-))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ((λ (id) id)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (-> church=? <-) (app (app sub e1) church1))
+  ((□? (e2)) (□? (e1))))
+'(clos/con:
+  ((λ (e1)
+     (λ (e2)
+       (match
+        (app church0? e1)
+        (#t (app church0? e2))
+        (#f
+         (match
+          (app church0? e2)
+          (#t #t)
+          (#f
+           (app
+            (app church=? (app (app sub e1) church1))
+            (app (app sub e2) church1))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app church0? (-> e2 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app s2 (-> pred <-)) ((□? (s2)) (□? (s1))))
+'(clos/con:
+  ((λ (n)
+     (λ (rf)
+       (λ (rx)
+         (app
+          (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+          (λ (id) id)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (s1) (-> (λ (s2) (app (app s2 pred) s1)) <-)) ((□? (s1))))
+'(clos/con: ((λ (s2) (app (app s2 pred) s1))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app plus church1) <-) church3) ())
+'(clos/con: ((λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> z <-) (λ (zx) #t)) ((□? (z))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app church0? e1)
+   (#t (app church0? e2))
+   (->
+    #f
+    (match
+     (app church0? e2)
+     (#t #t)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))
+    <-))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (x) (-> (app (app p1 pf) (app (app p2 pf) x)) <-))
+  ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app mult (-> church2 <-)) ())
+'(clos/con: ((λ (f2) (λ (x2) (app f2 (app f2 x2))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app h (-> (app g rf) <-))
+  ((□? (h)) (□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   church=?
+   (-> (app (app mult church2) (app (app plus church1) church3)) <-))
+  ())
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> mult <-) church2) ())
+'(clos/con: ((λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app z (-> (λ (zx) #t) <-)) ((□? (z))))
+'(clos/con: ((λ (zx) #t)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (z) (-> (app (app z (λ (zx) #t)) #t) <-)) ((□? (z))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app p1 (-> pf <-)) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ((λ (zx) #t) (λ (zx) #t) (λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f2 (-> (app f2 x2) <-)) ((□? (x2)) (□? (f2))))
+'(clos/con: (#t #t #t #t #t #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f3 <-) (app f3 x3)) ((□? (x3)) (□? (f3))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> s2 <-) pred) ((□? (s2)) (□? (s1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (ignored) (-> rx <-))
+  ((□? (ignored)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app mult church2) (-> (app (app plus church1) church3) <-)) ())
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app s2 pred) (-> s1 <-)) ((□? (s2)) (□? (s1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        church0
+        church1
+        (-> church2 = (λ (f2) (λ (x2) (app f2 (app f2 x2)))) <-)
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (f2) (λ (x2) (app f2 (app f2 x2))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> plus <-) (app (app mult church2) church1)) ())
+'(clos/con:
+  ((λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f2 <-) (app f2 x2)) ((□? (x2)) (□? (f2))))
+'(clos/con: ((λ (zx) #t) (λ (zx) #t) (λ (zx) #t)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app plus church1) (-> church3 <-)) ())
+'(clos/con: ((λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> mult <-) church2) ())
+'(clos/con: ((λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app p2 pf) (-> x <-)) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: (#t #t #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f2 (-> x2 <-)) ((□? (x2)) (□? (f2))))
+'(clos/con: (#t #t #t #t #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x1) (-> (app f1 x1) <-)) ((□? (x1)) (□? (f1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        (-> mult = (λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) <-)
+        pred
+        sub
+        church0
+        church1
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app sub e2) <-) church1) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (s2) (app (app s2 pred) s1))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> mult <-) church2) ())
+'(clos/con: ((λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app plus (-> (app (app mult church2) church1) <-)) ())
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (m2) (-> (λ (mf) (app m2 (app m1 mf))) <-)) ((□? (m2)) (□? (m1))))
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> church0? <-) e2) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (z) (app (app z (λ (zx) #t)) #t))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        (-> sub = (λ (s1) (λ (s2) (app (app s2 pred) s1))) <-)
+        church0
+        church1
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (s1) (λ (s2) (app (app s2 pred) s1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app church0? (-> e1 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f1 (-> x1 <-)) ((□? (x1)) (□? (f1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app mult church2) (-> church1 <-)) ())
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (app church=? (app (app sub e1) church1))
+   (-> (app (app sub e2) church1) <-))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (f0) (-> (λ (x0) x0) <-)) ((□? (f0))))
+'(clos/con: ((λ (x0) x0)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (app n (λ (g) (λ (h) (app h (app g rf))))) (-> (λ (ignored) rx) <-))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ((λ (ignored) rx)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x0) (-> x0 <-)) ((□? (x0)) (□? (f0))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (-> h <-) (app g rf))
+  ((□? (h)) (□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app mult (-> church2 <-)) ())
+'(clos/con: ((λ (f2) (λ (x2) (app f2 (app f2 x2))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> p2 <-) pf) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con:
+  ((λ (mf) (app m2 (app m1 mf)))
+   (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app church0? e2)
+   (-> #t #t <-)
+   (#f
+    (app
+     (app church=? (app (app sub e1) church1))
+     (app (app sub e2) church1))))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app sub (-> e1 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (zx) (-> #t <-)) ((□? (zx)) (□? (z))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (top) ())
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> church0? <-) e1) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (z) (app (app z (λ (zx) #t)) #t))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app sub e1) (-> church1 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app church0? e2)
+   (#t #t)
+   (->
+    #f
+    (app (app church=? (app (app sub e1) church1)) (app (app sub e2) church1))
+    <-))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        church0
+        church1
+        church2
+        church3
+        church0?
+        (->
+         church=?
+         =
+         (λ (e1)
+           (λ (e2)
+             (match
+              (app church0? e1)
+              (#t (app church0? e2))
+              (#f
+               (match
+                (app church0? e2)
+                (#t #t)
+                (#f
+                 (app
+                  (app church=? (app (app sub e1) church1))
+                  (app (app sub e2) church1))))))))
+         <-))
+    bod)
+  ())
+'(clos/con:
+  ((λ (e1)
+     (λ (e2)
+       (match
+        (app church0? e1)
+        (#t (app church0? e2))
+        (#f
+         (match
+          (app church0? e2)
+          (#t #t)
+          (#f
+           (app
+            (app church=? (app (app sub e1) church1))
+            (app (app sub e2) church1))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> church0? <-) e2) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (z) (app (app z (λ (zx) #t)) #t))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let ((->
+         plus
+         =
+         (λ (p1)
+           (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+         <-)
+        mult
+        pred
+        sub
+        church0
+        church1
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con:
+  ((λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (e1)
+    (->
+     (λ (e2)
+       (match
+        (app church0? e1)
+        (#t (app church0? e2))
+        (#f
+         (match
+          (app church0? e2)
+          (#t #t)
+          (#f
+           (app
+            (app church=? (app (app sub e1) church1))
+            (app (app sub e2) church1)))))))
+     <-))
+  ((□? (e1))))
+'(clos/con:
+  ((λ (e2)
+     (match
+      (app church0? e1)
+      (#t (app church0? e2))
+      (#f
+       (match
+        (app church0? e2)
+        (#t #t)
+        (#f
+         (app
+          (app church=? (app (app sub e1) church1))
+          (app (app sub e2) church1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (-> (app n (λ (g) (λ (h) (app h (app g rf))))) <-) (λ (ignored) rx))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        church0
+        (-> church1 = (λ (f1) (λ (x1) (app f1 x1))) <-)
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app church0? (-> e2 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> p1 <-) pf) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ((λ (f1) (λ (x1) (app f1 x1))) (λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app g (-> rf <-)) ((□? (h)) (□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app n (-> (λ (g) (λ (h) (app h (app g rf)))) <-))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ((λ (g) (λ (h) (app h (app g rf))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (->
+    (app church=? (app (app mult church2) (app (app plus church1) church3)))
+    <-)
+   (app
+    (app plus (app (app mult church2) church1))
+    (app (app mult church2) church3)))
+  ())
+'(clos/con:
+  ((λ (e2)
+     (match
+      (app church0? e1)
+      (#t (app church0? e2))
+      (#f
+       (match
+        (app church0? e2)
+        (#t #t)
+        (#f
+         (app
+          (app church=? (app (app sub e1) church1))
+          (app (app sub e2) church1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (h) (-> (app h (app g rf)) <-))
+  ((□? (h)) (□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (s2) (-> (app (app s2 pred) s1) <-)) ((□? (s2)) (□? (s1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (rx)
+    (->
+     (app
+      (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+      (λ (id) id))
+     <-))
+  ((□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (pf) (-> (λ (x) (app (app p1 pf) (app (app p2 pf) x))) <-))
+  ((□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ((λ (x) (app (app p1 pf) (app (app p2 pf) x)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app m2 (-> (app m1 mf) <-)) ((□? (mf)) (□? (m2)) (□? (m1))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2))) (λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app mult church2) <-) (app (app plus church1) church3)) ())
+'(clos/con: ((λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (id) (-> id <-)) ((□? (id)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app z (λ (zx) #t)) <-) #t) ((□? (z))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (-> (app plus (app (app mult church2) church1)) <-)
+   (app (app mult church2) church3))
+  ())
+'(clos/con: ((λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> m1 <-) mf) ((□? (mf)) (□? (m2)) (□? (m1))))
+'(clos/con: ((λ (f2) (λ (x2) (app f2 (app f2 x2))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app s2 pred) <-) s1) ((□? (s2)) (□? (s1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (p2) (-> (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) <-))
+  ((□? (p2)) (□? (p1))))
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (g) (-> (λ (h) (app h (app g rf))) <-))
+  ((□? (g)) (□? (rx)) (□? (rf)) (□? (n))))
+'(clos/con: ((λ (h) (app h (app g rf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f3 <-) (app f3 (app f3 x3))) ((□? (x3)) (□? (f3))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (app p1 pf) (-> (app (app p2 pf) x) <-))
+  ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (app plus (app (app mult church2) church1))
+   (-> (app (app mult church2) church3) <-))
+  ())
+'(clos/con: ((λ (mf) (app m2 (app m1 mf)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (-> (app church0? e2) <-)
+   (#t #t)
+   (#f
+    (app
+     (app church=? (app (app sub e1) church1))
+     (app (app sub e2) church1))))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f3 (-> x3 <-)) ((□? (x3)) (□? (f3))))
+'(clos/con: (#t #t #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f2 <-) x2) ((□? (x2)) (□? (f2))))
+'(clos/con: ((λ (zx) #t) (λ (zx) #t) (λ (zx) #t)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app
+   (-> church=? <-)
+   (app (app mult church2) (app (app plus church1) church3)))
+  ())
+'(clos/con:
+  ((λ (e1)
+     (λ (e2)
+       (match
+        (app church0? e1)
+        (#t (app church0? e2))
+        (#f
+         (match
+          (app church0? e2)
+          (#t #t)
+          (#f
+           (app
+            (app church=? (app (app sub e1) church1))
+            (app (app sub e2) church1))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app m1 (-> mf <-)) ((□? (mf)) (□? (m2)) (□? (m1))))
+'(clos/con: ((λ (zx) #t) (λ (zx) #t) (λ (zx) #t)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> plus <-) church1) ())
+'(clos/con:
+  ((λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus mult pred sub church0 church1 church2 church3 church0? church=?)
+    (->
+     (app
+      (app church=? (app (app mult church2) (app (app plus church1) church3)))
+      (app
+       (app plus (app (app mult church2) church1))
+       (app (app mult church2) church3)))
+     <-))
+  ())
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app f3 (-> (app f3 x3) <-)) ((□? (x3)) (□? (f3))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (-> (app church0? e1) <-)
+   (#t (app church0? e2))
+   (#f
+    (match
+     (app church0? e2)
+     (#t #t)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app (-> (app p1 pf) <-) (app (app p2 pf) x))
+  ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ((λ (x1) (app f1 x1)) (λ (x1) (app f1 x1)) (λ (x1) (app f1 x1))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app mult church2) (-> church3 <-)) ())
+'(clos/con: ((λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        pred
+        sub
+        (-> church0 = (λ (f0) (λ (x0) x0)) <-)
+        church1
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con: ((λ (f0) (λ (x0) x0))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (rf)
+    (->
+     (λ (rx)
+       (app
+        (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+        (λ (id) id)))
+     <-))
+  ((□? (rf)) (□? (n))))
+'(clos/con:
+  ((λ (rx)
+     (app
+      (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+      (λ (id) id)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (plus
+        mult
+        (->
+         pred
+         =
+         (λ (n)
+           (λ (rf)
+             (λ (rx)
+               (app
+                (app
+                 (app n (λ (g) (λ (h) (app h (app g rf)))))
+                 (λ (ignored) rx))
+                (λ (id) id)))))
+         <-)
+        sub
+        church0
+        church1
+        church2
+        church3
+        church0?
+        church=?)
+    bod)
+  ())
+'(clos/con:
+  ((λ (n)
+     (λ (rf)
+       (λ (rx)
+         (app
+          (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+          (λ (id) id)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app p2 (-> pf <-)) ((□? (x)) (□? (pf)) (□? (p2)) (□? (p1))))
+'(clos/con: ((λ (zx) #t) (λ (zx) #t) (λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app sub (-> e2 <-)) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (app church=? (-> (app (app sub e1) church1) <-))
+  ((□? (e2)) (□? (e1))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (f1) (-> (λ (x1) (app f1 x1)) <-)) ((□? (f1))))
+'(clos/con: ((λ (x1) (app f1 x1))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (f2) (-> (λ (x2) (app f2 (app f2 x2))) <-)) ((□? (f2))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f1 <-) x1) ((□? (x1)) (□? (f1))))
+'(clos/con: ((λ (x2) (app f2 (app f2 x2)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x3) (-> (app f3 (app f3 (app f3 x3))) <-)) ((□? (x3)) (□? (f3))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app sub e1) <-) church1) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (s2) (app (app s2 pred) s1))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> sub <-) e1) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (s1) (λ (s2) (app (app s2 pred) s1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app z (λ (zx) #t)) (-> #t <-)) ((□? (z))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> sub <-) e2) ((□? (e2)) (□? (e1))))
+'(clos/con: ((λ (s1) (λ (s2) (app (app s2 pred) s1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

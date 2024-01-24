@@ -34,10 +34,11 @@
 (define (get-examples ls)
   (map get-example ls))
 
-; (define basic-num-examples (get-examples '(let-num app-num)))
-; (define basic-lambda-examples (get-examples '(id let structural-rec err)))
-; (define multiple-param-examples (get-examples '(multi-param)))
-; (define constructor-examples (get-examples '(constr)))
+(define basic-num-examples (get-examples '(let-num app-num)))
+(define basic-lambda-examples (get-examples '(id let structural-rec err)))
+(define multiple-param-examples (get-examples '(multi-param)))
+(define constructor-examples (get-examples '(constr)))
 (define r6rs (get-examples '(ack blur)))
+(define test-examples (get-examples '(church)))
 
-(pretty-print r6rs)
+(pretty-print test-examples)

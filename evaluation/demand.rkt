@@ -189,7 +189,7 @@ Finish the paper
                      (match (lookup-primitive x)
                        [#f
                         (pretty-print `(constructor? ,x))
-                        (clos Ce ρ)]
+                        (clos x ρ)]
                        [Ce (clos Ce ρ)]
                        )]
 
@@ -222,7 +222,7 @@ Finish the paper
                         [_ (bod-calibrate Ce′ Ce ρ ρ′)]
                         ) (debug-eval 'app-eval eval))
                  ]
-                [(cons C con) (clos con ρ′)]
+                [con (clos con ρ′)]
                 )
               ))
            ;  ))

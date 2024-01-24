@@ -1,8 +1,10 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
+
 (define plus
   (lambda (p1)
     (lambda (p2)
       (lambda (pf)
-	(lambda (x) ((p1 pf) ((p2 pf) x)))))))
+        (lambda (x) ((p1 pf) ((p2 pf) x)))))))
 
 (define mult
   (lambda (m1)
@@ -13,9 +15,9 @@
   (lambda (n)
     (lambda (rf)
       (lambda (rx)
-	(((n (lambda (g) (lambda (h) (h (g rf)))))
-	  (lambda (ignored) rx))
-	 (lambda (id) id))))))
+        (((n (lambda (g) (lambda (h) (h (g rf)))))
+          (lambda (ignored) rx))
+         (lambda (id) id))))))
 
 (define sub
   (lambda (s1)
@@ -32,10 +34,10 @@
   (lambda (e1)
     (lambda (e2)
       (if (church0? e1)
-	  (church0? e2)
-	  (if (church0? e2)
-	      #f
-	      ((church=? ((sub e1) church1)) ((sub e2) church1)))))))
+          (church0? e2)
+          (if (church0? e2)
+              #f
+              ((church=? ((sub e1) church1)) ((sub e2) church1)))))))
 
 ;; multiplication distributes over addition
 ((church=? ((mult church2) ((plus church1) church3)))
