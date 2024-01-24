@@ -65,7 +65,7 @@
      (cons C `(let ,binds ,e₁))]
     [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
      (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
-    [`(top) (error 'out "top")]))
+    [(cons `(top) _) (error 'out "top")]))
 
 (define (out Ce ρ)
   ; (pretty-print `(out ,Ce ,ρ))
@@ -284,43 +284,43 @@
   (match Ce
     [(cons `(bod ,y ,C) e)
      (cons `(□? ,y) (indeterminate-env (cons C e)))]
-    [`(top)
+    [(cons `(top) _)
      (list)]
     [_
      (indeterminate-env (oute Ce))]
     ))
 
-(define (calibrate-envs ρ₀ ρ₁); Adds one level of missing context
-  (let [(res (map calibrate-ccs ρ₀ ρ₁))]
-    (if (and res)
-        res
-        #f)
-    ))
+(define (ors xs)
+  (match xs
+    [(list) #f]
+    [(cons x xs) (or x (ors xs))])
+  )
+(define (alls xs)
+  (match xs
+    [(list) #t]
+    [(cons x xs) (and x (alls xs))])
+  )
 
-(define (calibrate-ccs cc₀ cc₁)
-  (match cc₀
+(define (calibrate-ccs cc0 cc1)
+  (match cc0
     [(list) (list)]
     ['! #f]
-    ['? cc₁]
+    ['? cc1]
     [`(□? ,x) `(□? ,x)]
-    [`(cenv ,Ce₀ ,ρ₀)
-     (let [(res (calibrate-envs (indeterminate-env Ce₀) cc₁))]
-       (if res
-           `(cenv ,Ce₀ ,res)
-           #f))]
+    [`(cenv ,call ,ρ₀)
+     (match (calibrate-envs ρ₀ (indeterminate-env call))
+       [#f #f]
+       [res `(cenv ,call ,res)]
+       )]
     )
   )
 
-(define (calibrate-env ρ)
-  (begin
-    ; (pretty-print "Calibrating env")
-    ; (pretty-print ρ)
-    (match ρ
-      [`(cenv ,Ce ,ρ)
-       (let [(res (calibrate-envs (indeterminate-env Ce) ρ))]
-         (if res (cons Ce res) #f))]
-      [_ #f]
-      )))
+; Adds missing context
+(define (calibrate-envs ρ₀ ρ₁)
+  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
+  (let [(res (map calibrate-ccs ρ₀ ρ₁))]
+    (if (alls res) res #f)
+    ))
 
 (define (simple-env ρ)
   ; (pretty-print `(simple-env ρ))
@@ -364,7 +364,7 @@
      (match cc₁
        ['! #t]; cut unknown is equal
        [(list) #f]; cut is not more refined
-       ['? #f]; cut known is not more refined
+       ['? #t]; cut known is more refined
        [`(□? ,_) #f]; cut is not more refined
        [`(cenv ,Ce ,ρ) #f]; cut is not more refined
        [(cons _ _) #f])]; cut is not more refined

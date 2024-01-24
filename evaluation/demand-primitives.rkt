@@ -1,6 +1,6 @@
 #lang racket/base
 (require racket/match racket/pretty)
-(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt")
+(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "static-contexts.rkt")
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x
@@ -57,16 +57,6 @@
     [(product/set (list #f _)) (clos #t p)]
     [(product/set (list #t _)) (clos #f p)]
     )
-  )
-(define (ors xs)
-  (match xs
-    [(list) #f]
-    [(cons x xs) (or x (ors xs))])
-  )
-(define (alls xs)
-  (match xs
-    [(list) #t]
-    [(cons x xs) (and x (alls xs))])
   )
 
 (define (do-or p . args)

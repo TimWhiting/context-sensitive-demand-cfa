@@ -41,9 +41,9 @@
 (define r6rs (get-examples '(ack blur church cpstak sat-1 kcfa-2)))
 (define test-examples (get-examples '(kcfa-2)))
 
-(define hybrid-failures (get-examples '(church kcfa-2 ack multi-param structural-rec constr id app-num let-num err)))
+(define hybrid-failures (get-examples '(church)))
 (define general-failures (get-examples '(cpstak)))
-(define bad-results (get-examples '(blur sat-1)))
+(define bad-results (get-examples '(blur sat-1))); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)

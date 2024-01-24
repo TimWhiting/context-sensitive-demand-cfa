@@ -7,7 +7,7 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 '(query: (λ (y) (-> y <-)) (?))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (1 ⊥ ⊥ ⊥))
 '(query: (let (x) (-> (app x 1) <-)) ())
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))

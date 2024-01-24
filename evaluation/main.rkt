@@ -65,6 +65,7 @@
                         (pretty-display "Hybrid result: " (current-error-port))
                         (pretty-result-out (current-error-port) (simplify-envs (from-hash evalqh h2)))
                         (displayln "" (current-error-port))
+                        (exit)
                         )
                       )
                   )

@@ -253,9 +253,10 @@ Finish the paper
     [(list) ⊥]))
 
 (define (call C xs e ρ)
-  (pretty-trace `(call ,C ,xs))
+  (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
+  ; (pretty-trace `(call ,C ,xs ,e ,ρ))
   (print-result
-   `(call ,C ,xs ,ρ)
+   `(call ,C ,xs ,e ,ρ)
    (λ () (match-let ([(cons cc₀ ρ₀) ρ])
            (match (demand-kind)
              ['basic
@@ -276,14 +277,14 @@ Finish the paper
                           (pretty-tracen 0 `(CALL-NO-REFINE ,cc₀ ,cc₁))
                           ⊥]))))]
              [_
-              (pretty-trace "HYBRID")
-              (match (calibrate-env ρ)
-                [(cons Ce ρ′)
-                 (pretty-trace "CALL-KNOWN")
-                 (unit Ce ρ′)]
-                [#f
+              (pretty-trace `HYBRID)
+              (match (calibrate-envs ρ (indeterminate-env lambod))
+                [`(cenv ,ce ,ρ′)
+                 (pretty-trace `(CALL-KNOWN))
+                 (unit ce ρ′)]
+                [_
                  (begin
-                   (pretty-trace "CALL UNKNOWN")
+                   (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ (indeterminate-env lambod))))
                    (>>= (expr (cons C `(λ ,xs ,e)) ρ₀); Fallback to normal basic evaluation
                         (λ (Cee ρee)
                           (pretty-trace `(,Cee ,ρee))
@@ -291,6 +292,8 @@ Finish the paper
                             (cond
                               [(equal? cc₀ cc₁)
                                (pretty-trace "CALL-EQ")
+                               (unit Cee ρee)]
+                              [(and (equal? cc₀ '?) (equal? cc₁ '!)); Cuts are equal (0CFA) TODO: is this always the case
                                (unit Cee ρee)]
                               [(⊑-cc cc₁ cc₀)
                                (pretty-trace "CALL-REFINE")
@@ -300,7 +303,7 @@ Finish the paper
                                ]
                               [else
                                (pretty-trace "CALL-NOREF")
-                               (pretty-trace `(cc₀ ,cc₀))
+                               (pretty-trace `(cc₀ ,cc₀ cc₁ ,cc₁))
                                ⊥])))))]
                 )])
            ))

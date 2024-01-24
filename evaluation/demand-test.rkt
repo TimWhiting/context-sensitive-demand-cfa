@@ -1,6 +1,6 @@
 #lang racket/base
 (require "all-examples.rkt")
-(require "demand.rkt" "config.rkt" "debug.rkt")
+(require "demand.rkt" "config.rkt" "debug.rkt" "static-contexts.rkt")
 
 (module+ main
   (require racket/pretty)
@@ -67,9 +67,10 @@
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e example2))))
 
-  ;   (trace 1)
-  (demand-kind 'basic)
+  (trace 1)
+  (current-m 0)
+  (define top-query (list (cons `(top) (get-example-expr 'err)) (list)))
+  (demand-kind 'hybrid)
   (pretty-result
-   (run-print-query (apply eval (list (cons `(top)
-                                            (get-example-expr 'ack)) (list)))))
+   (run-print-query (apply eval (apply ran-e (append (apply bod-e (apply rat-e top-query)) (list 0))))))
   )
