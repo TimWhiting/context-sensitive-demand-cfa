@@ -70,19 +70,23 @@
     [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
     [`(let* ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
     [`(if ,c ,t ,f) `(match ,(translate c) [#t ,(translate t)] [#f ,(translate f)])]
-    [`(cond ,@mchs) (unwrap-translate mchs)]
+    [`(cond ,@mchs) (unwrap-cond mchs)]
+    [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
     [`(define (,id ,@args) ,@exprs) `(define ,id (λ (,@args) ,(apply translate-top-defs exprs)))]
     [`(define ,id ,expr) `(define ,id ,(translate-top-defs expr))]
     [`(,@es) `(app ,@(map translate es))]
     )
   )
 
-(define (unwrap-translate mchs)
+(define (unwrap-match mch)
+  (match mch
+    [`(,c ,@es)
+     `(,c ,(apply translate-top-defs es))]))
+
+(define (unwrap-cond mchs)
   (match mchs
-    [(list `(else ,e)) (translate e)]
-    [(cons `(,c ,e) xs)
+    [(list `(else ,@es)) (apply translate-top-defs es)]
+    [(cons `(,c ,@es) xs)
      `(match ,(translate c)
-        [#t ,(translate e)]
-        [#f ,(unwrap-translate xs)])]
-    )
-  )
+        [#t ,(apply translate-top-defs es)]
+        [#f ,(unwrap-cond xs)])]))

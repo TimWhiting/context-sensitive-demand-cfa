@@ -23,52 +23,52 @@
   )
 
 ; Evaluates a primitive with fully evaluated primitive arguments
-(define (apply-primitive e p args)
+(define (apply-primitive e C p args)
   (match e
     [`(prim ,f)
-     (print-eval-result `(applying primitive: ,e ,p ,args) (λ () (apply f (cons p args))))]
+     (print-eval-result `(applying primitive: ,e ,p ,args) (λ () (apply f (cons p (cons C args)))))]
     [_ #f]
     ))
 
-(define (do-equal p a1 a2)
+(define (do-equal p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
        [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos #t p) (clos #f p))]
-       [_ (clos #f p)]
+       [_ (clos (cons C #f) p)]
        )
      ]
-    [_ (each (clos #t p) (clos #f p))])
+    [_ (each (clos (cons C #t) p) (clos (cons C #f) p))])
   )
-(define (do-lte p a1 a2)
+(define (do-lte p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
        [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos #t p) (clos #f p))]
-       [_ (clos #f p)]
+       [_ (clos (cons C #f) p)]
        )
      ]
-    [_ (clos #f p)])
+    [_ (clos (cons C #f) p)])
   )
 
-(define (do-not p a1)
+(define (do-not p C a1)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1))) (each (clos #f p) (clos #t p))]
-    [(product/set (list #f _)) (clos #t p)]
-    [(product/set (list #t _)) (clos #f p)]
+    [(product/set (list (cons _ #f) _)) (clos (cons C #t) p)]
+    [(product/set (list (cons _ #t) _)) (clos (cons C #f) p)]
     )
   )
 
-(define (do-or p . args)
+(define (do-or p C . args)
   (if (ors (map is-true args))
-      (clos #t p)
-      (clos #f p)
+      (clos (cons C #t) p)
+      (clos (cons C #f) p)
       ))
 
-(define (do-and p . args)
+(define (do-and p C . args)
   (if (alls (map is-true args))
-      (clos #t p)
-      (clos #f p)
+      (clos (cons C #t) p)
+      (clos (cons C #f) p)
       ))
 
 (define (is-true r)
@@ -84,7 +84,7 @@
     )
   )
 
-(define (do-add p a1 a2)
+(define (do-add p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
@@ -95,7 +95,7 @@
     [_ ⊥])
   )
 
-(define (do-sub p a1 a2)
+(define (do-sub p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2

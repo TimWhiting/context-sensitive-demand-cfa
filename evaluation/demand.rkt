@@ -131,8 +131,33 @@ Finish the paper
      (if (ors (map (λ (y) (equal? x y)) defs))
          (unit Ce ρ (index-of defs x))
          (search-out))]
+    [(cons `(match-clause ,m ,scruitinee ,before ,after ,_) e₀)
+     (define match-binding (find-match-bind x m))
+     (if match-binding (unit Ce ρ match-binding) (search-out))]
     ; All other forms do not introduce bindings
     [(cons _ _) (search-out)]
+    ))
+
+(define (find-match-bind-loc x ms loc)
+  (match ms
+    [(cons m ms)
+     (define is-match (find-match-bind x m))
+     (if is-match (list loc is-match) (find-match-bind-loc x ms (+ 1 loc)))
+     ]
+    [_ #f]
+    ))
+
+(define (find-match-bind x m)
+  (match m
+    [(? symbol? y)
+     (if (equal? y x) #t #f)]
+    [`(,con ,@args)
+     (define submatch (find-match-bind-loc x args 0))
+     (match submatch
+       [(list lsub sub)
+        `(,con ,lsub ,sub)]
+       [#f #f])]
+    [lit #f]
     ))
 
 (define (eval* args)
@@ -151,8 +176,8 @@ Finish the paper
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
-          [(cons _ #t) (clos #t ρ)]
-          [(cons _ #f) (clos #f ρ)]
+          [(cons _ #t) (clos Ce ρ)]
+          [(cons _ #f) (clos Ce ρ)]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
@@ -180,19 +205,24 @@ Finish the paper
                     [(cons `(let-bin ,_ ,_ ,_ ,_ ,_) _) ; Recursive bindings
                      (>>= (>>= (out Cex ρ) (λ (Ce ρ) (bin Ce ρ i))) eval)
                      ]
+                    [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _)
+                     (>>= (out Cex ρ)
+                          (λ (Ce ρ)
+                            (>>= (focus-match Ce ρ)
+                                 (eval-match-binding i))))
+                     ]
                     [(? symbol? x)
                      (match (lookup-primitive x)
                        [#f
                         (pretty-tracen 0 `(constructor? ,x))
-                        (clos x ρ)]
+                        (clos Ce ρ)]
                        [Ce (clos Ce ρ)]
                        )]
-
                     )))]
           [(cons _ `(λ ,_ ,_))
            ;  (pretty-trace "LAM")
            (clos Ce ρ)]
-          [(cons _ `(app ,@args))
+          [(cons C `(app ,@args))
            (pretty-trace `(APP ,ρ))
 
            (>>=clos
@@ -210,7 +240,7 @@ Finish the paper
                               (range (- (length args) 1))))
                       (λ (args)
                         (pretty-trace `(applying prim: ,Ce′ ,args))
-                        (apply-primitive Ce′ ρ args)))]
+                        (apply-primitive Ce′ C ρ args)))]
                 [(cons _ `(λ ,_ ,_))
                  (>>= (match (demand-kind)
                         ['basic (bod-enter Ce′ Ce ρ ρ′)]
@@ -229,28 +259,54 @@ Finish the paper
            (>>= (focus-match Ce ρ)
                 (λ (Cm ρm)
                   (pretty-trace `(eval-match ,Cm ,ρm))
-                  (>>=clos (eval Cm ρm)
-                           (λ (Ce′ ρ′)
-                             ;  (pretty-trace `(eval-clause ,Ce′ ,ρ′))
-                             (eval-clause Ce′ ρ′ Ce clauses 0)))))]
+                  ;  (pretty-trace `(eval-clause ,Ce′ ,ρ′))
+                  (eval-clause Cm ρm Ce clauses 0)))]
           [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
           )
         (>>= (get-refines* `(eval ,Ce ,ρ) ρ)
              (λ (ρ′) (eval Ce ρ′)))))))
 
-(define (eval-clause c p Ce clauses i)
+
+(define ((eval-match-binding match-bind) Ce ρ)
+  (match match-bind
+    [`(,con ,locsub ,sub)
+     (>>=clos
+      (eval Ce ρ) ; Evaluate the constructor
+      (λ (Ce ρ)
+        (match Ce
+          [(cons _ con1)
+           (if (equal? con con1)
+               (>>= (expr Ce ρ); Evaluate where the constructor is applied
+                    (λ (Ce ρ) (>>= (ran Ce ρ locsub) (eval-match-binding sub))))
+               ⊥
+               )]
+          ))) ]
+    [#t (eval Ce ρ)]
+    ))
+
+; TODO: This needs fixing to be more similar to eval-match
+(define (eval-clause ce p parent clauses i)
   (match clauses
-    [(cons `(,m ,_) clauses)
-     (if (equal? m c)
-         (begin
-           (pretty-trace `(clause-match: ,m ,c))
-           (>>= (focus-clause Ce p i)
-                (λ (Ce ρ)
-                  (eval Ce ρ))))
-         (begin
-           (pretty-trace `(clause-no-match: ,m ,c))
-           (eval-clause c p Ce clauses (+ i 1))))]
-    [(list) ⊥]))
+    [(cons `(,(? symbol? _) ,_) clauses) (eval ce p)]
+    [(cons `((,(? symbol? con) ,@args) ,@exprs) clauses)
+     (>>=clos
+      (eval ce p) ; Evaluate the constructor
+      (λ (Ce _)
+        (match Ce
+          [(cons _ con1)
+           (if (equal? con con1)
+               (begin ; TODO: Chek if all nested expressions also match
+                 (pretty-trace `(clause-match: ,con ,con1))
+                 (>>= (focus-clause parent p i)
+                      (λ (Ce ρ)
+                        (eval Ce ρ))))
+               (begin
+                 (pretty-trace `(clause-no-match: ,con ,con1))
+                 (eval-clause ce p Ce clauses (+ i 1))))])))]
+    ; [(cons `(,lit e) clauses); TODO: Do matching on literals
+    ;  ⊥
+    ;  ]
+    [(list) ⊥])); TODO: Match error?
 
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
