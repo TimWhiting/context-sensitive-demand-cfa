@@ -162,23 +162,27 @@
 
 (define (focus-clause-e Ce ρ i)
   (match Ce
-    [(cons C `(match ,@ms))
-     (define matches (drop ms 1))
+    [(cons C `(match ,m ,@matches))
      (define prev-ms (take matches i))
      (define after-ms (drop matches i))
      (define mat (car after-ms))
-     (list (cons `(match-clause ,(car mat) ,(car ms) ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
+     (list (cons `(match-clause ,(car mat) ,m ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
     ))
 
 (define (focus-clause Ce ρ i)
   (match Ce
-    [(cons C `(match ,@ms))
-     (define matches (drop ms 1))
+    [(cons C `(match ,m ,@matches))
      (define prev-ms (take matches i))
      (define after-ms (drop matches i))
      (define mat (car after-ms))
-     (unit (cons `(match-clause ,(car mat) ,(car ms) ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
+     (pretty-print after-ms)
+     (unit (cons `(match-clause ,(car mat) ,m ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
     ))
+
+(define (args-e Ce)
+  (match Ce
+    [(cons _ `(app ,_ ,@args))
+     args]))
 
 (define (ran-e Ce ρ i)
   (match Ce
@@ -193,6 +197,7 @@
     [(cons C `(app ,f ,@args))
      (define prev-args (take args i))
      (define after-args (drop args i))
+     (pretty-print after-args)
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (out-arg Ce ρ i)

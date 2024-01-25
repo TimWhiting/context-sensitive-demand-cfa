@@ -181,10 +181,14 @@ Finish the paper
                   (match Cex
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace `(bound ,C ,e ,x ,Cex))
-                     (>>= (>>= (call C x e ρ)
-                               (λ (Ce ρ)
-                                 ;  (pretty-print i)
-                                 (ran Ce ρ i))) (debug-eval `(ref ,i) eval))]
+                     (>>= (call C x e ρ)
+                          (λ (Ce ρ)
+                            (if (equal? (length x) (length (args-e Ce)))
+                                ;  (pretty-print `(,Ce ,ρ ,i))
+                                (>>= (ran Ce ρ i) (debug-eval `(ref ,i) eval))
+                                ⊥)))
+
+                     ]
                     [(cons `(let-bod ,_ ,_) _)
                      ;  (print-eval-result `(ref-let-bod)
                      ;                     (λ ()
@@ -262,7 +266,9 @@ Finish the paper
           [(cons _ con1)
            (if (equal? con con1)
                (>>= (expr Ce ρ); Evaluate where the constructor is applied
-                    (λ (Ce ρ) (>>= (ran Ce ρ locsub) (eval-match-binding sub))))
+                    (λ (Ce ρ)
+                      ; (pretty-print `(ran subpat ,sub ,locsub))
+                      (>>= (ran Ce ρ locsub) (eval-match-binding sub))))
                ⊥
                )]
           ))) ]
@@ -299,6 +305,7 @@ Finish the paper
                                  [(list) (unit #t)]
                                  [(cons _ as)
                                   (match-let ([(cons subpat subpats) subpats])
+                                    (pretty-print `(ran subpat matches ,Ce))
                                     (>>= (ran Ce ρ i)
                                          (λ (Ce ρ)
                                            (>>= (pattern-matches subpat Ce ρ)
@@ -316,8 +323,13 @@ Finish the paper
                (unit #f))])))]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
-     (>>=eval (eval ce p) ; TODO: Make this >>=eval and error out on non literals
-              (λ (Ce p) (error 'lit-pat (pretty-format `(not expecting ,Ce ,p in literal pattern binding))))
+     (>>=eval (eval ce p)
+              (λ (Ce _) (match Ce
+                          [(cons _ con1); Singleton constructor
+                           (if (equal? lit con1)
+                               (unit #t)
+                               (unit #f)
+                               )]))
               (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
      ]
     )
@@ -332,6 +344,7 @@ Finish the paper
                 (>>= (focus-clause parent p i) eval)
                 (eval-clause ce p parent clauses (+ i 1))
                 )))]
+    [_ ⊥]
     )); TODO: Match error?
 
 (define (call C xs e ρ)
