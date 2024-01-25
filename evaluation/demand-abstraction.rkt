@@ -29,6 +29,15 @@
 (define (litchar c) (literal (list (bottom) (bottom) (singleton c) (bottom))))
 (define (litstring s) (literal (list (bottom) (bottom) (bottom) (singleton s))))
 
+(define (to-lit lit)
+  (match lit
+    [(? integer? i) (litint i)]
+    [(? number? n) (litfloat n)]
+    [(? string? s) (litstring s)]
+    [(? char? c) (litchar c)]
+    )
+  )
+
 ; union of flat lattice
 (define (flat-union s1 s2)
   (match (cons s1 s2)

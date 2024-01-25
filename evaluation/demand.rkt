@@ -275,29 +275,63 @@ Finish the paper
     [#t (eval Ce ρ)]
     ))
 
-; TODO: This needs fixing to be more similar to eval-match
-(define (eval-clause ce p parent clauses i)
-  (match clauses
-    [(cons `(,(? symbol? _) ,_) clauses) (eval ce p)]
-    [(cons `((,(? symbol? con) ,@args) ,@exprs) clauses)
+
+(define-key (pattern-matches pattern ce p)
+  (match pattern
+    [`(,(? symbol? con) ,@subpats)
      (>>=clos
       (eval ce p) ; Evaluate the constructor
-      (λ (Ce _)
+      (λ (Ce pe)
         (match Ce
           [(cons _ con1)
            (if (equal? con con1)
-               (begin ; TODO: Chek if all nested expressions also match, to increase precision
-                 (pretty-trace `(clause-match: ,con ,con1))
-                 (>>= (focus-clause parent p i)
-                      (λ (Ce ρ)
-                        (eval Ce ρ))))
-               (begin
-                 (pretty-trace `(clause-no-match: ,con ,con1))
-                 (eval-clause ce p Ce clauses (+ i 1))))])))]
-    ; [(cons `(,lit e) clauses); TODO: Do matching on literals
-    ;  ⊥
-    ;  ]
-    [(list) ⊥])); TODO: Match error?
+               ; Find where the constructor is applied
+               (>>= (expr Ce pe)
+                    (λ (Ce ρ)
+                      (match Ce
+                        [(cons _ `(app ,_ ,@as))
+                         (pretty-print `(subpat ,subpats ,as))
+                         (if (equal? (length as) (length subpats))
+                             (let loop ([as as]
+                                        [i 0]
+                                        [subpats subpats])
+                               (match as
+                                 [(list) (unit #t)]
+                                 [(cons _ as)
+                                  (match-let ([(cons subpat subpats) subpats])
+                                    (>>= (ran Ce ρ i)
+                                         (λ (Ce ρ)
+                                           (>>= (pattern-matches subpat Ce ρ)
+                                                (λ (matches)
+                                                  (pretty-print `(subpat match ,subpat ,Ce ,matches))
+                                                  (if matches (loop as (+ 1 i) subpats) (unit #f))
+                                                  )))))
+                                  ]
+                                 )
+                               )
+                             (unit #f)
+                             )]
+                        )))
+                ; Wrong constructor
+               (unit #f))])))]
+    [(? symbol? _) (unit #t)] ; Variable binding
+    [lit1
+     (>>=lit (eval ce p) ; TODO: Make this >>=eval and error out on non literals
+             (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
+     ]
+    )
+  )
+
+(define (eval-clause ce p parent clauses i)
+  (match clauses
+    [(cons clause clauses)
+     (>>= (pattern-matches (car clause) ce p)
+          (λ (lit2)
+            (if lit2
+                (>>= (focus-clause parent p i) eval)
+                (eval-clause ce p parent clauses (+ i 1))
+                )))]
+    )); TODO: Match error?
 
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))

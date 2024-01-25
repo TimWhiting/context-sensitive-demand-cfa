@@ -196,6 +196,13 @@
      (define after-args (drop args i))
      (unit (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
+(define (out-arg Ce ρ i)
+  (>>= (out Ce ρ)
+       (λ (Ce ρ)
+         (ran Ce ρ i))
+       )
+  )
+
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce
