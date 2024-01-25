@@ -1,0 +1,233 @@
+'(expression:
+  (let ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+    (app lp #f 2)))
+'(query: (top) ())
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let (id
+        blur
+        (->
+         lp
+         =
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))
+         <-))
+    bod)
+  ())
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (λ (a n)
+    (->
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1))))))
+     <-))
+  (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app <= n 1)
+   (#t (app id a))
+   (->
+    #f
+    (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))
+    <-))
+  (()))
+'(clos/con: (#f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let (r (-> s = (app (app blur id) #f) <-)) bod) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur id) (-> #f <-)) (()))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur id) <-) #f) (()))
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))
+   (λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> id <-)) (()))
+'(clos/con: ((λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) id) (()))
+'(clos/con: ((λ (y) y)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let ((-> r = (app (app blur id) #t) <-) s) bod) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur id) (-> #t <-)) (()))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur id) <-) #t) (()))
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))
+   (λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> id <-)) (()))
+'(clos/con: ((λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) id) (()))
+'(clos/con: ((λ (y) y)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-)) (()))
+'(clos/con: (#f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app not (-> (app (app blur lp) s (app - n 1)) <-)) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur lp) s (-> (app - n 1) <-)) (()))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app - n (-> 1 <-)) (()))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app - (-> n <-) 1) (()))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app (-> - <-) n 1) (()))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur lp) (-> s <-) (app - n 1)) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur lp) <-) s (app - n 1)) (()))
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))
+   (λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> lp <-)) (()))
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) lp) (()))
+'(clos/con: ((λ (y) y)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> not <-) (app (app blur lp) s (app - n 1))) (()))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (app <= n 1)
+   (-> #t (app id a) <-)
+   (#f
+    (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+  (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app id (-> a <-)) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> id <-) a) (()))
+'(clos/con: ((λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (match
+   (-> (app <= n 1) <-)
+   (#t (app id a))
+   (#f
+    (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+  (()))
+'(clos/con: (#t #f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app <= n (-> 1 <-)) (()))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app <= (-> n <-) 1) (()))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app (-> <= <-) n 1) (()))
+'(clos/con: (#<procedure:do-lte>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let (id (-> blur = (λ (y) y) <-) lp) bod) ())
+'(clos/con: ((λ (y) y)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (y) (-> y <-)) (()))
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))
+   (λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let ((-> id = (λ (x) x) <-) blur lp) bod) ())
+'(clos/con: ((λ (x) x)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x) (-> x <-)) (()))
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (let (id blur lp) (-> (app lp #f 2) <-)) ())
+'(clos/con: (#f #t #f #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app lp #f (-> 2 <-)) ())
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+'(query: (app lp (-> #f <-) 2) ())
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp <-) #f 2) ())
+'(clos/con:
+  ((λ (a n)
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

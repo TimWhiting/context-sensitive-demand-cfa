@@ -175,7 +175,7 @@
      (define prev-ms (take matches i))
      (define after-ms (drop matches i))
      (define mat (car after-ms))
-     (pretty-print after-ms)
+     ;  (pretty-print after-ms)
      (unit (cons `(match-clause ,(car mat) ,m ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
     ))
 
@@ -197,7 +197,7 @@
     [(cons C `(app ,f ,@args))
      (define prev-args (take args i))
      (define after-args (drop args i))
-     (pretty-print after-args)
+     ;  (pretty-print after-args)
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (out-arg Ce ρ i)
@@ -240,16 +240,12 @@
 ; Can the environment be refined further?
 (define cc-determined?
   (match-lambda
-    [(list)
-     #t]
+    [(list) #t]
     ['! #t] ; Cut known
     ['? #t] ; Cut unknown (can be reinstantiated to an indeterminate context)
-    [`(□? ,_)
-     #f]
-    [`(cenv ,Ce ,ρ)
-     (and (map cc-determined? ρ))]
-    [(cons Ce cc)
-     (cc-determined? cc)]))
+    [`(□? ,_) #f]
+    [`(cenv ,Ce ,ρ) (alls (map cc-determined? ρ))]
+    [(cons Ce cc) (cc-determined? cc)]))
 
 (define (take-cc cc)
   (take-ccm (current-m) cc))
@@ -264,7 +260,7 @@
             ['! '!]
             ['? '?]
             [`(□? ,_) '?]
-            [`(cons _ _) '!]; Cut known
+            [`(cons _ _) (error 'bad-env "Invalid environment for hybrid")]; Cut known
             )) ; Cut unknown -- TODO: Can we leave the variable since it terminates anyways?
       (match cc
         [(list)
@@ -403,7 +399,7 @@
        [`(□? ,_) #t]; call-env is more refined
        [`(cenv ,Ce₁ ,ρ₁)
         (and (equal? Ce₀ Ce₁)
-             (and (map ⊑-cc ρ₀ ρ₁)))]
+             (alls (map ⊑-cc ρ₀ ρ₁)))]
        )]
     [(cons Ce₀ cc₀)
      (match cc₁

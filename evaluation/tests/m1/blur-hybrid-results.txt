@@ -1,0 +1,15 @@
+'(expression:
+  (let ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+    (app lp #f 2)))
+'(query: (top) ())
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))

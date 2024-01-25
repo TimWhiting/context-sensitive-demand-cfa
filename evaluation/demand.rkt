@@ -296,7 +296,7 @@ Finish the paper
                     (λ (Ce ρ)
                       (match Ce
                         [(cons _ `(app ,_ ,@as))
-                         (pretty-print `(subpat ,subpats ,as))
+                         ;  (pretty-print `(subpat ,subpats ,as))
                          (if (equal? (length as) (length subpats))
                              (let loop ([as as]
                                         [i 0]
@@ -305,12 +305,12 @@ Finish the paper
                                  [(list) (unit #t)]
                                  [(cons _ as)
                                   (match-let ([(cons subpat subpats) subpats])
-                                    (pretty-print `(ran subpat matches ,Ce))
+                                    ; (pretty-print `(ran subpat matches ,Ce))
                                     (>>= (ran Ce ρ i)
                                          (λ (Ce ρ)
                                            (>>= (pattern-matches subpat Ce ρ)
                                                 (λ (matches)
-                                                  (pretty-print `(subpat match ,subpat ,Ce ,matches))
+                                                  ; (pretty-print `(subpat match ,subpat ,Ce ,matches))
                                                   (if matches (loop as (+ 1 i) subpats) (unit #f))
                                                   )))))
                                   ]
@@ -324,12 +324,14 @@ Finish the paper
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
      (>>=eval (eval ce p)
-              (λ (Ce _) (match Ce
-                          [(cons _ con1); Singleton constructor
-                           (if (equal? lit con1)
-                               (unit #t)
-                               (unit #f)
-                               )]))
+              (λ (Ce _)
+                (match Ce
+                  [(cons _ con1); Singleton constructor
+                   ;  (pretty-print `(match-singleton constructor ,Ce ,con1 ,lit1 ,(equal? lit1 con1)))
+                   (if (equal? lit1 con1)
+                       (unit #t)
+                       (unit #f)
+                       )]))
               (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
      ]
     )
@@ -340,6 +342,7 @@ Finish the paper
     [(cons clause clauses)
      (>>= (pattern-matches (car clause) ce p)
           (λ (lit2)
+            ; (pretty-print `(lit-2-res ,lit2))
             (if lit2
                 (>>= (focus-clause parent p i) eval)
                 (eval-clause ce p parent clauses (+ i 1))

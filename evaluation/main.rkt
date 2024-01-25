@@ -11,7 +11,8 @@
     (current-m m)
     (let ([basic-cost 0]
           [hybrid-cost 0])
-      (for ([example test-examples])
+      (for ([example successful-examples])
+        ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
