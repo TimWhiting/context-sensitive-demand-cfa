@@ -69,8 +69,14 @@
 
   (trace 1)
   (current-m 0)
-  (define top-query (list (cons `(top) (get-example-expr 'err)) (list)))
-  (demand-kind 'hybrid)
+  (demand-kind 'basic)
+  (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (list)))
+  (define query (go-bod (go-bin 1 top-query)))
+  (pretty-print query)
   (pretty-result
-   (run-print-query (apply eval (apply ran-e (append (apply bod-e (apply rat-e top-query)) (list 0))))))
+   (run-print-query (apply eval query)))
   )
+
+(define (go-bod q) (apply bod-e q))
+(define (go-ran i q) (apply ran-e (append q (list i))))
+(define (go-bin i q) (apply bin-e (append q (list i))))

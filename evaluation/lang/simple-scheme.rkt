@@ -31,9 +31,11 @@
     ))
 
 (define (translate-top-defs . ss)
+  ; (pretty-print `(translate-top-defs ,ss))
   (define tops (map translate-top ss))
   (define exprs (filter is-def tops))
   (define binds (map to-let-bind (filter (λ (x) (not (is-def x))) tops)))
+  ; (pretty-print `(translate-top-defs ,tops))
   (match binds
     [(cons _ _) `(let ,binds ,@exprs)]
     [(list)
@@ -59,8 +61,9 @@
   )
 
 (define (translate s)
+  ; (pretty-print `(translate ,s))
   (match s
-    [#f #t]
+    [#f #f]
     [#t #t]
     [(? number? x) x]
     [(? symbol? x) x]
@@ -74,7 +77,9 @@
     [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
     [`(define (,id ,@args) ,@exprs) `(define ,id (λ (,@args) ,(apply translate-top-defs exprs)))]
     [`(define ,id ,expr) `(define ,id ,(translate-top-defs expr))]
-    [`(,@es) `(app ,@(map translate es))]
+    [`(,@es)
+     ;  (pretty-print `(translate-app))
+     `(app ,@(map translate es))]
     )
   )
 

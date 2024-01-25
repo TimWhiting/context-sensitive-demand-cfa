@@ -11,8 +11,6 @@ Ask Kimball about errors and cut refinement equality for 0CFA
 
 Work on paper based on pattern matching / constructors
 
-Finish the last bits of pattern matching
-
 Add more simple tests
 
 Handle Errors
@@ -219,7 +217,6 @@ Finish the paper
            (clos Ce ρ)]
           [(cons C `(app ,@args))
            (pretty-trace `(APP ,ρ))
-
            (>>=clos
             (>>= (rat Ce ρ) eval)
             (λ (Ce′ ρ′)
@@ -278,7 +275,7 @@ Finish the paper
 
 (define-key (pattern-matches pattern ce p)
   (match pattern
-    [`(,(? symbol? con) ,@subpats)
+    [`(,con ,@subpats)
      (>>=clos
       (eval ce p) ; Evaluate the constructor
       (λ (Ce pe)
@@ -312,12 +309,13 @@ Finish the paper
                              (unit #f)
                              )]
                         )))
-                ; Wrong constructor
+               ; Wrong constructor
                (unit #f))])))]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
-     (>>=lit (eval ce p) ; TODO: Make this >>=eval and error out on non literals
-             (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
+     (>>=eval (eval ce p) ; TODO: Make this >>=eval and error out on non literals
+              (λ (Ce p) (error 'lit-pat (pretty-format `(not expecting ,Ce ,p in literal pattern binding))))
+              (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
      ]
     )
   )
@@ -415,20 +413,23 @@ Finish the paper
                  (>>= (call C xs e ρ) expr)]
                 [(cons `(let-bod ,_ ,_) _)
                  (>>= (out Ce ρ) expr)]
-                [(cons `(let-bin ,x ,_ ,_ ,_ ,_) _)
+                [(cons `(let-bin ,x ,_ ,before ,after ,_) _)
                  (>>= (out Ce ρ)
                       (λ (Cex ρe)
-                        ; (pretty-print `(let-bin find ,x))
-                        (each (>>= (bod Cex ρe)
-                                   (λ (Cee ρee)
-                                     (>>= (find x Cee ρee)
-                                          (λ (Cee ρee)
-                                            ; (pretty-print `(find: found: ,Cee))
-                                            (expr Cee ρee)))))
-                              (>>= (find x Ce ρ) (λ (Cee ρee); Recursive bindings
-                                                   ;  (pretty-print `(find: found2: ,Cee))
-                                                   (expr Cee ρee)))
-                              )))]
+                        (pretty-print `(let-bin find ,x ,Cex))
+                        (apply each (cons (>>= (bod Cex ρe)
+                                               (λ (Cee ρee)
+                                                 (>>= (find x Cee ρee)
+                                                      (λ (Cee ρee)
+                                                        ; (pretty-print `(find: found: ,Cee))
+                                                        (expr Cee ρee)))))
+                                          (map (λ (i) ; Recursive bindings
+                                                 (>>= (bin Cex ρe i)
+                                                      (λ (Cee ρee)
+                                                        (>>= (find x Cee ρee) expr))))
+                                               (range (+ 1 (length before) (length after))))
+                                          )
+                               )))]
                 [(cons `(top) _)
                  ⊥])
               (>>= (get-refines* `(expr ,Ce ,ρ) ρ) (λ (ρ′) (expr Ce ρ′))))))))

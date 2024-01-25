@@ -6,7 +6,7 @@
 
 (module+ main
   (require racket/pretty)
-  (for ([m (in-range 3)])
+  (for ([m (in-range 2)])
     (show-envs-simple #t)
     (current-m m)
     (let ([basic-cost 0]

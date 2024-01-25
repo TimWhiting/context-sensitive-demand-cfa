@@ -1,0 +1,9 @@
+'(expression:
+  (let ((phi (λ (x1 x2) (app or x1 (app not x2))))
+        (try (λ (f) (app or (app f #t) (app f #f))))
+        (sat-solve-2
+         (λ (p) (app try (λ (n1) (app try (λ (n2) (app p n1 n2))))))))
+    (app sat-solve-2 phi)))
+'(query: (top) ())
+'(clos/con: (#f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))

@@ -7,6 +7,7 @@
 
 (define (show-simple-ctx Ce)
   (match Ce
+    [`(prim ,p) `(prim ,p)]
     [(cons `(rat ,es ,_) e₀)
      `(app (->,e₀ <-) ,@es)]
     [(cons `(match-e ,es ,_) e₀)
@@ -52,11 +53,11 @@
 (define (oute Ce)
   (match Ce
     [(cons `(rat ,es ,C) e₀)
-     (cons C `(app ,@(cons e₀ es)))]
+     (cons C `(app ,e₀ ,@es))]
     [(cons `(match-e ,es ,C) e₀)
      (cons C `(match ,e₀ ,@es))]
     [(cons `(ran ,f ,b ,a ,C) e)
-     (cons C `(app ,@(cons f (append b (list e) a))))]
+     (cons C `(app ,f ,@b ,e ,@a))]
     [(cons `(match-clause ,m ,f ,b ,a ,C) e)
      (cons C `(match ,@(cons f (append b (list `(,m ,e)) a))))]
     [(cons `(bod ,y ,C) e)
@@ -71,11 +72,11 @@
   ; (pretty-print `(out ,Ce ,ρ))
   (match Ce
     [(cons `(rat ,es ,C) e₀)
-     (unit (cons C `(app ,@(cons e₀ es))) ρ)]
+     (unit (cons C `(app ,e₀ ,@es)) ρ)]
     [(cons `(match-e ,es ,C) e₀)
      (unit (cons C `(match ,e₀ ,@es)) ρ)]
     [(cons `(ran ,f ,b ,a ,C) e)
-     (unit (cons C `(app ,@(cons f (append b (list e) a)))) ρ)]
+     (unit (cons C `(app ,f ,@b ,e ,@a)) ρ)]
     [(cons `(match-clause ,m ,f ,b ,a ,C) e)
      (unit (cons C `(match ,@(cons f (append b (list `(,m ,e)) a)))) ρ)]
     [(cons `(bod ,y ,C) e)
@@ -139,13 +140,13 @@
 
 (define (rat-e Ce ρ)
   (match Ce
-    [(cons C `(app ,@es))
-     (list (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
+    [(cons C `(app ,f ,@es))
+     (list (cons `(rat ,es ,C) f) ρ)]))
 
 (define (rat Ce ρ)
   (match Ce
-    [(cons C `(app ,@es))
-     (unit (cons `(rat ,(cdr es) ,C) (car es)) ρ)]))
+    [(cons C `(app ,f ,@es))
+     (unit (cons `(rat ,es ,C) f) ρ)]))
 
 (define (focus-match-e Ce ρ)
   (match Ce
@@ -181,20 +182,18 @@
 
 (define (ran-e Ce ρ i)
   (match Ce
-    [(cons C `(app ,@es))
-     (define args (drop es 1))
+    [(cons C `(app ,f ,@args))
      (define prev-args (take args i))
      (define after-args (drop args i))
-     (list (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
+     (list (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (ran Ce ρ i)
   ; (pretty-print `(ran ,i))
   (match Ce
-    [(cons C `(app ,@es))
-     (define args (drop es 1))
+    [(cons C `(app ,f ,@args))
      (define prev-args (take args i))
      (define after-args (drop args i))
-     (unit (cons `(ran ,(car es) ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
+     (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (out-arg Ce ρ i)
   (>>= (out Ce ρ)

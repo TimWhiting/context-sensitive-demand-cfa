@@ -34,7 +34,7 @@
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos #t p) (clos #f p))]
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos (cons C #t) p) (clos (cons C #f) p))]
        [_ (clos (cons C #f) p)]
        )
      ]
@@ -44,7 +44,7 @@
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos #t p) (clos #f p))]
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos (cons C #t) p) (clos (cons C #f) p))]
        [_ (clos (cons C #f) p)]
        )
      ]
@@ -60,6 +60,7 @@
   )
 
 (define (do-or p C . args)
+  (pretty-print (ors (map is-true args)))
   (if (ors (map is-true args))
       (clos (cons C #t) p)
       (clos (cons C #f) p)
@@ -73,13 +74,13 @@
 
 (define (is-true r)
   (match r
-    [(product/set (list #t _)) #t]
+    [(product/set (list (cons C #t) env)) #t]
     [_ #f]
     )
   )
 (define (is-false r)
   (match r
-    [(product/set (list #f _)) #t]
+    [(product/set (list (cons C #f) env)) #t]
     [_ #f]
     )
   )

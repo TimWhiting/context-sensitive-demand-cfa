@@ -39,7 +39,7 @@
 (define multiple-param-examples (get-examples '(multi-param)))
 (define constructor-examples (get-examples '(constr)))
 (define r6rs (get-examples '(ack blur church cpstak sat-1 kcfa-2)))
-(define test-examples (get-examples '(constr)))
+(define test-examples (get-examples '(sat-small)))
 
 (define hybrid-failures (get-examples '()))
 (define general-failures (get-examples '(cpstak)))
