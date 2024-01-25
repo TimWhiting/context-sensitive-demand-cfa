@@ -5,23 +5,24 @@
 (require racket/match
          racket/list)
 
-
 #|
 TODO:
-Implement pattern matchings / constructors
+Ask Kimball about errors and cut refinement equality for 0CFA
+
+Work on paper based on pattern matching / constructors
+
+Finish the last bits of pattern matching
+
+Add more simple tests
+
+Handle Errors
+
+Make sure more r6rs programs work
+
+Work on Koka version
 
 Finish the paper
 |#
-
-
-; (define ((>>= m f) k)
-;   ((>>=1 m
-;          (λ x
-;            (begin
-;              ;  (pretty-trace x)
-;              (apply f x))))
-;    k))
-
 
 ; environment refinement
 (define-key (refine p) fail)
@@ -46,8 +47,7 @@ Finish the paper
     [(and ρ (cons cc ρ′))
      ;  (pretty-trace "GET-REFINES")
      ;  (pretty-trace ρ)
-     (⊔ (if (cc-determined? cc)
-            ; won't have any refinements at this scope
+     (⊔ (if (cc-determined? cc) ; won't have any refinements at this scope
             fail
             (refine ρ))
         (>>= (do-get-refines* ρ′) (λ (ρ′) (unit (cons cc ρ′)))))]))
@@ -100,10 +100,6 @@ Finish the paper
                                   [_(find x Ce ρ)])
                                 )))
                        (range (length binds)))))
-     ;  (each (find x (cons `(let-bin ,y ,e₁ ,C) e₀) ρ)
-     ;        (if (equal? x y)
-     ;            ⊥
-     ;            (find x (cons `(let-bod ,y ,e₀ ,C) e₁) ρ)))
      ]
     [(cons _ e) (error 'find (pretty-format `(no match for find ,e)))]
     ))
@@ -187,7 +183,6 @@ Finish the paper
                   (match Cex
                     [(cons `(bod ,x ,C) e)
                      ;  (pretty-trace `(bound ,C ,e ,x ,Cex))
-                     ;  (pretty-trace `(bod ,x ,C, e))
                      (>>= (>>= (call C x e ρ)
                                (λ (Ce ρ)
                                  ;  (pretty-print i)
@@ -229,9 +224,7 @@ Finish the paper
             (>>= (rat Ce ρ) eval)
             (λ (Ce′ ρ′)
               ; (pretty-trace `(got closure or primitive ,Ce′))
-              ;  (print-result
-              ;   `('bodof ,Ce ,ρ ,Ce′ ,ρ′)
-              ; (λ ()
+
               (match Ce′
                 [`(prim ,_)
                  (pretty-trace `(eval args prim: ,args))
@@ -250,10 +243,8 @@ Finish the paper
                 [con (clos con ρ′)]
                 )
               ))
-           ;  ))
            ]
           [(cons _ `(let ,_ ,_))
-           ;  (pretty-trace "LET")
            (>>= (bod Ce ρ) eval)]
           [(cons _ `(match ,_ ,@clauses))
            (>>= (focus-match Ce ρ)
@@ -295,7 +286,7 @@ Finish the paper
         (match Ce
           [(cons _ con1)
            (if (equal? con con1)
-               (begin ; TODO: Chek if all nested expressions also match
+               (begin ; TODO: Chek if all nested expressions also match, to increase precision
                  (pretty-trace `(clause-match: ,con ,con1))
                  (>>= (focus-clause parent p i)
                       (λ (Ce ρ)
