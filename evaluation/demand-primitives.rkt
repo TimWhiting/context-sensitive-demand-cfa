@@ -60,7 +60,7 @@
   )
 
 (define (do-or p C . args)
-  (pretty-print (ors (map is-true args)))
+  ; (pretty-print (ors (map is-true args)))
   (if (ors (map is-true args))
       (clos (cons C #t) p)
       (clos (cons C #f) p)

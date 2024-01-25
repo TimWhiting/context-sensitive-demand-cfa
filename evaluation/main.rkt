@@ -55,7 +55,7 @@
                   (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
                       '() ; (pretty-print "Results match")
                       (begin
-                        (pretty-print "ERROR: Hybrid and Basic results differ" (current-error-port))
+                        (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
                         (displayln "" (current-error-port))
                         (pretty-print `(query: ,(show-simple-ctx cb) ,pb) (current-error-port))
                         (pretty-display "Basic result: " (current-error-port))

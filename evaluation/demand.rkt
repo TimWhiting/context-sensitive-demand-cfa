@@ -232,10 +232,7 @@ Finish the paper
                         (pretty-trace `(applying prim: ,Ce′ ,args))
                         (apply-primitive Ce′ C ρ args)))]
                 [(cons _ `(λ ,_ ,_))
-                 (>>= (match (demand-kind)
-                        ['basic (bod-enter Ce′ Ce ρ ρ′)]
-                        [_ (bod-calibrate Ce′ Ce ρ ρ′)]
-                        ) (debug-eval 'app-eval eval))
+                 (>>= (enter-bod Ce′ Ce ρ ρ′) (debug-eval 'app-eval eval))
                  ]
                 [con (clos con ρ′)]
                 )
@@ -270,6 +267,12 @@ Finish the paper
                )]
           ))) ]
     [#t (eval Ce ρ)]
+    ))
+
+(define (enter-bod Ce′ Ce ρ ρ′)
+  (match (demand-kind)
+    ['basic (bod-enter Ce′ Ce ρ ρ′)]
+    [_ (bod-calibrate Ce′ Ce ρ ρ′)]
     ))
 
 
@@ -404,11 +407,10 @@ Finish the paper
                          (>>= (rat Cee ρee) eval)
                          (λ (Cλx.e ρλx.e)
                            (match-let ([(cons C `(λ ,xs ,e)) Cλx.e])
-                             (>>= (find (car (drop xs (length before)))
-                                        (cons `(bod ,xs ,C) e)
-                                        (cons (enter-cc Cee ρee)
-                                              ρλx.e))
-                                  expr))))))]
+                             (>>= (enter-bod Cλx.e Cee ρee ρλx.e)
+                                  (λ (Ce p)
+                                    (>>= (find (car (drop xs (length before))) Ce p)
+                                         expr))))))))]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
                 [(cons `(let-bod ,_ ,_) _)
@@ -416,19 +418,20 @@ Finish the paper
                 [(cons `(let-bin ,x ,_ ,before ,after ,_) _)
                  (>>= (out Ce ρ)
                       (λ (Cex ρe)
-                        (pretty-print `(let-bin find ,x ,Cex))
-                        (apply each (cons (>>= (bod Cex ρe)
-                                               (λ (Cee ρee)
-                                                 (>>= (find x Cee ρee)
-                                                      (λ (Cee ρee)
-                                                        ; (pretty-print `(find: found: ,Cee))
-                                                        (expr Cee ρee)))))
-                                          (map (λ (i) ; Recursive bindings
-                                                 (>>= (bin Cex ρe i)
-                                                      (λ (Cee ρee)
-                                                        (>>= (find x Cee ρee) expr))))
-                                               (range (+ 1 (length before) (length after))))
-                                          )
+                        ; (pretty-print `(let-bin find ,x ,Cex))
+                        (apply each
+                               (cons(>>= (bod Cex ρe)
+                                         (λ (Cee ρee)
+                                           (>>= (find x Cee ρee)
+                                                (λ (Cee ρee)
+                                                  ; (pretty-print `(find: found: ,Cee))
+                                                  (expr Cee ρee)))))
+                                    (map (λ (i) ; Recursive bindings
+                                           (>>= (bin Cex ρe i)
+                                                (λ (Cee ρee)
+                                                  (>>= (find x Cee ρee) expr))))
+                                         (range (+ 1 (length before) (length after))))
+                                    )
                                )))]
                 [(cons `(top) _)
                  ⊥])
