@@ -71,24 +71,31 @@
         (let ([n (⊔ n₀ n)])
           (foldl (λ (k s) ((k n) s)) (hash-set s nm (lattice-node ks n ⊑ ⊔)) ks)))))
 
-(define ((node-absorb/product nm i) s)
+(define (((node-absorb/product ⊥ ⊑ ⊔) nm i) s)
   #;(displayln "Node absorb product")
   #;(displayln nm)
   #;(displayln i)
   #;(pretty-print s)
-  (match-let ([(product-node ks xss n₀ ⊥ ⊑ ⊔) (hash-ref s nm)])
-    (match i
-      [(product/lattice n)
-       (if (⊑ n n₀)
-           s
-           (let* ([n-new (⊔ n₀ n)]
-                  [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
-             (foldl (λ (k s) ((k (product/lattice n-new)) s)) (hash-set s nm new-node) ks)))]
-      [(product/set xs) (if (set-member? xss xs)
-                            s
-                            (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
-                              (foldl (λ (k s) ((k (product/set xs)) s)) (hash-set s nm new-node) ks)))]
-      )))
+  (match (hash-ref s nm #f)
+    [(product-node ks xss n₀ ⊥ ⊑ ⊔)
+     (match i
+       [(product/lattice n)
+        (if (⊑ n n₀)
+            s
+            (let* ([n-new (⊔ n₀ n)]
+                   [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
+              (foldl (λ (k s) ((k (product/lattice n-new)) s)) (hash-set s nm new-node) ks)))]
+       [(product/set xs) (if (set-member? xss xs)
+                             s
+                             (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
+                               (foldl (λ (k s) ((k (product/set xs)) s)) (hash-set s nm new-node) ks)))]
+       )]
+    [#f
+     (match i
+       [(product/lattice n) (hash-set s nm (product-node (list) (list) n ⊥ ⊑ ⊔)) ]
+       [(product/set xs) (hash-set s nm (product-node (list) xs ⊥ ⊥ ⊑ ⊔))]
+       )]
+    ))
 
 (provide node-absorb/powerset
          node-absorb/lattice
@@ -96,7 +103,7 @@
 
 (define ((id-κ/powerset nm) . xs) (node-absorb/powerset nm xs))
 (define ((id-κ/lattice nm) n) (node-absorb/lattice nm n))
-(define ((id-κ/product nm) n) (node-absorb/product nm n))
+(define (((id-κ/product ⊥ ⊑ ⊔) nm) n) ((node-absorb/product ⊥ ⊑ ⊔) nm n))
 
 (provide id-κ/powerset
          id-κ/lattice
@@ -118,7 +125,7 @@
       ((node-depend/product nm k) s)
       (begin
         (let ([initial-hash (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔))])
-          (((f nm) (id-κ/product nm)) initial-hash)))))
+          (((f nm) ((id-κ/product ⊥ ⊑ ⊔) nm)) initial-hash)))))
 
 (define-syntax define-key
   (syntax-rules ()

@@ -1,5 +1,6 @@
 #lang racket/base
 (require "demand.rkt" "all-examples.rkt" "static-contexts.rkt" "config.rkt" "debug.rkt" racket/match)
+(require "m-cfa.rkt")
 
 (define (hash-num-keys h) (foldl (lambda (_ acc) (add1 acc)) 0 (hash-keys h)))
 (define (zip l1 l2) (map list l1 l2))
@@ -10,21 +11,27 @@
     (show-envs-simple #t)
     (current-m m)
     (let ([basic-cost 0]
-          [hybrid-cost 0])
+          [hybrid-cost 0]
+          [mcfa-cost 0])
       (for ([example successful-examples])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
+          (define out-mcfa (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-expm-results.txt") #:exists 'replace))
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
           (pretty-display "Analyzing expression: ")
           (pretty-print exp)
           (pretty-print `(expression: ,exp) out-basic)
           (pretty-print `(expression: ,exp) out-hybrid)
+          (pretty-print `(expression: ,exp) out-mcfa)
           (pretty-displayn 0 "")
           ; (show-envs #t)
           ; (trace 1)
+          (mcfa-kind 'exponential)
+          (run-get-hash (meval (cons `(top) exp) (menv '())) (hash))
+
           (demand-kind 'basic)
           (let ([qbs (gen-queries (cons `(top) exp) (list))])
             (demand-kind 'hybrid)
@@ -80,6 +87,7 @@
             )
           (close-output-port out-basic)
           (close-output-port out-hybrid)
+          (close-output-port out-mcfa)
           )
         )
       (pretty-print `(current-m: ,(current-m)))

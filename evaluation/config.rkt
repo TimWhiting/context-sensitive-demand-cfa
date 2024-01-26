@@ -8,6 +8,9 @@
 ; 'basic or 'hybrid
 (define demand-kind (make-parameter '_))
 
+; 'exponential or 'rebinding
+(define mcfa-kind (make-parameter 'exponential))
+
 ; Show simple environments that match between hybrid and basic
 (define show-envs-simple (make-parameter #f))
 

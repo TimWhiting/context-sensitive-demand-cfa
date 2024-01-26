@@ -1,6 +1,7 @@
 #lang racket/base
 (require "all-examples.rkt")
 (require "demand.rkt" "config.rkt" "debug.rkt" "static-contexts.rkt")
+(require "m-cfa.rkt")
 
 (module+ main
   (require racket/pretty)
@@ -72,9 +73,12 @@
   (demand-kind 'basic)
   (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (list)))
   (define query (go-bod (go-bin 1 top-query)))
-  (pretty-print query)
-  (pretty-result
-   (run-print-query (apply eval query)))
+  ; (pretty-print query)
+  ; (pretty-result
+  ;  (run-print-query (apply eval query)))
+
+  (define top-query-mcfa (list (cons `(top) (get-example-expr 'id)) (menv (list))))
+  (run-get-hash (apply meval top-query-mcfa))
   )
 
 (define (go-bod q) (apply bod-e q))

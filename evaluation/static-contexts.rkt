@@ -5,6 +5,8 @@
 (provide (all-defined-out))
 ; syntax traversal
 
+(struct menv (m) #:transparent)
+
 (define (show-simple-ctx Ce)
   (match Ce
     [`(prim ,p) `(prim ,p)]
