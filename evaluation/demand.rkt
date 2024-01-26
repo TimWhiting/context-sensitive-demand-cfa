@@ -249,7 +249,8 @@ Finish the paper
                 (λ (Cm ρm)
                   (pretty-trace `(eval-match ,Cm ,ρm))
                   ;  (pretty-trace `(eval-clause ,Ce′ ,ρ′))
-                  (eval-clause Cm ρm Ce clauses 0)))]
+                  (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
+                  ))]
           [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
           )
         (>>= (get-refines* `(eval ,Ce ,ρ) ρ)
@@ -281,74 +282,98 @@ Finish the paper
     [_ (bod-calibrate Ce′ Ce ρ ρ′)]
     ))
 
+(define (patterns-match Ce ρ args subpats i)
+  (match args
+    [(list) (unit #t)]
+    [(cons _ as)
+     (match-let ([(cons subpat subpats) subpats])
+       ; (pretty-print `(ran subpat matches ,Ce))
+       (>>= (ran Ce ρ i)
+            (λ (Cex ρx)
+              (>>= (>>=eval (eval Cex ρx)
+                            (λ (Ce ρ) (pattern-matches subpat Ce ρ))
+                            (λ (lit) (pattern-matches-lit subpat lit)))
+                   (λ (matches)
+                     ; (pretty-print `(subpat match ,subpat ,Ce ,matches))
+                     (if matches (patterns-match Ce ρ as subpats (+ 1 i)) (unit #f))
+                     )))))]
+    ))
 
-(define-key (pattern-matches pattern ce p)
+(define-key (pattern-matches pattern Ce pe)
   (match pattern
     [`(,con ,@subpats)
-     (>>=clos
-      (eval ce p) ; Evaluate the constructor
-      (λ (Ce pe)
-        (match Ce
-          [(cons _ con1)
-           (if (equal? con con1)
-               ; Find where the constructor is applied
-               (>>= (expr Ce pe)
-                    (λ (Ce ρ)
-                      (match Ce
-                        [(cons _ `(app ,_ ,@as))
-                         ;  (pretty-print `(subpat ,subpats ,as))
-                         (if (equal? (length as) (length subpats))
-                             (let loop ([as as]
-                                        [i 0]
-                                        [subpats subpats])
-                               (match as
-                                 [(list) (unit #t)]
-                                 [(cons _ as)
-                                  (match-let ([(cons subpat subpats) subpats])
-                                    ; (pretty-print `(ran subpat matches ,Ce))
-                                    (>>= (ran Ce ρ i)
-                                         (λ (Ce ρ)
-                                           (>>= (pattern-matches subpat Ce ρ)
-                                                (λ (matches)
-                                                  ; (pretty-print `(subpat match ,subpat ,Ce ,matches))
-                                                  (if matches (loop as (+ 1 i) subpats) (unit #f))
-                                                  )))))
-                                  ]
-                                 )
-                               )
-                             (unit #f)
-                             )]
-                        )))
-               ; Wrong constructor
-               (unit #f))])))]
+     (match Ce
+       [(cons _ con1)
+        (if (equal? con con1)
+            ; Find where the constructor is applied
+            (>>= (expr Ce pe)
+                 (λ (Ce ρ)
+                   (match Ce
+                     [(cons _ `(app ,_ ,@as))
+                      ;  (pretty-print `(subpat ,subpats ,as))
+                      (if (equal? (length as) (length subpats))
+                          (patterns-match Ce ρ as subpats 0)
+                          (unit #f)
+                          )]
+                     )))
+            ; Wrong constructor
+            (unit #f))])]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
-     (>>=eval (eval ce p)
-              (λ (Ce _)
-                (match Ce
-                  [(cons _ con1); Singleton constructor
-                   ;  (pretty-print `(match-singleton constructor ,Ce ,con1 ,lit1 ,(equal? lit1 con1)))
-                   (if (equal? lit1 con1)
-                       (unit #t)
-                       (unit #f)
-                       )]))
-              (λ (lit2) (unit (equal? (to-lit lit1) lit2))))
+     (match Ce
+       [(cons _ con1); Singleton constructor #t #f
+        ; (pretty-print `(match-singleton constructor ,con1 ,lit1 ,(equal? lit1 con1)))
+        (if (equal? lit1 con1)
+            (unit #t)
+            (unit #f)
+            )])
      ]
     )
   )
 
-(define (eval-clause ce p parent clauses i)
+(define (pattern-matches-lit pat lit2)
+  (unit (equal? (to-lit pat) lit2))
+  )
+
+
+(define ((eval-clauselit parent parentp clauses i) lit)
+  (match clauses
+    [(cons clause clauses)
+     (>>= (pattern-matches-lit (car clause) lit)
+          (λ (matches)
+            (if matches
+                (begin
+                  ; (pretty-print `(clause-match ,clause))
+                  (>>= (focus-clause parent parentp i) eval)
+                  )
+                ((eval-clauselit parent parentp clauses (+ i 1)) lit)
+                )))
+     ]
+    [_
+     ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
+     (clos (cons lit 'match-error) parentp)
+     ]
+    )
+  )
+
+(define ((eval-clausecon parent parentp clauses i) ce p)
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-matches (car clause) ce p)
-          (λ (lit2)
-            ; (pretty-print `(lit-2-res ,lit2))
-            (if lit2
-                (>>= (focus-clause parent p i) eval)
-                (eval-clause ce p parent clauses (+ i 1))
+          (λ (matches)
+            ; (pretty-print `(clause-res ,matches))
+            (if matches
+                (begin
+                  ; (pretty-print `(clause-match ,clause))
+                  (>>= (focus-clause parent parentp i) eval)
+                  )
+                ((eval-clausecon parent parentp clauses (+ i 1)) ce p)
                 )))]
-    [_ ⊥]
-    )); TODO: Match error?
+    [_
+     ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
+     (clos (cons ce 'match-error) p)
+     ] ; TODO: Test match error
+    ))
 
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
