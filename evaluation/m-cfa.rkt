@@ -93,21 +93,3 @@
      ]
     )
   )
-(define ((eval-match-binding match-bind) Ce ρ)
-  (match match-bind
-    [`(,con ,locsub ,sub)
-     (>>=clos
-      (eval Ce ρ) ; Evaluate the constructor
-      (λ (Ce ρ)
-        (match Ce
-          [(cons _ con1)
-           (if (equal? con con1)
-               (>>= (expr Ce ρ); Evaluate where the constructor is applied
-                    (λ (Ce ρ)
-                      ; (pretty-print `(ran subpat ,sub ,locsub))
-                      (>>= (ran Ce ρ locsub) (eval-match-binding sub))))
-               ⊥
-               )]
-          ))) ]
-    [#t (eval Ce ρ)]
-    ))
