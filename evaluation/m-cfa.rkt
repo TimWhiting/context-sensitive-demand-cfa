@@ -27,9 +27,10 @@
     ))
 
 (define-key (store addr) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  (λ (_) ⊥))
+  ⊥)
 
 (define (extend-store var env val)
+  ; (pretty-print "extend")
   ; (pretty-print `(extend-store ,var ,env ,val))
   ; (store (cons var env))
   (extend-store-internal var env val)
@@ -37,37 +38,48 @@
 (define product-absorb-lit (node-absorb/product litbottom lit-lte lit-union))
 
 (define (((extend-store-internal var env val) k) s)
-  ((k #f) ((product-absorb-lit (cons var env) val) s)))
+  ((k #f) ((product-absorb-lit (store (cons var env)) val) s)))
 
 (define (get-store var env)
   (store (cons var env)))
 
-(define (bind-args vars p values)
+(define (bind-args vars ρ values)
+  ; (pretty-print "bind")
   (if (equal? (length vars) (length values))
       (match vars
-        [(list) (unit)]
+        [(list) (unit #f)]
         [(cons var vars)
-         (>>= (extend-store var p (car values))
-              (λ (_) (bind-args vars p (cdr values))))])
+         ;  (pretty-print "extend")
+         (>>= (extend-store var ρ (car values))
+              (λ (_) (bind-args vars ρ (cdr values))))])
       ⊥))
 
-(define (store-lookup x ρ)
-  (match (mcfa-kind)
-    ['rebinding (get-store x ρ)]
-    ['exponential
-     (pretty-print `(store-lookup ,x ,ρ))
-     (>>= (get-store x ρ)
-          (λ (val)
-            (if val
-                (unit val)
-                (match ρ
-                  [(menv (cons _ ρ)) (store-lookup (menv ρ))]
-                  [_ (clos 'error `("Unbound variable" ,x))]
-                  ))))]
-    ))
+(define (store-lookup Ce x ρ)
+  (>>=
+   (bind x Ce ρ #t)
+   (λ (_ p i)
+     (match i
+       [-1
+        ; (pretty-print `(returning-cons ,Ce ,ρ))
+        (clos Ce ρ)] ; treat as constructor]
+       [_
+        ; (pretty-print "lookup")
+        (match (mcfa-kind)
+          ['rebinding (get-store x ρ)]
+          ['exponential
+           ;  (pretty-print `(store-lookup ,x ,ρ))
+           (>>= (get-store x p)
+                (λ (val)
+                  ; (pretty-print `(store-lookup got ,val ,x ,ρ))
+                  (match val
+                    [(product/set (list Ce ρ)) (clos Ce ρ)]
+                    [(product/lattice l) (lit l)]
+                    )))]
+          )]))))
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
+  ; (pretty-print "meval")
   (print-eval-result
    `(meval ,Ce ,ρ)
    (λ ()
@@ -77,18 +89,18 @@
        [(cons _ (? integer? x)) (lit (litint x))]
        [(cons _ (? symbol? x))
         (match (lookup-primitive x)
-          [#f (store-lookup x ρ)]
+          [#f (store-lookup Ce x ρ)]
           [Ce (clos Ce ρ)]
           )
         ]
        [(cons _ `(λ ,_ ,_))
         (clos Ce ρ)]
        [(cons C `(app ,f ,@args))
-        (pretty-trace `(APP ,ρ))
+        (pretty-trace `(do-app ,f ,args ,ρ))
         (>>=clos
          (>>= (rat Ce ρ) meval)
-         (λ (lam lamp)
-           ; (pretty-trace `(got closure or primitive ,Ce′))
+         (λ (lam lamρ)
+           (pretty-trace `(got closure or primitive ,lam))
            (match lam
              [`(prim ,_)
               ; (pretty-trace `(eval args prim: ,args))
@@ -99,32 +111,40 @@
                      (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ args)))]
              [(cons _ `(λ ,xs ,_))
-              (pretty-print `(applying closure: ,lam ,args))
+              ; (pretty-print `(applying closure: ,lam ,args ,ρ))
               (>>= (eval* (map
                            (λ (i) (ran Ce ρ i))
                            (range (length args))))
                    (λ (evaled-args)
-                     (pretty-print `(applying closure: ,lam ,args ,evaled-args))
-                     (let ([p-new (new-env Ce ρ)])
-                       (>>= (bind-args xs p-new evaled-args)
-                            (λ () (>>= (bod lam lamp) meval))))))
+                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
+                     (let ([ρ-new (new-env Ce ρ)])
+                       ;  (pretty-print `(binding in ,ρ-new))
+                       (>>= (bind-args xs ρ-new evaled-args)
+                            (λ (_)
+                              ; (pretty-print "Here")
+                              (>>= (bod-enter lam Ce ρ lamρ) meval))))))
               ]
              [(cons C con)
+              ; (pretty-print `(con))
               (>>= (eval* (map
                            (λ (i) (ran Ce ρ i))
                            (range (length args))))
                    (λ (evaled-args)
                      (>>= (bind-args (range (length args)) ρ evaled-args)
-                          (λ () (clos (list con (length args)) lamp)))))]
-             )))
+                          (λ (_) (clos (cons Ce con) lamρ)))))]
+             ))
+
+         )
         ]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) (bin Ce ρ i))
                      (range (length binds))))
              (λ (evaled-binds)
-               (>>= (bind-args (map car binds) ρ evaled-binds); TODO: Do we need a new environment?
-                    (λ () (>>= (bod Ce ρ) meval)))))]
+               (>>= (bind-args (map car binds) ρ evaled-binds); TODO: Do we need a new environment (just ensure alphatized)?
+                    (λ (_)
+                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+                      (>>= (bod Ce ρ) meval)))))]
        [(cons _ `(match ,_ ,@clauses))
         (>>=eval (>>= (focus-match Ce ρ) meval)
                  (eval-con-clause Ce ρ clauses 0)
@@ -133,17 +153,22 @@
        ))))
 
 
-(define ((eval-con-clause parent parentp clauses i) ce p)
+(define ((eval-con-clause parent parentp clauses i) ce ρ)
+  ; (pretty-print `(eval-con-clause ,ce ,ρ))
   (match clauses
     [(cons clause clauses)
-     (>>= (pattern-con-matches (car clause) ce p)
+     (>>= (pattern-con-matches (car clause) ce ρ)
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (match matches
-              [(list vars exprs)
-               (>>= (bind-args vars p exprs) ; TODO: This seems
-                    (λ () (>>= (focus-clause parent parentp i) meval)))]
-              [#f ((eval-con-clause parent clauses (+ i 1)) ce p)])
+              [(list (list vars) (list exprs)) ; Matches and binds variables
+               ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
+               (>>= (bind-args vars parentp exprs)
+                    (λ (_)
+                      (>>= (focus-clause parent parentp i) meval)))]
+              [#f ((eval-con-clause parent parentp clauses (+ i 1)) ce ρ)] ; Doesn't match
+              [#t (>>= (focus-clause parent parentp i) meval)] ; Matches, but doesn't bind anything
+              )
             ))]
     [_ (clos (cons parent 'match-error) parentp)]
     ))
@@ -161,52 +186,55 @@
     [_ (clos (cons parent 'match-error) parentp)]
     ))
 
-(define (store-lookups vars p)
+(define (store-lookups vars ρ)
   (match vars
     [(list) (unit (list))]
     [(cons var vars)
-     (>>= (store-lookups vars p)
+     (>>= (store-lookups vars ρ)
           (λ (vals)
-            (>>= (store-lookup var p)
+            (>>= (get-store var ρ)
                  (λ (val)
                    (unit (cons val vals))))))]
     ))
 
-(define ((pattern-matches p) val)
+(define (pattern-matches pat val)
   (match val
-    [(product/lattice l) (pattern-lit-matches p l)]
-    [(product/set (list Ce p)) (pattern-con-matches Ce p)]
+    [(product/lattice l) (pattern-lit-matches pat l)]
+    [(product/set (list Ce ρ)) (pattern-con-matches pat Ce ρ)]
     )
   )
 
-(define-key (pattern-con-matches pattern Ce p)
+(define (pattern-con-matches pattern Ce ρ)
   (match pattern
     [`(,con ,@subpats)
      (match Ce
-       [(cons con1 num-args)
-        (if (and (equal? con con1) (equal? num-args (length subpats)))
-            (>>= (store-lookups (range num-args) p)
+       [(cons (cons C `(app ,f ,@args)) con1)
+        (if (and (equal? con con1) (equal? (length args) (length subpats)))
+            (>>= (store-lookups (range (length args)) ρ)
                  (λ (vals)
+                   ;  (pretty-print `(matching ,vals to ,subpats))
                    (let loop ([subpats subpats] [vals vals])
-                     (>>= (pattern-matches (car subpats) (car vals))
-                          (λ (res)
-                            (match res
-                              [#f   (unit #f)]
-                              [(list bind val)
-                               (>>= (loop (cdr subpats) (cdr vals))
-                                    (λ (ress)
-                                      (match ress
-                                        [#f (unit #f)]
-                                        [(list binds vals)
-                                         (unit (list (cons bind binds) (append val vals)))])
-                                      ))
-                               ]
-                              )
-                            )))))
+                     (if (empty? subpats) (unit (list (list) (list)))
+                         (>>= (pattern-matches (car subpats) (car vals))
+                              (λ (res)
+                                (match res
+                                  [#f (unit #f)]
+                                  [#t (loop (cdr subpats) (cdr vals))]
+                                  [(list bind val)
+                                   (>>= (loop (cdr subpats) (cdr vals))
+                                        (λ (ress)
+                                          (match ress
+                                            [#f (unit #f)]
+                                            [(list binds vals)
+                                             (unit (list (cons bind binds) (cons val vals)))])
+                                          ))
+                                   ]
+                                  )
+                                ))))))
             #f)]
        )
      ]
-    [(? symbol? x) (unit (list (list x) (list Ce p)))]
+    [(? symbol? x) (>>= (meval Ce ρ) (λ (res) (unit (list (list x) (list res)))))]
     [lit1
      (match Ce
        [(cons _ con1); Singleton constructor

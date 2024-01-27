@@ -30,7 +30,17 @@
           ; (show-envs #t)
           ; (trace 1)
           (mcfa-kind 'exponential)
-          (run-get-hash (meval (cons `(top) exp) (menv '())) (hash))
+          (define exph (run-get-hash (meval (cons `(top) exp) (menv '())) (hash)))
+          ; (pretty-print exph)
+          (for ([keyval (hash->list exph)])
+            (match keyval
+              [(cons (and key (meval Ce p)) _)
+               (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out-mcfa)
+               (pretty-result-out out-mcfa (from-hash key exph))
+               ]
+              [_ '()]
+              )
+            )
 
           (demand-kind 'basic)
           (let ([qbs (gen-queries (cons `(top) exp) (list))])

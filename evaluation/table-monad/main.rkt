@@ -72,10 +72,7 @@
           (foldl (λ (k s) ((k n) s)) (hash-set s nm (lattice-node ks n ⊑ ⊔)) ks)))))
 
 (define (((node-absorb/product ⊥ ⊑ ⊔) nm i) s)
-  #;(displayln "Node absorb product")
-  #;(displayln nm)
-  #;(displayln i)
-  #;(pretty-print s)
+  ; (pretty-print `(node-absorb-prod ,nm ,i))
   (match (hash-ref s nm #f)
     [(product-node ks xss n₀ ⊥ ⊑ ⊔)
      (match i
@@ -93,7 +90,7 @@
     [#f
      (match i
        [(product/lattice n) (hash-set s nm (product-node (list) (list) n ⊥ ⊑ ⊔)) ]
-       [(product/set xs) (hash-set s nm (product-node (list) xs ⊥ ⊥ ⊑ ⊔))]
+       [(product/set xs) (hash-set s nm (product-node (list) (set xs) ⊥ ⊥ ⊑ ⊔))]
        )]
     ))
 
@@ -120,7 +117,7 @@
       (((f nm) (id-κ/lattice nm)) (hash-set s nm (lattice-node (list k) ⊥ ⊑ ⊔)))))
 
 (define ((memoize/product nm ⊥ ⊑ ⊔ k f) s)
-  #;(displayln nm)
+  ; (pretty-print `(memoize-product ,nm ,(hash-has-key? s nm)))
   (if (hash-has-key? s nm)
       ((node-depend/product nm k) s)
       (begin
@@ -129,29 +126,29 @@
 
 (define-syntax define-key
   (syntax-rules ()
-    [(_ (name param ...) body)
+    [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr #:product body ...)
+     (begin
+       (define ⊥ ⊥-expr)
+       (define ⊑ ⊑-expr)
+       (define ⊔ ⊔-expr)
+       (struct name (param ...)
+         #:transparent
+         #:property prop:procedure
+         (λ (self k) (memoize/product self ⊥ ⊑ ⊔ k (match-lambda [(name param ...) body ...])))))]
+    [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr body ...)
+     (begin
+       (define ⊥ ⊥-expr)
+       (define ⊑ ⊑-expr)
+       (define ⊔ ⊔-expr)
+       (struct name (param ...)
+         #:transparent
+         #:property prop:procedure
+         (λ (self k) (memoize/lattice self ⊥ ⊑ ⊔ k (match-lambda [(name param ...) body ...])))))]
+    [(_ (name param ...) body ...)
      (struct name (param ...)
        #:transparent
        #:property prop:procedure
-       (λ (self k) (memoize/powerset self k (match-lambda [(name param ...) body]))))]
-    [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr #:product body)
-     (begin
-       (define ⊥ ⊥-expr)
-       (define ⊑ ⊑-expr)
-       (define ⊔ ⊔-expr)
-       (struct name (param ...)
-         #:transparent
-         #:property prop:procedure
-         (λ (self k) (memoize/product self ⊥ ⊑ ⊔ k (match-lambda [(name param ...) body])))))]
-    [(_ (name param ...) #:⊥ ⊥-expr #:⊑ ⊑-expr #:⊔ ⊔-expr body)
-     (begin
-       (define ⊥ ⊥-expr)
-       (define ⊑ ⊑-expr)
-       (define ⊔ ⊔-expr)
-       (struct name (param ...)
-         #:transparent
-         #:property prop:procedure
-         (λ (self k) (memoize/lattice self ⊥ ⊑ ⊔ k (match-lambda [(name param ...) body])))))]))
+       (λ (self k) (memoize/powerset self k (match-lambda [(name param ...) body ...]))))]))
 
 (define (run m [s (hash)])
   (match (hash-ref (run* m s) m)

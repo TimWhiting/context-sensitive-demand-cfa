@@ -103,57 +103,6 @@ Finish the paper
     ))
 
 
-(define (bind x Ce ρ)
-  (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
-  ; (pretty-print `(bind ,x ,Ce ,ρ))
-  (match Ce
-    [(cons `(top) _) (unit x ρ -1)] ; Constructors
-    [(cons `(let-bin ,y ,_ ,before ,after ,_) _)
-     ;  (pretty-print `(let-bin-bind ,y ,x))
-     (define defs (append (map car before) (list y) (map car after)))
-     (if (ors (map (λ (y) (equal? x y)) defs))
-         (unit Ce ρ (index-of defs x))
-         (search-out))]
-    [(cons `(bod ,ys ,_) _)
-     ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))
-     (if (ors (map (λ (y) (equal? x y)) ys))
-         (unit Ce ρ (index-of ys x))
-         (search-out))]
-    [(cons `(let-bod ,binds ,_) _)
-     (define defs (map car binds))
-     ;  (pretty-print `(let-bind ,defs))
-     (if (ors (map (λ (y) (equal? x y)) defs))
-         (unit Ce ρ (index-of defs x))
-         (search-out))]
-    [(cons `(match-clause ,m ,scruitinee ,before ,after ,_) e₀)
-     (define match-binding (find-match-bind x m))
-     (if match-binding (unit Ce ρ match-binding) (search-out))]
-    ; All other forms do not introduce bindings
-    [(cons _ _) (search-out)]
-    ))
-
-(define (find-match-bind-loc x ms loc)
-  (match ms
-    [(cons m ms)
-     (define is-match (find-match-bind x m))
-     (if is-match (list loc is-match) (find-match-bind-loc x ms (+ 1 loc)))
-     ]
-    [_ #f]
-    ))
-
-(define (find-match-bind x m)
-  (match m
-    [(? symbol? y)
-     (if (equal? y x) #t #f)]
-    [`(,con ,@args)
-     (define submatch (find-match-bind-loc x args 0))
-     (match submatch
-       [(list lsub sub)
-        `(,con ,lsub ,sub)]
-       [#f #f])]
-    [lit #f]
-    ))
-
 (define (eval* args)
   (let loop ([ags args]
              [acc (list)])
@@ -175,7 +124,7 @@ Finish the paper
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
-           (>>= (bind x Ce ρ)
+           (>>= (bind x Ce ρ #t)
                 (λ (Cex ρ i)
                   ; (pretty-print `(bound to ,Cex ,i))
                   (match Cex
@@ -192,7 +141,7 @@ Finish the paper
                     [(cons `(let-bod ,_ ,_) _)
                      ;  (print-eval-result `(ref-let-bod)
                      ;                     (λ ()
-                     (>>= (>>= (out Cex ρ)
+                     (>>= (>>= (out Cex ρ #t)
                                (λ (Ce ρ)
                                  ;  (pretty-print `(,Ce))
                                  (bin Ce ρ i)))
@@ -200,10 +149,10 @@ Finish the paper
                      ; ) #t)
                      ]
                     [(cons `(let-bin ,_ ,_ ,_ ,_ ,_) _) ; Recursive bindings
-                     (>>= (>>= (out Cex ρ) (λ (Ce ρ) (bin Ce ρ i))) eval)
+                     (>>= (>>= (out Cex ρ #t) (λ (Ce ρ) (bin Ce ρ i))) eval)
                      ]
                     [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _)
-                     (>>= (out Cex ρ)
+                     (>>= (out Cex ρ #t)
                           (λ (Ce ρ)
                             (>>= (focus-match Ce ρ)
                                  (eval-match-binding i))))
@@ -440,9 +389,9 @@ Finish the paper
      (λ () (⊔ (match Ce
                 [(cons `(rat ,_ ,_) _)
                  ;  (pretty-trace "RAT")
-                 (out Ce ρ)]
+                 (out Ce ρ #t)]
                 [(cons `(ran ,_ ,before ,_ ,_) _)
-                 (>>= (out Ce ρ)
+                 (>>= (out Ce ρ #t)
                       (λ (Cee ρee)
                         (>>=clos
                          (>>= (rat Cee ρee) eval)
@@ -455,24 +404,24 @@ Finish the paper
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
                 [(cons `(let-bod ,_ ,_) _)
-                 (>>= (out Ce ρ) expr)]
+                 (>>= (out Ce ρ #t) expr)]
                 [(cons `(let-bin ,x ,_ ,before ,after ,_) _)
-                 (>>= (out Ce ρ)
+                 (>>= (out Ce ρ #t)
                       (λ (Cex ρe)
                         ; (pretty-print `(let-bin find ,x ,Cex))
                         (apply each
-                               (cons(>>= (bod Cex ρe)
-                                         (λ (Cee ρee)
-                                           (>>= (find x Cee ρee)
-                                                (λ (Cee ρee)
-                                                  ; (pretty-print `(find: found: ,Cee))
-                                                  (expr Cee ρee)))))
-                                    (map (λ (i) ; Recursive bindings
-                                           (>>= (bin Cex ρe i)
-                                                (λ (Cee ρee)
-                                                  (>>= (find x Cee ρee) expr))))
-                                         (range (+ 1 (length before) (length after))))
-                                    )
+                               (cons (>>= (bod Cex ρe)
+                                          (λ (Cee ρee)
+                                            (>>= (find x Cee ρee)
+                                                 (λ (Cee ρee)
+                                                   ; (pretty-print `(find: found: ,Cee))
+                                                   (expr Cee ρee)))))
+                                     (map (λ (i) ; Recursive bindings
+                                            (>>= (bin Cex ρe i)
+                                                 (λ (Cee ρee)
+                                                   (>>= (find x Cee ρee) expr))))
+                                          (range (+ 1 (length before) (length after))))
+                                     )
                                )))]
                 [(cons `(top) _)
                  ⊥])

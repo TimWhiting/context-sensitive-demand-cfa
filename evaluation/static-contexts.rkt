@@ -24,12 +24,15 @@
      `(let ,(map car binds) (->,e₁ <-))]
     [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
      `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
-    [(cons `(top) _) `(top)])
+    [(cons `(top) _) `(top)]
+    [e e]
+    )
   )
 
 (define (show-simple-env ρ)
   (if (show-envs-simple)
       (match ρ
+        [(menv l) l]
         [(list) (list)]
         [(cons cc ρ)
          (cons (show-simple-call cc) (show-simple-env ρ))]
@@ -52,6 +55,58 @@
      (cons (show-simple-ctx Ce) (show-simple-call cc))])
   )
 
+(define (bind x Ce ρ first)
+  (define (search-out) (>>= (out Ce ρ first) (λ (Ce ρ) (bind x Ce ρ #f))))
+  ; (pretty-print `(bind ,x ,Ce ,ρ))
+  (match Ce
+    [(cons `(top) _) (unit x ρ -1)] ; Constructors
+    [(cons `(let-bin ,y ,_ ,before ,after ,_) _)
+     ;  (pretty-print `(let-bin-bind ,y ,x))
+     (define defs (append (map car before) (list y) (map car after)))
+     (if (ors (map (λ (y) (equal? x y)) defs))
+         (unit Ce ρ (index-of defs x))
+         (search-out))]
+    [(cons `(bod ,ys ,_) _)
+     ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))
+     (if (ors (map (λ (y) (equal? x y)) ys))
+         (unit Ce ρ (index-of ys x))
+         (search-out))]
+    [(cons `(let-bod ,binds ,_) _)
+     (define defs (map car binds))
+     ;  (pretty-print `(let-bind ,defs))
+     (if (ors (map (λ (y) (equal? x y)) defs))
+         (unit Ce ρ (index-of defs x))
+         (search-out))]
+    [(cons `(match-clause ,m ,scruitinee ,before ,after ,_) e₀)
+     (define match-binding (find-match-bind x m))
+     (if match-binding (unit Ce ρ match-binding) (search-out))]
+    ; All other forms do not introduce bindings
+    [(cons _ _) (search-out)]
+    ))
+
+
+(define (find-match-bind-loc x ms loc)
+  (match ms
+    [(cons m ms)
+     (define is-match (find-match-bind x m))
+     (if is-match (list loc is-match) (find-match-bind-loc x ms (+ 1 loc)))
+     ]
+    [_ #f]
+    ))
+
+(define (find-match-bind x m)
+  (match m
+    [(? symbol? y)
+     (if (equal? y x) #t #f)]
+    [`(,con ,@args)
+     (define submatch (find-match-bind-loc x args 0))
+     (match submatch
+       [(list lsub sub)
+        `(,con ,lsub ,sub)]
+       [#f #f])]
+    [lit #f]
+    ))
+
 (define (oute Ce)
   (match Ce
     [(cons `(rat ,es ,C) e₀)
@@ -70,7 +125,7 @@
      (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
-(define (out Ce ρ)
+(define (out Ce ρ first)
   ; (pretty-print `(out ,Ce ,ρ))
   (match Ce
     [(cons `(rat ,es ,C) e₀)
@@ -83,7 +138,12 @@
      (unit (cons C `(match ,@(cons f (append b (list `(,m ,e)) a)))) ρ)]
     [(cons `(bod ,y ,C) e)
      (unit (cons C `(λ ,y ,e))
-           (match-let ([(cons _ ρ) ρ]) ρ))]
+           (match ρ
+             ; Only the first out should do this in regular mcfa (it only keeps track of the innermost call stack)
+             [(menv (cons c p)) (if first (menv p) ρ)]
+             [(menv p) (menv p)]
+             [(cons _ ρ) ρ]
+             ))]
     [(cons `(let-bod ,binds ,C) e₁)
      (unit (cons C `(let ,binds ,e₁)) ρ)]
     [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
@@ -129,7 +189,10 @@
 (define (bod-enter Ce call ρ ρ′)
   (match Ce
     [(cons C `(λ ,x ,e))
-     (unit (cons `(bod ,x ,C) e) (cons (enter-cc call ρ) ρ′))]
+     ;  (pretty-print ρ′)
+     (match ρ′
+       [(menv calls) (unit (cons `(bod ,x ,C) e) (menv (take (cons call calls) (current-m))))]
+       [_  (unit (cons `(bod ,x ,C) e) (cons (enter-cc call ρ) ρ′))])]
     [(cons C `(let ,binds ,e₁))
      (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
@@ -203,7 +266,7 @@
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (out-arg Ce ρ i)
-  (>>= (out Ce ρ)
+  (>>= (out Ce ρ #t)
        (λ (Ce ρ)
          (ran Ce ρ i))
        )

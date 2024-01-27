@@ -77,8 +77,8 @@
   ; (pretty-result
   ;  (run-print-query (apply eval query)))
 
-  (define top-query-mcfa (list (cons `(top) (get-example-expr 'id)) (menv (list))))
-  (run-get-hash (apply meval top-query-mcfa))
+  (define top-query-mcfa (list (cons `(top) (get-example-expr 'err)) (menv (list))))
+  (pretty-print (run-get-hash (apply meval top-query-mcfa)))
   )
 
 (define (go-bod q) (apply bod-e q))
