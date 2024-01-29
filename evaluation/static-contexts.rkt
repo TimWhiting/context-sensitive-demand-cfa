@@ -5,6 +5,13 @@
 (provide (all-defined-out))
 ; syntax traversal
 
+; m-CFA flat like environments (rebinding free variables)
+(struct flatenv (m) #:transparent)
+; m-CFA exponential environments (nested environments)
+(struct expenv (m) #:transparent)
+; Demand m-CFA environments (nested environments, with embedded environments)
+(struct envenv (m) #:transparent)
+; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
 (struct menv (m) #:transparent)
 
 (define (show-simple-ctx Ce)
@@ -29,10 +36,53 @@
     )
   )
 
+(define (free-vars e)
+  (match e
+    [`(app ,f ,@args)
+     (foldl set-union (set)
+            (cons (free-vars f)
+                  (map free-vars args)))]
+    [`(λ ,xs ,bod)
+     (set-subtract (free-vars bod) (apply set xs))]
+    [`(let ,binds ,bod)
+     (set-subtract
+      (foldl set-union (set)
+             (cons (free-vars bod)
+                   (map (λ (bind) (free-vars (cadr bind))) binds)))
+      (apply set (map car binds)))
+     ]
+    [`(match ,scruitinee ,@ms)
+     (foldl set-union (set)
+            (cons (free-vars scruitinee)
+                  (map (λ (match)
+                         (set-subtract
+                          (free-vars (cadr match))
+                          (pattern-bound-vars (car match))
+                          ))
+                       ms)))]
+    [(? symbol? x) (set x)]
+    [#f (set)]
+    [#t (set)]
+    [(? number? x) (set)]
+    [(? string? x) (set)]
+    [(? char? x) (set)]
+    ))
+
+(define (pattern-bound-vars pat)
+  (match pat
+    [(? symbol? x) (set x)]
+    [`(,con ,@args)
+     (foldl set-union (set)
+            (map pattern-bound-vars args))]
+    [(? symbol? x) (set x)]
+    [_ (set)]
+    )
+  )
+
 (define (show-simple-env ρ)
   (if (show-envs-simple)
       (match ρ
-        [(menv l) l]
+        [(flatenv l) l]
         [(list) (list)]
         [(cons cc ρ)
          (cons (show-simple-call cc) (show-simple-env ρ))]

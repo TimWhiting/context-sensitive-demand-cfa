@@ -172,7 +172,7 @@
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
   (?))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 '(query: (app = n (-> 0 <-)) (?))
 '(clos/con: ⊥)

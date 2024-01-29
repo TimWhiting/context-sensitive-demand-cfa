@@ -3,7 +3,8 @@
 (require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt" "debug.rkt" "demand-primitives.rkt")
 (require racket/pretty)
 (require racket/match
-         racket/list)
+         racket/list
+         racket/set)
 (provide meval)
 
 ; At least k-cfa is wrong for m > 0. Need to check others as well
@@ -77,6 +78,15 @@
                     )))]
           )]))))
 
+(define (rebind-vars vars ρ ρnew)
+  (match vars
+    [(list) (unit #f)]
+    [(cons var vars)
+     (>>= (get-store var ρ)
+          (λ (v)
+            (>>= (extend-store var ρnew v)
+                 (λ (_) (rebind-vars vars ρ ρnew)))))]))
+
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ; (pretty-print "meval")
@@ -110,7 +120,7 @@
                    (λ (args)
                      (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ args)))]
-             [(cons _ `(λ ,xs ,_))
+             [(cons _ `(λ ,xs ,bod))
               ; (pretty-print `(applying closure: ,lam ,args ,ρ))
               (>>= (eval* (map
                            (λ (i) (ran Ce ρ i))
@@ -118,11 +128,20 @@
                    (λ (evaled-args)
                      ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
                      (let ([ρ-new (new-env Ce ρ)])
+                       (define frees (set->list (free-vars bod)))
                        ;  (pretty-print `(binding in ,ρ-new))
-                       (>>= (bind-args xs ρ-new evaled-args)
-                            (λ (_)
-                              ; (pretty-print "Here")
-                              (>>= (bod-enter lam Ce ρ lamρ) meval))))))
+                       (>>=
+                        (bind-args xs ρ-new evaled-args)
+                        (λ (_)
+                          (match (mcfa-kind)
+                            ['exponential (>>= (bod-enter lam Ce ρ lamρ) meval)]
+                            [_ (>>=
+                                (rebind-vars frees ρ ρ-new)
+                                (λ (_)
+                                  ; (pretty-print "Here")
+                                  (>>= (bod-enter lam Ce ρ lamρ) meval)))]
+                            )
+                          )))))
               ]
              [(cons C con)
               ; (pretty-print `(con))

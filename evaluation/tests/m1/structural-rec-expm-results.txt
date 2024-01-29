@@ -1,9 +1,18 @@
 '(expression: (app (λ (x) (app x x)) (λ (y) (app y y))))
 (list
  'query:
+ '(λ (y) (-> (app y y) <-))
+ (menv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(λ (x) (-> (app x x) <-))
  (menv '(((top) app (λ (x) (app x x)) (λ (y) (app y y))))))
 '(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
+'(clos/con: ((λ (x) (app x x))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -11,20 +20,23 @@
  (menv '(((top) app (λ (x) (app x x)) (λ (y) (app y y))))))
 '(clos/con: ((λ (y) (app y y))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
-'(clos/con: ((λ (x) (app x x))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app (-> y <-) y)
  (menv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
 '(clos/con: ((λ (y) (app y y))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (menv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (y) (-> (app y y) <-))
+ '(app y (-> y <-))
  (menv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
-'(clos/con: ⊥)
+'(clos/con: ((λ (y) (app y y))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
+'(clos/con: ((λ (y) (app y y))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -34,6 +46,12 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
+ '(app (-> y <-) y)
+ (menv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
+'(clos/con: ((λ (y) (app y y))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app y (-> y <-))
  (menv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
 '(clos/con: ((λ (y) (app y y))))
@@ -41,24 +59,6 @@
 (list
  'query:
  '(λ (y) (-> (app y y) <-))
- (menv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app y (-> y <-))
  (menv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
-'(clos/con: ((λ (y) (app y y))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (menv '()))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> y <-) y)
- (menv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
-'(clos/con: ((λ (y) (app y y))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
-'(clos/con: ((λ (y) (app y y))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
