@@ -10,11 +10,12 @@
               (#t (app ack (app - m 1) 1))
               (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
     (app ack 3 12)))
-'(query: (top) ())
+(list 'query: '(top) (menv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query:
-  (let ((->
+(list
+ 'query:
+ '(let ((->
          ack
          =
          (λ (m n)
@@ -28,7 +29,7 @@
               (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
          <-))
     bod)
-  ())
+ (menv '()))
 '(clos/con:
   ((λ (m n)
      (match
@@ -40,8 +41,9 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (λ (m n)
+(list
+ 'query:
+ '(λ (m n)
     (->
      (match
       (app = m 0)
@@ -52,11 +54,12 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
      <-))
-  (()))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (app = m 0)
    (#t (app + n 1))
    (->
@@ -66,36 +69,40 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))
     <-))
-  (()))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (app = n 0)
    (#t (app ack (app - m 1) 1))
    (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
-  (()))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)) (()))
+(list
+ 'query:
+ '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app ack m (-> (app - n 1) <-)) (()))
+(list 'query: '(app ack m (-> (app - n 1) <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app - n (-> 1 <-)) (()))
+(list 'query: '(app - n (-> 1 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query: (app - (-> n <-) 1) (()))
+(list 'query: '(app - (-> n <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> - <-) n 1) (()))
+(list 'query: '(app (-> - <-) n 1) (menv '(())))
 '(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app ack (-> m <-) (app - n 1)) (()))
+(list 'query: '(app ack (-> m <-) (app - n 1)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> ack <-) m (app - n 1)) (()))
+(list 'query: '(app (-> ack <-) m (app - n 1)) (menv '(())))
 '(clos/con:
   ((λ (m n)
      (match
@@ -107,19 +114,25 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app ack (-> (app - m 1) <-) (app ack m (app - n 1))) (()))
+(list
+ 'query:
+ '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app - m (-> 1 <-)) (()))
+(list 'query: '(app - m (-> 1 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query: (app - (-> m <-) 1) (()))
+(list 'query: '(app - (-> m <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> - <-) m 1) (()))
+(list 'query: '(app (-> - <-) m 1) (menv '(())))
 '(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> ack <-) (app - m 1) (app ack m (app - n 1))) (()))
+(list
+ 'query:
+ '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
+ (menv '(())))
 '(clos/con:
   ((λ (m n)
      (match
@@ -131,30 +144,31 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (app = n 0)
    (-> #t (app ack (app - m 1) 1) <-)
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
-  (()))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app ack (app - m 1) (-> 1 <-)) (()))
+(list 'query: '(app ack (app - m 1) (-> 1 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query: (app ack (-> (app - m 1) <-) 1) (()))
+(list 'query: '(app ack (-> (app - m 1) <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app - m (-> 1 <-)) (()))
+(list 'query: '(app - m (-> 1 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query: (app - (-> m <-) 1) (()))
+(list 'query: '(app - (-> m <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> - <-) m 1) (()))
+(list 'query: '(app (-> - <-) m 1) (menv '(())))
 '(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> ack <-) (app - m 1) 1) (()))
+(list 'query: '(app (-> ack <-) (app - m 1) 1) (menv '(())))
 '(clos/con:
   ((λ (m n)
      (match
@@ -166,25 +180,27 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (-> (app = n 0) <-)
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
-  (()))
+ (menv '(())))
 '(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app = n (-> 0 <-)) (()))
+(list 'query: '(app = n (-> 0 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (0 ⊥ ⊥ ⊥))
-'(query: (app = (-> n <-) 0) (()))
+(list 'query: '(app = (-> n <-) 0) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> = <-) n 0) (()))
+(list 'query: '(app (-> = <-) n 0) (menv '(())))
 '(clos/con: (#<procedure:do-equal>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (app = m 0)
    (-> #t (app + n 1) <-)
    (#f
@@ -192,20 +208,21 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
-  (()))
+ (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app + n (-> 1 <-)) (()))
+(list 'query: '(app + n (-> 1 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-'(query: (app + (-> n <-) 1) (()))
+(list 'query: '(app + (-> n <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> + <-) n 1) (()))
+(list 'query: '(app (-> + <-) n 1) (menv '(())))
 '(clos/con: (#<procedure:do-add>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (match
+(list
+ 'query:
+ '(match
    (-> (app = m 0) <-)
    (#t (app + n 1))
    (#f
@@ -213,28 +230,28 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
-  (()))
-'(clos/con: (#t #f))
+ (menv '(())))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app = m (-> 0 <-)) (()))
+(list 'query: '(app = m (-> 0 <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (0 ⊥ ⊥ ⊥))
-'(query: (app = (-> m <-) 0) (()))
+(list 'query: '(app = (-> m <-) 0) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app (-> = <-) m 0) (()))
+(list 'query: '(app (-> = <-) m 0) (menv '(())))
 '(clos/con: (#<procedure:do-equal>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (let (ack) (-> (app ack 3 12) <-)) ())
+(list 'query: '(let (ack) (-> (app ack 3 12) <-)) (menv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-'(query: (app ack 3 (-> 12 <-)) ())
+(list 'query: '(app ack 3 (-> 12 <-)) (menv '()))
 '(clos/con: ⊥)
 '(literals: (12 ⊥ ⊥ ⊥))
-'(query: (app ack (-> 3 <-) 12) ())
+(list 'query: '(app ack (-> 3 <-) 12) (menv '()))
 '(clos/con: ⊥)
 '(literals: (3 ⊥ ⊥ ⊥))
-'(query: (app (-> ack <-) 3 12) ())
+(list 'query: '(app (-> ack <-) 3 12) (menv '()))
 '(clos/con:
   ((λ (m n)
      (match

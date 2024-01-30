@@ -5,11 +5,12 @@
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
-'(query: (top) ())
+(list 'query: '(top) (menv '()))
 '(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app
+(list
+ 'query:
+ '(app
    (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
    (->
     (λ (x1)
@@ -17,123 +18,143 @@
        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
        (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
     <-))
-  ())
+ (menv '()))
 '(clos/con:
   ((λ (x1)
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (λ (x1)
+(list
+ 'query:
+ '(λ (x1)
     (->
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
-  ((□? (x1))))
-'(clos/con: (#t #f))
+ (menv '((□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app
+(list
+ 'query:
+ '(app
    (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
    (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
-  ((□? (x1))))
+ (menv '((□? (x1)))))
 '(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-  ((□? (x2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list
+ 'query:
+ '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+ (menv '((□? (x2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  ((□? (x2)) (□? (x1))))
+(list
+ 'query:
+ '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+ (menv '((□? (x2)) (□? (x1)))))
 '(clos/con: ((λ (y1 y2) y1)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (λ (y1 y2) (-> y1 <-)) ((□? (y1 y2)) (□? (x2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list
+ 'query:
+ '(λ (y1 y2) (-> y1 <-))
+ (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  ((□? (x2)) (□? (x1))))
+(list
+ 'query:
+ '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+ (menv '((□? (x2)) (□? (x1)))))
 '(clos/con: ((λ (z) (app z x1 x2))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (λ (z) (-> (app z x1 x2) <-)) ((□? (z)) (□? (x2)) (□? (x1))))
+(list
+ 'query:
+ '(λ (z) (-> (app z x1 x2) <-))
+ (menv '((□? (z)) (□? (x2)) (□? (x1)))))
+'(clos/con: (#f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
 '(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app z x1 (-> x2 <-)) ((□? (z)) (□? (x2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list 'query: '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app z (-> x1 <-) x2) ((□? (z)) (□? (x2)) (□? (x1))))
-'(clos/con: (#t #f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> z <-) x1 x2) ((□? (z)) (□? (x2)) (□? (x1))))
+(list 'query: '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
 '(clos/con: ((λ (y1 y2) y1)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app
+(list
+ 'query:
+ '(app
    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-  ((□? (x1))))
+ (menv '((□? (x1)))))
 '(clos/con: ((λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
-  ((□? (f2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list
+ 'query:
+ '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+ (menv '((□? (f2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (let ((-> _ = (app f2 #t) <-)) bod) ((□? (f2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list
+ 'query:
+ '(let ((-> _ = (app f2 #t) <-)) bod)
+ (menv '((□? (f2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app f2 (-> #t <-)) ((□? (f2)) (□? (x1))))
+(list 'query: '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: (#t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> f2 <-) #t) ((□? (f2)) (□? (x1))))
+(list 'query: '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (let (_) (-> (app f2 #f) <-)) ((□? (f2)) (□? (x1))))
-'(clos/con: (#t #f))
+(list 'query: '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app f2 (-> #f <-)) ((□? (f2)) (□? (x1))))
+(list 'query: '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> f2 <-) #f) ((□? (f2)) (□? (x1))))
+(list 'query: '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query:
-  (app
+(list
+ 'query:
+ '(app
    (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)
    (λ (x1)
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-  ())
+ (menv '()))
 '(clos/con: ((λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-)) ((□? (f1))))
+(list
+ 'query:
+ '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
+ (menv '((□? (f1)))))
 '(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (let ((-> _ = (app f1 #t) <-)) bod) ((□? (f1))))
+(list 'query: '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))
 '(clos/con: (#t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app f1 (-> #t <-)) ((□? (f1))))
+(list 'query: '(app f1 (-> #t <-)) (menv '((□? (f1)))))
 '(clos/con: (#t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> f1 <-) #t) ((□? (f1))))
+(list 'query: '(app (-> f1 <-) #t) (menv '((□? (f1)))))
 '(clos/con:
   ((λ (x1)
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (let (_) (-> (app f1 #f) <-)) ((□? (f1))))
+(list 'query: '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))
 '(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app f1 (-> #f <-)) ((□? (f1))))
+(list 'query: '(app f1 (-> #f <-)) (menv '((□? (f1)))))
 '(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-'(query: (app (-> f1 <-) #f) ((□? (f1))))
+(list 'query: '(app (-> f1 <-) #f) (menv '((□? (f1)))))
 '(clos/con:
   ((λ (x1)
      (app

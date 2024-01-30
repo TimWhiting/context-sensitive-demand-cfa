@@ -1,37 +1,37 @@
 '(expression: (app (λ (x y) (app x y)) (λ (z) z) 2))
-(list 'query: '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))
-'(clos/con: ((λ (z) z)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app (-> x <-) y)
- (menv '(((top) app (λ (x y) (app x y)) (λ (z) z) 2))))
+ (expenv '((((top) app (λ (x y) (app x y)) (λ (z) z) 2)))))
 '(clos/con: ((λ (z) z)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))
+(list 'query: '(top) (expenv '()))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x y) (-> (app x y) <-))
- (menv '(((top) app (λ (x y) (app x y)) (λ (z) z) 2))))
-'(clos/con: ⊥)
-'(literals: (2 ⊥ ⊥ ⊥))
-(list 'query: '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))
+(list 'query: '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (expenv '()))
 '(clos/con: ((λ (x y) (app x y))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (menv '()))
+(list 'query: '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (expenv '()))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
 (list
  'query:
  '(app x (-> y <-))
- (menv '(((top) app (λ (x y) (app x y)) (λ (z) z) 2))))
+ (expenv '((((top) app (λ (x y) (app x y)) (λ (z) z) 2)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (expenv '()))
+'(clos/con: ((λ (z) z)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (z) (-> z <-))
+ (expenv '((((bod (x y) (rat ((λ (z) z) 2) (top))) app x y)))))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (z) (-> z <-))
- (menv '(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y))))
+ '(λ (x y) (-> (app x y) <-))
+ (expenv '((((top) app (λ (x y) (app x y)) (λ (z) z) 2)))))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))

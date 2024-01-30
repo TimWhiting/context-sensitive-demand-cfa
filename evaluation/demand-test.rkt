@@ -70,15 +70,15 @@
 
   (trace 1)
   (current-m 0)
-  (demand-kind 'basic)
-  (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (list)))
+  (analysis-kind 'basic)
+  (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (menv (list))))
   (define query (go-bod (go-bin 1 top-query)))
-  ; (pretty-print query)
-  ; (pretty-result
-  ;  (run-print-query (apply eval query)))
+  (pretty-print query)
+  (pretty-result
+   (run-print-query (apply eval query)))
 
-  (define top-query-mcfa (list (cons `(top) (get-example-expr 'err)) (menv (list))))
-  (pretty-print (run-get-hash (apply meval top-query-mcfa)))
+  ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'err)) (flatenv (list))))
+  ; (pretty-print (run-get-hash (apply meval top-query-mcfa)))
   )
 
 (define (go-bod q) (apply bod-e q))

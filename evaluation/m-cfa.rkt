@@ -22,11 +22,6 @@
                         )))))]
     ))
 
-(define (new-env call callp)
-  (match callp
-    [(menv calls) (menv (take (cons call calls) (current-m)))]
-    ))
-
 (define-key (store addr) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ⊥)
 
@@ -57,7 +52,7 @@
 
 (define (store-lookup Ce x ρ)
   (>>=
-   (bind x Ce ρ #t)
+   (bind x Ce ρ)
    (λ (_ p i)
      (match i
        [-1
@@ -65,7 +60,7 @@
         (clos Ce ρ)] ; treat as constructor]
        [_
         ; (pretty-print "lookup")
-        (match (mcfa-kind)
+        (match (analysis-kind)
           ['rebinding (get-store x ρ)]
           ['exponential
            ;  (pretty-print `(store-lookup ,x ,ρ))
@@ -127,22 +122,21 @@
                            (range (length args))))
                    (λ (evaled-args)
                      ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
-                     (let ([ρ-new (new-env Ce ρ)])
-                       (define frees (set->list (free-vars bod)))
-                       ;  (pretty-print `(binding in ,ρ-new))
-                       (>>=
-                        (bind-args xs ρ-new evaled-args)
-                        (λ (_)
-                          (match (mcfa-kind)
-                            ['exponential (>>= (bod-enter lam Ce ρ lamρ) meval)]
-                            [_ (>>=
-                                (rebind-vars frees ρ ρ-new)
-                                (λ (_)
-                                  ; (pretty-print "Here")
-                                  (>>= (bod-enter lam Ce ρ lamρ) meval)))]
-                            )
-                          )))))
-              ]
+                     (>>= (bod-enter lam Ce ρ lamρ)
+                          (λ (Ce ρ-new)
+                            ;  (pretty-print `(binding in ,ρ-new))
+                            (>>=
+                             (bind-args xs ρ-new evaled-args)
+                             (λ (_)
+                               (match (analysis-kind)
+                                 ['exponential (meval Ce ρ-new)]
+                                 ['rebinding
+                                  (define frees (set->list (free-vars bod)))
+                                  (>>= (rebind-vars frees ρ ρ-new)
+                                       (λ (_) (meval Ce ρ-new)))]
+                                 ))))
+                          )))]
+
              [(cons C con)
               ; (pretty-print `(con))
               (>>= (eval* (map
