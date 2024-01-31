@@ -5,7 +5,9 @@
 (define parse-cursor
   (match-lambda
     ["C[e]" (cursor (e) (∘e))]
+    ["C[e₁]" (cursor (e 1) (∘e))]
     ["C[λx.e]" (cursor (lam (var 'x) (e)) (∘e))]
+    ["C[(letrec (x e₀) e₁)]" (cursor (letr (var 'x) (e 0) (e 1)) (∘e))]
     [(regexp #rx"^C([^\\[]*)\\[(.*)\\]$" (list _ tick exp))
      (let ([tick (match tick
                    ["x" "_x"]
@@ -14,12 +16,16 @@
        (match exp
          ["e" (cursor (e) (∘e tick))]
          ["e-x" (cursor (e "_x") (∘e tick))]
+         ["(letrec (x e₀) e₁)" (cursor (letr (var 'x) (e 0) (e 1)) (∘e tick))]
+         ["(letrec (x e₀) [e₁])" (cursor (e 1) (letbod (var 'x) (e 0) (∘e tick)))]
+         ["(letrec (x [e₀]) e₁)" (cursor (e 0) (letbin (var 'x) (e 1) (∘e tick)))]
          ["(e₀ e₁)" (cursor (app (e 0) (e 1)) (∘e tick))]
          ["(e₂ e₃)" (cursor (app (e 2) (e 3)) (∘e tick))]
          ["(e₀ [e₁])" (cursor (e 1) (ran (e 0) (∘e tick)))]
          ["([e₀] e₁)" (cursor (e 0) (rat (e 1) (∘e tick)))]
          ["λx.e" (cursor (lam (var 'x) (e)) (∘e tick))]
          ["λx.e-v" (cursor (lam (var 'x) (e "_v")) (∘e tick))]
+         ["λy.e-v" (cursor (lam (var 'y) (e "_v")) (∘e tick))]
          ["λx.[e]" (cursor (e) (bod (var 'x) (∘e tick)))]
          ["λy.e" (cursor (e) (bod (var 'y) (∘e tick)))]
          ["λy.[e]" (cursor (e) (bod (var 'y) (∘e tick)))]
