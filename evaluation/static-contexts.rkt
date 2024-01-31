@@ -211,9 +211,8 @@
     [(cons `(bod ,y ,C) e)
      (unit (cons C `(λ ,y ,e))
            (match ρ
-             [(flatenv _) '_]; Regular m-cfa should not use `out` except for determining bindings
-             [(expenv _) '_]; Regular m-cfa should not use `out` except for determining bindings
-             ['_ '_]; Propagate
+             [(flatenv ρ) (flatenv ρ)]; Regular m-cfa environments don't change (all bindings are rebound in the innermost environment)
+             [(expenv (cons _ ρ)) (expenv ρ)]
              [(menv (cons _ ρ)) (menv ρ)]
              [(envenv (cons _ ρ)) (envenv ρ)]
              ))]

@@ -7,7 +7,7 @@
          racket/set)
 (provide meval)
 
-; At least k-cfa is wrong for m > 0. Need to check others as well
+; At least k-cfa is wrong for m > 0
 
 (define (eval* args)
   (match args
@@ -53,102 +53,64 @@
 (define (store-lookup Ce x ρ)
   (>>=
    (bind x Ce ρ)
-   (λ (_ p i)
+   (λ (_ ρ i)
      (match i
        [-1
         ; (pretty-print `(returning-cons ,Ce ,ρ))
         (clos Ce ρ)] ; treat as constructor]
        [_
         ; (pretty-print "lookup")
-        (match (analysis-kind)
-          ['rebinding (get-store x ρ)]
-          ['exponential
-           ;  (pretty-print `(store-lookup ,x ,ρ))
-           (>>= (get-store x p)
-                (λ (val)
-                  ; (pretty-print `(store-lookup got ,val ,x ,ρ))
-                  (match val
-                    [(product/set (list Ce ρ)) (clos Ce ρ)]
-                    [(product/lattice l) (lit l)]
-                    )))]
-          )]))))
+        ;  (pretty-print `(store-lookup ,x ,ρ))
+        (>>= (get-store x ρ)
+             (λ (val)
+               ; (pretty-print `(store-lookup got ,val ,x ,ρ))
+               (match val
+                 [(product/set (list Ce ρ)) (clos Ce ρ)]
+                 [(product/lattice l) (lit l)]
+                 ))
+             )]))))
 
-(define (rebind-vars vars ρ ρnew)
+(define (symbol-lookup Ce x ρ)
+  (match (lookup-primitive x)
+    [#f (store-lookup Ce x ρ)]
+    [Ce (clos Ce ρ)]
+    )
+  )
+
+(define (rebind-vars Ce vars ρ ρnew)
   (match vars
     [(list) (unit #f)]
     [(cons var vars)
-     (>>= (get-store var ρ)
-          (λ (v)
-            (>>= (extend-store var ρnew v)
-                 (λ (_) (rebind-vars vars ρ ρnew)))))]))
+     (match (lookup-primitive var)
+       [#f
+        (>>=
+         (bind var Ce ρ)
+         (λ (_ __ i)
+           (match i
+             [-1 (rebind-vars Ce vars ρ ρnew)]
+             [_  (>>= (get-store var ρ)
+                      (λ (v)
+                        (>>= (extend-store var ρnew v)
+                             (λ (_) (rebind-vars Ce vars ρ ρnew)))))])
+           ))
+        ]
+       [_ (rebind-vars Ce vars ρ ρnew)]
+       )
+     ; TODO: Do I need to avoid rebinding constructors / primitives?
+     ]))
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ; (pretty-print "meval")
   (print-eval-result
-   `(meval ,Ce ,ρ)
+   `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
    (λ ()
      (match Ce
        [(cons _ #t) (clos Ce ρ)]
        [(cons _ #f) (clos Ce ρ)]
        [(cons _ (? integer? x)) (lit (litint x))]
-       [(cons _ (? symbol? x))
-        (match (lookup-primitive x)
-          [#f (store-lookup Ce x ρ)]
-          [Ce (clos Ce ρ)]
-          )
-        ]
-       [(cons _ `(λ ,_ ,_))
-        (clos Ce ρ)]
-       [(cons C `(app ,f ,@args))
-        (pretty-trace `(do-app ,f ,args ,ρ))
-        (>>=clos
-         (>>= (rat Ce ρ) meval)
-         (λ (lam lamρ)
-           (pretty-trace `(got closure or primitive ,lam))
-           (match lam
-             [`(prim ,_)
-              ; (pretty-trace `(eval args prim: ,args))
-              (>>= (eval* (map
-                           (λ (i) (ran Ce ρ i))
-                           (range (length args))))
-                   (λ (args)
-                     (pretty-trace `(applying prim: ,lam ,args))
-                     (apply-primitive lam C ρ args)))]
-             [(cons _ `(λ ,xs ,bod))
-              ; (pretty-print `(applying closure: ,lam ,args ,ρ))
-              (>>= (eval* (map
-                           (λ (i) (ran Ce ρ i))
-                           (range (length args))))
-                   (λ (evaled-args)
-                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
-                     (>>= (bod-enter lam Ce ρ lamρ)
-                          (λ (Ce ρ-new)
-                            ;  (pretty-print `(binding in ,ρ-new))
-                            (>>=
-                             (bind-args xs ρ-new evaled-args)
-                             (λ (_)
-                               (match (analysis-kind)
-                                 ['exponential (meval Ce ρ-new)]
-                                 ['rebinding
-                                  (define frees (set->list (free-vars bod)))
-                                  (>>= (rebind-vars frees ρ ρ-new)
-                                       (λ (_) (meval Ce ρ-new)))]
-                                 ))))
-                          )))]
-
-             [(cons C con)
-              ; (pretty-print `(con))
-              (>>= (eval* (map
-                           (λ (i) (ran Ce ρ i))
-                           (range (length args))))
-                   (λ (evaled-args)
-                     (>>= (bind-args (range (length args)) ρ evaled-args)
-                          (λ (_) (clos (cons Ce con) lamρ)))))]
-             ))
-
-         )
-        ]
+       [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
+       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) (bin Ce ρ i))
@@ -162,6 +124,46 @@
         (>>=eval (>>= (focus-match Ce ρ) meval)
                  (eval-con-clause Ce ρ clauses 0)
                  (eval-lit-clause Ce ρ clauses 0))]
+       [(cons C `(app ,f ,@args))
+        (pretty-trace `(do-app ,f ,args ,ρ))
+        (>>=clos
+         (>>= (rat Ce ρ) meval)
+         (λ (lam lamρ)
+           (>>= (eval* (map
+                        (λ (i) (ran Ce ρ i))
+                        (range (length args))))
+                (λ (evaled-args)
+                  ; (pretty-trace `(got closure or primitive ,(show-simple-ctx lam)))
+                  (match lam
+                    [`(prim ,_)
+                     ; (pretty-trace `(eval args prim: ,args))
+                     (pretty-trace `(applying prim: ,lam ,args))
+                     (apply-primitive lam C ρ evaled-args)]
+                    [(cons _ `(λ ,xs ,bod))
+                     ; (pretty-print `(applying closure: ,lam ,args ,ρ))
+                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
+                     (>>= (bod-enter lam Ce ρ lamρ)
+                          (λ (Ce ρ-new)
+                            ;  (pretty-print `(binding in ,ρ-new))
+                            (>>=
+                             (bind-args xs ρ-new evaled-args)
+                             (λ (_)
+                               (match (analysis-kind)
+                                 ['exponential (meval Ce ρ-new)]
+                                 ['rebinding
+                                  (define frees (set->list (set-subtract (free-vars bod) (apply set xs))))
+                                  (>>= (rebind-vars Ce frees ρ ρ-new)
+                                       (λ (_) (meval Ce ρ-new)))]
+                                 ))))
+                          )]
+                    [(cons C con)
+                     ; (pretty-print `(con))
+                     (>>= (bind-args (range (length args)) ρ evaled-args)
+                          (λ (_) (clos (cons Ce con) lamρ)))]
+                    ))))
+
+         )
+        ]
        [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
        ))))
 

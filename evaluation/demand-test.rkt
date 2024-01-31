@@ -9,10 +9,10 @@
                                `(app (λ (x) x)
                                      (λ (y) y))) (list)))
 
-  ; (demand-kind 'basic)
+  ; (analysis-kind 'basic)
   ; (pretty-print (run-print-query (apply eval example0)))
 
-  ; (demand-kind 'hybrid)
+  ; (analysis-kind 'hybrid)
   ; (pretty-print (run-print-query (apply eval example0)))
 
   ; (pretty-print
@@ -21,10 +21,10 @@
   ; (pretty-print
   ;  (run-print-query (apply eval (apply ran-e example0))))
   ; (trace 1)
-  ; (demand-kind 'basic)
+  ; (analysis-kind 'basic)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply rat-e example0)))))
-  ; (demand-kind 'hybrid)
+  ; (analysis-kind 'hybrid)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply rat-e example0)))))
 
@@ -37,10 +37,10 @@
                                `(app (λ (x) (app x x))
                                      (λ (y) (app y y))))
                          (list)))
-  ; (demand-kind 'basic)
+  ; (analysis-kind 'basic)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
-  (demand-kind 'hybrid)
+  (analysis-kind 'hybrid)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
 
@@ -70,15 +70,15 @@
 
   (trace 1)
   (current-m 0)
-  (analysis-kind 'basic)
-  (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (menv (list))))
-  (define query (go-bod (go-bin 1 top-query)))
-  (pretty-print query)
-  (pretty-result
-   (run-print-query (apply eval query)))
+  (analysis-kind 'rebinding)
+  ; (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (menv (list))))
+  ; (define query (go-bod (go-bin 1 top-query)))
+  ; (pretty-print query)
+  ; (pretty-result
+  ;  (run-print-query (apply eval query)))
 
-  ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'err)) (flatenv (list))))
-  ; (pretty-print (run-get-hash (apply meval top-query-mcfa)))
+  (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
+  (pretty-result (run-print-query (apply meval top-query-mcfa)))
   )
 
 (define (go-bod q) (apply bod-e q))
