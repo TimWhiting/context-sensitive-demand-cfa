@@ -344,7 +344,7 @@ Finish the paper
            [(envenv (cons cc₀ ρ₀))
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
-            (match (calibrate-envs ρ indet-env)
+            (match (find-call (calibrate-envs ρ indet-env))
               [`(cenv ,ce ,ρ′)
                (pretty-trace `(CALL-KNOWN))
                (unit ce ρ′)]

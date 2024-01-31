@@ -469,6 +469,13 @@
     )
   )
 
+(define (find-call ρ)
+  (match ρ
+    [(envenv ccs) (car ccs)]
+    [_ #f]
+  )
+)
+
 (define (enter-cc Ce ρ)
   (match ρ
     [(menv p) (take-cc (cons Ce (head-cc ρ)))]
