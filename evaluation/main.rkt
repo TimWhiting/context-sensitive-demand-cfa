@@ -7,8 +7,8 @@
 
 (module+ main
   (require racket/pretty)
+  ; (show-envs-simple #t)
   (for ([m (in-range 2)])
-    (show-envs-simple #t)
     (current-m m)
     (let ([basic-cost 0]
           [hybrid-cost 0]
@@ -23,6 +23,7 @@
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
           (pretty-display "Analyzing expression: ")
+          (pretty-display name)
           (pretty-print exp)
           (pretty-print `(expression: ,exp) out-basic)
           (pretty-print `(expression: ,exp) out-hybrid)
@@ -86,15 +87,16 @@
                            (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
                                '() ; (pretty-print "Results match")
                                (begin
+                                 (show-envs #t)
                                  (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
                                  (displayln "" (current-error-port))
-                                 (pretty-print `(query: ,(show-simple-ctx cb) ,pb) (current-error-port))
+                                 (pretty-print `(query: ,cb ,pb) (current-error-port))
                                  (pretty-display "Basic result: " (current-error-port))
-                                 (pretty-result-out (current-error-port) (simplify-envs (from-hash evalqb h1)))
+                                 (pretty-result-out (current-error-port) (from-hash evalqb h1))
                                  (displayln "" (current-error-port))
-                                 (pretty-print `(query: ,(show-simple-ctx ch) ,ph) (current-error-port))
+                                 (pretty-print `(query: ,ch ,ph) (current-error-port))
                                  (pretty-display "Hybrid result: " (current-error-port))
-                                 (pretty-result-out (current-error-port) (simplify-envs (from-hash evalqh h2)))
+                                 (pretty-result-out (current-error-port) (from-hash evalqh h2))
                                  (displayln "" (current-error-port))
                                  (exit)
                                  )

@@ -69,14 +69,15 @@
 (define (equal-simplify-envs? result1 result2)
   (define r1 (simplify-envs result1))
   (define r2 (simplify-envs result2))
-  ; (if (not (equal? r1 r2))
-  ;     (pretty-print `(,r1 == ,r2)) '())
+
   (match r1
     [(cons s1 l1)
      (match r2
        [(cons s2 l2)
         ; Hybrid can be a subset of the basic, since it doesn't visit extraneous
-        (and (equal? l1 l2) (subset? s2 s1))]
+        (if (not (equal? r1 r2))
+            (pretty-print `(,r1 == ,r2)) '())
+        (and (equal? l1 l2) (subset? s1 s2))]
        )]
     )
   )
