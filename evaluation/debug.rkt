@@ -98,17 +98,10 @@
 (define (pretty-result-out out r)
   (match r
     [(cons s l)
-     (define (pretty-closure/cons c)
-       (match c
-         [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-         [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
-         ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
-         ))
-     (define (pretty-simple l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
-     (define (pretty-lit l) (match l [(literal l) (map pretty-simple l)]))
-     (define (pretty-env e) (pretty-print `(env: ,(show-simple-env e))))
-     (if (set-empty? s) (pretty-print `(clos/con: ⊥) out) (pretty-print `(clos/con: ,(map pretty-closure/cons (set->list s))) out))
-     (pretty-print `(literals: ,(pretty-lit l)) out)
+     (if (set-empty? s)
+         (pretty-print `(clos/con: ⊥) out)
+         (pretty-print `(clos/con: ,(map show-simple-clos/con (set->list s))) out))
+     (pretty-print `(literals: ,(show-simple-literal l)) out)
      ]))
 
 (define (pretty-tracen n p)

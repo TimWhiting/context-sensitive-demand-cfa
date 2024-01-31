@@ -69,8 +69,9 @@
   ;  (run-print-query (apply eval (apply bod-e example2))))
 
   (trace 1)
-  (current-m 0)
+  (current-m 1)
   (analysis-kind 'rebinding)
+  (show-envs-simple #t)
   ; (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (menv (list))))
   ; (define query (go-bod (go-bin 1 top-query)))
   ; (pretty-print query)

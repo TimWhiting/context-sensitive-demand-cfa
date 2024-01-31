@@ -7,8 +7,6 @@
          racket/set)
 (provide meval)
 
-; At least k-cfa is wrong for m > 0
-
 (define (eval* args)
   (match args
     [(list) (unit (list))]
@@ -27,7 +25,7 @@
 
 (define (extend-store var env val)
   ; (pretty-print "extend")
-  ; (pretty-print `(extend-store ,var ,env ,val))
+  ; (pretty-print `(extend-store ,var ,(show-simple-env env) ,(show-simple-result val)))
   ; (store (cons var env))
   (extend-store-internal var env val)
   )
@@ -40,7 +38,7 @@
   (store (cons var env)))
 
 (define (bind-args vars ρ values)
-  ; (pretty-print "bind")
+  ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ) ,(map show-simple-result values)))
   (if (equal? (length vars) (length values))
       (match vars
         [(list) (unit #f)]
@@ -49,6 +47,28 @@
          (>>= (extend-store var ρ (car values))
               (λ (_) (bind-args vars ρ (cdr values))))])
       ⊥))
+
+(define (rebind-vars Ce vars ρ ρnew)
+  ; (pretty-print `(rebind-vars ,(show-simple-ctx Ce) ,vars ,(show-simple-env ρ) ,(show-simple-env ρnew)))
+  (match vars
+    [(list) (unit #f)]
+    [(cons var vars)
+     (match (lookup-primitive var)
+       [#f
+        (>>=
+         (bind var Ce ρ)
+         (λ (_ __ i)
+           (match i
+             [-1 (rebind-vars Ce vars ρ ρnew)]
+             [_  (>>= (get-store var ρ)
+                      (λ (v)
+                        (>>= (extend-store var ρnew v)
+                             (λ (_) (rebind-vars Ce vars ρ ρnew)))))])
+           ))
+        ]
+       [_ (rebind-vars Ce vars ρ ρnew)]
+       )
+     ]))
 
 (define (store-lookup Ce x ρ)
   (>>=
@@ -77,28 +97,6 @@
     )
   )
 
-(define (rebind-vars Ce vars ρ ρnew)
-  (match vars
-    [(list) (unit #f)]
-    [(cons var vars)
-     (match (lookup-primitive var)
-       [#f
-        (>>=
-         (bind var Ce ρ)
-         (λ (_ __ i)
-           (match i
-             [-1 (rebind-vars Ce vars ρ ρnew)]
-             [_  (>>= (get-store var ρ)
-                      (λ (v)
-                        (>>= (extend-store var ρnew v)
-                             (λ (_) (rebind-vars Ce vars ρ ρnew)))))])
-           ))
-        ]
-       [_ (rebind-vars Ce vars ρ ρnew)]
-       )
-     ; TODO: Do I need to avoid rebinding constructors / primitives?
-     ]))
-
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ; (pretty-print "meval")
@@ -125,10 +123,11 @@
                  (eval-con-clause Ce ρ clauses 0)
                  (eval-lit-clause Ce ρ clauses 0))]
        [(cons C `(app ,f ,@args))
-        (pretty-trace `(do-app ,f ,args ,ρ))
+        (pretty-trace `(eval-fun ,f ,(show-simple-env ρ)))
         (>>=clos
          (>>= (rat Ce ρ) meval)
          (λ (lam lamρ)
+           (pretty-trace `(eval-args ,args))
            (>>= (eval* (map
                         (λ (i) (ran Ce ρ i))
                         (range (length args))))
@@ -136,7 +135,6 @@
                   ; (pretty-trace `(got closure or primitive ,(show-simple-ctx lam)))
                   (match lam
                     [`(prim ,_)
-                     ; (pretty-trace `(eval args prim: ,args))
                      (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ evaled-args)]
                     [(cons _ `(λ ,xs ,bod))
@@ -151,8 +149,8 @@
                                (match (analysis-kind)
                                  ['exponential (meval Ce ρ-new)]
                                  ['rebinding
-                                  (define frees (set->list (set-subtract (free-vars bod) (apply set xs))))
-                                  (>>= (rebind-vars Ce frees ρ ρ-new)
+                                  (define frees (set->list (set-subtract (free-vars `(λ ,xs ,bod)) (apply set xs))))
+                                  (>>= (rebind-vars Ce frees lamρ ρ-new)
                                        (λ (_) (meval Ce ρ-new)))]
                                  ))))
                           )]

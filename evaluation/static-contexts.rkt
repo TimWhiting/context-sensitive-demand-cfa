@@ -1,6 +1,6 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt")
+(require "config.rkt" "demand-abstraction.rkt")
 (require racket/set racket/match racket/list racket/pretty)
 (provide (all-defined-out))
 ; syntax traversal
@@ -36,6 +36,28 @@
     )
   )
 
+(define (show-extra-simple-ctx Ce)
+  (match Ce
+    [`(prim ,p) `(prim ,p)]
+    [(cons `(rat ,es ,_) e₀)
+     `(app (->,e₀ <-) ...)]
+    [(cons `(match-e ,es ,_) e₀)
+     `(match (->,e₀ <-) ,@es)]
+    [(cons `(ran ,f ,b ,a ,_) e)
+     `(app ... (->,e <-) ...)]
+    [(cons `(match-clause ,m ,f ,b ,a ,_) e)
+     `(match ,f ,@b (->,m ,e <-) ,@a)]
+    [(cons `(bod ,y ,_) e)
+     `(λ ,y (->,e <-))]
+    [(cons `(let-bod ,binds ,_) e₁)
+     `(let ,(map car binds) (->,e₁ <-))]
+    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
+     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
+    [(cons `(top) _) `(top)]
+    [e e]
+    )
+  )
+
 (define (show-simple-ctx Ce)
   (match Ce
     [`(prim ,p) `(prim ,p)]
@@ -55,6 +77,24 @@
      `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
     [(cons `(top) _) `(top)]
     [e e]
+    )
+  )
+
+(define (show-simple-clos/con e)
+  (match e
+    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
+    [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
+    ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
+    )
+  )
+
+(define (show-simple-lattice l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
+(define (show-simple-literal l) (match l [(literal l) (map show-simple-lattice l)]))
+
+(define (show-simple-result r)
+  (match r
+    [(product/set s) `(clos/con: ,(show-simple-clos/con s))]
+    [(product/lattice l) `(literals: ,(show-simple-literal l))]
     )
   )
 
@@ -104,7 +144,7 @@
 (define (show-simple-env ρ)
   (if (show-envs-simple)
       (match ρ
-        [(flatenv l) (flatenv (show-simple-call l))]
+        [(flatenv l) (flatenv (map show-simple-ctx l))]
         [(expenv l) (expenv (map show-simple-call l))]
         [(menv l) (menv (map show-simple-call l))]
         [(envenv l) (envenv (map show-simple-call l))]
@@ -269,12 +309,13 @@
     [(cons C `(let ,binds ,e₁))
      (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
+; For calls this is Lamda Caller CallEnv LambdaEnv
 (define (bod-enter Ce call ρ ρ′)
   (match Ce
     [(cons C `(λ ,x ,e))
      ;  (pretty-print `(bod-enter ,ρ′ ,call))
      (match ρ′
-       [(flatenv _) (unit (cons `(bod ,x ,C) e) (flatenv (enter-cc call ρ′)))]
+       [(flatenv _) (unit (cons `(bod ,x ,C) e) (flatenv (enter-cc call ρ)))]
        [(expenv _) (unit (cons `(bod ,x ,C) e) (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
        [(menv _)  (unit (cons `(bod ,x ,C) e) (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
        [(envenv _)  (unit (cons `(bod ,x ,C) e) (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
@@ -433,7 +474,7 @@
     [(menv p) (take-cc (cons Ce (head-cc ρ)))]
     [(envenv p) (take-cc `(cenv ,Ce ,ρ))]
     [(expenv p) (take-cc (cons Ce (head-cc ρ)))]
-    [(flatenv calls) (take-cc (cons Ce calls))]; Basic m-CFA doesn't
+    [(flatenv calls) (take (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
 
