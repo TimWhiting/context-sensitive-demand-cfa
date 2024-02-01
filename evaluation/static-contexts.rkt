@@ -453,7 +453,8 @@
   )
 
 (define (take-cc cc [cut #f])
-  (take-ccm (current-m) cc cut))
+  (if (equal? (current-m) 0) (list)
+      (take-ccm (current-m) cc cut)))
 
 (define (take-ccm m cc [cut #f])
   (if (zero? m)
