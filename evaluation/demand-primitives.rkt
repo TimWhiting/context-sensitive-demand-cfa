@@ -30,6 +30,7 @@
     [_ #f]
     ))
 
+; TODO: Improve the primitives
 (define (do-equal p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
