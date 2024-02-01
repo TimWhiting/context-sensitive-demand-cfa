@@ -433,8 +433,27 @@
     [`(cenv ,Ce ,ρ) (alls (map cc-determined? (envenv-m ρ)))]
     [(cons Ce cc) (cc-determined? cc)]))
 
+(define (expect-no-cut p)
+  (if (no-cut-env p)
+      '()
+      (error 'env-has-cut (pretty-format p))))
+(define (no-cut-env p)
+  (match p
+    [(envenv l)
+     (not (ors (map cut-cc l)))]
+    [_ #t]))
+(define (cut-cc cc)
+  (match cc
+    [(list) #f]
+    ['? #f]
+    ['! #t]
+    [`(□? ,_) #f]
+    [`(cenv ,Ce ,ρ) (not (no-cut-env ρ))]
+    )
+  )
+
 (define (take-cc cc [cut #f])
-  (take-ccm (current-m) cc))
+  (take-ccm (current-m) cc cut))
 
 (define (take-ccm m cc [cut #f])
   (if (zero? m)

@@ -7,7 +7,8 @@
 
 (module+ main
   (require racket/pretty)
-  ; (show-envs-simple #t)
+  (show-envs-simple #t)
+  (show-envs #f)
   (for ([m (in-range 2)])
     (current-m m)
     (let ([basic-cost 0]
@@ -87,7 +88,7 @@
                            (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
                                '() ; (pretty-print "Results match")
                                (begin
-                                 (show-envs #t)
+                                 ;  (show-envs #t)
                                  (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
                                  (displayln "" (current-error-port))
                                  (pretty-print `(query: ,cb ,pb) (current-error-port))
@@ -98,7 +99,8 @@
                                  (pretty-display "Hybrid result: " (current-error-port))
                                  (pretty-result-out (current-error-port) (from-hash evalqh h2))
                                  (displayln "" (current-error-port))
-                                 (exit)
+                                 '()
+                                 ;  (exit)
                                  )
                                )
 

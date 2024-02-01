@@ -7,8 +7,6 @@
 
 #|
 TODO:
-Ask Kimball about errors and cut refinement equality for 0CFA
-
 Work on paper based on pattern matching / constructors
 
 Add more simple tests
@@ -23,7 +21,7 @@ Finish the paper
 |#
 
 ; environment refinement
-(define-key (refine p) fail)
+(define-key (refine ρ) fail)
 
 (define (((put-refines ρ₀ ρ₁) k) s)
   (pretty-trace `(addrefine ,ρ₀ ,ρ₁))
@@ -108,13 +106,14 @@ Finish the paper
              [acc (list)])
     (match ags
       [(list) (unit acc)]
-      [(cons e as) (>>= e (λ (ce p) (>>= (eval ce p) (λ (r) (loop as (append acc (list r)))))))]
+      [(cons e as) (>>= e (λ (ce ρ) (>>= (eval ce ρ) (λ (r) (loop as (append acc (list r)))))))]
       )
     )
   )
 
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
+  (expect-no-cut ρ)
   (print-eval-result
    `(eval ,Ce ,ρ)
    (λ ()
@@ -242,14 +241,14 @@ Finish the paper
                      )))))]
     ))
 
-(define-key (pattern-matches pattern Ce pe)
+(define-key (pattern-matches pattern Ce ρe)
   (match pattern
     [`(,con ,@subpats)
      (match Ce
        [(cons _ con1)
         (if (equal? con con1)
             ; Find where the constructor is applied
-            (>>= (expr Ce pe)
+            (>>= (expr Ce ρe)
                  (λ (Ce ρ)
                    (match Ce
                      [(cons _ `(app ,_ ,@as))
@@ -279,7 +278,7 @@ Finish the paper
   )
 
 
-(define ((eval-clauselit parent parentp clauses i) lit)
+(define ((eval-clauselit parent parentρ clauses i) lit)
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-matches-lit (car clause) lit)
@@ -287,39 +286,40 @@ Finish the paper
             (if matches
                 (begin
                   ; (pretty-print `(clause-match ,clause))
-                  (>>= (focus-clause parent parentp i) eval)
+                  (>>= (focus-clause parent parentρ i) eval)
                   )
-                ((eval-clauselit parent parentp clauses (+ i 1)) lit)
+                ((eval-clauselit parent parentρ clauses (+ i 1)) lit)
                 )))
      ]
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     (clos (cons lit 'match-error) parentp)
+     (clos (cons lit 'match-error) parentρ)
      ]
     )
   )
 
-(define ((eval-clausecon parent parentp clauses i) ce p)
+(define ((eval-clausecon parent parentρ clauses i) ce ρ)
   (match clauses
     [(cons clause clauses)
-     (>>= (pattern-matches (car clause) ce p)
+     (>>= (pattern-matches (car clause) ce ρ)
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (if matches
                 (begin
                   ; (pretty-print `(clause-match ,clause))
-                  (>>= (focus-clause parent parentp i) eval)
+                  (>>= (focus-clause parent parentρ i) eval)
                   )
-                ((eval-clausecon parent parentp clauses (+ i 1)) ce p)
+                ((eval-clausecon parent parentρ clauses (+ i 1)) ce ρ)
                 )))]
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     (clos (cons ce 'match-error) p)
+     (clos (cons ce 'match-error) ρ)
      ] ; TODO: Test match error
     ))
 
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
+  (expect-no-cut ρ)
   ; (pretty-trace `(call ,C ,xs ,e ,ρ))
   (print-result
    `(call ,C ,xs ,e ,ρ)
@@ -346,11 +346,11 @@ Finish the paper
             (define indet-env (envenv (indeterminate-env lambod)))
             (match (find-call (calibrate-envs ρ indet-env))
               [`(cenv ,ce ,ρ′)
-               (pretty-print 'known)
+               ;  (pretty-print 'known)
                (pretty-trace `(CALL-KNOWN))
                (unit ce ρ′)]
               [_
-               (pretty-print 'unknown)
+               ;  (pretty-print 'unknown)
                (begin
                  (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env)))
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
@@ -360,8 +360,6 @@ Finish the paper
                           (cond
                             [(equal? cc₀ cc₁)
                              (pretty-trace "CALL-EQ")
-                             (unit Cee ρee)]
-                            [(and (equal? cc₀ '?) (equal? cc₁ '!)); Cuts are equal (0CFA) TODO: is this always the case
                              (unit Cee ρee)]
                             [(⊑-cc cc₁ cc₀)
                              (pretty-trace "CALL-REFINE")
@@ -373,13 +371,13 @@ Finish the paper
                              (pretty-trace "CALL-NOREF")
                              (pretty-trace `(cc₀ ,cc₀ cc₁ ,cc₁))
                              ⊥])))))]
-              [p (error 'need-to-figure-this-out (pretty-format p)) ]
               )])
      )
    )
   )
 
 (define-key (expr Ce ρ)
+  (expect-no-cut ρ)
   (begin
     (print-result
      `(expr ,Ce ,ρ)
@@ -395,8 +393,8 @@ Finish the paper
                          (λ (Cλx.e ρλx.e)
                            (match-let ([(cons C `(λ ,xs ,e)) Cλx.e])
                              (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
-                                  (λ (Ce p)
-                                    (>>= ((find (car (drop xs (length before)))) Ce p)
+                                  (λ (Ce ρ)
+                                    (>>= ((find (car (drop xs (length before)))) Ce ρ)
                                          expr))))))))]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]

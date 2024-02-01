@@ -11,11 +11,11 @@
   (match args
     [(list) (unit (list))]
     [(cons e as)
-     (>>= e; This is just a compuation ran Ce p i
-          (λ (e p)
+     (>>= e; This is just a compuation i.e. (ran Ce ρ i) and needs to be evaluated
+          (λ (e ρ)
             (>>= (eval* as)
                  (λ (ress)
-                   (>>= (meval e p)
+                   (>>= (meval e ρ)
                         (λ (res) (unit (cons res ress)))
                         )))))]
     ))
@@ -166,7 +166,7 @@
        ))))
 
 
-(define ((eval-con-clause parent parentp clauses i) ce ρ)
+(define ((eval-con-clause parent parentρ clauses i) ce ρ)
   ; (pretty-print `(eval-con-clause ,ce ,ρ))
   (match clauses
     [(cons clause clauses)
@@ -176,27 +176,27 @@
             (match matches
               [(list (list vars) (list exprs)) ; Matches and binds variables
                ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
-               (>>= (bind-args vars parentp exprs)
+               (>>= (bind-args vars parentρ exprs)
                     (λ (_)
-                      (>>= (focus-clause parent parentp i) meval)))]
-              [#f ((eval-con-clause parent parentp clauses (+ i 1)) ce ρ)] ; Doesn't match
-              [#t (>>= (focus-clause parent parentp i) meval)] ; Matches, but doesn't bind anything
+                      (>>= (focus-clause parent parentρ i) meval)))]
+              [#f ((eval-con-clause parent parentρ clauses (+ i 1)) ce ρ)] ; Doesn't match
+              [#t (>>= (focus-clause parent parentρ i) meval)] ; Matches, but doesn't bind anything
               )
             ))]
-    [_ (clos (cons parent 'match-error) parentp)]
+    [_ (clos (cons parent 'match-error) parentρ)]
     ))
 
-(define ((eval-lit-clause parent parentp clauses i) lit)
+(define ((eval-lit-clause parent parentρ clauses i) lit)
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-lit-matches (car clause) lit)
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (if matches
-                (>>= (focus-clause parent parentp i) meval)
+                (>>= (focus-clause parent parentρ i) meval)
                 ((eval-con-clause parent clauses (+ i 1)) lit)
                 )))]
-    [_ (clos (cons parent 'match-error) parentp)]
+    [_ (clos (cons parent 'match-error) parentρ)]
     ))
 
 (define (store-lookups vars ρ)
