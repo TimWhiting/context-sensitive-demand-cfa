@@ -433,19 +433,19 @@
     [`(cenv ,Ce ,ρ) (alls (map cc-determined? (envenv-m ρ)))]
     [(cons Ce cc) (cc-determined? cc)]))
 
-(define (take-cc cc)
+(define (take-cc cc [cut #f])
   (take-ccm (current-m) cc))
 
-(define (take-ccm m cc)
+(define (take-ccm m cc [cut #f])
   (if (zero? m)
       (match (analysis-kind)
         ['hybrid
          (match cc
            [(list) (list)]; Already 0
-           [`(cenv ,_ ,_) '!]; Cut known
+           [`(cenv ,_ ,_) (if cut '! '?)]; Cut known
            ['! '!]
            ['? '?]
-           [`(□? ,_) '?]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
+           [`(□? ,x) `(□? ,x)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
            [`(cons _ _) (error 'bad-env "Invalid environment for hybrid")]; Cut known
            )]
         [_ (list)]; Handles regular/exponential m-CFA and basic Demand m-CFA which just terminate the call string
@@ -473,8 +473,8 @@
   (match ρ
     [(envenv ccs) (car ccs)]
     [_ #f]
+    )
   )
-)
 
 (define (enter-cc Ce ρ)
   (match ρ
@@ -513,7 +513,7 @@
     ['? cc1]
     [`(□? ,x) `(□? ,x)]
     [`(cenv ,call ,ρ₀)
-     (match (calibrate-envs ρ₀ (envenv (indeterminate-env call)))
+     (match (calibrate-envsx ρ₀ (envenv (indeterminate-env call)))
        [#f #f]
        [res `(cenv ,call ,res)]
        )]
@@ -521,11 +521,16 @@
   )
 
 ; Adds missing context
-(define (calibrate-envs ρ₀ ρ₁)
+(define (calibrate-envsx ρ₀ ρ₁)
   ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
   (let [(res (map calibrate-ccs (envenv-m ρ₀) (envenv-m ρ₁)))]
     (if (alls res) (envenv res) #f)
     ))
+
+(define (calibrate-envs ρ₀ ρ₁)
+  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
+  (calibrate-envsx (envenv (map (lambda (cc) (take-ccm (- (current-m) 1) cc #t)) (env-list ρ₀))) ρ₁)
+  )
 
 (define (simple-env ρ)
   ; (pretty-print `(simple-env ρ))

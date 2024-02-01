@@ -28,6 +28,9 @@ TODO:
 
 General comments:
 
+Additional Motivation:
+- Knowing if an argument is used and effect free could allow for strict evaluation of typically lazy variables
+
 Consider approach where we cut off early more imprecise portions of the analysis and focus on instantiating earlier
 - How about an approach where we check if a value is used prior to doing any forward evaluation on it? 
 - This way, we can avoid doing any work on values that are not used, and find dead code as a side effect.

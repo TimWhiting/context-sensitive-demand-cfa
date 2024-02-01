@@ -345,7 +345,11 @@ Finish the paper
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
             (match (find-call (calibrate-envs ρ indet-env))
-              [#f
+              [`(cenv ,ce ,ρ′)
+               (pretty-print 'known)
+               (pretty-trace `(CALL-KNOWN))
+               (unit ce ρ′)]
+              [_
                (pretty-print 'unknown)
                (begin
                  (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env)))
@@ -369,10 +373,6 @@ Finish the paper
                              (pretty-trace "CALL-NOREF")
                              (pretty-trace `(cc₀ ,cc₀ cc₁ ,cc₁))
                              ⊥])))))]
-              [`(cenv ,ce ,ρ′)
-               (pretty-print 'known)
-               (pretty-trace `(CALL-KNOWN))
-               (unit ce ρ′)]
               [p (error 'need-to-figure-this-out (pretty-format p)) ]
               )])
      )
@@ -410,7 +410,7 @@ Finish the paper
                                (cons (>>= (bod Cex ρe)
                                           (λ (Cee ρee)
                                             (>>= ((find x) Cee ρee)
-                                                 (λ (Cee ρee)
+                                                 (λ (Cee ρee) ; TODO: Calibrate and use the cut environment instead of doing expr if we can
                                                    ; (pretty-print `(find: found: ,Cee))
                                                    (expr Cee ρee)))))
                                      (map (λ (i) ; Recursive bindings

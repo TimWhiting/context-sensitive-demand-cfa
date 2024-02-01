@@ -5,4 +5,6 @@
 (list 'query: '(let ((-> x = (λ (y) y) <-)) bod) (envenv '()))
 '(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (y) (-> y <-)) (envenv '(?)))
+(list 'query: '(λ (y) (-> y <-)) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
