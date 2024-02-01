@@ -70,16 +70,16 @@
 
   (trace 1)
   (current-m 1)
-  (analysis-kind 'rebinding)
+  (analysis-kind 'hybrid)
   (show-envs-simple #t)
-  ; (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (menv (list))))
-  ; (define query (go-bod (go-bin 1 top-query)))
-  ; (pretty-print query)
-  ; (pretty-result
-  ;  (run-print-query (apply eval query)))
+  (define top-query (list (cons `(top) (get-example-expr 'sat-small)) (envenv (list))))
+  (define query (go-bod (go-bin 1 top-query)))
+  (pretty-print query)
+  (pretty-result
+   (run-print-query (apply eval query)))
 
-  (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
-  (pretty-result (run-print-query (apply meval top-query-mcfa)))
+  ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
+  ; (pretty-result (run-print-query (apply meval top-query-mcfa)))
   )
 
 (define (go-bod q) (apply bod-e q))

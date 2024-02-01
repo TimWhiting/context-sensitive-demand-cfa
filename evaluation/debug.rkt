@@ -69,7 +69,6 @@
 (define (equal-simplify-envs? result1 result2)
   (define r1 (simplify-envs result1))
   (define r2 (simplify-envs result2))
-
   (match r1
     [(cons s1 l1)
      (match r2

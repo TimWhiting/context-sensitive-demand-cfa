@@ -345,10 +345,8 @@ Finish the paper
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
             (match (find-call (calibrate-envs ρ indet-env))
-              [`(cenv ,ce ,ρ′)
-               (pretty-trace `(CALL-KNOWN))
-               (unit ce ρ′)]
-              [_
+              [#f
+               (pretty-print 'unknown)
                (begin
                  (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env)))
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
@@ -371,6 +369,11 @@ Finish the paper
                              (pretty-trace "CALL-NOREF")
                              (pretty-trace `(cc₀ ,cc₀ cc₁ ,cc₁))
                              ⊥])))))]
+              [`(cenv ,ce ,ρ′)
+               (pretty-print 'known)
+               (pretty-trace `(CALL-KNOWN))
+               (unit ce ρ′)]
+              [p (error 'need-to-figure-this-out (pretty-format p)) ]
               )])
      )
    )
