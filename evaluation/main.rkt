@@ -9,7 +9,7 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (for ([m (in-range 2)])
+  (for ([m (in-range 2 4)])
     (current-m m)
     (let ([basic-cost 0]
           [hybrid-cost 0]
@@ -49,6 +49,7 @@
               [_ '()]
               )
             )
+          ; (pretty-print "Finished exponential mcfa")
           (analysis-kind 'rebinding)
           (define rebh (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash)))
           ; (pretty-print exph)
@@ -61,6 +62,7 @@
               [_ '()]
               )
             )
+          ; (pretty-print "Finished regular mcfa")
           (analysis-kind 'basic)
           (let ([qbs (gen-queries (cons `(top) exp) (menv (list)))])
             (analysis-kind 'hybrid)
@@ -79,11 +81,13 @@
                   ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
                   (analysis-kind 'basic)
+                  ; (pretty-print "Starting basic demand-mcfa")
                   (set! h1 (run-get-hash evalqb h1))
                   (set! basic-cost (+ basic-cost (hash-num-keys h1)))
                   (pretty-result-out out-basic (from-hash evalqb h1))
                   (if #t (begin
                            (analysis-kind 'hybrid)
+                           ;  (pretty-print "Starting hybrid demand-mcfa")
                            (set! h2 (run-get-hash evalqh h2))
                            (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
                            (pretty-tracen 0 (from-hash evalqh h2))
@@ -97,10 +101,10 @@
                                  (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-keys-hybrid)
                                  (pretty-display "" out-keys-basic)
                                  (pretty-display "" out-keys-hybrid)
-                                 (pretty-print (sort (map simple-key (hash-keys h2)) lt-expr) out-keys-hybrid)
-                                 (pretty-print (length (hash-keys h2)) out-keys-hybrid)
-                                 (pretty-print (sort (map simple-key (hash-keys h1)) lt-expr) out-keys-basic)
+                                 (pretty-print (queries h1) out-keys-basic)
                                  (pretty-print (length (hash-keys h1)) out-keys-basic)
+                                 (pretty-print (queries h2) out-keys-hybrid)
+                                 (pretty-print (length (hash-keys h2)) out-keys-hybrid)
                                  (pretty-display "" out-keys-basic)
                                  (pretty-display "" out-keys-hybrid)
                                  )
@@ -185,6 +189,10 @@
   (match k
     [(eval Ce p) `(eval ,(show-simple-ctx Ce) ,(show-simple-env p))]
     [(expr Ce p) `(expr ,(show-simple-ctx Ce) ,(show-simple-env p))]
-    [(refine n) '()]
+    [(refine p) `(refine ,(show-simple-env p))]
     )
+  )
+
+(define (queries hm)
+  (sort (filter (lambda (x) (not (equal? x '()))) (map simple-key (hash-keys hm))) lt-expr)
   )

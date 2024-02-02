@@ -1,0 +1,13 @@
+'(expression: (app (λ (x) (app x x)) 2))
+
+(list 'query: '(top) (menv '()))
+
+(list
+ (list 'eval '(app (-> x <-) x) (menv '(((top)))))
+ (list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))
+ (list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))
+ (list 'eval '(top) (menv '()))
+ (list 'eval '(λ (x) (-> (app x x) <-)) (menv '(((top)))))
+ (list 'expr '(app (-> (λ (x) (app x x)) <-) 2) (menv '())))
+6
+

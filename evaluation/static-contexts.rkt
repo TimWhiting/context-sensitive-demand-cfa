@@ -508,8 +508,16 @@
     [(menv p) (take-cc (cons Ce (head-cc ρ)) '_)]
     [(envenv p) (take-cc `(cenv ,Ce ,ρ) lamCe)]
     [(expenv p) (take-cc (cons Ce (head-cc ρ)) '_)]
-    [(flatenv calls) (take (cons Ce calls) (current-m))]; Basic m-CFA doesn't
+    [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
+  )
+
+(define (take-m cc m)
+  (if (equal? m 0) '()
+      (match cc
+        [(cons c cc) (cons c (take-m cc (- m 1)))]
+        ['() '()]
+        ))
   )
 
 (define (indeterminate-env Ce)

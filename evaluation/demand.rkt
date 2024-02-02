@@ -23,6 +23,7 @@ Finish the paper
 ; environment refinement
 (define-key (refine ρ) fail)
 
+; The first is a refinement of the second parameter
 (define (((put-refines ρ₀ ρ₁) k) s)
   (pretty-trace `(addrefine ,ρ₀ ,ρ₁))
   ((k #f) ((node-absorb/powerset (refine ρ₁) (list ρ₀)) s)))

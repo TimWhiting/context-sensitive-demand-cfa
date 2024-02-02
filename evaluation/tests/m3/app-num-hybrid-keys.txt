@@ -1,0 +1,61 @@
+'(expression: (let ((x (λ (y) y))) (let ((_ (app x 1))) (app x 2))))
+
+(list 'query: '(top) (envenv '()))
+
+(list
+ (list 'eval '(app x (-> 2 <-)) (envenv '()))
+ (list 'eval '(app (-> x <-) 2) (envenv '()))
+ (list 'eval '(let (_) (-> (app x 2) <-)) (envenv '()))
+ (list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (envenv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (envenv '()))
+ (list 'eval '(top) (envenv '()))
+ (list
+  'eval
+  '(λ (y) (-> y <-))
+  (envenv (list (list 'cenv '(let (_) (-> (app x 2) <-)) (envenv '()))))))
+7
+
+
+(list 'query: '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (envenv '()))
+
+(list
+ (list 'eval '(app x (-> 2 <-)) (envenv '()))
+ (list 'eval '(app (-> x <-) 2) (envenv '()))
+ (list 'eval '(let (_) (-> (app x 2) <-)) (envenv '()))
+ (list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (envenv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (envenv '()))
+ (list
+  'eval
+  '(λ (y) (-> y <-))
+  (envenv (list (list 'cenv '(let (_) (-> (app x 2) <-)) (envenv '()))))))
+6
+
+
+(list 'query: '(let ((-> _ = (app x 1) <-)) bod) (envenv '()))
+
+(list
+ (list 'eval '(app x (-> 1 <-)) (envenv '()))
+ (list 'eval '(app (-> x <-) 1) (envenv '()))
+ (list 'eval '(let ((-> _ = (app x 1) <-)) bod) (envenv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (envenv '()))
+ (list
+  'eval
+  '(λ (y) (-> y <-))
+  (envenv
+   (list (list 'cenv '(let ((-> _ = (app x 1) <-)) bod) (envenv '()))))))
+5
+
+
+(list 'query: '(let (_) (-> (app x 2) <-)) (envenv '()))
+
+(list
+ (list 'eval '(app x (-> 2 <-)) (envenv '()))
+ (list 'eval '(app (-> x <-) 2) (envenv '()))
+ (list 'eval '(let (_) (-> (app x 2) <-)) (envenv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (envenv '()))
+ (list
+  'eval
+  '(λ (y) (-> y <-))
+  (envenv (list (list 'cenv '(let (_) (-> (app x 2) <-)) (envenv '()))))))
+5
+

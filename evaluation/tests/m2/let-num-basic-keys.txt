@@ -1,0 +1,28 @@
+'(expression: (let ((x (λ (y) y))) (app x 1)))
+
+(list 'query: '(top) (menv '()))
+
+(list
+ (list 'eval '(app x (-> 1 <-)) (menv '()))
+ (list 'eval '(app (-> x <-) 1) (menv '()))
+ (list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))
+ (list 'eval '(top) (menv '()))
+ (list 'eval '(λ (y) (-> y <-)) (menv '(((let (x) (-> (app x 1) <-))))))
+ (list 'expr '(app (-> x <-) 1) (menv '()))
+ (list 'expr '(let ((-> x = (λ (y) y) <-)) bod) (menv '())))
+8
+
+
+(list 'query: '(let (x) (-> (app x 1) <-)) (menv '()))
+
+(list
+ (list 'eval '(app x (-> 1 <-)) (menv '()))
+ (list 'eval '(app (-> x <-) 1) (menv '()))
+ (list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))
+ (list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))
+ (list 'eval '(λ (y) (-> y <-)) (menv '(((let (x) (-> (app x 1) <-))))))
+ (list 'expr '(app (-> x <-) 1) (menv '()))
+ (list 'expr '(let ((-> x = (λ (y) y) <-)) bod) (menv '())))
+7
+

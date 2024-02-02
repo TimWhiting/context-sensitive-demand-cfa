@@ -1,0 +1,18 @@
+'(expression: (app (λ (x) (app x x)) 2))
+
+(list 'query: '(top) (envenv '()))
+
+(list
+ (list
+  'eval
+  '(app (-> x <-) x)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (envenv '()))
+ (list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (envenv '()))
+ (list 'eval '(top) (envenv '()))
+ (list
+  'eval
+  '(λ (x) (-> (app x x) <-))
+  (envenv (list (list 'cenv '(top) (envenv '()))))))
+5
+

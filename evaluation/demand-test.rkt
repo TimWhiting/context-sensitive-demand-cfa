@@ -69,10 +69,10 @@
   ;  (run-print-query (apply eval (apply bod-e example2))))
 
   (trace 1)
-  (current-m 0)
+  (current-m 1)
   (analysis-kind 'hybrid)
   (show-envs-simple #t)
-  (define top-query (list (cons `(top) (get-example-expr 'app-num)) (envenv (list))))
+  (define top-query (list (cons `(top) (get-example-expr 'multi-param)) (envenv (list))))
   ; (define query (go-bod (go-bin 1 top-query)))\
   (define query top-query)
   (pretty-print query)

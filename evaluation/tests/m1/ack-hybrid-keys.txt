@@ -14,10 +14,6 @@
 (list 'query: '(top) (envenv '()))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -1659,7 +1655,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 179
 
 
@@ -1679,10 +1706,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list 'eval '(app + n (-> 1 <-)) (envenv '((□? (m n)))))
  (list
   'eval
@@ -3405,7 +3428,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 194
 
 
@@ -3424,10 +3478,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -5039,7 +5089,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 176
 
 
@@ -5052,10 +5133,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -6586,7 +6663,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 162
 
 
@@ -6596,10 +6704,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -8106,17 +8210,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 158
 
 
 (list 'query: '(app ack m (-> (app - n 1) <-)) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -9623,17 +9754,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 158
 
 
 (list 'query: '(app - (-> n <-) 1) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -11140,17 +11298,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 158
 
 
 (list 'query: '(app ack (-> m <-) (app - n 1)) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -11643,7 +11828,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 67
 
 
@@ -11653,10 +11869,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -12149,17 +12361,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 67
 
 
 (list 'query: '(app - (-> m <-) 1) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -12652,7 +12891,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 67
 
 
@@ -12665,10 +12935,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -14196,17 +14462,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 162
 
 
 (list 'query: '(app ack (-> (app - m 1) <-) 1) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -14699,17 +14992,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 67
 
 
 (list 'query: '(app - (-> m <-) 1) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -15202,7 +15522,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 67
 
 
@@ -15215,10 +15566,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -16758,17 +17105,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 166
 
 
 (list 'query: '(app = (-> n <-) 0) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -18281,7 +18655,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 160
 
 
@@ -18298,10 +18703,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list 'eval '(app + n (-> 1 <-)) (envenv '((□? (m n)))))
  (list
   'eval
@@ -19849,17 +20250,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 166
 
 
 (list 'query: '(app + (-> n <-) 1) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -21372,7 +21800,38 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 160
 
 
@@ -21389,10 +21848,6 @@
  (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -22079,17 +22534,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 87
 
 
 (list 'query: '(app = (-> m <-) 0) (envenv '((□? (m n)))))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -22621,17 +23103,44 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 72
 
 
 (list 'query: '(let (ack) (-> (app ack 3 12) <-)) (envenv '()))
 
 (list
- '()
- '()
- '()
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -24272,6 +24781,37 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (envenv '())))
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (#t (app ack (app - m 1) 1))
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     (envenv '((□? (m n))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match
+       (app = n 0)
+       (-> #t (app ack (app - m 1) 1) <-)
+       (#f (app ack (app - m 1) (app ack m (app - n 1)))))
+     (envenv '((□? (m n))))))))
+ (list 'refine (envenv '((□? (m n))))))
 178
 

@@ -20,7 +20,6 @@
 (list 'query: '(λ (z) (-> z <-)) (menv '((□? (z)))))
 
 (list
- '()
  (list 'eval '(app x (-> y <-)) (menv '(((top)))))
  (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))
  (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))
@@ -28,14 +27,14 @@
  (list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))
  (list 'expr '(app (-> x <-) y) (menv '(((top)))))
  (list 'expr '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))
- (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '())))
+ (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))
+ (list 'refine (menv '((□? (z))))))
 9
 
 
 (list 'query: '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))
 
 (list
- '()
  (list 'eval '(app x (-> y <-)) (menv '(((top)))))
  (list 'eval '(app (-> x <-) y) (menv '(((top)))))
  (list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))
@@ -47,6 +46,7 @@
  (list 'eval '(λ (z) (-> z <-)) (menv '(((λ (x y) (-> (app x y) <-))))))
  (list 'expr '(app (-> x <-) y) (menv '(((top)))))
  (list 'expr '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))
- (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '())))
+ (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))
+ (list 'refine (menv '((□? (x y))))))
 13
 

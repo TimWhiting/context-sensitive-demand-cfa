@@ -14,7 +14,6 @@
 (list 'query: '(top) (menv '()))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -1138,7 +1137,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 176
 
 
@@ -1158,7 +1158,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -2363,7 +2362,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 191
 
 
@@ -2382,7 +2382,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -3485,7 +3484,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 173
 
 
@@ -3498,7 +3498,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -4527,7 +4526,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 159
 
 
@@ -4537,7 +4537,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -5544,14 +5543,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 155
 
 
 (list 'query: '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -6558,14 +6557,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 155
 
 
 (list 'query: '(app - (-> n <-) 1) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -7572,14 +7571,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 155
 
 
 (list 'query: '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -7904,7 +7903,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 64
 
 
@@ -7914,7 +7914,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -8239,14 +8238,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 64
 
 
 (list 'query: '(app - (-> m <-) 1) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -8571,7 +8570,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 64
 
 
@@ -8584,7 +8584,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -9610,14 +9609,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 159
 
 
 (list 'query: '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -9942,14 +9941,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 64
 
 
 (list 'query: '(app - (-> m <-) 1) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -10274,7 +10273,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 64
 
 
@@ -10287,7 +10287,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -11323,14 +11322,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 163
 
 
 (list 'query: '(app = (-> n <-) 0) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -12342,7 +12341,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 157
 
 
@@ -12359,7 +12359,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -13403,14 +13402,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 163
 
 
 (list 'query: '(app + (-> n <-) 1) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -14422,7 +14421,8 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 157
 
 
@@ -14439,7 +14439,6 @@
  (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -14902,14 +14901,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 84
 
 
 (list 'query: '(app = (-> m <-) 0) (menv '((□? (m n)))))
 
 (list
- '()
  (list
   'eval
   '(app - m (-> 1 <-))
@@ -15259,14 +15258,14 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 69
 
 
 (list 'query: '(let (ack) (-> (app ack 3 12) <-)) (menv '()))
 
 (list
- '()
  (list
   'eval
   '(app + n (-> 1 <-))
@@ -16389,6 +16388,7 @@
                (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
           <-))
      bod)
-  (menv '())))
+  (menv '()))
+ (list 'refine (menv '((□? (m n))))))
 175
 
