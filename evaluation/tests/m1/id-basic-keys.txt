@@ -1,1 +1,25 @@
 '(expression: (app (λ (x) x) (λ (y) y)))
+
+(list 'query: '(top) (menv '()))
+
+(list
+ (list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))
+ (list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))
+ (list 'eval '(top) (menv '()))
+ (list 'eval '(λ (x) (-> x <-)) (menv '(((top)))))
+ (list 'expr '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '())))
+5
+
+
+(list 'query: '(λ (y) (-> y <-)) (menv '((□? (y)))))
+
+(list
+ (list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))
+ (list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))
+ (list 'expr '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))
+ (list 'expr '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))
+ (list 'expr '(top) (menv '()))
+ (list 'expr '(λ (x) (-> x <-)) (menv '(((top)))))
+ (list 'refine (menv '((□? (y))))))
+7
+

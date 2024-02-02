@@ -1,1 +1,29 @@
 '(expression: (app (λ (x) x) (λ (y) y)))
+
+(list 'query: '(top) (envenv '()))
+
+(list
+ (list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (envenv '()))
+ (list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (envenv '()))
+ (list 'eval '(top) (envenv '()))
+ (list
+  'eval
+  '(λ (x) (-> x <-))
+  (envenv (list (list 'cenv '(top) (envenv '()))))))
+4
+
+
+(list 'query: '(λ (y) (-> y <-)) (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (envenv '()))
+ (list 'eval '(λ (y) (-> y <-)) (envenv '((□? (y)))))
+ (list 'expr '(app (λ (x) x) (-> (λ (y) y) <-)) (envenv '()))
+ (list 'expr '(top) (envenv '()))
+ (list
+  'expr
+  '(λ (x) (-> x <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'refine (envenv '((□? (y))))))
+6
+

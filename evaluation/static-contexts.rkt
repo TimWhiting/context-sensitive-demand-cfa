@@ -402,6 +402,16 @@
        )
   )
 
+(define (basic-queries exp)
+  (analysis-kind 'basic)
+  (gen-queries (cons `(top) exp) (menv (list)))
+  )
+
+(define (hybrid-queries exp)
+  (analysis-kind 'basic)
+  (gen-queries (cons `(top) exp) (envenv (list)))
+  )
+
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce
