@@ -40,6 +40,7 @@
   (envenv (list (list 'cenv '(top) (envenv '())))))
  (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
  (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list 'eval '(λ (z) (-> z <-)) (envenv '((□? (z)))))
  (list
   'eval
   '(λ (z) (-> z <-))
@@ -49,7 +50,6 @@
      'cenv
      '(λ (x y) (-> (app x y) <-))
      (envenv (list (list 'cenv '(top) (envenv '()))))))))
- (list 'eval '(λ (z) (-> z <-)) (envenv '((□? (z)))))
  (list
   'expr
   '(app (-> x <-) y)
@@ -62,23 +62,23 @@
 (list 'query: '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
 
 (list
- (list 'eval '(app x (-> y <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(app x (-> y <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
- (list 'eval '(app (-> x <-) y) (envenv '((□? (x y)))))
+ (list 'eval '(app x (-> y <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(app (-> x <-) y)
   (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(app (-> x <-) y) (envenv '((□? (x y)))))
  (list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '()))
  (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list 'eval '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(λ (x y) (-> (app x y) <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
- (list 'eval '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(λ (z) (-> z <-))

@@ -34,8 +34,6 @@
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
  (menv '((□? (x1)))))
-'(clos/con: (#f #t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
@@ -48,7 +46,9 @@
  'query:
  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
  (menv '((□? (x2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -60,7 +60,7 @@
  'query:
  '(λ (y1 y2) (-> y1 <-))
  (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -72,13 +72,13 @@
  'query:
  '(λ (z) (-> (app z x1 x2) <-))
  (menv '((□? (z)) (□? (x2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
 '(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))
 '(clos/con: ((λ (y1 y2) y1)))
@@ -95,13 +95,13 @@
  'query:
  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
  (menv '((□? (f2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(let ((-> _ = (app f2 #t) <-)) bod)
  (menv '((□? (f2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: (#t))
@@ -110,7 +110,7 @@
 '(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))
 '(clos/con: (#f))

@@ -7,15 +7,15 @@
  (list
   'eval
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app y (-> y <-))
@@ -27,8 +27,10 @@
  (list
   'eval
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app (-> y <-) y)
@@ -39,10 +41,8 @@
  (list
   'eval
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'eval '(top) (menv '()))
@@ -53,23 +53,28 @@
   (menv
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
+ (list
+  'eval
+  '(λ (y) (-> (app y y) <-))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))))))
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
   (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app x (-> x <-)) (menv '(((top)))))
+ (list
+  'expr
+  '(app y (-> y <-))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
@@ -77,11 +82,6 @@
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
       (λ (x) (-> (app x x) <-))))))
- (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'expr
-  '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
@@ -93,8 +93,10 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app (-> y <-) y)
@@ -105,10 +107,8 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'expr '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '())))
 30
@@ -121,15 +121,15 @@
  (list
   'eval
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app y (-> y <-))
@@ -141,31 +141,53 @@
  (list
   'eval
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (y) (-> (app y y) <-)) □? (y)))))
  (list
   'eval
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (y) (-> (app y y) <-)) □? (y)))))
- (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
+ (list
+  'eval
+  '(app (-> y <-) y)
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))))))
  (list 'eval '(app (-> y <-) y) (menv '((□? (y)))))
  (list
   'eval
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> y <-) y) (menv '(((λ (y) (-> (app y y) <-)) □? (y)))))
+ (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
+ (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list
   'eval
-  '(app (-> y <-) y)
+  '(λ (y) (-> (app y y) <-))
   (menv
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
       (λ (x) (-> (app x x) <-))))))
- (list 'eval '(app (-> y <-) y) (menv '(((λ (y) (-> (app y y) <-)) □? (y)))))
- (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
- (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
+ (list
+  'eval
+  '(λ (y) (-> (app y y) <-))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))))))
  (list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))
+ (list
+  'eval
+  '(λ (y) (-> (app y y) <-))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list
+  'eval
+  '(λ (y) (-> (app y y) <-))
+  (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
@@ -173,42 +195,20 @@
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
   (menv '(((λ (y) (-> (app y y) <-)) □? (y)))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
-  (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app x (-> x <-)) (menv '(((top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app y (-> y <-))
@@ -220,8 +220,10 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app (-> y <-) y)
@@ -232,17 +234,15 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'expr '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'refine (menv '((□? (y)))))
+ (list 'refine (menv '(((λ (y) (-> (app y y) <-)) □? (y)))))
  (list
   'refine
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (y) (-> (app y y) <-)) □? (y)))))
- (list 'refine (menv '(((λ (y) (-> (app y y) <-)) □? (y))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (y) (-> (app y y) <-)) □? (y))))))
 37
 
 
@@ -250,6 +250,12 @@
 
 (list
  (list 'eval '(app x (-> x <-)) (menv '(((top)))))
+ (list 'eval '(app y (-> y <-)) (menv '((□? (y)))))
+ (list
+  'eval
+  '(app y (-> y <-))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
@@ -257,11 +263,6 @@
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
       (λ (x) (-> (app x x) <-))))))
- (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'eval
-  '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
@@ -269,42 +270,41 @@
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))))))
- (list 'eval '(app y (-> y <-)) (menv '((□? (y)))))
  (list 'eval '(app (-> x <-) x) (menv '(((top)))))
+ (list
+  'eval
+  '(app (-> y <-) y)
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
+ (list
+  'eval
+  '(app (-> y <-) y)
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))))))
  (list
   'eval
   '(app (-> y <-) y)
   (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'eval
-  '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))))))
- (list
-  'eval
-  '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
  (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'expr '(app x (-> x <-)) (menv '(((top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app y (-> y <-))
@@ -316,8 +316,10 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app (-> y <-) y)
@@ -328,10 +330,8 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'expr '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'refine (menv '((□? (y))))))
@@ -345,15 +345,15 @@
  (list
   'eval
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app y (-> y <-))
@@ -365,9 +365,10 @@
  (list
   'eval
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list 'eval '(app (-> y <-) y) (menv '((□? (y)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app (-> y <-) y)
@@ -378,25 +379,24 @@
  (list
   'eval
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> y <-) y) (menv '((□? (y)))))
  (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'expr '(app x (-> x <-)) (menv '(((top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app y (-> y <-))
@@ -408,8 +408,10 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app (-> y <-) y)
@@ -420,10 +422,8 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'expr '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'refine (menv '((□? (y))))))
@@ -437,15 +437,15 @@
  (list
   'eval
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'eval
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(app y (-> y <-))
@@ -453,21 +453,9 @@
    '(((λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))
       (λ (y) (-> (app y y) <-))))))
- (list 'eval '(app (-> x <-) x) (menv '(((top)))))
  (list 'eval '(app (-> x <-) x) (menv '((□? (x)))))
- (list
-  'eval
-  '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> x <-) x) (menv '(((top)))))
  (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) □? (x)))))
- (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
- (list
-  'eval
-  '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))))))
  (list
   'eval
   '(app (-> y <-) y)
@@ -479,6 +467,18 @@
   'eval
   '(app (-> y <-) y)
   (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) □? (x)))))
+ (list
+  'eval
+  '(app (-> y <-) y)
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))))))
+ (list
+  'eval
+  '(app (-> y <-) y)
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'eval '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'eval '(λ (x) (-> (app x x) <-)) (menv '(((top)))))
@@ -490,11 +490,10 @@
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
-  (menv '(((λ (x) (-> (app x x) <-)) □? (x)))))
- (list
-  'eval
-  '(λ (y) (-> (app y y) <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
@@ -505,10 +504,11 @@
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list
+  'eval
+  '(λ (y) (-> (app y y) <-))
+  (menv '(((λ (x) (-> (app x x) <-)) □? (x)))))
  (list
   'eval
   '(λ (y) (-> (app y y) <-))
@@ -517,15 +517,15 @@
  (list
   'expr
   '(app y (-> y <-))
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app y (-> y <-)) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list
   'expr
   '(app y (-> y <-))
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app y (-> y <-))
@@ -537,8 +537,10 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
- (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
+  (menv
+   '(((λ (y) (-> (app y y) <-))
+      (λ (y) (-> (app y y) <-))
+      (λ (x) (-> (app x x) <-))))))
  (list
   'expr
   '(app (-> y <-) y)
@@ -549,10 +551,8 @@
  (list
   'expr
   '(app (-> y <-) y)
-  (menv
-   '(((λ (y) (-> (app y y) <-))
-      (λ (y) (-> (app y y) <-))
-      (λ (x) (-> (app x x) <-))))))
+  (menv '(((λ (y) (-> (app y y) <-)) (λ (x) (-> (app x x) <-)) (top)))))
+ (list 'expr '(app (-> y <-) y) (menv '(((λ (x) (-> (app x x) <-)) (top)))))
  (list 'expr '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))
  (list 'expr '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))
  (list 'refine (menv '((□? (x)))))

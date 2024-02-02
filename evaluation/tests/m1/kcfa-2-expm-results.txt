@@ -7,779 +7,12 @@
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
 (list
  'query:
- '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (expenv
-  '((((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(let ((-> _ = (app f2 #t) <-)) bod)
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app f1 (-> #t <-))
- (expenv
-  '((((top)
-      app
-      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-      (λ (x1)
-        (app
-         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> f1 <-) #f)
- (expenv
-  '((((top)
-      app
-      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-      (λ (x1)
-        (app
-         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
-'(clos/con:
-  ((λ (x1)
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (expenv
-  '((((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
  '(app f2 (-> #f <-))
  (expenv
   '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
       app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> f2 <-) #f)
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (expenv
-  '((((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (z) (app z x1 x2))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (expenv
-  '((((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (expenv
-  '((((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (expenv
-  '((((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> f2 <-) #t)
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (expenv
-  '((((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (expenv
-  '((((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (z) (app z x1 x2))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (z) (-> (app z x1 x2) <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (z) (-> (app z x1 x2) <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(let ((-> _ = (app f2 #t) <-)) bod)
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-   (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
- (expenv
-  '((((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)
-   (λ (x1)
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
- (expenv '()))
-'(clos/con: ((λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> f2 <-) #f)
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> f1 <-) #t)
- (expenv
-  '((((top)
-      app
-      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-      (λ (x1)
-        (app
-         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
-'(clos/con:
-  ((λ (x1)
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> z <-) x1 x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> z <-) x1 x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (y1 y2) (-> y1 <-))
- (expenv
-  '((((bod
-       (z)
-       (rat
-        ((λ (y1 y2) y1))
-        (bod
-         (x2)
-         (ran
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          ()
-          ()
-          (bod
-           (x1)
-           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
-      app
-      z
-      x1
-      x2))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (y1 y2) (-> y1 <-))
- (expenv
-  '((((bod
-       (z)
-       (rat
-        ((λ (y1 y2) y1))
-        (bod
-         (x2)
-         (ran
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          ()
-          ()
-          (bod
-           (x1)
-           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
-      app
-      z
-      x1
-      x2))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
     (((let-bod
        ((_ (app f1 #t)))
        (bod
@@ -820,96 +53,7 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app z x1 (-> x2 <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z x1 (-> x2 <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z x1 (-> x2 <-))
+ '(app z (-> x1 <-) x2)
  (expenv
   '((((bod
        (x2)
@@ -958,7 +102,7 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app z x1 (-> x2 <-))
+ '(app z (-> x1 <-) x2)
  (expenv
   '((((bod
        (x2)
@@ -1000,33 +144,34 @@
       app
       f1
       #f)))))
-'(clos/con: (#t))
+'(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-   (->
-    (λ (x1)
-      (app
-       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    <-))
- (expenv '()))
-'(clos/con:
-  ((λ (x1)
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
+   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
+ (expenv
+  '((((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (x1)
-    (->
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-     <-))
+ '(app
+   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
  (expenv
   '((((let-bin
        _
@@ -1044,243 +189,7 @@
       app
       f1
       #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z (-> x1 <-) x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z (-> x1 <-) x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (y1 y2) (-> y1 <-))
- (expenv
-  '((((bod
-       (z)
-       (rat
-        ((λ (y1 y2) y1))
-        (bod
-         (x2)
-         (ran
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          ()
-          ()
-          (bod
-           (x1)
-           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
-      app
-      z
-      x1
-      x2))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (y1 y2) (-> y1 <-))
- (expenv
-  '((((bod
-       (z)
-       (rat
-        ((λ (y1 y2) y1))
-        (bod
-         (x2)
-         (ran
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          ()
-          ()
-          (bod
-           (x1)
-           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
-      app
-      z
-      x1
-      x2))
-    (((let-bin
-       _
-       (app f2 #f)
-       ()
-       ()
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #t))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (expenv
-  '((((top)
-      app
-      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-      (λ (x1)
-        (app
-         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
-'(clos/con: (#f))
+'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1325,7 +234,188 @@
  'query:
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
  (expenv
-  '((((let-bod
+  '((((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (z) (app z x1 x2))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+   (->
+    (λ (x1)
+      (app
+       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    <-))
+ (expenv '()))
+'(clos/con:
+  ((λ (x1)
+     (app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app f1 (-> #t <-))
+ (expenv
+  '((((top)
+      app
+      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+      (λ (x1)
+        (app
+         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> f2 <-) #f)
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app f2 (-> #t <-))
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y1 y2) (-> y1 <-))
+ (expenv
+  '((((bod
+       (z)
+       (rat
+        ((λ (y1 y2) y1))
+        (bod
+         (x2)
+         (ran
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          ()
+          ()
+          (bod
+           (x1)
+           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
+      app
+      z
+      x1
+      x2))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y1 y2) (-> y1 <-))
+ (expenv
+  '((((bod
+       (z)
+       (rat
+        ((λ (y1 y2) y1))
+        (bod
+         (x2)
+         (ran
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          ()
+          ()
+          (bod
+           (x1)
+           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
+      app
+      z
+      x1
+      x2))
+    (((let-bod
        ((_ (app f2 #t)))
        (bod
         (f2)
@@ -1350,7 +440,10 @@
       app
       f1
       #f)))))
-'(clos/con: ((λ (z) (app z x1 x2))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (expenv '()))
+'(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1391,120 +484,35 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (x1)
-    (->
+ '(app (-> f1 <-) #t)
+ (expenv
+  '((((top)
+      app
+      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+      (λ (x1)
+        (app
+         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
+'(clos/con:
+  ((λ (x1)
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-     <-))
- (expenv
-  '((((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (z) (-> (app z x1 x2) <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
+ '(app
+   (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)
+   (λ (x1)
+     (app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+ (expenv '()))
+'(clos/con: ((λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (z) (-> (app z x1 x2) <-))
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(let (_) (-> (app f2 #f) <-))
+ '(app f2 (-> #t <-))
  (expenv
   '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
       app
@@ -1543,288 +551,6 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (expenv
-  '((((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z (-> x1 <-) x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app z (-> x1 <-) x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (expenv
-  '((((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (expenv '()))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(let (_) (-> (app f1 #f) <-))
- (expenv
-  '((((top)
-      app
-      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
-      (λ (x1)
-        (app
-         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
-'(clos/con: (#f))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app f2 (-> #t <-))
- (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
-      app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: (#t))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> z <-) x1 x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #t)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> z <-) x1 x2)
- (expenv
-  '((((bod
-       (x2)
-       (ran
-        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-        ()
-        ()
-        (bod
-         (x1)
-         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
-      app
-      (λ (z) (app z x1 x2))
-      (λ (y1 y2) y1)))
-    (((let-bod
-       ((_ (app f2 #t)))
-       (bod
-        (f2)
-        (rat
-         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         (bod
-          (x1)
-          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
-      app
-      f2
-      #f))
-    (((let-bod
-       ((_ (app f1 #t)))
-       (bod
-        (f1)
-        (rat
-         ((λ (x1)
-            (app
-             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
-         (top))))
-      app
-      f1
-      #f)))))
-'(clos/con: ((λ (y1 y2) y1)))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
  (expenv
   '((((let-bod
@@ -1859,17 +585,39 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app f2 (-> #t <-))
+ '(app (-> f1 <-) #f)
  (expenv
-  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+  '((((top)
       app
+      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+      (λ (x1)
+        (app
+         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
+'(clos/con:
+  ((λ (x1)
+     (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
-    (((let-bin
-       _
-       (app f1 #f)
-       ()
-       ()
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+ (expenv
+  '((((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
        (bod
         (f1)
         (rat
@@ -1880,8 +628,8 @@
          (top))))
       app
       f1
-      #t)))))
-'(clos/con: (#t))
+      #f)))))
+'(clos/con: ((λ (z) (app z x1 x2))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1908,6 +656,587 @@
       f1
       #t)))))
 '(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+ (expenv
+  '((((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x1)
+    (->
+     (app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+     <-))
+ (expenv
+  '((((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let ((-> _ = (app f2 #t) <-)) bod)
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+ (expenv
+  '((((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
+ (expenv
+  '((((top)
+      app
+      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+      (λ (x1)
+        (app
+         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x1)
+    (->
+     (app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+     <-))
+ (expenv
+  '((((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z x1 (-> x2 <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z x1 (-> x2 <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> z <-) x1 x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> z <-) x1 x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+ (expenv
+  '((((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: ((λ (z) (app z x1 x2))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let (_) (-> (app f1 #f) <-))
+ (expenv
+  '((((top)
+      app
+      (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+      (λ (x1)
+        (app
+         (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+         (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> f2 <-) #t)
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+ (expenv
+  '((((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z (-> x1 <-) x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z (-> x1 <-) x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1945,6 +1274,273 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
+ '(λ (z) (-> (app z x1 x2) <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (z) (-> (app z x1 x2) <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> f2 <-) #f)
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y1 y2) (-> y1 <-))
+ (expenv
+  '((((bod
+       (z)
+       (rat
+        ((λ (y1 y2) y1))
+        (bod
+         (x2)
+         (ran
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          ()
+          ()
+          (bod
+           (x1)
+           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
+      app
+      z
+      x1
+      x2))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y1 y2) (-> y1 <-))
+ (expenv
+  '((((bod
+       (z)
+       (rat
+        ((λ (y1 y2) y1))
+        (bod
+         (x2)
+         (ran
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          ()
+          ()
+          (bod
+           (x1)
+           (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))))
+      app
+      z
+      x1
+      x2))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let ((-> _ = (app f2 #t) <-)) bod)
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+   (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+ (expenv
+  '((((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app
    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
@@ -1966,4 +1562,408 @@
       f1
       #t)))))
 '(clos/con: ((λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (z) (-> (app z x1 x2) <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (z) (-> (app z x1 x2) <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z x1 (-> x2 <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app z x1 (-> x2 <-))
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> z <-) x1 x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> z <-) x1 x2)
+ (expenv
+  '((((bod
+       (x2)
+       (ran
+        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+        ()
+        ()
+        (bod
+         (x1)
+         (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))))
+      app
+      (λ (z) (app z x1 x2))
+      (λ (y1 y2) y1)))
+    (((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: ((λ (y1 y2) y1)))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let (_) (-> (app f2 #f) <-))
+ (expenv
+  '((((bod (x1) (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top)))
+      app
+      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: (#t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+ (expenv
+  '((((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+ (expenv
+  '((((let-bin
+       _
+       (app f2 #f)
+       ()
+       ()
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #t))
+    (((let-bod
+       ((_ (app f1 #t)))
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #f)))))
+'(clos/con: (#f))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+ (expenv
+  '((((let-bod
+       ((_ (app f2 #t)))
+       (bod
+        (f2)
+        (rat
+         ((λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         (bod
+          (x1)
+          (ran (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) () () (top))))))
+      app
+      f2
+      #f))
+    (((let-bin
+       _
+       (app f1 #f)
+       ()
+       ()
+       (bod
+        (f1)
+        (rat
+         ((λ (x1)
+            (app
+             (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+             (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
+         (top))))
+      app
+      f1
+      #t)))))
+'(clos/con: ((λ (y1 y2) y1)))
 '(literals: (⊥ ⊥ ⊥ ⊥))

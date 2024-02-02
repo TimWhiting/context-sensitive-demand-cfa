@@ -6,10 +6,38 @@
 (define (hash-num-keys h) (length (hash-keys h)))
 (define (zip l1 l2) (map list l1 l2))
 
+(define-syntax-rule (run/timeoutn n m k x ...)
+  (if (sync/timeout
+       (/ 0.5 n)
+       (thread (lambda ()
+                 (analysis-kind k)
+                 (current-m m)
+                 x ...
+                 )))
+      '()
+      (begin
+        (pretty-print "Timeout")
+        )
+      ))
+
+(define-syntax-rule (run/timeout m k x ...)
+  (if (sync/timeout
+       0.5
+       (thread (lambda ()
+                 (analysis-kind k)
+                 (current-m m)
+                 x ...
+                 )))
+      '()
+      (begin
+        (pretty-print "Timeout")
+        )
+      ))
+
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (for ([m (in-range 2 4)])
+  (for ([m (in-range 0 4)])
     (current-m m)
     (let ([basic-cost 0]
           [hybrid-cost 0]
@@ -37,31 +65,36 @@
           (pretty-displayn 0 "")
           ; (show-envs #t)
           ; (trace 1)
-          (analysis-kind 'exponential)
-          (define exph (run-get-hash (meval (cons `(top) exp) (expenv '())) (hash)))
-          ; (pretty-print exph)
-          (for ([keyval (hash->list exph)])
-            (match keyval
-              [(cons (and key (meval Ce p)) _)
-               (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out-mcfa-expm)
-               (pretty-result-out out-mcfa-expm (from-hash key exph))
-               ]
-              [_ '()]
-              )
-            )
+          (run/timeout
+           m 'exponential
+           (define exph (run-get-hash (meval (cons `(top) exp) (expenv '())) (hash)))
+           ; (pretty-print exph)
+           (for ([keyval (hash->list exph)])
+             (match keyval
+               [(cons (and key (meval Ce p)) _)
+                (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out-mcfa-expm)
+                (pretty-result-out out-mcfa-expm (from-hash key exph))
+                ]
+               [_ '()]
+               )
+             )
+           )
+
           ; (pretty-print "Finished exponential mcfa")
-          (analysis-kind 'rebinding)
-          (define rebh (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash)))
-          ; (pretty-print exph)
-          (for ([keyval (hash->list rebh)])
-            (match keyval
-              [(cons (and key (meval Ce p)) _)
-               (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out-mcfa-rebinding)
-               (pretty-result-out out-mcfa-rebinding (from-hash key rebh))
-               ]
-              [_ '()]
-              )
-            )
+          (run/timeout
+           m 'rebinding
+           (define rebh (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash)))
+           ; (pretty-print exph)
+           (for ([keyval (hash->list rebh)])
+             (match keyval
+               [(cons (and key (meval Ce p)) _)
+                (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out-mcfa-rebinding)
+                (pretty-result-out out-mcfa-rebinding (from-hash key rebh))
+                ]
+               [_ '()]
+               )
+             )
+           )
           ; (pretty-print "Finished regular mcfa")
           (analysis-kind 'basic)
           (let ([qbs (gen-queries (cons `(top) exp) (menv (list)))])
@@ -80,18 +113,22 @@
                   ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
                   ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
-                  (analysis-kind 'basic)
-                  ; (pretty-print "Starting basic demand-mcfa")
-                  (set! h1 (run-get-hash evalqb h1))
-                  (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-                  (pretty-result-out out-basic (from-hash evalqb h1))
+                  (run/timeoutn
+                   ; (pretty-print "Starting basic demand-mcfa")
+                   (length qbs) m 'basic
+                   (set! h1 (run-get-hash evalqb h1))
+                   (set! basic-cost (+ basic-cost (hash-num-keys h1)))
+                   (pretty-result-out out-basic (from-hash evalqb h1))
+                   )
                   (if #t (begin
-                           (analysis-kind 'hybrid)
-                           ;  (pretty-print "Starting hybrid demand-mcfa")
-                           (set! h2 (run-get-hash evalqh h2))
-                           (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-                           (pretty-tracen 0 (from-hash evalqh h2))
-                           (pretty-result-out out-hybrid (from-hash evalqh h2))
+                           (run/timeoutn
+                            ;  (pretty-print "Starting hybrid demand-mcfa")
+                            (length qbs) m 'hybrid
+                            (set! h2 (run-get-hash evalqh h2))
+                            (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
+                            (pretty-tracen 0 (from-hash evalqh h2))
+                            (pretty-result-out out-hybrid (from-hash evalqh h2))
+                            )
                            (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
                                '()
                                (begin
@@ -136,13 +173,7 @@
                 )
 
               )
-            )
-          (close-output-port out-basic)
-          (close-output-port out-hybrid)
-          (close-output-port out-keys-basic)
-          (close-output-port out-keys-hybrid)
-          (close-output-port out-mcfa-rebinding)
-          (close-output-port out-mcfa-expm)
+            ); TODO: Clean up output ports
           )
         )
       (pretty-print `(current-m: ,(current-m)))

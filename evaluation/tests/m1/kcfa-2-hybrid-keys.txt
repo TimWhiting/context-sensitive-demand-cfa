@@ -243,13 +243,13 @@
  (list
   'refine
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -316,7 +316,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -327,17 +327,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -358,7 +347,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -372,6 +361,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -397,7 +397,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> f2 <-) #f)
@@ -412,7 +412,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> f2 <-) #f)
@@ -438,7 +438,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -449,17 +449,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -480,7 +469,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -494,6 +483,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -520,6 +520,13 @@
     (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
     (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
   (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app
+    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  (envenv
    (list
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -530,11 +537,11 @@
   (envenv '((□? (x1)))))
  (list
   'eval
-  '(app
-    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -547,7 +554,7 @@
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -556,13 +563,6 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -576,7 +576,8 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -589,7 +590,13 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
    (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -603,7 +610,7 @@
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -618,14 +625,22 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    '(□? (x1)))))
  (list
   'eval
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  '(let (_) (-> (app f2 #f) <-))
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    '(□? (x1)))))
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(let (_) (-> (app f2 #f) <-))
@@ -655,21 +670,6 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
     '(□? (x1)))))
  (list
   'eval
@@ -685,7 +685,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    '(□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
@@ -715,7 +715,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    '(□? (x1)))))
  (list
   'eval
   '(λ (x1)
@@ -752,20 +752,13 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -774,6 +767,13 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
@@ -791,7 +791,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -802,17 +802,6 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -833,7 +822,7 @@
     (list
      'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -847,6 +836,17 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -868,7 +868,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -879,17 +879,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -910,7 +899,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -924,6 +913,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -953,7 +953,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -964,17 +964,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -995,7 +984,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -1009,6 +998,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -1026,6 +1026,13 @@
     (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
     (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
   (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app
+    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  (envenv
    (list
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -1036,11 +1043,11 @@
   (envenv '((□? (x1)))))
  (list
   'expr
-  '(app
-    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -1053,7 +1060,7 @@
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -1062,13 +1069,6 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -1093,20 +1093,13 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -1121,9 +1114,10 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    '(□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
-  'refine
+  'expr
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
@@ -1138,8 +1132,20 @@
   'refine
   (envenv
    (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1148,14 +1154,8 @@
   'refine
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -1188,7 +1188,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1202,16 +1202,6 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -1220,27 +1210,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
+     (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -1253,16 +1223,6 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1279,8 +1239,78 @@
    (list
     (list
      'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -1293,6 +1323,16 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1303,46 +1343,6 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1))))))
 112
 
@@ -1371,7 +1371,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -1382,17 +1382,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -1405,6 +1394,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -1426,7 +1426,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -1437,17 +1437,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -1460,6 +1449,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -1483,10 +1483,7 @@
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+  (envenv '((□? (x2)) (□? (x1)))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -1497,7 +1494,10 @@
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv '((□? (x2)) (□? (x1)))))
+  (envenv
+   (list
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -1544,7 +1544,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -1555,17 +1555,6 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -1578,6 +1567,17 @@
      (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -1599,7 +1599,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -1610,17 +1610,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -1633,6 +1622,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -1662,7 +1662,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -1673,17 +1673,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -1696,6 +1685,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -1710,10 +1710,7 @@
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+  (envenv '((□? (x2)) (□? (x1)))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -1724,7 +1721,10 @@
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv '((□? (x2)) (□? (x1)))))
+  (envenv
+   (list
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app
@@ -1770,9 +1770,9 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1780,7 +1780,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
+     (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -1800,9 +1800,9 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -1810,27 +1810,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -1863,6 +1843,26 @@
      (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1)))))
  (list
   'refine
@@ -1870,13 +1870,13 @@
    (list
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
    (list
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list 'refine (envenv '((□? (x2)) (□? (x1))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1)))))))))
 62
 
 
@@ -1964,18 +1964,84 @@
   (envenv
    (list
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+  (envenv '((□? (x2)) (□? (x1)))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
     '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
-  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv '((□? (x2)) (□? (x1)))))
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+    '(□? (x2))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    '(□? (x1)))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -1988,72 +2054,6 @@
     '(□? (y1 y2))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
-    '(□? (x2))
-    '(□? (x1)))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    '(□? (x1)))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -2170,9 +2170,29 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -2192,26 +2212,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
-    '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -2220,7 +2220,7 @@
     (list
      'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     '(□? (x1)))))
  (list
@@ -2233,26 +2233,6 @@
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -2273,6 +2253,26 @@
      (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (z)))))
+    '(□? (x2))
+    '(□? (x1)))))
  (list 'refine (envenv '((□? (x1)))))
  (list
   'refine
@@ -2280,13 +2280,13 @@
    (list
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
    (list
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -2329,17 +2329,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -2349,7 +2338,7 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -2373,65 +2362,10 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
-    '(□? (x1)))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
-    '(□? (x1)))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
+  '(app z (-> x1 <-) x2)
   (envenv
    (list
     (list
@@ -2448,15 +2382,81 @@
     '(□? (z))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    '(□? (z))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'eval '(app (-> z <-) x1 x2) (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    '(□? (z))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -2469,10 +2469,7 @@
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+  (envenv '((□? (x2)) (□? (x1)))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -2483,7 +2480,10 @@
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv '((□? (x2)) (□? (x1)))))
+  (envenv
+   (list
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -2512,7 +2512,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -2523,7 +2523,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -2557,6 +2557,14 @@
      (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     '(□? (x1)))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    '(□? (z))
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -2574,7 +2582,10 @@
   '(λ (z) (-> (app z x1 x2) <-))
   (envenv
    (list
-    '(□? (z))
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -2588,17 +2599,6 @@
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -2620,7 +2620,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -2631,7 +2631,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -2661,7 +2661,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -2672,7 +2672,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -2709,10 +2709,7 @@
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+  (envenv '((□? (x2)) (□? (x1)))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -2723,7 +2720,10 @@
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv '((□? (x2)) (□? (x1)))))
+  (envenv
+   (list
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app
@@ -2769,9 +2769,19 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -2780,6 +2790,16 @@
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
+    '(□? (x2))
+    '(□? (x1)))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
@@ -2799,27 +2819,17 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
     '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
    (list
     (list
      'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     '(□? (x1)))))
  (list
@@ -2832,26 +2842,6 @@
      (envenv '((□? (z)) (□? (x2)) (□? (z)))))
     '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
-    '(□? (x2))
-    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -2872,21 +2862,30 @@
      (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1)))))
+ (list
+  'refine
+  (envenv
+   (list
+    '(□? (x2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
    (list
     '(□? (x2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    '(□? (x2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list 'refine (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -2894,6 +2893,7 @@
     '(□? (z))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list 'refine (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -2943,6 +2943,14 @@
   (envenv
    (list
     '(□? (z))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app z x1 (-> x2 <-))
+  (envenv
+   (list
+    '(□? (z))
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
@@ -2951,21 +2959,13 @@
  (list 'eval '(app z x1 (-> x2 <-)) (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'eval
-  '(app z x1 (-> x2 <-))
-  (envenv
-   (list
-    '(□? (z))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    '(□? (x1)))))
- (list
-  'eval
   '(app
     (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
     (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
   (envenv '((□? (x1)))))
  (list
   'expr
-  '(app (-> f2 <-) #t)
+  '(app (-> f2 <-) #f)
   (envenv
    (list
     (list
@@ -2980,7 +2980,7 @@
     '(□? (x1)))))
  (list
   'expr
-  '(app (-> f2 <-) #f)
+  '(app (-> f2 <-) #t)
   (envenv
    (list
     (list
@@ -3030,7 +3030,6 @@
     '(□? (x1)))))
  (list 'refine (envenv '((□? (x1)))))
  (list 'refine (envenv '((□? (x2)) (□? (x1)))))
- (list 'refine (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -3041,6 +3040,7 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
+ (list 'refine (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -3062,14 +3062,7 @@
   'eval
   '(app f1 (-> #t <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    '(□? (z))
-    '(□? (x2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list 'eval '(app z (-> x1 <-) x2) (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -3078,7 +3071,14 @@
     '(□? (z))
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list 'eval '(app z (-> x1 <-) x2) (envenv '((□? (z)) (□? (x2)) (□? (x1)))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    '(□? (z))
+    '(□? (x2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -3117,13 +3117,13 @@
    (list
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1)))))
- (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
    (list
     '(□? (x2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list 'refine (envenv '((□? (x2)) (□? (x1)))))
  (list
   'refine
   (envenv
@@ -3211,7 +3211,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -3222,17 +3222,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -3245,6 +3234,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -3278,6 +3278,58 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> f2 <-) #f)
@@ -3288,56 +3340,15 @@
  (list 'eval '(app (-> f2 <-) #f) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
-  '(app (-> f2 <-) #f)
+  '(app (-> z <-) x1 x2)
   (envenv
    (list
-    '(□? (f2))
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    '(□? (x1)))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -3357,8 +3368,8 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -3371,17 +3382,6 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -3430,14 +3430,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -3465,7 +3465,8 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -3478,7 +3479,13 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
    (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -3487,13 +3494,6 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -3520,6 +3520,35 @@
   '(let (_) (-> (app f2 #f) <-))
   (envenv
    (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
     (list
      'cenv
      '(λ (x1)
@@ -3530,36 +3559,7 @@
          <-))
      (envenv '((□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'eval '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(let (_) (-> (app f2 #f) <-))
@@ -3580,6 +3580,13 @@
   '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
   (envenv
    (list
+    '(□? (f2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+  (envenv
+   (list
     (list
      'cenv
      '(λ (x1)
@@ -3589,7 +3596,22 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    '(□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
@@ -3608,29 +3630,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    '(□? (x1)))))
  (list
   'eval
   '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
@@ -3644,14 +3644,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
@@ -3683,7 +3683,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -3694,17 +3694,6 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -3717,6 +3706,17 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -3760,7 +3760,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -3771,17 +3771,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -3794,6 +3783,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -3845,7 +3845,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -3856,17 +3856,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -3879,6 +3868,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -3917,12 +3917,6 @@
   '(app
     (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
     (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-  (envenv '((□? (x1)))))
- (list
-  'expr
-  '(app
-    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
   (envenv
    (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -3935,11 +3929,10 @@
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
-  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+  '(app
+    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  (envenv '((□? (x1)))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -3947,6 +3940,13 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -3985,14 +3985,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -4014,24 +4014,6 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -4041,6 +4023,18 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -4048,6 +4042,12 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -4080,7 +4080,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -4094,56 +4094,6 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -4155,6 +4105,16 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -4171,8 +4131,78 @@
    (list
     (list
      'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -4185,6 +4215,16 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -4195,59 +4235,19 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
    (list
     '(□? (f2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (f2)) (□? (x1)))))
+ (list
+  'refine
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1))))))
 118
 
@@ -4279,7 +4279,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -4293,20 +4293,6 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4322,6 +4308,20 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -4364,36 +4364,6 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'eval
-  '(app (-> f2 <-) #t)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #t)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> f2 <-) #t)
@@ -4415,13 +4385,43 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    '(□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> f2 <-) #t)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'eval '(app (-> f2 <-) #t) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(app (-> f2 <-) #t)
   (envenv
    (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> f2 <-) #t)
+  (envenv
+   (list
     '(□? (f2))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -4437,7 +4437,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -4451,20 +4451,6 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4480,6 +4466,20 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -4570,7 +4570,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -4580,14 +4580,15 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -4600,28 +4601,7 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
-   (list
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -4640,7 +4620,17 @@
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4651,6 +4641,60 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let ((-> _ = (app f2 #t) <-)) bod)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let ((-> _ = (app f2 #t) <-)) bod)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let ((-> _ = (app f2 #t) <-)) bod)
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let ((-> _ = (app f2 #t) <-)) bod)
+  (envenv
+   (list
+    '(□? (f2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4670,71 +4714,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let ((-> _ = (app f2 #t) <-)) bod)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
     '(□? (x1)))))
- (list
-  'eval
-  '(let ((-> _ = (app f2 #t) <-)) bod)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let ((-> _ = (app f2 #t) <-)) bod)
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let ((-> _ = (app f2 #t) <-)) bod)
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
@@ -4753,7 +4733,17 @@
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4767,13 +4757,9 @@
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
-  '(λ (y1 y2) (-> y1 <-))
+  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
   (envenv
    (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
@@ -4801,11 +4787,11 @@
     (list
      'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
+     (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4821,6 +4807,20 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -4876,7 +4876,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -4890,20 +4890,6 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -4919,6 +4905,20 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -4982,7 +4982,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -4996,20 +4996,6 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -5025,6 +5011,20 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -5067,6 +5067,13 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
+ (list
+  'expr
+  '(app
+    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app
@@ -5083,13 +5090,6 @@
   (envenv '((□? (x1)))))
  (list
   'expr
-  '(app
-    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-  (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
@@ -5127,7 +5127,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -5137,7 +5137,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app
@@ -5158,26 +5158,6 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
  (list
   'expr
@@ -5187,7 +5167,17 @@
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -5199,6 +5189,16 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5215,15 +5215,6 @@
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
  (list
@@ -5233,8 +5224,8 @@
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+     (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5243,7 +5234,16 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5280,7 +5280,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5294,6 +5294,19 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -5302,7 +5315,33 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
     (list
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
@@ -5321,6 +5360,19 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5334,71 +5386,6 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
-    (list
-     'cenv
-     '(let ((-> _ = (app f2 #t) <-)) bod)
-     (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5412,6 +5399,19 @@
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list
+     'cenv
+     '(let ((-> _ = (app f2 #t) <-)) bod)
+     (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5437,7 +5437,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5450,7 +5450,7 @@
      'cenv
      '(let ((-> _ = (app f2 #t) <-)) bod)
      (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -5483,13 +5483,13 @@
    (list
     '(□? (f2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (f2)) (□? (x1)))))
+ (list
+  'refine
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1))))))
 112
 
@@ -5497,6 +5497,7 @@
 (list 'query: '(app (-> f2 <-) #t) (envenv '((□? (f2)) (□? (x1)))))
 
 (list
+ (list 'eval '(app (-> f2 <-) #t) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(app (-> f2 <-) #t)
@@ -5512,7 +5513,6 @@
          <-))
      (envenv '((□? (x1)))))
     '(□? (x1)))))
- (list 'eval '(app (-> f2 <-) #t) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(app
@@ -5565,7 +5565,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -5576,17 +5576,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app z (-> x1 <-) x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -5599,6 +5588,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app z (-> x1 <-) x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app z (-> x1 <-) x2)
@@ -5632,6 +5632,58 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    '(□? (x1)))))
+ (list
+  'eval
+  '(app (-> f2 <-) #f)
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> f2 <-) #f)
@@ -5642,56 +5694,15 @@
  (list 'eval '(app (-> f2 <-) #f) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
-  '(app (-> f2 <-) #f)
+  '(app (-> z <-) x1 x2)
   (envenv
    (list
-    '(□? (f2))
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> f2 <-) #f)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    '(□? (x1)))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -5711,8 +5722,8 @@
     (list
      'cenv
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -5725,17 +5736,6 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> z <-) x1 x2)
@@ -5784,14 +5784,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -5819,7 +5819,8 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+   (list
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app
@@ -5832,7 +5833,13 @@
     (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
     (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
   (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
+  (envenv
    (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -5841,13 +5848,6 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -5874,6 +5874,35 @@
   '(let (_) (-> (app f2 #f) <-))
   (envenv
    (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x1)
+        (->
+         (app
+          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+         <-))
+     (envenv '((□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(let (_) (-> (app f2 #f) <-))
+  (envenv
+   (list
     (list
      'cenv
      '(λ (x1)
@@ -5884,41 +5913,12 @@
          <-))
      (envenv '((□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x1)
-        (->
-         (app
-          (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-          (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-         <-))
-     (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list 'eval '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(let (_) (-> (app f2 #f) <-))
   (envenv
    (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(let (_) (-> (app f2 #f) <-))
-  (envenv
-   (list
     (list
      'cenv
      '(λ (x1)
@@ -5935,14 +5935,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
@@ -5974,7 +5974,7 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -5985,17 +5985,6 @@
      '(λ (z) (-> (app z x1 x2) <-))
      (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (y1 y2) (-> y1 <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -6008,6 +5997,17 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (y1 y2) (-> y1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (y1 y2) (-> y1 <-))
@@ -6051,7 +6051,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -6062,17 +6062,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'eval
-  '(λ (z) (-> (app z x1 x2) <-))
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
@@ -6085,6 +6074,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'eval
+  '(λ (z) (-> (app z x1 x2) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'eval
   '(λ (z) (-> (app z x1 x2) <-))
@@ -6136,7 +6136,7 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -6147,17 +6147,6 @@
      '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
      (envenv '((□? (x2)) (□? (x2)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'expr
-  '(app (-> z <-) x1 x2)
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
@@ -6170,6 +6159,17 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> z <-) x1 x2)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> z <-) x1 x2)
@@ -6208,12 +6208,6 @@
   '(app
     (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
     (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
-  (envenv '((□? (x1)))))
- (list
-  'expr
-  '(app
-    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
-    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
   (envenv
    (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -6226,11 +6220,10 @@
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
-  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+  '(app
+    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
+  (envenv '((□? (x1)))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -6238,6 +6231,13 @@
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'expr
+  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
@@ -6276,14 +6276,14 @@
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
   (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'expr
   '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
@@ -6309,20 +6309,32 @@
   'refine
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
    (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    '(□? (x1)))))
  (list
   'refine
   (envenv
@@ -6331,18 +6343,6 @@
   'refine
   (envenv
    (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -6371,7 +6371,7 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -6385,56 +6385,6 @@
           (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
          <-))
      (envenv '((□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x2)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
-     (envenv '((□? (x2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
@@ -6446,6 +6396,16 @@
      (envenv '((□? (x2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -6462,8 +6422,78 @@
    (list
     (list
      'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
+     (envenv '((□? (x2)) (□? (x2)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
      '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (z)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
@@ -6476,6 +6506,16 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(λ (z) (-> (app z x1 x2) <-))
+     (envenv '((□? (z)) (□? (z)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -6486,59 +6526,19 @@
      (envenv '((□? (z)) (□? (z)) (□? (x1)))))
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
     '(□? (x1)))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    (list
-     'cenv
-     '(λ (z) (-> (app z x1 x2) <-))
-     (envenv '((□? (z)) (□? (z)) (□? (z)))))
-    (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (x1)))))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
    (list
     '(□? (f2))
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
-   (list
-    '(□? (f2))
-    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (f2)) (□? (x1)))))
+ (list
+  'refine
+  (envenv
+   (list
+    '(□? (f2))
+    (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list 'refine (envenv '((□? (x1))))))
 112
 
@@ -6546,7 +6546,6 @@
 (list 'query: '(app (-> f2 <-) #f) (envenv '((□? (f2)) (□? (x1)))))
 
 (list
- (list 'eval '(app (-> f2 <-) #f) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(app (-> f2 <-) #f)
@@ -6562,6 +6561,7 @@
          <-))
      (envenv '((□? (x1)))))
     '(□? (x1)))))
+ (list 'eval '(app (-> f2 <-) #f) (envenv '((□? (f2)) (□? (x1)))))
  (list
   'eval
   '(app
@@ -6697,6 +6697,7 @@
   'eval
   '(let (_) (-> (app f1 #f) <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1)))))
  (list
   'eval
   '(let (_) (-> (app f2 #f) <-))
@@ -6712,7 +6713,6 @@
          <-))
      (envenv '((□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list 'eval '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1)))))
  (list
   'eval
   '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
@@ -6838,13 +6838,13 @@
  (list
   'refine
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv
@@ -7059,11 +7059,11 @@
     (list 'cenv '(let ((-> _ = (app f1 #t) <-)) bod) (envenv '((□? (f1))))))))
  (list
   'expr
-  '(app (-> f1 <-) #t)
+  '(app (-> f1 <-) #f)
   (envenv (list (list 'cenv '(top) (envenv '())))))
  (list
   'expr
-  '(app (-> f1 <-) #f)
+  '(app (-> f1 <-) #t)
   (envenv (list (list 'cenv '(top) (envenv '())))))
  (list
   'expr
@@ -7268,6 +7268,7 @@
   'eval
   '(let (_) (-> (app f1 #f) <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1)))))
  (list
   'eval
   '(let (_) (-> (app f2 #f) <-))
@@ -7283,7 +7284,6 @@
          <-))
      (envenv '((□? (x1)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list 'eval '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1)))))
  (list
   'eval
   '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
@@ -7401,13 +7401,13 @@
  (list
   'refine
   (envenv
-   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
- (list
-  'refine
-  (envenv
    (list
     (list 'cenv '(let (_) (-> (app f2 #f) <-)) (envenv '((□? (f2)) (□? (f2)))))
     (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
+ (list
+  'refine
+  (envenv
+   (list (list 'cenv '(let (_) (-> (app f1 #f) <-)) (envenv '((□? (f1))))))))
  (list
   'refine
   (envenv

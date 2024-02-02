@@ -81,11 +81,11 @@
  (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
  (list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '()))
  (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list 'eval '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(λ (x y) (-> (app x y) <-))
   (envenv (list (list 'cenv '(top) (envenv '())))))
- (list 'eval '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
  (list
   'eval
   '(λ (z) (-> z <-))

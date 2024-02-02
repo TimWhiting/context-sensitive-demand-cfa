@@ -239,7 +239,8 @@
 
 (define (lam-binds Ce)
   (match Ce
-    [(cons `(bod ,y ,C) e) y]
+    [(cons `(bod ,y ,C) e) `(□? ,y)]
+    [(cons `(top) _) #f]
     [_ (lam-binds (oute Ce))]
     )
   )
@@ -321,11 +322,12 @@
   (match Ce
     [(cons C `(λ ,x ,e))
      ;  (pretty-print `(bod-enter ,ρ′ ,call))
+     (define lambod (cons `(bod ,x ,C) e))
      (match ρ′
-       [(flatenv _) (unit (cons `(bod ,x ,C) e) (flatenv (enter-cc call ρ Ce)))]
-       [(expenv _) (unit (cons `(bod ,x ,C) e) (expenv (cons (enter-cc call ρ Ce) (expenv-m ρ′))))]
-       [(menv _)  (unit (cons `(bod ,x ,C) e) (menv (cons (enter-cc call ρ Ce) (menv-m ρ′))))]
-       [(envenv _)  (unit (cons `(bod ,x ,C) e) (envenv (cons (enter-cc call ρ Ce) (envenv-m ρ′))))]
+       [(flatenv _) (unit lambod (flatenv (enter-cc call ρ lambod)))]
+       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ lambod) (expenv-m ρ′))))]
+       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ lambod) (menv-m ρ′))))]
+       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ lambod) (envenv-m ρ′))))]
        )]
     [(cons C `(let ,binds ,e₁))
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).
@@ -460,7 +462,9 @@
   )
 
 (define (take-cc cc lamCe [cut #f])
-  (if (equal? (current-m) 0) (list)
+  (if (equal? (current-m) 0)
+      (let ([lam (lam-binds lamCe)])
+        (if lam lam '()))
       (take-ccm (current-m) cc lamCe cut)))
 
 (define (take-ccm m cc lamCe [cut #f])
@@ -469,7 +473,7 @@
         ['hybrid
          (match cc
            [(list) (list)]; Already 0
-           [`(cenv ,_ ,_) (if cut '! `(□? ,(lam-binds lamCe)))]; Cut known
+           [`(cenv ,_ ,_) (if cut '! (lam-binds lamCe))]; Cut known
            ['! '!]
            ;  ['? '?]
            [`(□? ,x) `(□? ,x)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
@@ -487,7 +491,7 @@
         [`(cenv ,Ce ,ρ)
          `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc Ce)) (envenv-m ρ))))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
-         (cons Ce (take-ccm (- m 1) cc '_))])))
+         (cons Ce (take-ccm (- m 1) cc lamCe))])))
 
 (define (head-cc ρ)
   (match (split-env ρ)
@@ -505,9 +509,9 @@
 
 (define (enter-cc Ce ρ lamCe)
   (match ρ
-    [(menv p) (take-cc (cons Ce (head-cc ρ)) '_)]
+    [(menv p) (take-cc (cons Ce (head-cc ρ)) lamCe)]
     [(envenv p) (take-cc `(cenv ,Ce ,ρ) lamCe)]
-    [(expenv p) (take-cc (cons Ce (head-cc ρ)) '_)]
+    [(expenv p) (take-cc (cons Ce (head-cc ρ)) lamCe)]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
@@ -643,3 +647,22 @@
        [(cons Ce₁ cc₁)
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
+
+(module+ main
+  (require rackunit)
+  (check-equal? (⊑-cc (list) (list)) #t)
+  (define query-1 `(,(cons `(top) `(app (λ (x y) (app x y)) (λ (z) z) 2)) ,(envenv '())))
+  (define test-query-1 (apply rat-e query-1))
+  (define (run-unit2 q) (q (lambda (Ce p) `(,Ce ,p))))
+
+  (analysis-kind 'hybrid)
+  (current-m 0)
+  (check-equal? (run-unit2 (bod-enter (car test-query-1) `(app x y) (cadr test-query-1) (envenv '())))
+                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv '((□? (x y)))))
+                )
+
+  (current-m 1)
+  (check-equal? (run-unit2 (bod-enter (car test-query-1) `(app x y) (cadr test-query-1) (envenv '(lamenv))))
+                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv `((cenv (app x y) ,(envenv '())) lamenv)))
+                )
+  )

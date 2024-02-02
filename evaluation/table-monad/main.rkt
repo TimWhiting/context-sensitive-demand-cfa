@@ -160,10 +160,11 @@
   (run* m s))
 
 (define (from-hash m s)
-  (match (hash-ref s m)
+  (match (hash-ref s m #f)
     [(powerset-node _ xss) xss]
     [(lattice-node _ n _ _) n]
-    [(product-node _ xss n _ _ _) (cons xss n)]))
+    [(product-node _ xss n _ _ _) (cons xss n)]
+    [#f #f]))
 
 (provide (all-from-out "monad.rkt")
          run

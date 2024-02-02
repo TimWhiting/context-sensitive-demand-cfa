@@ -7,7 +7,7 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(λ (y) (-> y <-)) (menv '(())))
 '(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
