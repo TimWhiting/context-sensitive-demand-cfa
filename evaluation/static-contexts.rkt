@@ -237,6 +237,13 @@
      (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
+(define (lam-binds Ce)
+  (match Ce
+    [(cons `(bod ,y ,C) e) y]
+    [_ (lam-binds (oute Ce))]
+    )
+  )
+
 (define (out Ce ρ)
   ; (pretty-print `(out ,Ce ,ρ))
   (match Ce
@@ -290,8 +297,8 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv envs) (list (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x)) envs)))]
-       [(envenv envs) (list (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x)) envs)))]
+       [(menv envs) (list (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) Ce) envs)))]
+       [(envenv envs) (list (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) Ce) envs)))]
        )]
     [(cons C `(let ,binds ,e₁))
      (list (cons `(let-bod ,binds ,C) e₁) ρ)]))
@@ -302,8 +309,8 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv envs) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x)) envs)))]
-       [(envenv envs) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x)) envs)))]
+       [(menv envs) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) Ce) envs)))]
+       [(envenv envs) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) Ce) envs)))]
        )
      ]
     [(cons C `(let ,binds ,e₁))
@@ -315,10 +322,10 @@
     [(cons C `(λ ,x ,e))
      ;  (pretty-print `(bod-enter ,ρ′ ,call))
      (match ρ′
-       [(flatenv _) (unit (cons `(bod ,x ,C) e) (flatenv (enter-cc call ρ)))]
-       [(expenv _) (unit (cons `(bod ,x ,C) e) (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
-       [(menv _)  (unit (cons `(bod ,x ,C) e) (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
-       [(envenv _)  (unit (cons `(bod ,x ,C) e) (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
+       [(flatenv _) (unit (cons `(bod ,x ,C) e) (flatenv (enter-cc call ρ Ce)))]
+       [(expenv _) (unit (cons `(bod ,x ,C) e) (expenv (cons (enter-cc call ρ Ce) (expenv-m ρ′))))]
+       [(menv _)  (unit (cons `(bod ,x ,C) e) (menv (cons (enter-cc call ρ Ce) (menv-m ρ′))))]
+       [(envenv _)  (unit (cons `(bod ,x ,C) e) (envenv (cons (enter-cc call ρ Ce) (envenv-m ρ′))))]
        )]
     [(cons C `(let ,binds ,e₁))
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).
@@ -428,7 +435,7 @@
   (match-lambda
     [(list) #t]
     ['! #t] ; Cut known
-    ['? #t] ; Cut unknown (can be reinstantiated to an indeterminate context)
+    ; ['? #t] ; Cut unknown (can be reinstantiated to an indeterminate context)
     [`(□? ,_) #f]
     [`(cenv ,Ce ,ρ) (alls (map cc-determined? (envenv-m ρ)))]
     [(cons Ce cc) (cc-determined? cc)]))
@@ -452,19 +459,19 @@
     )
   )
 
-(define (take-cc cc [cut #f])
+(define (take-cc cc lamCe [cut #f])
   (if (equal? (current-m) 0) (list)
-      (take-ccm (current-m) cc cut)))
+      (take-ccm (current-m) cc lamCe cut)))
 
-(define (take-ccm m cc [cut #f])
+(define (take-ccm m cc lamCe [cut #f])
   (if (zero? m)
       (match (analysis-kind)
         ['hybrid
          (match cc
            [(list) (list)]; Already 0
-           [`(cenv ,_ ,_) (if cut '! '?)]; Cut known
+           [`(cenv ,_ ,_) (if cut '! `(□? ,(lam-binds lamCe)))]; Cut known
            ['! '!]
-           ['? '?]
+           ;  ['? '?]
            [`(□? ,x) `(□? ,x)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
            [`(cons _ _) (error 'bad-env "Invalid environment for hybrid")]; Cut known
            )]
@@ -474,13 +481,13 @@
         [(list)
          (list)]
         ['! '!] ; Cut known
-        ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
+        ; ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
         [`(□? ,x)
          `(□? ,x)]
         [`(cenv ,Ce ,ρ)
-         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) (envenv-m ρ))))]
+         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc Ce)) (envenv-m ρ))))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
-         (cons Ce (take-ccm (- m 1) cc))])))
+         (cons Ce (take-ccm (- m 1) cc '_))])))
 
 (define (head-cc ρ)
   (match (split-env ρ)
@@ -496,11 +503,11 @@
     )
   )
 
-(define (enter-cc Ce ρ)
+(define (enter-cc Ce ρ lamCe)
   (match ρ
-    [(menv p) (take-cc (cons Ce (head-cc ρ)))]
-    [(envenv p) (take-cc `(cenv ,Ce ,ρ))]
-    [(expenv p) (take-cc (cons Ce (head-cc ρ)))]
+    [(menv p) (take-cc (cons Ce (head-cc ρ)) '_)]
+    [(envenv p) (take-cc `(cenv ,Ce ,ρ) lamCe)]
+    [(expenv p) (take-cc (cons Ce (head-cc ρ)) '_)]
     [(flatenv calls) (take (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
@@ -547,9 +554,9 @@
     (if (alls res) (envenv res) #f)
     ))
 
-(define (calibrate-envs ρ₀ ρ₁)
+(define (calibrate-envs ρ₀ ρ₁ lamCe)
   ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (calibrate-envsx (envenv (map (lambda (cc) (take-ccm (- (current-m) 1) cc #t)) (env-list ρ₀))) ρ₁)
+  (calibrate-envsx (envenv (map (lambda (cc) (take-ccm (- (current-m) 1) cc lamCe #t)) (env-list ρ₀))) ρ₁)
   )
 
 (define (simple-env ρ)

@@ -241,7 +241,7 @@ Finish the paper
                      )))))]
     ))
 
-(define-key (pattern-matches pattern Ce ρe)
+(define (pattern-matches pattern Ce ρe)
   (match pattern
     [`(,con ,@subpats)
      (match Ce
@@ -276,7 +276,6 @@ Finish the paper
 (define (pattern-matches-lit pat lit2)
   (unit (equal? (to-lit pat) lit2))
   )
-
 
 (define ((eval-clauselit parent parentρ clauses i) lit)
   (match clauses
@@ -328,7 +327,7 @@ Finish the paper
             (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
-                   (let ([cc₁ (enter-cc Cee ρee)])
+                   (let ([cc₁ (enter-cc Cee ρee lambod)])
                      (cond
                        [(equal? cc₀ cc₁)
                         (pretty-trace `(CALL-EQ ,cc₀ ,cc₁))
@@ -344,8 +343,8 @@ Finish the paper
            [(envenv (cons cc₀ ρ₀))
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
-            (pretty-print `(hybrid-call ,ρ ,indet-env))
-            (match (find-call (calibrate-envs ρ indet-env))
+            ; (pretty-print `(hybrid-call ,ρ ,indet-env))
+            (match (find-call (calibrate-envs ρ indet-env lambod))
               [`(cenv ,ce ,ρ′)
                ;  (pretty-print 'known)
                (pretty-trace `(CALL-KNOWN))
@@ -353,11 +352,11 @@ Finish the paper
               [_
                ;  (pretty-print 'unknown)
                (begin
-                 (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env)))
+                 (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env lambod)))
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
                       (λ (Cee ρee)
                         (pretty-trace `(,Cee ,ρee))
-                        (let ([cc₁ (enter-cc Cee ρee)])
+                        (let ([cc₁ (enter-cc Cee ρee lambod)])
                           (cond
                             [(equal? cc₀ cc₁)
                              (pretty-trace "CALL-EQ")

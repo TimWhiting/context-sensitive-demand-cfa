@@ -1,0 +1,97 @@
+'(expression: (app (λ (x y) (app x y)) (λ (z) z) 2))
+
+(list 'query: '(top) (envenv '()))
+
+(list
+ '()
+ (list
+  'eval
+  '(app x (-> y <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list
+  'eval
+  '(app (-> x <-) y)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '()))
+ (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list 'eval '(top) (envenv '()))
+ (list
+  'eval
+  '(λ (x y) (-> (app x y) <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list
+  'eval
+  '(λ (z) (-> z <-))
+  (envenv
+   (list (list 'cenv '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y))))))))
+ (list
+  'expr
+  '(app (-> x <-) y)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'expr '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '())))
+12
+
+
+(list 'query: '(λ (z) (-> z <-)) (envenv '((□? (z)))))
+
+(list
+ '()
+ '()
+ (list
+  'eval
+  '(app x (-> y <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list 'eval '(λ (z) (-> z <-)) (envenv '((□? (z)))))
+ (list
+  'eval
+  '(λ (z) (-> z <-))
+  (envenv
+   (list (list 'cenv '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y))))))))
+ (list
+  'expr
+  '(app (-> x <-) y)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'expr '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '())))
+10
+
+
+(list 'query: '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
+
+(list
+ '()
+ '()
+ (list
+  'eval
+  '(app x (-> y <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list
+  'eval
+  '(app (-> x <-) y)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(app (-> x <-) y) (envenv '((□? (x y)))))
+ (list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '()))
+ (list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (envenv '()))
+ (list
+  'eval
+  '(λ (x y) (-> (app x y) <-))
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'eval '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y)))))
+ (list
+  'eval
+  '(λ (z) (-> z <-))
+  (envenv
+   (list (list 'cenv '(λ (x y) (-> (app x y) <-)) (envenv '((□? (x y))))))))
+ (list
+  'expr
+  '(app (-> x <-) y)
+  (envenv (list (list 'cenv '(top) (envenv '())))))
+ (list 'expr '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (envenv '()))
+ (list 'expr '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (envenv '())))
+14
+

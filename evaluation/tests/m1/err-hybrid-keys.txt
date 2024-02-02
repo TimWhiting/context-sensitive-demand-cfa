@@ -1,0 +1,1 @@
+'(expression: (app (λ (x) (app x x)) 2))
