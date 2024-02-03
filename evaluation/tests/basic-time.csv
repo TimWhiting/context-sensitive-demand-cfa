@@ -1,52 +1,52 @@
-"app-num", 0, "(list 'eval '(top) (menv '()))", 12, 0.13299999999981083
-"app-num", 0, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.014000000000123691
-"app-num", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.06700000000000728
-"app-num", 0, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 11, 0.10599999999976717
-"app-num", 0, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 10, 0.09400000000005093
-"app-num", 0, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.009999999999763531
-"app-num", 0, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.022999999999683496
-"app-num", 0, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 10, 0.11199999999962529
-"app-num", 0, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.010999999999967258
-"app-num", 0, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.02500000000009095
-"constr", 0, "(list 'eval '(top) (menv '()))", 9, 0.11699999999973443
-"constr", 0, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.021000000000185537
-"constr", 0, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.014000000000123691
-"constr", 0, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.021000000000185537
-"constr", 0, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.03300000000035652
-"constr", 0, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.10300000000006548
-"constr", 0, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.042999999999665306
-"constr", 0, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.057000000000243745
-"constr", 0, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.03500000000030923
-"err", 0, "(list 'eval '(top) (menv '()))", 7, 0.06799999999975626
-"err", 0, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.010999999999967258
-"err", 0, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.010999999999967258
-"err", 0, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 5, 0.0729999999998654
-"err", 0, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 4, 0.027999999999792635
-"err", 0, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 4, 0.02599999999983993
-"id", 0, "(list 'eval '(top) (menv '()))", 6, 0.04500000000007276
-"id", 0, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.011999999999716238
-"id", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 8, 0.04399999999986903
-"id", 0, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.01499999999987267
-"id", 0, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 4, 0.03699999999980719
-"let-num", 0, "(list 'eval '(top) (menv '()))", 9, 0.07799999999951979
+"app-num", 0, "(list 'eval '(top) (menv '()))", 12, 0.11499999999978172
+"app-num", 0, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000000218279
+"app-num", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.05900000000019645
+"app-num", 0, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 11, 0.09400000000005093
+"app-num", 0, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 10, 0.09899999999970532
+"app-num", 0, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.008000000000265572
+"app-num", 0, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.022000000000389264
+"app-num", 0, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 10, 0.09400000000005093
+"app-num", 0, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.01099999999951251
+"app-num", 0, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.03000000000020009
+"constr", 0, "(list 'eval '(top) (menv '()))", 9, 0.09900000000016007
+"constr", 0, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.018000000000029104
+"constr", 0, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.013000000000374712
+"constr", 0, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.011000000000422006
+"constr", 0, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.014000000000123691
+"constr", 0, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.08799999999973807
+"constr", 0, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.028999999999541615
+"constr", 0, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.04800000000022919
+"constr", 0, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.02500000000009095
+"err", 0, "(list 'eval '(top) (menv '()))", 7, 0.047000000000025466
+"err", 0, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.006999999999607098
+"err", 0, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.007999999999810825
+"err", 0, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 5, 0.0340000000001055
+"err", 0, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 4, 0.02500000000009095
+"err", 0, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 4, 0.023999999999887223
+"id", 0, "(list 'eval '(top) (menv '()))", 6, 0.0409999999997126
+"id", 0, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.011000000000422006
+"id", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 8, 0.037000000000261934
+"id", 0, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.01099999999951251
+"id", 0, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 4, 0.027000000000043656
+"let-num", 0, "(list 'eval '(top) (menv '()))", 9, 0.058999999999741704
 "let-num", 0, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000000218279
-"let-num", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.03999999999996362
-"let-num", 0, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 8, 0.057999999999992724
-"let-num", 0, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.013999999999668944
-"let-num", 0, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.01900000000023283
-"let", 0, "(list 'eval '(top) (menv '()))", 3, 0.028999999999996362
-"let", 0, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.012000000000170985
-"let", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.04300000000012005
-"let", 0, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.04800000000022919
-"multi-param", 0, "(list 'eval '(top) (menv '()))", 13, 0.13499999999976353
-"multi-param", 0, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.009999999999763531
-"multi-param", 0, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.010999999999967258
-"multi-param", 0, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.06999999999970896
-"multi-param", 0, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.010999999999967258
-"multi-param", 0, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 12, 0.10300000000006548
-"multi-param", 0, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 4, 0.028999999999996362
-"multi-param", 0, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 4, 0.038000000000010914
-"ack", 0, "(list 'eval '(top) (menv '()))", 43, 1.0409999999997126
+"let-num", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.0340000000001055
+"let-num", 0, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 8, 0.04999999999972715
+"let-num", 0, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.009999999999763531
+"let-num", 0, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.01599999999962165
+"let", 0, "(list 'eval '(top) (menv '()))", 3, 0.022000000000389264
+"let", 0, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.008000000000265572
+"let", 0, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.023999999999887223
+"let", 0, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.013999999999668944
+"multi-param", 0, "(list 'eval '(top) (menv '()))", 13, 0.1319999999996071
+"multi-param", 0, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.007000000000061846
+"multi-param", 0, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.009000000000014552
+"multi-param", 0, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.06399999999985084
+"multi-param", 0, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.009000000000014552
+"multi-param", 0, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 12, 0.08799999999973807
+"multi-param", 0, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 4, 0.02599999999983993
+"multi-param", 0, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 4, 0.02599999999983993
+"ack", 0, "(list 'eval '(top) (menv '()))", 46, 1.2010000000000218
 "ack", 0, "(list
  'eval
  '(let ((->
@@ -63,7 +63,7 @@
               (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
          <-))
     bod)
- (menv '()))", 1, 0.04500000000007276
+ (menv '()))", 1, 0.018000000000029104
 "ack", 0, "(list
  'eval
  '(λ (m n)
@@ -77,7 +77,7 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
      <-))
- (menv '((□? (m n)))))", 40, 0.9670000000000982
+ (menv '((□? (m n)))))", 43, 1.1419999999998254
 "ack", 0, "(list
  'eval
  '(match
@@ -90,58 +90,58 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))
     <-))
- (menv '((□? (m n)))))", 40, 0.8700000000003456
+ (menv '((□? (m n)))))", 43, 1.680000000000291
 "ack", 0, "(list
  'eval
  '(match
    (app = n 0)
    (#t (app ack (app - m 1) 1))
    (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
- (menv '((□? (m n)))))", 40, 0.8329999999996289
+ (menv '((□? (m n)))))", 43, 1.1269999999999527
 "ack", 0, "(list
  'eval
  '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
- (menv '((□? (m n)))))", 42, 0.8419999999996435
-"ack", 0, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 44, 0.9020000000000437
-"ack", 0, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.017000000000280124
-"ack", 0, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 41, 0.9740000000001601
-"ack", 0, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.021000000000185537
-"ack", 0, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 15, 0.24899999999979627
-"ack", 0, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.03599999999960346
+ (menv '((□? (m n)))))", 43, 1.194999999999709
+"ack", 0, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 43, 1.0779999999999745
+"ack", 0, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.021999999999934516
+"ack", 0, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 43, 1.3589999999999236
+"ack", 0, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.01999999999998181
+"ack", 0, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 16, 0.41600000000016735
+"ack", 0, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.03500000000030923
 "ack", 0, "(list
  'eval
  '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 18, 0.31799999999975626
-"ack", 0, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.016999999999825377
-"ack", 0, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 15, 0.24400000000014188
-"ack", 0, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.021000000000185537
+ (menv '((□? (m n)))))", 16, 0.4110000000000582
+"ack", 0, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.01900000000023283
+"ack", 0, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 16, 0.41800000000012005
+"ack", 0, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.01999999999998181
 "ack", 0, "(list
  'eval
  '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 3, 0.04899999999997817
+ (menv '((□? (m n)))))", 3, 0.032999999999901775
 "ack", 0, "(list
  'eval
  '(match
    (app = n 0)
    (-> #t (app ack (app - m 1) 1) <-)
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 40, 0.8380000000001928
-"ack", 0, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.022999999999683496
-"ack", 0, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 18, 0.3100000000004002
-"ack", 0, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.016000000000531145
-"ack", 0, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 15, 0.5969999999997526
-"ack", 0, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.021999999999934516
-"ack", 0, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.03499999999985448
+ (menv '((□? (m n)))))", 43, 1.1769999999996799
+"ack", 0, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.018000000000029104
+"ack", 0, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 16, 0.4339999999997417
+"ack", 0, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.01499999999987267
+"ack", 0, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 16, 0.4519999999997708
+"ack", 0, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.02099999999973079
+"ack", 0, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.06900000000041473
 "ack", 0, "(list
  'eval
  '(match
    (-> (app = n 0) <-)
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 40, 0.8209999999999127
-"ack", 0, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.016999999999825377
-"ack", 0, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 40, 0.7460000000000946
-"ack", 0, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.02400000000034197
+ (menv '((□? (m n)))))", 43, 1.1230000000000473
+"ack", 0, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.016000000000076398
+"ack", 0, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 43, 1.1210000000000946
+"ack", 0, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.01999999999998181
 "ack", 0, "(list
  'eval
  '(match
@@ -152,10 +152,10 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 40, 0.7789999999999964
-"ack", 0, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02900000000045111
-"ack", 0, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 40, 0.7539999999999054
-"ack", 0, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.02599999999983993
+ (menv '((□? (m n)))))", 43, 1.168999999999869
+"ack", 0, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.015000000000327418
+"ack", 0, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 43, 1.0740000000000691
+"ack", 0, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.018000000000029104
 "ack", 0, "(list
  'eval
  '(match
@@ -166,15 +166,15 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 18, 0.31300000000010186
-"ack", 0, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.01599999999962165
-"ack", 0, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 15, 0.24299999999993815
-"ack", 0, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.01999999999998181
-"ack", 0, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 42, 0.8029999999998836
-"ack", 0, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.014000000000123691
-"ack", 0, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.013999999999668944
-"ack", 0, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.02999999999974534
-"kcfa-2", 0, "(list 'eval '(top) (menv '()))", 35, 0.5929999999998472
+ (menv '((□? (m n)))))", 20, 0.54300000000012
+"ack", 0, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.016000000000076398
+"ack", 0, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 17, 0.47000000000025466
+"ack", 0, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.018000000000029104
+"ack", 0, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 45, 1.2439999999996871
+"ack", 0, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.01499999999987267
+"ack", 0, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.011999999999716238
+"ack", 0, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.03600000000005821
+"kcfa-2", 0, "(list 'eval '(top) (menv '()))", 35, 0.581000000000131
 "kcfa-2", 0, "(list
  'eval
  '(app
@@ -185,7 +185,7 @@
        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
        (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
     <-))
- (menv '()))", 1, 0.01999999999998181
+ (menv '()))", 1, 0.016999999999825377
 "kcfa-2", 0, "(list
  'eval
  '(λ (x1)
@@ -194,49 +194,49 @@
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
- (menv '((□? (x1)))))", 29, 0.5130000000003747
+ (menv '((□? (x1)))))", 29, 0.4410000000002583
 "kcfa-2", 0, "(list
  'eval
  '(app
    (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
    (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (menv '((□? (x1)))))", 2, 0.028999999999996362
+ (menv '((□? (x1)))))", 2, 0.018000000000029104
 "kcfa-2", 0, "(list
  'eval
  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (menv '((□? (x2)) (□? (x1)))))", 21, 0.3850000000002183
+ (menv '((□? (x2)) (□? (x1)))))", 21, 0.3289999999997235
 "kcfa-2", 0, "(list
  'eval
  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.028000000000247383
-"kcfa-2", 0, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 16, 0.22000000000025466
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.01999999999998181
+"kcfa-2", 0, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 16, 0.1999999999998181
 "kcfa-2", 0, "(list
  'eval
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.01999999999998181
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.018000000000029104
 "kcfa-2", 0, "(list
  'eval
  '(λ (z) (-> (app z x1 x2) <-))
- (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 20, 0.29999999999972715
-"kcfa-2", 0, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 11, 0.1410000000000764
-"kcfa-2", 0, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 11, 0.12399999999979627
-"kcfa-2", 0, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 6, 0.06100000000014916
+ (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 20, 0.2660000000000764
+"kcfa-2", 0, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 11, 0.12599999999974898
+"kcfa-2", 0, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 11, 0.11200000000008004
+"kcfa-2", 0, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 6, 0.0500000000001819
 "kcfa-2", 0, "(list
  'eval
  '(app
    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
- (menv '((□? (x1)))))", 2, 0.018999999999778083
+ (menv '((□? (x1)))))", 2, 0.01900000000023283
 "kcfa-2", 0, "(list
  'eval
  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (menv '((□? (f2)) (□? (x1)))))", 27, 0.43100000000004
-"kcfa-2", 0, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 26, 0.3969999999999345
-"kcfa-2", 0, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.01999999999998181
-"kcfa-2", 0, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 5, 0.05300000000033833
-"kcfa-2", 0, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 26, 0.4600000000000364
-"kcfa-2", 0, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.02599999999983993
-"kcfa-2", 0, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 5, 0.06199999999989814
+ (menv '((□? (f2)) (□? (x1)))))", 27, 0.3580000000001746
+"kcfa-2", 0, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 26, 0.32999999999992724
+"kcfa-2", 0, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.017000000000280124
+"kcfa-2", 0, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 5, 0.04400000000032378
+"kcfa-2", 0, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 26, 0.40200000000004366
+"kcfa-2", 0, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.016000000000076398
+"kcfa-2", 0, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 5, 0.046000000000276486
 "kcfa-2", 0, "(list
  'eval
  '(app
@@ -245,75 +245,75 @@
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
- (menv '()))", 1, 0.017000000000280124
+ (menv '()))", 1, 0.012999999999919964
 "kcfa-2", 0, "(list
  'eval
  '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (menv '((□? (f1)))))", 34, 0.543999999999869
-"kcfa-2", 0, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 33, 0.5199999999999818
-"kcfa-2", 0, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.016999999999825377
-"kcfa-2", 0, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 4, 0.04400000000032378
-"kcfa-2", 0, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 33, 0.512000000000171
-"kcfa-2", 0, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.017999999999574356
-"kcfa-2", 0, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 4, 0.04300000000012005
-"structural-rec", 0, "(list 'eval '(top) (menv '()))", 17, 0.21600000000034925
-"structural-rec", 0, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.012000000000170985
-"structural-rec", 0, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 15, 0.18699999999989814
-"structural-rec", 0, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 14, 0.16300000000046566
-"structural-rec", 0, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 14, 0.16200000000026193
-"structural-rec", 0, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.009000000000014552
-"structural-rec", 0, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 16, 0.18500000000040018
-"structural-rec", 0, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 4, 0.028000000000247383
-"structural-rec", 0, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 4, 0.028000000000247383
-"app-num", 1, "(list 'eval '(top) (menv '()))", 10, 0.11400000000003274
-"app-num", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.009999999999763531
-"app-num", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.10599999999976717
-"app-num", 1, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.08199999999987995
-"app-num", 1, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.08100000000013097
-"app-num", 1, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.010000000000218279
-"app-num", 1, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.01999999999998181
-"app-num", 1, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.12599999999974898
-"app-num", 1, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.010999999999967258
-"app-num", 1, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.021000000000185537
-"constr", 1, "(list 'eval '(top) (menv '()))", 9, 0.09700000000020736
-"constr", 1, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.018000000000029104
-"constr", 1, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.012000000000170985
-"constr", 1, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.009999999999763531
+ (menv '((□? (f1)))))", 34, 0.4830000000001746
+"kcfa-2", 0, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 33, 0.4299999999998363
+"kcfa-2", 0, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.01900000000023283
+"kcfa-2", 0, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 4, 0.041999999999916326
+"kcfa-2", 0, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 33, 0.45299999999997453
+"kcfa-2", 0, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.015000000000327418
+"kcfa-2", 0, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 4, 0.03900000000021464
+"structural-rec", 0, "(list 'eval '(top) (menv '()))", 17, 0.18200000000024374
+"structural-rec", 0, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.007999999999810825
+"structural-rec", 0, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 15, 0.15000000000009095
+"structural-rec", 0, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 14, 0.13400000000001455
+"structural-rec", 0, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 14, 0.13599999999996726
+"structural-rec", 0, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.007999999999810825
+"structural-rec", 0, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 16, 0.15300000000024738
+"structural-rec", 0, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 4, 0.023000000000138243
+"structural-rec", 0, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 4, 0.021999999999934516
+"app-num", 1, "(list 'eval '(top) (menv '()))", 10, 0.08100000000013097
+"app-num", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.009000000000014552
+"app-num", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.11200000000008004
+"app-num", 1, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.06499999999959982
+"app-num", 1, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.06399999999985084
+"app-num", 1, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.005999999999858119
+"app-num", 1, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.018000000000029104
+"app-num", 1, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.07000000000016371
+"app-num", 1, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.006999999999607098
+"app-num", 1, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.021999999999934516
+"constr", 1, "(list 'eval '(top) (menv '()))", 9, 0.08800000000019281
+"constr", 1, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.016999999999825377
+"constr", 1, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.011999999999716238
+"constr", 1, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.047000000000025466
 "constr", 1, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.012999999999919964
-"constr", 1, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.07999999999992724
-"constr", 1, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.032999999999901775
-"constr", 1, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.047999999999774445
+"constr", 1, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.07600000000002183
+"constr", 1, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.032000000000152795
+"constr", 1, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.057999999999992724
 "constr", 1, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.024999999999636202
-"err", 1, "(list 'eval '(top) (menv '()))", 6, 0.057999999999992724
-"err", 1, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.011000000000422006
-"err", 1, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.009999999999763531
+"err", 1, "(list 'eval '(top) (menv '()))", 6, 0.0500000000001819
+"err", 1, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.007000000000061846
+"err", 1, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.009000000000014552
 "err", 1, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 7, 0.068000000000211
-"err", 1, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.04500000000007276
-"err", 1, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.04399999999986903
-"id", 1, "(list 'eval '(top) (menv '()))", 5, 0.042999999999665306
-"id", 1, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.010999999999967258
-"id", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.038000000000010914
-"id", 1, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.010999999999967258
-"id", 1, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.05600000000004002
-"let-num", 1, "(list 'eval '(top) (menv '()))", 8, 0.07099999999991269
-"let-num", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.011999999999716238
-"let-num", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.05400000000008731
+"err", 1, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.05600000000004002
+"err", 1, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.04100000000016735
+"id", 1, "(list 'eval '(top) (menv '()))", 5, 0.041999999999916326
+"id", 1, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.010000000000218279
+"id", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.03600000000005821
+"id", 1, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.009999999999763531
+"id", 1, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.052000000000134605
+"let-num", 1, "(list 'eval '(top) (menv '()))", 8, 0.068000000000211
+"let-num", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.016000000000076398
+"let-num", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.05600000000004002
 "let-num", 1, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 7, 0.052999999999883585
-"let-num", 1, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.012999999999919964
-"let-num", 1, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.018999999999778083
-"let", 1, "(list 'eval '(top) (menv '()))", 3, 0.027000000000043656
-"let", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000000218279
-"let", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.028000000000247383
+"let-num", 1, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.037000000000261934
+"let-num", 1, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.01499999999987267
+"let", 1, "(list 'eval '(top) (menv '()))", 3, 0.023999999999887223
+"let", 1, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.07399999999961437
+"let", 1, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.02500000000009095
 "let", 1, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.01499999999987267
-"multi-param", 1, "(list 'eval '(top) (menv '()))", 11, 0.11200000000008004
-"multi-param", 1, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.009000000000014552
-"multi-param", 1, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.009999999999763531
-"multi-param", 1, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.08399999999983265
-"multi-param", 1, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.01999999999998181
-"multi-param", 1, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 13, 0.15099999999983993
-"multi-param", 1, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.06899999999950523
-"multi-param", 1, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.04899999999997817
-"ack", 1, "(list 'eval '(top) (menv '()))", 176, 9.374000000000251
+"multi-param", 1, "(list 'eval '(top) (menv '()))", 11, 0.15100000000029468
+"multi-param", 1, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.011000000000422006
+"multi-param", 1, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.010000000000218279
+"multi-param", 1, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.08499999999958163
+"multi-param", 1, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.01499999999987267
+"multi-param", 1, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 13, 0.1910000000002583
+"multi-param", 1, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.04999999999972715
+"multi-param", 1, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.0749999999998181
+"ack", 1, "(list 'eval '(top) (menv '()))", 176, 6.6020000000003165
 "ack", 1, "(list
  'eval
  '(let ((->
@@ -330,7 +330,7 @@
               (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
          <-))
     bod)
- (menv '()))", 1, 0.08500000000003638
+ (menv '()))", 1, 0.02599999999983993
 "ack", 1, "(list
  'eval
  '(λ (m n)
@@ -344,7 +344,7 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
      <-))
- (menv '((□? (m n)))))", 191, 12.044000000000324
+ (menv '((□? (m n)))))", 191, 8.702999999999975
 "ack", 1, "(list
  'eval
  '(match
@@ -357,47 +357,47 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))
     <-))
- (menv '((□? (m n)))))", 173, 9.252000000000407
+ (menv '((□? (m n)))))", 173, 7.221000000000458
 "ack", 1, "(list
  'eval
  '(match
    (app = n 0)
    (#t (app ack (app - m 1) 1))
    (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
- (menv '((□? (m n)))))", 159, 8.125
+ (menv '((□? (m n)))))", 159, 6.976999999999862
 "ack", 1, "(list
  'eval
  '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
- (menv '((□? (m n)))))", 155, 7.42699999999968
-"ack", 1, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 155, 7.166000000000167
-"ack", 1, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02500000000009095
-"ack", 1, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 155, 6.177999999999884
-"ack", 1, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.03099999999994907
-"ack", 1, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 64, 3.543000000000575
+ (menv '((□? (m n)))))", 155, 6.360999999999876
+"ack", 1, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 155, 6.063000000000102
+"ack", 1, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000000138243
+"ack", 1, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 155, 6.187000000000353
+"ack", 1, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.028999999999996362
+"ack", 1, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 64, 2.668999999999869
 "ack", 1, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.0430000000005748
 "ack", 1, "(list
  'eval
  '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 64, 2.790999999999258
-"ack", 1, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.021999999999934516
-"ack", 1, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 64, 2.7409999999999854
-"ack", 1, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.027000000000043656
+ (menv '((□? (m n)))))", 64, 2.757999999999811
+"ack", 1, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.019999999999527063
+"ack", 1, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 64, 2.76299999999992
+"ack", 1, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.028000000000247383
 "ack", 1, "(list
  'eval
  '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 3, 0.02999999999974534
+ (menv '((□? (m n)))))", 3, 0.030000000000654836
 "ack", 1, "(list
  'eval
  '(match
    (app = n 0)
    (-> #t (app ack (app - m 1) 1) <-)
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 159, 6.490000000000691
-"ack", 1, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02599999999983993
-"ack", 1, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 64, 3.3029999999998836
-"ack", 1, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.025000000000545697
-"ack", 1, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 64, 3.0850000000000364
-"ack", 1, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.03099999999994907
+ (menv '((□? (m n)))))", 159, 6.453000000000429
+"ack", 1, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.024999999999636202
+"ack", 1, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 64, 3.0090000000000146
+"ack", 1, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02299999999922875
+"ack", 1, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 64, 2.786000000000058
+"ack", 1, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.032000000000152795
 "ack", 1, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.03099999999994907
 "ack", 1, "(list
  'eval
@@ -405,10 +405,10 @@
    (-> (app = n 0) <-)
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 163, 7.152000000000044
-"ack", 1, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.02400000000034197
-"ack", 1, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 157, 6.891999999999825
-"ack", 1, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.03300000000035652
+ (menv '((□? (m n)))))", 163, 6.689000000000306
+"ack", 1, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.025000000000545697
+"ack", 1, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 157, 6.462999999999738
+"ack", 1, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.033999999999650754
 "ack", 1, "(list
  'eval
  '(match
@@ -419,10 +419,10 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 163, 8.070999999999913
-"ack", 1, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.028000000000247383
-"ack", 1, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 157, 7.873999999999796
-"ack", 1, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.033999999999650754
+ (menv '((□? (m n)))))", 163, 6.902999999999338
+"ack", 1, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02099999999973079
+"ack", 1, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 157, 6.337000000000444
+"ack", 1, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.02900000000045111
 "ack", 1, "(list
  'eval
  '(match
@@ -433,15 +433,15 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 84, 4.391999999999825
+ (menv '((□? (m n)))))", 84, 3.7030000000004293
 "ack", 1, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.025000000000545697
-"ack", 1, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 69, 3.768000000000029
-"ack", 1, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.037000000000261934
-"ack", 1, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 175, 8.654999999999745
-"ack", 1, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.01700000000073487
-"ack", 1, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.011000000000422006
-"ack", 1, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.03099999999994907
-"kcfa-2", 1, "(list 'eval '(top) (menv '()))", 28, 0.5819999999994252
+"ack", 1, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 69, 3.5559999999995853
+"ack", 1, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.028999999999541615
+"ack", 1, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 175, 6.970000000000255
+"ack", 1, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.018000000000029104
+"ack", 1, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.010000000000218279
+"ack", 1, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.028999999999541615
+"kcfa-2", 1, "(list 'eval '(top) (menv '()))", 28, 0.5489999999999782
 "kcfa-2", 1, "(list
  'eval
  '(app
@@ -452,7 +452,7 @@
        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
        (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
     <-))
- (menv '()))", 1, 0.02099999999973079
+ (menv '()))", 1, 0.01900000000023283
 "kcfa-2", 1, "(list
  'eval
  '(λ (x1)
@@ -461,33 +461,33 @@
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
- (menv '((□? (x1)))))", 58, 2.438000000000102
+ (menv '((□? (x1)))))", 58, 2.520999999999731
 "kcfa-2", 1, "(list
  'eval
  '(app
    (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
    (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (menv '((□? (x1)))))", 2, 0.02999999999974534
+ (menv '((□? (x1)))))", 2, 0.021999999999934516
 "kcfa-2", 1, "(list
  'eval
  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (menv '((□? (x2)) (□? (x1)))))", 40, 2.1080000000001746
+ (menv '((□? (x2)) (□? (x1)))))", 40, 1.5929999999998472
 "kcfa-2", 1, "(list
  'eval
  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.02999999999974534
-"kcfa-2", 1, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 31, 1.337999999999738
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.02299999999922875
+"kcfa-2", 1, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 31, 0.9909999999999854
 "kcfa-2", 1, "(list
  'eval
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.03099999999994907
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.02599999999983993
 "kcfa-2", 1, "(list
  'eval
  '(λ (z) (-> (app z x1 x2) <-))
- (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 46, 2.270999999999731
-"kcfa-2", 1, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 14, 0.27599999999983993
-"kcfa-2", 1, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.25200000000040745
-"kcfa-2", 1, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 7, 0.11200000000008004
+ (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 46, 1.8670000000001892
+"kcfa-2", 1, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 14, 0.24399999999968713
+"kcfa-2", 1, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.2430000000003929
+"kcfa-2", 1, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 7, 0.2029999999995198
 "kcfa-2", 1, "(list
  'eval
  '(app
@@ -497,13 +497,13 @@
 "kcfa-2", 1, "(list
  'eval
  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (menv '((□? (f2)) (□? (x1)))))", 64, 3.118999999999687
-"kcfa-2", 1, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 58, 2.9160000000001673
-"kcfa-2", 1, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.023999999999432475
+ (menv '((□? (f2)) (□? (x1)))))", 64, 3.503000000000611
+"kcfa-2", 1, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 58, 3.41399999999976
+"kcfa-2", 1, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.02599999999983993
 "kcfa-2", 1, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 6, 0.08799999999973807
-"kcfa-2", 1, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 58, 2.6240000000007058
-"kcfa-2", 1, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.025000000000545697
-"kcfa-2", 1, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 6, 0.0860000000002401
+"kcfa-2", 1, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 58, 3.0869999999995343
+"kcfa-2", 1, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.027000000000043656
+"kcfa-2", 1, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 6, 0.08500000000003638
 "kcfa-2", 1, "(list
  'eval
  '(app
@@ -512,75 +512,75 @@
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
- (menv '()))", 1, 0.02099999999973079
+ (menv '()))", 1, 0.014000000000123691
 "kcfa-2", 1, "(list
  'eval
  '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (menv '((□? (f1)))))", 31, 0.5929999999998472
-"kcfa-2", 1, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 29, 0.5670000000000073
-"kcfa-2", 1, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.02599999999983993
-"kcfa-2", 1, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 5, 0.08700000000044383
-"kcfa-2", 1, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 29, 0.5989999999992506
-"kcfa-2", 1, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.021999999999934516
-"kcfa-2", 1, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.07299999999941065
-"structural-rec", 1, "(list 'eval '(top) (menv '()))", 20, 0.2530000000006112
-"structural-rec", 1, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.014000000000123691
-"structural-rec", 1, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 21, 0.29100000000016735
-"structural-rec", 1, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 18, 0.25199999999949796
-"structural-rec", 1, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 18, 0.25
-"structural-rec", 1, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.011000000000422006
-"structural-rec", 1, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 22, 0.2739999999994325
-"structural-rec", 1, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.04699999999957072
-"structural-rec", 1, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.03799999999955617
-"app-num", 2, "(list 'eval '(top) (menv '()))", 10, 0.07300000000032014
-"app-num", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000000218279
-"app-num", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.07899999999972351
-"app-num", 2, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.06400000000030559
-"app-num", 2, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.06199999999989814
-"app-num", 2, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.03499999999985448
-"app-num", 2, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.016999999999825377
-"app-num", 2, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.1180000000003929
-"app-num", 2, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.009000000000014552
-"app-num", 2, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.01900000000023283
-"constr", 2, "(list 'eval '(top) (menv '()))", 9, 0.08899999999994179
-"constr", 2, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.01700000000073487
-"constr", 2, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.010000000000218279
-"constr", 2, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.010000000000218279
-"constr", 2, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.010000000000218279
-"constr", 2, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.06499999999959982
-"constr", 2, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.025000000000545697
-"constr", 2, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.03900000000066939
-"constr", 2, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.02099999999973079
-"err", 2, "(list 'eval '(top) (menv '()))", 6, 0.03800000000046566
-"err", 2, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.010000000000218279
-"err", 2, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.009000000000014552
-"err", 2, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 7, 0.05099999999947613
-"err", 2, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.03600000000005821
-"err", 2, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.033999999999650754
-"id", 2, "(list 'eval '(top) (menv '()))", 5, 0.04100000000016735
-"id", 2, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.014000000000123691
-"id", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.037000000000261934
-"id", 2, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.018000000000029104
-"id", 2, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.05400000000008731
-"let-num", 2, "(list 'eval '(top) (menv '()))", 8, 0.07200000000011642
-"let-num", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.02099999999973079
-"let-num", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.06700000000000728
-"let-num", 2, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 7, 0.06199999999989814
-"let-num", 2, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.009000000000014552
-"let-num", 2, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.01700000000073487
-"let", 2, "(list 'eval '(top) (menv '()))", 3, 0.0430000000005748
-"let", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.009000000000014552
-"let", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.04399999999986903
-"let", 2, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.023000000000138243
-"multi-param", 2, "(list 'eval '(top) (menv '()))", 11, 0.17000000000007276
-"multi-param", 2, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.012999999999919964
-"multi-param", 2, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.012000000000625732
-"multi-param", 2, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.08999999999923602
-"multi-param", 2, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.014999999999417923
-"multi-param", 2, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 15, 0.170999999999367
-"multi-param", 2, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.07999999999992724
-"multi-param", 2, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.05400000000008731
-"ack", 2, "(list 'eval '(top) (menv '()))", 38, 0.7359999999998763
+ (menv '((□? (f1)))))", 31, 0.5889999999999418
+"kcfa-2", 1, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 29, 0.5739999999996144
+"kcfa-2", 1, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.023000000000138243
+"kcfa-2", 1, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 5, 0.07700000000022555
+"kcfa-2", 1, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 29, 0.543999999999869
+"kcfa-2", 1, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.02099999999973079
+"kcfa-2", 1, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.07100000000082218
+"structural-rec", 1, "(list 'eval '(top) (menv '()))", 20, 0.2510000000002037
+"structural-rec", 1, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.009000000000014552
+"structural-rec", 1, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 21, 0.27999999999974534
+"structural-rec", 1, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 18, 0.26299999999991996
+"structural-rec", 1, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 18, 0.2510000000002037
+"structural-rec", 1, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.009000000000014552
+"structural-rec", 1, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 22, 0.26900000000023283
+"structural-rec", 1, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.042000000000371074
+"structural-rec", 1, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.03899999999975989
+"app-num", 2, "(list 'eval '(top) (menv '()))", 10, 0.07700000000022555
+"app-num", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.009000000000014552
+"app-num", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.07999999999992724
+"app-num", 2, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.0749999999998181
+"app-num", 2, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.07899999999972351
+"app-num", 2, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.006999999999607098
+"app-num", 2, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.018000000000029104
+"app-num", 2, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.06099999999969441
+"app-num", 2, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.007999999999810825
+"app-num", 2, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.016999999999825377
+"constr", 2, "(list 'eval '(top) (menv '()))", 9, 0.16300000000046566
+"constr", 2, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.01599999999962165
+"constr", 2, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.01099999999951251
+"constr", 2, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.009000000000014552
+"constr", 2, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.009999999999308784
+"constr", 2, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.06700000000000728
+"constr", 2, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.06199999999989814
+"constr", 2, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.03799999999955617
+"constr", 2, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.020000000000436557
+"err", 2, "(list 'eval '(top) (menv '()))", 6, 0.046000000000276486
+"err", 2, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.009000000000014552
+"err", 2, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.007999999999810825
+"err", 2, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 7, 0.06000000000040018
+"err", 2, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.042000000000371074
+"err", 2, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.03799999999955617
+"id", 2, "(list 'eval '(top) (menv '()))", 5, 0.06900000000041473
+"id", 2, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.010000000000218279
+"id", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.03600000000005821
+"id", 2, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.01099999999951251
+"id", 2, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.04899999999997817
+"let-num", 2, "(list 'eval '(top) (menv '()))", 8, 0.06700000000000728
+"let-num", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.011000000000422006
+"let-num", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.052999999999883585
+"let-num", 2, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 7, 0.05300000000079308
+"let-num", 2, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.007999999999810825
+"let-num", 2, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.016999999999825377
+"let", 2, "(list 'eval '(top) (menv '()))", 3, 0.021999999999934516
+"let", 2, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.007999999999810825
+"let", 2, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.023999999999432475
+"let", 2, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.014000000000123691
+"multi-param", 2, "(list 'eval '(top) (menv '()))", 11, 0.11700000000018917
+"multi-param", 2, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.00800000000072032
+"multi-param", 2, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.009000000000014552
+"multi-param", 2, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.08399999999983265
+"multi-param", 2, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.009000000000014552
+"multi-param", 2, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 15, 0.14400000000023283
+"multi-param", 2, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.04399999999986903
+"multi-param", 2, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.03800000000046566
+"ack", 2, "(list 'eval '(top) (menv '()))", 38, 0.6630000000004657
 "ack", 2, "(list
  'eval
  '(let ((->
@@ -611,7 +611,7 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
      <-))
- (menv '((□? (m n)))))", 638, 69.89699999999993
+ (menv '((□? (m n)))))", 638, 58.06299999999919
 "ack", 2, "(list
  'eval
  '(match
@@ -624,58 +624,58 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))
     <-))
- (menv '((□? (m n)))))", 620, 56.701999999999316
+ (menv '((□? (m n)))))", 620, 51.90400000000045
 "ack", 2, "(list
  'eval
  '(match
    (app = n 0)
    (#t (app ack (app - m 1) 1))
    (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
- (menv '((□? (m n)))))", 574, 46.04000000000087
+ (menv '((□? (m n)))))", 574, 44.53700000000026
 "ack", 2, "(list
  'eval
  '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
- (menv '((□? (m n)))))", 530, 44.60900000000038
-"ack", 2, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 530, 42.67000000000007
-"ack", 2, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000001047738
-"ack", 2, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 530, 40.88699999999881
-"ack", 2, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.031000000000858563
-"ack", 2, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 211, 19.76600000000144
-"ack", 2, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.04399999999986903
+ (menv '((□? (m n)))))", 530, 38.70999999999913
+"ack", 2, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 530, 39.180999999998676
+"ack", 2, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02299999999922875
+"ack", 2, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 530, 40.29099999999926
+"ack", 2, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.030000000000654836
+"ack", 2, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 211, 17.851999999998952
+"ack", 2, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.04099999999925785
 "ack", 2, "(list
  'eval
  '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 211, 21.92399999999907
-"ack", 2, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.027000000000043656
-"ack", 2, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 211, 25.131999999999607
-"ack", 2, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.02900000000045111
+ (menv '((□? (m n)))))", 211, 17.76599999999962
+"ack", 2, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000001047738
+"ack", 2, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 211, 17.945999999999913
+"ack", 2, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.02899999999863212
 "ack", 2, "(list
  'eval
  '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 3, 0.03299999999944703
+ (menv '((□? (m n)))))", 3, 0.030000000000654836
 "ack", 2, "(list
  'eval
  '(match
    (app = n 0)
    (-> #t (app ack (app - m 1) 1) <-)
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 574, 51.63500000000022
-"ack", 2, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.021000000000640284
-"ack", 2, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 211, 20.003999999998996
-"ack", 2, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02199999999902502
-"ack", 2, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 211, 19.318999999999505
-"ack", 2, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.03299999999944703
-"ack", 2, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.06899999999950523
+ (menv '((□? (m n)))))", 574, 49.06499999999869
+"ack", 2, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02500000000145519
+"ack", 2, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 211, 20.528000000000247
+"ack", 2, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000001047738
+"ack", 2, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 211, 20.594999999999345
+"ack", 2, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.029999999998835847
+"ack", 2, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.030999999999039574
 "ack", 2, "(list
  'eval
  '(match
    (-> (app = n 0) <-)
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 554, 46.71399999999994
-"ack", 2, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.033999999999650754
-"ack", 2, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 536, 51.98999999999978
-"ack", 2, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.03600000000005821
+ (menv '((□? (m n)))))", 554, 43.80500000000029
+"ack", 2, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.030999999999039574
+"ack", 2, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 536, 52.602999999999156
+"ack", 2, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.027999999998428393
 "ack", 2, "(list
  'eval
  '(match
@@ -686,10 +686,10 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 554, 50.65300000000025
-"ack", 2, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.024000000001251465
-"ack", 2, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 536, 42.167999999999665
-"ack", 2, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.029999999998835847
+ (menv '((□? (m n)))))", 554, 43.45299999999952
+"ack", 2, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.024999999999636202
+"ack", 2, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 536, 51.284999999999854
+"ack", 2, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.04200000000128057
 "ack", 2, "(list
  'eval
  '(match
@@ -700,15 +700,15 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 279, 28.411000000000058
-"ack", 2, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.028000000002066372
-"ack", 2, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 228, 24.384000000001834
-"ack", 2, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.033999999999650754
-"ack", 2, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 37, 0.7649999999994179
-"ack", 2, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.020000000000436557
-"ack", 2, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.012000000002444722
-"ack", 2, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.029999999998835847
-"kcfa-2", 2, "(list 'eval '(top) (menv '()))", 28, 0.5780000000013388
+ (menv '((□? (m n)))))", 279, 33.56999999999971
+"ack", 2, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.033999999999650754
+"ack", 2, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 228, 30.288000000000466
+"ack", 2, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.03499999999985448
+"ack", 2, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 37, 0.7989999999990687
+"ack", 2, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.02200000000084401
+"ack", 2, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.014999999999417923
+"ack", 2, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.037000000000261934
+"kcfa-2", 2, "(list 'eval '(top) (menv '()))", 28, 0.5610000000015134
 "kcfa-2", 2, "(list
  'eval
  '(app
@@ -719,7 +719,7 @@
        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
        (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
     <-))
- (menv '()))", 1, 0.01900000000023283
+ (menv '()))", 1, 0.02200000000084401
 "kcfa-2", 2, "(list
  'eval
  '(λ (x1)
@@ -728,49 +728,49 @@
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
- (menv '((□? (x1)))))", 79, 3.6019999999989523
+ (menv '((□? (x1)))))", 79, 3.911000000000058
 "kcfa-2", 2, "(list
  'eval
  '(app
    (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
    (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (menv '((□? (x1)))))", 2, 0.027000000001862645
+ (menv '((□? (x1)))))", 2, 0.03299999999944703
 "kcfa-2", 2, "(list
  'eval
  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (menv '((□? (x2)) (□? (x1)))))", 43, 2.0649999999986903
+ (menv '((□? (x2)) (□? (x1)))))", 43, 2.1750000000029104
 "kcfa-2", 2, "(list
  'eval
  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.0319999999992433
-"kcfa-2", 2, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 34, 1.348999999998341
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.03499999999985448
+"kcfa-2", 2, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 34, 1.3770000000004075
 "kcfa-2", 2, "(list
  'eval
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.029999999998835847
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.03600000000005821
 "kcfa-2", 2, "(list
  'eval
  '(λ (z) (-> (app z x1 x2) <-))
- (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 55, 2.760999999998603
-"kcfa-2", 2, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 15, 0.3220000000001164
-"kcfa-2", 2, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.2649999999994179
-"kcfa-2", 2, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 8, 0.14099999999962165
+ (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 55, 3.120999999999185
+"kcfa-2", 2, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 15, 0.3430000000007567
+"kcfa-2", 2, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.2989999999990687
+"kcfa-2", 2, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 8, 0.1099999999969441
 "kcfa-2", 2, "(list
  'eval
  '(app
    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
- (menv '((□? (x1)))))", 2, 0.027000000001862645
+ (menv '((□? (x1)))))", 2, 0.01599999999962165
 "kcfa-2", 2, "(list
  'eval
  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (menv '((□? (f2)) (□? (x1)))))", 118, 8.567999999999302
-"kcfa-2", 2, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 106, 8.43500000000131
-"kcfa-2", 2, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.03299999999944703
-"kcfa-2", 2, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 7, 0.10599999999976717
-"kcfa-2", 2, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 106, 7.97099999999773
-"kcfa-2", 2, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.0319999999992433
-"kcfa-2", 2, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 7, 0.10900000000037835
+ (menv '((□? (f2)) (□? (x1)))))", 118, 7.638999999999214
+"kcfa-2", 2, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 106, 11.298999999999069
+"kcfa-2", 2, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.031000000002677552
+"kcfa-2", 2, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 7, 0.11999999999898137
+"kcfa-2", 2, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 106, 6.898000000001048
+"kcfa-2", 2, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.026999999998224666
+"kcfa-2", 2, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 7, 0.08899999999994179
 "kcfa-2", 2, "(list
  'eval
  '(app
@@ -779,75 +779,75 @@
      (app
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))
- (menv '()))", 1, 0.04799999999886495
+ (menv '()))", 1, 0.05400000000008731
 "kcfa-2", 2, "(list
  'eval
  '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (menv '((□? (f1)))))", 49, 2.3470000000015716
-"kcfa-2", 2, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 47, 1.9839999999967404
-"kcfa-2", 2, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.03600000000005821
-"kcfa-2", 2, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 5, 0.1040000000029977
-"kcfa-2", 2, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 47, 2.6670000000012806
-"kcfa-2", 2, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.033999999999650754
-"kcfa-2", 2, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.0959999999977299
-"structural-rec", 2, "(list 'eval '(top) (menv '()))", 25, 0.5259999999980209
-"structural-rec", 2, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.01900000000023283
-"structural-rec", 2, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 29, 0.6519999999982247
-"structural-rec", 2, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 22, 0.49399999999877764
-"structural-rec", 2, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 22, 0.4789999999993597
-"structural-rec", 2, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.021000000000640284
-"structural-rec", 2, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 30, 0.5640000000021246
-"structural-rec", 2, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.07200000000011642
-"structural-rec", 2, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.046999999998661224
-"app-num", 3, "(list 'eval '(top) (menv '()))", 10, 0.1430000000000291
-"app-num", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.018000000000029104
-"app-num", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.1110000000007858
-"app-num", 3, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.08499999999912689
-"app-num", 3, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.1069999999999709
-"app-num", 3, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.010999999998603016
-"app-num", 3, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.02200000000084401
-"app-num", 3, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.08300000000235741
-"app-num", 3, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.008999999998195563
-"app-num", 3, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.021000000000640284
-"constr", 3, "(list 'eval '(top) (menv '()))", 9, 0.0930000000007567
-"constr", 3, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.018000000000029104
-"constr", 3, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.01299999999901047
-"constr", 3, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.011999999998806743
-"constr", 3, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.013999999999214197
-"constr", 3, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.08399999999892316
-"constr", 3, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.06199999999807915
-"constr", 3, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.04800000000250293
-"constr", 3, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.027000000001862645
-"err", 3, "(list 'eval '(top) (menv '()))", 6, 0.09799999999813735
-"err", 3, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.011000000002240995
-"err", 3, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.010000000002037268
-"err", 3, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 7, 0.06800000000293949
-"err", 3, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.0470000000022992
-"err", 3, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.043000000001484295
-"id", 3, "(list 'eval '(top) (menv '()))", 5, 0.04799999999886495
-"id", 3, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.020000000000436557
-"id", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.04799999999886495
-"id", 3, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.010999999998603016
-"id", 3, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.052999999999883585
-"let-num", 3, "(list 'eval '(top) (menv '()))", 8, 0.16600000000107684
-"let-num", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.013000000002648449
-"let-num", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.07099999999991269
-"let-num", 3, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 7, 0.05800000000090222
-"let-num", 3, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.018000000000029104
-"let-num", 3, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.02299999999740976
-"let", 3, "(list 'eval '(top) (menv '()))", 3, 0.026999999998224666
-"let", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000002037268
-"let", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.0290000000022701
-"let", 3, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.01599999999962165
-"multi-param", 3, "(list 'eval '(top) (menv '()))", 11, 0.13699999999880674
-"multi-param", 3, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.014999999999417923
-"multi-param", 3, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.012000000002444722
-"multi-param", 3, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.10000000000218279
-"multi-param", 3, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.01299999999901047
-"multi-param", 3, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 15, 0.16700000000128057
-"multi-param", 3, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.07200000000011642
-"multi-param", 3, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.05199999999967986
-"ack", 3, "(list 'eval '(top) (menv '()))", 38, 0.7619999999988067
+ (menv '((□? (f1)))))", 49, 2.2010000000009313
+"kcfa-2", 2, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 47, 1.962999999999738
+"kcfa-2", 2, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.02600000000165892
+"kcfa-2", 2, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 5, 0.07600000000093132
+"kcfa-2", 2, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 47, 2.0789999999979045
+"kcfa-2", 2, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.02600000000165892
+"kcfa-2", 2, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.07399999999688589
+"structural-rec", 2, "(list 'eval '(top) (menv '()))", 25, 0.4029999999984284
+"structural-rec", 2, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.027000000001862645
+"structural-rec", 2, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 29, 0.672999999998865
+"structural-rec", 2, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 22, 0.38799999999901047
+"structural-rec", 2, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 22, 0.3899999999994179
+"structural-rec", 2, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.013999999999214197
+"structural-rec", 2, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 30, 0.4470000000001164
+"structural-rec", 2, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.056000000000494765
+"structural-rec", 2, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.037000000000261934
+"app-num", 3, "(list 'eval '(top) (menv '()))", 10, 0.08099999999831198
+"app-num", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.010000000002037268
+"app-num", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 9, 0.09899999999834108
+"app-num", 3, "(list 'eval '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (menv '()))", 9, 0.07200000000011642
+"app-num", 3, "(list 'eval '(let ((-> _ = (app x 1) <-)) bod) (menv '()))", 8, 0.07400000000052387
+"app-num", 3, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.006999999997788109
+"app-num", 3, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.016999999999825377
+"app-num", 3, "(list 'eval '(let (_) (-> (app x 2) <-)) (menv '()))", 8, 0.06099999999787542
+"app-num", 3, "(list 'eval '(app x (-> 2 <-)) (menv '()))", 1, 0.006999999997788109
+"app-num", 3, "(list 'eval '(app (-> x <-) 2) (menv '()))", 2, 0.015000000003055902
+"constr", 3, "(list 'eval '(top) (menv '()))", 9, 0.07400000000052387
+"constr", 3, "(list 'eval '(let ((-> x = (app cons 1 nil) <-)) bod) (menv '()))", 2, 0.01599999999962165
+"constr", 3, "(list 'eval '(app cons 1 (-> nil <-)) (menv '()))", 1, 0.010999999998603016
+"constr", 3, "(list 'eval '(app cons (-> 1 <-) nil) (menv '()))", 1, 0.009000000001833541
+"constr", 3, "(list 'eval '(app (-> cons <-) 1 nil) (menv '()))", 1, 0.009000000001833541
+"constr", 3, "(list 'eval '(let (x) (-> (match x ((cons 1 n) n) (_ x)) <-)) (menv '()))", 8, 0.06400000000212458
+"constr", 3, "(list 'eval '(match x ((cons 1 n) n) (-> _ x <-)) (menv '()))", 3, 0.023999999997613486
+"constr", 3, "(list 'eval '(match x (-> (cons 1 n) n <-) (_ x)) (menv '()))", 6, 0.03899999999703141
+"constr", 3, "(list 'eval '(match (-> x <-) ((cons 1 n) n) (_ x)) (menv '()))", 3, 0.021000000000640284
+"err", 3, "(list 'eval '(top) (menv '()))", 6, 0.04199999999764259
+"err", 3, "(list 'eval '(app (λ (x) (app x x)) (-> 2 <-)) (menv '()))", 1, 0.006999999997788109
+"err", 3, "(list 'eval '(app (-> (λ (x) (app x x)) <-) 2) (menv '()))", 1, 0.008000000001629815
+"err", 3, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 7, 0.049000000002706656
+"err", 3, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.03299999999944703
+"err", 3, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.03499999999985448
+"id", 3, "(list 'eval '(top) (menv '()))", 5, 0.03600000000005821
+"id", 3, "(list 'eval '(app (λ (x) x) (-> (λ (y) y) <-)) (menv '()))", 1, 0.010000000002037268
+"id", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 7, 0.029999999998835847
+"id", 3, "(list 'eval '(app (-> (λ (x) x) <-) (λ (y) y)) (menv '()))", 1, 0.008000000001629815
+"id", 3, "(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))", 5, 0.037000000000261934
+"let-num", 3, "(list 'eval '(top) (menv '()))", 8, 0.07400000000052387
+"let-num", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.01299999999901047
+"let-num", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 6, 0.05500000000029104
+"let-num", 3, "(list 'eval '(let (x) (-> (app x 1) <-)) (menv '()))", 7, 0.0459999999984575
+"let-num", 3, "(list 'eval '(app x (-> 1 <-)) (menv '()))", 1, 0.008000000001629815
+"let-num", 3, "(list 'eval '(app (-> x <-) 1) (menv '()))", 2, 0.013999999999214197
+"let", 3, "(list 'eval '(top) (menv '()))", 3, 0.01900000000023283
+"let", 3, "(list 'eval '(let ((-> x = (λ (y) y) <-)) bod) (menv '()))", 1, 0.007000000001426088
+"let", 3, "(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))", 5, 0.01900000000023283
+"let", 3, "(list 'eval '(let (x) (-> x <-)) (menv '()))", 2, 0.012000000002444722
+"multi-param", 3, "(list 'eval '(top) (menv '()))", 11, 0.0930000000007567
+"multi-param", 3, "(list 'eval '(app (λ (x y) (app x y)) (λ (z) z) (-> 2 <-)) (menv '()))", 1, 0.007999999997991836
+"multi-param", 3, "(list 'eval '(app (λ (x y) (app x y)) (-> (λ (z) z) <-) 2) (menv '()))", 1, 0.010000000002037268
+"multi-param", 3, "(list 'eval '(λ (z) (-> z <-)) (menv '((□? (z)))))", 9, 0.07400000000052387
+"multi-param", 3, "(list 'eval '(app (-> (λ (x y) (app x y)) <-) (λ (z) z) 2) (menv '()))", 1, 0.008000000001629815
+"multi-param", 3, "(list 'eval '(λ (x y) (-> (app x y) <-)) (menv '((□? (x y)))))", 15, 0.1319999999977881
+"multi-param", 3, "(list 'eval '(app x (-> y <-)) (menv '((□? (x y)))))", 5, 0.04400000000168802
+"multi-param", 3, "(list 'eval '(app (-> x <-) y) (menv '((□? (x y)))))", 5, 0.03900000000066939
+"ack", 3, "(list 'eval '(top) (menv '()))", 38, 1.143000000000029
 "ack", 3, "(list
  'eval
  '(let ((->
@@ -864,7 +864,7 @@
               (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
          <-))
     bod)
- (menv '()))", 1, 0.030999999999039574
+ (menv '()))", 1, 0.02200000000084401
 "ack", 3, "(list
  'eval
  '(λ (m n)
@@ -878,7 +878,7 @@
         (#t (app ack (app - m 1) 1))
         (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
      <-))
- (menv '((□? (m n)))))", 1979, 418.02100000000064
+ (menv '((□? (m n)))))", 1979, 339.64400000000023
 "ack", 3, "(list
  'eval
  '(match
@@ -891,47 +891,47 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))
     <-))
- (menv '((□? (m n)))))", 1961, 363.4439999999995
+ (menv '((□? (m n)))))", 1961, 328.54299999999785
 "ack", 3, "(list
  'eval
  '(match
    (app = n 0)
    (#t (app ack (app - m 1) 1))
    (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-))
- (menv '((□? (m n)))))", 1883, 271.5440000000017
+ (menv '((□? (m n)))))", 1883, 266.39300000000003
 "ack", 3, "(list
  'eval
  '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
- (menv '((□? (m n)))))", 1727, 259.8339999999953
-"ack", 3, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 1727, 252.29499999999825
-"ack", 3, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.033000000003085006
-"ack", 3, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 1727, 248.82600000000093
-"ack", 3, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.031000000002677552
-"ack", 3, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 652, 109.23199999999633
-"ack", 3, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.04499999999825377
+ (menv '((□? (m n)))))", 1727, 296.2170000000042
+"ack", 3, "(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))", 1727, 238.36300000000483
+"ack", 3, "(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.024000000004889444
+"ack", 3, "(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))", 1727, 240.8139999999985
+"ack", 3, "(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))", 2, 0.029999999998835847
+"ack", 3, "(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))", 652, 108.36900000000605
+"ack", 3, "(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))", 3, 0.046999999998661224
 "ack", 3, "(list
  'eval
  '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 652, 106.96099999999569
-"ack", 3, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023999999997613486
-"ack", 3, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 652, 104.46700000000419
-"ack", 3, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.09100000000034925
+ (menv '((□? (m n)))))", 652, 104.18000000000029
+"ack", 3, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.02500000000145519
+"ack", 3, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 652, 103.3289999999979
+"ack", 3, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.029999999998835847
 "ack", 3, "(list
  'eval
  '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
- (menv '((□? (m n)))))", 3, 0.0650000000023283
+ (menv '((□? (m n)))))", 3, 0.03299999999580905
 "ack", 3, "(list
  'eval
  '(match
    (app = n 0)
    (-> #t (app ack (app - m 1) 1) <-)
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 1883, 362.48599999999715
+ (menv '((□? (m n)))))", 1883, 269.5390000000043
 "ack", 3, "(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000001047738
-"ack", 3, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 652, 106.60100000000239
+"ack", 3, "(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))", 652, 103.28299999999581
 "ack", 3, "(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.024999999994179234
-"ack", 3, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 652, 103.39899999999761
-"ack", 3, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.0319999999992433
+"ack", 3, "(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))", 652, 102.8859999999986
+"ack", 3, "(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))", 2, 0.03600000000005821
 "ack", 3, "(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))", 3, 0.029999999998835847
 "ack", 3, "(list
  'eval
@@ -939,10 +939,10 @@
    (-> (app = n 0) <-)
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
- (menv '((□? (m n)))))", 1783, 262.5859999999957
-"ack", 3, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.0349999999962165
-"ack", 3, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 1741, 298.153999999995
-"ack", 3, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.033999999999650754
+ (menv '((□? (m n)))))", 1783, 288.7980000000025
+"ack", 3, "(list 'eval '(app = n (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.030999999995401595
+"ack", 3, "(list 'eval '(app = (-> n <-) 0) (menv '((□? (m n)))))", 1741, 247.7430000000022
+"ack", 3, "(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))", 2, 0.03700000000389991
 "ack", 3, "(list
  'eval
  '(match
@@ -953,10 +953,10 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 1783, 264.9409999999989
-"ack", 3, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.023000000001047738
-"ack", 3, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 1741, 316.0899999999965
-"ack", 3, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.029000000009546056
+ (menv '((□? (m n)))))", 1783, 255.15099999999802
+"ack", 3, "(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))", 2, 0.027000000001862645
+"ack", 3, "(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))", 1741, 298.95100000000093
+"ack", 3, "(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))", 2, 0.034999999988940544
 "ack", 3, "(list
  'eval
  '(match
@@ -967,15 +967,15 @@
      (app = n 0)
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
- (menv '((□? (m n)))))", 864, 140.70999999999185
-"ack", 3, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.027000000001862645
-"ack", 3, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 705, 149.23000000001048
-"ack", 3, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.030000000013387762
-"ack", 3, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 37, 0.661999999996624
-"ack", 3, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.017000000007101335
-"ack", 3, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.012000000002444722
-"ack", 3, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.03200000000651926
-"kcfa-2", 3, "(list 'eval '(top) (menv '()))", 28, 0.5950000000011642
+ (menv '((□? (m n)))))", 864, 207.80100000000675
+"ack", 3, "(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))", 2, 0.029999999998835847
+"ack", 3, "(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))", 705, 124.99300000000221
+"ack", 3, "(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))", 2, 0.029999999998835847
+"ack", 3, "(list 'eval '(let (ack) (-> (app ack 3 12) <-)) (menv '()))", 37, 0.6600000000034925
+"ack", 3, "(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))", 1, 0.017999999996391125
+"ack", 3, "(list 'eval '(app ack (-> 3 <-) 12) (menv '()))", 1, 0.010999999998603016
+"ack", 3, "(list 'eval '(app (-> ack <-) 3 12) (menv '()))", 2, 0.033999999999650754
+"kcfa-2", 3, "(list 'eval '(top) (menv '()))", 28, 0.7140000000072177
 "kcfa-2", 3, "(list
  'eval
  '(app
@@ -986,7 +986,7 @@
        (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
        (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))
     <-))
- (menv '()))", 1, 0.01900000000023283
+ (menv '()))", 1, 0.031000000002677552
 "kcfa-2", 3, "(list
  'eval
  '(λ (x1)
@@ -995,49 +995,49 @@
       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
      <-))
- (menv '((□? (x1)))))", 102, 5.039999999993597
+ (menv '((□? (x1)))))", 102, 7.155999999988126
 "kcfa-2", 3, "(list
  'eval
  '(app
    (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
    (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))
- (menv '((□? (x1)))))", 2, 0.027999999991152436
+ (menv '((□? (x1)))))", 2, 0.03800000000046566
 "kcfa-2", 3, "(list
  'eval
  '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))
- (menv '((□? (x2)) (□? (x1)))))", 46, 2.062999999994645
+ (menv '((□? (x2)) (□? (x1)))))", 46, 2.209000000002561
 "kcfa-2", 3, "(list
  'eval
  '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.031000000002677552
-"kcfa-2", 3, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 37, 1.2419999999983702
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.04800000000977889
+"kcfa-2", 3, "(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))", 37, 2.1489999999903375
 "kcfa-2", 3, "(list
  'eval
  '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))
- (menv '((□? (x2)) (□? (x1)))))", 3, 0.029000000009546056
+ (menv '((□? (x2)) (□? (x1)))))", 3, 0.02800000000570435
 "kcfa-2", 3, "(list
  'eval
  '(λ (z) (-> (app z x1 x2) <-))
- (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 58, 2.474000000001979
-"kcfa-2", 3, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 17, 0.3029999999998836
-"kcfa-2", 3, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.23900000000139698
-"kcfa-2", 3, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 8, 0.09600000000500586
+ (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 58, 2.5859999999956926
+"kcfa-2", 3, "(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 17, 0.3000000000029104
+"kcfa-2", 3, "(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 16, 0.23200000000360887
+"kcfa-2", 3, "(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))", 8, 0.09000000001105946
 "kcfa-2", 3, "(list
  'eval
  '(app
    (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
    (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))
- (menv '((□? (x1)))))", 2, 0.014999999999417923
+ (menv '((□? (x1)))))", 2, 0.01900000000023283
 "kcfa-2", 3, "(list
  'eval
  '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
- (menv '((□? (f2)) (□? (x1)))))", 144, 8.73300000000745
-"kcfa-2", 3, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 132, 9.260000000009313
-"kcfa-2", 3, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.033999999999650754
-"kcfa-2", 3, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 7, 0.08999999999650754
-"kcfa-2", 3, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 132, 8.153999999994994
-"kcfa-2", 3, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.029999999998835847
-"kcfa-2", 3, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 7, 0.09700000000884756
+ (menv '((□? (f2)) (□? (x1)))))", 144, 9.369999999995343
+"kcfa-2", 3, "(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '((□? (f2)) (□? (x1)))))", 132, 11.529999999998836
+"kcfa-2", 3, "(list 'eval '(app f2 (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.027000000001862645
+"kcfa-2", 3, "(list 'eval '(app (-> f2 <-) #t) (menv '((□? (f2)) (□? (x1)))))", 7, 0.09500000000116415
+"kcfa-2", 3, "(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '((□? (f2)) (□? (x1)))))", 132, 8.69100000000617
+"kcfa-2", 3, "(list 'eval '(app f2 (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))", 3, 0.043999999994412065
+"kcfa-2", 3, "(list 'eval '(app (-> f2 <-) #f) (menv '((□? (f2)) (□? (x1)))))", 7, 0.09200000000419095
 "kcfa-2", 3, "(list
  'eval
  '(app
@@ -1050,19 +1050,19 @@
 "kcfa-2", 3, "(list
  'eval
  '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (menv '((□? (f1)))))", 57, 2.7549999999901047
-"kcfa-2", 3, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 55, 3.11699999999837
-"kcfa-2", 3, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.027000000001862645
+ (menv '((□? (f1)))))", 57, 2.572999999989406
+"kcfa-2", 3, "(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '((□? (f1)))))", 55, 2.5540000000037253
+"kcfa-2", 3, "(list 'eval '(app f1 (-> #t <-)) (menv '((□? (f1)))))", 2, 0.034999999988940544
 "kcfa-2", 3, "(list 'eval '(app (-> f1 <-) #t) (menv '((□? (f1)))))", 5, 0.07899999999790452
-"kcfa-2", 3, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 55, 2.5419999999867287
-"kcfa-2", 3, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.030000000013387762
-"kcfa-2", 3, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.07600000000093132
-"structural-rec", 3, "(list 'eval '(top) (menv '()))", 30, 0.5760000000009313
-"structural-rec", 3, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.01600000000325963
-"structural-rec", 3, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 37, 0.8600000000005821
-"structural-rec", 3, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 26, 0.5570000000006985
-"structural-rec", 3, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 26, 0.5540000000037253
-"structural-rec", 3, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.014999999999417923
-"structural-rec", 3, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 38, 0.6810000000114087
-"structural-rec", 3, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.0629999999946449
-"structural-rec", 3, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.04000000000814907
+"kcfa-2", 3, "(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '((□? (f1)))))", 55, 2.486000000004424
+"kcfa-2", 3, "(list 'eval '(app f1 (-> #f <-)) (menv '((□? (f1)))))", 2, 0.033000000010360964
+"kcfa-2", 3, "(list 'eval '(app (-> f1 <-) #f) (menv '((□? (f1)))))", 5, 0.07400000000779983
+"structural-rec", 3, "(list 'eval '(top) (menv '()))", 30, 0.5679999999993015
+"structural-rec", 3, "(list 'eval '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (menv '()))", 1, 0.017000000007101335
+"structural-rec", 3, "(list 'eval '(λ (y) (-> (app y y) <-)) (menv '((□? (y)))))", 37, 1.187000000005355
+"structural-rec", 3, "(list 'eval '(app y (-> y <-)) (menv '((□? (y)))))", 26, 0.6670000000012806
+"structural-rec", 3, "(list 'eval '(app (-> y <-) y) (menv '((□? (y)))))", 26, 0.5529999999998836
+"structural-rec", 3, "(list 'eval '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (menv '()))", 1, 0.015999999988707714
+"structural-rec", 3, "(list 'eval '(λ (x) (-> (app x x) <-)) (menv '((□? (x)))))", 38, 0.7090000000025611
+"structural-rec", 3, "(list 'eval '(app x (-> x <-)) (menv '((□? (x)))))", 5, 0.059999999997671694
+"structural-rec", 3, "(list 'eval '(app (-> x <-) x) (menv '((□? (x)))))", 5, 0.04499999999825377

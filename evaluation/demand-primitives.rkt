@@ -1,6 +1,6 @@
 #lang racket/base
 (require racket/match racket/pretty)
-(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "static-contexts.rkt")
+(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt")
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x

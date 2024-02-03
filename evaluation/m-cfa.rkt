@@ -1,6 +1,7 @@
 #lang racket/base
-(require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt" "debug.rkt" "demand-primitives.rkt")
+(require (rename-in "table-monad/main.rkt"))
+(require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt"
+         "syntax.rkt" "envs.rkt" "debug.rkt" "demand-primitives.rkt")
 (require racket/pretty)
 (require racket/match
          racket/list

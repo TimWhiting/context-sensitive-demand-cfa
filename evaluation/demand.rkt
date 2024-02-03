@@ -1,6 +1,8 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "static-contexts.rkt" "demand-abstraction.rkt" "debug.rkt" "demand-primitives.rkt")
+(require "static-contexts.rkt" "demand-abstraction.rkt"
+         "debug.rkt" "demand-primitives.rkt"
+         "envs.rkt" "utils.rkt")
 (require racket/pretty)
 (require racket/match
          racket/list)
@@ -319,6 +321,7 @@ Finish the paper
 
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
+  (define lamenv (inner-lambda-bindings lambod))
   (expect-no-cut ρ)
   ; (pretty-trace `(call ,C ,xs ,e ,ρ))
   (print-result
@@ -328,7 +331,7 @@ Finish the paper
             (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
-                   (let ([cc₁ (enter-cc Cee ρee lambod)])
+                   (let ([cc₁ (enter-cc Cee ρee lamenv)])
                      (cond
                        [(equal? cc₀ cc₁)
                         (pretty-trace `(CALL-EQ ,cc₀ ,cc₁))
@@ -345,7 +348,7 @@ Finish the paper
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
             ; (pretty-print `(hybrid-call ,ρ ,indet-env))
-            (match (find-call (calibrate-envs ρ indet-env lambod))
+            (match (head-cc (calibrate-envs ρ indet-env lambod))
               [`(cenv ,ce ,ρ′)
                ;  (pretty-print 'known)
                (pretty-trace `(CALL-KNOWN))
@@ -357,7 +360,7 @@ Finish the paper
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
                       (λ (Cee ρee)
                         (pretty-trace `(,Cee ,ρee))
-                        (let ([cc₁ (enter-cc Cee ρee lambod)])
+                        (let ([cc₁ (enter-cc Cee ρee lamenv)])
                           (cond
                             [(equal? cc₀ cc₁)
                              (pretty-trace "CALL-EQ")

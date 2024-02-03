@@ -1,171 +1,9 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "demand-abstraction.rkt")
-(require racket/set racket/match racket/list racket/pretty)
+(require "config.rkt" "envs.rkt" "syntax.rkt" "utils.rkt")
+(require racket/match racket/list)
 (provide (all-defined-out))
 ; syntax traversal
-
-; m-CFA flat like environments (rebinding free variables)
-(struct flatenv (m) #:transparent)
-; m-CFA exponential environments (nested environments)
-(struct expenv (m) #:transparent)
-; Demand m-CFA environments (nested environments, with embedded environments)
-(struct envenv (m) #:transparent)
-; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
-(struct menv (m) #:transparent)
-
-; The lexical environment list
-(define (env-list ρ)
-  (match ρ
-    [(expenv l) l]
-    [(envenv l) l]
-    [(menv l) l]
-    ))
-
-; Splits into the current closure's calling context, and the lexically enclosing closure's environment
-; If the env doesn't include any closures, returns it unaltered
-(define (split-env env)
-  (match env
-    [(flatenv _) (error 'flatenv "Flatenvs do not have lexical splits (they only keep track of innermost calls)")]
-    [(expenv (cons head tail)) (cons head (expenv tail))]
-    [(expenv '()) (expenv '())]
-    [(envenv (cons head tail)) (cons head (envenv tail))]
-    [(envenv '()) (envenv '())]
-    [(menv (cons head tail)) (cons head (menv tail))]
-    [(menv '()) (menv '())]
-    )
-  )
-
-(define (show-extra-simple-ctx Ce)
-  (match Ce
-    [`(prim ,p) `(prim ,p)]
-    [(cons `(rat ,es ,_) e₀)
-     `(app (->,e₀ <-) ...)]
-    [(cons `(match-e ,es ,_) e₀)
-     `(match (->,e₀ <-) ,@es)]
-    [(cons `(ran ,f ,b ,a ,_) e)
-     `(app ... (->,e <-) ...)]
-    [(cons `(match-clause ,m ,f ,b ,a ,_) e)
-     `(match ,f ,@b (->,m ,e <-) ,@a)]
-    [(cons `(bod ,y ,_) e)
-     `(λ ,y (->,e <-))]
-    [(cons `(let-bod ,binds ,_) e₁)
-     `(let ,(map car binds) (->,e₁ <-))]
-    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
-     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
-    [(cons `(top) _) `(top)]
-    [e e]
-    )
-  )
-
-(define (show-simple-ctx Ce)
-  (match Ce
-    [`(prim ,p) `(prim ,p)]
-    [(cons `(rat ,es ,_) e₀)
-     `(app (->,e₀ <-) ,@es)]
-    [(cons `(match-e ,es ,_) e₀)
-     `(match (->,e₀ <-) ,@es)]
-    [(cons `(ran ,f ,b ,a ,_) e)
-     `(app ,f ,@b (->,e <-) ,@a)]
-    [(cons `(match-clause ,m ,f ,b ,a ,_) e)
-     `(match ,f ,@b (->,m ,e <-) ,@a)]
-    [(cons `(bod ,y ,_) e)
-     `(λ ,y (->,e <-))]
-    [(cons `(let-bod ,binds ,_) e₁)
-     `(let ,(map car binds) (->,e₁ <-))]
-    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
-     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
-    [(cons `(top) _) `(top)]
-    [e e]
-    )
-  )
-
-(define (show-simple-clos/con e)
-  (match e
-    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-    [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
-    ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
-    )
-  )
-
-(define (show-simple-lattice l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
-(define (show-simple-literal l) (match l [(literal l) (map show-simple-lattice l)]))
-
-(define (show-simple-result r)
-  (match r
-    [(product/set s) `(clos/con: ,(show-simple-clos/con s))]
-    [(product/lattice l) `(literals: ,(show-simple-literal l))]
-    )
-  )
-
-(define (free-vars e)
-  (match e
-    [`(app ,f ,@args)
-     (foldl set-union (set)
-            (cons (free-vars f)
-                  (map free-vars args)))]
-    [`(λ ,xs ,bod)
-     (set-subtract (free-vars bod) (apply set xs))]
-    [`(let ,binds ,bod)
-     (set-subtract
-      (foldl set-union (set)
-             (cons (free-vars bod)
-                   (map (λ (bind) (free-vars (cadr bind))) binds)))
-      (apply set (map car binds)))
-     ]
-    [`(match ,scruitinee ,@ms)
-     (foldl set-union (set)
-            (cons (free-vars scruitinee)
-                  (map (λ (match)
-                         (set-subtract
-                          (free-vars (cadr match))
-                          (pattern-bound-vars (car match))
-                          ))
-                       ms)))]
-    [(? symbol? x) (set x)]
-    [#f (set)]
-    [#t (set)]
-    [(? number? x) (set)]
-    [(? string? x) (set)]
-    [(? char? x) (set)]
-    ))
-
-(define (pattern-bound-vars pat)
-  (match pat
-    [(? symbol? x) (set x)]
-    [`(,con ,@args)
-     (foldl set-union (set)
-            (map pattern-bound-vars args))]
-    [(? symbol? x) (set x)]
-    [_ (set)]
-    )
-  )
-
-(define (show-simple-env ρ)
-  (if (show-envs-simple)
-      (match ρ
-        [(flatenv l) (flatenv (map show-simple-ctx l))]
-        [(expenv l) (expenv (map show-simple-call l))]
-        [(menv l) (menv (map show-simple-call l))]
-        [(envenv l) (envenv (map show-simple-call l))]
-        )
-      ρ
-      )
-  )
-
-(define (show-simple-call cc)
-  (match cc
-    [(list)
-     (list)]
-    ['! '!] ; Cut known
-    ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
-    [`(□? ,x)
-     `(□? ,x)]
-    [`(cenv ,Ce ,ρ)
-     `(cenv ,(show-simple-ctx Ce) ,(show-simple-env ρ))]
-    [(cons Ce cc)
-     (cons (show-simple-ctx Ce) (show-simple-call cc))])
-  )
 
 (define (bind x Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
@@ -195,55 +33,6 @@
     ; All other forms do not introduce bindings
     [(cons _ _) (search-out)]
     ))
-
-
-(define (find-match-bind-loc x ms loc)
-  (match ms
-    [(cons m ms)
-     (define is-match (find-match-bind x m))
-     (if is-match (list loc is-match) (find-match-bind-loc x ms (+ 1 loc)))
-     ]
-    [_ #f]
-    ))
-
-(define (find-match-bind x m)
-  (match m
-    [(? symbol? y)
-     (if (equal? y x) #t #f)]
-    [`(,con ,@args)
-     (define submatch (find-match-bind-loc x args 0))
-     (match submatch
-       [(list lsub sub)
-        `(,con ,lsub ,sub)]
-       [#f #f])]
-    [lit #f]
-    ))
-
-(define (oute Ce)
-  (match Ce
-    [(cons `(rat ,es ,C) e₀)
-     (cons C `(app ,e₀ ,@es))]
-    [(cons `(match-e ,es ,C) e₀)
-     (cons C `(match ,e₀ ,@es))]
-    [(cons `(ran ,f ,b ,a ,C) e)
-     (cons C `(app ,f ,@b ,e ,@a))]
-    [(cons `(match-clause ,m ,f ,b ,a ,C) e)
-     (cons C `(match ,@(cons f (append b (list `(,m ,e)) a))))]
-    [(cons `(bod ,y ,C) e)
-     (cons C `(λ ,y ,e))]
-    [(cons `(let-bod ,binds ,C) e₁)
-     (cons C `(let ,binds ,e₁))]
-    [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
-     (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
-    [(cons `(top) _) (error 'out "top")]))
-
-(define (lam-binds Ce)
-  (match Ce
-    [(cons `(bod ,y ,C) e) `(□? ,y)]
-    [(cons `(top) _) #f]
-    [_ (lam-binds (oute Ce))]
-    )
-  )
 
 (define (out Ce ρ)
   ; (pretty-print `(out ,Ce ,ρ))
@@ -298,8 +87,8 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv envs) (list (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) Ce) envs)))]
-       [(envenv envs) (list (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) Ce) envs)))]
+       [(menv envs) (list (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
+       [(envenv envs) (list (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
        )]
     [(cons C `(let ,binds ,e₁))
      (list (cons `(let-bod ,binds ,C) e₁) ρ)]))
@@ -310,8 +99,8 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv envs) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) Ce) envs)))]
-       [(envenv envs) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) Ce) envs)))]
+       [(menv envs) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
+       [(envenv envs) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
        )
      ]
     [(cons C `(let ,binds ,e₁))
@@ -323,11 +112,13 @@
     [(cons C `(λ ,x ,e))
      ;  (pretty-print `(bod-enter ,ρ′ ,call))
      (define lambod (cons `(bod ,x ,C) e))
+     ; If m=0 still keep the indeterminate bindings
+     (define lamenv (inner-lambda-bindings lambod))
      (match ρ′
-       [(flatenv _) (unit lambod (flatenv (enter-cc call ρ lambod)))]
-       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ lambod) (expenv-m ρ′))))]
-       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ lambod) (menv-m ρ′))))]
-       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ lambod) (envenv-m ρ′))))]
+       [(flatenv _) (unit lambod (flatenv (enter-cc call ρ lamenv)))]
+       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ lamenv) (expenv-m ρ′))))]
+       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ lamenv) (menv-m ρ′))))]
+       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ lamenv) (envenv-m ρ′))))]
        )]
     [(cons C `(let ,binds ,e₁))
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).
@@ -401,262 +192,6 @@
          (ran Ce ρ i))
        )
   )
-
-(define (basic-queries exp)
-  (analysis-kind 'basic)
-  (gen-queries (cons `(top) exp) (menv (list)))
-  )
-
-(define (hybrid-queries exp)
-  (analysis-kind 'basic)
-  (gen-queries (cons `(top) exp) (envenv (list)))
-  )
-
-(define (gen-queries Ce ρ)
-  (define self-query (list Ce ρ))
-  (define child-queries (match Ce
-                          [(cons _ `(app ,_ ,@args))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (rat-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries (ran-e Ce ρ i)))
-                                             (range (length args)))))]
-                          [(cons _ `(λ ,_ ,_))
-                           (apply gen-queries (bod-e Ce ρ))]
-                          [(cons _ `(let ,binds ,_))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (bod-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries (bin-e Ce ρ i)))
-                                             (range (length binds)))))
-                           ]
-                          [(cons _ `(match ,_ ,@ms))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (focus-match-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries (focus-clause-e Ce ρ i)))
-                                             (range (length ms)))))]
-                          [_ (list)]))
-  (cons self-query child-queries))
-
-
-; calling contexts
-
-; Can the environment be refined further?
-(define cc-determined?
-  (match-lambda
-    [(list) #t]
-    ['! #t] ; Cut known
-    ; ['? #t] ; Cut unknown (can be reinstantiated to an indeterminate context)
-    [`(□? ,_) #f]
-    [`(cenv ,Ce ,ρ) (alls (map cc-determined? (envenv-m ρ)))]
-    [(cons Ce cc) (cc-determined? cc)]))
-
-(define (expect-no-cut p)
-  (if (no-cut-env p)
-      '()
-      (error 'env-has-cut (pretty-format p))))
-(define (no-cut-env p)
-  (match p
-    [(envenv l)
-     (not (ors (map cut-cc l)))]
-    [_ #t]))
-(define (cut-cc cc)
-  (match cc
-    [(list) #f]
-    ['? #f]
-    ['! #t]
-    [`(□? ,_) #f]
-    [`(cenv ,Ce ,ρ) (not (no-cut-env ρ))]
-    )
-  )
-
-(define (take-cc cc lamCe [cut #f])
-  (if (equal? (current-m) 0)
-      (let ([lam (lam-binds lamCe)])
-        (if lam lam '()))
-      (take-ccm (current-m) cc lamCe cut)))
-
-(define (take-ccm m cc lamCe [cut #f])
-  (if (zero? m)
-      (match (analysis-kind)
-        ['hybrid
-         (match cc
-           [(list) (list)]; Already 0
-           [`(cenv ,_ ,_) (if cut '! (lam-binds lamCe))]; Cut known
-           ['! '!]
-           ;  ['? '?]
-           [`(□? ,x) `(□? ,x)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
-           [`(cons _ _) (error 'bad-env "Invalid environment for hybrid")]; Cut known
-           )]
-        [_ (list)]; Handles regular/exponential m-CFA and basic Demand m-CFA which just terminate the call string
-        )
-      (match cc
-        [(list)
-         (list)]
-        ['! '!] ; Cut known
-        ; ['? '?] ; Cut unknown (can be reinstantiated to an indeterminate context)
-        [`(□? ,x)
-         `(□? ,x)]
-        [`(cenv ,Ce ,ρ)
-         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc Ce)) (envenv-m ρ))))]
-        [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
-         (cons Ce (take-ccm (- m 1) cc lamCe))])))
-
-(define (head-cc ρ)
-  (match (split-env ρ)
-    [(cons h t) h]
-    [x '()]
-    )
-  )
-
-(define (find-call ρ)
-  (match ρ
-    [(envenv ccs) (car ccs)]
-    [_ #f]
-    )
-  )
-
-(define (enter-cc Ce ρ lamCe)
-  (match ρ
-    [(menv p) (take-cc (cons Ce (head-cc ρ)) lamCe)]
-    [(envenv p) (take-cc `(cenv ,Ce ,ρ) lamCe)]
-    [(expenv p) (take-cc (cons Ce (head-cc ρ)) lamCe)]
-    [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
-    )
-  )
-
-(define (take-m cc m)
-  (if (equal? m 0) '()
-      (match cc
-        [(cons c cc) (cons c (take-m cc (- m 1)))]
-        ['() '()]
-        ))
-  )
-
-(define (indeterminate-env Ce)
-  (match Ce
-    [(cons `(bod ,y ,C) e)
-     (cons `(□? ,y) (indeterminate-env (cons C e)))]
-    [(cons `(top) _)
-     (list)]
-    [_
-     (indeterminate-env (oute Ce))]
-    ))
-
-(define (ors xs)
-  (match xs
-    [(list) #f]
-    [(cons x xs) (or x (ors xs))])
-  )
-(define (alls xs)
-  (match xs
-    [(list) #t]
-    [(cons x xs) (and x (alls xs))])
-  )
-
-(define (calibrate-ccs cc0 cc1)
-  (match cc0
-    [(list) (list)]
-    ['! #f]
-    ['? cc1]
-    [`(□? ,x) `(□? ,x)]
-    [`(cenv ,call ,ρ₀)
-     (match (calibrate-envsx ρ₀ (envenv (indeterminate-env call)))
-       [#f #f]
-       [res `(cenv ,call ,res)]
-       )]
-    )
-  )
-
-; Adds missing context
-(define (calibrate-envsx ρ₀ ρ₁)
-  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (let [(res (map calibrate-ccs (envenv-m ρ₀) (envenv-m ρ₁)))]
-    (if (alls res) (envenv res) #f)
-    ))
-
-(define (calibrate-envs ρ₀ ρ₁ lamCe)
-  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (calibrate-envsx (envenv (map (lambda (cc) (take-ccm (- (current-m) 1) cc lamCe #t)) (env-list ρ₀))) ρ₁)
-  )
-
-(define (simple-env ρ)
-  ; (pretty-print `(simple-env ρ))
-  (map simple-call-env (env-list ρ)))
-
-(define (simple-call-env cc)
-  ; (pretty-print `(simple-call-env ,cc))
-  (match cc
-    [(list)
-     (list)]
-    ['! (list)] ; Cut known
-    ['? (list)] ; Cut unknown (can be reinstantiated to an indeterminate context)
-    [`(□? ,x)
-     `(□? ,x)]
-    [`(cenv ,Ce ,ρ)
-     ;  (pretty-print `(simplifying ,Ce ,ρ))
-     (cons Ce (simple-call-env (head-cc ρ)))]
-    [(cons Ce cc)
-     (cons Ce cc)]
-    )
-  )
-
-; Is cc0 more refined or equal to cc1?
-;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
-(define (⊑-cc cc₀ cc₁)
-  (match cc₀
-    [(list)
-     (match cc₁
-       [(list) #t] ; equal
-       ['? #f]
-       ['! #f]
-       [`(□? ,_) #f]
-       [`(cenv ,Ce ,ρ) #f]
-       [(cons _ _) #f])]
-    ['!
-     (match cc₁
-       ['! #t]; cut unknown is equal
-       [(list) #f]; cut is not more refined
-       ['? #t]; cut known is more refined
-       [`(□? ,_) #f]; cut is not more refined
-       [`(cenv ,Ce ,ρ) #f]; cut is not more refined
-       [(cons _ _) #f])]; cut is not more refined
-    ['?
-     (match cc₁
-       ['? #t]; cut known is equal
-       ['! #f]; cut unknown is not more refined (it is but we don't need to run under unknown if we know)
-       [(list) #f]; cut is not more refined
-       [`(□? ,_) #f]; cut is not more refined
-       [`(cenv ,Ce ,ρ) #f]; cut is not more refined
-       [(cons _ _) #f])]; cut is not more refined
-    [`(□? ,x)
-     (match cc₁
-       [(list) #f]; indeterminate is not more refined
-       ['! #f]; indeterminate is more refined - we know more
-       ['? #t]; indeterminate is more refined - we know the variables
-       [`(□? ,y) (equal? x y)]; indeterminate is equal if they are equal otherwise false
-       [`(cenv ,Ce ,ρ) #f]; indeterminate is not more refined
-       [(cons _ _) #f])]
-    [`(cenv ,Ce₀ ,ρ₀)
-     (match cc₁
-       [(list) #f]; call-env is not more refined
-       ['! #t]; call-env is more refined
-       ['? #t]; call-env is more refined
-       [`(□? ,_) #t]; call-env is more refined
-       [`(cenv ,Ce₁ ,ρ₁)
-        (and (equal? Ce₀ Ce₁)
-             (alls (map ⊑-cc (envenv-m ρ₀) (envenv-m ρ₁))))]
-       )]
-    [(cons Ce₀ cc₀)
-     (match cc₁
-       [(list) #f]
-       ['! #t]
-       ['? #t]
-       [`(□? ,_) #t]
-       [(cons Ce₁ cc₁)
-        (and (equal? Ce₀ Ce₁)
-             (⊑-cc cc₀ cc₁))])]))
 
 (module+ main
   (require rackunit)

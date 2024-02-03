@@ -1,7 +1,8 @@
 #lang racket/base
-(require "demand.rkt" "all-examples.rkt" "static-contexts.rkt" "config.rkt" "debug.rkt" racket/match)
+(require "demand.rkt" "all-examples.rkt" "config.rkt"
+         "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt")
 (require "m-cfa.rkt")
-(require racket/pretty)
+(require racket/pretty racket/match)
 
 (define (hash-num-keys h) (length (hash-keys h)))
 (define (zip l1 l2) (map list l1 l2))
@@ -22,7 +23,7 @@
     (if result
         result
         (begin
-          (pretty-print "Timeout")
+          (pretty-print (string-append "timeout " "m=" (number->string m) " kind=" (symbol->string k)))
           #f
           )
         ))
