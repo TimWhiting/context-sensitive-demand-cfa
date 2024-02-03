@@ -112,13 +112,11 @@
     [(cons C `(λ ,x ,e))
      ;  (pretty-print `(bod-enter ,ρ′ ,call))
      (define lambod (cons `(bod ,x ,C) e))
-     ; If m=0 still keep the indeterminate bindings
-     (define lamenv (inner-lambda-bindings lambod))
      (match ρ′
-       [(flatenv _) (unit lambod (flatenv (enter-cc call ρ lamenv)))]
-       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ lamenv) (expenv-m ρ′))))]
-       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ lamenv) (menv-m ρ′))))]
-       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ lamenv) (envenv-m ρ′))))]
+       [(flatenv _) (unit lambod (flatenv (enter-cc call ρ)))]
+       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
+       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
+       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
        )]
     [(cons C `(let ,binds ,e₁))
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).

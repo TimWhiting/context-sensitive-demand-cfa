@@ -199,11 +199,6 @@
    #t
    #t
    #f
-   #f
-   #f
-   #f
-   #f
-   #f
    #t
    #f
    #f
@@ -212,48 +207,11 @@
    #f
    #f
    #t
-   #t
-   #t
-   #t
-   #t
-   #t
    #f
    #f
    #f
    #f
    #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
    #f
    #t
    #t
@@ -272,16 +230,6 @@
    #f
    #f
    #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
    #t
    #t
    #t
@@ -290,8 +238,10 @@
    #t
    #f
    #t
+   #t
    #f
    #t
+   #f
    #t
    #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
@@ -337,113 +287,7 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
  (envenv '((□? (m n)))))
-'(clos/con:
-  (#t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #t
-   #t
-   #f
-   #t))
+'(clos/con: (#t #f #f #t #t #t #t #t #t #f #f #f #t #f #f #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = m (-> 0 <-)) (envenv '((□? (m n)))))
 '(clos/con: ⊥)

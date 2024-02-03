@@ -331,7 +331,7 @@ Finish the paper
             (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
-                   (let ([cc₁ (enter-cc Cee ρee lamenv)])
+                   (let ([cc₁ (enter-cc Cee ρee)])
                      (cond
                        [(equal? cc₀ cc₁)
                         (pretty-trace `(CALL-EQ ,cc₀ ,cc₁))
@@ -360,7 +360,7 @@ Finish the paper
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
                       (λ (Cee ρee)
                         (pretty-trace `(,Cee ,ρee))
-                        (let ([cc₁ (enter-cc Cee ρee lamenv)])
+                        (let ([cc₁ (enter-cc Cee ρee)])
                           (cond
                             [(equal? cc₀ cc₁)
                              (pretty-trace "CALL-EQ")

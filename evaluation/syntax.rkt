@@ -36,7 +36,6 @@
 
 (define (pattern-bound-vars pat)
   (match pat
-    [(? symbol? x) (set x)]
     [`(,con ,@args)
      (foldl set-union (set)
             (map pattern-bound-vars args))]
@@ -84,14 +83,6 @@
     [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
      (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
-
-(define (lam-binds Ce)
-  (match Ce
-    [(cons `(bod ,y ,C) e) `(□? ,y)]
-    [(cons `(top) _) #f]
-    [_ (lam-binds (oute Ce))]
-    )
-  )
 
 (define (show-extra-simple-ctx Ce)
   (match Ce
@@ -144,6 +135,14 @@
   (check-equal? (free-vars `(λ (a) (app a b))) (set 'b))
   (check-equal? (free-vars `(λ (a) (match a ((cons b c) (app b c)) (nil (app c1 d1))))) (set 'c1 'd1))
   (check-equal? (free-vars `(let ((a b)) (app a b))) (set 'b))
-
-
+  ; Bound variables (patterns)
+  (check-equal? (pattern-bound-vars `(cons b c)) (set 'b 'c))
+  (check-equal? (pattern-bound-vars `(cons (cons a b) c)) (set 'a 'b 'c))
+  (check-equal? (pattern-bound-vars `(cons (cons a 2) #f)) (set 'a))
+  (check-equal? (pattern-bound-vars `(cons (cons 1.0 "") #f)) (set))
+  ; Pattern bind locations
+  (check-equal? (find-match-bind 'a `(cons a b)) `(cons 0 #t))
+  (check-equal? (find-match-bind 'a `(cons b a)) `(cons 1 #t))
+  (check-equal? (find-match-bind 'a `(cons b (cons a))) `(cons 1 (cons 0 #t)))
+  (check-equal? (find-match-bind 'a `(cons b (cons 1.0 nil))) #f)
   )
