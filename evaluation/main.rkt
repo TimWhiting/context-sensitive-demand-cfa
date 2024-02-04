@@ -7,11 +7,14 @@
 (define (hash-num-keys h) (length (hash-keys h)))
 (define (zip l1 l2) (map list l1 l2))
 
-(define-syntax-rule (run/timeoutn n m k x ...)
+(define time-trials 5)
+(define print-simple-diff #t)
+
+(define-syntax-rule (run/timen n m k x ...)
   (let ()
     (define thd (current-thread))
     (sync/timeout
-     (/ 0.5 n)
+     (/ 5.0 n)
      (thread (lambda ()
                (analysis-kind k)
                (current-m m)
@@ -28,6 +31,14 @@
           )
         ))
   )
+
+(define-syntax-rule (run/timeoutn n m k x ...)
+  (let ([times '()])
+    (for ([_ (in-range time-trials)])
+      (set! times (cons (run/timen n m k x ...) times))
+      )
+    times
+    ))
 
 (define-syntax-rule (run/timeout m k x ...)
   (run/timeoutn 1 m k x ...))
@@ -47,17 +58,21 @@
 (define (run-rebind-example example name exp m out-time)
   (define out (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-rebind-results.txt") #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
+  (define rebh (hash))
   ; (pretty-print "Finished exponential mcfa")
   (define time (run/timeout
                 m 'rebinding
                 (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                       [rebh (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash))]
+                       [rebhx (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash))]
                        [timeend (current-inexact-monotonic-milliseconds)])
-                  (report-mcfa-hash rebh out)
+                  (set! rebh rebhx)
                   (- timeend timestart)
                   )))
+
+  (report-mcfa-hash rebh out)
   (pretty-display
-   (string-append (symbol->string name) ", " (number->string m) ", " (number->string time))
+   (apply string-append (append (list "\"" (symbol->string name) "\", " (number->string m) ", ")
+                                (intersperse ", " (map number->string time))))
    out-time)
   (close-output-port out)
   )
@@ -66,19 +81,27 @@
   (define out (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-expm-results.txt") #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
   ; (pretty-print "Finished exponential mcfa")
+  (define exph (hash))
   (define time (run/timeout
                 m 'exponential
                 (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                       [exph (run-get-hash (meval (cons `(top) exp) (expenv '())) (hash))]
+                       [exphx (run-get-hash (meval (cons `(top) exp) (expenv '())) (hash))]
                        [timeend (current-inexact-monotonic-milliseconds)])
-                  (report-mcfa-hash exph out)
+                  (set! exph exphx)
                   (- timeend timestart)
                   )))
+  (report-mcfa-hash exph out)
   (pretty-display
-   (string-append "\"" (symbol->string name) "\", " (number->string m) ", " (number->string time))
+   (apply string-append (append (list "\"" (symbol->string name) "\", " (number->string m) ", ")
+                                (intersperse ", " (map number->string time))))
    out-time)
   (close-output-port out)
   )
+
+(define (intersperse n l)
+  (match l
+    [(cons a b) (cons a (cons n (intersperse n b)))]
+    ['() '()]))
 
 (module+ main
   (show-envs-simple #t)
@@ -91,6 +114,7 @@
   (for ([m (in-range 0 4)])
     (let ([basic-cost 0]
           [hybrid-cost 0])
+      (current-m m)
       (for ([example successful-examples])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
@@ -120,8 +144,6 @@
                 (define evalqb (eval cb pb))
                 (define evalqh (eval ch ph))
                 (pretty-tracen 0 "Running query ")
-                (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-basic)
-                (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-hybrid)
                 ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
                 ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
@@ -130,16 +152,19 @@
                    ; (pretty-print "Starting basic demand-mcfa")
                    (length qbs) m 'basic
                    (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                          [_ (set! h1 (run-get-hash evalqb h1))]
+                          [h1x (run-get-hash evalqb (hash))]
                           [timeend (current-inexact-monotonic-milliseconds)]
                           [time (- timeend timestart)])
+                     (set! h1 h1x)
                      (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-                     (pretty-result-out out-basic (from-hash evalqb h1))
                      time
                      )))
+                (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-basic)
+                (pretty-result-out out-basic (from-hash evalqb h1))
                 (pretty-display
-                 (string-append "\"" (symbol->string name) "\", " (number->string m) ", " (query->string evalqb) ", "
-                                (number->string (hash-num-keys h1)) ", " (number->string basic-time))
+                 (apply string-append (append
+                                       (list "\"" (symbol->string name) "\", " (number->string m) ", " (query->string evalqb) ", " (number->string (hash-num-keys h1)) ", ")
+                                       (intersperse ", " (map number->string basic-time))))
                  out-time-basic)
                 (if #t
                     (let ()
@@ -148,17 +173,20 @@
                          (length qhs) m 'hybrid
                          ;  (pretty-print "Starting hybrid demand-mcfa")
                          (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                                [_ (set! h2 (run-get-hash evalqh h2))]
+                                [h2x (run-get-hash evalqh (hash))]
                                 [timeend (current-inexact-monotonic-milliseconds)]
                                 [time (- timeend timestart)])
+                           (set! h2 h2x)
                            (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-                           (pretty-tracen 0 (from-hash evalqh h2))
-                           (pretty-result-out out-hybrid (from-hash evalqh h2))
                            time
                            )))
+                      (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-hybrid)
+                      (pretty-tracen 0 (from-hash evalqh h2))
+                      (pretty-result-out out-hybrid (from-hash evalqh h2))
                       (pretty-display
-                       (string-append "\"" (symbol->string name) "\", " (number->string m) ", " (query->string evalqh) ", "
-                                      (number->string (hash-num-keys h2)) ", " (number->string hybrid-time))
+                       (apply string-append (append
+                                             (list "\"" (symbol->string name) "\", " (number->string m) ", " (query->string evalqh) ", " (number->string (hash-num-keys h2))  ", ")
+                                             (intersperse ", " (map number->string hybrid-time))))
                        out-time-hybrid)
 
                       (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
@@ -182,18 +210,24 @@
                       (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
                           '() ; (pretty-print "Results match")
                           (begin
+                            (if print-simple-diff
+                                (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqb) ,(simple-key evalqh)))
+                                (begin
+                                  (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
+                                  (displayln "" (current-error-port))
+                                  (pretty-print `(query: ,cb ,pb) (current-error-port))
+                                  (pretty-display "Basic result: " (current-error-port))
+                                  (pretty-result-out (current-error-port) (from-hash evalqb h1))
+                                  (displayln "" (current-error-port))
+                                  (pretty-print `(query: ,ch ,ph) (current-error-port))
+                                  (pretty-display "Hybrid result: " (current-error-port))
+                                  (pretty-result-out (current-error-port) (from-hash evalqh h2))
+                                  (displayln "" (current-error-port))
+                                  '()
+                                  )
+                                )
                             ;  (show-envs #t)
-                            (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
-                            (displayln "" (current-error-port))
-                            (pretty-print `(query: ,cb ,pb) (current-error-port))
-                            (pretty-display "Basic result: " (current-error-port))
-                            (pretty-result-out (current-error-port) (from-hash evalqb h1))
-                            (displayln "" (current-error-port))
-                            (pretty-print `(query: ,ch ,ph) (current-error-port))
-                            (pretty-display "Hybrid result: " (current-error-port))
-                            (pretty-result-out (current-error-port) (from-hash evalqh h2))
-                            (displayln "" (current-error-port))
-                            '()
+
                             ;  (exit)
                             )
                           )

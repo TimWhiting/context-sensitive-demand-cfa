@@ -210,8 +210,8 @@
            (match r2
              [(cons s2 l2)
               ; Hybrid can be a subset of the basic, since it doesn't visit extraneous
-              (if (not (equal? r1 r2))
-                  (pretty-print `(,r1 == ,r2)) '())
+              ; (if (not (equal? r1 r2))
+              ;     (pretty-print `(,r1 == ,r2)) '())
               (and (equal? l1 l2) (subset? s1 s2))]
              )]
           )

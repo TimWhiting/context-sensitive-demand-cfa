@@ -12,5 +12,5 @@
 '(clos/con: ((λ (x) x)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(λ (x) (-> x <-)) (menv '(())))
-'(clos/con: ⊥)
+'(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))

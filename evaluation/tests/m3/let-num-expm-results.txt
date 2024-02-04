@@ -1,20 +1,20 @@
 '(expression: (let ((x (λ (y) y))) (app x 1)))
+(list
+ 'query:
+ '(λ (y) (-> y <-))
+ (expenv '((((let-bod ((x (λ (y) y))) (top)) app x 1)))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(app x (-> 1 <-)) (expenv '()))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(let (x) (-> (app x 1) <-)) (expenv '()))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
-(list 'query: '(top) (expenv '()))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(app (-> x <-) 1) (expenv '()))
 '(clos/con: ((λ (y) y)))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (y) (-> y <-))
- (expenv '((((let-bod ((x (λ (y) y))) (top)) app x 1)))))
+(list 'query: '(top) (expenv '()))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(let ((-> x = (λ (y) y) <-)) bod) (expenv '()))
