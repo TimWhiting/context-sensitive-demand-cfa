@@ -20,7 +20,7 @@
                            (foldl append (list)
                                   (cons (apply gen-queries (rat-e Ce ρ))
                                         (map (λ (i)
-                                               (apply gen-queries (ran-e Ce ρ i)))
+                                               (apply gen-queries ((ran-e i) Ce ρ)))
                                              (range (length args)))))]
                           [(cons _ `(λ ,_ ,_))
                            (apply gen-queries (bod-e Ce ρ))]
@@ -28,14 +28,14 @@
                            (foldl append (list)
                                   (cons (apply gen-queries (bod-e Ce ρ))
                                         (map (λ (i)
-                                               (apply gen-queries (bin-e Ce ρ i)))
+                                               (apply gen-queries ((bin-e i) Ce ρ)))
                                              (range (length binds)))))
                            ]
                           [(cons _ `(match ,_ ,@ms))
                            (foldl append (list)
                                   (cons (apply gen-queries (focus-match-e Ce ρ))
                                         (map (λ (i)
-                                               (apply gen-queries (focus-clause-e Ce ρ i)))
+                                               (apply gen-queries ((match-clause-e i) Ce ρ)))
                                              (range (length ms)))))]
                           [_ (list)]))
   (cons self-query child-queries))

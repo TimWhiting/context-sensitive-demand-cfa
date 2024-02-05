@@ -9,6 +9,7 @@
 
 (define time-trials 5)
 (define print-simple-diff #t)
+(define max-context-length 2)
 
 (define-syntax-rule (run/timen n m k x ...)
   (let ()
@@ -111,7 +112,7 @@
   (define out-time-rebind (open-output-file (string-append "tests/rebind-time.csv") #:exists 'replace))
   (define out-time-expm (open-output-file (string-append "tests/expm-time.csv") #:exists 'replace))
 
-  (for ([m (in-range 0 4)])
+  (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
           [hybrid-cost 0])
       (current-m m)
@@ -211,7 +212,7 @@
                           '() ; (pretty-print "Results match")
                           (begin
                             (if print-simple-diff
-                                (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqb) ,(simple-key evalqh)))
+                                (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqh)))
                                 (begin
                                   (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
                                   (displayln "" (current-error-port))

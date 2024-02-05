@@ -72,7 +72,7 @@ Finish the paper
             (cons (>>= (focus-match Ce ρ)
                        (λ (Cm ρm) ((find x) Cm ρm)))
                   (map (λ (i)
-                         (>>= (focus-clause Ce ρ i) (find x)))
+                         (>>= ((match-clause i) Ce ρ) (find x)))
                        (range (length ms)))))]
     [(cons C `(λ ,ys ,e))
      (if (ors (map (λ (y) (equal? x y)) ys))
@@ -83,7 +83,7 @@ Finish the paper
             (cons (>>= (rat Ce ρ) (find x))
                   (map (λ (i)
                          ;  (pretty-print i)
-                         (>>= (ran Ce ρ i) (find x)))
+                         (>>= ((ran i) Ce ρ) (find x)))
                        (range (length es))))
             )]
     [(cons _ `(let (,@binds) ,_))
@@ -92,7 +92,7 @@ Finish the paper
                       ⊥
                       (>>= (bod Ce ρ) (find x)))
                   (map (λ (i)
-                         (>>= (bin Ce ρ i)
+                         (>>= ((bin i) Ce ρ)
                               (λ (Ce ρ)
                                 (match Ce
                                   [(cons `(let-bin ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ ((find x) Ce ρ))]
@@ -126,7 +126,7 @@ Finish the paper
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
-           (>>= (bind x Ce ρ)
+           (>>= ((bind x) Ce ρ)
                 (λ (Cex ρ i)
                   ; (pretty-print `(bound to ,Cex ,i))
                   (match Cex
@@ -136,7 +136,7 @@ Finish the paper
                           (λ (Ce ρ)
                             (if (equal? (length x) (length (args-e Ce)))
                                 ;  (pretty-print `(,Ce ,ρ ,i))
-                                (>>= (ran Ce ρ i) (debug-eval `(ref ,i) eval))
+                                (>>= ((ran i) Ce ρ) (debug-eval `(ref ,i) eval))
                                 ⊥)))
 
                      ]
@@ -144,14 +144,14 @@ Finish the paper
                      ;  (print-eval-result `(ref-let-bod)
                      ;                     (λ ()
                      (>>= (>>= (out Cex ρ)
-                               (λ (Ce ρ)
-                                 ;  (pretty-print `(,Ce))
-                                 (bin Ce ρ i)))
+                               (bin i))
                           (debug-eval `(letbin) eval))
                      ; ) #t)
                      ]
                     [(cons `(let-bin ,_ ,_ ,_ ,_ ,_) _) ; Recursive bindings
-                     (>>= (>>= (out Cex ρ) (λ (Ce ρ) (bin Ce ρ i))) eval)
+                     (>>= (>>= (out Cex ρ)
+                               (bin i))
+                          eval)
                      ]
                     [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _)
                      (>>= (out Cex ρ)
@@ -181,7 +181,7 @@ Finish the paper
                 [`(prim ,_)
                  (pretty-trace `(eval args prim: ,args))
                  (>>= (eval* (map
-                              (λ (i) (ran Ce ρ i))
+                              (λ (i) ((ran i) Ce ρ))
                               (range (- (length args) 1))))
                       (λ (args)
                         (pretty-trace `(applying prim: ,Ce′ ,args))
@@ -220,7 +220,7 @@ Finish the paper
                (>>= (expr Ce ρ); Evaluate where the constructor is applied
                     (λ (Ce ρ)
                       ; (pretty-print `(ran subpat ,sub ,locsub))
-                      (>>= (ran Ce ρ locsub) (eval-match-binding sub))))
+                      (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))))
                ⊥
                )]
           ))) ]
@@ -233,7 +233,7 @@ Finish the paper
     [(cons _ as)
      (match-let ([(cons subpat subpats) subpats])
        ; (pretty-print `(ran subpat matches ,Ce))
-       (>>= (ran Ce ρ i)
+       (>>= ((ran i) Ce ρ)
             (λ (Cex ρx)
               (>>= (>>=eval (eval Cex ρx)
                             (λ (Ce ρ) (pattern-matches subpat Ce ρ))
@@ -288,7 +288,7 @@ Finish the paper
             (if matches
                 (begin
                   ; (pretty-print `(clause-match ,clause))
-                  (>>= (focus-clause parent parentρ i) eval)
+                  (>>= ((match-clause i) parent parentρ) eval)
                   )
                 ((eval-clauselit parent parentρ clauses (+ i 1)) lit)
                 )))
@@ -309,7 +309,7 @@ Finish the paper
             (if matches
                 (begin
                   ; (pretty-print `(clause-match ,clause))
-                  (>>= (focus-clause parent parentρ i) eval)
+                  (>>= ((match-clause i) parent parentρ) eval)
                   )
                 ((eval-clausecon parent parentρ clauses (+ i 1)) ce ρ)
                 )))]
@@ -416,7 +416,7 @@ Finish the paper
                                                    ; (pretty-print `(find: found: ,Cee))
                                                    (expr Cee ρee)))))
                                      (map (λ (i) ; Recursive bindings
-                                            (>>= (bin Cex ρe i)
+                                            (>>= ((bin i) Cex ρe)
                                                  (λ (Cee ρee)
                                                    (>>= ((find x) Cee ρee) expr))))
                                           (range (+ 1 (length before) (length after))))

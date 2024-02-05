@@ -57,7 +57,7 @@
      (match (lookup-primitive var)
        [#f
         (>>=
-         (bind var Ce ρ)
+         ((bind var) Ce ρ)
          (λ (_ __ i)
            (match i
              [-1 (rebind-vars Ce vars ρ ρnew)]
@@ -73,7 +73,7 @@
 
 (define (store-lookup Ce x ρ)
   (>>=
-   (bind x Ce ρ)
+   ((bind x) Ce ρ)
    (λ (_ ρ i)
      (match i
        [-1
@@ -112,7 +112,7 @@
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
-                     (λ (i) (bin Ce ρ i))
+                     (λ (i) ((bin i) Ce ρ))
                      (range (length binds))))
              (λ (evaled-binds)
                (>>= (bind-args (map car binds) ρ evaled-binds); TODO: Do we need a new environment (just ensure alphatized)?
@@ -130,7 +130,7 @@
          (λ (lam lamρ)
            (pretty-trace `(eval-args ,args))
            (>>= (eval* (map
-                        (λ (i) (ran Ce ρ i))
+                        (λ (i) ((ran i) Ce ρ))
                         (range (length args))))
                 (λ (evaled-args)
                   ; (pretty-trace `(got closure or primitive ,(show-simple-ctx lam)))
@@ -179,9 +179,9 @@
                ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
-                      (>>= (focus-clause parent parentρ i) meval)))]
+                      (>>= ((match-clause i) parent parentρ) meval)))]
               [#f ((eval-con-clause parent parentρ clauses (+ i 1)) ce ρ)] ; Doesn't match
-              [#t (>>= (focus-clause parent parentρ i) meval)] ; Matches, but doesn't bind anything
+              [#t (>>= ((match-clause i) parent parentρ) meval)] ; Matches, but doesn't bind anything
               )
             ))]
     [_ (clos (cons parent 'match-error) parentρ)]
@@ -194,7 +194,7 @@
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (if matches
-                (>>= (focus-clause parent parentρ i) meval)
+                (>>= ((match-clause i) parent parentρ) meval)
                 ((eval-con-clause parent clauses (+ i 1)) lit)
                 )))]
     [_ (clos (cons parent 'match-error) parentρ)]

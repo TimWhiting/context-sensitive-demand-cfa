@@ -5,8 +5,23 @@
 (provide (all-defined-out))
 ; syntax traversal
 
-(define (bind x Ce ρ)
-  (define (search-out) (>>= (out Ce ρ) (λ (Ce ρ) (bind x Ce ρ))))
+(define ((out-arg i) Ce ρ)
+  (>>= (out Ce ρ #t)
+       (λ (Ce ρ)
+         ((ran i) Ce ρ))
+       )
+  )
+
+(define (>>=list m)
+  (m (λ (Ce ρ) (list Ce ρ))))
+
+(define (args-e Ce)
+  (match Ce
+    [(cons _ `(app ,_ ,@args))
+     args]))
+
+(define ((bind x) Ce ρ)
+  (define (search-out) (>>= (out Ce ρ) (bind x)))
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _) (unit x ρ -1)] ; Constructors
@@ -60,16 +75,10 @@
     [(cons `(top) _)
      (error 'out "top")]))
 
-(define (bin-e Ce ρ i)
-  (match Ce
-    [(cons C `(let ,binds ,e₁))
-     (define before (take binds i))
-     (define eqafter (drop binds i))
-     (define after (cdr eqafter))
-     (define bind (car eqafter))
-     (list (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
+(define ((bin-e i) Ce ρ)
+  (>>=list ((bin i) Ce ρ)))
 
-(define (bin Ce ρ i)
+(define ((bin i) Ce ρ)
   (match Ce
     [(cons C `(let ,binds ,e₁))
      (define before (take binds i))
@@ -82,16 +91,7 @@
      (unit (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
 
 (define (bod-e Ce ρ)
-  (match Ce
-    [(cons C `(λ ,x ,e))
-     (match ρ
-       [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv envs) (list (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
-       [(envenv envs) (list (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
-       )]
-    [(cons C `(let ,binds ,e₁))
-     (list (cons `(let-bod ,binds ,C) e₁) ρ)]))
+  (>>=list (bod Ce ρ)))
 
 (define (bod Ce ρ)
   (match Ce
@@ -123,9 +123,7 @@
      (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
 
 (define (rat-e Ce ρ)
-  (match Ce
-    [(cons C `(app ,f ,@es))
-     (list (cons `(rat ,es ,C) f) ρ)]))
+  (>>=list (rat Ce ρ)))
 
 (define (rat Ce ρ)
   (match Ce
@@ -133,10 +131,7 @@
      (unit (cons `(rat ,es ,C) f) ρ)]))
 
 (define (focus-match-e Ce ρ)
-  (match Ce
-    [(cons C `(match ,m ,@ms))
-     (list (cons `(match-e ,ms ,C) m) ρ)]
-    ))
+  (>>=list (focus-match Ce ρ)))
 
 (define (focus-match Ce ρ)
   (match Ce
@@ -144,16 +139,10 @@
      (unit (cons `(match-e ,ms ,C) m) ρ)]
     ))
 
-(define (focus-clause-e Ce ρ i)
-  (match Ce
-    [(cons C `(match ,m ,@matches))
-     (define prev-ms (take matches i))
-     (define after-ms (drop matches i))
-     (define mat (car after-ms))
-     (list (cons `(match-clause ,(car mat) ,m ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
-    ))
+(define ((match-clause-e i) Ce ρ)
+  (>>=list ((match-clause i) Ce ρ)))
 
-(define (focus-clause Ce ρ i)
+(define ((match-clause i) Ce ρ)
   (match Ce
     [(cons C `(match ,m ,@matches))
      (define prev-ms (take matches i))
@@ -163,19 +152,10 @@
      (unit (cons `(match-clause ,(car mat) ,m ,prev-ms ,(cdr after-ms) ,C) (cadr mat)) ρ)]
     ))
 
-(define (args-e Ce)
-  (match Ce
-    [(cons _ `(app ,_ ,@args))
-     args]))
+(define ((ran-e i) Ce ρ)
+  (>>=list ((ran i) Ce ρ)))
 
-(define (ran-e Ce ρ i)
-  (match Ce
-    [(cons C `(app ,f ,@args))
-     (define prev-args (take args i))
-     (define after-args (drop args i))
-     (list (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
-
-(define (ran Ce ρ i)
+(define ((ran i) Ce ρ)
   ; (pretty-print `(ran ,i))
   (match Ce
     [(cons C `(app ,f ,@args))
@@ -183,13 +163,6 @@
      (define after-args (drop args i))
      ;  (pretty-print after-args)
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
-
-(define (out-arg Ce ρ i)
-  (>>= (out Ce ρ #t)
-       (λ (Ce ρ)
-         (ran Ce ρ i))
-       )
-  )
 
 (module+ main
   (require rackunit)
@@ -201,7 +174,7 @@
   (analysis-kind 'hybrid)
   (current-m 0)
   (check-equal? (run-unit2 (bod-enter (car test-query-1) `(app x y) (cadr test-query-1) (envenv '())))
-                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv '((□? (x y)))))
+                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv '(())))
                 )
 
   (current-m 1)
