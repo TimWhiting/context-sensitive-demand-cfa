@@ -5,3 +5,71 @@
 (list 'query: '(top) (envenv '()))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((->
+            a
+            =
+            (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+            <-))
+    bod)
+ (envenv '()))
+'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+ (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+ (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+ (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app a (-> (app - y 1) <-)) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'query: '(app - y (-> 1 <-)) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list 'query: '(app - (-> y <-) 1) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app (-> - <-) y 1) (envenv '((□? (y)))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+ (envenv '((□? (y)))))
+'(clos/con: (#f #t #f #t))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app equal? y (-> 0 <-)) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (0 ⊥ ⊥ ⊥))
+(list 'query: '(app equal? (-> y <-) 0) (envenv '((□? (y)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app (-> equal? <-) y 0) (envenv '((□? (y)))))
+'(clos/con: (#<procedure:do-equal>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(letrec (a) (-> (app a 2) <-)) (envenv '()))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app a (-> 2 <-)) (envenv '()))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app (-> a <-) 2) (envenv '()))
+'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

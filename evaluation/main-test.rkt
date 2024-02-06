@@ -229,7 +229,7 @@
                 )
 
               )
-            ); TODO: Clean up output ports
+            )
           )
         )
       (pretty-print `(current-m: ,(current-m)))

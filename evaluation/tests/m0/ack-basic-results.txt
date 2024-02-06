@@ -1,33 +1,33 @@
 '(expression:
-  (let ((ack
-         (λ (m n)
-           (match
-            (app = m 0)
-            (#t (app + n 1))
-            (#f
-             (match
-              (app = n 0)
-              (#t (app ack (app - m 1) 1))
-              (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
+  (letrec ((ack
+            (λ (m n)
+              (match
+               (app = m 0)
+               (#t (app + n 1))
+               (#f
+                (match
+                 (app = n 0)
+                 (#t (app ack (app - m 1) 1))
+                 (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
     (app ack 3 12)))
 (list 'query: '(top) (menv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
- '(let ((->
-         ack
-         =
-         (λ (m n)
-           (match
-            (app = m 0)
-            (#t (app + n 1))
-            (#f
-             (match
-              (app = n 0)
-              (#t (app ack (app - m 1) 1))
-              (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
-         <-))
+ '(letrec ((->
+            ack
+            =
+            (λ (m n)
+              (match
+               (app = m 0)
+               (#t (app + n 1))
+               (#f
+                (match
+                 (app = n 0)
+                 (#t (app ack (app - m 1) 1))
+                 (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
+            <-))
     bod)
  (menv '()))
 '(clos/con:
@@ -231,7 +231,7 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
  (menv '(())))
-'(clos/con: (#f #t))
+'(clos/con: (#t #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = m (-> 0 <-)) (menv '(())))
 '(clos/con: ⊥)
@@ -242,7 +242,7 @@
 (list 'query: '(app (-> = <-) m 0) (menv '(())))
 '(clos/con: (#<procedure:do-equal>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let (ack) (-> (app ack 3 12) <-)) (menv '()))
+(list 'query: '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app ack 3 (-> 12 <-)) (menv '()))

@@ -127,7 +127,7 @@
        [(cons _ #f) (clos Ce ρ)]
        [(cons _ (? integer? x)) (lit (litint x))]
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
-       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]; TODO: Make the lets different
+       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))
@@ -148,6 +148,9 @@
                ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                (>>= (bod Ce ρ) meval)))]
        [(cons _ `(letrec ,binds ,_))
+        ; Scheme rules state that the recursive definitions should not depend on order
+        ; and shouldn't reference each other until they have all been initialized
+        ; (as is often the case with recursive lambdas), as such we treat just like normal let
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))
                      (range (length binds))))

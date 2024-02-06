@@ -108,3 +108,1350 @@
  (list 'refine (envenv '((□? (y))))))
 24
 
+
+(list
+ 'query:
+ '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+ (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app equal? y (-> 0 <-)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'eval '(app equal? (-> y <-) 0) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'eval '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app (-> equal? <-) y 0) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+54
+
+
+(list
+ 'query:
+ '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+ (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+18
+
+
+(list
+ 'query:
+ '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+ (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list 'eval '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv '((□? (y)))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+15
+
+
+(list 'query: '(app a (-> (app - y 1) <-)) (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - y (-> 1 <-)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app - y (-> 1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app - y (-> 1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app - y (-> 1 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app - y (-> 1 <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app - (-> y <-) 1) (envenv '((□? (y)))))
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list
+  'eval
+  '(app a (-> (app - y 1) <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app a (-> (app - y 1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app a (-> (app - y 1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app a (-> (app - y 1) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app (-> - <-) y 1)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'eval
+  '(app (-> - <-) y 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app (-> - <-) y 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app (-> - <-) y 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+33
+
+
+(list 'query: '(app - (-> y <-) 1) (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app - (-> y <-) 1)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'eval '(app - (-> y <-) 1) (envenv '((□? (y)))))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+18
+
+
+(list
+ 'query:
+ '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+ (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app equal? y (-> 0 <-)) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app equal? (-> y <-) 0) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app (-> equal? <-) y 0) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+33
+
+
+(list 'query: '(app equal? (-> y <-) 0) (envenv '((□? (y)))))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'eval '(app equal? (-> y <-) 0) (envenv '((□? (y)))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list
+       (list
+        'cenv
+        '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+        (envenv '(())))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list
+  'expr
+  '(app (-> a <-) (app - y 1))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'refine
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv '((□? (y))))))))
+ (list 'refine (envenv '((□? (y))))))
+18
+
+
+(list 'query: '(letrec (a) (-> (app a 2) <-)) (envenv '()))
+
+(list
+ (list 'eval '(app - (-> y <-) 1) (envenv '(())))
+ (list 'eval '(app a (-> 2 <-)) (envenv '()))
+ (list 'eval '(app a (-> (app - y 1) <-)) (envenv '(())))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> - <-) y 1) (envenv '(())))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list 'eval '(app (-> a <-) 2) (envenv '()))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list 'eval '(letrec (a) (-> (app a 2) <-)) (envenv '()))
+ (list
+  'eval
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '())))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (envenv
+   (list
+    (list
+     'cenv
+     '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+     (envenv
+      (list (list 'cenv '(letrec (a) (-> (app a 2) <-)) (envenv '()))))))))
+ (list 'expr '(app (-> a <-) 2) (envenv '()))
+ (list 'expr '(app (-> a <-) (app - y 1)) (envenv '((□? (y)))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (envenv '()))
+ (list 'refine (envenv '((□? (y))))))
+23
+

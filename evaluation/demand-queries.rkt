@@ -31,6 +31,20 @@
                                                (apply gen-queries ((bin-e i) Ce ρ)))
                                              (range (length binds)))))
                            ]
+                          [(cons _ `(letrec ,binds ,_))
+                           (foldl append (list)
+                                  (cons (apply gen-queries (bod-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries ((bin-e i) Ce ρ)))
+                                             (range (length binds)))))
+                           ]
+                          [(cons _ `(let* ,binds ,_))
+                           (foldl append (list)
+                                  (cons (apply gen-queries (bod-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries ((bin-e i) Ce ρ)))
+                                             (range (length binds)))))
+                           ]
                           [(cons _ `(match ,_ ,@ms))
                            (foldl append (list)
                                   (cons (apply gen-queries (focus-match-e Ce ρ))

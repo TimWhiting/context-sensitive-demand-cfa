@@ -25,24 +25,34 @@
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _) (unit x ρ -1)] ; Constructors
-    ; TODO: More refined binding info for different let kinds
-    [(cons `(bin ,_ ,y ,_ ,before ,after ,_) _)
+    [(cons `(bin ,let-kind ,y ,_ ,before ,after ,_) _)
      ;  (pretty-print `(bin ,y ,x))
-     (define defs (append (map car before) (list y) (map car after)))
+     (define defs
+       (match let-kind
+         ; Only the prior definitions are bound for let*
+         ['let* (map car before)]
+         ; All definitions are in scope for letrec
+         ['letrec (append (map car before) (list y) (map car after))]
+         ; None of the definitions are in scope for regular let
+         [_ (list)]
+         ))
      (if (ors (map (λ (y) (equal? x y)) defs))
-         (unit Ce ρ (index-of defs x))
+         (unit Ce ρ (index-of defs x)) ; Index works for all types of let
          (search-out))]
     [(cons `(bod ,ys ,_) _)
      ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))
      (if (ors (map (λ (y) (equal? x y)) ys))
          (unit Ce ρ (index-of ys x))
          (search-out))]
-    ; TODO: More refined binding info for different let kinds
-    [(cons `(let-bod ,let-kind ,binds ,_) _)
-     (define defs (map car binds))
+    [(cons `(let-bod ,_ ,binds ,_) _)
+     (define defs-len (length binds))
+     ; reverse the bindings so that in let* we get the most recent definition
+     ; in case of shadowing
+     (define defs-rev (reverse (map car binds)))
      ;  (pretty-print `(bin ,defs))
-     (if (ors (map (λ (y) (equal? x y)) defs))
-         (unit Ce ρ (index-of defs x))
+     (if (ors (map (λ (y) (equal? x y)) defs-rev))
+         ; Adjust the index because the defs are in reversed order
+         (unit Ce ρ (- defs-len 1 (index-of defs-rev x)))
          (search-out))]
     [(cons `(match-clause ,m ,scruitinee ,before ,after ,_) e₀)
      (define match-binding (find-match-bind x m))

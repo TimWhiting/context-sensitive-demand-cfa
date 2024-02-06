@@ -78,8 +78,8 @@
   ; (pretty-print query)
   ; (pretty-result
   ;  (run-print-query (apply eval query)))
-  (current-m 2)
-  (compare-demand 'multi-param (lambda (q) q))
+  (current-m 0)
+  (compare-demand 'ack (lambda (q) q))
   ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
   ; (pretty-result (run-print-query (apply meval top-query-mcfa)))
   )

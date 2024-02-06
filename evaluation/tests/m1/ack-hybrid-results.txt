@@ -1,33 +1,33 @@
 '(expression:
-  (let ((ack
-         (λ (m n)
-           (match
-            (app = m 0)
-            (#t (app + n 1))
-            (#f
-             (match
-              (app = n 0)
-              (#t (app ack (app - m 1) 1))
-              (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
+  (letrec ((ack
+            (λ (m n)
+              (match
+               (app = m 0)
+               (#t (app + n 1))
+               (#f
+                (match
+                 (app = n 0)
+                 (#t (app ack (app - m 1) 1))
+                 (#f (app ack (app - m 1) (app ack m (app - n 1))))))))))
     (app ack 3 12)))
 (list 'query: '(top) (envenv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
- '(let ((->
-         ack
-         =
-         (λ (m n)
-           (match
-            (app = m 0)
-            (#t (app + n 1))
-            (#f
-             (match
-              (app = n 0)
-              (#t (app ack (app - m 1) 1))
-              (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
-         <-))
+ '(letrec ((->
+            ack
+            =
+            (λ (m n)
+              (match
+               (app = m 0)
+               (#t (app + n 1))
+               (#f
+                (match
+                 (app = n 0)
+                 (#t (app ack (app - m 1) 1))
+                 (#f (app ack (app - m 1) (app ack m (app - n 1))))))))
+            <-))
     bod)
  (envenv '()))
 '(clos/con:
@@ -187,7 +187,7 @@
    (#t (app ack (app - m 1) 1))
    (#f (app ack (app - m 1) (app ack m (app - n 1)))))
  (envenv '((□? (m n)))))
-'(clos/con: (#t #f #t #f #f #t #t #f #t #f))
+'(clos/con: (#f #t #t #t #f #f #f #t #f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = n (-> 0 <-)) (envenv '((□? (m n)))))
 '(clos/con: ⊥)
@@ -231,7 +231,7 @@
      (#t (app ack (app - m 1) 1))
      (#f (app ack (app - m 1) (app ack m (app - n 1)))))))
  (envenv '((□? (m n)))))
-'(clos/con: (#f #f #f #t #t #t #t #f #f #t))
+'(clos/con: (#f #t #t #t #t #f #t #f #f #f))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = m (-> 0 <-)) (envenv '((□? (m n)))))
 '(clos/con: ⊥)
@@ -242,7 +242,7 @@
 (list 'query: '(app (-> = <-) m 0) (envenv '((□? (m n)))))
 '(clos/con: (#<procedure:do-equal>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let (ack) (-> (app ack 3 12) <-)) (envenv '()))
+(list 'query: '(letrec (ack) (-> (app ack 3 12) <-)) (envenv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app ack 3 (-> 12 <-)) (envenv '()))

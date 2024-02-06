@@ -59,6 +59,20 @@ Finish the paper
 
 (define ((find x) Ce ρ)
   ; (pretty-print `(find ,x ,(drop Ce 1) ,ρ))
+  ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
+  (define (handle-let binds)
+    (apply each
+           (cons (if (ors (map (λ (n) (equal? n x)) (map car binds)))
+                     ⊥
+                     (>>= (bod Ce ρ) (find x)))
+                 (map (λ (i)
+                        (>>= ((bin i) Ce ρ)
+                             (λ (Ce ρ)
+                               (match Ce
+                                 [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ ((find x) Ce ρ))]
+                                 [_ ((find x) Ce ρ)])
+                               )))
+                      (range (length binds))))))
   (match Ce
     [(cons _ #t) ⊥]
     [(cons _ #f) ⊥]
@@ -86,48 +100,10 @@ Finish the paper
                          (>>= ((ran i) Ce ρ) (find x)))
                        (range (length es))))
             )]
-    [(cons _ `(let (,@binds) ,_)) ; TODO: More refined shadowing for different let versions
-     (apply each
-            (cons (if (ors (map (λ (n) (equal? n x)) (map car binds)))
-                      ⊥
-                      (>>= (bod Ce ρ) (find x)))
-                  (map (λ (i)
-                         (>>= ((bin i) Ce ρ)
-                              (λ (Ce ρ)
-                                (match Ce
-                                  [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ ((find x) Ce ρ))]
-                                  [_ ((find x) Ce ρ)])
-                                )))
-                       (range (length binds)))))
-     ]
-    [(cons _ `(letrec (,@binds) ,_))
-     (apply each
-            (cons (if (ors (map (λ (n) (equal? n x)) (map car binds)))
-                      ⊥
-                      (>>= (bod Ce ρ) (find x)))
-                  (map (λ (i)
-                         (>>= ((bin i) Ce ρ)
-                              (λ (Ce ρ)
-                                (match Ce
-                                  [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ ((find x) Ce ρ))]
-                                  [_ ((find x) Ce ρ)])
-                                )))
-                       (range (length binds)))))
-     ]
-    [(cons _ `(let* (,@binds) ,_))
-     (apply each
-            (cons (if (ors (map (λ (n) (equal? n x)) (map car binds)))
-                      ⊥
-                      (>>= (bod Ce ρ) (find x)))
-                  (map (λ (i)
-                         (>>= ((bin i) Ce ρ)
-                              (λ (Ce ρ)
-                                (match Ce
-                                  [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) ⊥ ((find x) Ce ρ))]
-                                  [_ ((find x) Ce ρ)])
-                                )))
-                       (range (length binds)))))
-     ]
+    ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
+    [(cons _ `(let (,@binds) ,_))    (handle-let binds)]
+    [(cons _ `(letrec (,@binds) ,_)) (handle-let binds)]
+    [(cons _ `(let* (,@binds) ,_))   (handle-let binds)]
     [(cons _ e) (error 'find (pretty-format `(no match for find ,e)))]
     ))
 
@@ -171,7 +147,7 @@ Finish the paper
                                (bin i))
                           (debug-eval `(letbin) eval))
                      ]
-                    [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _) ; TODO: Check let-kind to determine recursive bindings
+                    [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
                      (>>= (>>= (out Cex ρ)
                                (bin i))
                           eval)
@@ -429,9 +405,12 @@ Finish the paper
                                          expr))))))))]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
+                ; lambda is returned from let body
                 [(cons `(let-bod ,_ ,_ ,_) _)
                  (>>= (out Ce ρ) expr)]
-                [(cons `(bin ,_ ,x ,_ ,before ,after ,_) _)
+                ; lambda is bound by let binding with name ,x
+                [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) _)
+                 ;  (pretty-print `(let-kind-expr ,let-kind))
                  (>>= (out Ce ρ)
                       (λ (Cex ρe)
                         ; (pretty-print `(bin ,let-kind find ,x ,Cex))
@@ -442,11 +421,25 @@ Finish the paper
                                                  (λ (Cee ρee) ; TODO: Calibrate and use the cut environment instead of doing expr if we can
                                                    ; (pretty-print `(find: found: ,Cee))
                                                    (expr Cee ρee)))))
-                                     (map (λ (i) ; Recursive bindings
-                                            (>>= ((bin i) Cex ρe)
-                                                 (λ (Cee ρee)
-                                                   (>>= ((find x) Cee ρee) expr))))
-                                          (range (+ 1 (length before) (length after))))
+                                     (match let-kind
+                                       ['letrec
+                                        ; x could be referenced in all of the bindings as well
+                                        (map (λ (i)
+                                               (>>= ((bin i) Cex ρe)
+                                                    (λ (Cee ρee)
+                                                      (>>= ((find x) Cee ρee) expr))))
+                                             (range (+ 1 (length before) (length after))))]
+                                       ['let* ; x could be referenced in all following bindings
+                                        (if (> 1 (length after))
+                                            (map (λ (i)
+                                                   (>>= ((bin i) Cex ρe)
+                                                        (λ (Cee ρee)
+                                                          (>>= ((find x) Cee ρee) expr))))
+                                                 ; (length before) + 1 is the current binding, start one after
+                                                 (range (+ 2 (length before)) (+ 1 (length before) (length after))))
+                                            '())]
+                                       [_ '()]
+                                       )
                                      )
                                )))]
                 [(cons `(top) _)

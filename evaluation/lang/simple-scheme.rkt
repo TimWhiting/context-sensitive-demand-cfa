@@ -37,7 +37,7 @@
   (define binds (map to-let-bind (filter (λ (x) (not (is-def x))) tops)))
   ; (pretty-print `(translate-top-defs ,tops))
   (match binds
-    [(cons _ _) `(let ,binds ,@exprs)]
+    [(cons _ _) `(letrec ,binds ,@exprs)]
     [(list)
      (let loop ([exprs exprs])
        (match exprs
