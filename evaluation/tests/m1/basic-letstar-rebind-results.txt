@@ -1,0 +1,7 @@
+'(expression: (let* ((a 10) (b a)) a))
+(list 'query: '(top) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let* (a (-> b = a <-)) bod) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))

@@ -1,0 +1,4 @@
+'(expression: (let* ((a 10) (b a)) a))
+(list 'query: '(top) (menv '()))
+'(clos/con: ⊥)
+'(literals: (10 ⊥ ⊥ ⊥))

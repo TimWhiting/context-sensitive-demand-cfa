@@ -25,8 +25,9 @@
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _) (unit x ρ -1)] ; Constructors
-    [(cons `(let-bin ,y ,_ ,before ,after ,_) _)
-     ;  (pretty-print `(let-bin-bind ,y ,x))
+    ; TODO: More refined binding info for different let kinds
+    [(cons `(bin ,_ ,y ,_ ,before ,after ,_) _)
+     ;  (pretty-print `(bin ,y ,x))
      (define defs (append (map car before) (list y) (map car after)))
      (if (ors (map (λ (y) (equal? x y)) defs))
          (unit Ce ρ (index-of defs x))
@@ -36,9 +37,10 @@
      (if (ors (map (λ (y) (equal? x y)) ys))
          (unit Ce ρ (index-of ys x))
          (search-out))]
-    [(cons `(let-bod ,binds ,_) _)
+    ; TODO: More refined binding info for different let kinds
+    [(cons `(let-bod ,let-kind ,binds ,_) _)
      (define defs (map car binds))
-     ;  (pretty-print `(let-bind ,defs))
+     ;  (pretty-print `(bin ,defs))
      (if (ors (map (λ (y) (equal? x y)) defs))
          (unit Ce ρ (index-of defs x))
          (search-out))]
@@ -68,27 +70,39 @@
              [(menv (cons _ ρ)) (menv ρ)]
              [(envenv (cons _ ρ)) (envenv ρ)]
              ))]
-    [(cons `(let-bod ,binds ,C) e₁)
-     (unit (cons C `(let ,binds ,e₁)) ρ)]
-    [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
-     (unit (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁)) ρ)]
+    [(cons `(let-bod ,let-kind ,binds ,C) e₁)
+     (unit (cons C `(,let-kind ,binds ,e₁)) ρ)]
+    [(cons `(bin ,let-kind ,x ,e₁ ,before ,after ,C) e₀)
+     (unit (cons C `(,let-kind ,(append before (list `(,x ,e₀)) after) ,e₁)) ρ)]
     [(cons `(top) _)
      (error 'out "top")]))
 
 (define ((bin-e i) Ce ρ)
   (>>=list ((bin i) Ce ρ)))
 
+(define (check-let l)
+  (if (is-let l)
+      '()
+      (error 'no-a-let (symbol->string l))
+      ))
+
+(define (is-let l)
+  (match l
+    ['let #t]
+    ['letrec #t]
+    ['let* #t]
+    [_ #f]
+    ))
+
 (define ((bin i) Ce ρ)
   (match Ce
-    [(cons C `(let ,binds ,e₁))
+    [(cons C `(,l ,binds ,e₁))
+     (check-let l)
      (define before (take binds i))
      (define eqafter (drop binds i))
      (define after (cdr eqafter))
      (define bind (car eqafter))
-     ;  (pretty-print bind)
-     ;  (pretty-print (car bind))
-     ;  (pretty-print (cadr bind))
-     (unit (cons `(let-bin ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
+     (unit (cons `(bin ,l ,(car bind) ,e₁ ,before ,after ,C) (cadr bind)) ρ)]))
 
 (define (bod-e Ce ρ)
   (>>=list (bod Ce ρ)))
@@ -103,8 +117,9 @@
        [(envenv envs) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x) `(□? ,x)) envs)))]
        )
      ]
-    [(cons C `(let ,binds ,e₁))
-     (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
+    [(cons C `(,l ,binds ,e₁))
+     (check-let l)
+     (unit (cons `(let-bod ,l ,binds ,C) e₁) ρ)]))
 
 ; For calls this is Lamda Caller CallEnv LambdaEnv
 (define (bod-enter Ce call ρ ρ′)
@@ -118,9 +133,10 @@
        [(menv _)  (unit lambod (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
        [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
        )]
-    [(cons C `(let ,binds ,e₁))
+    [(cons C `(,l ,binds ,e₁))
+     (check-let l)
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).
-     (unit (cons `(let-bod ,binds ,C) e₁) ρ)]))
+     (unit (cons `(let-bod ,l ,binds ,C) e₁) ρ)]))
 
 (define (rat-e Ce ρ)
   (>>=list (rat Ce ρ)))

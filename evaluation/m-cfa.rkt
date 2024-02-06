@@ -109,13 +109,31 @@
        [(cons _ #f) (clos Ce ρ)]
        [(cons _ (? integer? x)) (lit (litint x))]
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
-       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
+       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]; TODO: Make the lets different
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))
                      (range (length binds))))
              (λ (evaled-binds)
-               (>>= (bind-args (map car binds) ρ evaled-binds); TODO: Do we need a new environment (just ensure alphatized)?
+               (>>= (bind-args (map car binds) ρ evaled-binds)
+                    (λ (_)
+                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+                      (>>= (bod Ce ρ) meval)))))]
+       [(cons _ `(let* ,binds ,_))
+        (>>= (eval* (map
+                     (λ (i) ((bin i) Ce ρ))
+                     (range (length binds))))
+             (λ (evaled-binds)
+               (>>= (bind-args (map car binds) ρ evaled-binds)
+                    (λ (_)
+                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+                      (>>= (bod Ce ρ) meval)))))]
+       [(cons _ `(letrec ,binds ,_))
+        (>>= (eval* (map
+                     (λ (i) ((bin i) Ce ρ))
+                     (range (length binds))))
+             (λ (evaled-binds)
+               (>>= (bind-args (map car binds) ρ evaled-binds)
                     (λ (_)
                       ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                       (>>= (bod Ce ρ) meval)))))]

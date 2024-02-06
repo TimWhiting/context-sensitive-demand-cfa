@@ -78,10 +78,10 @@
      (cons C `(match ,@(cons f (append b (list `(,m ,e)) a))))]
     [(cons `(bod ,y ,C) e)
      (cons C `(λ ,y ,e))]
-    [(cons `(let-bod ,binds ,C) e₁)
-     (cons C `(let ,binds ,e₁))]
-    [(cons `(let-bin ,x ,e₁ ,before ,after ,C) e₀)
-     (cons C `(let ,(append before (list `(,x ,e₀)) after) ,e₁))]
+    [(cons `(let-bod ,let-kind ,binds ,C) e₁)
+     (cons C `(,let-kind ,binds ,e₁))]
+    [(cons `(bin ,let-kind ,x ,e₁ ,before ,after ,C) e₀)
+     (cons C `(,let-kind ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
 (define (show-extra-simple-ctx Ce)
@@ -97,10 +97,10 @@
      `(match ,f ,@b (->,m ,e <-) ,@a)]
     [(cons `(bod ,y ,_) e)
      `(λ ,y (->,e <-))]
-    [(cons `(let-bod ,binds ,_) e₁)
-     `(let ,(map car binds) (->,e₁ <-))]
-    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
-     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
+    [(cons `(let-bod ,let-kind ,binds ,_) e₁)
+     `(,let-kind ,(map car binds) (->,e₁ <-))]
+    [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) e₀)
+     `(,let-kind (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
     [(cons `(top) _) `(top)]
     [e e]
     )
@@ -119,10 +119,10 @@
      `(match ,f ,@b (->,m ,e <-) ,@a)]
     [(cons `(bod ,y ,_) e)
      `(λ ,y (->,e <-))]
-    [(cons `(let-bod ,binds ,_) e₁)
-     `(let ,(map car binds) (->,e₁ <-))]
-    [(cons `(let-bin ,x ,_ ,before ,after ,_) e₀)
-     `(let (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
+    [(cons `(let-bod ,let-kind ,binds ,_) e₁)
+     `(,let-kind ,(map car binds) (->,e₁ <-))]
+    [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) e₀)
+     `(,let-kind (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
     [(cons `(top) _) `(top)]
     [e e]
     )

@@ -69,7 +69,7 @@
 '(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app z x1 (-> x2 <-)) (menv '(() () ())))
-'(clos/con: (#t #f))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app z (-> x1 <-) x2) (menv '(() () ())))
 '(clos/con: (#f #t))

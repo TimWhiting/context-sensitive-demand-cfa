@@ -11,6 +11,7 @@
     ['not `(prim ,do-not)]
     ['or `(prim ,do-or)]
     ['and `(prim ,do-and)]
+    ['equal? `(prim, do-equal)]
     [_ #f]
     )
   )

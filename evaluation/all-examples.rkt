@@ -34,6 +34,7 @@
 (define (get-examples ls)
   (map get-example ls))
 
+(define syntax-basics (get-examples '(basic-letrec basic-letstar)))
 (define basic-num-examples (get-examples '(let-num app-num)))
 (define basic-lambda-examples (get-examples '(id let structural-rec err)))
 (define multiple-param-examples (get-examples '(multi-param)))

@@ -1,0 +1,91 @@
+'(expression:
+  (letrec ((a
+            (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+    (app a 2)))
+
+(list 'query: '(top) (menv '()))
+
+(list
+ (list 'eval '(app a (-> 2 <-)) (menv '()))
+ (list
+  'eval
+  '(app equal? y (-> 0 <-))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (menv
+   '(((match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+      (letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(app equal? (-> y <-) 0)
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list 'eval '(app (-> a <-) 2) (menv '()))
+ (list
+  'eval
+  '(app (-> a <-) (app - y 1))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (menv
+   '(((match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+      (letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(app (-> equal? <-) y 0)
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list 'eval '(letrec (a) (-> (app a 2) <-)) (menv '()))
+ (list
+  'eval
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (menv '()))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
+  (menv
+   '(((match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+      (letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list 'eval '(top) (menv '()))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (menv '(((letrec (a) (-> (app a 2) <-))))))
+ (list
+  'eval
+  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
+  (menv
+   '(((match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
+      (letrec (a) (-> (app a 2) <-))))))
+ (list 'expr '(app (-> a <-) 2) (menv '()))
+ (list 'expr '(app (-> a <-) (app - y 1)) (menv '((□? (y)))))
+ (list
+  'expr
+  '(letrec ((->
+             a
+             =
+             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+             <-))
+     bod)
+  (menv '()))
+ (list 'refine (menv '((□? (y))))))
+21
+

@@ -1,0 +1,7 @@
+'(expression:
+  (letrec ((a
+            (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+    (app a 2)))
+(list 'query: '(top) (envenv '()))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
