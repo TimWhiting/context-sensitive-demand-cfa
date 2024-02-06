@@ -12,7 +12,7 @@
   (match args
     [(list) (unit (list))]
     [(cons e as)
-     (>>= e; This is just a compuation i.e. (ran Ce ρ i) and needs to be evaluated
+     (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
           (λ (e ρ)
             (>>= (eval* as)
                  (λ (ress)
@@ -20,6 +20,24 @@
                         (λ (res) (unit (cons res ress)))
                         )))))]
     ))
+
+(define (evalbind* binds ρ args)
+  (match args
+    [ (list) (unit (list))]
+    [ (cons e as)
+      (match binds
+        [(cons b bs)
+         (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
+              (λ (e ρ)
+                (>>= (meval e ρ)
+                     (λ (res)
+                       (>>= (extend-store b ρ res)
+                            (λ (_) (evalbind* bs ρ as))))
+                     )))
+         ])
+      ]
+    )
+  )
 
 (define-key (store addr) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ⊥)
@@ -120,14 +138,15 @@
                       ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                       (>>= (bod Ce ρ) meval)))))]
        [(cons _ `(let* ,binds ,_))
-        (>>= (eval* (map
-                     (λ (i) ((bin i) Ce ρ))
-                     (range (length binds))))
-             (λ (evaled-binds)
-               (>>= (bind-args (map car binds) ρ evaled-binds)
-                    (λ (_)
-                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
-                      (>>= (bod Ce ρ) meval)))))]
+        (>>= (evalbind*
+              (map car binds)
+              ρ
+              (map
+               (λ (i) ((bin i) Ce ρ))
+               (range (length binds))))
+             (λ (_)
+               ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+               (>>= (bod Ce ρ) meval)))]
        [(cons _ `(letrec ,binds ,_))
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))
