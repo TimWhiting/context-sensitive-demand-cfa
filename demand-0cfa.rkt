@@ -1,5 +1,8 @@
 #lang racket/base
 (require racket/match
+         racket/pretty
+         racket/string
+         racket/list
          "base.rkt"
          "syntax.rkt")
 
@@ -20,7 +23,7 @@
 (define (parse-judgement judgement)
   (match judgement
     [(⇓ Ce-0 Ce-1)
-     (eval (parse-cursor Ce-0) (parse-cursor Ce-1))]
+     (eval (parse-cursor Ce-0) (add-between (map parse-cursor (string-split Ce-1 " / ")) "\\; /\\; "))]
     [(⇒ Ce-0 Ce-1)
      (expr (parse-cursor Ce-0) (parse-cursor Ce-1))]
     [(⇐ Ce-0 Ce-1)

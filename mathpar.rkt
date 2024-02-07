@@ -25,8 +25,8 @@
      (error 'expect "expected ~v but got empty" ?)]
     [(cons s ss)
      (if (apply ? s)
-       (k s ss)
-       (error 'expect "expected ~v but got ~v" ? s))]))
+         (k s ss)
+         (error 'expect "expected ~v but got ~v" ? s))]))
 
 (define (expect+ ? ss k)
   (expect ? ss (λ (x ss)
@@ -42,8 +42,8 @@
      (error 'branch "checking for ~v but got empty" ?)]
     [(cons s ss)
      (if (apply ? s)
-       (k₀ s ss)
-       (k₁))]))
+         (k₀ s ss)
+         (k₁))]))
 
 (define (fail) (error 'fail "should put a good message here"))
 
@@ -59,7 +59,8 @@
                           (expect+ "\n" ss
                                    (λ (_ ss)
                                      (inference-rule ss
-                                                     (λ (rule ss) (loop ss (λ (rules ss) (k (cons rule rules) ss))))))))))))
+                                                     (λ (rule ss)
+                                                       (loop ss (λ (rules ss) (k (cons rule rules) ss))))))))))))
 
 (define (inference-rule ss k)
   (define (make-k label antecedents)
@@ -84,6 +85,7 @@
          (map
           (match-lambda
             [(list label antecedents consequent)
+             ;  (pretty-print `(label ,label antecedents ,antecedents consequent ,consequent))
              (list (list "\\inferrule" "[" label "]" "\n")
                    (list "{ ")
                    (add-between (map parse-judgement antecedents) (list " " "\\\\" "\n"))

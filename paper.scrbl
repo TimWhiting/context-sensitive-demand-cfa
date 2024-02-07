@@ -377,31 +377,42 @@ Lam
 C[λx.e] ⇓ C[λx.e]
 
 App
-C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v]
+C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 ———
-C[(e₀ e₁)] ⇓ Cv[λx.e-v]
+C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
 Ref-Lam
-C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v]
+C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
 ———
-C[x] ⇓ Cv[λy.e-v]
+C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
 
-Ref-Let
-C'[(letrec (x e₀) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e]
+Ref-LetBod
+C'[(let (x e₀) [e₁])] = bind(x,C[x])  C'[(let (x [e₀]) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 ———
-C[x] ⇓ Cv[λx.e]
+C[x] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
-Letrec
-C[(letrec (x e₀) [e₁])] ⇓ C'[λx.e]
+Ref-LetRec
+C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
 ———
-C[(letrec (x e₀) e₁)] ⇓ C'[λx.e]
+C[x] ⇓ Cv[λx.e-v]
 
-Let
-C[(let (x e₀) [e₁])] ⇓ C'[λx.e]
+Ref-LetRec-Bod
+C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
 ———
-C[(let (x e₀) e₁)] ⇓ C'[λx.e]
+C[x] ⇓ Cv[λx.e-v]
 
+LetRec
+C[(letboth (x e₀) [e₁])] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+———
+C[(letboth (x e₀) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
+}
+\caption{Demand 0CFA Eval relation}
+\label{fig:demand-0cfa}
+\end{figure}
+
+\begin{figure}
+@mathpar[0cfa-parse-judgement]{
 Rator
 ——
 C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
@@ -411,30 +422,20 @@ C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
 ——
 C[λx.[e]] ⇒ C''[(e₂ e₃)] 
 
-Let-Bod
-C[(let (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
-———
-C[(let (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
+Bod-Let
+C[(letboth (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
+——
+C[(letboth (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
 
-LetRec-Bod
-C[(letrec (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
-———
-C[(letrec (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
+Bin-FindBod
+x C[(letboth (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
+——
+C[(letboth (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
 
-LetRec-Bin-Rec
+Bin-FindBin-LetRec
 x C[(letrec (x [e₀]) e₁)] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-———
+——
 C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
-
-LetRec-Bin-Bod
-x C[(letrec (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-———
-C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
-
-LetBin-Bod
-x C[(let (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-———
-C[(let (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
 
 Rand
 C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
@@ -445,9 +446,15 @@ C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 Call
 C[λx.e] ⇒ C'[(e₀ e₁)] 
 ———
-C[λx.[e]] ⇐ C'[(e₀ e₁)] 
+C[λx.[e]] ⇐ C'[(e₀ e₁)]
 
+}
+\caption{Demand 0CFA Expr / Call relations}
+\label{fig:demand-0cfa-expr-call}
+\end{figure}
 
+\begin{figure}
+@mathpar[0cfa-parse-judgement]{
 Find-Ref
 ——
 x C[x] F C[x]
@@ -462,14 +469,24 @@ x C[(e₀ [e₁])] F Cx[x]
 ——
 x C[(e₀ e₁)] F Cx[x]
 
+Find-Let-Binding
+x ≠ y  x C[(letboth (x [e₀]) e₁)] F Cx[x]
+——
+x C[(letboth (x e₀) e₁)] F Cx[x]
+
+Find-Let-Body
+x ≠ y  x C[(letboth (x e₀) [e₁])] F Cx[x]
+——
+x C[(letboth (x e₀) e₁)] F Cx[x]
+
 Find-Body
 x ≠ y  x C[λy.[e]] F Cx[x]
 ——
 x C[λy.e] F Cx[x]
 
 }
-\caption{Demand 0CFA relations}
-\label{fig:demand-0cfa}
+\caption{Demand 0CFA Find relation}
+\label{fig:demand-0cfa-find}
 \end{figure}
 
 
