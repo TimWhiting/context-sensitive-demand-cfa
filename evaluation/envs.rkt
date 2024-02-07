@@ -65,20 +65,30 @@
 ;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
 (define (⊑-cc cc₀ cc₁)
   (match cc₀
+    ['! ; TODO: Figure out '! cases here
+     (match cc₁
+       [(list) #f] ; equal
+       [`(□? ,_) #f]
+       [`(cenv ,_ ,_) #f]
+       [(cons _ _) #f]
+       ['! #t])]
     [(list)
      (match cc₁
+       ['! #t] ; refines '!
        [(list) #t] ; equal
        [`(□? ,_) #f]
        [`(cenv ,_ ,_) #f]
        [(cons _ _) #f])]
     [`(□? ,x)
      (match cc₁
+       ['! #t] ; refines '!
        [(list) #f]; indeterminate is not more refined
        [`(□? ,y) (equal? x y)]; indeterminate is equal if they are equal otherwise false
        [`(cenv ,_ ,_) #f]; indeterminate is not more refined
        [(cons _ _) #f])]
     [`(cenv ,Ce₀ ,ρ₀)
      (match cc₁
+       ['! #t] ; refines '!
        [(list) #f]; call-env is not more refined
        [`(□? ,_) #t]; call-env is more refined
        [`(cenv ,Ce₁ ,ρ₁)
@@ -87,6 +97,7 @@
        )]
     [(cons Ce₀ cc₀)
      (match cc₁
+       ['! #t] ; refines '!
        [(list) #f]
        [`(□? ,_) #t]
        [(cons Ce₁ cc₁)
@@ -111,30 +122,22 @@
   )
 
 ; Should not be used for flatenvs (see take-m)
-(define (take-cc cc [cut #f])
+(define (take-cc cc)
   (if (equal? (current-m) 0); Special case m=0
       '()
-      (take-ccm (current-m) cc cut)))
+      (take-ccm (current-m) cc)))
 
 ; Gets m stack frames from any particular environment representation (other than flat environments)
-(define (take-ccm m cc [cut #f])
+(define (take-ccm m cc)
   ; Cut is used in calibrate-envs to determine if we need to do an expr relation to find the call sites
   (if (zero? m)
-      (match (analysis-kind)
-        ['hybrid
-         (match cc
-           [(list) (list)]; Already 0
-           [`(cenv ,_ ,_) (if cut '! '())]; Cut known
-           [`(□? ,_) '()]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
-           [`(cons _ _) (error 'bad-env "Invalid environment for hybrid")]; Cut known
-           )]
-        [_ '()]; Handles regular/exponential m-CFA and basic Demand m-CFA which just terminate the call string
-        )
+      (list)
       (match cc
         [(list)
          (list)]
         [`(□? ,x)
          `(□? ,x)]
+        ['! '!]
         [`(cenv ,Ce ,ρ)
          `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) (envenv-m ρ))))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
@@ -143,59 +146,77 @@
 ; If m=0 still keep the indeterminate bindings (`lamenv` instead of the call location `Ce`)
 (define (enter-cc Ce ρ)
   (match ρ
-    [(menv p) (take-cc (cons Ce (head-cc ρ)))]
-    [(expenv p) (take-cc (cons Ce (head-cc ρ)))]
-    [(envenv p) (take-cc `(cenv ,Ce ,ρ))]
+    [(menv _) (take-cc (cons Ce (head-cc ρ)))]
+    [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
+    [(expenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
 
-(define (calibrate-ccs cc0 cc1)
-  (match cc0
-    [(list) (list)]
-    ['! #f]
-    [`(□? ,x) `(□? ,x)]
-    [`(cenv ,call ,ρ₀)
-     (match (calibrate-envsx ρ₀ (envenv (indeterminate-env call)))
-       [#f #f]
-       [res `(cenv ,call ,res)]
-       )]
+(define (assert-indeterminate cc [ignore-cut #t])
+  (match cc
+    [`(□? ,x) '()]
+    ['only-ever-cuts (if ignore-cut '() (error 'unexpected-need-indet-ctx-in-enter-cc (pretty-format cc)))]
+    [_ (error 'expected-indeterminate-ctx (pretty-format `(got ,cc))) ]
     )
   )
 
+(define ((calibrate-ccsm m) cc0 cc1)
+  (assert-indeterminate cc1)
+  (if (equal? m 0)
+      (match cc0 ; Cut
+        [(list) (list)]; Already 0
+        [`(cenv ,_ ,_) '!]; Cut known
+        ['! '!]
+        [`(□? ,x) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
+        )
+      (match cc0
+        [(list); Restore indeterminate context if there was any
+         (assert-indeterminate cc1 #f)
+         cc1] ; cc1 is always indeterminate
+        ['! '!];
+        [`(□? ,x) `(□? ,x)]
+        [`(cenv ,call ,ρ₀)
+         (match (calibrate-envsm ρ₀ (envenv (indeterminate-env call)) (- m 1))
+           [res `(cenv ,call ,res)]
+           )]
+        ))
+  )
+
 ; Adds missing context
-(define (calibrate-envsx ρ₀ ρ₁)
+(define (calibrate-envsm ρ₀ ρ₁ m)
   ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (let [(res (map calibrate-ccs (envenv-m ρ₀) (envenv-m ρ₁)))]
-    (if (alls res) (envenv res) #f)
+  (let [(res (map (calibrate-ccsm m) (envenv-m ρ₀) (envenv-m ρ₁)))]
+    (envenv res)
     ))
 
-(define (calibrate-envs ρ₀ ρ₁ lamCe)
-  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (calibrate-envsx (envenv (map (lambda (cc) (take-ccm (- (current-m) 1) cc #t)) (env-list ρ₀))) ρ₁)
-  )
+(define (calibrate-envs ρ₀ ρ₁)
+  (calibrate-envsm ρ₀ ρ₁ (current-m)))
 
 ; Cuts should not be a part of queries, they are just used to if we would lose information
 (define (expect-no-cut p)
-  (if (no-cut-env p)
-      '()
-      (error 'env-has-cut (pretty-format p))))
+  '()
+  ; (match p
+  ; [(envenv _)
+  ;    (if (not (cut-env p))
+  ;     '()
+  ;     (error 'env-has-cut (pretty-format p)))])
+  )
 
 ; Check that a environment is not cut
-(define (no-cut-env p)
+(define (cut-env p)
   (match p
     [(envenv l)
-     (not (ors (map cut-cc l)))]
-    [_ #t]))
+     (ors (map cut-cc l))]
+    ))
 
 ; Check if a call context has been cut
 (define (cut-cc cc)
   (match cc
     [(list) #f]
-    ['? #f]
     ['! #t]
     [`(□? ,_) #f]
-    [`(cenv ,Ce ,ρ) (not (no-cut-env ρ))]
+    [`(cenv ,Ce ,ρ) (cut-env ρ)]
     )
   )
 
@@ -240,6 +261,7 @@
   ; (pretty-print `(simple-call-env ,cc))
   (match cc
     [(list) (list)]
+    ['! '!]
     [`(□? ,x) `(□? ,x)]
     [`(cenv ,Ce ,ρ)
      ;  (pretty-print `(simplifying ,Ce ,ρ))

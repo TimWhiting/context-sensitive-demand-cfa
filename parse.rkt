@@ -8,6 +8,7 @@
     ["C[e₁]" (cursor (e 1) (∘e))]
     ["C[λx.e]" (cursor (lam (var 'x) (e)) (∘e))]
     ["C[(letrec (x e₀) e₁)]" (cursor (letr (var 'x) (e 0) (e 1)) (∘e))]
+    ["C[(let (x e₀) e₁)]" (cursor (letb (var 'x) (e 0) (e 1)) (∘e))]
     [(regexp #rx"^C([^\\[]*)\\[(.*)\\]$" (list _ tick exp))
      (let ([tick (match tick
                    ["x" "_x"]
@@ -17,8 +18,11 @@
          ["e" (cursor (e) (∘e tick))]
          ["e-x" (cursor (e "_x") (∘e tick))]
          ["(letrec (x e₀) e₁)" (cursor (letr (var 'x) (e 0) (e 1)) (∘e tick))]
-         ["(letrec (x e₀) [e₁])" (cursor (e 1) (letbod (var 'x) (e 0) (∘e tick)))]
-         ["(letrec (x [e₀]) e₁)" (cursor (e 0) (letbin (var 'x) (e 1) (∘e tick)))]
+         ["(letrec (x e₀) [e₁])" (cursor (e 1) (letrecbod (var 'x) (e 0) (∘e tick)))]
+         ["(letrec (x [e₀]) e₁)" (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e tick)))]
+         ["(let (x e₀) e₁)" (cursor (letb (var 'x) (e 0) (e 1)) (∘e tick))]
+         ["(let (x e₀) [e₁])" (cursor (e 1) (letbod (var 'x) (e 0) (∘e tick)))]
+         ["(let (x [e₀]) e₁)" (cursor (e 0) (letbin (var 'x) (e 1) (∘e tick)))]
          ["(e₀ e₁)" (cursor (app (e 0) (e 1)) (∘e tick))]
          ["(e₂ e₃)" (cursor (app (e 2) (e 3)) (∘e tick))]
          ["(e₀ [e₁])" (cursor (e 1) (ran (e 0) (∘e tick)))]

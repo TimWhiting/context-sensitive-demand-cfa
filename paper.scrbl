@@ -396,6 +396,12 @@ C[(letrec (x e₀) [e₁])] ⇓ C'[λx.e]
 ———
 C[(letrec (x e₀) e₁)] ⇓ C'[λx.e]
 
+Let
+C[(let (x e₀) [e₁])] ⇓ C'[λx.e]
+———
+C[(let (x e₀) e₁)] ⇓ C'[λx.e]
+
+
 Rator
 ——
 C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
@@ -404,6 +410,31 @@ Bod
 C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)] 
 ——
 C[λx.[e]] ⇒ C''[(e₂ e₃)] 
+
+Let-Bod
+C[(let (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
+———
+C[(let (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
+
+LetRec-Bod
+C[(letrec (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
+———
+C[(letrec (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
+
+LetRec-Bin-Rec
+x C[(letrec (x [e₀]) e₁)] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
+———
+C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
+
+LetRec-Bin-Bod
+x C[(letrec (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
+———
+C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
+
+LetBin-Bod
+x C[(let (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
+———
+C[(let (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
 
 Rand
 C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 

@@ -334,7 +334,7 @@ Finish the paper
             (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
-                   (let ([cc₁ (enter-cc Cee ρee)])
+                   (let ([cc₁ (enter-cc Cee ρee '_)])
                      (cond
                        [(equal? cc₀ cc₁)
                         (pretty-trace `(CALL-EQ ,cc₀ ,cc₁))
@@ -351,7 +351,7 @@ Finish the paper
             (pretty-trace `HYBRID)
             (define indet-env (envenv (indeterminate-env lambod)))
             ; (pretty-print `(hybrid-call ,ρ ,indet-env))
-            (match (head-cc (calibrate-envs ρ indet-env lambod))
+            (match (head-cc (calibrate-envs ρ₀ indet-env))
               [`(cenv ,ce ,ρ′)
                ;  (pretty-print 'known)
                (pretty-trace `(CALL-KNOWN))
@@ -359,7 +359,7 @@ Finish the paper
               [_
                ;  (pretty-print 'unknown)
                (begin
-                 (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ indet-env lambod)))
+                 (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs ρ₀ indet-env)))
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
                       (λ (Cee ρee)
                         (pretty-trace `(,Cee ,ρee))
