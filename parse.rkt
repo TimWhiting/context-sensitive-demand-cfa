@@ -13,7 +13,7 @@
   (match-lambda
     ["C[e]" (cursor (e) (∘e))]
     ["p-n" (p 'n)]
-    ["p-(0..n)" (p `(0..n))]
+    ["p-(0..n-1)" (p `(0..n-1))]
     ["C[c]" (cursor (c) (∘e))]
     ["C[i]" (cursor (i) (∘e))]
     ["C[e₁]" (cursor (e 1) (∘e))]
