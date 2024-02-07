@@ -406,6 +406,11 @@ C[(letboth (x e₀) [e₁])] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 ———
 C[(letboth (x e₀) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
+Match
+C[(match [e-s] ... (p-n e-n) ...)] ⇓ Cv[λx.e-s] / Cv[c-s] / Cv[i-s]  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches! p-(0..n)  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches p-n  C[(match e-s ... (p-n [e-n]) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+———
+C[(match e-s ... (p-n e-n) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+
 }
 \caption{Demand 0CFA Eval relation}
 \label{fig:demand-0cfa}

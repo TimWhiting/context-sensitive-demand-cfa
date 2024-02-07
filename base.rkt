@@ -33,6 +33,8 @@
      [(not ℓ) x]
      [(exact-nonnegative-integer? ℓ) (list x "_" (number->string ℓ))]
      [(string? ℓ) (list x ℓ)]
+     [(symbol? ℓ) (list x "_" (symbol->string ℓ))]
+     [(equal? ℓ `(0..n)) (list x "_{0..n}" )]
      [else
       (match* (x ℓ))])))
 

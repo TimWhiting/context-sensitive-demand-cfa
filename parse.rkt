@@ -1,10 +1,19 @@
 #lang racket/base
 (require racket/match
+         racket/string
+         racket/list
          "syntax.rkt")
+
+
+(define (parse-cursors Ce)
+  (add-between (map parse-cursor (string-split Ce " / ")) "\\,/\\,")
+  )
 
 (define parse-cursor
   (match-lambda
     ["C[e]" (cursor (e) (∘e))]
+    ["p-n" (p 'n)]
+    ["p-(0..n)" (p `(0..n))]
     ["C[c]" (cursor (c) (∘e))]
     ["C[i]" (cursor (i) (∘e))]
     ["C[e₁]" (cursor (e 1) (∘e))]
@@ -12,16 +21,21 @@
     ["C[(letrec (x e₀) e₁)]" (cursor (letr (var 'x) (e 0) (e 1)) (∘e))]
     ["C[(let (x e₀) e₁)]" (cursor (letb (var 'x) (e 0) (e 1)) (∘e))]
     ["C[(letboth (x e₀) e₁)]" (cursor (letboth (var 'x) (e 0) (e 1)) (∘e))]
+    ["C[(match e-s ... (p-n e-n) ...)]" (cursor (matchexpr (e 's) (p 'n) (e 'n)) (∘e))]
     [(regexp #rx"^C([^\\[]*)\\[(.*)\\]$" (list _ tick exp))
      (let ([tick (match tick
                    ["x" "_x"]
                    ["v" "_v"]
+                   ["s" "_s"]
                    [tick tick])])
        (match exp
          ["e" (cursor (e) (∘e tick))]
          ["c" (cursor (c) (∘e tick))]
+         ["c-s" (cursor (c 's) (∘e tick))]
          ["i" (cursor (i) (∘e tick))]
+         ["i-s" (cursor (i 's) (∘e tick))]
          ["e-x" (cursor (e "_x") (∘e tick))]
+         ["e-s" (cursor (e "_s") (∘e tick))]
          ["(letboth (x e₀) e₁)" (cursor (letboth (var 'x) (e 0) (e 1)) (∘e tick))]
          ["(letboth (x e₀) [e₁])" (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e tick)))]
          ["(letboth (x [e₀]) e₁)" (cursor (e 0) (letbothbin (var 'x) (e 1) (∘e tick)))]
@@ -31,11 +45,15 @@
          ["(let (x e₀) e₁)" (cursor (letb (var 'x) (e 0) (e 1)) (∘e tick))]
          ["(let (x e₀) [e₁])" (cursor (e 1) (letbod (var 'x) (e 0) (∘e tick)))]
          ["(let (x [e₀]) e₁)" (cursor (e 0) (letbin (var 'x) (e 1) (∘e tick)))]
+         ["(match e-s ... (p-n e-n) ...)" (cursor (matchexpr (e 's) (list (p 'n) (e 'n))) (∘e tick))]
+         ["(match [e-s] ... (p-n e-n) ...)" (cursor (e 's) (matchscrutinee (p 'n) (e 'n) (∘e tick)))]
+         ["(match e-s ... (p-n [e-n]) ...)" (cursor (e 'n) (matchclause (e 's) (p 'n) (∘e tick)))]
          ["(e₀ e₁)" (cursor (app (e 0) (e 1)) (∘e tick))]
          ["(e₂ e₃)" (cursor (app (e 2) (e 3)) (∘e tick))]
          ["(e₀ [e₁])" (cursor (e 1) (ran (e 0) (∘e tick)))]
          ["([e₀] e₁)" (cursor (e 0) (rat (e 1) (∘e tick)))]
          ["λx.e" (cursor (lam (var 'x) (e)) (∘e tick))]
+         ["λx.e-s" (cursor (lam (var 'x) (e "_s")) (∘e tick))]
          ["λx.e-v" (cursor (lam (var 'x) (e "_v")) (∘e tick))]
          ["λy.e-v" (cursor (lam (var 'y) (e "_v")) (∘e tick))]
          ["λx.[e]" (cursor (e) (bod (var 'x) (∘e tick)))]
@@ -123,5 +141,15 @@
   (syntax-rules ()
     [(_ lhs rhs)
      (regexp #rx"^(.*) R (.*)$" (list _ lhs rhs))]))
+
+(define-match-expander matches
+  (syntax-rules ()
+    [(_ lhs rhs)
+     (regexp #rx"^(.*) matches (.*)$" (list _ lhs rhs))]))
+
+(define-match-expander matches!
+  (syntax-rules ()
+    [(_ lhs rhs)
+     (regexp #rx"^(.*) matches! (.*)$" (list _ lhs rhs))]))
 
 (provide (all-defined-out))

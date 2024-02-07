@@ -1,8 +1,6 @@
 #lang racket/base
 (require racket/match
          racket/pretty
-         racket/string
-         racket/list
          "base.rkt"
          "syntax.rkt")
 
@@ -10,6 +8,8 @@
 (define call-name (ensuremath "\\Downarrow_{\\mathit{call}}"))
 (define expr-name (ensuremath "\\Rightarrow_{\\mathit{expr}}"))
 (define find-name (ensuremath "\\Rightarrow_{\\mathit{find}}"))
+(define matches-name (ensuremath "\\Rightarrow_{\\mathit{matches}}"))
+(define matches!-name (ensuremath "\\Rightarrow_{\\mathit{!matches}}"))
 (define bind-name (ensuremath "\\mathsf{bind}"))
 
 (define (eval Ce Cλx.e) (ensuremath Ce " " eval-name Cλx.e))
@@ -17,13 +17,19 @@
 (define (expr Ce Cfe) (ensuremath Ce " " expr-name " " Cfe))
 (define (find x Ce Cx) (ensuremath x "," Ce " " find-name Cx))
 (define (bind x Cx) (ensuremath bind-name "(" x "," Cx ")"))
+(define (matchesmath Ce Cλx.e) (ensuremath Ce " " matches-name Cλx.e))
+(define (matches!math Ce Cλx.e) (ensuremath Ce " " matches!-name Cλx.e))
 
 (require "parse.rkt")
 
 (define (parse-judgement judgement)
   (match judgement
+    [(matches! Ce-0 Ce-1)
+     (matches!math (parse-cursors Ce-0) (parse-cursor Ce-1))]
+    [(matches Ce-0 Ce-1)
+     (matchesmath (parse-cursors Ce-0) (parse-cursor Ce-1))]
     [(⇓ Ce-0 Ce-1)
-     (eval (parse-cursor Ce-0) (add-between (map parse-cursor (string-split Ce-1 " / ")) "\\; /\\; "))]
+     (eval (parse-cursor Ce-0) (parse-cursors Ce-1))]
     [(⇒ Ce-0 Ce-1)
      (expr (parse-cursor Ce-0) (parse-cursor Ce-1))]
     [(⇐ Ce-0 Ce-1)
