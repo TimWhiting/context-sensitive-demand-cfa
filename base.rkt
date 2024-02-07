@@ -49,6 +49,8 @@
 
 (define (∀ a b) (ensuremath "\\forall " a "." b))
 (define (∈ x X) (ensuremath x "\\in " X))
+(define (∉ x X) (ensuremath x "\\notin " X))
+(define (bound-vars e) (ensuremath "\\mathit{boundvars}(" e ")"))
 (define (∧ A B) (ensuremath A "\\wedge " B))
 (define (singleton x) (ensuremath "\\{" x "\\}"))
 (define ∅ (ensuremath "\\emptyset"))

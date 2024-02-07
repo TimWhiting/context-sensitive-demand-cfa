@@ -391,13 +391,13 @@ C'[(let (x e₀) [e₁])] = bind(x,C[x])  C'[(let (x [e₀]) e₁)] ⇓ Cv[λx.e
 ———
 C[x] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
-Ref-LetRec
-C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
+Ref-LetRec-Bod
+C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
 ———
 C[x] ⇓ Cv[λx.e-v]
 
-Ref-LetRec-Bod
-C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
+Ref-LetRec-Bin
+C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
 ———
 C[x] ⇓ Cv[λx.e-v]
 
@@ -539,8 +539,24 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
               (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))))
                     (list "=" (0cfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)))
                           "\\text{ where } " (≠  (var 'y) (var 'x))))
+              (list (0cfa-bind (var 'x) (cursor (e 0) (matchscrutinee (var 'p) (e 1) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))
+                          "\\text{ where } " (∉  (var 'x) (bound-vars p))))
+              (list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'y) (e 0) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (letboth (var 'y) (e 0) (e 1)) (∘e)))
+                          "\\text{ where } " (≠  (var 'y) (var 'x))))
               (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))))
-                    (list "=" (cursor (e) (bod (var 'x) (∘e)))))))
+                    (list "=" (cursor (e) (bod (var 'x) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e))))
+                    (list "=" (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e))))
+                    (list "=" (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
+                    (list "=" (cursor (e 1) (matchclause (e 0) (var 'p) (∘e)))
+                          "\\text{ where } " (∈  (var 'x) (bound-vars p))))
+                    ))
 \caption{The @|0cfa-bind-name| metafunction}
 \label{fig:0cfa-bind}
 \end{figure}
