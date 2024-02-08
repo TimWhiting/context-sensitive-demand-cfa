@@ -73,6 +73,7 @@
 
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
+          [light-cost 0]
           [hybrid-cost 0])
       (current-m m)
       (for ([example successful-examples])
@@ -98,6 +99,7 @@
           (for ([qs (zip qbs qhs qls)])
             (match-let ([h1 (hash)] ; TODO: Is it okay for the continuations to escape and be reused later?
                         [h2 (hash)]
+                        [h3 (hash)]
                         [(list (list cb pb) (list ch ph) (list cl pl)) qs])
               (define evalqb (eval cb pb))
               (define evalqh (eval ch ph))
@@ -108,6 +110,8 @@
               (set! basic-cost (+ basic-cost (hash-num-keys h1)))
               (set! h2 (run-demand name (length qhs) 'hybrid m ch ph out-hybrid out-time-hybrid))
               (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
+              (set! h3 (run-demand name (length qls) 'lightweight m cl pl out-light out-time-light))
+              (set! light-cost (+ light-cost (hash-num-keys h3)))
               )
             )
           ); TODO: Clean up output ports
@@ -115,6 +119,7 @@
       (pretty-print `(current-m: ,(current-m)))
       (pretty-print `(basic-cost ,basic-cost))
       (pretty-print `(hybrid-cost ,hybrid-cost))
+      (pretty-print `(light-cost ,light-cost))
       )
     )
   (close-output-port out-time-basic)

@@ -25,18 +25,6 @@
       (pretty-print p)
       '()))
 
-
-(define (show-simple-clos/con e)
-  (match e
-    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-    [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
-    ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
-    )
-  )
-
-(define (show-simple-lattice l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
-(define (show-simple-literal l) (match l [(literal l) (map show-simple-lattice l)]))
-
 (define (print-eval-result input computation [override #f])
   (define show (or (trace) override))
   (if show (pretty-print `(start ,input)) '())
@@ -93,3 +81,21 @@
            (pretty-print `(result ,(show-simple-ctx Cee) ,(show-simple-env ρee)))
            (unit Cee ρee))
          (unit Cee ρee)))))
+
+(define (show-simple-result r)
+  (match r
+    [(product/set s) `(clos/con: ,(show-simple-clos/con s))]
+    [(product/lattice l) `(literals: ,(show-simple-literal l))]
+    )
+  )
+
+(define (show-simple-clos/con e)
+  (match e
+    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
+    [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) e)]
+    ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
+    )
+  )
+
+(define (show-simple-lattice l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
+(define (show-simple-literal l) (match l [(literal l) (map show-simple-lattice l)]))

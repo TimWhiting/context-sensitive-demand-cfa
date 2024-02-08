@@ -1,5 +1,5 @@
 #lang racket/base
-(require "table-monad/main.rkt")
+(require "table-monad/main.rkt" "config.rkt")
 (require racket/match racket/pretty)
 (provide (all-defined-out))
 

@@ -1,5 +1,5 @@
 #lang racket/base
-(require "config.rkt" racket/pretty br/list)
+(require "config.rkt" racket/pretty)
 (provide (all-defined-out))
 
 (define-syntax-rule (run/parameters m k x)

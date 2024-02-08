@@ -83,13 +83,6 @@
   (sort (filter (lambda (x) (not (equal? x '()))) (map simple-key (hash-keys hm))) lt-expr)
   )
 
-(define (show-simple-result r)
-  (match r
-    [(product/set s) `(clos/con: ,(show-simple-clos/con s))]
-    [(product/lattice l) `(literals: ,(show-simple-literal l))]
-    )
-  )
-
 (define (pretty-result r)
   (pretty-result-out (current-output-port) r))
 

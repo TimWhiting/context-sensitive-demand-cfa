@@ -20,8 +20,8 @@
 
 (define (is-def d)
   (match d
-    [`(define ,id ,expr) #f]
-    [_ #t])
+    [`(define ,id ,expr) #t]
+    [_ #f])
   )
 
 (define (to-let-bind d)
@@ -33,8 +33,8 @@
 (define (translate-top-defs . ss)
   ; (pretty-print `(translate-top-defs ,ss))
   (define tops (map translate-top ss))
-  (define exprs (filter is-def tops))
-  (define binds (map to-let-bind (filter (λ (x) (not (is-def x))) tops)))
+  (define exprs (filter (lambda (d) (not (is-def d))) tops))
+  (define binds (map to-let-bind (filter is-def tops)))
   ; (pretty-print `(translate-top-defs ,tops))
   (match binds
     [(cons _ _) `(letrec ,binds ,@exprs)]
@@ -67,6 +67,7 @@
     [#t #t]
     [(? number? x) x]
     [(? symbol? x) x]
+    [(? string? x) x]
     [`(λ (,@args) ,@es) `(λ (,@args) ,(apply translate-top-defs es))]
     [`(lambda (,@args) ,@es) `(λ (,@args) ,(apply translate-top-defs es))]
     [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(apply translate-top-defs es))]
@@ -90,8 +91,10 @@
 
 (define (unwrap-cond mchs)
   (match mchs
+    ['() `(app error)]
     [(list `(else ,@es)) (apply translate-top-defs es)]
     [(cons `(,c ,@es) xs)
      `(match ,(translate c)
-        [#t ,(apply translate-top-defs es)]
-        [#f ,(unwrap-cond xs)])]))
+        [#f ,(unwrap-cond xs)]
+        [_ ,(apply translate-top-defs es)]
+        )]))

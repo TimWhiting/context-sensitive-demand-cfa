@@ -57,6 +57,7 @@
   (store (cons var env)))
 
 (define (bind-args vars ρ values)
+  ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ) ,values))
   ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ) ,(map show-simple-result values)))
   (if (equal? (length vars) (length values))
       (match vars
@@ -215,7 +216,7 @@
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (match matches
-              [(list (list vars) (list exprs)) ; Matches and binds variables
+              [(list vars exprs) ; Matches and binds variables
                ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
@@ -274,13 +275,13 @@
                                 (match res
                                   [#f (unit #f)]
                                   [#t (loop (cdr subpats) (cdr vals))]
-                                  [(list bind val)
+                                  [(list carbinds carvals)
                                    (>>= (loop (cdr subpats) (cdr vals))
                                         (λ (ress)
                                           (match ress
                                             [#f (unit #f)]
                                             [(list binds vals)
-                                             (unit (list (cons bind binds) (cons val vals)))])
+                                             (unit (list (append carbinds binds) (append carvals vals)))])
                                           ))
                                    ]
                                   )

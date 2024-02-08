@@ -6,7 +6,7 @@
 
 (define print-simple-diff #t)
 (define max-context-length 2)
-(define (run-mcfa example name kind kindstring query exp m)
+(define (run-mcfa name kind kindstring query exp m)
   (define out (open-output-file
                (string-append "tests/m" (number->string (current-m)) "/"
                               (symbol->string name) "-" kindstring "-results.txt")
@@ -14,13 +14,13 @@
   (pretty-print `(expression: ,exp) out)
   (run/parameters
    m kind
-   (run-get-hash (meval query) (hash))))
+   (run-get-hash query (hash))))
 
-(define (run-rebind example name exp m)
-  (run-mcfa example name 'rebinding "rebind" (cons `(top) exp) (flatenv '()) exp m))
+(define (run-rebind name exp m)
+  (run-mcfa name 'rebinding "rebind" (meval (cons `(top) exp) (flatenv '())) exp m))
 
-(define (run-expm example name exp m)
-  (run-mcfa example name 'exponential "expm" (cons `(top) exp) (expenv '()) exp m))
+(define (run-expm name exp m)
+  (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m))
 
 (define (run-demand name num-queries kind m Ce p out)
   (define query (eval Ce p))
@@ -39,6 +39,8 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
+  ; (trace 1)
+  (trace #f)
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
           [light-cost 0]
@@ -60,19 +62,19 @@
           (pretty-displayn 0 "")
           ; (show-envs #t)
           ; (trace 1)
-          (run-rebind example name exp m)
-          (run-expm example name exp m)
+          (run-rebind name exp m)
+          (run-expm name exp m)
           (define qbs (basic-queries exp))
           (define qhs (hybrid-queries exp))
           (define qls (light-queries exp))
           ; (pretty-print "Finished regular mcfa")
 
-          (for ([qs (zip qbs qhs)])
+          (for ([qs (zip qbs qhs qls)])
             (match-let ([h1 (hash)]
                         [h2 (hash)]
                         [h3 (hash)]
                         ; TODO: Is it okay for the continuations to escape and be reused later?
-                        [(list (list cb pb) (list ch ph)) qs])
+                        [(list (list cb pb) (list ch ph) (list cl pl)) qs])
               (define evalqb (eval cb pb))
               (define evalqh (eval ch ph))
               (pretty-tracen 0 "Running query ")
@@ -85,7 +87,7 @@
                   (begin
                     (set! h2 (run-demand name (length qhs) 'hybrid m ch ph out-hybrid))
                     (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-                    (set! h3 (run-demand name (length qls) 'lightweight m ch ph out-light))
+                    (set! h3 (run-demand name (length qls) 'lightweight m cl pl out-light))
                     (set! light-cost (+ light-cost (hash-num-keys h3)))
                     (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
                         '()
@@ -121,7 +123,7 @@
                                 (pretty-display "Hybrid result: " (current-error-port))
                                 (pretty-result-out (current-error-port) (from-hash evalqh h2))
                                 (displayln "" (current-error-port))
-                                '()
+                                (exit)
                                 )
                               )
                           ;  (show-envs #t)

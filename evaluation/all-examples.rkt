@@ -12,7 +12,9 @@
          (if (is-dir file)
              (apply append (get-all-examples file))
              (if (string-suffix? (path->string file) ".rkt")
-                 (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr)))
+                 (with-handlers
+                     ([exn:fail? (lambda (e) (list))])
+                   (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr))))
                  (list))))
        (directory-list dir #:build? #t)))
 
@@ -45,13 +47,15 @@
 (define hybrid-failures (get-examples '(blur sat-small)))
 (define general-failures (get-examples '(church cpstak)))
 (define bad-results (get-examples '(sat-1))); ?check kcfa-2
+(define untested (get-examples '())); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)
             (not (or
                   (member x hybrid-failures)
                   (member x bad-results)
+                  (member x untested)
                   (member x general-failures) #f)))
           all-examples))
 
-; (pretty-print test-examples)
+; (pretty-print (get-examples '(scheme-to-c)))

@@ -144,7 +144,7 @@
        [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
        [(menv _)  (unit lambod (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
        [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
-       [(lenv _)  (unit lambod (lenv (cons (enter-cc call ρ) (lenv ρ′))))]
+       [(lenv _)  (unit lambod (lenv (cons (enter-cc call ρ) (lenv-m ρ′))))]
        )]
     [(cons C `(,l ,binds ,e₁))
      (check-let l)

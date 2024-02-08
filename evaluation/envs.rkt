@@ -33,8 +33,8 @@
     [(expenv '()) (expenv '())]
     [(envenv (cons head tail)) (cons head (envenv tail))]
     [(envenv '()) (envenv '())]
-    [(lenv (cons head tail)) (cons head (envenv tail))]
-    [(lenv '()) (envenv '())]
+    [(lenv (cons head tail)) (cons head (lenv tail))]
+    [(lenv '()) (lenv '())]
     [(menv (cons head tail)) (cons head (menv tail))]
     [(menv '()) (menv '())]
     )
@@ -98,7 +98,7 @@
        [`(□? ,_) #t]; call-env is more refined
        [`(cenv ,Ce₁ ,ρ₁)
         (and (equal? Ce₀ Ce₁)
-             (alls (map ⊑-cc (envenv-m ρ₀) (envenv-m ρ₁))))]
+             (alls (map ⊑-cc (env-list ρ₀) (env-list ρ₁))))]
        )]
     [(cons Ce₀ cc₀)
      (match cc₁
@@ -109,13 +109,20 @@
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
 
+(define (cc-determined? cc)
+  ((cc-determinedm? (current-m)) cc))
+
 ; Can the environment be refined further?
-(define cc-determined?
+(define (cc-determinedm? m)
   (match-lambda
     [(list) #t]
+    ['! (if (equal? m 0)
+            #t ; No, it cannot be refined further (it is determined), since it has hit the m limit
+            #f)]; Unless we have stepped out since cutting, in which case yes it can be refined (not determined)?
     [`(□? ,_) #f]
-    [`(cenv ,Ce ,ρ) (alls (map cc-determined? (envenv-m ρ)))]
-    [(cons Ce cc) (cc-determined? cc)]))
+    [`(cenv ,Ce ,(envenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
+    [`(cenv ,Ce ,(lenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
+    [(cons Ce cc) ((cc-determinedm? (- 1 m)) cc)]))
 
 ; Used for flat environments gets the top m stack frames (assuming most recent stack frame is the head of the list)
 (define (take-m cc m)
@@ -143,17 +150,19 @@
         [`(□? ,x)
          `(□? ,x)]
         ['! '!]
-        [`(cenv ,Ce ,ρ)
-         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) (envenv-m ρ))))]
+        [`(cenv ,Ce ,(envenv cs))
+         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) cs)))]
+        [`(cenv ,Ce ,(lenv cs))
+         `(cenv ,Ce ,(lenv (map (λ (cc) (take-ccm (- m 1) cc)) cs)))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
-         (cons Ce (take-ccm (- m 1) cc '_))])))
+         (cons Ce (take-ccm (- m 1) cc))])))
 
 ; If m=0 still keep the indeterminate bindings (`lamenv` instead of the call location `Ce`)
 (define (enter-cc Ce ρ)
   (match ρ
     [(menv _) (take-cc (cons Ce (head-cc ρ)))]
     [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
-    [(envenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) '_)]
+    [(envenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
     [(lenv _) ((calibrate-ccsm (current-m) #t) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
@@ -187,8 +196,12 @@
              )] ; cc1 is always indeterminate
         ['! '!];
         [`(□? ,x) `(□? ,x)]
-        [`(cenv ,call ,ρ₀)
-         (match (calibrate-envsm ρ₀ (envenv (indeterminate-env call)) (- m 1))
+        [`(cenv ,call ,(envenv cs))
+         (match (calibrate-envsm (envenv cs) (envenv (indeterminate-env call)) (- m 1))
+           [res `(cenv ,call ,res)]
+           )]
+        [`(cenv ,call ,(lenv cs))
+         (match (calibrate-envsm (lenv cs) (lenv (indeterminate-env call)) (- m 1))
            [res `(cenv ,call ,res)]
            )]
         ))
@@ -196,10 +209,18 @@
 
 ; Adds missing context
 (define (calibrate-envsm ρ₀ ρ₁ m)
+  (match ρ₀
+    [(envenv _)
+     (let [(res (map (calibrate-ccsm m) (envenv-m ρ₀) (envenv-m ρ₁)))]
+       (envenv res)
+       )]
+    [(lenv _)
+     (let [(res (map (calibrate-ccsm m) (lenv-m ρ₀) (lenv-m ρ₁)))]
+       (lenv res)
+       )]
+    )
   ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  (let [(res (map (calibrate-ccsm m) (envenv-m ρ₀) (envenv-m ρ₁)))]
-    (envenv res)
-    ))
+  )
 
 (define (calibrate-envs ρ₀ ρ₁)
   (calibrate-envsm ρ₀ ρ₁ (current-m)))

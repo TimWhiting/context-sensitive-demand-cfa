@@ -7,7 +7,7 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(λ (y) (-> y <-)) (envenv '(())))
 '(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (envenv '()))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
