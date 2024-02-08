@@ -209,57 +209,7 @@
    (#f (app ack (app - m 1) (app ack m (app - n 1))))
    (_ (app ack (app - m 1) 1)))
  (lenv '((□? (m n)))))
-'(clos/con:
-  (#t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #f
-   #t
-   #t
-   #t
-   #f
-   #t
-   #f
-   #f
-   #f
-   #t
-   #t
-   #f
-   #f
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #t))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = n (-> 0 <-)) (lenv '((□? (m n)))))
 '(clos/con: ⊥)
@@ -281,59 +231,7 @@
      (_ (app ack (app - m 1) 1))))
    (_ (app + n 1)))
  (lenv '((□? (m n)))))
-'(clos/con:
-  (#f
-   #f
-   #t
-   #t
-   #t
-   #f
-   #t
-   #t
-   #t
-   #t
-   #f
-   #t
-   #t
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #f
-   #t
-   #t
-   #t
-   #t
-   #t
-   #f
-   #f
-   #t
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #f
-   #t
-   #t
-   #f
-   #t
-   #f
-   #f))
+'(clos/con: (#f #t))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app = m (-> 0 <-)) (lenv '((□? (m n)))))
 '(clos/con: ⊥)

@@ -189,12 +189,12 @@
             ))
       (match cc0
         [(list); Restore indeterminate context if there was any
-         (if lightweight '()
+         (if lightweight cc1
              (begin
                (assert-indeterminate cc1 #f)
                cc1)
              )] ; cc1 is always indeterminate
-        ['! '!];
+        ['! cc1];
         [`(□? ,x) `(□? ,x)]
         [`(cenv ,call ,(envenv cs))
          (match (calibrate-envsm (envenv cs) (envenv (indeterminate-env call)) (- m 1))
@@ -215,7 +215,7 @@
        (envenv res)
        )]
     [(lenv _)
-     (let [(res (map (calibrate-ccsm m) (lenv-m ρ₀) (lenv-m ρ₁)))]
+     (let [(res (map (calibrate-ccsm m #t) (lenv-m ρ₀) (lenv-m ρ₁)))]
        (lenv res)
        )]
     )

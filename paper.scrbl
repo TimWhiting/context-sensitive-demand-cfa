@@ -13,7 +13,7 @@
 \usepackage{textgreek}
 \usepackage{wrapfig}
 \usepackage{alltt}
-\definecolor{codegreen}{rgb}{0,0.6,0} 
+\definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
@@ -80,10 +80,10 @@ As this function iterates, it evolves the index \texttt{n} by \texttt{f} and the
 \vspace{-1em}
 \begin{verbatim}
 (letrec ([fold (λ (f g n a)
-                  (if (zero? n)
-                    a
-                    (fold f g (f n) (g f n a))))])
-  (fold sub1 h 42 1))
+(if (zero? n)
+a
+(fold f g (f n) (g f n a))))])
+(fold sub1 h 42 1))
 \end{verbatim}
 \end{wrapfigure}
 to \texttt{fold} itself.
@@ -150,6 +150,9 @@ consequently, it is not suitable for the same applications of demand analysis as
 
 %\subsection{Contributions}
 
+\item adding indeterminate
+\item why context sensitivity
+
 This paper makes the following contributions:
 \begin{itemize}
 \item a new formalism for Demand 0CFA which can be implemented straightforwardly using contemporary techniques@~cite{darais2017abstracting,wei2018refunctionalization} (\S~\ref{sec:demand-0cfa});
@@ -191,17 +194,17 @@ As many readers are likely unfamiliar with demand CFA, we'll first look at how d
 $q_0$ & @evq{(f 35)} \\
 $q_1$ & \phantom{XX} @evq{f} \\
 $q_2$ & \phantom{XX} @evq{(λ (x) x)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \\
+& \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \\
 $q_3$ & @evq{x} \\
 $q_4$ & \phantom{XX} @exq{(λ (x) x)} \\
 $q_5$ & \phantom{XX} @exq{f} in \texttt{(f 42)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \\
+& \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \\
 $q_7$ & @evq{42} \\
-      & $\Rightarrow$ $42$ \\
+& $\Rightarrow$ $42$ \\
 $q_6$ & \phantom{XX} @exq{f} in \texttt{(f 35)}\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
+& \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
 $q_8$ & @evq{35} \\
-      & $\Rightarrow$ $35$
+& $\Rightarrow$ $35$
 \end{tabular}
 \end{wrapfigure}
 
@@ -209,9 +212,9 @@ Suppose that a user submits an evaluation query $q_0$ on the expression \texttt{
 Since \texttt{(f 35)} is a function application, demand 0CFA issues a subquery $q_1$ to evaluate the operator \texttt{f}.
 For each procedure value of \texttt{f}, demand 0CFA will issue a subquery to determine the value of its body as the value of $q_0$.
 (To the left is a trace of the queries that follow $q_0$.
-    Indented queries denote subqueries whose results are used to continue resolution of the superquery.
-    A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
-    A query often issues multiple queries in tail position, as this example demonstrates.)
+Indented queries denote subqueries whose results are used to continue resolution of the superquery.
+A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
+A query often issues multiple queries in tail position, as this example demonstrates.)
 The operator \texttt{f} is a reference, so demand 0CFA walks the syntax to find where \texttt{f} is bound.
 Upon finding it bound by a \texttt{let} expression, demand 0CFA issues a subquery $q_2$ to evaluate its bound expression \texttt{(λ (x) x)}.
 The expression \texttt{(λ (x) x)} is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
@@ -243,18 +246,18 @@ We will also see that Demand $m$-CFA does not need a timestamp to record the ``c
 $q_0$ & @evq{(f 35)} \textsf{in} $\langle\rangle$\\
 $q_1$ & \phantom{XX} @evq{f} \textsf{in} $\langle\rangle$\\
 $q_2$ & \phantom{XX} @evq{(λ (x) x)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \textsf{in} $\langle\rangle$\\
+& \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \textsf{in} $\langle\rangle$\\
 $q_3$ & @evq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$\\
 $q_3'$ & \phantom{XX} @caq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$\\
 $q_4$ & \phantom{XX} \phantom{XX} @exq{(λ (x) x)} \textsf{in} $\langle\rangle$\\
 $q_5$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \textit{fail}\\
+& \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$\\
+& \phantom{XX} $\Rightarrow$ \textit{fail}\\
 $q_6$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
+& \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
+& \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
 $q_8$ & @evq{35} \textsf{in} $\langle\rangle$\\
-      & $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
+& $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
 \end{tabular}
 \end{wrapfigure}
 
@@ -290,16 +293,16 @@ $q_0$ & @evq{x} \textsf{in} $\langle ?\rangle$ \\
 $q_0'$ & \phantom{XX} @caq{x} \textsf{in} $\langle ?\rangle$ \\
 $q_1$ & \phantom{XX} \phantom{XX} @exq{(λ (x) x)} \textsf{in} $\langle\rangle$ \\
 $q_2$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
+& \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
+& \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
 $q_4$ & @evq{x} \textsf{in} $\langle\texttt{(f 42)}\rangle$ \\
 $q_5$ & @evq{42} \textsf{in} $\langle\rangle$ \\
-      & $\Rightarrow$ $42$ \textsf{in} $\langle\rangle$ \\
+& $\Rightarrow$ $42$ \textsf{in} $\langle\rangle$ \\
 $q_3$ & \phantom{XX} @exq{f} \textsf{in} \texttt{(f 35)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
+& \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
 $q_6$ & @evq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$ \\
 $q_7$ & @evq{35} \textsf{in} $\langle\rangle$ \\
-      & $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
+& $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
 \end{tabular}
 \end{wrapfigure}
 
@@ -346,11 +349,11 @@ The immediate syntactic context of an expression is often relevant, however, and
 For example, we use @(cursor (ref (var 'x)) (rat (ref (var 'x)) (∘e))) to focus on the expression @(ref (var 'x)) in the operator context @(app □ (ref (var 'x))) in the context @(meta "C" #f).
 
 @omit{
-\tw{Additional contexts include (let-bin ...) for letrec-bindings (let-bod ...) for let bodies, (match-expr ...) for match discriminators and (match-clause i ...) for the i'th match clauses}
-\tw{We also need a pattern grammar}
-\begin{align*}
-@(p) & ::= @(literal) \,|\, @(var 'x) \,|\, @(con-pattern)
-\end{align*}
+ \tw{Additional contexts include (let-bin ...) for letrec-bindings (let-bod ...) for let bodies, (match-expr ...) for match discriminators and (match-clause i ...) for the i'th match clauses}
+ \tw{We also need a pattern grammar}
+ \begin{align*}
+ @(p) & ::= @(literal) \,|\, @(var 'x) \,|\, @(con-pattern)
+ \end{align*}
 }
 
 \section{Demand 0CFA}
@@ -372,44 +375,44 @@ These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cf
 Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
-Lam
-———
-C[λx.e] ⇓ C[λx.e]
+ Lam
+ ———
+ C[λx.e] ⇓ C[λx.e]
 
-App
-C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-———
-C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ App
+ C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ ———
+ C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
-Ref-Lam
-C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
-———
-C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+ Ref-Lam
+ C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+ ———
+ C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
 
-Ref-LetBod
-C'[(let (x e₀) [e₁])] = bind(x,C[x])  C'[(let (x [e₀]) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-———
-C[x] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ Ref-LetBod
+ C'[(let (x e₀) [e₁])] = bind(x,C[x])  C'[(let (x [e₀]) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ ———
+ C[x] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
-Ref-LetRec-Bod
-C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
-———
-C[x] ⇓ Cv[λx.e-v]
+ Ref-LetRec-Bod
+ C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
+ ———
+ C[x] ⇓ Cv[λx.e-v]
 
-Ref-LetRec-Bin
-C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
-———
-C[x] ⇓ Cv[λx.e-v]
+ Ref-LetRec-Bin
+ C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
+ ———
+ C[x] ⇓ Cv[λx.e-v]
 
-LetRec
-C[(letboth (x e₀) [e₁])] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-———
-C[(letboth (x e₀) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ LetRec
+ C[(letboth (x e₀) [e₁])] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ ———
+ C[(letboth (x e₀) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
-Match
-C[(match [e-s] ... (p-n e-n) ...)] ⇓ Cv[λx.e-s] / Cv[c-s] / Cv[i-s]  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches! p-(0..n-1)  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches p-n  C[(match e-s ... (p-n [e-n]) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-———
-C[(match e-s ... (p-n e-n) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ Match
+ C[(match [e-s] ... (p-n e-n) ...)] ⇓ Cv[λx.e-s] / Cv[c-s] / Cv[i-s]  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches! p-(0..n-1)  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches p-n  C[(match e-s ... (p-n [e-n]) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+ ———
+ C[(match e-s ... (p-n e-n) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
 }
 \caption{Demand 0CFA Eval relation}
@@ -418,40 +421,40 @@ C[(match e-s ... (p-n e-n) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
-Rator
-——
-C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
+ Rator
+ ——
+ C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
 
-Bod
-C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)] 
-——
-C[λx.[e]] ⇒ C''[(e₂ e₃)] 
+ Bod
+ C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
+ ——
+ C[λx.[e]] ⇒ C''[(e₂ e₃)]
 
-Bod-Let
-C[(letboth (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
-——
-C[(letboth (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
+ Bod-Let
+ C[(letboth (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
+ ——
+ C[(letboth (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
 
-Bin-FindBod
-x C[(letboth (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-——
-C[(letboth (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
+ Bin-FindBod
+ x C[(letboth (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
+ ——
+ C[(letboth (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)]
 
-Bin-FindBin-LetRec
-x C[(letrec (x [e₀]) e₁)] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-——
-C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)] 
+ Bin-FindBin-LetRec
+ x C[(letrec (x [e₀]) e₁)] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
+ ——
+ C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)]
 
-Rand
-C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
-——
-C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
+ Rand
+ C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
+ ——
+ C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 
 
-Call
-C[λx.e] ⇒ C'[(e₀ e₁)] 
-———
-C[λx.[e]] ⇐ C'[(e₀ e₁)]
+ Call
+ C[λx.e] ⇒ C'[(e₀ e₁)]
+ ———
+ C[λx.[e]] ⇐ C'[(e₀ e₁)]
 
 }
 \caption{Demand 0CFA Expr / Call relations}
@@ -460,34 +463,34 @@ C[λx.[e]] ⇐ C'[(e₀ e₁)]
 
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
-Find-Ref
-——
-x C[x] F C[x]
+ Find-Ref
+ ——
+ x C[x] F C[x]
 
-Find-Rator
-x C[([e₀] e₁)] F Cx[x]
-——
-x C[(e₀ e₁)] F Cx[x]
+ Find-Rator
+ x C[([e₀] e₁)] F Cx[x]
+ ——
+ x C[(e₀ e₁)] F Cx[x]
 
-Find-Rand
-x C[(e₀ [e₁])] F Cx[x]
-——
-x C[(e₀ e₁)] F Cx[x]
+ Find-Rand
+ x C[(e₀ [e₁])] F Cx[x]
+ ——
+ x C[(e₀ e₁)] F Cx[x]
 
-Find-Let-Binding
-x ≠ y  x C[(letboth (x [e₀]) e₁)] F Cx[x]
-——
-x C[(letboth (x e₀) e₁)] F Cx[x]
+ Find-Let-Binding
+ x ≠ y  x C[(letboth (x [e₀]) e₁)] F Cx[x]
+ ——
+ x C[(letboth (x e₀) e₁)] F Cx[x]
 
-Find-Let-Body
-x ≠ y  x C[(letboth (x e₀) [e₁])] F Cx[x]
-——
-x C[(letboth (x e₀) e₁)] F Cx[x]
+ Find-Let-Body
+ x ≠ y  x C[(letboth (x e₀) [e₁])] F Cx[x]
+ ——
+ x C[(letboth (x e₀) e₁)] F Cx[x]
 
-Find-Body
-x ≠ y  x C[λy.[e]] F Cx[x]
-——
-x C[λy.e] F Cx[x]
+ Find-Body
+ x ≠ y  x C[λy.[e]] F Cx[x]
+ ——
+ x C[λy.e] F Cx[x]
 
 }
 \caption{Demand 0CFA Find relation}
@@ -496,7 +499,7 @@ x C[λy.e] F Cx[x]
 
 
 The judgement @(0cfa-eval (cursor (e) (∘e)) (cursor (lam (var 'x) (e "_v")) (∘e "_v"))) denotes that the expression @(e) (residing in syntactic context @((∘e) #f)) evaluates to (a closure over) @(lam (var 'x) (e "_v")).
-(In a context-insensitive analysis, we may represent a closure by the $\lambda$ term itself.) 
+(In a context-insensitive analysis, we may represent a closure by the $\lambda$ term itself.)
 Demand 0CFA arrives at such a judgement, as an interpreter does, by considering the type of expression being evaluated.
 The @clause-label{Lam} rule captures the intuition that a $\lambda$ term immediately evaluates to itself.
 The @clause-label{App} rule captures the intuition that an application evaluates to whatever the body of its operator does.
@@ -556,7 +559,7 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
               (list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
                     (list "=" (cursor (e 1) (matchclause (e 0) (var 'p) (∘e)))
                           "\\text{ where } " (∈  (var 'x) (bound-vars p))))
-                    ))
+              ))
 \caption{The @|0cfa-bind-name| metafunction}
 \label{fig:0cfa-bind}
 \end{figure}
@@ -610,7 +613,7 @@ In fact, if we wish to maintain our focus on an untyped $\lambda$ calculus, the 
 
 The canonical call-site sensitivity is that of $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA} which sensitizes each binding to the last $k$ call sites encountered in evaluation.
 However, this form of call-site sensitivity appears to work against the parsimonious nature of demand CFA.
-To make this concrete, consider that, in the fragment \texttt{(begin (f x) (g y))}, 
+To make this concrete, consider that, in the fragment \texttt{(begin (f x) (g y))},
 the binding of \texttt{g}'s parameter will in general depend on the particular calls made during the evaluation of \texttt{(f x)}.
 If the value of \texttt{(f x)} is not otherwise demanded, this dependence provokes demand analysis solely to discover more of the context or requires that the portion of the context contributed by \texttt{(f x)} be left indeterminate, thereby sacrificing precision.
 
@@ -677,7 +680,7 @@ In a lexically-scoped language, the environment at the reference \texttt{x} in t
 \begin{verbatim}
 (define f (λ (x y) ... (λ (z) ... (λ (w) ... x ...) ...) ...))
 \end{verbatim}
- contains bindings for \texttt{x}, \texttt{y}, \texttt{z}, and \texttt{w}.
+contains bindings for \texttt{x}, \texttt{y}, \texttt{z}, and \texttt{w}.
 Exhaustive CFAs typically model this environment as a finite map from variables to contexts (i.e., the type $\mathit{Var} \rightarrow \mathit{Context}$).
 For instance, $k$-CFA uses this model with $\mathit{Binding} = \mathit{Contour}$ where a \emph{contour} $@(meta "c" #f) \in \mathit{Contour} = \mathit{Call}^{\le k}$ is the $k$-most-recent call sites encountered during evaluation
 (and $\mathit{Call}$ is the set of call sites in the analyzed program).
@@ -706,14 +709,14 @@ This allows us to refactor the environment to $(\mathit{Var} \rightarrow \mathbb
 a pair of a finite map and a sequence where the map associates variables to the index of their binding contexts in the sequence.
 In our example, this representation of the environment is
 $(
- [
-  \texttt{x} \mapsto 2,
-  \texttt{y} \mapsto 2,
-  \texttt{z} \mapsto 1,
-  \texttt{w} \mapsto 0
-  ],
- \langle @(meta "c" 3), @(meta "c" 2), @(meta "c" 0) \rangle
- )$.
+[
+\texttt{x} \mapsto 2,
+\texttt{y} \mapsto 2,
+\texttt{z} \mapsto 1,
+\texttt{w} \mapsto 0
+],
+\langle @(meta "c" 3), @(meta "c" 2), @(meta "c" 0) \rangle
+)$.
 
 Finally, again due to lexical-scoping, the index of a variable's binding context is in fact its de Bruijn index, which is statically determined by the program syntax.
 Hence, the map component is unnecessary and we can model environments as a sequence $\mathit{Context}^{*}$.
@@ -731,8 +734,8 @@ Demand $m$-CFA, at certain points during resolution, discovers information about
 For instance, in the program
 \begin{verbatim}
 (let ([apply (λ (f) (λ (x) (f x)))])
-  (+ ((apply add1) 42)
-     ((apply sub1) 35)))
+(+ ((apply add1) 42)
+((apply sub1) 35)))
 \end{verbatim}
 suppose that Demand $m$-CFA is issued an evaluation query for \texttt{(f x)} in the environment $\langle ?_{\mathtt{x}}, ?_{\mathtt{f}} \rangle$, i.e., the fully-indeterminate environment.
 With our global view, we can see that \texttt{(f x)} evaluates to $43$ and $34$.
@@ -770,7 +773,7 @@ This policy would, in this example, lead to all occurrences of
 \begin{align*}
 \langle ?_{\mathtt{x}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle & & \text{being substituted with} & & \langle \mathtt{((apply\,add1)\,42)}::?_{\mathit{tl}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle
 \end{align*}
-and            
+and
 \begin{align*}
 \langle ?_{\mathtt{x}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle & & \text{being substituted with} & & \langle \mathtt{((apply\,sub1)\,35)}::?_{\mathit{tl}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle
 \end{align*}
@@ -802,55 +805,55 @@ The addition of environments pervades @|mcfa-eval-name|, @|mcfa-expr-name|, and 
 these enriched relations are presented in Figure~\ref{fig:mcfa-resolution}.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
-Lam
-———
-C[λx.e] ρ ⇓ C[λx.e] ρ
+ Lam
+ ———
+ C[λx.e] ρ ⇓ C[λx.e] ρ
 
 
-Rator
-——
-C[([e₀] e₁)] ρ ⇒ C[(e₀ e₁)] ρ
+ Rator
+ ——
+ C[([e₀] e₁)] ρ ⇒ C[(e₀ e₁)] ρ
 
 
-Ref
-(Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x ⇐ C'[(e₀ e₁)] ρ'  C'[(e₀ [e₁])] ρ' ⇓ Cv[λx.e] ρ-v
-———
-C[x] ρ ⇓ Cv[λx.e] ρ-v
+ Ref
+ (Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x ⇐ C'[(e₀ e₁)] ρ'  C'[(e₀ [e₁])] ρ' ⇓ Cv[λx.e] ρ-v
+ ———
+ C[x] ρ ⇓ Cv[λx.e] ρ-v
 
-App
-C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' ⇓ Cv[λx.e-v] ρ-v
-———
-C[(e₀ e₁)] ρ ⇓ Cv[λx.e-v] ρ-v
+ App
+ C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' ⇓ Cv[λx.e-v] ρ-v
+ ———
+ C[(e₀ e₁)] ρ ⇓ Cv[λx.e-v] ρ-v
 
 
-Rand
-C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' F Cx[x] ρ-x  Cx[x] ρ-x ⇒ C''[(e₂ e₃)] ρ''
-——
-C[(e₀ [e₁])] ρ ⇒ C''[(e₂ e₃)] ρ''
+ Rand
+ C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' F Cx[x] ρ-x  Cx[x] ρ-x ⇒ C''[(e₂ e₃)] ρ''
+ ——
+ C[(e₀ [e₁])] ρ ⇒ C''[(e₂ e₃)] ρ''
 
-Bod
-C[λx.[e]] ρ ⇐ C'[(e₀ e₁)] ρ'  C'[(e₀ e₁)] ρ' ⇒ C''[(e₂ e₃)] ρ''
-——
-C[λx.[e]] ρ ⇒ C''[(e₂ e₃)] ρ''
+ Bod
+ C[λx.[e]] ρ ⇐ C'[(e₀ e₁)] ρ'  C'[(e₀ e₁)] ρ' ⇒ C''[(e₂ e₃)] ρ''
+ ——
+ C[λx.[e]] ρ ⇒ C''[(e₂ e₃)] ρ''
 
-Find-Ref
-——
-x C[x] ρ F C[x] ρ
+ Find-Ref
+ ——
+ x C[x] ρ F C[x] ρ
 
-Find-Rator
-x C[([e₀] e₁)] ρ F Cx[x] ρ-x
-——
-x C[(e₀ e₁)] ρ F Cx[x] ρ-x
+ Find-Rator
+ x C[([e₀] e₁)] ρ F Cx[x] ρ-x
+ ——
+ x C[(e₀ e₁)] ρ F Cx[x] ρ-x
 
-Find-Rand
-x C[(e₀ [e₁])] ρ F Cx[x] ρ-x
-——
-x C[(e₀ e₁)] ρ F Cx[x] ρ-x
+ Find-Rand
+ x C[(e₀ [e₁])] ρ F Cx[x] ρ-x
+ ——
+ x C[(e₀ e₁)] ρ F Cx[x] ρ-x
 
-Find-Body
-x ≠ y  x C[λy.[e]] ?C[λy.[e]]::ρ F Cx[x] ρ-x
-——
-x C[λy.e] ρ F Cx[x] ρ-x
+ Find-Body
+ x ≠ y  x C[λy.[e]] ?C[λy.[e]]::ρ F Cx[x] ρ-x
+ ——
+ x C[λy.e] ρ F Cx[x] ρ-x
 
 }
 \caption{Demand $m$-CFA Resolution}
@@ -877,7 +880,7 @@ its definition is presented in Figure~\ref{fig:mcfa-bind}.
               (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))) (:: (mcfa-cc) (mcfa-ρ)))
                     (list "=" (mcfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)) (mcfa-ρ))
                           "\\text{ where } " (≠  (var 'y) (var 'x))))
-              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ)) 
+              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ))
                     (list "=" (pair (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ))))))
 \caption{The @|mcfa-bind-name| metafunction}
 \label{fig:mcfa-bind}
@@ -887,15 +890,15 @@ However, the @|mcfa-call-name| relation changes substantially.
 Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
-Known-Call
-C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
-——
-C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
+ Known-Call
+ C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
+ ——
+ C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
 
-Unknown-Call
-C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
-——
-ctx₀::ρ R ctx₁::ρ
+ Unknown-Call
+ C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
+ ——
+ ctx₀::ρ R ctx₁::ρ
 
 }
 \caption{Demand $m$-CFA Call Discovery}
@@ -918,20 +921,20 @@ When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignore w
 Figure~\ref{fig:demand-mcfa-instantiation} presents inference rules which propagates discovered instantiations.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
-Instantiate-Eval
-ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇓ Cv[λx.e] ρ-v
-——
-C[e] ρ ⇓ Cv[λx.e] ρ-v
+ Instantiate-Eval
+ ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇓ Cv[λx.e] ρ-v
+ ——
+ C[e] ρ ⇓ Cv[λx.e] ρ-v
 
-Instantiate-Expr
-ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇒ C'[(e₀ e₁)] ρ'
-——
-C[e] ρ ⇒ C'[(e₀ e₁)] ρ'
+ Instantiate-Expr
+ ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇒ C'[(e₀ e₁)] ρ'
+ ——
+ C[e] ρ ⇒ C'[(e₀ e₁)] ρ'
 
-Instantiate-Call
-ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇐ C'[(e₀ e₁)] ρ'
-——
-C[e] ρ ⇐ C'[(e₀ e₁)] ρ'
+ Instantiate-Call
+ ρ₀ R ρ₁  C[e] ρ[ρ₁/ρ₀] ⇐ C'[(e₀ e₁)] ρ'
+ ——
+ C[e] ρ ⇐ C'[(e₀ e₁)] ρ'
 
 }
 \caption{Demand $m$-CFA Instantiation}
@@ -1029,65 +1032,65 @@ the initial store is $(\bot,0)$.
 Figure~\ref{fig:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
 \begin{figure}
 @mathpar[demand-parse-judgement]{
-Lam
-———
-C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
+ Lam
+ ———
+ C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
 
 
-Rator
-——
-C[([e₀] e₁)] ρ σ ⇒ C[(e₀ e₁)] ρ σ
+ Rator
+ ——
+ C[([e₀] e₁)] ρ σ ⇒ C[(e₀ e₁)] ρ σ
 
 
-Ref
-(Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ [e₁])] ρ' σ₁ ⇓ Cv[λx.e] ρ-v σ₂
-———
-C[x] ρ σ₀ ⇓ Cv[λx.e] ρ-v σ₂
+ Ref
+ (Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ [e₁])] ρ' σ₁ ⇓ Cv[λx.e] ρ-v σ₂
+ ———
+ C[x] ρ σ₀ ⇓ Cv[λx.e] ρ-v σ₂
 
-App
-C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] ⇓ Cv[λx.e-v] ρ-v σ₃
-———
-C[(e₀ e₁)] ρ σ₀ ⇓ Cv[λx.e-v] ρ-v σ₃
+ App
+ C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] ⇓ Cv[λx.e-v] ρ-v σ₃
+ ———
+ C[(e₀ e₁)] ρ σ₀ ⇓ Cv[λx.e-v] ρ-v σ₃
 
 
-Rand
-C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] F Cx[x] ρ-x σ₃  Cx[x] ρ-x σ₃ ⇒ C''[(e₂ e₃)] ρ'' σ₄
-——
-C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
+ Rand
+ C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] F Cx[x] ρ-x σ₃  Cx[x] ρ-x σ₃ ⇒ C''[(e₂ e₃)] ρ'' σ₄
+ ——
+ C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
 
-Bod
-C[λx.[e]] ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ e₁)] ρ' σ₁ ⇒ C''[(e₂ e₃)] ρ'' σ₂
-——
-C[λx.[e]] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₂
+ Bod
+ C[λx.[e]] ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ e₁)] ρ' σ₁ ⇒ C''[(e₂ e₃)] ρ'' σ₂
+ ——
+ C[λx.[e]] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₂
 
-Find-Ref
-——
-x C[x] ρ σ F C[x] ρ σ
+ Find-Ref
+ ——
+ x C[x] ρ σ F C[x] ρ σ
 
-Find-Rator
-x C[([e₀] e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
-——
-x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+ Find-Rator
+ x C[([e₀] e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+ ——
+ x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
 
-Find-Rand
-x C[(e₀ [e₁])] ρ σ₀ F Cx[x] ρ-x σ₁
-——
-x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+ Find-Rand
+ x C[(e₀ [e₁])] ρ σ₀ F Cx[x] ρ-x σ₁
+ ——
+ x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
 
-Find-Body
-x ≠ y  (n,σ₁) := fresh(σ₀)  x C[λy.[e]] n::ρ σ₁ F Cx[x] ρ-x σ₂
-——
-x C[λy.e] ρ σ₀ F Cx[x] ρ-x σ₂
+ Find-Body
+ x ≠ y  (n,σ₁) := fresh(σ₀)  x C[λy.[e]] n::ρ σ₁ F Cx[x] ρ-x σ₂
+ ——
+ x C[λy.e] ρ σ₀ F Cx[x] ρ-x σ₂
 
-Unknown-Call
-σ₀(n) = ⊥  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ' σ₁  σ₂ := σ₁[n ↦ (C'[(e₀ e₁)],ρ')]
-——
-C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₂
+ Unknown-Call
+ σ₀(n) = ⊥  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ' σ₁  σ₂ := σ₁[n ↦ (C'[(e₀ e₁)],ρ')]
+ ——
+ C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₂
 
-Known-Call
-σ₀(n) = (C[(e₀ e₁)],ρ')  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ'' σ₁  ρ' ≡σ₁ ρ''  σ₂ := σ₁[ρ''/ρ']
-——
-C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ'' σ₂
+ Known-Call
+ σ₀(n) = (C[(e₀ e₁)],ρ')  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ'' σ₁  ρ' ≡σ₁ ρ''  σ₂ := σ₁[ρ''/ρ']
+ ——
+ C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ'' σ₂
 
 }
 \caption{Demand Evaluation}
@@ -1127,36 +1130,36 @@ we establish a correspondence between the environments of the former and the env
 \begin{mathpar}
 \inferrule
 { @combined-parse-judgement{cc-1 F n-1 σ} \\
-  \dots \\
-  @combined-parse-judgement{cc-k F n-k σ}
-  }
+\dots \\
+@combined-parse-judgement{cc-k F n-k σ}
+}
 { @combined-parse-judgement{ρ-is ⇓ ρ-is σ}
-  }
+}
 
 
 \inferrule
 { }
 { @combined-parse-judgement{() R () σ}
-  }
+}
 
 \inferrule
 { @combined-parse-judgement{app::cc F n σ}
-  }
+}
 { @combined-parse-judgement{app::cc R n::ρ σ}
-  }
+}
 
 \inferrule
 { @combined-parse-judgement{σ(n) = ⊥}
-  }
+}
 { @combined-parse-judgement{? F n σ}
-  }
+}
 
 \inferrule
 { @combined-parse-judgement{σ(n) = (app,ρ)} \\
-  @combined-parse-judgement{cc R ρ σ}
-  }
+@combined-parse-judgement{cc R ρ σ}
+}
 { @combined-parse-judgement{app::cc F n σ}
-  }
+}
 
 \end{mathpar}
 This judgement ensures that each context in the Demand $\infty$-CFA environment matches precisely with the corresponding address with respect to the store:
@@ -1230,19 +1233,19 @@ Figure~\ref{fig:lightweight-demand-mcfa-call} presents Demand $m$-CFA's @clause-
 \begin{mathpar}
 
 \inferrule[Call-Known]
-{ 
-  }
+{
+}
 { @(mcfa-call (cursor (e) (bod (var 'x) (∘e))) (:: (pair (cursor (app (e 0) (e 1)) (∘e "'")) (lcfa-ρ "'")) (lcfa-ρ))
               (cursor (app (e 0) (e 1)) (∘e)) (calibrate "m" (lcfa-ρ "'")))
-  }
+}
 
 \inferrule[Call-Unknown]
 { @(mcfa-expr (cursor (lam (var 'x) (e)) (∘e)) (lcfa-ρ)
               (cursor (app (e 0) (e 1)) (∘e "'")) (lcfa-ρ "'"))
-  }
+}
 { @(mcfa-call (cursor (e) (bod (var 'x) (∘e))) (:: "?" (lcfa-ρ))
               (cursor (app (e 0) (e 1)) (∘e)) (lcfa-ρ "'"))
-  }
+}
 
 \end{mathpar}
 \caption{The modified @clause-label{Call-Known} and @clause-label{Call-Unknown} rules}
@@ -1285,30 +1288,30 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
 \begin{figure}
 \begin{alltt}
 (define ((eval eval expr call) \ensuremath{C[e']} \ensuremath{\rho})
-  (match \ensuremath{C[e']}
-    [\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
-    [\ensuremath{C[x]} (let ([(\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho})]) 
-            (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
-                 (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
-                   (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
-    [\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                   (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                     (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)::\rho\sb{\lambda}}))))]))
+(match \ensuremath{C[e']}
+[\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
+[\ensuremath{C[x]} (let ([(\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho})])
+(>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
+(λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
+(eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
+[\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+(λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+(eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)::\rho\sb{\lambda}}))))]))
 
 (define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
-  (match \ensuremath{C'[e]}
-    [\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho})]
-    [\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                     (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                       (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,\,e\sb{1})],\rho)::\rho\sb{\lambda}}))
-                            expr)))]     
-    [\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)]
-    [\ensuremath{[e]} fail]))
+(match \ensuremath{C'[e]}
+[\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho})]
+[\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+(λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+(>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,\,e\sb{1})],\rho)::\rho\sb{\lambda}}))
+expr)))]
+[\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)]
+[\ensuremath{[e]} fail]))
 
 (define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}::\rho})
-  (match \ensuremath{\mathit{ctx}}
-    [\ensuremath{\square} (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
-    [\ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho')} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} (calibrate m \ensuremath{\rho'}))]))
+(match \ensuremath{\mathit{ctx}}
+[\ensuremath{\square} (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
+[\ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho')} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} (calibrate m \ensuremath{\rho'}))]))
 \end{alltt}
 \caption{The core of Lightweight Demand $m$-CFA's implementation using the \textit{ADI} approach}
 \label{fig:implementation}
@@ -1356,7 +1359,7 @@ We evaluate (Lightweight) Demand $m$-CFA with respect to three questions:
 \tw{
 Although this paper focuses on context-sensitive demand CFA, we include an evaluation of context-insensitive demand CFA as well.
 Specifically, we evaluate Demand 0CFA against 0DDPA, the context-insensitive base of DDPA@~cite{palmer2016higher} hierarchy, and (exhaustive) 0CFA.
-Likewise, 
+Likewise,
 }
 We evaluate both Demand $m$-CFA and Demand $m$-CFA against exponential $m$-CFA and regular $m$-CFA with rebinding.
 We implement the analyses in Racket@~cite{plt-tr1}, each using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation strategy, so that we obtain a close comparison.
@@ -1474,7 +1477,7 @@ hence, we cannot rely on anything resembling a class hierarchy.
 When function pointers are present, a demand-driven pointer analysis must be able to reconstruct the call graph on the fly, a requirement shared by demand-driven CFA.
 %Higher-order values (such as closures) specify not just what code to execute but also what environment to execute it in.
 %A context-sensitive demand-driven CFA then must take extreme care where a demand-driven pointer analysis has no such concerns.
-%Pointer analysis is akin to demand 0CFA which behaves as though there is a single, flat environment over the program text 
+%Pointer analysis is akin to demand 0CFA which behaves as though there is a single, flat environment over the program text
 
 @citet{heintze2001demand} present a demand-driven pointer analysis for C capable of constructing the call graph on the fly.
 They recognize that most call targets are not specified indirectly through pointers and advocate demand-driven analysis to resolve indirect targets when they appear.
