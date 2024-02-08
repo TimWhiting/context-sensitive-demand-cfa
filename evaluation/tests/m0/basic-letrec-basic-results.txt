@@ -3,8 +3,8 @@
             (λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
     (app a 2)))
 (list 'query: '(top) (menv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'clos/con: (list (list 'match-error (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(letrec ((->
@@ -25,8 +25,8 @@
  'query:
  '(λ (y) (-> (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)) <-))
  (menv '(())))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'clos/con: (list (list 'match-error (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(match (app equal? y 0) (#t (app a (app - y 1))) (-> #f y <-))
@@ -37,8 +37,8 @@
  'query:
  '(match (app equal? y 0) (-> #t (app a (app - y 1)) <-) (#f y))
  (menv '(())))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'clos/con: (list (list 'match-error (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app a (-> (app - y 1) <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
@@ -63,7 +63,7 @@
  'query:
  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
  (menv '(())))
-(list 'clos/con: (list (list #t (menv '(()))) (list #f (menv '(())))))
+(list 'clos/con: (list (list '(app equal? y 0) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app equal? y (-> 0 <-)) (menv '(())))
 '(clos/con: ⊥)
@@ -72,11 +72,11 @@
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> equal? <-) y 0) (menv '(())))
-'(clos/con: (#<procedure:do-equal>))
+(list 'clos/con: (list (list 'equal? (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(letrec (a) (-> (app a 2) <-)) (menv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'clos/con: (list (list 'match-error (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app a (-> 2 <-)) (menv '()))
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
