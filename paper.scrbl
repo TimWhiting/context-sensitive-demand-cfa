@@ -375,80 +375,34 @@ These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cf
 Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
- Lam
- ———
- C[λx.e] ⇓ C[λx.e]
+Lam
+———
+C[λx.e] ⇓ C[λx.e]
 
- App
- C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
- ———
- C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+App
+C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+———
+C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
- Ref-Lam
- C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
- ———
- C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+Ref-Lam
+C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+———
+C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
 
- Ref-LetBod
- C'[(let (x e₀) [e₁])] = bind(x,C[x])  C'[(let (x [e₀]) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
- ———
- C[x] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
 
- Ref-LetRec-Bod
- C'[(letrec (x e₀) [e₁])] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
- ———
- C[x] ⇓ Cv[λx.e-v]
-
- Ref-LetRec-Bin
- C'[(letrec (x [e₀]) e₁)] = bind(x,C[x])  C'[(letrec (x [e₀]) e₁)] ⇓ Cv[λx.e-v]
- ———
- C[x] ⇓ Cv[λx.e-v]
-
- LetRec
- C[(letboth (x e₀) [e₁])] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
- ———
- C[(letboth (x e₀) e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-
- Match
- C[(match [e-s] ... (p-n e-n) ...)] ⇓ Cv[λx.e-s] / Cv[c-s] / Cv[i-s]  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches! p-(0..n-1)  Cv[λx.e-s] / Cv[c-s] / Cv[i-s] matches p-n  C[(match e-s ... (p-n [e-n]) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
- ———
- C[(match e-s ... (p-n e-n) ...)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
-
-}
-\caption{Demand 0CFA Eval relation}
-\label{fig:demand-0cfa}
-\end{figure}
-
-\begin{figure}
-@mathpar[0cfa-parse-judgement]{
- Rator
- ——
- C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
+Rator
+——
+C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
 
  Bod
  C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
  ——
  C[λx.[e]] ⇒ C''[(e₂ e₃)]
 
- Bod-Let
- C[(letboth (x e₀) e₁)] ⇒ C'[(e₀ e₁)]
- ——
- C[(letboth (x e₀) [e₁])] ⇒ C'[(e₀ e₁)]
-
- Bin-FindBod
- x C[(letboth (x e₀) [e₁])] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
- ——
- C[(letboth (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)]
-
- Bin-FindBin-LetRec
- x C[(letrec (x [e₀]) e₁)] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
- ——
- C[(letrec (x [e₀]) e₁)] ⇒ C'[(e₂ e₃)]
-
- Rand
- C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
- ——
- C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
+Rand
+C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
+——
+C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 
 
  Call
@@ -457,7 +411,7 @@ Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
  C[λx.[e]] ⇐ C'[(e₀ e₁)]
 
 }
-\caption{Demand 0CFA Expr / Call relations}
+\caption{Demand 0CFA Eval / Expr / Call relations}
 \label{fig:demand-0cfa-expr-call}
 \end{figure}
 
@@ -476,16 +430,6 @@ Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
  x C[(e₀ [e₁])] F Cx[x]
  ——
  x C[(e₀ e₁)] F Cx[x]
-
- Find-Let-Binding
- x ≠ y  x C[(letboth (x [e₀]) e₁)] F Cx[x]
- ——
- x C[(letboth (x e₀) e₁)] F Cx[x]
-
- Find-Let-Body
- x ≠ y  x C[(letboth (x e₀) [e₁])] F Cx[x]
- ——
- x C[(letboth (x e₀) e₁)] F Cx[x]
 
  Find-Body
  x ≠ y  x C[λy.[e]] F Cx[x]
@@ -542,24 +486,24 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
               (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))))
                     (list "=" (0cfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)))
                           "\\text{ where } " (≠  (var 'y) (var 'x))))
-              (list (0cfa-bind (var 'x) (cursor (e 0) (matchscrutinee (var 'p) (e 1) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))
-                          "\\text{ where } " (∉  (var 'x) (bound-vars p))))
-              (list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'y) (e 0) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (letboth (var 'y) (e 0) (e 1)) (∘e)))
-                          "\\text{ where } " (≠  (var 'y) (var 'x))))
+              ;(list (0cfa-bind (var 'x) (cursor (e 0) (matchscrutinee (var 'p) (e 1) (∘e))))
+              ;      (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))))
+              ;(list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
+              ;      (list "=" (0cfa-bind (var 'x) (cursor (matchexpr (e 0) (var 'p) (e 1)) (∘e)))
+              ;            "\\text{ where } " (∉  (var 'x) (bound-vars p))))
+              ;(list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'y) (e 0) (∘e))))
+              ;      (list "=" (0cfa-bind (var 'x) (cursor (letboth (var 'y) (e 0) (e 1)) (∘e)))
+              ;            "\\text{ where } " (≠  (var 'y) (var 'x))))
               (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))))
                     (list "=" (cursor (e) (bod (var 'x) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e))))
-                    (list "=" (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e))))
-                    (list "=" (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
-                    (list "=" (cursor (e 1) (matchclause (e 0) (var 'p) (∘e)))
-                          "\\text{ where } " (∈  (var 'x) (bound-vars p))))
-              ))
+              ;(list (0cfa-bind (var 'x) (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e))))
+              ;      (list "=" (cursor (e 1) (letbothbod (var 'x) (e 0) (∘e)))))
+              ;(list (0cfa-bind (var 'x) (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e))))
+              ;      (list "=" (cursor (e 0) (letrecbin (var 'x) (e 1) (∘e)))))
+              ;(list (0cfa-bind (var 'x) (cursor (e 1) (matchclause (e 0) (var 'p) (∘e))))
+              ;      (list "=" (cursor (e 1) (matchclause (e 0) (var 'p) (∘e)))
+              ;            "\\text{ where } " (∈  (var 'x) (bound-vars p))))
+                    ))
 \caption{The @|0cfa-bind-name| metafunction}
 \label{fig:0cfa-bind}
 \end{figure}
