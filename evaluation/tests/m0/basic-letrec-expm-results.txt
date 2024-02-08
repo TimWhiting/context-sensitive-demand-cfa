@@ -6,7 +6,7 @@
  'query:
  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
  (expenv '(())))
-'(clos/con: (#t #f))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (expenv '()))
 '(clos/con: ⊥)
@@ -24,13 +24,23 @@
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) (app - y 1)) (expenv '(())))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app - y (-> 1 <-)) (expenv '(())))
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) 2) (expenv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> - <-) y 1) (expenv '(())))
 '(clos/con: (#<procedure:do-sub>))
@@ -56,7 +66,12 @@
             <-))
     bod)
  (expenv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app - (-> y <-) 1) (expenv '(())))
 '(clos/con: ⊥)

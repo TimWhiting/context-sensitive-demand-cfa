@@ -14,7 +14,12 @@
             <-))
     bod)
  (menv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -47,13 +52,18 @@
 '(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) (app - y 1)) (menv '(())))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
  (menv '(())))
-'(clos/con: (#t #f))
+(list 'clos/con: (list (list #t (menv '(()))) (list #f (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app equal? y (-> 0 <-)) (menv '(())))
 '(clos/con: ⊥)
@@ -71,5 +81,10 @@
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) 2) (menv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

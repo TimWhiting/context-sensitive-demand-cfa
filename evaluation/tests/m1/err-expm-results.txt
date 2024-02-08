@@ -6,7 +6,7 @@
 '(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> (λ (x) (app x x)) <-) 2) (expenv '()))
-'(clos/con: ((λ (x) (app x x))))
+(list 'clos/con: (list (list '(λ (x) (app x x)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> x <-) x) (expenv '((((top) app (λ (x) (app x x)) 2)))))
 '(clos/con: ⊥)

@@ -420,16 +420,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -554,7 +558,19 @@
      ack
      3
      12))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -664,7 +680,11 @@
      ack
      3
      12))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))
+  (list #f (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -745,7 +765,17 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app ack 3 (-> 12 <-)) (flatenv '()))
 '(clos/con: ⊥)
@@ -1037,7 +1067,31 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1156,7 +1210,31 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1220,7 +1298,17 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1380,16 +1468,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1728,7 +1820,17 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1764,16 +1866,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1813,16 +1919,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2023,7 +2133,25 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2218,7 +2346,17 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2330,16 +2468,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2445,16 +2587,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2843,16 +2989,20 @@
             <-))
     bod)
  (flatenv '()))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2895,7 +3045,31 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3115,16 +3289,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3213,7 +3391,25 @@
      ack
      3
      12))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3289,16 +3485,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3339,7 +3539,25 @@
      ack
      3
      12))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3519,7 +3737,17 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3542,16 +3770,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3847,7 +4079,31 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -3925,16 +4181,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -4274,7 +4534,25 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -4399,16 +4677,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -4873,7 +5155,17 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -4922,7 +5214,9 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list (list #t (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -5163,7 +5457,25 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -5364,16 +5676,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -5475,7 +5791,31 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -5831,7 +6171,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6003,7 +6356,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6163,16 +6529,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6491,7 +6861,9 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list (list #t (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6530,7 +6902,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6828,7 +7213,17 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6872,16 +7267,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6926,7 +7325,25 @@
      ack
      3
      12))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6962,16 +7379,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -7018,7 +7439,17 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -7597,7 +8028,17 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -7758,16 +8199,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -7886,7 +8331,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -8009,7 +8467,17 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -8138,16 +8606,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -8953,7 +9425,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -9354,7 +9839,19 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -9446,16 +9943,20 @@
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> ack <-) 3 12) (flatenv '()))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -9912,7 +10413,25 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10088,7 +10607,11 @@
      ack
      3
      12))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))
+  (list #t (flatenv '((letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10251,16 +10774,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10307,7 +10834,19 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10570,16 +11109,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10615,16 +11158,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -11203,7 +11750,14 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -11368,16 +11922,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (flatenv '()))
 '(clos/con: ⊥)
@@ -11494,16 +12052,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -11660,16 +12222,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -11870,16 +12436,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12129,16 +12699,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12222,16 +12796,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12388,16 +12966,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12611,16 +13193,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12739,7 +13325,25 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#f #t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12777,16 +13381,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12822,16 +13430,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12870,7 +13482,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -12992,16 +13617,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -13692,7 +14321,14 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -13728,16 +14364,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -14055,7 +14695,31 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -14180,7 +14844,25 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -14520,7 +15202,14 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15391,7 +16080,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15488,16 +16190,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15622,7 +16328,25 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15697,7 +16421,31 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15737,16 +16485,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -15980,7 +16732,25 @@
      ack
      3
      12))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -16060,16 +16830,20 @@
      ack
      (app - m 1)
      1))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -16548,16 +17322,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -16806,7 +17584,14 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17271,16 +18056,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17410,7 +18199,19 @@
      ack
      3
      12))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))
+  (list
+   #f
+   (flatenv
+    '((app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17524,16 +18325,20 @@
      ack
      3
      12))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17675,7 +18480,25 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17756,7 +18579,17 @@
      ack
      3
      12))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (letrec (ack) (-> (app ack 3 12) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -17843,7 +18676,17 @@
      ack
      m
      (app - n 1)))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -18204,7 +19047,31 @@
      ack
      (app - m 1)
      1))))
-'(clos/con: (#t #f))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))
+  (list
+   #f
+   (flatenv
+    '((match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-))
+      (match
+       (app = n 0)
+       (#f (app ack (app - m 1) (app ack m (app - n 1))))
+       (-> _ (app ack (app - m 1) 1) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -18282,16 +19149,20 @@
      ack
      m
      (app - n 1)))))
-'(clos/con:
-  ((λ (m n)
-     (match
-      (app = m 0)
-      (#f
-       (match
-        (app = n 0)
-        (#f (app ack (app - m 1) (app ack m (app - n 1))))
-        (_ (app ack (app - m 1) 1))))
-      (_ (app + n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (m n)
+      (match
+       (app = m 0)
+       (#f
+        (match
+         (app = n 0)
+         (#f (app ack (app - m 1) (app ack m (app - n 1))))
+         (_ (app ack (app - m 1) 1))))
+       (_ (app + n 1))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -18334,7 +19205,20 @@
      ack
      (app - m 1)
      (app ack m (app - n 1))))))
-'(clos/con: (#t))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1)))
+      (match
+       (app = n 0)
+       (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)
+       (_ (app ack (app - m 1) 1))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:

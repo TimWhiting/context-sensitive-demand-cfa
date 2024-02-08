@@ -6,7 +6,12 @@
 '(clos/con: (#<procedure:do-equal>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) (app - y 1)) (flatenv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -29,13 +34,18 @@
             <-))
     bod)
  (flatenv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(match (-> (app equal? y 0) <-) (#t (app a (app - y 1))) (#f y))
  (flatenv '()))
-'(clos/con: (#t #f))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app - y (-> 1 <-)) (flatenv '()))
 '(clos/con: ⊥)
@@ -62,7 +72,12 @@
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> a <-) 2) (flatenv '()))
-'(clos/con: ((λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (y) (match (app equal? y 0) (#t (app a (app - y 1))) (#f y)))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> - <-) y 1) (flatenv '()))
 '(clos/con: (#<procedure:do-sub>))

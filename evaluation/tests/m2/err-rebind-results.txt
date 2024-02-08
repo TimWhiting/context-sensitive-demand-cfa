@@ -1,6 +1,6 @@
 '(expression: (app (λ (x) (app x x)) 2))
 (list 'query: '(app (-> (λ (x) (app x x)) <-) 2) (flatenv '()))
-'(clos/con: ((λ (x) (app x x))))
+(list 'clos/con: (list (list '(λ (x) (app x x)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:

@@ -119,6 +119,23 @@ Finish the paper
     )
   )
 
+; We need special primitives that can evaluate only what is needed
+;  in the demanded constructor / closure data model
+(define (lookup-demand-primitive x)
+  ; (pretty-print `(primitive-lookup ,x))
+  (match x
+    ; ['= `(prim ,do-demand-equal)]
+    ; ['equal? `(prim, do-demand-equal)]
+    ; ['or `(prim ,do-demand-or)]; TODO Handle in match positions
+    ; ['and `(prim ,do-demand-and)]; TODO Handle in match positions
+    ; ['not `(prim ,do-demand-not)]
+    ['- `(prim ,do-sub)] ; Numbers work with the regular data model
+    ['+ `(prim ,do-add)] ; Numbers work with the regular data model
+    ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
+    [_ #f]
+    )
+  )
+
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   (expect-no-cut ρ)
@@ -160,7 +177,7 @@ Finish the paper
                                  (eval-match-binding i))))
                      ]
                     [(? symbol? x)
-                     (match (lookup-primitive x)
+                     (match (lookup-demand-primitive x)
                        [#f
                         (pretty-tracen 0 `(constructor? ,x))
                         (clos Ce ρ)]
@@ -176,7 +193,6 @@ Finish the paper
             (>>= (rat Ce ρ) eval)
             (λ (Ce′ ρ′)
               ; (pretty-trace `(got closure or primitive ,Ce′))
-
               (match Ce′
                 [`(prim ,_)
                  (pretty-trace `(eval args prim: ,args))
@@ -189,7 +205,7 @@ Finish the paper
                 [(cons _ `(λ ,_ ,_))
                  (>>= (bod-enter Ce′ Ce ρ ρ′) (debug-eval 'app-eval eval))
                  ]
-                [con (clos con ρ′)]
+                [con (clos Ce ρ)]; Constructors just return the application
                 )
               ))
            ]
@@ -218,16 +234,18 @@ Finish the paper
      (>>=clos
       (eval Ce ρ) ; Evaluate the constructor
       (λ (Ce ρ)
-        (match Ce
-          [(cons _ con1)
-           (if (equal? con con1)
-               (>>= (expr Ce ρ); Evaluate where the constructor is applied
-                    (λ (Ce ρ)
-                      ; (pretty-print `(ran subpat ,sub ,locsub))
-                      (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))))
-               ⊥
-               )]
-          ))) ]
+        (>>=clos
+         ; This is the application site of the constructor, need to see what constructor it is
+         (>>= (rat Ce ρ) eval)
+         (λ (Cc ρc)
+           (match Cc
+             [(cons _ con1)
+              (if (equal? con con1)
+                  ; (pretty-print `(ran subpat ,sub ,locsub))
+                  (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))
+                  ⊥
+                  )]
+             ))))) ]
     [#t (eval Ce ρ)]
     ))
 
@@ -251,22 +269,25 @@ Finish the paper
 (define (pattern-matches pattern Ce ρe)
   (match pattern
     [`(,con ,@subpats)
-     (match Ce
-       [(cons _ con1)
-        (if (equal? con con1)
-            ; Find where the constructor is applied
-            (>>= (expr Ce ρe)
-                 (λ (Ce ρ)
-                   (match Ce
-                     [(cons _ `(app ,_ ,@as))
-                      ;  (pretty-print `(subpat ,subpats ,as))
-                      (if (equal? (length as) (length subpats))
-                          (patterns-match Ce ρ as subpats 0)
-                          (unit #f)
-                          )]
-                     )))
-            ; Wrong constructor
-            (unit #f))])]
+     (>>=clos
+      ; This is the application site of the constructor, need to see what constructor it is
+      (>>= (rat Ce ρe) eval)
+      (λ (Cc ρc)
+        (match Cc
+          [(cons _ con1)
+           (if (equal? con con1)
+               ; Find where the constructor is applied
+               (match Ce
+                 [(cons _ `(app ,_ ,@as))
+                  ;  (pretty-print `(subpat ,subpats ,as))
+                  (if (equal? (length as) (length subpats))
+                      (patterns-match Ce ρe as subpats 0)
+                      (unit #f)
+                      )]
+                 )
+               ; Wrong constructor
+               (unit #f))]))
+      )]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
      (match Ce

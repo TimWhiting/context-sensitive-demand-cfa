@@ -380,24 +380,24 @@ Lam
 C[λx.e] ⇓ C[λx.e]
 
 App
-C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+C[([e₀] e₁)] ⇓ C'[λx.e]  C'[λx.[e]] ⇓ Cv[λx.e-v]
 ———
-C[(e₀ e₁)] ⇓ Cv[λx.e-v] / Cv[c] / Cv[i]
+C[(e₀ e₁)] ⇓ Cv[λx.e-v]
 
 Ref-Lam
-C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+C'[λx.e] = bind(x,C[x])  C'[λx.e] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[λy.e-v]
 ———
-C[x] ⇓ Cv[λy.e-v] / Cv[c] / Cv[i]
+C[x] ⇓ Cv[λy.e-v]
 
 
 Rator
 ——
 C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
 
- Bod
- C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
- ——
- C[λx.[e]] ⇒ C''[(e₂ e₃)]
+Bod
+C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
+——
+C[λx.[e]] ⇒ C''[(e₂ e₃)]
 
 Rand
 C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
@@ -405,40 +405,34 @@ C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
 C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 
 
- Call
- C[λx.e] ⇒ C'[(e₀ e₁)]
- ———
- C[λx.[e]] ⇐ C'[(e₀ e₁)]
+Call
+C[λx.e] ⇒ C'[(e₀ e₁)]
+———
+C[λx.[e]] ⇐ C'[(e₀ e₁)]
+
+
+Find-Ref
+——
+x C[x] F C[x]
+
+Find-Rator
+x C[([e₀] e₁)] F Cx[x]
+——
+x C[(e₀ e₁)] F Cx[x]
+
+Find-Rand
+x C[(e₀ [e₁])] F Cx[x]
+——
+x C[(e₀ e₁)] F Cx[x]
+
+Find-Body
+x ≠ y  x C[λy.[e]] F Cx[x]
+——
+x C[λy.e] F Cx[x]
 
 }
-\caption{Demand 0CFA Eval / Expr / Call relations}
-\label{fig:demand-0cfa-expr-call}
-\end{figure}
-
-\begin{figure}
-@mathpar[0cfa-parse-judgement]{
- Find-Ref
- ——
- x C[x] F C[x]
-
- Find-Rator
- x C[([e₀] e₁)] F Cx[x]
- ——
- x C[(e₀ e₁)] F Cx[x]
-
- Find-Rand
- x C[(e₀ [e₁])] F Cx[x]
- ——
- x C[(e₀ e₁)] F Cx[x]
-
- Find-Body
- x ≠ y  x C[λy.[e]] F Cx[x]
- ——
- x C[λy.e] F Cx[x]
-
-}
-\caption{Demand 0CFA Find relation}
-\label{fig:demand-0cfa-find}
+\caption{Demand 0CFA Relations}
+\label{fig:demand-0cfa}
 \end{figure}
 
 

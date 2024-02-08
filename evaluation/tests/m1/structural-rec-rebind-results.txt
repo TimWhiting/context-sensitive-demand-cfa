@@ -9,16 +9,16 @@
  'query:
  '(app (-> x <-) x)
  (flatenv '(((top) app (λ (x) (app x x)) (λ (y) (app y y))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (flatenv '()))
-'(clos/con: ((λ (x) (app x x))))
+(list 'clos/con: (list (list '(λ (x) (app x x)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app (-> y <-) y)
  (flatenv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -30,13 +30,13 @@
  'query:
  '(app x (-> x <-))
  (flatenv '(((top) app (λ (x) (app x x)) (λ (y) (app y y))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app y (-> y <-))
  (flatenv '(((bod (x) (rat ((λ (y) (app y y))) (top))) app x x))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -48,7 +48,7 @@
  'query:
  '(app y (-> y <-))
  (flatenv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (flatenv '()))
 '(clos/con: ⊥)
@@ -57,8 +57,8 @@
  'query:
  '(app (-> y <-) y)
  (flatenv '(((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (flatenv '()))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

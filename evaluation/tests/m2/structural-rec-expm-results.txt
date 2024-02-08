@@ -13,7 +13,7 @@
  (expenv
   '((((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)
      ((bod (x) (rat ((λ (y) (app y y))) (top))) app x x)))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -21,10 +21,10 @@
  (expenv
   '((((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)
      ((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> (λ (x) (app x x)) <-) (λ (y) (app y y))) (expenv '()))
-'(clos/con: ((λ (x) (app x x))))
+(list 'clos/con: (list (list '(λ (x) (app x x)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -32,7 +32,7 @@
  (expenv
   '((((bod (x) (rat ((λ (y) (app y y))) (top))) app x x)
      ((top) app (λ (x) (app x x)) (λ (y) (app y y)))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -40,7 +40,7 @@
  (expenv
   '((((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)
      ((bod (x) (rat ((λ (y) (app y y))) (top))) app x x)))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (expenv '()))
 '(clos/con: ⊥)
@@ -55,7 +55,7 @@
  'query:
  '(app (-> x <-) x)
  (expenv '((((top) app (λ (x) (app x x)) (λ (y) (app y y)))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -79,7 +79,7 @@
  (expenv
   '((((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)
      ((bod (y) (ran (λ (x) (app x x)) () () (top))) app y y)))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -87,14 +87,14 @@
  (expenv
   '((((bod (x) (rat ((λ (y) (app y y))) (top))) app x x)
      ((top) app (λ (x) (app x x)) (λ (y) (app y y)))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app x (-> x <-))
  (expenv '((((top) app (λ (x) (app x x)) (λ (y) (app y y)))))))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (λ (x) (app x x)) (-> (λ (y) (app y y)) <-)) (expenv '()))
-'(clos/con: ((λ (y) (app y y))))
+(list 'clos/con: (list (list '(λ (y) (app y y)) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

@@ -1,6 +1,6 @@
 '(expression: (let ((x (λ (y) y))) (let ((_ (app x 1))) (app x 2))))
 (list 'query: '(app (-> x <-) 1) (flatenv '()))
-'(clos/con: ((λ (y) y)))
+(list 'clos/con: (list (list '(λ (y) y) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(let (x) (-> (let ((_ (app x 1))) (app x 2)) <-)) (flatenv '()))
 '(clos/con: ⊥)
@@ -12,7 +12,7 @@
 '(clos/con: ⊥)
 '(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(app (-> x <-) 2) (flatenv '()))
-'(clos/con: ((λ (y) y)))
+(list 'clos/con: (list (list '(λ (y) y) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -25,7 +25,7 @@
 '(clos/con: ⊥)
 '(literals: (2 ⊥ ⊥ ⊥))
 (list 'query: '(let ((-> x = (λ (y) y) <-)) bod) (flatenv '()))
-'(clos/con: ((λ (y) y)))
+(list 'clos/con: (list (list '(λ (y) y) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app x (-> 2 <-)) (flatenv '()))
 '(clos/con: ⊥)
