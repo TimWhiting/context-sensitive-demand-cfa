@@ -10,6 +10,8 @@
 (struct expenv (m) #:transparent)
 ; Demand m-CFA environments (nested environments, with embedded environments)
 (struct envenv (m) #:transparent)
+; Demand m-CFA environments (nested environments, with embedded environments) - lightweight version
+(struct lenv (m) #:transparent)
 ; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
 (struct menv (m) #:transparent)
 
@@ -19,6 +21,7 @@
     [(expenv l) l]
     [(envenv l) l]
     [(menv l) l]
+    [(lenv l) l]
     ))
 
 ; Splits into the current closure's calling context, and the lexically enclosing closure's environment
@@ -30,6 +33,8 @@
     [(expenv '()) (expenv '())]
     [(envenv (cons head tail)) (cons head (envenv tail))]
     [(envenv '()) (envenv '())]
+    [(lenv (cons head tail)) (cons head (envenv tail))]
+    [(lenv '()) (envenv '())]
     [(menv (cons head tail)) (cons head (menv tail))]
     [(menv '()) (menv '())]
     )
@@ -148,7 +153,8 @@
   (match ρ
     [(menv _) (take-cc (cons Ce (head-cc ρ)))]
     [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
-    [(expenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
+    [(envenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) '_)]
+    [(lenv _) ((calibrate-ccsm (current-m) #t) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
@@ -161,19 +167,24 @@
     )
   )
 
-(define ((calibrate-ccsm m) cc0 cc1)
+(define ((calibrate-ccsm m [lightweight #f]) cc0 cc1)
   (assert-indeterminate cc1)
   (if (equal? m 0)
-      (match cc0 ; Cut
-        [(list) (list)]; Already 0
-        [`(cenv ,_ ,_) '!]; Cut known
-        ['! '!]
-        [`(□? ,x) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
-        )
+      (if lightweight
+          '()
+          (match cc0 ; Cut
+            [(list) (list)]; Already 0
+            [`(cenv ,_ ,_) '!]; Cut known
+            ['! '!]
+            [`(□? ,x) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
+            ))
       (match cc0
         [(list); Restore indeterminate context if there was any
-         (assert-indeterminate cc1 #f)
-         cc1] ; cc1 is always indeterminate
+         (if lightweight '()
+             (begin
+               (assert-indeterminate cc1 #f)
+               cc1)
+             )] ; cc1 is always indeterminate
         ['! '!];
         [`(□? ,x) `(□? ,x)]
         [`(cenv ,call ,ρ₀)
@@ -277,6 +288,7 @@
         [(expenv l) (expenv (map show-simple-call l))]
         [(menv l) (menv (map show-simple-call l))]
         [(envenv l) (envenv (map show-simple-call l))]
+        [(lenv l) (lenv (map show-simple-call l))]
         )
       ρ
       )

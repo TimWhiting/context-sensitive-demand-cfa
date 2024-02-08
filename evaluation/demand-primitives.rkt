@@ -9,8 +9,8 @@
     ['+ `(prim ,do-add)]
     ['<= `(prim ,do-lte)]
     ['not `(prim ,do-not)]
-    ['or `(prim ,do-or)]
-    ['and `(prim ,do-and)]
+    ['or `(prim ,do-or)]; TODO Handle in match positions
+    ['and `(prim ,do-and)]; TODO Handle in match positions
     ['equal? `(prim, do-equal)]
     [_ #f]
     )
@@ -63,26 +63,23 @@
 
 (define (do-or p C . args)
   ; (pretty-print (ors (map is-true args)))
-  (if (ors (map is-true args))
+  (if (ors (map is-truthy args))
       (clos (cons C #t) p)
       (clos (cons C #f) p)
       ))
 
 (define (do-and p C . args)
-  (if (alls (map is-true args))
+  (if (alls (map is-truthy args))
       (clos (cons C #t) p)
       (clos (cons C #f) p)
       ))
 
-(define (is-true r)
+(define (is-truthy r)
+  (not (is-falsey r)))
+
+(define (is-falsey r)
   (match r
-    [(product/set (list (cons C #t) env)) #t]
-    [_ #f]
-    )
-  )
-(define (is-false r)
-  (match r
-    [(product/set (list (cons C #f) env)) #t]
+    [(product/set (list (cons C #f) env)) #t]; Only #f counts as falsey in scheme
     [_ #f]
     )
   )

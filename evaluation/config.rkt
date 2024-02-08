@@ -2,10 +2,13 @@
 
 (provide (all-defined-out))
 
+; number of times to time the computation
+(define time-trials 5)
+
 ; m stack frames
 (define current-m (make-parameter 1))
 
-; 'basic or 'hybrid for demand-mcfa
+; 'basic, 'light or 'hybrid for demand-mcfa
 ; 'exponential or 'rebinding for regular mcfa
 (define analysis-kind (make-parameter '_))
 

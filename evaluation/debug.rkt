@@ -37,25 +37,6 @@
 (define (show-simple-lattice l) (match l [(top) '⊤] [(bottom) '⊥] [(singleton x) x]))
 (define (show-simple-literal l) (match l [(literal l) (map show-simple-lattice l)]))
 
-(define (show-simple-result r)
-  (match r
-    [(product/set s) `(clos/con: ,(show-simple-clos/con s))]
-    [(product/lattice l) `(literals: ,(show-simple-literal l))]
-    )
-  )
-
-(define (pretty-result r)
-  (pretty-result-out (current-output-port) r))
-
-(define (pretty-result-out out r)
-  (match r
-    [(cons s l)
-     (if (set-empty? s)
-         (pretty-print `(clos/con: ⊥) out)
-         (pretty-print `(clos/con: ,(map show-simple-clos/con (set->list s))) out))
-     (pretty-print `(literals: ,(show-simple-literal l)) out)
-     ]))
-
 (define (print-eval-result input computation [override #f])
   (define show (or (trace) override))
   (if show (pretty-print `(start ,input)) '())

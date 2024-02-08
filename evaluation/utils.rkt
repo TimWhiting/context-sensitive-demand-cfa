@@ -1,6 +1,14 @@
 #lang racket/base
-(require racket/match)
+(require racket/match racket/list)
 (provide (all-defined-out))
+
+(define (hash-num-keys h) (length (hash-keys h)))
+
+(define-syntax-rule (zip l ...)
+  (map list l ...))
+
+(define (intersperse n l)
+  (add-between l n))
 
 (define (ors xs)
   (match xs

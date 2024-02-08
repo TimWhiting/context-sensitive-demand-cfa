@@ -1,112 +1,47 @@
 #lang racket/base
-(require "demand.rkt" "all-examples.rkt" "config.rkt"
-         "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt")
+(require "demand.rkt" "all-examples.rkt" "config.rkt" "utils.rkt"
+         "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt" "results.rkt" "run.rkt")
 (require "m-cfa.rkt")
 (require racket/pretty racket/match)
 
-(define (hash-num-keys h) (length (hash-keys h)))
-(define (zip l1 l2) (map list l1 l2))
-
-(define time-trials 1)
 (define print-simple-diff #t)
 (define max-context-length 2)
-
-(define-syntax-rule (run/timen n m k x ...)
-  (let ()
-    (define thd (current-thread))
-    (sync/timeout
-     (/ 5.0 n)
-     (thread (lambda ()
-               (analysis-kind k)
-               (current-m m)
-               (let ([result (let () x ...)])
-                 (thread-send thd result)
-                 )
-               )))
-    (define result (thread-receive))
-    (if result
-        result
-        (begin
-          (pretty-print (string-append "timeout " "m=" (number->string m) " kind=" (symbol->string k)))
-          #f
-          )
-        ))
-  )
-
-(define-syntax-rule (run/timeoutn n m k x ...)
-  (let ([times '()])
-    (for ([_ (in-range time-trials)])
-      (set! times (cons (run/timen n m k x ...) times))
-      )
-    times
-    ))
-
-(define-syntax-rule (run/timeout m k x ...)
-  (run/timeoutn 1 m k x ...))
-
-(define (report-mcfa-hash h out)
-  (for ([keyval (hash->list h)])
-    (match keyval
-      [(cons (and key (meval Ce p)) _)
-       (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
-       (pretty-result-out out (from-hash key h))
-       ]
-      [_ '()]
-      )
-    )
-  )
-
-(define (run-rebind-example example name exp m)
-  (define out (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-rebind-results.txt") #:exists 'replace))
+(define (run-mcfa example name kind kindstring query exp m)
+  (define out (open-output-file
+               (string-append "tests/m" (number->string (current-m)) "/"
+                              (symbol->string name) "-" kindstring "-results.txt")
+               #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
-  (define rebh (hash))
-  ; (pretty-print "Finished exponential mcfa")
-  (define time (run/timeout
-                m 'rebinding
-                (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                       [rebhx (run-get-hash (meval (cons `(top) exp) (flatenv '())) (hash))]
-                       [timeend (current-inexact-monotonic-milliseconds)])
-                  (set! rebh rebhx)
-                  (- timeend timestart)
-                  )))
+  (run/parameters
+   m kind
+   (run-get-hash (meval query) (hash))))
 
-  (report-mcfa-hash rebh out)
-  (pretty-print
-   (apply string-append (append (list (symbol->string name) ", " (number->string m) ", ")
-                                (intersperse ", " (map number->string time)))))
-  (close-output-port out)
+(define (run-rebind example name exp m)
+  (run-mcfa example name 'rebinding "rebind" (cons `(top) exp) (flatenv '()) exp m))
+
+(define (run-expm example name exp m)
+  (run-mcfa example name 'exponential "expm" (cons `(top) exp) (expenv '()) exp m))
+
+(define (run-demand name num-queries kind m Ce p out)
+  (define query (eval Ce p))
+  (define hash-result (hash))
+  (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
+  (run/timeoutn
+   num-queries m kind
+   (let
+       ([hash-new (run-get-hash query (hash))])
+     (set! hash-result hash-new)
+     ))
+  (pretty-result-out out (from-hash query hash-result))
+  hash-result
   )
-
-(define (run-expm-example example name exp m)
-  (define out (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-expm-results.txt") #:exists 'replace))
-  (pretty-print `(expression: ,exp) out)
-  ; (pretty-print "Finished exponential mcfa")
-  (define exph (hash))
-  (define time (run/timeout
-                m 'exponential
-                (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                       [exphx (run-get-hash (meval (cons `(top) exp) (expenv '())) (hash))]
-                       [timeend (current-inexact-monotonic-milliseconds)])
-                  (set! exph exphx)
-                  (- timeend timestart)
-                  )))
-  (report-mcfa-hash exph out)
-  (pretty-print
-   (apply string-append (append (list (symbol->string name) ", " (number->string m) ", ")
-                                (intersperse ", " (map number->string time)))))
-  (close-output-port out)
-  )
-
-(define (intersperse n l)
-  (match l
-    [(cons a b) (cons a (cons n (intersperse n b)))]
-    ['() '()]))
 
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
+          [light-cost 0]
           [hybrid-cost 0])
       (current-m m)
       (for ([example syntax-basics])
@@ -114,120 +49,89 @@
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
+          (define out-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-results.txt") #:exists 'replace))
           (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))
           (define out-keys-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-keys.txt") #:exists 'replace))
+          (define out-keys-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-keys.txt") #:exists 'replace))
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
-          (pretty-print `(expression: ,exp) out-basic)
-          (pretty-print `(expression: ,exp) out-hybrid)
-          (pretty-print `(expression: ,exp) out-keys-basic)
-          (pretty-print `(expression: ,exp) out-keys-hybrid)
+          (for ([file (list out-basic out-hybrid out-light out-keys-basic out-keys-hybrid out-keys-light)])
+            (pretty-print `(expression: ,exp) file))
           (pretty-displayn 0 "")
           ; (show-envs #t)
           ; (trace 1)
-          (run-rebind-example example name exp m)
-          (run-expm-example example name exp m)
+          (run-rebind example name exp m)
+          (run-expm example name exp m)
+          (define qbs (basic-queries exp))
+          (define qhs (hybrid-queries exp))
+          (define qls (light-queries exp))
           ; (pretty-print "Finished regular mcfa")
-          (let ([qbs (basic-queries exp)]
-                [qhs (hybrid-queries exp)])
-            (for ([qs (zip qbs qhs)])
-              (match-let ([h1 (hash)]
-                          [h2 (hash)]
-                          ; TODO: Is it okay for the continuations to escape and be reused later?
-                          [(list (list cb pb) (list ch ph)) qs])
-                (define evalqb (eval cb pb))
-                (define evalqh (eval ch ph))
-                (pretty-tracen 0 "Running query ")
-                ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
-                ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
-                (define basic-time
-                  (run/timeoutn
-                   ; (pretty-print "Starting basic demand-mcfa")
-                   (length qbs) m 'basic
-                   (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                          [h1x (run-get-hash evalqb (hash))]
-                          [timeend (current-inexact-monotonic-milliseconds)]
-                          [time (- timeend timestart)])
-                     (set! h1 h1x)
-                     (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-                     time
-                     )))
-                (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-basic)
-                (pretty-result-out out-basic (from-hash evalqb h1))
-                (pretty-print
-                 (apply string-append (append
-                                       (list (symbol->string name) ", " (number->string m) ", " (query->string evalqb) ", " (number->string (hash-num-keys h1)) ", ")
-                                       (intersperse ", " (map number->string basic-time)))))
-                (if #t
-                    (let ()
-                      (define hybrid-time
-                        (run/timeoutn
-                         (length qhs) m 'hybrid
-                         ;  (pretty-print "Starting hybrid demand-mcfa")
-                         (let* ([timestart (current-inexact-monotonic-milliseconds)]
-                                [h2x (run-get-hash evalqh (hash))]
-                                [timeend (current-inexact-monotonic-milliseconds)]
-                                [time (- timeend timestart)])
-                           (set! h2 h2x)
-                           (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-                           time
-                           )))
-                      (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-hybrid)
-                      (pretty-tracen 0 (from-hash evalqh h2))
-                      (pretty-result-out out-hybrid (from-hash evalqh h2))
-                      (pretty-print
-                       (apply string-append (append
-                                             (list (symbol->string name) ", " (number->string m) ", " (query->string evalqh) ", " (number->string (hash-num-keys h2))  ", ")
-                                             (intersperse ", " (map number->string hybrid-time)))))
+          (for ([qs (zip qbs qhs)])
+            (match-let ([h1 (hash)]
+                        [h2 (hash)]
+                        [h3 (hash)]
+                        ; TODO: Is it okay for the continuations to escape and be reused later?
+                        [(list (list cb pb) (list ch ph)) qs])
+              (define evalqb (eval cb pb))
+              (define evalqh (eval ch ph))
+              (pretty-tracen 0 "Running query ")
+              ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
+              ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
-                      (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
-                          '()
-                          (begin
-                            (pretty-display "" out-keys-basic)
-                            (pretty-display "" out-keys-hybrid)
-                            (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-keys-basic)
-                            (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-keys-hybrid)
-                            (pretty-display "" out-keys-basic)
-                            (pretty-display "" out-keys-hybrid)
-                            (pretty-print (queries h1) out-keys-basic)
-                            (pretty-print (length (hash-keys h1)) out-keys-basic)
-                            (pretty-print (queries h2) out-keys-hybrid)
-                            (pretty-print (length (hash-keys h2)) out-keys-hybrid)
-                            (pretty-display "" out-keys-basic)
-                            (pretty-display "" out-keys-hybrid)
-                            )
+              (set! h1 (run-demand name (length qbs) 'basic m cb pb out-basic))
+              (set! basic-cost (+ basic-cost (hash-num-keys h1)))
+              (if #t
+                  (begin
+                    (set! h2 (run-demand name (length qhs) 'hybrid m ch ph out-hybrid))
+                    (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
+                    (set! h3 (run-demand name (length qls) 'lightweight m ch ph out-light))
+                    (set! light-cost (+ light-cost (hash-num-keys h3)))
+                    (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
+                        '()
+                        (begin
+                          (pretty-display "" out-keys-basic)
+                          (pretty-display "" out-keys-hybrid)
+                          (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-keys-basic)
+                          (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-keys-hybrid)
+                          (pretty-display "" out-keys-basic)
+                          (pretty-display "" out-keys-hybrid)
+                          (pretty-print (queries h1) out-keys-basic)
+                          (pretty-print (length (hash-keys h1)) out-keys-basic)
+                          (pretty-print (queries h2) out-keys-hybrid)
+                          (pretty-print (length (hash-keys h2)) out-keys-hybrid)
+                          (pretty-display "" out-keys-basic)
+                          (pretty-display "" out-keys-hybrid)
                           )
-                      ; (pretty-print h2)
-                      (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
-                          '() ; (pretty-print "Results match")
-                          (begin
-                            (if print-simple-diff
-                                (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqh)))
-                                (begin
-                                  (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
-                                  (displayln "" (current-error-port))
-                                  (pretty-print `(query: ,cb ,pb) (current-error-port))
-                                  (pretty-display "Basic result: " (current-error-port))
-                                  (pretty-result-out (current-error-port) (from-hash evalqb h1))
-                                  (displayln "" (current-error-port))
-                                  (pretty-print `(query: ,ch ,ph) (current-error-port))
-                                  (pretty-display "Hybrid result: " (current-error-port))
-                                  (pretty-result-out (current-error-port) (from-hash evalqh h2))
-                                  (displayln "" (current-error-port))
-                                  '()
-                                  )
+                        )
+                    ; (pretty-print h2)
+                    (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
+                        '() ; (pretty-print "Results match")
+                        (begin
+                          (if print-simple-diff
+                              (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqh)))
+                              (begin
+                                (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
+                                (displayln "" (current-error-port))
+                                (pretty-print `(query: ,cb ,pb) (current-error-port))
+                                (pretty-display "Basic result: " (current-error-port))
+                                (pretty-result-out (current-error-port) (from-hash evalqb h1))
+                                (displayln "" (current-error-port))
+                                (pretty-print `(query: ,ch ,ph) (current-error-port))
+                                (pretty-display "Hybrid result: " (current-error-port))
+                                (pretty-result-out (current-error-port) (from-hash evalqh h2))
+                                (displayln "" (current-error-port))
+                                '()
                                 )
-                            ;  (show-envs #t)
+                              )
+                          ;  (show-envs #t)
 
-                            ;  (exit)
-                            )
+                          ;  (exit)
                           )
-                      )
-                    '()
+                        )
                     )
-                )
-
+                  '()
+                  )
               )
             )
           )
@@ -235,55 +139,7 @@
       (pretty-print `(current-m: ,(current-m)))
       (pretty-print `(basic-cost ,basic-cost))
       (pretty-print `(hybrid-cost ,hybrid-cost))
+      (pretty-print `(light-cost ,light-cost))
       )
     )
-  )
-
-(define (lt-expr e1 e2)
-  (match e1
-    [(cons x xs)
-     (match e2
-       [(cons y ys)
-        (if (lt-expr x y)
-            #t
-            (if (lt-expr y x)
-                #f
-                (lt-expr xs ys)))]
-       [_ #f]
-       )]
-    [#t #f]
-    [#f #t]
-    ['() #t]
-    [(envenv l1)
-     (match e2
-       [(envenv l2) (lt-expr l1 l2)]
-       )]
-    [(menv l1)
-     (match e2
-       [(menv l2) (lt-expr l1 l2)]
-       )]
-    [(? number? n1) (match e2 [(? number? n2) (< n1 n2)][_ #t])]
-    [(? string? n1) (match e2 [(? string? n2) (string<? n1 n2)][_ #t])]
-    [(? char? n1) (match e2 [(? char? n2) (char<? n1 n2)][_ #t])]
-    [(? symbol? n1) (match e2 [(? symbol? n2) (symbol<? n1 n2)]
-                      [n2
-                       ;  (pretty-print `(sym-comp ,n1 ,n2))
-                       #t])]
-    )
-  )
-
-(define (simple-key k)
-  (match k
-    [(eval Ce p) `(eval ,(show-simple-ctx Ce) ,(show-simple-env p))]
-    [(expr Ce p) `(expr ,(show-simple-ctx Ce) ,(show-simple-env p))]
-    [(refine p) `(refine ,(show-simple-env p))]
-    )
-  )
-
-(define (query->string q)
-  (pretty-format (simple-key q))
-  )
-
-(define (queries hm)
-  (sort (filter (lambda (x) (not (equal? x '()))) (map simple-key (hash-keys hm))) lt-expr)
   )

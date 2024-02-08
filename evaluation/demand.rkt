@@ -334,7 +334,7 @@ Finish the paper
             (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
-                   (let ([cc₁ (enter-cc Cee ρee '_)])
+                   (let ([cc₁ (enter-cc Cee ρee)])
                      (cond
                        [(equal? cc₀ cc₁)
                         (pretty-trace `(CALL-EQ ,cc₀ ,cc₁))
