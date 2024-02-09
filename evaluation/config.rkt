@@ -5,6 +5,12 @@
 ; number of times to time the computation
 (define time-trials 5)
 
+(define acc-trials 50)
+
+(define num-shuffles 10)
+
+(define timeout 5.0)
+
 ; m stack frames
 (define current-m (make-parameter 1))
 

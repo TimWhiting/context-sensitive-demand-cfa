@@ -2,9 +2,8 @@
 (require "demand.rkt" "all-examples.rkt" "config.rkt" "utils.rkt"
          "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt" "run.rkt" "results.rkt")
 (require "m-cfa.rkt")
-(require racket/pretty racket/match)
+(require racket/pretty racket/match racket/list)
 
-(define print-simple-diff #t)
 (define max-context-length 2)
 
 (define (run-mcfa name kind kindstring query exp m out-time)
@@ -19,17 +18,16 @@
      m kind
      (match-let-values
       ([((list hash-new) cpu real gc)
-        (time-apply (lambda () (run-get-hash query (hash))) '())])
+        (time-apply (lambda ()
+                      (for/and ([trial (range acc-trials)])
+                        (run-get-hash query (hash))))
+                    '())])
       (set! result-hash hash-new)
-      (list cpu real gc)
+      (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
 
   (report-mcfa-hash result-hash out)
-  (pretty-display
-   (string-append "\"" (symbol->string name) "\", "
-                  (number->string m)
-                  (report-times timed-result))
-   out-time)
+  (pretty-print `(,name ,m ,(hash-num-keys result-hash) ,timed-result) out-time)
   (close-output-port out)
   result-hash
   )
@@ -40,7 +38,7 @@
 (define (run-expm name exp m out-time)
   (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m out-time))
 
-(define (run-demand name num-queries kind m Ce p out out-time)
+(define (run-demand name num-queries kind m Ce p out out-time shufflen old-hash)
   (define query (eval Ce p))
   (define hash-result (hash))
   (define time-result
@@ -48,93 +46,81 @@
      num-queries m kind
      (match-let-values
       ([((list hash-new) cpu real gc)
-        (time-apply (lambda () (run-get-hash query (hash))) '())])
+        (time-apply (lambda ()
+                      (for/and ([trial (range acc-trials)])
+                        (run-get-hash query old-hash)))
+                    '())])
       (set! hash-result hash-new)
-      (list cpu real gc)
+      (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
-  (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
-  (pretty-result-out out (from-hash query hash-result))
-  (pretty-display
-   (string-append "\"" (symbol->string name) "\", "
-                  (number->string m) ", " (query->string query) ", "
-                  (number->string (hash-num-keys hash-result))
-                  (report-times time-result))
-   out-time)
+
+  (if (equal? shufflen -1)
+      (begin
+        (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
+        (pretty-result-out out (from-hash query hash-result))
+        (pretty-print `(,name ,m ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
+        )
+      (begin
+        (pretty-print `(,name ,m ,shufflen ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
+        )
+      )
   hash-result
   )
 
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define out-time-basic (open-output-file (string-append "tests/basic-time.csv") #:exists 'replace))
-  ; (define out-time-light (open-output-file (string-append "tests/light-time.csv") #:exists 'replace))
-  ; (define out-time-hybrid (open-output-file (string-append "tests/hybrid-time.csv") #:exists 'replace))
-  (define out-time-rebind (open-output-file (string-append "tests/rebind-time.csv") #:exists 'replace))
-  (define out-time-expm (open-output-file (string-append "tests/expm-time.csv") #:exists 'replace))
+  (define out-time-basic (open-output-file (string-append "tests/basic-time.sexpr") #:exists 'replace))
+  (define out-time-basic-acc (open-output-file (string-append "tests/basic-time-acc.sexpr") #:exists 'replace))
+  (define out-time-rebind (open-output-file (string-append "tests/rebind-time.sexpr") #:exists 'replace))
+  (define out-time-expm (open-output-file (string-append "tests/expm-time.sexpr") #:exists 'replace))
 
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
-          [light-cost 0]
-          [hybrid-cost 0]
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
       (for ([example successful-examples])
-        ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
-          ; (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
-          ; (define out-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-results.txt") #:exists 'replace))
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
-          (for ([file (list out-basic)]) ; out-hybrid out-light)])
+          (for ([file (list out-basic)])
             (pretty-print `(expression: ,exp) file))
           (pretty-displayn 0 "")
-          ; (show-envs #t)
-          ; (trace 1)
+
           (define rebindhash (run-rebind name exp m out-time-rebind))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
           (define expmhash (run-expm name exp m out-time-expm))
           (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
-          (define qbs (basic-queries exp))
-          (define qhs (hybrid-queries exp))
-          (define qls (light-queries exp))
-          ; (pretty-print "Finished regular mcfa")
 
-          ; TODO: Variant with hash reuse, and run queries multiple times to spend enough ms to actually show up
-          ; (Make sure to reset the hash if running multiple times)
-          ; TODO: Randomize query order
-          (for ([qs (zip qbs qhs qls)])
-            (match-let ([h1 (hash)] ; TODO: Is it okay for the continuations to escape and be reused later?
-                        [h2 (hash)]
-                        [h3 (hash)]
-                        [(list (list cb pb) (list ch ph) (list cl pl)) qs])
-              (define evalqb (eval cb pb))
-              (define evalqh (eval ch ph))
-              (pretty-tracen 0 "Running query ")
-              ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
-              ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
-              (set! h1 (run-demand name (length qbs) 'basic m cb pb out-basic out-time-basic))
-              (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-              ; (set! h2 (run-demand name (length qhs) 'hybrid m ch ph out-hybrid out-time-hybrid))
-              ; (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-              ; (set! h3 (run-demand name (length qls) 'lightweight m cl pl out-light out-time-light))
-              ; (set! light-cost (+ light-cost (hash-num-keys h3)))
+          (define qbs (basic-queries exp))
+          (for ([shufflen (range num-shuffles)])
+            (define h1 (hash))
+            (for ([qs (shuffle qbs)])
+              (match-let ([(list cb pb) qs])
+                (pretty-tracen 0 "Running query ")
+                (if (equal? shufflen 0)
+                    (let ()
+                      (define hx (run-demand name (length qbs) 'basic m cb pb out-basic out-time-basic -1 (hash)))
+                      (set! basic-cost (+ basic-cost (hash-num-keys hx)))
+                      )
+                    '()
+                    )
+                (set! h1 (run-demand name (length qbs) 'basic m cb pb '_ out-time-basic-acc shufflen h1))
+                )
               )
-            )
-          ); TODO: Clean up output ports
+            ); TODO: Clean up output ports
+          )
         )
       (pretty-print `(current-m: ,(current-m)))
       (pretty-print `(basic-cost ,basic-cost))
       (pretty-print `(rebind-cost ,rebind-cost))
       (pretty-print `(expm-cost ,expm-cost))
-      ; (pretty-print `(hybrid-cost ,hybrid-cost))
-      ; (pretty-print `(light-cost ,light-cost))
       )
     )
   (close-output-port out-time-basic)
+  (close-output-port out-time-basic-acc)
   (close-output-port out-time-rebind)
   (close-output-port out-time-expm)
-  ; (close-output-port out-time-hybrid)
-  ; (close-output-port out-time-light)
   )

@@ -14,7 +14,7 @@
   (let ()
     (define thd (current-thread))
     (sync/timeout
-     (/ 5.0 n)
+     (/ (* timeout acc-trials) n)
      (thread (lambda ()
                (analysis-kind k)
                (current-m m)

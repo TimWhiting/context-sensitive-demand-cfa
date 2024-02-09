@@ -4,23 +4,6 @@
 (require racket/pretty racket/match racket/set)
 (provide (all-defined-out))
 
-(define (report-times times [trial 0])
-  (match times
-    ['() ""]
-    [(cons (list cpu real gc) rst)
-     (string-append
-      ","
-      (number->string trial)
-      ","
-      (number->string cpu)
-      ","
-      (number->string real)
-      ","
-      (number->string gc)
-      (report-times rst (+ 1 trial)))]
-    )
-  )
-
 (define (report-mcfa-hash h out)
   (for ([keyval (hash->list h)])
     (match keyval
@@ -32,7 +15,6 @@
       )
     )
   )
-
 
 (define (lt-expr e1 e2)
   (match e1
