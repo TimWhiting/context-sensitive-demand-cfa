@@ -41,13 +41,14 @@
 (define basic-lambda-examples (get-examples '(id let structural-rec err)))
 (define multiple-param-examples (get-examples '(multi-param)))
 (define constructor-examples (get-examples '(constr)))
-(define r6rs (get-examples '(ack blur church cpstak sat-1 kcfa-2)))
+(define r6rs (get-examples '(ack blur cpstak kcfa-2 kcfa-3 sat-1 sat-2 sat-3)))
 (define test-examples (get-examples '(blur)))
 
 (define hybrid-failures (get-examples '(blur sat-small)))
 (define general-failures (get-examples '(church cpstak)))
 (define bad-results (get-examples '(sat-1))); ?check kcfa-2
-(define untested (get-examples '())); ?check kcfa-2
+; Fails to parse: regex, fail to run church
+(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa))); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)

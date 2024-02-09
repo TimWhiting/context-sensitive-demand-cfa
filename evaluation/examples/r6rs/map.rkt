@@ -1,4 +1,4 @@
-
+#lang s-exp "../../lang/simple-scheme.rkt"
 (define (debug-trace) #f)
 
 (define (id xx)

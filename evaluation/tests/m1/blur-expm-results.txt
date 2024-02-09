@@ -1,0 +1,2103 @@
+'(expression:
+  (letrec ((id (λ (x) x))
+           (blur (λ (y) y))
+           (lp
+            (λ (a n)
+              (match
+               (app <= n 1)
+               (#t (app id a))
+               (#f
+                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+                  (app not (app (app blur lp) s (app - n 1)))))))))
+    (app lp #f 2)))
+(list
+ 'query:
+ '(app not (-> (app (app blur lp) s (app - n 1)) <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> <= <-) n 1)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: (#<procedure:do-lte>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app <= (-> n <-) 1)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) lp)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur id) (-> #t <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur id) <-) #t)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x) (-> x <-))
+ (expenv
+  '((((match-clause
+       #t
+       (app <= n 1)
+       ()
+       ((#f
+         (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+           (app not (app (app blur lp) s (app - n 1))))))
+       (bod
+        (a n)
+        (bin
+         letrec
+         lp
+         (app lp #f 2)
+         ((id (λ (x) x)) (blur (λ (y) y)))
+         ()
+         (top))))
+      app
+      id
+      a)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app lp #f (-> 2 <-)) (expenv '()))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) (app (app blur lp) s (app - n 1)))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (id
+           blur
+           (->
+            lp
+            =
+            (λ (a n)
+              (match
+               (app <= n 1)
+               (#t (app id a))
+               (#f
+                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+                  (app not (app (app blur lp) s (app - n 1)))))))
+            <-))
+    bod)
+ (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur id) <-) #t)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - n (-> 1 <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> id <-) a)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r (-> s = (app (app blur id) #f) <-)) bod)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> n <-) 1)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (-> #t (app id a) <-)
+   (#f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> id <-) a)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y) (-> y <-))
+ (expenv
+  '((((rat
+       (#t)
+       (bin
+        let*
+        r
+        (app not (app (app blur lp) s (app - n 1)))
+        ()
+        ((s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      blur
+      id)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> lp <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (a n)
+    (->
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1))))))
+     <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur id) (-> #f <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur lp) <-) s (app - n 1))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* ((-> r = (app (app blur id) #t) <-) s) bod)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (#t (app id a))
+   (->
+    #f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))
+    <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur id) <-) #f)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app id (-> a <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app <= n 1) <-)
+   (#t (app id a))
+   (#f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (#t (app id a))
+   (->
+    #f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))
+    <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app <= n (-> 1 <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list 'query: '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (expenv '()))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app <= n (-> 1 <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur lp) <-) s (app - n 1))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) lp)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) id)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x) (-> x <-))
+ (expenv
+  '((((bin
+       let*
+       r
+       (app not (app (app blur lp) s (app - n 1)))
+       ()
+       ((s (app (app blur id) #f)))
+       (match-clause
+        #f
+        (app <= n 1)
+        ((#t (app id a)))
+        ()
+        (bod
+         (a n)
+         (bin
+          letrec
+          lp
+          (app lp #f 2)
+          ((id (λ (x) x)) (blur (λ (y) y)))
+          ()
+          (top)))))
+      app
+      (app blur id)
+      #t)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app <= n 1) <-)
+   (#t (app id a))
+   (#f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur lp) (-> s <-) (app - n 1))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) (app (app blur lp) s (app - n 1)))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) id)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app <= (-> n <-) 1)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(letrec (id blur lp) (-> (app lp #f 2) <-)) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> n <-) 1)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur lp) (-> s <-) (app - n 1))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app not (-> (app (app blur lp) s (app - n 1)) <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (a n)
+    (->
+     (match
+      (app <= n 1)
+      (#t (app id a))
+      (#f
+       (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (app not (app (app blur lp) s (app - n 1))))))
+     <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - n (-> 1 <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur id) (-> #f <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) n 1)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur lp) s (-> (app - n 1) <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r (-> s = (app (app blur id) #f) <-)) bod)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> id <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> lp <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> <= <-) n 1)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+'(clos/con: (#<procedure:do-lte>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur lp) s (-> (app - n 1) <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app blur id) <-) #f)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x) (-> x <-))
+ (expenv
+  '((((bin
+       let*
+       s
+       (app not (app (app blur lp) s (app - n 1)))
+       ((r (app (app blur id) #t)))
+       ()
+       (match-clause
+        #f
+        (app <= n 1)
+        ((#t (app id a)))
+        ()
+        (bod
+         (a n)
+         (bin
+          letrec
+          lp
+          (app lp #f 2)
+          ((id (λ (x) x)) (blur (λ (y) y)))
+          ()
+          (top)))))
+      app
+      (app blur id)
+      #f)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> id <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(letrec (id (-> blur = (λ (y) y) <-) lp) bod) (expenv '()))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) id)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y) (-> y <-))
+ (expenv
+  '((((rat
+       (s (app - n 1))
+       (ran
+        not
+        ()
+        ()
+        (let-bod
+         let*
+         ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+         (match-clause
+          #f
+          (app <= n 1)
+          ((#t (app id a)))
+          ()
+          (bod
+           (a n)
+           (bin
+            letrec
+            lp
+            (app lp #f 2)
+            ((id (λ (x) x)) (blur (λ (y) y)))
+            ()
+            (top)))))))
+      app
+      blur
+      lp)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (-> #t (app id a) <-)
+   (#f
+    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))
+  (list #f (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> id <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) n 1)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> blur <-) id)
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (y) y) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app blur (-> id <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app lp (-> #f <-) 2) (expenv '()))
+(list 'clos/con: (list (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> lp <-) #f 2) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app id (-> a <-))
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list 'clos/con: (list (list #f (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app blur id) (-> #t <-))
+ (expenv
+  '((((ran
+       not
+       ()
+       ()
+       (let-bod
+        let*
+        ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      (app blur lp)
+      s
+      (app - n 1))))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* ((-> r = (app (app blur id) #t) <-) s) bod)
+ (expenv
+  '((((let-bod
+       letrec
+       ((id (λ (x) x))
+        (blur (λ (y) y))
+        (lp
+         (λ (a n)
+           (match
+            (app <= n 1)
+            (#t (app id a))
+            (#f
+             (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+               (app not (app (app blur lp) s (app - n 1)))))))))
+       (top))
+      app
+      lp
+      #f
+      2)))))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(((letrec (id blur lp) (-> (app lp #f 2) <-))))))
+  (list #t (expenv '(((app not (-> (app (app blur lp) s (app - n 1)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (y) (-> y <-))
+ (expenv
+  '((((rat
+       (#f)
+       (bin
+        let*
+        s
+        (app not (app (app blur lp) s (app - n 1)))
+        ((r (app (app blur id) #t)))
+        ()
+        (match-clause
+         #f
+         (app <= n 1)
+         ((#t (app id a)))
+         ()
+         (bod
+          (a n)
+          (bin
+           letrec
+           lp
+           (app lp #f 2)
+           ((id (λ (x) x)) (blur (λ (y) y)))
+           ()
+           (top))))))
+      app
+      blur
+      id)))))
+(list 'clos/con: (list (list '(λ (x) x) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

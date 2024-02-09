@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 (letrec ((lp1 (lambda (i x)
                 (if (= 0 i)
                     x

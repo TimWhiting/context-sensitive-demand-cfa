@@ -1,0 +1,2756 @@
+'(expression:
+  (letrec ((plus
+            (λ (p1)
+              (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))))
+           (mult (λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))))
+           (pred
+            (λ (n)
+              (λ (rf)
+                (λ (rx)
+                  (app
+                   (app
+                    (app n (λ (g) (λ (h) (app h (app g rf)))))
+                    (λ (ignored) rx))
+                   (λ (id) id))))))
+           (sub (λ (s1) (λ (s2) (app (app s2 pred) s1))))
+           (church0 (λ (f0) (λ (x0) x0)))
+           (church1 (λ (f1) (λ (x1) (app f1 x1))))
+           (church2 (λ (f2) (λ (x2) (app f2 (app f2 x2)))))
+           (church3 (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))))
+           (church0? (λ (z) (app (app z (λ (zx) #f)) #t)))
+           (church=?
+            (λ (e1)
+              (λ (e2)
+                (match
+                 (app church0? e1)
+                 (#t (app church0? e2))
+                 (#f
+                  (match
+                   (app church0? e2)
+                   (#t #f)
+                   (#f
+                    (app
+                     (app church=? (app (app sub e1) church1))
+                     (app (app sub e2) church1))))))))))
+    (app
+     (app church=? (app (app mult church2) (app (app plus church1) church3)))
+     (app
+      (app plus (app (app mult church2) church1))
+      (app (app mult church2) church3)))))
+(list 'query: '(app h (-> (app g rf) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app m1 (-> mf <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app sub (-> e2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p2 (-> pf <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app n (-> (λ (g) (λ (h) (app h (app g rf)))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f1 (-> x1 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (z) (-> (app (app z (λ (zx) #f)) #t) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (x1) (-> (app f1 x1) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> (app plus (app (app mult church2) church1)) <-)
+   (app (app mult church2) church3))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           church1
+           church2
+           church3
+           (-> church0? = (λ (z) (app (app z (λ (zx) #f)) #t)) <-)
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (z) (app (app z (λ (zx) #f)) #t)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f3 (-> (app f3 (app f3 x3)) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app sub e2) (-> church1 <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app church0? (-> e2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (e2)
+    (->
+     (match
+      (app church0? e1)
+      (#t (app church0? e2))
+      (#f
+       (match
+        (app church0? e2)
+        (#t #f)
+        (#f
+         (app
+          (app church=? (app (app sub e1) church1))
+          (app (app sub e2) church1))))))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x) (-> (app (app p1 pf) (app (app p2 pf) x)) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (rf)
+    (->
+     (λ (rx)
+       (app
+        (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+        (λ (id) id)))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app n (λ (g) (λ (h) (app h (app g rf))))) <-) (λ (ignored) rx))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app m2 (-> (app m1 mf) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (x2) (-> (app f2 (app f2 x2)) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app p1 pf) <-) (app (app p2 pf) x)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app church0? e1)
+   (#t (app church0? e2))
+   (->
+    #f
+    (match
+     (app church0? e2)
+     (#t #f)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))
+    <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app mult (-> church2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f2) (λ (x2) (app f2 (app f2 x2)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (e1)
+    (->
+     (λ (e2)
+       (match
+        (app church0? e1)
+        (#t (app church0? e2))
+        (#f
+         (match
+          (app church0? e2)
+          (#t #f)
+          (#f
+           (app
+            (app church=? (app (app sub e1) church1))
+            (app (app sub e2) church1)))))))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e2)
+      (match
+       (app church0? e1)
+       (#t (app church0? e2))
+       (#f
+        (match
+         (app church0? e2)
+         (#t #f)
+         (#f
+          (app
+           (app church=? (app (app sub e1) church1))
+           (app (app sub e2) church1)))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app plus (-> church1 <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p2) (-> (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f2) (-> (λ (x2) (app f2 (app f2 x2))) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> (app church=? (app (app sub e1) church1)) <-)
+   (app (app sub e2) church1))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e2)
+      (match
+       (app church0? e1)
+       (#t (app church0? e2))
+       (#f
+        (match
+         (app church0? e2)
+         (#t #f)
+         (#f
+          (app
+           (app church=? (app (app sub e1) church1))
+           (app (app sub e2) church1)))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    (->
+     (app
+      (app church=? (app (app mult church2) (app (app plus church1) church3)))
+      (app
+       (app plus (app (app mult church2) church1))
+       (app (app mult church2) church3)))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app plus church1) <-) church3) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app mult (-> church2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f2) (λ (x2) (app f2 (app f2 x2)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f3 <-) x3) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (s1) (-> (λ (s2) (app (app s2 pred) s1)) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (s2) (app (app s2 pred) s1)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app s2 pred) (-> s1 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app g (-> rf <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app plus church1) (-> church3 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (id) (-> id <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> mult <-) church2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f2 <-) (app f2 x2)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (ignored) (-> rx <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (zx) (-> #f <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           (-> mult = (λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) <-)
+           pred
+           sub
+           church0
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p1 (-> pf <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (mf) (-> (app m2 (app m1 mf)) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           (-> church1 = (λ (f1) (λ (x1) (app f1 x1))) <-)
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (pf) (-> (λ (x) (app (app p1 pf) (app (app p2 pf) x))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           (->
+            pred
+            =
+            (λ (n)
+              (λ (rf)
+                (λ (rx)
+                  (app
+                   (app
+                    (app n (λ (g) (λ (h) (app h (app g rf)))))
+                    (λ (ignored) rx))
+                   (λ (id) id)))))
+            <-)
+           sub
+           church0
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n)
+      (λ (rf)
+        (λ (rx)
+          (app
+           (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+           (λ (id) id)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> z <-) (λ (zx) #f)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app church0? e1) <-)
+   (#t (app church0? e2))
+   (#f
+    (match
+     (app church0? e2)
+     (#t #f)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> mult <-) church2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (m2) (-> (λ (mf) (app m2 (app m1 mf))) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app sub e1) <-) church1) (flatenv '()))
+(list 'clos/con: (list (list '(λ (s2) (app (app s2 pred) s1)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app mult church2) (-> (app (app plus church1) church3) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> m1 <-) mf) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f2) (λ (x2) (app f2 (app f2 x2)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f2 <-) x2) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app plus (-> (app (app mult church2) church1) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app n (λ (g) (λ (h) (app h (app g rf))))) (-> (λ (ignored) rx) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (ignored) rx) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app church=? (-> (app (app sub e1) church1) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app s2 (-> pred <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n)
+      (λ (rf)
+        (λ (rx)
+          (app
+           (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+           (λ (id) id)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           (-> sub = (λ (s1) (λ (s2) (app (app s2 pred) s1))) <-)
+           church0
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (s1) (λ (s2) (app (app s2 pred) s1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f2 (-> (app f2 x2) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app z (λ (zx) #f)) <-) #t) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app z (-> (λ (zx) #f) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (zx) #f) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           church1
+           church2
+           (-> church3 = (λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) <-)
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p1)
+    (-> (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           (-> church0 = (λ (f0) (λ (x0) x0)) <-)
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (f0) (λ (x0) x0)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app mult church2) (-> church1 <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app z (λ (zx) #f)) (-> #t <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app s2 pred) <-) s1) (flatenv '()))
+(list 'clos/con: (list (list '(λ (x1) (app f1 x1)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> mult <-) church2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m1) (λ (m2) (λ (mf) (app m2 (app m1 mf))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f2 (-> x2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> m2 <-) (app m1 mf)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) (flatenv '()))
+  (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))
+  (list
+   '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (app plus (app (app mult church2) church1))
+   (-> (app (app mult church2) church3) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n)
+    (->
+     (λ (rf)
+       (λ (rx)
+         (app
+          (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+          (λ (id) id))))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> plus <-) (app (app mult church2) church1))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> church0? <-) e2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (z) (app (app z (λ (zx) #f)) #t)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app church0? (-> e2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app sub (-> e1 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (rx)
+    (->
+     (app
+      (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+      (λ (id) id))
+     <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f1) (-> (λ (x1) (app f1 x1)) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (x1) (app f1 x1)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f1 <-) x1) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list
+   '(λ (n)
+      (λ (rf)
+        (λ (rx)
+          (app
+           (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+           (λ (id) id)))))
+   (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app p1 pf) (-> (app (app p2 pf) x) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (m1) (-> (λ (m2) (λ (mf) (app m2 (app m1 mf)))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m2) (λ (mf) (app m2 (app m1 mf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (app church=? (app (app mult church2) (app (app plus church1) church3)))
+   (->
+    (app
+     (app plus (app (app mult church2) church1))
+     (app (app mult church2) church3))
+    <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> church0? <-) e2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (z) (app (app z (λ (zx) #f)) #t)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app mult (-> church2 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f2) (λ (x2) (app f2 (app f2 x2)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app church0? e2)
+   (#t #f)
+   (->
+    #f
+    (app (app church=? (app (app sub e1) church1)) (app (app sub e2) church1))
+    <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list 'match-error (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app church0? e2) <-)
+   (#t #f)
+   (#f
+    (app
+     (app church=? (app (app sub e1) church1))
+     (app (app sub e2) church1))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> sub <-) e2) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (s1) (λ (s2) (app (app s2 pred) s1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> plus <-) church1) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app church0? (-> e1 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f3 <-) (app f3 x3)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f3) (-> (λ (x3) (app f3 (app f3 (app f3 x3)))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+   (-> (λ (id) id) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (id) id) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f3 (-> x3 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app p2 pf) (-> x <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (g) (-> (λ (h) (app h (app g rf))) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (h) (app h (app g rf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f3 <-) (app f3 (app f3 x3))) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (x2) (app f2 (app f2 x2))) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           church1
+           (-> church2 = (λ (f2) (λ (x2) (app f2 (app f2 x2)))) <-)
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f2) (λ (x2) (app f2 (app f2 x2)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app mult church2) <-) church1) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m2) (λ (mf) (app m2 (app m1 mf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> sub <-) e1) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (s1) (λ (s2) (app (app s2 pred) s1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (plus
+           mult
+           pred
+           sub
+           church0
+           church1
+           church2
+           church3
+           church0?
+           (->
+            church=?
+            =
+            (λ (e1)
+              (λ (e2)
+                (match
+                 (app church0? e1)
+                 (#t (app church0? e2))
+                 (#f
+                  (match
+                   (app church0? e2)
+                   (#t #f)
+                   (#f
+                    (app
+                     (app church=? (app (app sub e1) church1))
+                     (app (app sub e2) church1))))))))
+            <-))
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e1)
+      (λ (e2)
+        (match
+         (app church0? e1)
+         (#t (app church0? e2))
+         (#f
+          (match
+           (app church0? e2)
+           (#t #f)
+           (#f
+            (app
+             (app church=? (app (app sub e1) church1))
+             (app (app sub e2) church1))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> church0? <-) e1) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (z) (app (app z (λ (zx) #f)) #t)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app mult church2) <-) church3) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m2) (λ (mf) (app m2 (app m1 mf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> church=? <-)
+   (app (app mult church2) (app (app plus church1) church3)))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e1)
+      (λ (e2)
+        (match
+         (app church0? e1)
+         (#t (app church0? e2))
+         (#f
+          (match
+           (app church0? e2)
+           (#t #f)
+           (#f
+            (app
+             (app church=? (app (app sub e1) church1))
+             (app (app sub e2) church1))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> p1 <-) pf) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app sub e1) (-> church1 <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f3 (-> (app f3 x3) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app church0? e1)
+   (-> #t (app church0? e2) <-)
+   (#f
+    (match
+     (app church0? e2)
+     (#t #f)
+     (#f
+      (app
+       (app church=? (app (app sub e1) church1))
+       (app (app sub e2) church1))))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app mult church2) (-> church3 <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> h <-) (app g rf)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (id) id) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx)) <-)
+   (λ (id) id))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> g <-) rf) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app mult church2) <-) (app (app plus church1) church3))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (m2) (λ (mf) (app m2 (app m1 mf)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app sub e2) <-) church1) (flatenv '()))
+(list 'clos/con: (list (list '(λ (s2) (app (app s2 pred) s1)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (->
+    (app church=? (app (app mult church2) (app (app plus church1) church3)))
+    <-)
+   (app
+    (app plus (app (app mult church2) church1))
+    (app (app mult church2) church3)))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e2)
+      (match
+       (app church0? e1)
+       (#t (app church0? e2))
+       (#f
+        (match
+         (app church0? e2)
+         (#t #f)
+         (#f
+          (app
+           (app church=? (app (app sub e1) church1))
+           (app (app sub e2) church1)))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (app church=? (app (app sub e1) church1))
+   (-> (app (app sub e2) church1) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((->
+            plus
+            =
+            (λ (p1)
+              (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+            <-)
+           mult
+           pred
+           sub
+           church0
+           church1
+           church2
+           church3
+           church0?
+           church=?)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p1) (λ (p2) (λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   church=?
+   (-> (app (app mult church2) (app (app plus church1) church3)) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> p2 <-) pf) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f3) (λ (x3) (app f3 (app f3 (app f3 x3))))) (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> s2 <-) pred) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f1) (λ (x1) (app f1 x1))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app church0? e2)
+   (-> #t #f <-)
+   (#f
+    (app
+     (app church=? (app (app sub e1) church1))
+     (app (app sub e2) church1))))
+ (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> n <-) (λ (g) (λ (h) (app h (app g rf)))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (x3) (-> (app f3 (app f3 (app f3 x3))) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app p2 pf) <-) x) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (h) (-> (app h (app g rf)) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> church=? <-) (app (app sub e1) church1)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (e1)
+      (λ (e2)
+        (match
+         (app church0? e1)
+         (#t (app church0? e2))
+         (#f
+          (match
+           (app church0? e2)
+           (#t #f)
+           (#f
+            (app
+             (app church=? (app (app sub e1) church1))
+             (app (app sub e2) church1))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (s2) (-> (app (app s2 pred) s1) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (h) (app h (app g rf))) (flatenv '()))
+  (list '(λ (id) id) (flatenv '()))
+  (list '(λ (x3) (app f3 (app f3 (app f3 x3)))) (flatenv '()))
+  (list '(λ (x1) (app f1 x1)) (flatenv '()))
+  (list #t (flatenv '()))
+  (list
+   '(λ (rf)
+      (λ (rx)
+        (app
+         (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+         (λ (id) id))))
+   (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (ignored) rx) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (mf) (app m2 (app m1 mf))) (flatenv '()))
+  (list '(λ (x) (app (app p1 pf) (app (app p2 pf) x))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (g) (λ (h) (app h (app g rf)))) (flatenv '()))
+  (list #t (flatenv '()))
+  (list '(λ (zx) #f) (flatenv '()))
+  (list #f (flatenv '()))
+  (list '(λ (pf) (λ (x) (app (app p1 pf) (app (app p2 pf) x)))) (flatenv '()))
+  (list
+   '(λ (rx)
+      (app
+       (app (app n (λ (g) (λ (h) (app h (app g rf))))) (λ (ignored) rx))
+       (λ (id) id)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

@@ -1,5 +1,6 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;;; TAK -- A vanilla version of the TAKeuchi function.
- 
+
 (define (tak x y z)
   (if (not (< y x))
       z

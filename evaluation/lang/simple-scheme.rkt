@@ -30,6 +30,14 @@
     [_ d]
     ))
 
+(define (to-begin exprs)
+  (match exprs
+    ['() '()]
+    [(list e) e]
+    [(cons e es) `(let ((_ ,e)) ,(to-begin es))]
+    )
+  )
+
 (define (translate-top-defs . ss)
   ; (pretty-print `(translate-top-defs ,ss))
   (define tops (map translate-top ss))
@@ -37,14 +45,8 @@
   (define binds (map to-let-bind (filter is-def tops)))
   ; (pretty-print `(translate-top-defs ,tops))
   (match binds
-    [(cons _ _) `(letrec ,binds ,@exprs)]
-    [(list)
-     (let loop ([exprs exprs])
-       (match exprs
-         [(list e) e]
-         [(cons e es) `(let ([_ ,e]) ,(loop es))]
-         ))
-     ])
+    [(cons _ _) `(letrec ,binds ,(to-begin exprs))]
+    [(list) (to-begin exprs)])
   )
 
 (define (translate-top s)

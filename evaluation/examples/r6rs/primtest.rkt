@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;; Fermat and Solovay-Strassen primality testing in Scheme.
 
 ;; Author: Matthew Might
@@ -18,14 +19,14 @@
           (modulo (* base (modulo-power base (- exp 1) n)) n)
           (modulo (square (modulo-power base (/ exp 2) n)) n))))
 
-                     
-    
+
+
 
 
 ;; Random number utilities.
 
-;(define (random-char) 
-;  (call-with-input-file "/dev/random" 
+;(define (random-char)
+;  (call-with-input-file "/dev/random"
 ;    (lambda (port)
 ;     (read-char port))))
 
@@ -63,8 +64,8 @@
 
 ; is-fermat-prime?:
 ; Check, for many values of a:
-;  a^(n-1) = 1 [mod n] ?  
-;   If yes, could be prime.  
+;  a^(n-1) = 1 [mod n] ?
+;   If yes, could be prime.
 ;   If no, then composite.
 ; Warning: Some Carmichael numbers (though rare) defeat this test.
 (define (is-fermat-prime? n iterations)
@@ -77,7 +78,7 @@
 
 
 
-      
+
 ;; Prime generation.
 
 ; generate-fermat-prime(byte-size) yields a prime satisfying the Fermat test.

@@ -2,6 +2,20 @@
 (require racket/set racket/match)
 (provide (all-defined-out))
 
+(define (check-let l)
+  (if (is-let l)
+      '()
+      (error 'no-a-let (symbol->string l))
+      ))
+
+(define (is-let l)
+  (match l
+    ['let #t]
+    ['letrec #t]
+    ['let* #t]
+    [_ #f]
+    ))
+
 (define (free-vars e)
   (match e
     [`(app ,f ,@args)
@@ -10,13 +24,6 @@
                   (map free-vars args)))]
     [`(λ ,xs ,bod)
      (set-subtract (free-vars bod) (apply set xs))]
-    [`(let ,binds ,bod)
-     (set-subtract
-      (foldl set-union (set)
-             (cons (free-vars bod)
-                   (map (λ (bind) (free-vars (cadr bind))) binds)))
-      (apply set (map car binds)))
-     ]
     [`(match ,scruitinee ,@ms)
      (foldl set-union (set)
             (cons (free-vars scruitinee)
@@ -26,6 +33,14 @@
                           (pattern-bound-vars (car match))
                           ))
                        ms)))]
+    [`(,let-kind ,binds ,bod)
+     (check-let let-kind)
+     (set-subtract
+      (foldl set-union (set)
+             (cons (free-vars bod)
+                   (map (λ (bind) (free-vars (cadr bind))) binds)))
+      (apply set (map car binds)))
+     ]
     [(? symbol? x) (set x)]
     [#f (set)]
     [#t (set)]

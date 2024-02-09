@@ -67,7 +67,7 @@
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1))) (each (clos #f p) (clos #t p))]
     [(product/set (list (cons _ #f) _)) (clos (cons C #t) p)]
-    [(product/set (list (cons _ #t) _)) (clos (cons C #f) p)]
+    [(product/set (list _ _)) (clos (cons C #f) p)]
     )
   )
 

@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;;; DERIV -- Symbolic derivation.
 
 ;;; Returns the wrong answer for quotients.
@@ -14,9 +15,9 @@
                (map deriv (cdr a))))
         ((eq? (car a) '*)
          (list '*
-                a
-                (cons '+
-                      (map (lambda (a) (list '/ (deriv a) a)) (cdr a)))))
+               a
+               (cons '+
+                     (map (lambda (a) (list '/ (deriv a) a)) (cdr a)))))
         ((eq? (car a) '/)
          (list '-
                (list '/

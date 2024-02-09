@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;; https://github.com/ilyasergey/reachability/blob/master/benchmarks/gcfa2/eta.scm
 (define (do-something)
   10)

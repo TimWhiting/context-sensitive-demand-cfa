@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;; https://github.com/ilyasergey/reachability/blob/master/benchmarks/kcfa/sat-brute.scm
 (define phi
   (lambda (x1)

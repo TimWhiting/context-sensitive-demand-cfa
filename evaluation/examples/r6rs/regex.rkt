@@ -1,7 +1,8 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ; Author: Matthew Might
 ; Site:   http://matt.might.net/
 
-; In about 100 lines of Scheme, this file implements a 
+; In about 100 lines of Scheme, this file implements a
 ; regular-expression matcher based on the derivative of
 ; regular expressions.
 
@@ -9,7 +10,7 @@
 ; to a character 'c' is a new regular expression which matches
 ; what the expression 're' would match if it first matched 'c'.
 
-; For example, using POSIX notation, the derivative of 
+; For example, using POSIX notation, the derivative of
 ; (foo|frak)* with respect to 'f' is (oo|rak)(foo|frak)*
 
 ; To account for the possibility that a regular expression
@@ -26,12 +27,12 @@
 
 ; Further reading:
 
-; [1] Janusz Brzozowski. "Derivatives of Regular Expressions." 1964. 
+; [1] Janusz Brzozowski. "Derivatives of Regular Expressions." 1964.
 ; [2] Scott Owens, John Reppy, Aaron Turon. "Regular expression derivatives re-examined." 2009.
 
-(define (debug-trace) 
+(define (debug-trace)
   'do-nothing)
-  
+
 
 
 ; Utilities
@@ -83,7 +84,7 @@
     ((regex-empty? pat1) pat2)
     ((regex-empty? pat2) pat1)
     (else (cons 'seq (cons pat1 (cons pat2 '()))))))
-     
+
 (define (alt pat1 pat2)
   (cond
     ((regex-null? pat1) pat2)
@@ -114,12 +115,12 @@
 ; regex-deritvative : regex regex-atom -> regex
 (define (regex-derivative re c)
   (debug-trace)
-  (cond 
+  (cond
     ((regex-empty? re) regex-NULL)
     ((regex-null? re)  regex-NULL)
     ((eq? c re)        regex-BLANK)
     ((regex-atom? re)  regex-NULL)
-    ((match-seq re     (lambda (pat1 pat2) 
+    ((match-seq re     (lambda (pat1 pat2)
                          (alt (seq (regex-derivative pat1 c) pat2)
                               (seq (regex-empty pat1) (regex-derivative pat2 c))))))
     ((match-alt re     (lambda (pat1 pat2)
@@ -128,8 +129,8 @@
                          (seq (regex-derivative pat c) (rep pat)))))
     (else regex-NULL)
     ))
-                
-; regex-match : regex list -> boolean 
+
+; regex-match : regex list -> boolean
 (define (regex-match pattern data)
   (if (null? data)
       (regex-empty? (regex-empty pattern))

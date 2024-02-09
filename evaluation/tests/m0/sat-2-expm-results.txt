@@ -1,0 +1,1739 @@
+'(expression:
+  (letrec ((phi
+            (λ (x1)
+              (λ (x2)
+                (λ (x3)
+                  (λ (x4)
+                    (λ (x5)
+                      (λ (x6)
+                        (λ (x7)
+                          (app
+                           and
+                           (app or x1 x2)
+                           (app or x1 (app not x2) (app not x3))
+                           (app or x3 x4)
+                           (app or (app not x4) x1)
+                           (app or (app not x2) (app not x3))
+                           (app or x4 x2))))))))))
+           (try (λ (f) (app or (app f #t) (app f #f))))
+           (sat-solve-7
+            (λ (p)
+              (app
+               try
+               (λ (n1)
+                 (app
+                  try
+                  (λ (n2)
+                    (app
+                     try
+                     (λ (n3)
+                       (app
+                        try
+                        (λ (n4)
+                          (app
+                           try
+                           (λ (n5)
+                             (app
+                              try
+                              (λ (n6)
+                                (app
+                                 try
+                                 (λ (n7)
+                                   (app
+                                    (app
+                                     (app
+                                      (app (app (app (app p n1) n2) n3) n4)
+                                      n5)
+                                     n6)
+                                    n7))))))))))))))))))
+    (app sat-solve-7 phi)))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))
+    <-))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))
+   (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (app not x4) (-> x1 <-))
+ (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x2) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app (app p n1) n2) (-> n3 <-))
+ (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n2)
+     (app
+      try
+      (λ (n3)
+        (app
+         try
+         (λ (n4)
+           (app
+            try
+            (λ (n5)
+              (app
+               try
+               (λ (n6)
+                 (app
+                  try
+                  (λ (n7)
+                    (app
+                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                     n7)))))))))))))
+ (expenv '(() ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x3 <-) x4) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app (app (app p n1) n2) n3) <-) n4)
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x4)
+      (λ (x5)
+        (λ (x6)
+          (λ (x7)
+            (app
+             and
+             (app or x1 x2)
+             (app or x1 (app not x2) (app not x3))
+             (app or x3 x4)
+             (app or (app not x4) x1)
+             (app or (app not x2) (app not x3))
+             (app or x4 x2))))))
+   (expenv '(() () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x2) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n2)
+    (->
+     (app
+      try
+      (λ (n3)
+        (app
+         try
+         (λ (n4)
+           (app
+            try
+            (λ (n5)
+              (app
+               try
+               (λ (n6)
+                 (app
+                  try
+                  (λ (n7)
+                    (app
+                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                     n7)))))))))))
+     <-))
+ (expenv '(() () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> sat-solve-7 <-) phi) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p)
+      (app
+       try
+       (λ (n1)
+         (app
+          try
+          (λ (n2)
+            (app
+             try
+             (λ (n3)
+               (app
+                try
+                (λ (n4)
+                  (app
+                   try
+                   (λ (n5)
+                     (app
+                      try
+                      (λ (n6)
+                        (app
+                         try
+                         (λ (n7)
+                           (app
+                            (app
+                             (app (app (app (app (app p n1) n2) n3) n4) n5)
+                             n6)
+                            n7))))))))))))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app sat-solve-7 (-> phi <-)) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1)
+      (λ (x2)
+        (λ (x3)
+          (λ (x4)
+            (λ (x5)
+              (λ (x6)
+                (λ (x7)
+                  (app
+                   and
+                   (app or x1 x2)
+                   (app or x1 (app not x2) (app not x3))
+                   (app or x3 x4)
+                   (app or (app not x4) x1)
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2)))))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 x2)
+   (app or x1 (app not x2) (app not x3))
+   (app or x3 x4)
+   (app or (app not x4) x1)
+   (app or (app not x2) (app not x3))
+   (-> (app or x4 x2) <-))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi
+           (-> try = (λ (f) (app or (app f #t) (app f #f))) <-)
+           sat-solve-7)
+    bod)
+ (expenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (-> (app not x4) <-) x1)
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n5)
+     (app
+      try
+      (λ (n6)
+        (app
+         try
+         (λ (n7)
+           (app
+            (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+            n7)))))))
+ (expenv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n2)
+      (app
+       try
+       (λ (n3)
+         (app
+          try
+          (λ (n4)
+            (app
+             try
+             (λ (n5)
+               (app
+                try
+                (λ (n6)
+                  (app
+                   try
+                   (λ (n7)
+                     (app
+                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                      n7))))))))))))
+    <-))
+ (expenv '(() ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n2)
+      (app
+       try
+       (λ (n3)
+         (app
+          try
+          (λ (n4)
+            (app
+             try
+             (λ (n5)
+               (app
+                try
+                (λ (n6)
+                  (app
+                   try
+                   (λ (n7)
+                     (app
+                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                      n7))))))))))))
+   (expenv '(() ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x5)
+    (->
+     (λ (x6)
+       (λ (x7)
+         (app
+          and
+          (app or x1 x2)
+          (app or x1 (app not x2) (app not x3))
+          (app or x3 x4)
+          (app or (app not x4) x1)
+          (app or (app not x2) (app not x3))
+          (app or x4 x2))))
+     <-))
+ (expenv '(() () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x6)
+      (λ (x7)
+        (app
+         and
+         (app or x1 x2)
+         (app or x1 (app not x2) (app not x3))
+         (app or x3 x4)
+         (app or (app not x4) x1)
+         (app or (app not x2) (app not x3))
+         (app or x4 x2))))
+   (expenv '(() () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f) (-> (app or (app f #t) (app f #f)) <-)) (expenv '(())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) <-) n7)
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x7)
+      (app
+       and
+       (app or x1 x2)
+       (app or x1 (app not x2) (app not x3))
+       (app or x3 x4)
+       (app or (app not x4) x1)
+       (app or (app not x2) (app not x3))
+       (app or x4 x2)))
+   (expenv '(() () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n7)
+    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app (app (app (app p n1) n2) n3) n4) (-> n5 <-))
+ (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x2 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app p n1) <-) n2) (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x2)
+      (λ (x3)
+        (λ (x4)
+          (λ (x5)
+            (λ (x6)
+              (λ (x7)
+                (app
+                 and
+                 (app or x1 x2)
+                 (app or x1 (app not x2) (app not x3))
+                 (app or x3 x4)
+                 (app or (app not x4) x1)
+                 (app or (app not x2) (app not x3))
+                 (app or x4 x2))))))))
+   (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n4)
+      (app
+       try
+       (λ (n5)
+         (app
+          try
+          (λ (n6)
+            (app
+             try
+             (λ (n7)
+               (app
+                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                n7))))))))
+    <-))
+ (expenv '(() () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n4)
+      (app
+       try
+       (λ (n5)
+         (app
+          try
+          (λ (n6)
+            (app
+             try
+             (λ (n7)
+               (app
+                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                n7))))))))
+   (expenv '(() () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi
+           try
+           (->
+            sat-solve-7
+            =
+            (λ (p)
+              (app
+               try
+               (λ (n1)
+                 (app
+                  try
+                  (λ (n2)
+                    (app
+                     try
+                     (λ (n3)
+                       (app
+                        try
+                        (λ (n4)
+                          (app
+                           try
+                           (λ (n5)
+                             (app
+                              try
+                              (λ (n6)
+                                (app
+                                 try
+                                 (λ (n7)
+                                   (app
+                                    (app
+                                     (app
+                                      (app (app (app (app p n1) n2) n3) n4)
+                                      n5)
+                                     n6)
+                                    n7))))))))))))))))
+            <-))
+    bod)
+ (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p)
+      (app
+       try
+       (λ (n1)
+         (app
+          try
+          (λ (n2)
+            (app
+             try
+             (λ (n3)
+               (app
+                try
+                (λ (n4)
+                  (app
+                   try
+                   (λ (n5)
+                     (app
+                      try
+                      (λ (n6)
+                        (app
+                         try
+                         (λ (n7)
+                           (app
+                            (app
+                             (app (app (app (app (app p n1) n2) n3) n4) n5)
+                             n6)
+                            n7))))))))))))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x4 <-) x2) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> or <-) x1 (app not x2) (app not x3))
+ (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app (app (app (app (app p n1) n2) n3) n4) n5) <-) n6)
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x6)
+      (λ (x7)
+        (app
+         and
+         (app or x1 x2)
+         (app or x1 (app not x2) (app not x3))
+         (app or x3 x4)
+         (app or (app not x4) x1)
+         (app or (app not x2) (app not x3))
+         (app or x4 x2))))
+   (expenv '(() () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n4)
+    (->
+     (app
+      try
+      (λ (n5)
+        (app
+         try
+         (λ (n6)
+           (app
+            try
+            (λ (n7)
+              (app
+               (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+               n7)))))))
+     <-))
+ (expenv '(() () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (app f #t) (-> (app f #f) <-)) (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(())))
+  (list #f (expenv '(())))
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n6)
+    (->
+     (app
+      try
+      (λ (n7)
+        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))
+     <-))
+ (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n3)
+    (->
+     (app
+      try
+      (λ (n4)
+        (app
+         try
+         (λ (n5)
+           (app
+            try
+            (λ (n6)
+              (app
+               try
+               (λ (n7)
+                 (app
+                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                  n7)))))))))
+     <-))
+ (expenv '(() () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n3)
+      (app
+       try
+       (λ (n4)
+         (app
+          try
+          (λ (n5)
+            (app
+             try
+             (λ (n6)
+               (app
+                try
+                (λ (n7)
+                  (app
+                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                   n7))))))))))
+    <-))
+ (expenv '(() () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n3)
+      (app
+       try
+       (λ (n4)
+         (app
+          try
+          (λ (n5)
+            (app
+             try
+             (λ (n6)
+               (app
+                try
+                (λ (n7)
+                  (app
+                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                   n7))))))))))
+   (expenv '(() () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x1 <-) x2) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x4 (-> x2 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app f #t) (app f #f)) (expenv '(())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n3)
+     (app
+      try
+      (λ (n4)
+        (app
+         try
+         (λ (n5)
+           (app
+            try
+            (λ (n6)
+              (app
+               try
+               (λ (n7)
+                 (app
+                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                  n7)))))))))))
+ (expenv '(() () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> and <-)
+   (app or x1 x2)
+   (app or x1 (app not x2) (app not x3))
+   (app or x3 x4)
+   (app or (app not x4) x1)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-and>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 x2)
+   (app or x1 (app not x2) (app not x3))
+   (-> (app or x3 x4) <-)
+   (app or (app not x4) x1)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x4 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> #f <-)) (expenv '(())))
+(list 'clos/con: (list (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 x2)
+   (app or x1 (app not x2) (app not x3))
+   (app or x3 x4)
+   (-> (app or (app not x4) x1) <-)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) (-> n7 <-))
+ (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n4)
+     (app
+      try
+      (λ (n5)
+        (app
+         try
+         (λ (n6)
+           (app
+            try
+            (λ (n7)
+              (app
+               (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+               n7)))))))))
+ (expenv '(() () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app (app (app (app (app p n1) n2) n3) n4) n5) (-> n6 <-))
+ (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app (app (app (app p n1) n2) n3) n4) <-) n5)
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x5)
+      (λ (x6)
+        (λ (x7)
+          (app
+           and
+           (app or x1 x2)
+           (app or x1 (app not x2) (app not x3))
+           (app or x3 x4)
+           (app or (app not x4) x1)
+           (app or (app not x2) (app not x3))
+           (app or x4 x2)))))
+   (expenv '(() () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 x2)
+   (-> (app or x1 (app not x2) (app not x3)) <-)
+   (app or x3 x4)
+   (app or (app not x4) x1)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x2)
+    (->
+     (λ (x3)
+       (λ (x4)
+         (λ (x5)
+           (λ (x6)
+             (λ (x7)
+               (app
+                and
+                (app or x1 x2)
+                (app or x1 (app not x2) (app not x3))
+                (app or x3 x4)
+                (app or (app not x4) x1)
+                (app or (app not x2) (app not x3))
+                (app or x4 x2)))))))
+     <-))
+ (expenv '(() ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x3)
+      (λ (x4)
+        (λ (x5)
+          (λ (x6)
+            (λ (x7)
+              (app
+               and
+               (app or x1 x2)
+               (app or x1 (app not x2) (app not x3))
+               (app or x3 x4)
+               (app or (app not x4) x1)
+               (app or (app not x2) (app not x3))
+               (app or x4 x2)))))))
+   (expenv '(() ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x4) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (-> (app not x2) <-) (app not x3))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (app not x2) (-> (app not x3) <-))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> #t <-)) (expenv '(())))
+(list 'clos/con: (list (list #t (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n6)
+     (app
+      try
+      (λ (n7)
+        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))
+ (expenv '(() () () () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app
+                      try
+                      (λ (n7)
+                        (app
+                         (app
+                          (app (app (app (app (app p n1) n2) n3) n4) n5)
+                          n6)
+                         n7))))))))))))))
+    <-))
+ (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app
+                      try
+                      (λ (n7)
+                        (app
+                         (app
+                          (app (app (app (app (app p n1) n2) n3) n4) n5)
+                          n6)
+                         n7))))))))))))))
+   (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n1)
+    (->
+     (app
+      try
+      (λ (n2)
+        (app
+         try
+         (λ (n3)
+           (app
+            try
+            (λ (n4)
+              (app
+               try
+               (λ (n5)
+                 (app
+                  try
+                  (λ (n6)
+                    (app
+                     try
+                     (λ (n7)
+                       (app
+                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                        n7)))))))))))))
+     <-))
+ (expenv '(() ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app p n1) (-> n2 <-)) (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (-> (app or x1 x2) <-)
+   (app or x1 (app not x2) (app not x3))
+   (app or x3 x4)
+   (app or (app not x4) x1)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi try sat-solve-7) (-> (app sat-solve-7 phi) <-))
+ (expenv '()))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) #f) (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n6)
+      (app
+       try
+       (λ (n7)
+         (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))))
+   (expenv '(() () () () () ())))
+  (list
+   '(λ (n5)
+      (app
+       try
+       (λ (n6)
+         (app
+          try
+          (λ (n7)
+            (app
+             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+             n7))))))
+   (expenv '(() () () () ())))
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app
+                      try
+                      (λ (n7)
+                        (app
+                         (app
+                          (app (app (app (app (app p n1) n2) n3) n4) n5)
+                          n6)
+                         n7))))))))))))))
+   (expenv '(())))
+  (list
+   '(λ (n3)
+      (app
+       try
+       (λ (n4)
+         (app
+          try
+          (λ (n5)
+            (app
+             try
+             (λ (n6)
+               (app
+                try
+                (λ (n7)
+                  (app
+                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                   n7))))))))))
+   (expenv '(() () ())))
+  (list
+   '(λ (n4)
+      (app
+       try
+       (λ (n5)
+         (app
+          try
+          (λ (n6)
+            (app
+             try
+             (λ (n7)
+               (app
+                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                n7))))))))
+   (expenv '(() () () ())))
+  (list
+   '(λ (n2)
+      (app
+       try
+       (λ (n3)
+         (app
+          try
+          (λ (n4)
+            (app
+             try
+             (λ (n5)
+               (app
+                try
+                (λ (n6)
+                  (app
+                   try
+                   (λ (n7)
+                     (app
+                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                      n7))))))))))))
+   (expenv '(() ())))
+  (list
+   '(λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))
+   (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (app (app (app p n1) n2) n3) (-> n4 <-))
+ (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p (-> n1 <-)) (expenv '(() () () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x1)
+    (->
+     (λ (x2)
+       (λ (x3)
+         (λ (x4)
+           (λ (x5)
+             (λ (x6)
+               (λ (x7)
+                 (app
+                  and
+                  (app or x1 x2)
+                  (app or x1 (app not x2) (app not x3))
+                  (app or x3 x4)
+                  (app or (app not x4) x1)
+                  (app or (app not x2) (app not x3))
+                  (app or x4 x2))))))))
+     <-))
+ (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x2)
+      (λ (x3)
+        (λ (x4)
+          (λ (x5)
+            (λ (x6)
+              (λ (x7)
+                (app
+                 and
+                 (app or x1 x2)
+                 (app or x1 (app not x2) (app not x3))
+                 (app or x3 x4)
+                 (app or (app not x4) x1)
+                 (app or (app not x2) (app not x3))
+                 (app or x4 x2))))))))
+   (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n5)
+      (app
+       try
+       (λ (n6)
+         (app
+          try
+          (λ (n7)
+            (app
+             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+             n7))))))
+    <-))
+ (expenv '(() () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n5)
+      (app
+       try
+       (λ (n6)
+         (app
+          try
+          (λ (n7)
+            (app
+             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+             n7))))))
+   (expenv '(() () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x7)
+    (->
+     (app
+      and
+      (app or x1 x2)
+      (app or x1 (app not x2) (app not x3))
+      (app or x3 x4)
+      (app or (app not x4) x1)
+      (app or (app not x2) (app not x3))
+      (app or x4 x2))
+     <-))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x4 x2) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> or <-) (app not x4) x1)
+ (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x2 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 x2)
+   (app or x1 (app not x2) (app not x3))
+   (app or x3 x4)
+   (app or (app not x4) x1)
+   (-> (app or (app not x2) (app not x3)) <-)
+   (app or x4 x2))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x6)
+    (->
+     (λ (x7)
+       (app
+        and
+        (app or x1 x2)
+        (app or x1 (app not x2) (app not x3))
+        (app or x3 x4)
+        (app or (app not x4) x1)
+        (app or (app not x2) (app not x3))
+        (app or x4 x2)))
+     <-))
+ (expenv '(() () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x7)
+      (app
+       and
+       (app or x1 x2)
+       (app or x1 (app not x2) (app not x3))
+       (app or x3 x4)
+       (app or (app not x4) x1)
+       (app or (app not x2) (app not x3))
+       (app or x4 x2)))
+   (expenv '(() () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (expenv '()))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (-> x1 <-) (app not x2) (app not x3))
+ (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p)
+    (->
+     (app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2)
+           (app
+            try
+            (λ (n3)
+              (app
+               try
+               (λ (n4)
+                 (app
+                  try
+                  (λ (n5)
+                    (app
+                     try
+                     (λ (n6)
+                       (app
+                        try
+                        (λ (n7)
+                          (app
+                           (app
+                            (app (app (app (app (app p n1) n2) n3) n4) n5)
+                            n6)
+                           n7)))))))))))))))
+     <-))
+ (expenv '(())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x1 x2) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n1)
+     (app
+      try
+      (λ (n2)
+        (app
+         try
+         (λ (n3)
+           (app
+            try
+            (λ (n4)
+              (app
+               try
+               (λ (n5)
+                 (app
+                  try
+                  (λ (n6)
+                    (app
+                     try
+                     (λ (n7)
+                       (app
+                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                        n7)))))))))))))))
+ (expenv '(())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f #t) (app f #f))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) #t) (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n6)
+      (app
+       try
+       (λ (n7)
+         (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))))
+   (expenv '(() () () () () ())))
+  (list
+   '(λ (n5)
+      (app
+       try
+       (λ (n6)
+         (app
+          try
+          (λ (n7)
+            (app
+             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+             n7))))))
+   (expenv '(() () () () ())))
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app
+                      try
+                      (λ (n7)
+                        (app
+                         (app
+                          (app (app (app (app (app p n1) n2) n3) n4) n5)
+                          n6)
+                         n7))))))))))))))
+   (expenv '(())))
+  (list
+   '(λ (n3)
+      (app
+       try
+       (λ (n4)
+         (app
+          try
+          (λ (n5)
+            (app
+             try
+             (λ (n6)
+               (app
+                try
+                (λ (n7)
+                  (app
+                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                   n7))))))))))
+   (expenv '(() () ())))
+  (list
+   '(λ (n4)
+      (app
+       try
+       (λ (n5)
+         (app
+          try
+          (λ (n6)
+            (app
+             try
+             (λ (n7)
+               (app
+                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                n7))))))))
+   (expenv '(() () () ())))
+  (list
+   '(λ (n2)
+      (app
+       try
+       (λ (n3)
+         (app
+          try
+          (λ (n4)
+            (app
+             try
+             (λ (n5)
+               (app
+                try
+                (λ (n6)
+                  (app
+                   try
+                   (λ (n7)
+                     (app
+                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)
+                      n7))))))))))))
+   (expenv '(() ())))
+  (list
+   '(λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))
+   (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x4)
+    (->
+     (λ (x5)
+       (λ (x6)
+         (λ (x7)
+           (app
+            and
+            (app or x1 x2)
+            (app or x1 (app not x2) (app not x3))
+            (app or x3 x4)
+            (app or (app not x4) x1)
+            (app or (app not x2) (app not x3))
+            (app or x4 x2)))))
+     <-))
+ (expenv '(() () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x5)
+      (λ (x6)
+        (λ (x7)
+          (app
+           and
+           (app or x1 x2)
+           (app or x1 (app not x2) (app not x3))
+           (app or x3 x4)
+           (app or (app not x4) x1)
+           (app or (app not x2) (app not x3))
+           (app or x4 x2)))))
+   (expenv '(() () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x3 (-> x4 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n5)
+    (->
+     (app
+      try
+      (λ (n6)
+        (app
+         try
+         (λ (n7)
+           (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))
+     <-))
+ (expenv '(() () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or x1 (-> (app not x2) <-) (app not x3))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x3)
+    (->
+     (λ (x4)
+       (λ (x5)
+         (λ (x6)
+           (λ (x7)
+             (app
+              and
+              (app or x1 x2)
+              (app or x1 (app not x2) (app not x3))
+              (app or x3 x4)
+              (app or (app not x4) x1)
+              (app or (app not x2) (app not x3))
+              (app or x4 x2))))))
+     <-))
+ (expenv '(() () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x4)
+      (λ (x5)
+        (λ (x6)
+          (λ (x7)
+            (app
+             and
+             (app or x1 x2)
+             (app or x1 (app not x2) (app not x3))
+             (app or x3 x4)
+             (app or (app not x4) x1)
+             (app or (app not x2) (app not x3))
+             (app or x4 x2))))))
+   (expenv '(() () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> or <-) (app not x2) (app not x3))
+ (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n6)
+      (app
+       try
+       (λ (n7)
+         (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))))
+    <-))
+ (expenv '(() () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n6)
+      (app
+       try
+       (λ (n7)
+         (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))))
+   (expenv '(() () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x3 x4) (expenv '(() () () () () () ())))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x1 (-> x2 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((->
+            phi
+            =
+            (λ (x1)
+              (λ (x2)
+                (λ (x3)
+                  (λ (x4)
+                    (λ (x5)
+                      (λ (x6)
+                        (λ (x7)
+                          (app
+                           and
+                           (app or x1 x2)
+                           (app or x1 (app not x2) (app not x3))
+                           (app or x3 x4)
+                           (app or (app not x4) x1)
+                           (app or (app not x2) (app not x3))
+                           (app or x4 x2)))))))))
+            <-)
+           try
+           sat-solve-7)
+    bod)
+ (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1)
+      (λ (x2)
+        (λ (x3)
+          (λ (x4)
+            (λ (x5)
+              (λ (x6)
+                (λ (x7)
+                  (app
+                   and
+                   (app or x1 x2)
+                   (app or x1 (app not x2) (app not x3))
+                   (app or x3 x4)
+                   (app or (app not x4) x1)
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2)))))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> p <-) n1) (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1)
+      (λ (x2)
+        (λ (x3)
+          (λ (x4)
+            (λ (x5)
+              (λ (x6)
+                (λ (x7)
+                  (app
+                   and
+                   (app or x1 x2)
+                   (app or x1 (app not x2) (app not x3))
+                   (app or x3 x4)
+                   (app or (app not x4) x1)
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2)))))))))
+   (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (expenv '(() () () () () () ())))
+(list 'clos/con: (list (list #t (expenv '(()))) (list #f (expenv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> (app f #t) <-) (app f #f)) (expenv '(())))
+(list
+ 'clos/con:
+ (list
+  (list #t (expenv '(())))
+  (list #f (expenv '(())))
+  (list #t (expenv '(() () () () () () ())))
+  (list #f (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or x1 (app not x2) (-> (app not x3) <-))
+ (expenv '(() () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list #f (expenv '(() () () () () () ())))
+  (list #t (expenv '(() () () () () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> (app (app p n1) n2) <-) n3)
+ (expenv '(() () () () () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x3)
+      (λ (x4)
+        (λ (x5)
+          (λ (x6)
+            (λ (x7)
+              (app
+               and
+               (app or x1 x2)
+               (app or x1 (app not x2) (app not x3))
+               (app or x3 x4)
+               (app or (app not x4) x1)
+               (app or (app not x2) (app not x3))
+               (app or x4 x2)))))))
+   (expenv '(() ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

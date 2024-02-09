@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 ;; Mathematical routines.
 
 ; extended-gcd(a,b) = (x,y), such that a*x + b*y = gcd(a,b)
@@ -13,7 +14,7 @@
 (define (modulo-inverse a n)
   (modulo (car (extended-gcd a n)) n))
 
-; totient(n) = (p - 1)*(q - 1), 
+; totient(n) = (p - 1)*(q - 1),
 ;  where pq is the prime factorization of n.
 (define (totient p q) (* (- p 1) (- q 1)))
 
@@ -36,12 +37,12 @@
 ; A legal public exponent e is between
 ;  1 and totient(n), and gcd(e,totient(n)) = 1
 (define (is-legal-public-exponent? e p q)
-  (and (< 1 e) 
+  (and (< 1 e)
        (< e (totient p q))
        (= 1 (gcd e (totient p q)))))
 
 ; The private exponent is the inverse of the public exponent, mod n.
-(define (private-exponent e p q) 
+(define (private-exponent e p q)
   (if (is-legal-public-exponent? e p q)
       (modulo-inverse e (totient p q))
       (error "Not a legal public exponent for that modulus.")))
@@ -68,8 +69,8 @@
 (define e 7)                        ; The public exponent.
 (define d (private-exponent e p q)) ; The private exponent.
 
-(define plaintext  42)           
-(define ciphertext (encrypt plaintext e n)) 
+(define plaintext  42)
+(define ciphertext (encrypt plaintext e n))
 
 (define decrypted-ciphertext (decrypt ciphertext d n))
 

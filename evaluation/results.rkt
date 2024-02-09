@@ -75,4 +75,6 @@
          (pretty-print `(clos/con: ⊥) out)
          (pretty-print `(clos/con: ,(map show-simple-clos/con (set->list s))) out))
      (pretty-print `(literals: ,(show-simple-literal l)) out)
-     ]))
+     ]
+    [x (pretty-format x)]
+    ))

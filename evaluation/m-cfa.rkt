@@ -127,6 +127,7 @@
        [(cons _ #t) (clos Ce ρ)]
        [(cons _ #f) (clos Ce ρ)]
        [(cons _ (? integer? x)) (lit (litint x))]
+       [(cons _ (? string? x)) (lit (litstring x))]
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `(let ,binds ,_))

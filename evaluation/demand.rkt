@@ -77,6 +77,7 @@ Finish the paper
   (match Ce
     [(cons _ #t) ⊥]
     [(cons _ #f) ⊥]
+    [(cons _ (? string?)) ⊥]
     [(cons _ (? symbol? y))
      (if (equal? x y)
          (unit Ce ρ)
@@ -145,6 +146,7 @@ Finish the paper
      (⊔ (match Ce
           [(cons _ #t) (clos Ce ρ)]
           [(cons _ #f) (clos Ce ρ)]
+          [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))

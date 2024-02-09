@@ -18,12 +18,10 @@
      m kind
      (match-let-values
       ([((list hash-new) cpu real gc)
-        (time-apply (lambda ()
-                      (for/and ([trial (range acc-trials)])
-                        (run-get-hash query (hash))))
+        (time-apply (lambda () (run-get-hash query (hash)))
                     '())])
       (set! result-hash hash-new)
-      (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
+      (list cpu real gc)
       )))
 
   (report-mcfa-hash result-hash out)
@@ -70,17 +68,17 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define out-time-basic (open-output-file (string-append "tests/basic-time.sexpr") #:exists 'replace))
-  (define out-time-basic-acc (open-output-file (string-append "tests/basic-time-acc.sexpr") #:exists 'replace))
-  (define out-time-rebind (open-output-file (string-append "tests/rebind-time.sexpr") #:exists 'replace))
-  (define out-time-expm (open-output-file (string-append "tests/expm-time.sexpr") #:exists 'replace))
+  (define out-time-basic (open-output-file "tests/basic-time.sexpr" #:exists 'replace))
+  (define out-time-basic-acc (open-output-file "tests/basic-time-acc.sexpr" #:exists 'replace))
+  (define out-time-rebind (open-output-file "tests/rebind-time.sexpr" #:exists 'replace))
+  (define out-time-expm (open-output-file "tests/expm-time.sexpr" #:exists 'replace))
 
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example successful-examples])
+      (for ([example r6rs])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           (pretty-displayn 0 "")

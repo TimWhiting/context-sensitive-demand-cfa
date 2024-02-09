@@ -91,20 +91,6 @@
 (define ((bin-e i) Ce ρ)
   (>>=list ((bin i) Ce ρ)))
 
-(define (check-let l)
-  (if (is-let l)
-      '()
-      (error 'no-a-let (symbol->string l))
-      ))
-
-(define (is-let l)
-  (match l
-    ['let #t]
-    ['letrec #t]
-    ['let* #t]
-    [_ #f]
-    ))
-
 (define ((bin i) Ce ρ)
   (match Ce
     [(cons C `(,l ,binds ,e₁))

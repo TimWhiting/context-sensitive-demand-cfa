@@ -1,3 +1,4 @@
+#lang s-exp "../../lang/simple-scheme.rkt"
 (define (println s)
   (display s)
   (newline))
@@ -24,7 +25,7 @@
                                             (try (lambda (n7)
                                                    (p n1 n2 n3 n4 n5 n6 n7))))))))))))))))
 
-                        
+
 (display (sat-solve-7 phi))
 (newline)
 
