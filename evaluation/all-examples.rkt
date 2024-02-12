@@ -1,5 +1,5 @@
 #lang racket
-
+(require "syntax.rkt")
 (provide (all-defined-out))
 
 (define (is-dir p)
@@ -13,7 +13,9 @@
              (apply append (get-all-examples file))
              (if (string-suffix? (path->string file) ".rkt")
                  (with-handlers
-                     ([exn:fail? (lambda (e) (list))])
+                     ([exn:fail? (lambda (e)
+                                   (pretty-print (format "In ~a: got error ~a" file e))
+                                   (list))])
                    (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr))))
                  (list))))
        (directory-list dir #:build? #t)))
@@ -48,7 +50,7 @@
 (define general-failures (get-examples '(church cpstak)))
 (define bad-results (get-examples '(sat-1))); ?check kcfa-2
 ; Fails to parse: regex, fail to run church
-(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa))); ?check kcfa-2
+(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa std std-basic game))); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)
@@ -59,4 +61,6 @@
                   (member x general-failures) #f)))
           all-examples))
 
-; (pretty-print (get-examples '(scheme-to-c)))
+; (pretty-print (get-example-expr 'std-basic))
+; (pretty-print (free-vars (get-example-expr 'std-basic)))
+(pretty-print (free-vars (get-example-expr 'tic-tac-toe)))

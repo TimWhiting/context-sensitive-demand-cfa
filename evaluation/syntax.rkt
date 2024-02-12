@@ -1,11 +1,11 @@
 #lang racket/base
-(require racket/set racket/match)
+(require racket/set racket/match racket/pretty)
 (provide (all-defined-out))
 
 (define (check-let l)
   (if (is-let l)
       '()
-      (error 'no-a-let (symbol->string l))
+      (error 'not-a-let (symbol->string l))
       ))
 
 (define (is-let l)
@@ -17,6 +17,7 @@
     ))
 
 (define (free-vars e)
+  ; (pretty-print e)
   (match e
     [`(app ,f ,@args)
      (foldl set-union (set)
@@ -33,15 +34,21 @@
                           (pattern-bound-vars (car match))
                           ))
                        ms)))]
+    [`(lettypes ,binds ,bod)
+     (set-subtract
+      (free-vars bod)
+      (apply set (map car binds)))
+     ]
     [`(,let-kind ,binds ,bod)
      (check-let let-kind)
      (set-subtract
-      (foldl set-union (set)
+      (foldl set-union (set)  ; TODO: Handle different let kinds more carefully
              (cons (free-vars bod)
                    (map (λ (bind) (free-vars (cadr bind))) binds)))
       (apply set (map car binds)))
      ]
     [(? symbol? x) (set x)]
+    [(? char? x) (set)]
     [#f (set)]
     [#t (set)]
     [(? number? x) (set)]
