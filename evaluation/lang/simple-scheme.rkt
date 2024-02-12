@@ -65,8 +65,8 @@
 (define (translate s)
   ; (pretty-print `(translate ,s))
   (match s
-    [#f #f]
-    [#t #t]
+    [#f `(app #f)]
+    [#t `(app #t)]
     [(? number? x) x]
     [(? symbol? x) x]
     [(? string? x) x]

@@ -6,7 +6,7 @@
                (app or x1 (app not x2) (app not x3))
                (app or (app not x2) (app not x3))
                (app or x4 x2))))
-           (try (λ (f) (app or (app f #t) (app f #f))))
+           (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
            (sat-solve-4
             (λ (p)
               (app
@@ -21,13 +21,115 @@
     (app sat-solve-4 phi)))
 (list
  'query:
+ '(app or (app f (app #t)) (-> (app f (app #f)) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> p <-) n1 n2 n3 n4) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1 x2 x3 x4)
+      (app
+       and
+       (app or x1 (app not x2) (app not x3))
+       (app or (app not x2) (app not x3))
+       (app or x4 x2)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app
    and
    (-> (app or x1 (app not x2) (app not x3)) <-)
    (app or (app not x2) (app not x3))
    (app or x4 x2))
  (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n1)
+     (app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x2) (flatenv '()))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x1 (app not x2) (-> (app not x3) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p n1 n2 (-> n3 <-) n4) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 (app not x2) (app not x3))
+   (app or (app not x2) (app not x3))
+   (-> (app or x4 x2) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x2 <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (flatenv '()))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> sat-solve-4 <-) phi) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p)
+      (app
+       try
+       (λ (n1)
+         (app
+          try
+          (λ (n2)
+            (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> or <-) (app f (app #t)) (app f (app #f)))
+ (flatenv '()))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> (app #t) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -37,33 +139,127 @@
  'clos/con:
  (list (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> x1 <-) (app not x2) (app not x3)) (flatenv '()))
+(list
+ 'query:
+ '(λ (x1 x2 x3 x4)
+    (->
+     (app
+      and
+      (app or x1 (app not x2) (app not x3))
+      (app or (app not x2) (app not x3))
+      (app or x4 x2))
+     <-))
+ (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x3 <-)) (flatenv '()))
+(list 'query: '(app p n1 n2 n3 (-> n4 <-)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f (-> #f <-)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or x4 (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f <-) #t) (flatenv '()))
+(list
+ 'query:
+ '(app or (-> (app f (app #t)) <-) (app f (app #f)))
+ (flatenv '()))
 (list
  'clos/con:
  (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p)
+    (->
+     (app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+     <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app try (-> (λ (n4) (app p n1 n2 n3 n4)) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4))) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) (app #t)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
+   (flatenv '()))
+  (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))
+  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (flatenv '()))
   (list
    '(λ (n1)
       (app
        try
        (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-   (flatenv '()))
-  (list
-   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
-   (flatenv '()))
-  (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))
-  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (flatenv '()))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (flatenv '()))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x2 <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p (-> n1 <-) n2 n3 n4) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x4 (-> x2 <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> (app #f) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (app not x2) (-> (app not x3) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -93,10 +289,83 @@
        (app or x4 x2)))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4))) (flatenv '()))
+(list
+ 'query:
+ '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))
+ (flatenv '()))
 (list
  'clos/con:
- (list (list '(λ (f) (app or (app f #t) (app f #f))) (flatenv '()))))
+ (list
+  (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi
+           (-> try = (λ (f) (app or (app f (app #t)) (app f (app #f)))) <-)
+           sat-solve-4)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 (app not x2) (app not x3))
+   (-> (app or (app not x2) (app not x3)) <-)
+   (app or x4 x2))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '()))
+  (list #f (flatenv '()))
+  (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app sat-solve-4 (-> phi <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1 x2 x3 x4)
+      (app
+       and
+       (app or x1 (app not x2) (app not x3))
+       (app or (app not x2) (app not x3))
+       (app or x4 x2)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x1 (app not x2) (app not x3)) (flatenv '()))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n1)
+    (->
+     (app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+     <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x4 <-) x2) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app not x2) (app not x3)) (flatenv '()))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x4 x2) (flatenv '()))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -132,180 +401,27 @@
             (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (f) (-> (app or (app f #t) (app f #f)) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app try (-> (λ (n4) (app p n1 n2 n3 n4)) <-)) (flatenv '()))
-(list 'clos/con: (list (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))))
+(list 'query: '(app (-> not <-) x2) (flatenv '()))
+'(clos/con: (#<procedure:do-not>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (-> try <-)
-   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+   try
+   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))
  (flatenv '()))
 (list
  'clos/con:
- (list (list '(λ (f) (app or (app f #t) (app f #f))) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> p <-) n1 n2 n3 n4) (flatenv '()))
-(list
- 'clos/con:
  (list
-  (list
-   '(λ (x1 x2 x3 x4)
-      (app
-       and
-       (app or x1 (app not x2) (app not x3))
-       (app or (app not x2) (app not x3))
-       (app or x4 x2)))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app sat-solve-4 (-> phi <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x1 x2 x3 x4)
-      (app
-       and
-       (app or x1 (app not x2) (app not x3))
-       (app or (app not x2) (app not x3))
-       (app or x4 x2)))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> sat-solve-4 <-) phi) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (p)
-      (app
-       try
-       (λ (n1)
-         (app
-          try
-          (λ (n2)
-            (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> x4 <-) x2) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f <-) #f) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (n1)
-      (app
-       try
-       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-   (flatenv '()))
   (list
    '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
-   (flatenv '()))
-  (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))
-  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (flatenv '()))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> (app not x2) <-) (app not x3)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))
- (flatenv '()))
+(list 'query: '(app or (-> x1 <-) (app not x2) (app not x3)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f (-> #t <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (app not x2) (-> (app not x3) <-)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x3) (flatenv '()))
-'(clos/con: (#<procedure:do-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f #t) (app f #f))) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x1 x2 x3 x4)
-    (->
-     (app
-      and
-      (app or x1 (app not x2) (app not x3))
-      (app or (app not x2) (app not x3))
-      (app or x4 x2))
-     <-))
- (flatenv '()))
+(list 'query: '(app p n1 (-> n2 <-) n3 n4) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) (app f #t) (app f #f)) (flatenv '()))
-'(clos/con: (#<procedure:do-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (phi
-           (-> try = (λ (f) (app or (app f #t) (app f #f))) <-)
-           sat-solve-4)
-    bod)
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f #t) (app f #f))) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (app or x1 (app not x2) (app not x3))
-   (-> (app or (app not x2) (app not x3)) <-)
-   (app or x4 x2))
- (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p (-> n1 <-) n2 n3 n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> (app f #t) <-) (app f #f)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))
-  (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x2) (flatenv '()))
-'(clos/con: (#<procedure:do-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 n2 n3 (-> n4 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x2) (flatenv '()))
-'(clos/con: (#<procedure:do-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x3 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) x1 (app not x2) (app not x3)) (flatenv '()))
-'(clos/con: (#<procedure:do-or>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -317,50 +433,27 @@
  (flatenv '()))
 '(clos/con: (#<procedure:do-and>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> (app not x2) <-) (app not x3)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) (app #f)) (flatenv '()))
 (list
- 'query:
- '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (app or x1 (app not x2) (app not x3))
-   (app or (app not x2) (app not x3))
-   (-> (app or x4 x2) <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x3) (flatenv '()))
-'(clos/con: (#<procedure:do-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n1)
-    (->
-     (app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
-     <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+ 'clos/con:
+ (list
+  (list
+   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
+   (flatenv '()))
+  (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))
+  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (flatenv '()))
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or x1 (-> (app not x2) <-) (app not x3)) (flatenv '()))
 (list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) x4 x2) (flatenv '()))
-'(clos/con: (#<procedure:do-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -381,66 +474,5 @@
       (app
        try
        (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 n2 (-> n3 <-) n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) (app not x2) (app not x3)) (flatenv '()))
-'(clos/con: (#<procedure:do-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or x1 (app not x2) (-> (app not x3) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (-> try <-)
-   (λ (n1)
-     (app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f #t) (app f #f))) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (p)
-    (->
-     (app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-     <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (app f #t) (-> (app f #f) <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))
-  (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 (-> n2 <-) n3 n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   try
-   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

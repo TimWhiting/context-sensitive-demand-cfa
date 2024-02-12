@@ -1,127 +1,23 @@
 '(expression:
   (app
-   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+   (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))
    (λ (x1)
      (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
       (λ (x2)
         (app
-         (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
+         (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))))
-(list 'query: '(app f2 (-> #t <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let ((-> _ = (app f2 #t) <-)) bod) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f2 <-) #t) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x2)
-      (app
-       (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f1 (-> #t <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let ((-> _ = (app f3 #t) <-)) bod) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f3 <-) #t) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> (λ (z) (app z x1 x2 x3)) <-) (λ (y1 y2 y3) y1))
- (flatenv '()))
-(list 'clos/con: (list (list '(λ (z) (app z x1 x2 x3)) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app z x1 x2 (-> x3 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> z <-) x1 x2 x3) (flatenv '()))
-(list 'clos/con: (list (list '(λ (y1 y2 y3) y1) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-   (->
-    (λ (x2)
-      (app
-       (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
-    <-))
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x2)
-      (app
-       (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f2 (-> #f <-)) (flatenv '()))
+(list 'query: '(app f3 (-> (app #f) <-)) (flatenv '()))
 (list 'clos/con: (list (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f3) (-> (let ((_ (app f3 #t))) (app f3 #f)) <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let (_) (-> (app f3 #f) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app z (-> x1 <-) x2 x3) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f3 <-) #f) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f1 <-) #f) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x1)
-      (app
-       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-       (λ (x2)
-         (app
-          (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let ((-> _ = (app f1 #t) <-)) bod) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'query: '(app f2 (-> (app #t) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
+   (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
    (-> (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))) <-))
  (flatenv '()))
 (list
@@ -131,82 +27,79 @@
    '(λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f1 <-) #t) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x1)
-      (app
-       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-       (λ (x2)
-         (app
-          (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x2)
-    (->
-     (app
-      (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))
-     <-))
- (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)
+   (-> (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f)))) <-)
    (λ (x2)
      (app
-      (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
+      (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))
  (flatenv '()))
 (list
  'clos/con:
- (list (list '(λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) (flatenv '()))))
+ (list
+  (list
+   '(λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f2 <-) #f) (flatenv '()))
+(list
+ 'query:
+ '(λ (x3) (-> (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> z <-) x1 x2 x3) (flatenv '()))
+(list 'clos/con: (list (list '(λ (y1 y2 y3) y1) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app z x1 (-> x2 <-) x3) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let (_) (-> (app f2 (app #f)) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f1 (-> (app #t) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x1)
+    (->
+     (app
+      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+      (λ (x2)
+        (app
+         (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))
+     <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f3 <-) (app #t)) (flatenv '()))
 (list
  'clos/con:
  (list
   (list
-   '(λ (x2)
-      (app
-       (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
+   '(λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)
-   (λ (x1)
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2)
-        (app
-         (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))))
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))
+   (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))
    (->
     (λ (x1)
       (app
-       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
        (λ (x2)
          (app
-          (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
+          (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
           (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
     <-))
  (flatenv '()))
@@ -216,36 +109,48 @@
   (list
    '(λ (x1)
       (app
-       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
+       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
        (λ (x2)
          (app
-          (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
+          (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
           (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (x1)
-    (->
-     (app
-      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))
-      (λ (x2)
-        (app
-         (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))
-         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))
-     <-))
+ '(app (-> (λ (z) (app z x1 x2 x3)) <-) (λ (y1 y2 y3) y1))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'clos/con: (list (list '(λ (z) (app z x1 x2 x3)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f1 <-) (app #f)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1)
+      (app
+       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+       (λ (x2)
+         (app
+          (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   (-> (λ (f3) (let ((_ (app f3 #t))) (app f3 #f))) <-)
+   (-> (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f)))) <-)
    (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))
  (flatenv '()))
 (list
  'clos/con:
- (list (list '(λ (f3) (let ((_ (app f3 #t))) (app f3 #f))) (flatenv '()))))
+ (list
+  (list
+   '(λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -253,42 +158,164 @@
  (flatenv '()))
 (list 'clos/con: (list (list '(λ (y1 y2 y3) y1) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (y1 y2 y3) (-> y1 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'query: '(let (_) (-> (app f1 (app #f)) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f1 <-) (app #t)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1)
+      (app
+       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+       (λ (x2)
+         (app
+          (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))
+ '(app
+   (-> (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f)))) <-)
+   (λ (x1)
+     (app
+      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+      (λ (x2)
+        (app
+         (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))
+   (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app z x1 (-> x2 <-) x3) (flatenv '()))
+(list
+ 'query:
+ '(λ (f1) (-> (let ((_ (app f1 (app #t)))) (app f1 (app #f))) <-))
+ (flatenv '()))
 (list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let (_) (-> (app f1 #f) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'query: '(let ((-> _ = (app f3 (app #t)) <-)) bod) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let (_) (-> (app f2 #f) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'query: '(let ((-> _ = (app f1 (app #t)) <-)) bod) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f1 (-> #f <-)) (flatenv '()))
+(list 'query: '(app f2 (-> (app #f) <-)) (flatenv '()))
 (list 'clos/con: (list (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (z) (-> (app z x1 x2 x3) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list 'query: '(λ (y1 y2 y3) (-> y1 <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f3 (-> #f <-)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '()))))
+(list 'query: '(app f3 (-> (app #t) <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f3 (-> #t <-)) (flatenv '()))
+(list 'query: '(app (-> f2 <-) (app #t)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x2)
+      (app
+       (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f2 <-) (app #f)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x2)
+      (app
+       (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app z (-> x1 <-) x2 x3) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f3 <-) (app #f)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (x3) (-> (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)) <-))
+ '(λ (f3) (-> (let ((_ (app f3 (app #t)))) (app f3 (app #f))) <-))
  (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f2) (-> (let ((_ (app f2 (app #t)))) (app f2 (app #f))) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (z) (-> (app z x1 x2 x3) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x2)
+    (->
+     (app
+      (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))
+     <-))
+ (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app z x1 x2 (-> x3 <-)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let ((-> _ = (app f2 (app #t)) <-)) bod) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let (_) (-> (app f3 (app #f)) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))
+   (->
+    (λ (x2)
+      (app
+       (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
+    <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x2)
+      (app
+       (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))
+       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f1 (-> (app #f) <-)) (flatenv '()))
+(list 'clos/con: (list (list #f (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

@@ -125,17 +125,88 @@ Finish the paper
 (define (lookup-demand-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x
-    ; ['= `(prim ,do-demand-equal)]
-    ; ['equal? `(prim, do-demand-equal)]
-    ; ['or `(prim ,do-demand-or)]; TODO Handle in match positions
-    ; ['and `(prim ,do-demand-and)]; TODO Handle in match positions
-    ; ['not `(prim ,do-demand-not)]
+    ['= `(prim ,do-demand-equal)]
+    ['equal? `(prim, do-demand-equal)]
+    ['or `(prim ,do-demand-or)]; TODO Handle in match positions
+    ['and `(prim ,do-demand-and)]; TODO Handle in match positions
+    ['not `(prim ,do-demand-not)]
     ['- `(prim ,do-sub)] ; Numbers work with the regular data model
     ['+ `(prim ,do-add)] ; Numbers work with the regular data model
     ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
+    ['< `(prim ,do-lt)] ; Numbers work with the regular data model
+    ['newline `(prim, do-newline)]
+    ['display `(prim, do-display)]
     [_ #f]
-    )
-  )
+    ))
+
+(define (do-demand-not ρ C a1)
+  (>>=clos (is-truthy ρ C a1)
+           (λ (Ce ρ)
+             (match Ce
+               [(cons C #f) (true C ρ)]
+               [(cons C #t) (false C ρ)]
+               )
+             )))
+
+(define (is-truthy ρ C v)
+  (match v
+    [(product/lattice (literal (list i1 f1 c1 s1))) (true C ρ)]
+    [(product/set (list C `(λ ,_ ,@_))) (true C ρ)]; Closures
+    [(product/set (list (cons C #t) _)) (true C ρ)]
+    [(product/set (list (cons C #f) _)) (false C ρ)]
+    [(product/set (list Ce ρe)) ; Constructors
+     (>>=clos (>>= (rat Ce ρe) eval) ; Eval the constructor
+              (λ (Cc ρc)
+                (match Cc ; Check if it is false
+                  [(cons _ #f) (false C ρ)]
+                  [(cons _ _) (true C ρ)]
+                  )))]))
+
+(define (do-demand-or ρ C . args)
+  (match args
+    ['() (false C ρ)]
+    [(cons a '())
+     (>>=clos (is-truthy ρ C a)
+              (λ (Ce p)
+                (match Ce
+                  [(cons C #f) (false C p)]
+                  [(cons _ #t) (unit a)]
+                  )))]
+    [(cons a as)
+     (>>=clos (is-truthy ρ C a)
+              (λ (Ce _)
+                (match Ce
+                  [(cons _ #f) (apply do-demand-or (cons ρ (cons C as)))]
+                  [(cons _ #t) (unit a)]
+                  )))]))
+
+(define (do-demand-and ρ C . args)
+  (match args
+    ['() (true C ρ)]
+    [(cons a '())
+     (>>=clos (is-truthy ρ C a)
+              (λ (Ce p)
+                (match Ce
+                  [(cons C #f) (false C p)]
+                  [(cons _ #t) (unit a)])))]
+    [(cons a as)
+     (>>=clos (is-truthy ρ C a)
+              (λ (Ce p)
+                (match Ce
+                  [(cons C #f) (false C p)]
+                  [(cons _ #t) (apply do-demand-and (cons ρ (cons C as)))]
+                  )))]))
+
+(define (do-demand-equal ρ C a1 a2)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1)))
+     (match a2
+       [(product/lattice (literal (list i1 f1 c1 s1))) (each (true C ρ) (false C ρ))] ; TODO: More refined
+       [_ ⊥]
+       )]
+    [(product/set (list _ `(λ ,_ ,@_))) (false C ρ)]; Closures never are equal
+    [(product/set (list _ _)) (each (true C ρ) (false C ρ))] ; TODO Refine this
+    ))
 
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
@@ -144,8 +215,8 @@ Finish the paper
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
-          [(cons _ #t) (clos Ce ρ)]
-          [(cons _ #f) (clos Ce ρ)]
+          [(cons C #t) (true C ρ)]
+          [(cons C #f) (false C ρ)]
           [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons _ (? symbol? x))
@@ -181,6 +252,7 @@ Finish the paper
                     [(? symbol? x)
                      (match (lookup-demand-primitive x)
                        [#f
+                        (check-known-constructor? x)
                         (pretty-tracen 0 `(constructor? ,x))
                         (clos Ce ρ)]
                        [Ce (clos Ce ρ)]
@@ -192,7 +264,7 @@ Finish the paper
           [(cons C `(app ,@args))
            (pretty-trace `(APP ,ρ))
            (>>=clos
-            (>>= (rat Ce ρ) eval)
+            (>>= (rat Ce ρ) eval) ; TODO: Switch this to check for primitive apps first?
             (λ (Ce′ ρ′)
               ; (pretty-trace `(got closure or primitive ,Ce′))
               (match Ce′
@@ -207,7 +279,7 @@ Finish the paper
                 [(cons _ `(λ ,_ ,_))
                  (>>= (bod-enter Ce′ Ce ρ ρ′) (debug-eval 'app-eval eval))
                  ]
-                [con (clos Ce ρ)]; Constructors just return the application
+                [(cons _ con) (clos Ce ρ)]; Constructors just return the application
                 )
               ))
            ]

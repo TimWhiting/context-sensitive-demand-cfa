@@ -1,7 +1,7 @@
 #lang racket/base
 (require "all-examples.rkt")
 (require "demand.rkt" "config.rkt" "debug.rkt" "static-contexts.rkt")
-(require "m-cfa.rkt" "envs.rkt")
+(require "m-cfa.rkt" "envs.rkt" "results.rkt")
 
 (module+ main
   (require racket/pretty)
@@ -79,7 +79,7 @@
   ; (pretty-result
   ;  (run-print-query (apply eval query)))
   (current-m 0)
-  (compare-demand 'ack (lambda (q) q))
+  (run-basic (get-example-expr 'cpstak) (lambda (q) q))
   ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
   ; (pretty-result (run-print-query (apply meval top-query-mcfa)))
   )

@@ -7,37 +7,17 @@
                (app <= n 1)
                (#t (app id a))
                (#f
-                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+                (let* ((r (app (app blur id) (app #t)))
+                       (s (app (app blur id) (app #f))))
                   (app not (app (app blur lp) s (app - n 1)))))))))
-    (app lp #f 2)))
-(list 'query: '(app (-> (app blur id) <-) #f) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(λ (x) x) (menv '()))
-  (list
-   '(λ (a n)
-      (match
-       (app <= n 1)
-       (#t (app id a))
-       (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-          (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
+    (app lp (app #f) 2)))
+(list 'query: '(app lp (-> (app #f) <-) 2) (menv '()))
+(list 'clos/con: (list (list '(app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app - (-> n <-) 1) (menv '(())))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> blur <-) id) (menv '(())))
-(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
+(list 'query: '(app (app blur id) (-> (app #t) <-)) (menv '(())))
+(list 'clos/con: (list (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> id <-) a) (menv '(())))
-(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app lp #f (-> 2 <-)) (menv '()))
-'(clos/con: ⊥)
-'(literals: (2 ⊥ ⊥ ⊥))
-(list 'query: '(app blur (-> lp <-)) (menv '(())))
+(list 'query: '(app (-> (app blur id) <-) (app #f)) (menv '(())))
 (list
  'clos/con:
  (list
@@ -47,123 +27,14 @@
        (app <= n 1)
        (#t (app id a))
        (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
           (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
+   (menv '()))
+  (list '(λ (x) x) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app <= n (-> 1 <-)) (menv '(())))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
-(list 'query: '(app blur (-> id <-)) (menv '(())))
-(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> lp <-) #f 2) (menv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (a n)
-      (match
-       (app <= n 1)
-       (#t (app id a))
-       (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-          (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> (app blur lp) <-) s (app - n 1)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(λ (x) x) (menv '()))
-  (list
-   '(λ (a n)
-      (match
-       (app <= n 1)
-       (#t (app id a))
-       (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-          (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let* (r (-> s = (app (app blur id) #f) <-)) bod) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> - <-) n 1) (menv '(())))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(match
-   (-> (app <= n 1) <-)
-   (#t (app id a))
-   (#f
-    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-      (app not (app (app blur lp) s (app - n 1))))))
- (menv '(())))
-(list 'clos/con: (list (list #f (menv '(()))) (list #t (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> not <-) (app (app blur lp) s (app - n 1)))
- (menv '(())))
-(list 'clos/con: (list (list 'not (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(match
-   (app <= n 1)
-   (-> #t (app id a) <-)
-   (#f
-    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-      (app not (app (app blur lp) s (app - n 1))))))
- (menv '(())))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app id (-> a <-)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))
-(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (app blur id) (-> #f <-)) (menv '(())))
-(list 'clos/con: (list (list #f (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (x) (-> x <-)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (menv '()))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+(list 'query: '(app (-> #t <-)) (menv '(())))
+(list 'clos/con: (list (list #t (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -173,17 +44,28 @@
       (app <= n 1)
       (#t (app id a))
       (#f
-       (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+       (let* ((r (app (app blur id) (app #t)))
+              (s (app (app blur id) (app #f))))
          (app not (app (app blur lp) s (app - n 1))))))
      <-))
  (menv '(())))
 (list
  'clos/con:
  (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
   (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+ (menv '(())))
+(list 'clos/con: (list (list #t (menv '(()))) (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app blur (-> id <-)) (menv '(())))
+(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> <= <-) n 1) (menv '(())))
 '(clos/con: (#<procedure:do-lte>))
@@ -195,86 +77,33 @@
 (list
  'clos/con:
  (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
   (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+  (list #f (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app - n (-> 1 <-)) (menv '(())))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
 (list 'query: '(app <= (-> n <-) 1) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-(list 'query: '(let* ((-> r = (app (app blur id) #t) <-) s) bod) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+(list 'query: '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))
+(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> blur <-) id) (menv '(())))
+(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (app blur lp) s (-> (app - n 1) <-)) (menv '(())))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
-(list 'query: '(λ (y) (-> y <-)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(λ (x) x) (menv '()))
-  (list
-   '(λ (a n)
-      (match
-       (app <= n 1)
-       (#t (app id a))
-       (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-          (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(letrec (id (-> blur = (λ (y) y) <-) lp) bod) (menv '()))
-(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> (app blur id) <-) #t) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(λ (x) x) (menv '()))
-  (list
-   '(λ (a n)
-      (match
-       (app <= n 1)
-       (#t (app id a))
-       (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-          (app not (app (app blur lp) s (app - n 1)))))))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app lp (-> #f <-) 2) (menv '()))
-(list 'clos/con: (list (list #f (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app blur (-> id <-)) (menv '(())))
-(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> blur <-) lp) (menv '(())))
-(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(match
-   (app <= n 1)
-   (#t (app id a))
-   (->
-    #f
-    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
-      (app not (app (app blur lp) s (app - n 1))))
-    <-))
+ '(app (-> not <-) (app (app blur lp) s (app - n 1)))
  (menv '(())))
-(list
- 'clos/con:
- (list (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))))
+'(clos/con: (#<procedure:do-demand-not>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app - n (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
 (list
  'query:
  '(letrec (id
@@ -287,7 +116,8 @@
                (app <= n 1)
                (#t (app id a))
                (#f
-                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+                (let* ((r (app (app blur id) (app #t)))
+                       (s (app (app blur id) (app #f))))
                   (app not (app (app blur lp) s (app - n 1)))))))
             <-))
     bod)
@@ -301,38 +131,239 @@
        (app <= n 1)
        (#t (app id a))
        (#f
-        (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
           (app not (app (app blur lp) s (app - n 1)))))))
    (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (app blur id) (-> #t <-)) (menv '(())))
-(list 'clos/con: (list (list #t (menv '(())))))
+(list 'query: '(app - (-> n <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (menv '()))
+(list 'clos/con: (list (list #f (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(letrec (id blur lp) (-> (app lp #f 2) <-)) (menv '()))
+(list 'query: '(app (-> blur <-) lp) (menv '(())))
+(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (x) (-> x <-)) (menv '(())))
 (list
  'clos/con:
  (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
   (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(letrec (id (-> blur = (λ (y) y) <-) lp) bod) (menv '()))
+(list 'clos/con: (list (list '(λ (y) y) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (menv '(())))
+(list 'clos/con: (list (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> - <-) n 1) (menv '(())))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app blur (-> id <-)) (menv '(())))
+(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (-> #t (app id a) <-)
+   (#f
+    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (app blur lp) (-> s <-) (app - n 1)) (menv '(())))
 (list
  'clos/con:
  (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
   (list #t (menv '(())))
-  (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))
-  (list #f (menv '(())))
-  (list #f (menv '()))))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app blur lp) <-) s (app - n 1)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (menv '()))
+  (list '(λ (x) x) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> (app blur id) <-) (app #t)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (menv '()))
+  (list '(λ (x) x) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(letrec (id blur lp) (-> (app lp (app #f) 2) <-)) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> id <-) a) (menv '(())))
+(list 'clos/con: (list (list '(λ (x) x) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+ '(match
+   (-> (app <= n 1) <-)
+   (#t (app id a))
+   (#f
+    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))
+      (app not (app (app blur lp) s (app - n 1))))))
+ (menv '(())))
+(list 'clos/con: (list (list #f (menv '(()))) (list #t (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* ((-> r = (app (app blur id) (app #t)) <-) s) bod)
  (menv '(())))
 (list
  'clos/con:
- (list (list '(app not (app (app blur lp) s (app - n 1))) (menv '(())))))
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (app blur id) (-> (app #f) <-)) (menv '(())))
+(list 'clos/con: (list (list '(app #f) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app <= n (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app <= n 1)
+   (#t (app id a))
+   (->
+    #f
+    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))
+      (app not (app (app blur lp) s (app - n 1))))
+    <-))
+ (menv '(())))
+(list 'clos/con: (list (list #t (menv '(()))) (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app lp (app #f) (-> 2 <-)) (menv '()))
+'(clos/con: ⊥)
+'(literals: (2 ⊥ ⊥ ⊥))
+(list 'query: '(app blur (-> lp <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let* (r (-> s = (app (app blur id) (app #f)) <-)) bod)
+ (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> lp <-) (app #f) 2) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app id (-> a <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (y) (-> y <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a n)
+      (match
+       (app <= n 1)
+       (#t (app id a))
+       (#f
+        (let* ((r (app (app blur id) (app #t)))
+               (s (app (app blur id) (app #f))))
+          (app not (app (app blur lp) s (app - n 1)))))))
+   (menv '()))
+  (list '(λ (x) x) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '()))
+  (list '(app #t) (menv '(())))
+  (list #t (menv '(())))
+  (list #f (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> blur <-) id) (menv '(())))
 (list 'clos/con: (list (list '(λ (y) y) (menv '()))))

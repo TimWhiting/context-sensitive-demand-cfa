@@ -1,6 +1,12 @@
 #lang racket/base
-(require racket/match racket/pretty)
-(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt")
+(require racket/match racket/pretty racket/list)
+(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt" "config.rkt")
+
+(define (check-known-constructor? x)
+  (match x
+    ['cons #t]
+    ['nil #t]
+    ))
 
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
@@ -8,12 +14,35 @@
     ['= `(prim ,do-equal)]
     ['- `(prim ,do-sub)]
     ['+ `(prim ,do-add)]
+    ['< `(prim ,do-lt)]
     ['<= `(prim ,do-lte)]
     ['not `(prim ,do-not)]
-    ['or `(prim ,do-or)]; TODO Handle in match positions
-    ['and `(prim ,do-and)]; TODO Handle in match positions
+    ['or `(prim ,do-or)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
+    ['and `(prim ,do-and)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
     ['equal? `(prim, do-equal)]
+    ['newline `(prim, do-newline)]
+    ['display `(prim, do-display)]
     [_ #f]
+    )
+  )
+
+(define (true C p)
+  (match (analysis-kind)
+    ['exponential (clos (cons C #t) p)]
+    ['rebinding (clos (cons C #t) p)]
+    ['basic (clos (cons C #t) p)]
+    ['light (clos (cons C #t) p)]
+    ['hybrid (clos (cons C #t) p)]
+    )
+  )
+
+(define (false C p)
+  (match (analysis-kind)
+    ['exponential (clos (cons C #f) p)]
+    ['rebinding (clos (cons C #f) p)]
+    ['basic (clos (cons C #f) p)]
+    ['light (clos (cons C #f) p)]
+    ['hybrid (clos (cons C #f) p)]
     )
   )
 
@@ -45,18 +74,30 @@
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos (cons C #t) p) (clos (cons C #f) p))]
-       [_ (clos (cons C #f) p)]
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
+       [_ (false C p)]
        )
      ]
-    [_ (each (clos (cons C #t) p) (clos (cons C #f) p))])
+    [_ (each (true C p) (false C p))])
   )
 
 (define (do-lte p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (clos (cons C #t) p) (clos (cons C #f) p))]
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
+       [_ (clos (cons C 'error-lte-not-implemented) p)]
+       )
+     ]
+    [_ (clos (cons C 'error-lte-not-implemented) p)])
+  )
+
+
+(define (do-lt p C a1 a2)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1)))
+     (match a2
+       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
        [_ (clos (cons C 'error-lte-not-implemented) p)]
        )
      ]
@@ -65,24 +106,25 @@
 
 (define (do-not p C a1)
   (match a1
-    [(product/lattice (literal (list i1 f1 c1 s1))) (each (clos #f p) (clos #t p))]
-    [(product/set (list (cons _ #f) _)) (clos (cons C #t) p)]
-    [(product/set (list _ _)) (clos (cons C #f) p)]
+    [(product/lattice (literal (list i1 f1 c1 s1))) (each (true C p) (false C p))]
+    [(product/set (list (cons _ #f) _)) (true C p)]
+    [(product/set (list _ _)) (false C p)]
     )
   )
 
 (define (do-or p C . args)
-  ; (pretty-print (ors (map is-true args)))
-  (if (ors (map is-truthy args))
-      (clos (cons C #t) p)
-      (clos (cons C #f) p)
-      ))
+  (match args
+    ['() (false C p)]
+    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
+    [(cons x xs) (if (is-truthy x) (unit x) (apply do-or (cons p (cons C xs))))]
+    ))
 
 (define (do-and p C . args)
-  (if (alls (map is-truthy args))
-      (clos (cons C #t) p)
-      (clos (cons C #f) p)
-      ))
+  (match args
+    ['() (true C p)]
+    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
+    [(cons x xs) (if (is-truthy x) (apply do-and (cons p (cons C xs))) (false C p))]
+    ))
 
 (define (is-truthy r)
   (not (is-falsey r)))
@@ -114,6 +156,13 @@
        )
      ]
     [_ ⊥])
+  )
+
+(define (do-newline p C)
+  ⊥
+  )
+(define (do-display p C . args)
+  ⊥
   )
 
 (provide (all-defined-out))

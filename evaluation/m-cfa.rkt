@@ -96,6 +96,7 @@
    (λ (_ ρ i)
      (match i
        [-1
+        (check-known-constructor? x)
         ; (pretty-print `(returning-cons ,Ce ,ρ))
         (clos Ce ρ)] ; treat as constructor]
        [_
@@ -114,8 +115,7 @@
   (match (lookup-primitive x)
     [#f (store-lookup Ce x ρ)]
     [Ce (clos Ce ρ)]
-    )
-  )
+    ))
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
@@ -197,10 +197,10 @@
                                        (λ (_) (meval Ce ρ-new)))]
                                  ))))
                           )]
-                    [(cons C con)
+                    [(cons _ con)
                      ; (pretty-print `(con))
                      (>>= (bind-args (range (length args)) ρ evaled-args)
-                          (λ (_) (clos (cons Ce con) lamρ)))]
+                          (λ (_) (clos (cons C con) lamρ)))]
                     ))))
 
          )

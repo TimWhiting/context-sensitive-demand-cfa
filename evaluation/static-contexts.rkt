@@ -143,7 +143,8 @@
 (define (rat Ce ρ)
   (match Ce
     [(cons C `(app ,f ,@es))
-     (unit (cons `(rat ,es ,C) f) ρ)]))
+     (unit (cons `(rat ,es ,C) f) ρ)]
+    ))
 
 (define (focus-match-e Ce ρ)
   (>>=list (focus-match Ce ρ)))

@@ -67,7 +67,102 @@
 (list
  'clos/con:
  (list
-  (list '< (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))))
+  (list #t (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))
+  (list #f (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app not (-> (app < y x) <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))
+  (list
+   #f
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) x 1)
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -114,7 +209,7 @@
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(letrec (cpstak) (-> (app cpstak 32 15 8) <-)) (flatenv '()))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(letrec ((->
@@ -183,45 +278,101 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app tak x (-> y <-) z (λ (a) a))
+ '(match
+   (app not (app < y x))
+   (-> #t (app k z) <-)
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
  (flatenv
-  '(((let-bod
-      letrec
-      ((cpstak
-        (λ (x y z)
-          (letrec ((tak
-                    (λ (x y z k)
-                      (match
-                       (app not (app < y x))
-                       (#t (app k z))
-                       (#f
-                        (app
-                         tak
-                         (app - x 1)
-                         y
-                         z
-                         (λ (v1)
-                           (app
-                            tak
-                            (app - y 1)
-                            z
-                            x
-                            (λ (v2)
-                              (app
-                               tak
-                               (app - z 1)
-                               x
-                               y
-                               (λ (v3) (app tak v1 v2 v3 k))))))))))))
-            (app tak x y z (λ (a) a))))))
-      (top))
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
      app
-     cpstak
-     32
-     15
-     8))))
+     tak
+     v1
+     v2
+     v3
+     k))))
 '(clos/con: ⊥)
-'(literals: (15 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> z <-) 1)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app tak x y (-> z <-) (λ (a) a))
@@ -263,9 +414,350 @@
      8))))
 '(clos/con: ⊥)
 '(literals: (8 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> x <-) 1)
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak v1 (-> v2 <-) v3 k)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak (app - z 1) x (-> y <-) (λ (v3) (app tak v1 v2 v3 k)))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak x (-> y <-) z (λ (a) a))
+ (flatenv
+  '(((let-bod
+      letrec
+      ((cpstak
+        (λ (x y z)
+          (letrec ((tak
+                    (λ (x y z k)
+                      (match
+                       (app not (app < y x))
+                       (#t (app k z))
+                       (#f
+                        (app
+                         tak
+                         (app - x 1)
+                         y
+                         z
+                         (λ (v1)
+                           (app
+                            tak
+                            (app - y 1)
+                            z
+                            x
+                            (λ (v2)
+                              (app
+                               tak
+                               (app - z 1)
+                               x
+                               y
+                               (λ (v3) (app tak v1 v2 v3 k))))))))))))
+            (app tak x y z (λ (a) a))))))
+      (top))
+     app
+     cpstak
+     32
+     15
+     8))))
+'(clos/con: ⊥)
+'(literals: (15 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < y (-> x <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list 'query: '(app cpstak 32 15 (-> 8 <-)) (flatenv '()))
 '(clos/con: ⊥)
 '(literals: (8 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app not (-> (app < y x) <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+(list
+ 'clos/con:
+ (list
+  (list #f (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))
+  (list #t (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak (app - z 1) (-> x <-) y (λ (v3) (app tak v1 v2 v3 k)))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) (app < y x))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < (-> y <-) x)
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(match
@@ -321,7 +813,66 @@
 (list
  'clos/con:
  (list
+  (list #t (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))
   (list #f (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> tak <-) v1 v2 v3 k)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -354,6 +905,351 @@
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
 '(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (-> (app - x 1) <-)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> x <-) 1)
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> tak <-)
+   (app - x 1)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (v3) (-> (app tak v1 v2 v3 k) <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> tak <-)
+   (app - y 1)
+   z
+   x
+   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak (-> (app - z 1) <-) x y (λ (v3) (app tak v1 v2 v3 k)))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) x 1)
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: (#<procedure:do-sub>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -407,6 +1303,45 @@
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
+ '(app k (-> z <-))
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+'(clos/con: ⊥)
+'(literals: (8 ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app
    tak
    (app - x 1)
@@ -447,7 +1382,53 @@
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
 '(clos/con: ⊥)
-'(literals: (8 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < y (-> x <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
@@ -498,6 +1479,478 @@
      (λ (a) a)))))
 '(clos/con: ⊥)
 '(literals: (8 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak (-> v1 <-) v2 v3 k)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) (app < y x))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   (-> z <-)
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> k <-) z)
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v3) (app tak v1 v2 v3 k))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app not (app < y x)) <-)
+   (#t (app k z))
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+(list
+ 'clos/con:
+ (list
+  (list #t (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))
+  (list #f (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < (-> y <-) x)
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+'(clos/con: ⊥)
+'(literals: (15 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) (app < y x))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (v2) (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < (-> y <-) x)
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app k (-> z <-))
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < (-> y <-) x)
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app tak x y z (-> (λ (a) a) <-))
@@ -599,7 +2052,7 @@
      z
      (λ (a) a)))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
@@ -665,52 +2118,26 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app < (-> y <-) x)
- (flatenv
-  '(((let-bod
-      letrec
-      ((tak
-        (λ (x y z k)
-          (match
-           (app not (app < y x))
-           (#t (app k z))
-           (#f
-            (app
-             tak
-             (app - x 1)
-             y
-             z
-             (λ (v1)
-               (app
-                tak
-                (app - y 1)
-                z
-                x
-                (λ (v2)
-                  (app
-                   tak
-                   (app - z 1)
-                   x
-                   y
-                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
-      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
-     app
-     tak
-     x
-     y
-     z
-     (λ (a) a)))))
-'(clos/con: ⊥)
-'(literals: (15 ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app < (-> y <-) x)
+ '(app (-> - <-) y 1)
  (flatenv
   '(((match-clause
-      #f
+      #t
       (app not (app < y x))
-      ((#t (app k z)))
       ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
       (bod
        (x y z k)
        (bin
@@ -721,19 +2148,111 @@
         ()
         (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
      app
+     k
+     z))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - x (-> 1 <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
      tak
-     (app - x 1)
-     y
+     (app - y 1)
      z
-     (λ (v1)
-       (app
-        tak
-        (app - y 1)
-        z
-        x
-        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
 '(clos/con: ⊥)
-'(literals: (15 ⊥ ⊥ ⊥))
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   z
+   (->
+    (λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(letrec (tak) (-> (app tak x y z (λ (a) a)) <-))
@@ -774,7 +2293,7 @@
      15
      8))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app tak (-> x <-) y z (λ (a) a))
@@ -816,6 +2335,134 @@
      8))))
 '(clos/con: ⊥)
 '(literals: (32 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) z 1)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app k (-> z <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) x 1)
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> cpstak <-) 32 15 8) (flatenv '()))
 (list
  'clos/con:
@@ -914,6 +2561,266 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
+ '(app (-> k <-) z)
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))
+  (list '(λ (a) a) (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))
+  (list
+   '(λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))))
+  (list
+   '(λ (v3) (app tak v1 v2 v3 k))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < y (-> x <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app not (-> (app < y x) <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #f
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))
+  (list
+   #t
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(λ (x y z k)
     (->
      (match
@@ -962,6 +2869,634 @@
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
 '(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - (-> x <-) 1)
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (-> #t (app k z) <-)
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - x (-> 1 <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - x (-> 1 <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list 'query: '(app cpstak (-> 32 <-) 15 8) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (32 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak v1 v2 v3 (-> k <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))
+  (list '(λ (a) a) (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))
+  (list
+   '(λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))))
+  (list
+   '(λ (v3) (app tak v1 v2 v3 k))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app cpstak 32 (-> 15 <-) 8) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (15 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   (-> y <-)
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (-> #t (app k z) <-)
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (-> (app - y 1) <-)
+   z
+   x
+   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> k <-) z)
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> < <-) y x)
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: (#<procedure:do-lt>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1032,10 +3567,7 @@
      y
      z
      (λ (a) a)))))
-(list
- 'clos/con:
- (list
-  (list '< (flatenv '((letrec (tak) (-> (app tak x y z (λ (a) a)) <-)))))))
+'(clos/con: (#<procedure:do-lt>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1085,6 +3617,197 @@
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
 '(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - y 1)
+   z
+   (-> x <-)
+   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (-> (app - x 1) <-)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - z (-> 1 <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak (app - z 1) x y (-> (λ (v3) (app tak v1 v2 v3 k)) <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v3) (app tak v1 v2 v3 k))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1154,8 +3877,86 @@
             z
             x
             (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))
+  (list
+   #t
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
         <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (-> (app - x 1) <-)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app not (-> (app < y x) <-))
@@ -1190,7 +3991,28 @@
  'clos/con:
  (list
   (list
-   '<
+   #f
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))
+  (list
+   #t
    (flatenv
     '((match
        (app not (app < y x))
@@ -1241,17 +4063,259 @@
         z
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: (#<procedure:do-lt>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (#t (app k z))
+   (->
+    #f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (-> #t (app k z) <-)
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (#t (app k z))
+   (->
+    #f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app not (app < y x)) <-)
+   (#t (app k z))
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
 (list
  'clos/con:
  (list
   (list
-   '<
+   #t
    (flatenv
-    '((match
-       (app not (app < y x))
-       (#t (app k z))
-       (->
-        #f
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))
+  (list
+   #f
+   (flatenv
+    '((λ (v1)
+        (->
+         (app
+          tak
+          (app - y 1)
+          z
+          x
+          (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+         <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - y (-> 1 <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
         (app
          tak
          (app - x 1)
@@ -1263,8 +4327,195 @@
             (app - y 1)
             z
             x
-            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
-        <-)))))))
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - y 1)
+   z
+   x
+   (-> (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))) <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app k (-> z <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   z
+   (->
+    (λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1323,7 +4574,146 @@
      z
      (λ (a) a)))))
 '(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (v1)
+    (->
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+     <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> k <-) z)
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (a) a)
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   (-> z <-)
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
@@ -1460,6 +4850,455 @@
             (λ (v2)
               (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
    (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> < <-) y x)
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: (#<procedure:do-lt>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> tak <-)
+   (app - x 1)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (-> (app not (app < y x)) <-)
+   (#t (app k z))
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))
+  (list
+   #f
+   (flatenv
+    '((λ (v2)
+        (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) x 1)
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app k (-> z <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app - x (-> 1 <-))
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (#t (app k z))
+   (->
+    #f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> - <-) x 1)
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   z
+   (->
+    (λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+    <-))
+ (flatenv
+  '(((match-clause
+      #f
+      (app not (app < y x))
+      ((#t (app k z)))
+      ()
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (#t (app k z))
+       (->
+        #f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+        <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -1553,135 +5392,72 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app (-> - <-) x 1)
- (flatenv
-  '(((match-clause
-      #f
+ '(λ (x y z k)
+    (->
+     (match
       (app not (app < y x))
-      ((#t (app k z)))
-      ()
-      (bod
-       (x y z k)
-       (bin
-        letrec
-        tak
-        (app tak x y z (λ (a) a))
-        ()
-        ()
-        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
-     app
-     tak
-     (app - x 1)
-     y
-     z
-     (λ (v1)
+      (#t (app k z))
+      (#f
        (app
         tak
-        (app - y 1)
+        (app - x 1)
+        y
         z
-        x
-        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app - x (-> 1 <-))
+        (λ (v1)
+          (app
+           tak
+           (app - y 1)
+           z
+           x
+           (λ (v2)
+             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+     <-))
  (flatenv
-  '(((let-bod
-      letrec
-      ((tak
-        (λ (x y z k)
-          (match
-           (app not (app < y x))
-           (#t (app k z))
-           (#f
-            (app
-             tak
-             (app - x 1)
-             y
-             z
-             (λ (v1)
-               (app
-                tak
-                (app - y 1)
-                z
-                x
-                (λ (v2)
-                  (app
-                   tak
-                   (app - z 1)
-                   x
-                   y
-                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
-      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
      app
      tak
+     (app - z 1)
      x
      y
-     z
-     (λ (a) a)))))
+     (λ (v3) (app tak v1 v2 v3 k))))))
 '(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app
-   tak
-   (app - x 1)
-   y
-   z
-   (->
-    (λ (v1)
-      (app
-       tak
-       (app - y 1)
-       z
-       x
-       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
-    <-))
+ '(app - (-> y <-) 1)
  (flatenv
   '(((match-clause
-      #f
+      #t
       (app not (app < y x))
-      ((#t (app k z)))
       ()
-      (bod
-       (x y z k)
-       (bin
-        letrec
-        tak
-        (app tak x y z (λ (a) a))
-        ()
-        ()
-        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
-     app
-     tak
-     (app - x 1)
-     y
-     z
-     (λ (v1)
-       (app
-        tak
-        (app - y 1)
-        z
-        x
-        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (v1)
-      (app
-       tak
-       (app - y 1)
-       z
-       x
-       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
-   (flatenv
-    '((match
-       (app not (app < y x))
-       (#t (app k z))
-       (->
-        #f
+      ((#f
         (app
          tak
          (app - x 1)
@@ -1693,48 +5469,22 @@
             (app - y 1)
             z
             x
-            (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
-        <-)))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> - <-) x 1)
- (flatenv
-  '(((let-bod
-      letrec
-      ((tak
-        (λ (x y z k)
-          (match
-           (app not (app < y x))
-           (#t (app k z))
-           (#f
-            (app
-             tak
-             (app - x 1)
-             y
-             z
-             (λ (v1)
-               (app
-                tak
-                (app - y 1)
-                z
-                x
-                (λ (v2)
-                  (app
-                   tak
-                   (app - z 1)
-                   x
-                   y
-                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
-      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
      app
-     tak
-     x
-     y
-     z
-     (λ (a) a)))))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app - (-> x <-) 1)
@@ -1776,6 +5526,124 @@
 '(literals: (32 ⊥ ⊥ ⊥))
 (list
  'query:
+ '(app (-> k <-) z)
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))
+   (flatenv
+    '((match
+       (app not (app < y x))
+       (-> #t (app k z) <-)
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app
+               tak
+               (app - z 1)
+               x
+               y
+               (λ (v3) (app tak v1 v2 v3 k))))))))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   (-> y <-)
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app - (-> x <-) 1)
  (flatenv
   '(((match-clause
@@ -1804,6 +5672,47 @@
         z
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - y 1)
+   (-> z <-)
+   x
+   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
 '(clos/con: ⊥)
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list
@@ -1912,7 +5821,129 @@
      15
      8))))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   (-> z <-)
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x y z k)
+    (->
+     (match
+      (app not (app < y x))
+      (#t (app k z))
+      (#f
+       (app
+        tak
+        (app - x 1)
+        y
+        z
+        (λ (v1)
+          (app
+           tak
+           (app - y 1)
+           z
+           x
+           (λ (v2)
+             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+     <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app < y (-> x <-))
@@ -1986,6 +6017,46 @@
 '(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
+ '(app (-> < <-) y x)
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+'(clos/con: (#<procedure:do-lt>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
  '(app
    tak
    (app - x 1)
@@ -2034,9 +6105,410 @@
      (λ (a) a)))))
 '(clos/con: ⊥)
 '(literals: (15 ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app tak v1 v2 (-> v3 <-) k)
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> tak <-) (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   (-> y <-)
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x y z k)
+    (->
+     (match
+      (app not (app < y x))
+      (#t (app k z))
+      (#f
+       (app
+        tak
+        (app - x 1)
+        y
+        z
+        (λ (v1)
+          (app
+           tak
+           (app - y 1)
+           z
+           x
+           (λ (v2)
+             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+     <-))
+ (flatenv
+  '(((bod
+      (v1)
+      (ran
+       tak
+       ((app - x 1) y z)
+       ()
+       (match-clause
+        #f
+        (app not (app < y x))
+        ((#t (app k z)))
+        ()
+        (bod
+         (x y z k)
+         (bin
+          letrec
+          tak
+          (app tak x y z (λ (a) a))
+          ()
+          ()
+          (bod
+           (x y z)
+           (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))
+     app
+     tak
+     (app - y 1)
+     z
+     x
+     (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (a) (-> a <-))
+ (flatenv
+  '(((match-clause
+      #t
+      (app not (app < y x))
+      ()
+      ((#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+      (bod
+       (x y z k)
+       (bin
+        letrec
+        tak
+        (app tak x y z (λ (a) a))
+        ()
+        ()
+        (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))
+     app
+     k
+     z))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app < (-> y <-) x)
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(match
+   (app not (app < y x))
+   (-> #t (app k z) <-)
+   (#f
+    (app
+     tak
+     (app - x 1)
+     y
+     z
+     (λ (v1)
+       (app
+        tak
+        (app - y 1)
+        z
+        x
+        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))
+ (flatenv
+  '(((let-bod
+      letrec
+      ((tak
+        (λ (x y z k)
+          (match
+           (app not (app < y x))
+           (#t (app k z))
+           (#f
+            (app
+             tak
+             (app - x 1)
+             y
+             z
+             (λ (v1)
+               (app
+                tak
+                (app - y 1)
+                z
+                x
+                (λ (v2)
+                  (app
+                   tak
+                   (app - z 1)
+                   x
+                   y
+                   (λ (v3) (app tak v1 v2 v3 k))))))))))))
+      (bod (x y z) (bin letrec cpstak (app cpstak 32 15 8) () () (top))))
+     app
+     tak
+     x
+     y
+     z
+     (λ (a) a)))))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> tak <-)
+   (app - x 1)
+   y
+   z
+   (λ (v1)
+     (app
+      tak
+      (app - y 1)
+      z
+      x
+      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))
+ (flatenv
+  '(((bod
+      (v2)
+      (ran
+       tak
+       ((app - y 1) z x)
+       ()
+       (bod
+        (v1)
+        (ran
+         tak
+         ((app - x 1) y z)
+         ()
+         (match-clause
+          #f
+          (app not (app < y x))
+          ((#t (app k z)))
+          ()
+          (bod
+           (x y z k)
+           (bin
+            letrec
+            tak
+            (app tak x y z (λ (a) a))
+            ()
+            ()
+            (bod
+             (x y z)
+             (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))
+     app
+     tak
+     (app - z 1)
+     x
+     y
+     (λ (v3) (app tak v1 v2 v3 k))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x y z k)
+      (match
+       (app not (app < y x))
+       (#t (app k z))
+       (#f
+        (app
+         tak
+         (app - x 1)
+         y
+         z
+         (λ (v1)
+           (app
+            tak
+            (app - y 1)
+            z
+            x
+            (λ (v2)
+              (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
+   (flatenv '((letrec (cpstak) (-> (app cpstak 32 15 8) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (flatenv '()))
 '(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
@@ -2079,10 +6551,74 @@
         x
         (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))))))
 '(clos/con: ⊥)
-'(literals: (15 ⊥ ⊥ ⊥))
-(list 'query: '(app cpstak (-> 32 <-) 15 8) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (32 ⊥ ⊥ ⊥))
-(list 'query: '(app cpstak 32 (-> 15 <-) 8) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (15 ⊥ ⊥ ⊥))
+'(literals: (⊤ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   tak
+   (app - x 1)
+   y
+   z
+   (->
+    (λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+    <-))
+ (flatenv
+  '(((bod
+      (v3)
+      (ran
+       tak
+       ((app - z 1) x y)
+       ()
+       (bod
+        (v2)
+        (ran
+         tak
+         ((app - y 1) z x)
+         ()
+         (bod
+          (v1)
+          (ran
+           tak
+           ((app - x 1) y z)
+           ()
+           (match-clause
+            #f
+            (app not (app < y x))
+            ((#t (app k z)))
+            ()
+            (bod
+             (x y z k)
+             (bin
+              letrec
+              tak
+              (app tak x y z (λ (a) a))
+              ()
+              ()
+              (bod
+               (x y z)
+               (bin letrec cpstak (app cpstak 32 15 8) () () (top))))))))))))
+     app
+     tak
+     v1
+     v2
+     v3
+     k))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (v1)
+      (app
+       tak
+       (app - y 1)
+       z
+       x
+       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))
+   (flatenv '((λ (v3) (-> (app tak v1 v2 v3 k) <-)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

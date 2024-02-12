@@ -1,71 +1,9 @@
-'(ack 0 "\"(list 'eval '(app (-> = <-) n 0) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - m (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack
-  0
-  "\"(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '(())))\""
-  15
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app (-> - <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(match\n   (-> (app = m 0) <-)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (_ (app + n 1)))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app + (-> n <-) 1) (menv '(())))\"" 21 ((0 0 0)))
-'(ack
-  0
-  "\"(list 'eval '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))\""
-  23
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app (-> - <-) m 1) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app = (-> m <-) 0) (menv '(())))\"" 16 ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app (-> + <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app (-> ack <-) 3 12) (menv '()))\"" 2 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - (-> m <-) 1) (menv '(())))\"" 15 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - (-> n <-) 1) (menv '(())))\"" 21 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app + n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - m (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(match\n   (-> (app = n 0) <-)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (_ (app ack (app - m 1) 1)))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(letrec ((->\n            ack\n            =\n            (λ (m n)\n              (match\n               (app = m 0)\n               (#f\n                (match\n                 (app = n 0)\n                 (#f (app ack (app - m 1) (app ack m (app - n 1))))\n                 (_ (app ack (app - m 1) 1))))\n               (_ (app + n 1))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))\"" 1 ((0 0 0)))
 '(ack
   0
   "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (->\n    #f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1)))\n    <-)\n   (_ (app + n 1)))\n (menv '(())))\""
-  26
+  42
   ((0 0 0)))
-'(ack 0 "\"(list 'eval '(top) (menv '()))\"" 24 ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (-> _ (app + n 1) <-))\n (menv '(())))\""
-  21
-  ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))\n (menv '(())))\""
-  15
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app = n (-> 0 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app = m (-> 0 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app (-> = <-) m 0) (menv '(())))\"" 1 ((0 0 0)))
-'(ack
-  0
-  "\"(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '(())))\""
-  1
-  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> = <-) n 0) (menv '(())))\"" 1 ((0 0 0)))
 '(ack
   0
   "\"(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '(())))\""
@@ -73,56 +11,183 @@
   ((0 0 0)))
 '(ack
   0
-  "\"(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app = (-> n <-) 0) (menv '(())))\"" 22 ((0 0 0)))
-'(ack
-  0
   "\"(list\n 'eval\n '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))\n (menv '(())))\""
-  21
+  42
   ((0 0 0)))
 '(ack 0 "\"(list 'eval '(app (-> - <-) m 1) (menv '(())))\"" 1 ((0 0 0)))
 '(ack
   0
-  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)\n   (_ (app ack (app - m 1) 1)))\n (menv '(())))\""
-  23
+  "\"(list\n 'eval\n '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))\n (menv '(())))\""
+  2
   ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app - (-> m <-) 1) (menv '(())))\"" 15 ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (-> _ (app ack (app - m 1) 1) <-))\n (menv '(())))\""
-  23
-  ((0 0 0)))
-'(ack
-  0
-  "\"(list\n 'eval\n '(λ (m n)\n    (->\n     (match\n      (app = m 0)\n      (#f\n       (match\n        (app = n 0)\n        (#f (app ack (app - m 1) (app ack m (app - n 1))))\n        (_ (app ack (app - m 1) 1))))\n      (_ (app + n 1)))\n     <-))\n (menv '(())))\""
-  21
-  ((0 0 0)))
-'(ack 0 "\"(list 'eval '(app ack (-> 3 <-) 12) (menv '()))\"" 1 ((0 0 0)))
 '(ack
   0
   "\"(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '(())))\""
-  21
+  42
   ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app = (-> n <-) 0) (menv '(())))\"" 42 ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))\n (menv '(())))\""
+  15
+  ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (-> _ (app + n 1) <-))\n (menv '(())))\""
+  42
+  ((0 0 0)))
+'(ack
+  0
+  "\"(list 'eval '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))\""
+  44
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> - <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app = (-> m <-) 0) (menv '(())))\"" 16 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> ack <-) 3 12) (menv '()))\"" 2 ((0 0 0)))
+'(ack
+  0
+  "\"(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(ack
   0
   "\"(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '(())))\""
   15
   ((0 0 0)))
+'(ack
+  0
+  "\"(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '(())))\""
+  15
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - (-> m <-) 1) (menv '(())))\"" 15 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(top) (menv '()))\"" 45 ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(letrec ((->\n            ack\n            =\n            (λ (m n)\n              (match\n               (app = m 0)\n               (#f\n                (match\n                 (app = n 0)\n                 (#f (app ack (app - m 1) (app ack m (app - n 1))))\n                 (_ (app ack (app - m 1) 1))))\n               (_ (app + n 1))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(λ (m n)\n    (->\n     (match\n      (app = m 0)\n      (#f\n       (match\n        (app = n 0)\n        (#f (app ack (app - m 1) (app ack m (app - n 1))))\n        (_ (app ack (app - m 1) 1))))\n      (_ (app + n 1)))\n     <-))\n (menv '(())))\""
+  42
+  ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(match\n   (-> (app = m 0) <-)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (_ (app + n 1)))\n (menv '(())))\""
+  19
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> = <-) m 0) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app + n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(ack
+  0
+  "\"(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app + (-> n <-) 1) (menv '(())))\"" 42 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - (-> n <-) 1) (menv '(())))\"" 42 ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(match\n   (-> (app = n 0) <-)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (_ (app ack (app - m 1) 1)))\n (menv '(())))\""
+  42
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - m (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> - <-) m 1) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - (-> m <-) 1) (menv '(())))\"" 15 ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)\n   (_ (app ack (app - m 1) 1)))\n (menv '(())))\""
+  42
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app = m (-> 0 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app ack (-> 3 <-) 12) (menv '()))\"" 1 ((0 0 0)))
+'(ack
+  0
+  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (-> _ (app ack (app - m 1) 1) <-))\n (menv '(())))\""
+  42
+  ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app = n (-> 0 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app (-> + <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app - m (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(ack 0 "\"(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))\"" 1 ((0 0 0)))
 '(blur
   0
-  "\"(list 'eval '(app (-> (app blur id) <-) #f) (menv '(())))\""
+  "\"(list 'eval '(app lp (-> (app #f) <-) 2) (menv '()))\""
+  2
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (app blur id) (-> (app #t) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (-> (app blur id) <-) (app #f)) (menv '(())))\""
   13
   ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app - (-> n <-) 1) (menv '(())))\"" 18 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app (-> blur <-) id) (menv '(())))\"" 2 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app (-> id <-) a) (menv '(())))\"" 2 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app lp #f (-> 2 <-)) (menv '()))\"" 1 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app blur (-> lp <-)) (menv '(())))\"" 2 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app <= n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(λ (a n)\n    (->\n     (match\n      (app <= n 1)\n      (#t (app id a))\n      (#f\n       (let* ((r (app (app blur id) (app #t)))\n              (s (app (app blur id) (app #f))))\n         (app not (app (app blur lp) s (app - n 1))))))\n     <-))\n (menv '(())))\""
+  53
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n (menv '(())))\""
+  53
+  ((0 0 0)))
 '(blur 0 "\"(list 'eval '(app blur (-> id <-)) (menv '(())))\"" 2 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app (-> lp <-) #f 2) (menv '()))\"" 2 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> <= <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app not (-> (app (app blur lp) s (app - n 1)) <-)) (menv '(())))\""
+  53
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app <= (-> n <-) 1) (menv '(())))\"" 19 ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> blur <-) id) (menv '(())))\"" 2 ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (app blur lp) s (-> (app - n 1) <-)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (-> not <-) (app (app blur lp) s (app - n 1))) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app - n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(letrec (id\n           blur\n           (->\n            lp\n            =\n            (λ (a n)\n              (match\n               (app <= n 1)\n               (#t (app id a))\n               (#f\n                (let* ((r (app (app blur id) (app #t)))\n                       (s (app (app blur id) (app #f))))\n                  (app not (app (app blur lp) s (app - n 1)))))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app - (-> n <-) 1) (menv '(())))\"" 18 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> #f <-)) (menv '()))\"" 1 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> blur <-) lp) (menv '(())))\"" 2 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(λ (x) (-> x <-)) (menv '(())))\"" 53 ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(letrec (id (-> blur = (λ (y) y) <-) lp) bod) (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> - <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app blur (-> id <-)) (menv '(())))\"" 2 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (-> #t (app id a) <-)\n   (#f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '(())))\""
+  53
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (app blur lp) (-> s <-) (app - n 1)) (menv '(())))\""
+  53
+  ((0 0 0)))
 '(blur
   0
   "\"(list 'eval '(app (-> (app blur lp) <-) s (app - n 1)) (menv '(())))\""
@@ -130,114 +195,95 @@
   ((0 0 0)))
 '(blur
   0
-  "\"(list 'eval '(let* (r (-> s = (app (app blur id) #f) <-)) bod) (menv '(())))\""
-  48
-  ((1 1 0)))
-'(blur 0 "\"(list 'eval '(app (-> - <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
+  "\"(list 'eval '(app (-> (app blur id) <-) (app #t)) (menv '(())))\""
+  13
+  ((0 0 0)))
 '(blur
   0
-  "\"(list\n 'eval\n '(match\n   (-> (app <= n 1) <-)\n   (#t (app id a))\n   (#f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '(())))\""
+  "\"(list 'eval '(letrec (id blur lp) (-> (app lp (app #f) 2) <-)) (menv '()))\""
+  55
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app (-> id <-) a) (menv '(())))\"" 2 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(match\n   (-> (app <= n 1) <-)\n   (#t (app id a))\n   (#f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '(())))\""
   22
   ((0 0 0)))
 '(blur
   0
-  "\"(list 'eval '(app (-> not <-) (app (app blur lp) s (app - n 1))) (menv '(())))\""
-  1
+  "\"(list\n 'eval\n '(let* ((-> r = (app (app blur id) (app #t)) <-) s) bod)\n (menv '(())))\""
+  55
   ((0 0 0)))
 '(blur
   0
-  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (-> #t (app id a) <-)\n   (#f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '(())))\""
-  48
-  ((1 1 0)))
-'(blur 0 "\"(list 'eval '(app id (-> a <-)) (menv '(())))\"" 48 ((1 1 0)))
-'(blur
-  0
-  "\"(list 'eval '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))\""
-  1
-  ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(app (app blur id) (-> #f <-)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(blur 0 "\"(list 'eval '(λ (x) (-> x <-)) (menv '(())))\"" 48 ((1 1 0)))
-'(blur 0 "\"(list 'eval '(top) (menv '()))\"" 51 ((1 1 0)))
-'(blur
-  0
-  "\"(list\n 'eval\n '(λ (a n)\n    (->\n     (match\n      (app <= n 1)\n      (#t (app id a))\n      (#f\n       (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n         (app not (app (app blur lp) s (app - n 1))))))\n     <-))\n (menv '(())))\""
-  48
-  ((1 1 0)))
-'(blur 0 "\"(list 'eval '(app (-> <= <-) n 1) (menv '(())))\"" 1 ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(app not (-> (app (app blur lp) s (app - n 1)) <-)) (menv '(())))\""
-  50
-  ((1 1 0)))
-'(blur 0 "\"(list 'eval '(app - n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app <= (-> n <-) 1) (menv '(())))\"" 19 ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(let* ((-> r = (app (app blur id) #t) <-) s) bod) (menv '(())))\""
-  50
-  ((1 1 0)))
-'(blur
-  0
-  "\"(list 'eval '(app (app blur lp) s (-> (app - n 1) <-)) (menv '(())))\""
-  18
-  ((0 0 0)))
-'(blur 0 "\"(list 'eval '(λ (y) (-> y <-)) (menv '(())))\"" 10 ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(letrec (id (-> blur = (λ (y) y) <-) lp) bod) (menv '()))\""
-  1
-  ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(app (-> (app blur id) <-) #t) (menv '(())))\""
-  13
-  ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app lp (-> #f <-) 2) (menv '()))\"" 1 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app blur (-> id <-)) (menv '(())))\"" 2 ((0 0 0)))
-'(blur 0 "\"(list 'eval '(app (-> blur <-) lp) (menv '(())))\"" 2 ((0 0 0)))
-'(blur
-  0
-  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (#t (app id a))\n   (->\n    #f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))\n    <-))\n (menv '(())))\""
-  3
-  ((0 0 0)))
-'(blur
-  0
-  "\"(list\n 'eval\n '(letrec (id\n           blur\n           (->\n            lp\n            =\n            (λ (a n)\n              (match\n               (app <= n 1)\n               (#t (app id a))\n               (#f\n                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n                  (app not (app (app blur lp) s (app - n 1)))))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(app (app blur id) (-> #t <-)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(blur
-  0
-  "\"(list 'eval '(letrec (id blur lp) (-> (app lp #f 2) <-)) (menv '()))\""
-  50
-  ((1 1 0)))
-'(blur
-  0
-  "\"(list 'eval '(app (app blur lp) (-> s <-) (app - n 1)) (menv '(())))\""
-  48
-  ((1 1 0)))
-'(blur
-  0
-  "\"(list\n 'eval\n '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n (menv '(())))\""
+  "\"(list 'eval '(app (app blur id) (-> (app #f) <-)) (menv '(())))\""
   2
   ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app <= n (-> 1 <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (#t (app id a))\n   (->\n    #f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))\n    <-))\n (menv '(())))\""
+  53
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app lp (app #f) (-> 2 <-)) (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app blur (-> lp <-)) (menv '(())))\"" 2 ((0 0 0)))
+'(blur
+  0
+  "\"(list\n 'eval\n '(let* (r (-> s = (app (app blur id) (app #f)) <-)) bod)\n (menv '(())))\""
+  53
+  ((0 0 0)))
+'(blur
+  0
+  "\"(list 'eval '(app (-> lp <-) (app #f) 2) (menv '()))\""
+  2
+  ((0 0 0)))
+'(blur 0 "\"(list 'eval '(app id (-> a <-)) (menv '(())))\"" 53 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(λ (y) (-> y <-)) (menv '(())))\"" 10 ((0 0 0)))
+'(blur 0 "\"(list 'eval '(top) (menv '()))\"" 56 ((0 0 0)))
 '(blur 0 "\"(list 'eval '(app (-> blur <-) id) (menv '(())))\"" 2 ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app (-> tak <-) (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
-  2
+  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (-> #t (app k z) <-)\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '(() ())))\""
+  67
+  ((1 1 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app tak x y (-> z <-) (λ (a) a)) (menv '(())))\""
+  4
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list 'eval '(app - y (-> 1 <-)) (menv '(() () ())))\""
+  "\"(list 'eval '(app (-> not <-) (app < y x)) (menv '(() ())))\""
+  1
+  ((0 0 0)))
+'(cpstak 0 "\"(list 'eval '(app (-> k <-) z) (menv '(() ())))\"" 12 ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app cpstak (-> 32 <-) 15 8) (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   (-> y <-)\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app cpstak 32 (-> 15 <-) 8) (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app tak (-> (app - z 1) <-) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   x\n   (-> (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))) <-))\n (menv '(() () ())))\""
   1
   ((0 0 0)))
 '(cpstak
@@ -247,71 +293,25 @@
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (-> #t (app k z) <-)\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '(() ())))\""
-  62
-  (#<void>))
-'(cpstak 0 "\"(list 'eval '(app - (-> x <-) 1) (menv '(() ())))\"" 0 (#<void>))
-'(cpstak 0 "\"(list 'eval '(app - x (-> 1 <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+  "\"(list\n 'eval\n '(λ (x y z k)\n    (->\n     (match\n      (app not (app < y x))\n      (#t (app k z))\n      (#f\n       (app\n        tak\n        (app - x 1)\n        y\n        z\n        (λ (v1)\n          (app\n           tak\n           (app - y 1)\n           z\n           x\n           (λ (v2)\n             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n     <-))\n (menv '(() ())))\""
+  67
+  ((1 1 0)))
+'(cpstak 0 "\"(list 'eval '(top) (menv '()))\"" 73 ((1 1 0)))
 '(cpstak
   0
-  "\"(list 'eval '(app not (-> (app < y x) <-)) (menv '(() ())))\""
-  2
-  ((0 0 0)))
+  "\"(list\n 'eval\n '(λ (v1)\n    (->\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n     <-))\n (menv '(() () ())))\""
+  67
+  ((1 1 0)))
 '(cpstak
   0
-  "\"(list 'eval '(λ (v3) (-> (app tak v1 v2 v3 k) <-)) (menv '(() () () () ())))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(λ (x y z)\n    (->\n     (letrec ((tak\n               (λ (x y z k)\n                 (match\n                  (app not (app < y x))\n                  (#t (app k z))\n                  (#f\n                   (app\n                    tak\n                    (app - x 1)\n                    y\n                    z\n                    (λ (v1)\n                      (app\n                       tak\n                       (app - y 1)\n                       z\n                       x\n                       (λ (v2)\n                         (app\n                          tak\n                          (app - z 1)\n                          x\n                          y\n                          (λ (v3) (app tak v1 v2 v3 k))))))))))))\n       (app tak x y z (λ (a) a)))\n     <-))\n (menv '(())))\""
-  7
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(letrec (tak) (-> (app tak x y z (λ (a) a)) <-)) (menv '(())))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   (-> z <-)\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
+  "\"(list\n 'eval\n '(app tak (app - z 1) x (-> y <-) (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
   46
-  ((2 2 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app cpstak 32 15 (-> 8 <-)) (menv '()))\""
-  1
   ((0 0 0)))
+'(cpstak 0 "\"(list 'eval '(λ (a) (-> a <-)) (menv '(() ())))\"" 49 ((0 0 0)))
 '(cpstak
   0
-  "\"(list 'eval '(app tak (-> v1 <-) v2 v3 k) (menv '(() () () () ())))\""
-  0
-  (#<void>))
-'(cpstak 0 "\"(list 'eval '(λ (a) (-> a <-)) (menv '(() ())))\"" 0 (#<void>))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - x 1)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app (-> - <-) z 1) (menv '(() () () ())))\""
-  1
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(λ (v2) (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-))\n (menv '(() () () ())))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app (-> tak <-) x y z (λ (a) a)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (#t (app k z))\n   (->\n    #f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n    <-))\n (menv '(() ())))\""
-  6
+  "\"(list 'eval '(app tak v1 v2 (-> v3 <-) k) (menv '(() () () () ())))\""
+  46
   ((0 0 0)))
 '(cpstak
   0
@@ -320,46 +320,54 @@
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   tak\n   (-> (app - x 1) <-)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
-  0
-  (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app - (-> z <-) 1) (menv '(() () () ())))\""
-  0
-  (#<void>))
-'(cpstak 0 "\"(list 'eval '(top) (menv '()))\"" 11 ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(app tak (app - z 1) (-> x <-) y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
-  0
-  (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app tak v1 v2 v3 (-> k <-)) (menv '(() () () () ())))\""
-  11
+  "\"(list 'eval '(app < (-> y <-) x) (menv '(() ())))\""
+  47
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   (-> x <-)\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
-  0
-  (#<void>))
+  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - x 1)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
+  2
+  ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(letrec ((->\n            tak\n            =\n            (λ (x y z k)\n              (match\n               (app not (app < y x))\n               (#t (app k z))\n               (#f\n                (app\n                 tak\n                 (app - x 1)\n                 y\n                 z\n                 (λ (v1)\n                   (app\n                    tak\n                    (app - y 1)\n                    z\n                    x\n                    (λ (v2)\n                      (app\n                       tak\n                       (app - z 1)\n                       x\n                       y\n                       (λ (v3) (app tak v1 v2 v3 k))))))))))\n            <-))\n    bod)\n (menv '(())))\""
-  1
+  "\"(list\n 'eval\n '(λ (x y z)\n    (->\n     (letrec ((tak\n               (λ (x y z k)\n                 (match\n                  (app not (app < y x))\n                  (#t (app k z))\n                  (#f\n                   (app\n                    tak\n                    (app - x 1)\n                    y\n                    z\n                    (λ (v1)\n                      (app\n                       tak\n                       (app - y 1)\n                       z\n                       x\n                       (λ (v2)\n                         (app\n                          tak\n                          (app - z 1)\n                          x\n                          y\n                          (λ (v3) (app tak v1 v2 v3 k))))))))))))\n       (app tak x y z (λ (a) a)))\n     <-))\n (menv '(())))\""
+  69
+  ((1 1 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app tak (app - z 1) (-> x <-) y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app (-> tak <-) v1 v2 v3 k) (menv '(() () () () ())))\""
+  2
   ((0 0 0)))
 '(cpstak
   0
   "\"(list 'eval '(letrec (cpstak) (-> (app cpstak 32 15 8) <-)) (menv '()))\""
-  10
+  72
+  ((1 1 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app - (-> y <-) 1) (menv '(() () ())))\""
+  46
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list 'eval '(app tak x (-> y <-) z (λ (a) a)) (menv '(())))\""
-  4
+  "\"(list\n 'eval\n '(λ (v2) (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-))\n (menv '(() () () ())))\""
+  67
+  ((1 1 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - y 1)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
+  2
   ((0 0 0)))
-'(cpstak 0 "\"(list 'eval '(app (-> < <-) y x) (menv '(() ())))\"" 1 ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app tak v1 (-> v2 <-) v3 k) (menv '(() () () () ())))\""
+  46
+  ((1 1 0)))
 '(cpstak
   0
   "\"(list 'eval '(app - z (-> 1 <-)) (menv '(() () () ())))\""
@@ -368,25 +376,70 @@
 '(cpstak
   0
   "\"(list\n 'eval\n '(app\n   tak\n   (-> (app - y 1) <-)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
-  0
-  (#<void>))
-'(cpstak 0 "\"(list 'eval '(app (-> - <-) x 1) (menv '(() ())))\"" 1 ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app (-> tak <-) v1 v2 v3 k) (menv '(() () () () ())))\""
-  2
+  46
   ((0 0 0)))
-'(cpstak 0 "\"(list 'eval '(app < (-> y <-) x) (menv '(() ())))\"" 0 (#<void>))
 '(cpstak
   0
-  "\"(list 'eval '(app cpstak (-> 32 <-) 15 8) (menv '()))\""
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   (-> x <-)\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
+  46
+  ((0 0 0)))
+'(cpstak 0 "\"(list 'eval '(app k (-> z <-)) (menv '(() ())))\"" 46 ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(letrec ((->\n            tak\n            =\n            (λ (x y z k)\n              (match\n               (app not (app < y x))\n               (#t (app k z))\n               (#f\n                (app\n                 tak\n                 (app - x 1)\n                 y\n                 z\n                 (λ (v1)\n                   (app\n                    tak\n                    (app - y 1)\n                    z\n                    x\n                    (λ (v2)\n                      (app\n                       tak\n                       (app - z 1)\n                       x\n                       y\n                       (λ (v3) (app tak v1 v2 v3 k))))))))))\n            <-))\n    bod)\n (menv '(())))\""
   1
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app tak (app - z 1) x (-> y <-) (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
+  "\"(list 'eval '(app cpstak 32 15 (-> 8 <-)) (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
   0
-  (#<void>))
+  "\"(list\n 'eval\n '(app (-> tak <-) (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
+  2
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   (-> z <-)\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app (-> tak <-) x y z (λ (a) a)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(match\n   (-> (app not (app < y x)) <-)\n   (#t (app k z))\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '(() ())))\""
+  52
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(letrec (tak) (-> (app tak x y z (λ (a) a)) <-)) (menv '(())))\""
+  68
+  ((1 1 0)))
+'(cpstak 0 "\"(list 'eval '(app (-> - <-) x 1) (menv '(() ())))\"" 1 ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app tak (app - z 1) x y (-> (λ (v3) (app tak v1 v2 v3 k)) <-))\n (menv '(() () () ())))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   (-> z <-)\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app - (-> x <-) 1) (menv '(() ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app tak (-> x <-) y z (λ (a) a)) (menv '(())))\""
+  4
+  ((0 0 0)))
 '(cpstak
   0
   "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   z\n   (->\n    (λ (v1)\n      (app\n       tak\n       (app - y 1)\n       z\n       x\n       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))\n    <-))\n (menv '(() ())))\""
@@ -394,29 +447,34 @@
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(λ (x y z k)\n    (->\n     (match\n      (app not (app < y x))\n      (#t (app k z))\n      (#f\n       (app\n        tak\n        (app - x 1)\n        y\n        z\n        (λ (v1)\n          (app\n           tak\n           (app - y 1)\n           z\n           x\n           (λ (v2)\n             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n     <-))\n (menv '(() ())))\""
-  3
+  "\"(list 'eval '(app - y (-> 1 <-)) (menv '(() () ())))\""
+  1
   ((0 0 0)))
-'(cpstak 0 "\"(list 'eval '(app (-> k <-) z) (menv '(() ())))\"" 12 ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   (-> y <-)\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
-  0
-  (#<void>))
-'(cpstak 0 "\"(list 'eval '(app k (-> z <-)) (menv '(() ())))\"" 0 (#<void>))
+  "\"(list 'eval '(app - (-> z <-) 1) (menv '(() () () ())))\""
+  46
+  ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app tak (-> (app - z 1) <-) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '(() () () ())))\""
-  0
-  (#<void>))
+  "\"(list 'eval '(λ (v3) (-> (app tak v1 v2 v3 k) <-)) (menv '(() () () () ())))\""
+  67
+  ((1 1 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   (-> z <-)\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
-  0
-  (#<void>))
+  "\"(list 'eval '(app tak x (-> y <-) z (λ (a) a)) (menv '(())))\""
+  4
+  ((0 0 0)))
+'(cpstak 0 "\"(list 'eval '(app (-> < <-) y x) (menv '(() ())))\"" 1 ((0 0 0)))
 '(cpstak
   0
-  "\"(list 'eval '(app (-> not <-) (app < y x)) (menv '(() ())))\""
+  "\"(list 'eval '(app tak v1 v2 v3 (-> k <-)) (menv '(() () () () ())))\""
+  11
+  ((0 0 0)))
+'(cpstak 0 "\"(list 'eval '(app - x (-> 1 <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app (-> - <-) y 1) (menv '(() () ())))\""
   1
   ((0 0 0)))
 '(cpstak
@@ -426,86 +484,69 @@
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   x\n   (-> (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))) <-))\n (menv '(() () ())))\""
+  "\"(list 'eval '(app not (-> (app < y x) <-)) (menv '(() ())))\""
+  50
+  ((1 1 0)))
+'(cpstak
+  0
+  "\"(list\n 'eval\n '(app\n   tak\n   (-> (app - x 1) <-)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '(() ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app tak (-> v1 <-) v2 v3 k) (menv '(() () () () ())))\""
+  46
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app < y (-> x <-)) (menv '(() ())))\""
+  47
+  ((0 0 0)))
+'(cpstak
+  0
+  "\"(list 'eval '(app (-> - <-) z 1) (menv '(() () () ())))\""
   1
   ((0 0 0)))
 '(cpstak
   0
-  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - y 1)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '(() () ())))\""
+  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (#t (app k z))\n   (->\n    #f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n    <-))\n (menv '(() ())))\""
+  67
+  ((1 1 0)))
+'(kcfa-2
+  0
+  "\"(list\n 'eval\n '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))\n (menv '(() ())))\""
+  18
+  ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(app f1 (-> (app #f) <-)) (menv '(())))\""
   2
   ((0 0 0)))
-'(cpstak
+'(kcfa-2
   0
-  "\"(list\n 'eval\n '(match\n   (-> (app not (app < y x)) <-)\n   (#t (app k z))\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '(() ())))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(app tak (app - z 1) x y (-> (λ (v3) (app tak v1 v2 v3 k)) <-))\n (menv '(() () () ())))\""
+  "\"(list\n 'eval\n '(app\n   (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))\n (menv '(())))\""
   1
   ((0 0 0)))
-'(cpstak
+'(kcfa-2
   0
-  "\"(list 'eval '(app tak v1 (-> v2 <-) v3 k) (menv '(() () () () ())))\""
-  0
-  (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app tak x y (-> z <-) (λ (a) a)) (menv '(())))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list\n 'eval\n '(λ (v1)\n    (->\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n     <-))\n (menv '(() () ())))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app tak v1 v2 (-> v3 <-) k) (menv '(() () () () ())))\""
-  0
-  (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app cpstak 32 (-> 15 <-) 8) (menv '()))\""
-  1
-  ((0 0 0)))
-'(cpstak 0 "\"(list 'eval '(app < y (-> x <-)) (menv '(() ())))\"" 0 (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app - (-> y <-) 1) (menv '(() () ())))\""
-  0
-  (#<void>))
-'(cpstak
-  0
-  "\"(list 'eval '(app (-> - <-) y 1) (menv '(() () ())))\""
-  1
-  ((0 0 0)))
-'(cpstak
-  0
-  "\"(list 'eval '(app tak (-> x <-) y z (λ (a) a)) (menv '(())))\""
-  4
+  "\"(list 'eval '(app (-> f1 <-) (app #f)) (menv '(())))\""
+  3
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list 'eval '(λ (z) (-> (app z x1 x2) <-)) (menv '(() () ())))\""
-  15
+  "\"(list 'eval '(app (-> f2 <-) (app #t)) (menv '(() ())))\""
+  3
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '(() ())))\""
-  20
+  "\"(list 'eval '(app z (-> x1 <-) x2) (menv '(() () ())))\""
+  9
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))\n (menv '(() ())))\""
-  21
+  "\"(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '(() () ())))\""
+  13
   ((0 0 0)))
-'(kcfa-2
-  0
-  "\"(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '(())))\""
-  27
-  ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app (-> f2 <-) #f) (menv '(() ())))\"" 3 ((0 0 0)))
 '(kcfa-2
   0
   "\"(list\n 'eval\n '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))\n (menv '(() ())))\""
@@ -513,28 +554,19 @@
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(app\n   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app (-> f1 <-) #t) (menv '(())))\"" 3 ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app (-> f1 <-) #f) (menv '(())))\"" 3 ((0 0 0)))
-'(kcfa-2
-  0
   "\"(list 'eval '(app z x1 (-> x2 <-)) (menv '(() () ())))\""
-  7
-  ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app f2 (-> #f <-)) (menv '(() ())))\"" 1 ((0 0 0)))
-'(kcfa-2
-  0
-  "\"(list\n 'eval\n '(app\n   (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)\n   (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n (menv '(())))\""
-  1
+  9
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (app\n      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n     <-))\n (menv '(())))\""
+  "\"(list\n 'eval\n '(λ (f2) (-> (let ((_ (app f2 (app #t)))) (app f2 (app #f))) <-))\n (menv '(() ())))\""
   23
   ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app (-> f2 <-) #t) (menv '(() ())))\"" 3 ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(let ((-> _ = (app f2 (app #t)) <-)) bod) (menv '(() ())))\""
+  22
+  ((0 0 0)))
 '(kcfa-2
   0
   "\"(list\n 'eval\n '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))\n (menv '(() ())))\""
@@ -542,33 +574,42 @@
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))\n (menv '(() ())))\""
-  16
+  "\"(list 'eval '(app (-> f2 <-) (app #f)) (menv '(() ())))\""
+  3
   ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app f1 (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(kcfa-2 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '(() () ())))\""
-  11
-  ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app f1 (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(kcfa-2
-  0
-  "\"(list 'eval '(app z (-> x1 <-) x2) (menv '(() () ())))\""
-  7
-  ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(top) (menv '()))\"" 29 ((0 0 0)))
-'(kcfa-2 0 "\"(list 'eval '(app f2 (-> #t <-)) (menv '(() ())))\"" 1 ((0 0 0)))
-'(kcfa-2
-  0
-  "\"(list 'eval '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-)) (menv '(())))\""
-  28
+  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n     <-))\n (menv '(())))\""
+  25
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(app\n   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))\n   (->\n    (λ (x1)\n      (app\n       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))\n    <-))\n (menv '()))\""
+  "\"(list 'eval '(let (_) (-> (app f2 (app #f)) <-)) (menv '(() ())))\""
+  22
+  ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list\n 'eval\n '(app\n   (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))\n   (->\n    (λ (x1)\n      (app\n       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))\n    <-))\n (menv '()))\""
   1
   ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(λ (z) (-> (app z x1 x2) <-)) (menv '(() () ())))\""
+  17
+  ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(app f1 (-> (app #t) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(kcfa-2 0 "\"(list 'eval '(app (-> #t <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(let ((-> _ = (app f1 (app #t)) <-)) bod) (menv '(())))\""
+  29
+  ((0 0 0)))
+'(kcfa-2 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(kcfa-2
   0
   "\"(list 'eval '(app (-> z <-) x1 x2) (menv '(() () ())))\""
@@ -576,40 +617,99 @@
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '(() ())))\""
-  20
+  "\"(list 'eval '(app (-> f1 <-) (app #t)) (menv '(())))\""
+  3
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list\n 'eval\n '(app\n   (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)\n   (λ (x1)\n     (app\n      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))\n (menv '()))\""
+  "\"(list 'eval '(let (_) (-> (app f1 (app #f)) <-)) (menv '(())))\""
+  29
+  ((0 0 0)))
+'(kcfa-2 0 "\"(list 'eval '(app (-> #f <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f)))) <-)\n   (λ (x1)\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))\n (menv '()))\""
   1
   ((0 0 0)))
 '(kcfa-2
   0
-  "\"(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '(())))\""
-  27
+  "\"(list\n 'eval\n '(λ (f1) (-> (let ((_ (app f1 (app #t)))) (app f1 (app #f))) <-))\n (menv '(())))\""
+  30
+  ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f)))) <-)\n   (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n (menv '(())))\""
+  1
+  ((0 0 0)))
+'(kcfa-2 0 "\"(list 'eval '(top) (menv '()))\"" 31 ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(app f2 (-> (app #t) <-)) (menv '(() ())))\""
+  2
+  ((0 0 0)))
+'(kcfa-2
+  0
+  "\"(list 'eval '(app f2 (-> (app #f) <-)) (menv '(() ())))\""
+  2
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(let ((-> _ = (app f1 #t) <-)) bod) (menv '(())))\""
-  34
+  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2)\n        (app\n         (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))\n     <-))\n (menv '(())))\""
+  32
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(let ((-> _ = (app f3 #t) <-)) bod) (menv '(() () ())))\""
-  20
+  "\"(list 'eval '(app f2 (-> (app #t) <-)) (menv '(() ())))\""
+  2
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(let (_) (-> (app f2 #f) <-)) (menv '(() ())))\""
-  27
+  "\"(list 'eval '(app z x1 (-> x2 <-) x3) (menv '(() () () ())))\""
+  9
   ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(top) (menv '()))\"" 36 ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #t <-)) (menv '(() () ())))\"" 1 ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app f1 (-> (app #t) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
 '(kcfa-3
   0
   "\"(list 'eval '(λ (y1 y2 y3) (-> y1 <-)) (menv '(() () () ())))\""
-  11
+  13
   ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app (-> f1 <-) (app #t)) (menv '(())))\""
+  3
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(let (_) (-> (app f2 (app #f)) <-)) (menv '(() ())))\""
+  29
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app (-> f2 <-) (app #t)) (menv '(() ())))\""
+  3
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app f3 (-> (app #f) <-)) (menv '(() () ())))\""
+  2
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(app\n   (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n   (->\n    (λ (x2)\n      (app\n       (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))\n    <-))\n (menv '(())))\""
+  1
+  ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #f <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app (-> f1 <-) (app #f)) (menv '(())))\""
+  3
+  ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(kcfa-3
   0
   "\"(list 'eval '(app (-> z <-) x1 x2 x3) (menv '(() () () ())))\""
@@ -617,20 +717,34 @@
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(λ (z) (-> (app z x1 x2 x3) <-)) (menv '(() () () ())))\""
-  15
+  "\"(list\n 'eval\n '(λ (f3) (-> (let ((_ (app f3 (app #t)))) (app f3 (app #f))) <-))\n (menv '(() () ())))\""
+  23
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(app (-> f3 <-) #f) (menv '(() () ())))\""
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f)))) <-)\n   (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))\n (menv '(() ())))\""
+  1
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app f3 (-> (app #t) <-)) (menv '(() () ())))\""
+  2
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(λ (x3) (-> (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)) <-))\n (menv '(() () ())))\""
+  18
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(λ (x2)\n    (->\n     (app\n      (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))\n     <-))\n (menv '(() ())))\""
+  25
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app (-> f3 <-) (app #t)) (menv '(() () ())))\""
   3
   ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(app z x1 (-> x2 <-) x3) (menv '(() () () ())))\""
-  7
-  ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app (-> f1 <-) #f) (menv '(())))\"" 3 ((0 0 0)))
 '(kcfa-3
   0
   "\"(list\n 'eval\n '(app (λ (z) (app z x1 x2 x3)) (-> (λ (y1 y2 y3) y1) <-))\n (menv '(() () ())))\""
@@ -638,101 +752,30 @@
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(let (_) (-> (app f3 #f) <-)) (menv '(() () ())))\""
-  20
+  "\"(list 'eval '(let ((-> _ = (app f3 (app #t)) <-)) bod) (menv '(() () ())))\""
+  22
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list\n 'eval\n '(λ (x3) (-> (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)) <-))\n (menv '(() () ())))\""
-  16
+  "\"(list 'eval '(let (_) (-> (app f1 (app #f)) <-)) (menv '(())))\""
+  36
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list\n 'eval\n '(λ (f3) (-> (let ((_ (app f3 #t))) (app f3 #f)) <-))\n (menv '(() () ())))\""
-  21
+  "\"(list 'eval '(λ (z) (-> (app z x1 x2 x3) <-)) (menv '(() () () ())))\""
+  17
   ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app (-> f1 <-) #t) (menv '(())))\"" 3 ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list\n 'eval\n '(app\n   (-> (λ (f2) (let ((_ (app f2 #t))) (app f2 #f))) <-)\n   (λ (x2)\n     (app\n      (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))\n (menv '(())))\""
+  "\"(list 'eval '(app (-> f2 <-) (app #f)) (menv '(() ())))\""
+  3
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f)))) <-)\n   (λ (x2)\n     (app\n      (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))\n (menv '(())))\""
   1
   ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(λ (x2)\n    (->\n     (app\n      (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n      (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))\n     <-))\n (menv '(() ())))\""
-  23
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(let (_) (-> (app f1 #f) <-)) (menv '(())))\""
-  34
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(λ (f1) (-> (let ((_ (app f1 #t))) (app f1 #f)) <-)) (menv '(())))\""
-  35
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(let ((-> _ = (app f2 #t) <-)) bod) (menv '(() ())))\""
-  27
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(app\n   (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n   (->\n    (λ (x2)\n      (app\n       (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n       (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))\n    <-))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> (λ (f3) (let ((_ (app f3 #t))) (app f3 #f))) <-)\n   (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))\n (menv '(() ())))\""
-  1
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(λ (f2) (-> (let ((_ (app f2 #t))) (app f2 #f)) <-))\n (menv '(() ())))\""
-  28
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(app f3 (-> #f <-)) (menv '(() () ())))\""
-  1
-  ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app f1 (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app (-> f2 <-) #f) (menv '(() ())))\"" 3 ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app f1 (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(app\n   (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n   (-> (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))) <-))\n (menv '(() ())))\""
-  1
-  ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app f2 (-> #t <-)) (menv '(() ())))\"" 1 ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(app\n   (λ (f1) (let ((_ (app f1 #t))) (app f1 #f)))\n   (->\n    (λ (x1)\n      (app\n       (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n       (λ (x2)\n         (app\n          (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))\n    <-))\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(app z x1 x2 (-> x3 <-)) (menv '(() () () ())))\""
-  7
-  ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app f2 (-> #f <-)) (menv '(() ())))\"" 1 ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> (λ (f1) (let ((_ (app f1 #t))) (app f1 #f))) <-)\n   (λ (x1)\n     (app\n      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n      (λ (x2)\n        (app\n         (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))))\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(kcfa-3 0 "\"(list 'eval '(app (-> f2 <-) #t) (menv '(() ())))\"" 3 ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(app f3 (-> #t <-)) (menv '(() () ())))\""
-  1
-  ((0 0 0)))
-'(kcfa-3
-  0
-  "\"(list 'eval '(app z (-> x1 <-) x2 x3) (menv '(() () () ())))\""
-  7
-  ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #f <-)) (menv '(() () ())))\"" 1 ((0 0 0)))
 '(kcfa-3
   0
   "\"(list\n 'eval\n '(app (-> (λ (z) (app z x1 x2 x3)) <-) (λ (y1 y2 y3) y1))\n (menv '(() () ())))\""
@@ -740,41 +783,77 @@
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list 'eval '(app (-> f3 <-) #t) (menv '(() () ())))\""
+  "\"(list 'eval '(app z x1 x2 (-> x3 <-)) (menv '(() () () ())))\""
+  9
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(let (_) (-> (app f3 (app #f)) <-)) (menv '(() () ())))\""
+  22
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(let ((-> _ = (app f2 (app #t)) <-)) bod) (menv '(() ())))\""
+  29
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(let ((-> _ = (app f1 (app #t)) <-)) bod) (menv '(())))\""
+  36
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app (-> f3 <-) (app #f)) (menv '(() () ())))\""
   3
   ((0 0 0)))
 '(kcfa-3
   0
-  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (app\n      (λ (f2) (let ((_ (app f2 #t))) (app f2 #f)))\n      (λ (x2)\n        (app\n         (λ (f3) (let ((_ (app f3 #t))) (app f3 #f)))\n         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))\n     <-))\n (menv '(())))\""
-  30
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app p (-> n1 <-) n2 n3 n4) (menv '(() () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))\""
+  "\"(list 'eval '(app f2 (-> (app #f) <-)) (menv '(() ())))\""
   2
   ((0 0 0)))
-'(sat-1
+'(kcfa-3 0 "\"(list 'eval '(top) (menv '()))\"" 38 ((0 0 0)))
+'(kcfa-3
   0
-  "\"(list\n 'eval\n '(app\n   try\n   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))\n (menv '(() ())))\""
+  "\"(list\n 'eval\n '(app\n   (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n   (-> (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))) <-))\n (menv '(() ())))\""
   1
   ((0 0 0)))
-'(sat-1
+'(kcfa-3
   0
-  "\"(list 'eval '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))\""
+  "\"(list\n 'eval\n '(λ (f2) (-> (let ((_ (app f2 (app #t)))) (app f2 (app #f))) <-))\n (menv '(() ())))\""
+  30
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app f1 (-> (app #f) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(λ (f1) (-> (let ((_ (app f1 (app #t)))) (app f1 (app #f))) <-))\n (menv '(())))\""
+  37
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(app\n   (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))\n   (->\n    (λ (x1)\n      (app\n       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n       (λ (x2)\n         (app\n          (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n          (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1)))))))\n    <-))\n (menv '()))\""
   1
   ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #t <-)) (menv '(() ())))\"" 1 ((0 0 0)))
+'(kcfa-3 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f)))) <-)\n   (λ (x1)\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2)\n        (app\n         (λ (f3) (let ((_ (app f3 (app #t)))) (app f3 (app #f))))\n         (λ (x3) (app (λ (z) (app z x1 x2 x3)) (λ (y1 y2 y3) y1))))))))\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(kcfa-3
+  0
+  "\"(list 'eval '(app z (-> x1 <-) x2 x3) (menv '(() () () ())))\""
+  9
+  ((0 0 0)))
 '(sat-1
   0
-  "\"(list 'eval '(app p n1 n2 n3 (-> n4 <-)) (menv '(() () () () ())))\""
-  8
+  "\"(list 'eval '(app sat-solve-4 (-> phi <-)) (menv '()))\""
+  2
   ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app f (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-1
   0
   "\"(list 'eval '(app (-> p <-) n1 n2 n3 n4) (menv '(() () () () ())))\""
@@ -782,104 +861,47 @@
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list 'eval '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (menv '(() () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app sat-solve-4 (-> phi <-)) (menv '()))\""
+  "\"(list\n 'eval\n '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4)))\n (menv '(() () () ())))\""
   2
   ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n1)\n      (app\n       try\n       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))\n    <-))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(letrec (phi\n           (-> try = (λ (f) (app or (app f #t) (app f #f))) <-)\n           sat-solve-4)\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app or (-> (app f #t) <-) (app f #f)) (menv '(())))\""
-  28
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(letrec (phi\n           try\n           (->\n            sat-solve-4\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(letrec ((->\n            phi\n            =\n            (λ (x1 x2 x3 x4)\n              (app\n               and\n               (app or x1 (app not x2) (app not x3))\n               (app or (app not x2) (app not x3))\n               (app or x4 x2)))\n            <-)\n           try\n           sat-solve-4)\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app f (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))\n (menv '(() ())))\""
-  2
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app (-> or <-) (app f #t) (app f #f)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app try (-> (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) <-))\n (menv '(() () ())))\""
-  1
-  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(())))\"" 16 ((0 0 0)))
 '(sat-1
   0
   "\"(list 'eval '(app (-> sat-solve-4 <-) phi) (menv '()))\""
   2
   ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app (-> f <-) #t) (menv '(())))\"" 10 ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4)))\n (menv '(() () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
+  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))\n     <-))\n (menv '(())))\""
+  72
+  ((1 1 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))\n (menv '(() () () ())))\""
-  5
+  "\"(list\n 'eval\n '(app\n   try\n   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))\n (menv '(() ())))\""
+  1
   ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(λ (f) (-> (app or (app f #t) (app f #f)) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app (-> f <-) #f) (menv '(())))\"" 10 ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 16 ((0 0 0)))
 '(sat-1 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(())))\"" 14 ((0 0 0)))
 '(sat-1
   0
-  "\"(list 'eval '(app or (app f #t) (-> (app f #f) <-)) (menv '(())))\""
-  28
+  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))\n     <-))\n (menv '(() ())))\""
+  71
+  ((1 1 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app (-> or <-) (app f (app #t)) (app f (app #f))) (menv '(())))\""
+  1
   ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(top) (menv '()))\"" 74 ((1 1 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))\n (menv '(())))\""
-  2
+  "\"(list\n 'eval\n '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))\n (menv '(() () ())))\""
+  71
+  ((1 1 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))\""
+  1
   ((0 0 0)))
 '(sat-1
   0
@@ -888,30 +910,147 @@
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list 'eval '(app p n1 (-> n2 <-) n3 n4) (menv '(() () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(())))\""
+  "\"(list\n 'eval\n '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))\n (menv '(() () ())))\""
   2
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))\n     <-))\n (menv '(() ())))\""
-  5
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n1)\n      (app\n       try\n       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))\n    <-))\n (menv '(())))\""
+  1
   ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(letrec (phi\n           (-> try = (λ (f) (app or (app f (app #t)) (app f (app #f)))) <-)\n           sat-solve-4)\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app p n1 (-> n2 <-) n3 n4) (menv '(() () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app f (-> (app #t) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(())))\""
+  22
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or (app f (app #t)) (-> (app f (app #f)) <-)) (menv '(())))\""
+  71
+  ((1 1 0)))
 '(sat-1 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))\n     <-))\n (menv '(())))\""
-  5
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(())))\""
+  26
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))\n (menv '()))\""
-  8
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))\n (menv '(())))\""
+  2
   ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(λ (x1 x2 x3 x4)\n    (->\n     (app\n      and\n      (app or x1 (app not x2) (app not x3))\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(())))\""
+  47
+  ((1 1 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(letrec (phi\n           try\n           (->\n            sat-solve-4\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))\""
+  16
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app p n1 n2 n3 (-> n4 <-)) (menv '(() () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or (-> (app f (app #t)) <-) (app f (app #f))) (menv '(())))\""
+  71
+  ((1 1 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or (app not x2) (-> (app not x3) <-)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))\n (menv '(() () () ())))\""
+  71
+  ((1 1 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(letrec ((->\n            phi\n            =\n            (λ (x1 x2 x3 x4)\n              (app\n               and\n               (app or x1 (app not x2) (app not x3))\n               (app or (app not x2) (app not x3))\n               (app or x4 x2)))\n            <-)\n           try\n           sat-solve-4)\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app (-> f <-) (app #f)) (menv '(())))\""
+  10
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  30
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(app try (-> (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) <-))\n (menv '(() () ())))\""
+  1
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (menv '(() () () () ())))\""
+  53
+  ((1 1 0)))
+'(sat-1 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app (-> f <-) (app #t)) (menv '(())))\""
+  10
+  ((0 0 0)))
+'(sat-1
+  0
+  "\"(list\n 'eval\n '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n (menv '(())))\""
+  71
+  ((1 1 0)))
 '(sat-1
   0
   "\"(list\n 'eval\n '(app\n   (-> and <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
@@ -919,95 +1058,116 @@
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list 'eval '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))\""
-  14
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(top) (menv '()))\"" 9 ((0 0 0)))
-'(sat-1 0 "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(λ (x1 x2 x3 x4)\n    (->\n     (app\n      and\n      (app or x1 (app not x2) (app not x3))\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list 'eval '(app or (app not x2) (-> (app not x3) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-1
-  0
-  "\"(list\n 'eval\n '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))\n (menv '(() () ())))\""
-  2
-  ((0 0 0)))
+  "\"(list\n 'eval\n '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))\n (menv '()))\""
+  73
+  ((1 1 0)))
 '(sat-1
   0
   "\"(list 'eval '(app p n1 n2 (-> n3 <-) n4) (menv '(() () () () ())))\""
-  8
+  10
   ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 16 ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  "\"(list 'eval '(app f (-> (app #f) <-)) (menv '(())))\""
   2
   ((0 0 0)))
 '(sat-1
   0
-  "\"(list\n 'eval\n '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))\n (menv '(() () ())))\""
-  5
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))\n (menv '(() ())))\""
+  2
   ((0 0 0)))
+'(sat-1
+  0
+  "\"(list 'eval '(app p (-> n1 <-) n2 n3 n4) (menv '(() () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-1 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (-> or <-) (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(λ (x4)\n    (->\n     (λ (x5)\n       (λ (x6)\n         (λ (x7)\n           (app\n            and\n            (app or x1 x2)\n            (app or x1 (app not x2) (app not x3))\n            (app or x3 x4)\n            (app or (app not x4) x1)\n            (app or (app not x2) (app not x3))\n            (app or x4 x2)))))\n     <-))\n (menv '(() () () ())))\""
   1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) (-> n7 <-))\n (menv '(() () () () () () () ())))\""
-  8
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or x3 x4) <-)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  28
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app or (-> x1 <-) (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
-  14
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n3)\n      (app\n       try\n       (λ (n4)\n         (app\n          try\n          (λ (n5)\n            (app\n             try\n             (λ (n6)\n               (app\n                try\n                (λ (n7)\n                  (app\n                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                   n7))))))))))\n    <-))\n (menv '(() () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2 0 "\"(list 'eval '(top) (menv '()))\"" 0 (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(() () () () () () ())))\""
+  18
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n6)\n     (app\n      try\n      (λ (n7)\n        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))\n (menv '(() () () () () ())))\""
+  "\"(list\n 'eval\n '(app (app (app p n1) n2) (-> n3 <-))\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app not (-> x3 <-)) (menv '(() () () () () () ())))\""
+  20
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n3)\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6)\n              (app\n               try\n               (λ (n7)\n                 (app\n                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                  n7)))))))))))\n (menv '(() () ())))\""
   2
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(λ (x2)\n    (->\n     (λ (x3)\n       (λ (x4)\n         (λ (x5)\n           (λ (x6)\n             (λ (x7)\n               (app\n                and\n                (app or x1 x2)\n                (app or x1 (app not x2) (app not x3))\n                (app or x3 x4)\n                (app or (app not x4) x1)\n                (app or (app not x2) (app not x3))\n                (app or x4 x2)))))))\n     <-))\n (menv '(() ())))\""
+  "\"(list\n 'eval\n '(λ (x6)\n    (->\n     (λ (x7)\n       (app\n        and\n        (app or x1 x2)\n        (app or x1 (app not x2) (app not x3))\n        (app or x3 x4)\n        (app or (app not x4) x1)\n        (app or (app not x2) (app not x3))\n        (app or x4 x2)))\n     <-))\n (menv '(() () () () () ())))\""
   1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (-> (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) <-) n7)\n (menv '(() () () () () () () ())))\""
-  17
+  "\"(list 'eval '(app (-> or <-) (app not x4) x1) (menv '(() () () () () () ())))\""
+  1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (app f #t) (-> (app f #f) <-)) (menv '(())))\""
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
   0
   (#<void>))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(letrec (phi\n           try\n           (->\n            sat-solve-7\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3)\n                       (app\n                        try\n                        (λ (n4)\n                          (app\n                           try\n                           (λ (n5)\n                             (app\n                              try\n                              (λ (n6)\n                                (app\n                                 try\n                                 (λ (n7)\n                                   (app\n                                    (app\n                                     (app\n                                      (app (app (app (app p n1) n2) n3) n4)\n                                      n5)\n                                     n6)\n                                    n7))))))))))))))))\n            <-))\n    bod)\n (menv '()))\""
+  "\"(list 'eval '(app or x3 (-> x4 <-)) (menv '(() () () () () () ())))\""
+  22
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> or <-) x3 x4) (menv '(() () () () () () ())))\""
   1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app or x1 (-> x2 <-)) (menv '(() () () () () () ())))\""
+  18
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app\n                     try\n                     (λ (n7)\n                       (app\n                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                        n7)))))))))))))))\n (menv '(())))\""
+  2
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> (app p n1) <-) n2) (menv '(() () () () () () () ())))\""
+  7
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 x2) <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  24
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> sat-solve-7 <-) phi) (menv '()))\""
+  2
   ((0 0 0)))
 '(sat-2
   0
@@ -1016,12 +1176,27 @@
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n5)\n      (app\n       try\n       (λ (n6)\n         (app\n          try\n          (λ (n7)\n            (app\n             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n             n7))))))\n    <-))\n (menv '(() () () () ())))\""
+  "\"(list\n 'eval\n '(app or x1 (-> (app not x2) <-) (app not x3))\n (menv '(() () () () () () ())))\""
+  20
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (x2)\n    (->\n     (λ (x3)\n       (λ (x4)\n         (λ (x5)\n           (λ (x6)\n             (λ (x7)\n               (app\n                and\n                (app or x1 x2)\n                (app or x1 (app not x2) (app not x3))\n                (app or x3 x4)\n                (app or (app not x4) x1)\n                (app or (app not x2) (app not x3))\n                (app or x4 x2)))))))\n     <-))\n (menv '(() ())))\""
   1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(letrec (phi\n           (-> try = (λ (f) (app or (app f #t) (app f #f))) <-)\n           sat-solve-7)\n    bod)\n (menv '()))\""
+  "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) (-> n7 <-))\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> not <-) x3) (menv '(() () () () () () ())))\""
   1
   ((0 0 0)))
 '(sat-2
@@ -1031,93 +1206,59 @@
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n5)\n     (app\n      try\n      (λ (n6)\n        (app\n         try\n         (λ (n7)\n           (app\n            (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n            n7)))))))\n (menv '(() () () () ())))\""
+  "\"(list\n 'eval\n '(letrec (phi try sat-solve-7) (-> (app sat-solve-7 phi) <-))\n (menv '()))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2)\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app\n                  try\n                  (λ (n7)\n                    (app\n                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                     n7)))))))))))))\n (menv '(() ())))\""
   2
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n2)\n      (app\n       try\n       (λ (n3)\n         (app\n          try\n          (λ (n4)\n            (app\n             try\n             (λ (n5)\n               (app\n                try\n                (λ (n6)\n                  (app\n                   try\n                   (λ (n7)\n                     (app\n                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                      n7))))))))))))\n    <-))\n (menv '(() ())))\""
+  "\"(list\n 'eval\n '(app (-> or <-) x1 (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
   1
   ((0 0 0)))
+'(sat-2 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (app (app (app p n1) n2) n3) (-> n4 <-))\n (menv '(() () () () () () () ())))\""
-  8
+  "\"(list\n 'eval\n '(λ (n6)\n    (->\n     (app\n      try\n      (λ (n7)\n        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))\n     <-))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app\n                     try\n                     (λ (n7)\n                       (app\n                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                        n7)))))))))))))\n     <-))\n (menv '(() ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app or x1 (app not x2) (-> (app not x3) <-))\n (menv '(() () () () () () ())))\""
+  22
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list 'eval '(app not (-> x3 <-)) (menv '(() () () () () () ())))\""
-  18
+  "\"(list 'eval '(app p (-> n1 <-)) (menv '(() () () () () () () ())))\""
+  10
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(λ (n3)\n    (->\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6)\n              (app\n               try\n               (λ (n7)\n                 (app\n                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                  n7)))))))))\n     <-))\n (menv '(() () () ())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app sat-solve-7 (-> phi <-)) (menv '()))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 x2) <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(λ (f) (-> (app or (app f #t) (app f #f)) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-2 0 "\"(list 'eval '(app (-> f <-) #t) (menv '(())))\"" 16 ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(() () () () () () ())))\""
-  16
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))\n    <-))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (λ (x2)\n       (λ (x3)\n         (λ (x4)\n           (λ (x5)\n             (λ (x6)\n               (λ (x7)\n                 (app\n                  and\n                  (app or x1 x2)\n                  (app or x1 (app not x2) (app not x3))\n                  (app or x3 x4)\n                  (app or (app not x4) x1)\n                  (app or (app not x2) (app not x3))\n                  (app or x4 x2))))))))\n     <-))\n (menv '(())))\""
   1
   ((0 0 0)))
+'(sat-2 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(λ (n7)\n    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))\n (menv '(() () () () () () () ())))\""
-  20
+  "\"(list\n 'eval\n '(app (app (app (app (app p n1) n2) n3) n4) (-> n5 <-))\n (menv '(() () () () () () () ())))\""
+  10
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (app (app p n1) n2) (-> n3 <-))\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (app not x4) (-> x1 <-)) (menv '(() () () () () () ())))\""
-  14
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> p <-) n1) (menv '(() () () () () () () ())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app (-> (app (app (app p n1) n2) n3) <-) n4)\n (menv '(() () () () () () () ())))\""
-  11
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> or <-) (app f #t) (app f #f)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (-> (app not x4) <-) x1) (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (x4)\n    (->\n     (λ (x5)\n       (λ (x6)\n         (λ (x7)\n           (app\n            and\n            (app or x1 x2)\n            (app or x1 (app not x2) (app not x3))\n            (app or x3 x4)\n            (app or (app not x4) x1)\n            (app or (app not x2) (app not x3))\n            (app or x4 x2)))))\n     <-))\n (menv '(() () () ())))\""
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n4)\n      (app\n       try\n       (λ (n5)\n         (app\n          try\n          (λ (n6)\n            (app\n             try\n             (λ (n7)\n               (app\n                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                n7))))))))\n    <-))\n (menv '(() () () ())))\""
   1
   ((0 0 0)))
 '(sat-2
@@ -1127,145 +1268,23 @@
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(letrec ((->\n            phi\n            =\n            (λ (x1)\n              (λ (x2)\n                (λ (x3)\n                  (λ (x4)\n                    (λ (x5)\n                      (λ (x6)\n                        (λ (x7)\n                          (app\n                           and\n                           (app or x1 x2)\n                           (app or x1 (app not x2) (app not x3))\n                           (app or x3 x4)\n                           (app or (app not x4) x1)\n                           (app or (app not x2) (app not x3))\n                           (app or x4 x2)))))))))\n            <-)\n           try\n           sat-solve-7)\n    bod)\n (menv '()))\""
-  1
+  "\"(list 'eval '(app (-> f <-) (app #f)) (menv '(())))\""
+  16
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n4)\n      (app\n       try\n       (λ (n5)\n         (app\n          try\n          (λ (n6)\n            (app\n             try\n             (λ (n7)\n               (app\n                (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                n7))))))))\n    <-))\n (menv '(() () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
+  "\"(list\n 'eval\n '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n (menv '(())))\""
   0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n1)\n      (app\n       try\n       (λ (n2)\n         (app\n          try\n          (λ (n3)\n            (app\n             try\n             (λ (n4)\n               (app\n                try\n                (λ (n5)\n                  (app\n                   try\n                   (λ (n6)\n                     (app\n                      try\n                      (λ (n7)\n                        (app\n                         (app\n                          (app (app (app (app (app p n1) n2) n3) n4) n5)\n                          n6)\n                         n7))))))))))))))\n    <-))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app\n                     try\n                     (λ (n7)\n                       (app\n                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                        n7)))))))))))))))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app (-> (app (app (app (app (app p n1) n2) n3) n4) n5) <-) n6)\n (menv '(() () () () () () () ())))\""
-  15
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(letrec (phi try sat-solve-7) (-> (app sat-solve-7 phi) <-))\n (menv '()))\""
-  8
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (-> x3 <-) x4) (menv '(() () () () () () ())))\""
-  18
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> or <-) x1 x2) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2 0 "\"(list 'eval '(top) (menv '()))\"" 9 ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> or <-) x3 x4) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
+  (#<void>))
 '(sat-2
   0
   "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (-> (app or (app not x4) x1) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app f (-> (app #t) <-)) (menv '(())))\""
   2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> not <-) x2) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (x6)\n    (->\n     (λ (x7)\n       (app\n        and\n        (app or x1 x2)\n        (app or x1 (app not x2) (app not x3))\n        (app or x3 x4)\n        (app or (app not x4) x1)\n        (app or (app not x2) (app not x3))\n        (app or x4 x2)))\n     <-))\n (menv '(() () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2 0 "\"(list 'eval '(app f (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> not <-) x2) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app (-> (app (app (app (app p n1) n2) n3) n4) <-) n5)\n (menv '(() () () () () () () ())))\""
-  13
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (x7)\n    (->\n     (app\n      and\n      (app or x1 x2)\n      (app or x1 (app not x2) (app not x3))\n      (app or x3 x4)\n      (app or (app not x4) x1)\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> not <-) x4) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (λ (x2)\n       (λ (x3)\n         (λ (x4)\n           (λ (x5)\n             (λ (x6)\n               (λ (x7)\n                 (app\n                  and\n                  (app or x1 x2)\n                  (app or x1 (app not x2) (app not x3))\n                  (app or x3 x4)\n                  (app or (app not x4) x1)\n                  (app or (app not x2) (app not x3))\n                  (app or x4 x2))))))))\n     <-))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2)\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app\n                  try\n                  (λ (n7)\n                    (app\n                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                     n7)))))))))))))\n (menv '(() ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app or x1 (-> (app not x2) <-) (app not x3))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2)\n           (app\n            try\n            (λ (n3)\n              (app\n               try\n               (λ (n4)\n                 (app\n                  try\n                  (λ (n5)\n                    (app\n                     try\n                     (λ (n6)\n                       (app\n                        try\n                        (λ (n7)\n                          (app\n                           (app\n                            (app (app (app (app (app p n1) n2) n3) n4) n5)\n                            n6)\n                           n7)))))))))))))))\n     <-))\n (menv '(())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n3)\n      (app\n       try\n       (λ (n4)\n         (app\n          try\n          (λ (n5)\n            (app\n             try\n             (λ (n6)\n               (app\n                try\n                (λ (n7)\n                  (app\n                   (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                   n7))))))))))\n    <-))\n (menv '(() () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app not (-> x3 <-)) (menv '(() () () () () () ())))\""
-  18
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (n5)\n    (->\n     (app\n      try\n      (λ (n6)\n        (app\n         try\n         (λ (n7)\n           (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))\n     <-))\n (menv '(() () () () () ())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app (app (app (app (app p n1) n2) n3) n4) (-> n5 <-))\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (n2)\n    (->\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app\n                  try\n                  (λ (n7)\n                    (app\n                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                     n7)))))))))))\n     <-))\n (menv '(() () ())))\""
-  5
   ((0 0 0)))
 '(sat-2
   0
@@ -1274,37 +1293,197 @@
   ((0 0 0)))
 '(sat-2
   0
+  "\"(list\n 'eval\n '(app (app (app (app (app (app p n1) n2) n3) n4) n5) (-> n6 <-))\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))\n (menv '(() () () () () () ())))\""
+  2
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n6)\n     (app\n      try\n      (λ (n7)\n        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))\n (menv '(() () () () () ())))\""
+  2
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (-> (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) <-) n7)\n (menv '(() () () () () () () ())))\""
+  17
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2)\n           (app\n            try\n            (λ (n3)\n              (app\n               try\n               (λ (n4)\n                 (app\n                  try\n                  (λ (n5)\n                    (app\n                     try\n                     (λ (n6)\n                       (app\n                        try\n                        (λ (n7)\n                          (app\n                           (app\n                            (app (app (app (app (app p n1) n2) n3) n4) n5)\n                            n6)\n                           n7)))))))))))))))\n     <-))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (n4)\n    (->\n     (app\n      try\n      (λ (n5)\n        (app\n         try\n         (λ (n6)\n           (app\n            try\n            (λ (n7)\n              (app\n               (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n               n7)))))))\n     <-))\n (menv '(() () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
   "\"(list 'eval '(app not (-> x2 <-)) (menv '(() () () () () () ())))\""
-  16
+  18
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or x3 x4) <-)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
-  2
+  "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(() () () () () () ())))\""
+  22
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(λ (n6)\n    (->\n     (app\n      try\n      (λ (n7)\n        (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))\n     <-))\n (menv '(() () () () () () ())))\""
-  5
+  "\"(list 'eval '(app (-> or <-) (app f (app #t)) (app f (app #f))) (menv '(())))\""
+  1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n3)\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6)\n              (app\n               try\n               (λ (n7)\n                 (app\n                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                  n7)))))))))))\n (menv '(() () ())))\""
-  2
+  "\"(list 'eval '(app (-> not <-) x2) (menv '(() () () () () () ())))\""
+  1
   ((0 0 0)))
 '(sat-2
   0
   "\"(list 'eval '(app (app p n1) (-> n2 <-)) (menv '(() () () () () () () ())))\""
-  8
+  10
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app or (app not x2) (-> (app not x3) <-))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(app or (-> (app not x2) <-) (app not x3))\n (menv '(() () () () () () ())))\""
+  20
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app or (app f (app #t)) (-> (app f (app #f)) <-)) (menv '(())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app sat-solve-7 (-> phi <-)) (menv '()))\""
   2
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app (-> or <-) x1 (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(λ (n7)\n    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))\n (menv '(() () () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app or (app not x4) (-> x1 <-)) (menv '(() () () () () () ())))\""
+  16
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (-> (app (app (app p n1) n2) n3) <-) n4)\n (menv '(() () () () () () () ())))\""
+  11
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app or (-> (app not x4) <-) x1) (menv '(() () () () () () ())))\""
+  24
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (x5)\n    (->\n     (λ (x6)\n       (λ (x7)\n         (app\n          and\n          (app or x1 x2)\n          (app or x1 (app not x2) (app not x3))\n          (app or x3 x4)\n          (app or (app not x4) x1)\n          (app or (app not x2) (app not x3))\n          (app or x4 x2))))\n     <-))\n (menv '(() () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (n3)\n    (->\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6)\n              (app\n               try\n               (λ (n7)\n                 (app\n                  (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                  n7)))))))))\n     <-))\n (menv '(() () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app not (-> x3 <-)) (menv '(() () () () () () ())))\""
+  20
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> not <-) x2) (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   (-> and <-)\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> not <-) x4) (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (n5)\n    (->\n     (app\n      try\n      (λ (n6)\n        (app\n         try\n         (λ (n7)\n           (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7)))))\n     <-))\n (menv '(() () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list 'eval '(app not (-> x2 <-)) (menv '(() () () () () () ())))\""
+  18
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app or (app not x2) (-> (app not x3) <-))\n (menv '(() () () () () () ())))\""
+  22
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (-> (app (app (app (app p n1) n2) n3) n4) <-) n5)\n (menv '(() () () () () () () ())))\""
+  13
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app not (-> x4 <-)) (menv '(() () () () () () ())))\""
+  22
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app f (-> (app #f) <-)) (menv '(())))\""
+  2
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app or (-> x3 <-) x4) (menv '(() () () () () () ())))\""
+  20
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> p <-) n1) (menv '(() () () () () () () ())))\""
+  5
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app or (-> x1 <-) x2) (menv '(() () () () () () ())))\""
+  16
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> or <-) x1 x2) (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (x7)\n    (->\n     (app\n      and\n      (app or x1 x2)\n      (app or x1 (app not x2) (app not x3))\n      (app or x3 x4)\n      (app or (app not x4) x1)\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app or (-> x1 <-) (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
+  16
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (app (app (app p n1) n2) n3) (-> n4 <-))\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(letrec ((->\n            phi\n            =\n            (λ (x1)\n              (λ (x2)\n                (λ (x3)\n                  (λ (x4)\n                    (λ (x5)\n                      (λ (x6)\n                        (λ (x7)\n                          (app\n                           and\n                           (app or x1 x2)\n                           (app or x1 (app not x2) (app not x3))\n                           (app or x3 x4)\n                           (app or (app not x4) x1)\n                           (app or (app not x2) (app not x3))\n                           (app or x4 x2)))))))))\n            <-)\n           try\n           sat-solve-7)\n    bod)\n (menv '()))\""
   1
   ((0 0 0)))
 '(sat-2
@@ -1314,170 +1493,94 @@
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list 'eval '(app or x1 (-> x2 <-)) (menv '(() () () () () () ())))\""
-  16
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app\n                     try\n                     (λ (n7)\n                       (app\n                        (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                        n7)))))))))))))\n     <-))\n (menv '(() ())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or x3 (-> x4 <-)) (menv '(() () () () () () ())))\""
-  20
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (-> x1 <-) x2) (menv '(() () () () () () ())))\""
-  14
-  ((0 0 0)))
-'(sat-2 0 "\"(list 'eval '(app f (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> sat-solve-7 <-) phi) (menv '()))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(() () () () () () ())))\""
-  20
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> not <-) x3) (menv '(() () () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app not (-> x4 <-)) (menv '(() () () () () () ())))\""
-  20
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app (app (app (app (app (app p n1) n2) n3) n4) n5) (-> n6 <-))\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app or x1 (app not x2) (-> (app not x3) <-))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app (-> (app p n1) <-) n2) (menv '(() () () () () () () ())))\""
-  7
-  ((0 0 0)))
-'(sat-2 0 "\"(list 'eval '(app (-> f <-) #f) (menv '(())))\"" 16 ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(λ (n4)\n    (->\n     (app\n      try\n      (λ (n5)\n        (app\n         try\n         (λ (n6)\n           (app\n            try\n            (λ (n7)\n              (app\n               (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n               n7)))))))\n     <-))\n (menv '(() () () () ())))\""
-  5
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app or (-> (app not x2) <-) (app not x3))\n (menv '(() () () () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app p (-> n1 <-)) (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app not (-> x2 <-)) (menv '(() () () () () () ())))\""
-  16
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list 'eval '(app or (-> (app f #t) <-) (app f #f)) (menv '(())))\""
+  "\"(list 'eval '(app or (-> (app f (app #t)) <-) (app f (app #f))) (menv '(())))\""
   0
   (#<void>))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(λ (x5)\n    (->\n     (λ (x6)\n       (λ (x7)\n         (app\n          and\n          (app or x1 x2)\n          (app or x1 (app not x2) (app not x3))\n          (app or x3 x4)\n          (app or (app not x4) x1)\n          (app or (app not x2) (app not x3))\n          (app or x4 x2))))\n     <-))\n (menv '(() () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-2
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n5)\n     (app\n      try\n      (λ (n6)\n        (app\n         try\n         (λ (n7)\n           (app\n            (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n            n7)))))))\n (menv '(() () () () ())))\""
   2
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list 'eval '(app (-> or <-) (app not x4) x1) (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n7) (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7))\n    <-))\n (menv '(() () () () () () ())))\""
   1
   ((0 0 0)))
 '(sat-2
   0
-  "\"(list\n 'eval\n '(app\n   (-> and <-)\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(() () () () () () ())))\""
+  "\"(list\n 'eval\n '(app (-> (app (app (app (app (app p n1) n2) n3) n4) n5) <-) n6)\n (menv '(() () () () () () () ())))\""
+  15
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n5)\n      (app\n       try\n       (λ (n6)\n         (app\n          try\n          (λ (n7)\n            (app\n             (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n             n7))))))\n    <-))\n (menv '(() () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(letrec (phi\n           try\n           (->\n            sat-solve-7\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3)\n                       (app\n                        try\n                        (λ (n4)\n                          (app\n                           try\n                           (λ (n5)\n                             (app\n                              try\n                              (λ (n6)\n                                (app\n                                 try\n                                 (λ (n7)\n                                   (app\n                                    (app\n                                     (app\n                                      (app (app (app (app p n1) n2) n3) n4)\n                                      n5)\n                                     n6)\n                                    n7))))))))))))))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app (-> or <-) (app not x2) (app not x3))\n (menv '(() () () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list 'eval '(app (-> f <-) (app #t)) (menv '(())))\""
+  16
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(λ (n2)\n    (->\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app\n                  try\n                  (λ (n7)\n                    (app\n                     (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                     n7)))))))))))\n     <-))\n (menv '(() () ())))\""
+  0
+  (#<void>))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n2)\n      (app\n       try\n       (λ (n3)\n         (app\n          try\n          (λ (n4)\n            (app\n             try\n             (λ (n5)\n               (app\n                try\n                (λ (n6)\n                  (app\n                   try\n                   (λ (n7)\n                     (app\n                      (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6)\n                      n7))))))))))))\n    <-))\n (menv '(() ())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n1)\n      (app\n       try\n       (λ (n2)\n         (app\n          try\n          (λ (n3)\n            (app\n             try\n             (λ (n4)\n               (app\n                try\n                (λ (n5)\n                  (app\n                   try\n                   (λ (n6)\n                     (app\n                      try\n                      (λ (n7)\n                        (app\n                         (app\n                          (app (app (app (app (app p n1) n2) n3) n4) n5)\n                          n6)\n                         n7))))))))))))))\n    <-))\n (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-2
+  0
+  "\"(list\n 'eval\n '(letrec (phi\n           (-> try = (λ (f) (app or (app f (app #t)) (app f (app #f)))) <-)\n           sat-solve-7)\n    bod)\n (menv '()))\""
   1
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  "\"(list 'eval '(app f (-> (app #t) <-)) (menv '(())))\""
   2
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app or (-> (app not x4) <-) x1) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(top) (menv '()))\"" 4 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app f (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3
+  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2)\n           (app\n            try\n            (λ (n3)\n              (app\n               try\n               (λ (n4)\n                 (app\n                  try\n                  (λ (n5)\n                    (app\n                     try\n                     (λ (n6)\n                       (app\n                        try\n                        (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))\n     <-))\n (menv '(())))\""
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2)\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))\n (menv '(() ())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (x1 x2 x3 x4 x5 x6 x7)\n    (->\n     (app\n      and\n      (app or x1 x2)\n      (app or x1 (app not x2) (app not x3))\n      (app or x3 x4)\n      (app or (app not x4) x1)\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (n7) (-> (app p n1 n2 n3 n4 n5 n6 n7) <-))\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
+  (#<void>))
 '(sat-3
   0
   "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n1)\n      (app\n       try\n       (λ (n2)\n         (app\n          try\n          (λ (n3)\n            (app\n             try\n             (λ (n4)\n               (app\n                try\n                (λ (n5)\n                  (app\n                   try\n                   (λ (n6)\n                     (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))\n    <-))\n (menv '(())))\""
   1
   ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or (-> x1 <-) x2) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> f <-) #t) (menv '(())))\"" 16 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app (-> display <-) (app sat-solve-7 phi)) (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(letrec (println\n           (->\n            phi\n            =\n            (λ (x1 x2 x3 x4 x5 x6 x7)\n              (app\n               and\n               (app or x1 x2)\n               (app or x1 (app not x2) (app not x3))\n               (app or x3 x4)\n               (app or (app not x4) x1)\n               (app or (app not x2) (app not x3))\n               (app or x4 x2)))\n            <-)\n           try\n           sat-solve-7)\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or x1 (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> #f <-)) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-3
   0
   "\"(list\n 'eval\n '(letrec (println phi try sat-solve-7)\n    (-> (let ((_ (app display (app sat-solve-7 phi)))) (app newline)) <-))\n (menv '()))\""
   3
   ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> not <-) x4) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> or <-) x3 x4) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))\""
-  1
-  ((0 0 0)))
+  "\"(list\n 'eval\n '(λ (n4)\n    (->\n     (app\n      try\n      (λ (n5)\n        (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))\n     <-))\n (menv '(() () () () ())))\""
+  0
+  (#<void>))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app (-> try <-) (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))\n (menv '(() () () () () () ())))\""
+  "\"(list 'eval '(let (_) (-> (app newline) <-)) (menv '()))\""
   2
   ((0 0 0)))
 '(sat-3
@@ -1485,10 +1588,33 @@
   "\"(list\n 'eval\n '(app try (-> (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)) <-))\n (menv '(() () () () () () ())))\""
   1
   ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(let ((-> _ = (app display s) <-)) bod) (menv '(())))\""
-  2
+  "\"(list 'eval '(app or (app not x2) (-> (app not x3) <-)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(let (_) (-> newline <-)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 (-> n5 <-) n6 n7)\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 n5 n6 (-> n7 <-))\n (menv '(() () () () () () () ())))\""
+  10
   ((0 0 0)))
 '(sat-3
   0
@@ -1497,47 +1623,43 @@
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(λ (n4)\n    (->\n     (app\n      try\n      (λ (n5)\n        (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))\n     <-))\n (menv '(() () () () ())))\""
-  6
+  "\"(list\n 'eval\n '(app p n1 n2 n3 (-> n4 <-) n5 n6 n7)\n (menv '(() () () () () () () ())))\""
+  10
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(λ (n2)\n    (->\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))\n     <-))\n (menv '(() () ())))\""
-  6
+  "\"(list\n 'eval\n '(app (-> p <-) n1 n2 n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
+  5
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))\""
-  1
+  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 x2) <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  22
   ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app not (-> x4 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app or (-> x3 <-) x4) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> not <-) x4) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(letrec (println\n           phi\n           (->\n            try\n            =\n            (λ (f)\n              (let ((_ (app println \"trying\")))\n                (app or (app f #t) (app f #f))))\n            <-)\n           sat-solve-7)\n    bod)\n (menv '()))\""
-  1
+  "\"(list 'eval '(app (-> println <-) \"trying\") (menv '(())))\""
+  2
   ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 n5 n6 (-> n7 <-))\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app p (-> n1 <-) n2 n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app (-> try <-) (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))\n (menv '(() () () () () ())))\""
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n5) (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))\n (menv '(() () () () ())))\""
   2
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app p n1 n2 (-> n3 <-) n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
-  8
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(())))\""
+  22
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app (-> sat-solve-7 <-) phi) (menv '()))\""
+  "\"(list 'eval '(λ (s) (-> (let ((_ (app display s))) newline) <-)) (menv '(())))\""
   2
   ((0 0 0)))
 '(sat-3
@@ -1547,8 +1669,197 @@
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(let (_) (-> (app or (app f #t) (app f #f)) <-)) (menv '(())))\""
+  "\"(list 'eval '(let ((-> _ = (app println \"trying\") <-)) bod) (menv '(())))\""
+  5
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (n5)\n    (-> (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))) <-))\n (menv '(() () () () () ())))\""
+  0
+  (#<void>))
+'(sat-3 0 "\"(list 'eval '(app display (-> s <-)) (menv '(())))\"" 4 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app or (-> x1 <-) x2) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> or <-) (app not x4) x1) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))\""
+  16
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app display (-> (app sat-solve-7 phi) <-)) (menv '()))\""
+  0
+  (#<void>))
+'(sat-3 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app f (-> (app #f) <-)) (menv '(())))\""
   2
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app println (-> \"trying\" <-)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p n1 (-> n2 <-) n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(let (_) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (-> (app not x4) <-) x1) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> display <-) (app sat-solve-7 phi)) (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (n3)\n    (->\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))\n     <-))\n (menv '(() () () ())))\""
+  0
+  (#<void>))
+'(sat-3 0 "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(let ((-> _ = (app display s) <-)) bod) (menv '(())))\""
+  6
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app try (-> (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))) <-))\n (menv '(() () () () () ())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or x3 x4) <-)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (n7) (-> (app p n1 n2 n3 n4 n5 n6 n7) <-))\n (menv '(() () () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (app f (app #t)) (-> (app f (app #f)) <-)) (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (x1 x2 x3 x4 x5 x6 x7)\n    (->\n     (app\n      and\n      (app or x1 x2)\n      (app or x1 (app not x2) (app not x3))\n      (app or x3 x4)\n      (app or (app not x4) x1)\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))\n (menv '(())))\""
+  2
+  ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> newline <-)) (menv '()))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (-> (app or (app not x4) x1) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (f)\n    (->\n     (let ((_ (app println \"trying\")))\n       (app or (app f (app #t)) (app f (app #f))))\n     <-))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))\""
+  18
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n2)\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6)\n                 (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))\n (menv '(() ())))\""
+  2
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> sat-solve-7 <-) phi) (menv '()))\""
+  2
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> and <-)\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n3)\n      (app\n       try\n       (λ (n4)\n         (app\n          try\n          (λ (n5)\n            (app\n             try\n             (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))\n    <-))\n (menv '(() () ())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(letrec (println\n           phi\n           (->\n            try\n            =\n            (λ (f)\n              (let ((_ (app println \"trying\")))\n                (app or (app f (app #t)) (app f (app #f)))))\n            <-)\n           sat-solve-7)\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(letrec (println\n           (->\n            phi\n            =\n            (λ (x1 x2 x3 x4 x5 x6 x7)\n              (app\n               and\n               (app or x1 x2)\n               (app or x1 (app not x2) (app not x3))\n               (app or x3 x4)\n               (app or (app not x4) x1)\n               (app or (app not x2) (app not x3))\n               (app or x4 x2)))\n            <-)\n           try\n           sat-solve-7)\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app or x1 (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(letrec (println\n           phi\n           try\n           (->\n            sat-solve-7\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3)\n                       (app\n                        try\n                        (λ (n4)\n                          (app\n                           try\n                           (λ (n5)\n                             (app\n                              try\n                              (λ (n6)\n                                (app\n                                 try\n                                 (λ (n7)\n                                   (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 n5 (-> n6 <-) n7)\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n3)\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))\n (menv '(() () ())))\""
+  2
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (-> (app f (app #t)) <-) (app f (app #f))) (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> f <-) (app #f)) (menv '(())))\""
+  16
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p (-> n1 <-) n2 n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))\""
+  18
   ((0 0 0)))
 '(sat-3
   0
@@ -1557,23 +1868,67 @@
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app (-> p <-) n1 n2 n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
-  5
+  "\"(list 'eval '(app (-> f <-) (app #t)) (menv '(())))\""
+  16
+  ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> or <-) x1 x2) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app (-> display <-) s) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (n6) (-> (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))) <-))\n (menv '(() () () () () () ())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))\n     <-))\n (menv '(() ())))\""
+  0
+  (#<void>))
+'(sat-3 0 "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(())))\"" 1 ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(top) (menv '()))\"" 4 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app p n1 n2 (-> n3 <-) n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
+  10
+  ((0 0 0)))
+'(sat-3 0 "\"(list 'eval '(app or x3 (-> x4 <-)) (menv '(())))\"" 16 ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app or (app not x4) (-> x1 <-)) (menv '(())))\""
+  16
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))\""
-  14
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 14 ((0 0 0)))
+  "\"(list\n 'eval\n '(λ (n2)\n    (->\n     (app\n      try\n      (λ (n3)\n        (app\n         try\n         (λ (n4)\n           (app\n            try\n            (λ (n5)\n              (app\n               try\n               (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))\n     <-))\n (menv '(() () ())))\""
+  0
+  (#<void>))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n1)\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))\n (menv '(())))\""
+  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(())))\""
+  0
+  (#<void>))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n2)\n      (app\n       try\n       (λ (n3)\n         (app\n          try\n          (λ (n4)\n            (app\n             try\n             (λ (n5)\n               (app\n                try\n                (λ (n6)\n                  (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))\n    <-))\n (menv '(() ())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list 'eval '(app (-> or <-) (app f (app #t)) (app f (app #f))) (menv '(())))\""
+  1
+  ((0 0 0)))
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app (-> try <-) (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))\n (menv '(() () () () () () ())))\""
   2
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list 'eval '(app (-> println <-) \"trying\") (menv '(())))\""
+  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n4)\n     (app\n      try\n      (λ (n5)\n        (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))\n (menv '(() () () ())))\""
   2
   ((0 0 0)))
 '(sat-3
@@ -1583,263 +1938,12 @@
   ((0 0 0)))
 '(sat-3
   0
-  "\"(list\n 'eval\n '(λ (n5)\n    (-> (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))) <-))\n (menv '(() () () () () ())))\""
-  6
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(letrec (println\n           phi\n           try\n           (->\n            sat-solve-7\n            =\n            (λ (p)\n              (app\n               try\n               (λ (n1)\n                 (app\n                  try\n                  (λ (n2)\n                    (app\n                     try\n                     (λ (n3)\n                       (app\n                        try\n                        (λ (n4)\n                          (app\n                           try\n                           (λ (n5)\n                             (app\n                              try\n                              (λ (n6)\n                                (app\n                                 try\n                                 (λ (n7)\n                                   (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or (-> x4 <-) x2) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> f <-) #f) (menv '(())))\"" 16 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 n5 (-> n6 <-) n7)\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (n1)\n    (->\n     (app\n      try\n      (λ (n2)\n        (app\n         try\n         (λ (n3)\n           (app\n            try\n            (λ (n4)\n              (app\n               try\n               (λ (n5)\n                 (app\n                  try\n                  (λ (n6)\n                    (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))\n     <-))\n (menv '(() ())))\""
-  6
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app not (-> x3 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (-> (app or x1 x2) <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app (-> or <-) (app f #t) (app f #f)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(let (_) (-> newline <-)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app (-> or <-) (app not x4) x1) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (p)\n    (->\n     (app\n      try\n      (λ (n1)\n        (app\n         try\n         (λ (n2)\n           (app\n            try\n            (λ (n3)\n              (app\n               try\n               (λ (n4)\n                 (app\n                  try\n                  (λ (n5)\n                    (app\n                     try\n                     (λ (n6)\n                       (app\n                        try\n                        (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))\n     <-))\n (menv '(())))\""
-  6
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or (-> x3 <-) x4) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app display (-> s <-)) (menv '(())))\"" 4 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app not (-> x4 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or (-> (app f #t) <-) (app f #f)) (menv '(())))\""
-  0
-  (#<void>))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n4)\n     (app\n      try\n      (λ (n5)\n        (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))\n (menv '(() () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (-> (app or (app not x4) x1) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or (app not x4) (-> x1 <-)) (menv '(())))\""
-  14
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or x3 x4) <-)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> newline <-)) (menv '()))\"" 1 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or (app not x2) (-> (app not x3) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app display (-> (app sat-solve-7 phi) <-)) (menv '()))\""
-  9
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n5) (app try (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))\n (menv '(() () () () ())))\""
-  2
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> or <-) x4 x2) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app f (-> #t <-)) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app not (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(let (_) (-> (app newline) <-)) (menv '()))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(λ (s) (-> (let ((_ (app display s))) newline) <-)) (menv '(())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (n3)\n    (->\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))\n     <-))\n (menv '(() () () ())))\""
-  6
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> and <-)\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n (menv '(())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(let ((-> _ = (app println \"trying\") <-)) bod) (menv '(())))\""
-  5
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or x4 (-> x2 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> or <-) x3 x4) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app p n1 n2 n3 (-> n4 <-) n5 n6 n7)\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   (-> try <-)\n   (λ (n3)\n     (app\n      try\n      (λ (n4)\n        (app\n         try\n         (λ (n5)\n           (app\n            try\n            (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))\n (menv '(() () ())))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app p n1 (-> n2 <-) n3 n4 n5 n6 n7)\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app or (app f #t) (-> (app f #f) <-)) (menv '(())))\""
-  0
-  (#<void>))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (f)\n    (-> (let ((_ (app println \"trying\"))) (app or (app f #t) (app f #f))) <-))\n (menv '(())))\""
-  3
-  ((0 0 0)))
-'(sat-3
-  0
   "\"(list\n 'eval\n '(let ((-> _ = (app display (app sat-solve-7 phi)) <-)) bod)\n (menv '()))\""
-  2
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n3)\n      (app\n       try\n       (λ (n4)\n         (app\n          try\n          (λ (n5)\n            (app\n             try\n             (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))\n    <-))\n (menv '(() () ())))\""
-  1
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> not <-) x3) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> display <-) s) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app\n   try\n   (->\n    (λ (n2)\n      (app\n       try\n       (λ (n3)\n         (app\n          try\n          (λ (n4)\n            (app\n             try\n             (λ (n5)\n               (app\n                try\n                (λ (n6)\n                  (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))\n    <-))\n (menv '(() ())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app try (-> (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))) <-))\n (menv '(() () () () () ())))\""
-  1
-  ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(app p n1 n2 n3 n4 (-> n5 <-) n6 n7)\n (menv '(() () () () () () () ())))\""
-  8
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> or <-) x1 x2) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app (-> not <-) x2) (menv '(())))\"" 1 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list\n 'eval\n '(λ (n6) (-> (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))) <-))\n (menv '(() () () () () () ())))\""
-  6
-  ((0 0 0)))
-'(sat-3 0 "\"(list 'eval '(app or x3 (-> x4 <-)) (menv '(())))\"" 14 ((0 0 0)))
-'(sat-3
-  0
-  "\"(list 'eval '(app println (-> \"trying\" <-)) (menv '(())))\""
-  1
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)\n   (_ (app ack (app - m 1) 1)))\n (menv '((□? (m n)))))\""
   0
   (#<void>))
-'(ack
-  1
-  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (->\n    #f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1)))\n    <-)\n   (_ (app + n 1)))\n (menv '((□? (m n)))))\""
-  20
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(letrec ((->\n            ack\n            =\n            (λ (m n)\n              (match\n               (app = m 0)\n               (#f\n                (match\n                 (app = n 0)\n                 (#f (app ack (app - m 1) (app ack m (app - n 1))))\n                 (_ (app ack (app - m 1) 1))))\n               (_ (app + n 1))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(λ (m n)\n    (->\n     (match\n      (app = m 0)\n      (#f\n       (match\n        (app = n 0)\n        (#f (app ack (app - m 1) (app ack m (app - n 1))))\n        (_ (app ack (app - m 1) 1))))\n      (_ (app + n 1)))\n     <-))\n (menv '((□? (m n)))))\""
-  90
-  (#<void>))
-'(ack
-  1
-  "\"(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))\""
-  62
-  ((2 2 0)))
-'(ack 1 "\"(list 'eval '(top) (menv '()))\"" 18 ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))\""
-  64
-  ((2 2 0)))
-'(ack
-  1
-  "\"(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))\""
+'(sat-3
+  0
+  "\"(list\n 'eval\n '(app (-> try <-) (λ (n6) (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))\n (menv '(() () () () () ())))\""
   2
   ((0 0 0)))
 '(ack
@@ -1849,76 +1953,9 @@
   (#<void>))
 '(ack
   1
-  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (-> _ (app ack (app - m 1) 1) <-))\n (menv '((□? (m n)))))\""
-  17
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack
-  1
-  "\"(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))\""
+  "\"(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))\""
   2
   ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack
-  1
-  "\"(list 'eval '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))\""
-  17
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))\n (menv '((□? (m n)))))\""
-  62
-  ((2 2 0)))
-'(ack
-  1
-  "\"(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (-> _ (app + n 1) <-))\n (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack
-  1
-  "\"(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))\""
-  3
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack
-  1
-  "\"(list\n 'eval\n '(match\n   (-> (app = m 0) <-)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (_ (app + n 1)))\n (menv '((□? (m n)))))\""
-  3
-  ((0 0 0)))
-'(ack 1 "\"(list 'eval '(app ack (-> 3 <-) 12) (menv '()))\"" 1 ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack 1 "\"(list 'eval '(app (-> ack <-) 3 12) (menv '()))\"" 2 ((0 0 0)))
 '(ack
   1
   "\"(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))\""
@@ -1926,7 +1963,151 @@
   ((0 0 0)))
 '(ack
   1
+  "\"(list\n 'eval\n '(λ (m n)\n    (->\n     (match\n      (app = m 0)\n      (#f\n       (match\n        (app = n 0)\n        (#f (app ack (app - m 1) (app ack m (app - n 1))))\n        (_ (app ack (app - m 1) 1))))\n      (_ (app + n 1)))\n     <-))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list 'eval '(app - (-> n <-) 1) (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))\""
+  3
+  ((0 0 0)))
+'(ack
+  1
   "\"(list 'eval '(app ack (-> (app - m 1) <-) 1) (menv '((□? (m n)))))\""
+  64
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app ack (-> m <-) (app - n 1)) (menv '((□? (m n)))))\""
+  64
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(letrec ((->\n            ack\n            =\n            (λ (m n)\n              (match\n               (app = m 0)\n               (#f\n                (match\n                 (app = n 0)\n                 (#f (app ack (app - m 1) (app ack m (app - n 1))))\n                 (_ (app ack (app - m 1) 1))))\n               (_ (app + n 1))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))\n (menv '((□? (m n)))))\""
+  64
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> + <-) n 1) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))\""
+  64
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> = <-) m 0) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> ack <-) (app - m 1) 1) (menv '((□? (m n)))))\""
+  3
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list 'eval '(app (-> - <-) m 1) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (-> (app = n 0) <-)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (_ (app ack (app - m 1) 1)))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (-> (app = m 0) <-)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (_ (app + n 1)))\n (menv '((□? (m n)))))\""
+  84
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list 'eval '(app + (-> n <-) 1) (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (-> _ (app ack (app - m 1) 1) <-))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list\n 'eval\n '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))\n (menv '((□? (m n)))))\""
+  3
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (->\n    #f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1)))\n    <-)\n   (_ (app + n 1)))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack 1 "\"(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))\"" 1 ((0 0 0)))
+'(ack 1 "\"(list 'eval '(top) (menv '()))\"" 0 (#<void>))
+'(ack 1 "\"(list 'eval '(app ack (-> 3 <-) 12) (menv '()))\"" 1 ((0 0 0)))
+'(ack 1 "\"(list 'eval '(app (-> ack <-) 3 12) (menv '()))\"" 2 ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app (-> = <-) n 0) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list 'eval '(app - m (-> 1 <-)) (menv '((□? (m n)))))\""
+  2
+  ((0 0 0)))
+'(ack
+  1
+  "\"(list 'eval '(app - (-> m <-) 1) (menv '((□? (m n)))))\""
+  64
+  ((1 1 0)))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (app = n 0)\n   (-> #f (app ack (app - m 1) (app ack m (app - n 1))) <-)\n   (_ (app ack (app - m 1) 1)))\n (menv '((□? (m n)))))\""
+  0
+  (#<void>))
+'(ack
+  1
+  "\"(list\n 'eval\n '(match\n   (app = m 0)\n   (#f\n    (match\n     (app = n 0)\n     (#f (app ack (app - m 1) (app ack m (app - n 1))))\n     (_ (app ack (app - m 1) 1))))\n   (-> _ (app + n 1) <-))\n (menv '((□? (m n)))))\""
   0
   (#<void>))
 '(ack
@@ -1936,54 +2117,69 @@
   ((0 0 0)))
 '(ack
   1
-  "\"(list 'eval '(app + n (-> 1 <-)) (menv '((□? (m n)))))\""
-  2
-  ((0 0 0)))
-'(ack 1 "\"(list 'eval '(app ack 3 (-> 12 <-)) (menv '()))\"" 1 ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app (-> - <-) n 1) (menv '((□? (m n)))))\""
+  "\"(list 'eval '(app = m (-> 0 <-)) (menv '((□? (m n)))))\""
   2
   ((0 0 0)))
 '(ack
   1
-  "\"(list\n 'eval\n '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))\n (menv '((□? (m n)))))\""
-  3
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app - n (-> 1 <-)) (menv '((□? (m n)))))\""
+  "\"(list 'eval '(app ack (app - m 1) (-> 1 <-)) (menv '((□? (m n)))))\""
   2
   ((0 0 0)))
 '(ack
   1
-  "\"(list\n 'eval\n '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))\n (menv '((□? (m n)))))\""
-  0
-  (#<void>))
-'(ack
-  1
-  "\"(list 'eval '(app (-> ack <-) m (app - n 1)) (menv '((□? (m n)))))\""
-  3
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list\n 'eval\n '(match\n   (-> (app = n 0) <-)\n   (#f (app ack (app - m 1) (app ack m (app - n 1))))\n   (_ (app ack (app - m 1) 1)))\n (menv '((□? (m n)))))\""
-  3
-  ((0 0 0)))
-'(ack
-  1
-  "\"(list 'eval '(app ack m (-> (app - n 1) <-)) (menv '((□? (m n)))))\""
-  62
-  ((3 3 0)))
+  "\"(list 'eval '(app = (-> m <-) 0) (menv '((□? (m n)))))\""
+  69
+  ((1 1 0)))
 '(blur
   1
-  "\"(list\n 'eval\n '(let* ((-> r = (app (app blur id) #t) <-) s) bod)\n (menv '((□? (a n)))))\""
-  23
+  "\"(list 'eval '(app (-> - <-) n 1) (menv '((□? (a n)))))\""
+  2
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app (app blur id) (-> #f <-)) (menv '((□? (a n)))))\""
+  "\"(list\n 'eval\n '(let* (r (-> s = (app (app blur id) (app #f)) <-)) bod)\n (menv '((□? (a n)))))\""
+  24
+  ((0 0 0)))
+'(blur 1 "\"(list 'eval '(top) (menv '()))\"" 0 (#<void>))
+'(blur
+  1
+  "\"(list 'eval '(app (-> id <-) a) (menv '((□? (a n)))))\""
+  3
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app blur (-> id <-)) (menv '((□? (a n)))))\""
+  3
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app lp (app #f) (-> 2 <-)) (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app (-> (app blur id) <-) (app #t)) (menv '((□? (a n)))))\""
+  11
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))\""
+  1
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app (-> blur <-) id) (menv '((□? (a n)))))\""
+  3
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app lp (-> (app #f) <-) 2) (menv '()))\""
   2
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app (app blur id) (-> (app #t) <-)) (menv '((□? (a n)))))\""
+  3
   ((0 0 0)))
 '(blur
   1
@@ -1992,49 +2188,20 @@
   ((0 0 0)))
 '(blur
   1
-  "\"(list\n 'eval\n '(λ (a n)\n    (->\n     (match\n      (app <= n 1)\n      (#t (app id a))\n      (#f\n       (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n         (app not (app (app blur lp) s (app - n 1))))))\n     <-))\n (menv '((□? (a n)))))\""
-  0
-  (#<void>))
-'(blur
-  1
-  "\"(list 'eval '(app (-> (app blur id) <-) #f) (menv '((□? (a n)))))\""
-  11
+  "\"(list\n 'eval\n '(let* ((-> r = (app (app blur id) (app #t)) <-) s) bod)\n (menv '((□? (a n)))))\""
+  24
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app (app blur id) (-> #t <-)) (menv '((□? (a n)))))\""
-  2
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (-> #t (app id a) <-)\n   (#f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '((□? (a n)))))\""
-  0
-  (#<void>))
-'(blur
-  1
-  "\"(list 'eval '(app id (-> a <-)) (menv '((□? (a n)))))\""
-  0
-  (#<void>))
-'(blur
-  1
-  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (#t (app id a))\n   (->\n    #f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))\n    <-))\n (menv '((□? (a n)))))\""
-  4
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list\n 'eval\n '(letrec (id\n           blur\n           (->\n            lp\n            =\n            (λ (a n)\n              (match\n               (app <= n 1)\n               (#t (app id a))\n               (#f\n                (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n                  (app not (app (app blur lp) s (app - n 1)))))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list\n 'eval\n '(match\n   (-> (app <= n 1) <-)\n   (#t (app id a))\n   (#f\n    (let* ((r (app (app blur id) #t)) (s (app (app blur id) #f)))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '((□? (a n)))))\""
-  49
-  ((2 2 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (-> blur <-) id) (menv '((□? (a n)))))\""
+  "\"(list 'eval '(app blur (-> lp <-)) (menv '((□? (a n)))))\""
   3
   ((0 0 0)))
+'(blur
+  1
+  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (-> #t (app id a) <-)\n   (#f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '((□? (a n)))))\""
+  81
+  ((2 2 0)))
+'(blur 1 "\"(list 'eval '(app (-> #f <-)) (menv '()))\"" 1 ((0 0 0)))
 '(blur
   1
   "\"(list 'eval '(app <= n (-> 1 <-)) (menv '((□? (a n)))))\""
@@ -2043,54 +2210,11 @@
 '(blur
   1
   "\"(list 'eval '(app (app blur lp) (-> s <-) (app - n 1)) (menv '((□? (a n)))))\""
-  24
+  25
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app <= (-> n <-) 1) (menv '((□? (a n)))))\""
-  40
-  ((1 1 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (-> blur <-) lp) (menv '((□? (a n)))))\""
-  3
-  ((0 0 0)))
-'(blur 1 "\"(list 'eval '(app (-> lp <-) #f 2) (menv '()))\"" 2 ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (-> - <-) n 1) (menv '((□? (a n)))))\""
-  2
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (-> id <-) a) (menv '((□? (a n)))))\""
-  3
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (-> blur <-) id) (menv '((□? (a n)))))\""
-  3
-  ((0 0 0)))
-'(blur 1 "\"(list 'eval '(app lp #f (-> 2 <-)) (menv '()))\"" 1 ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(letrec (id blur lp) (-> (app lp #f 2) <-)) (menv '()))\""
-  0
-  (#<void>))
-'(blur
-  1
-  "\"(list 'eval '(app - (-> n <-) 1) (menv '((□? (a n)))))\""
-  37
-  ((2 2 0)))
-'(blur 1 "\"(list 'eval '(app lp (-> #f <-) 2) (menv '()))\"" 1 ((0 0 0)))
-'(blur
-  1
-  "\"(list\n 'eval\n '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n (menv '((□? (a n)))))\""
-  3
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(app - n (-> 1 <-)) (menv '((□? (a n)))))\""
+  "\"(list 'eval '(app (-> lp <-) (app #f) 2) (menv '()))\""
   2
   ((0 0 0)))
 '(blur
@@ -2100,31 +2224,46 @@
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app blur (-> id <-)) (menv '((□? (a n)))))\""
-  3
-  ((0 0 0)))
+  "\"(list\n 'eval\n '(let* (r s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n (menv '((□? (a n)))))\""
+  0
+  (#<void>))
 '(blur
   1
   "\"(list 'eval '(app blur (-> id <-)) (menv '((□? (a n)))))\""
   3
   ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(app (app blur lp) s (-> (app - n 1) <-)) (menv '((□? (a n)))))\""
-  37
-  ((1 1 0)))
-'(blur 1 "\"(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))\"" 0 (#<void>))
-'(blur
-  1
-  "\"(list\n 'eval\n '(let* (r (-> s = (app (app blur id) #f) <-)) bod)\n (menv '((□? (a n)))))\""
-  23
-  ((0 0 0)))
-'(blur
-  1
-  "\"(list 'eval '(letrec ((-> id = (λ (x) x) <-) blur lp) bod) (menv '()))\""
-  1
-  ((0 0 0)))
+'(blur 1 "\"(list 'eval '(app (-> #f <-)) (menv '((□? (a n)))))\"" 2 ((0 0 0)))
 '(blur 1 "\"(list 'eval '(λ (y) (-> y <-)) (menv '((□? (y)))))\"" 15 ((0 0 0)))
+'(blur
+  1
+  "\"(list\n 'eval\n '(λ (a n)\n    (->\n     (match\n      (app <= n 1)\n      (#t (app id a))\n      (#f\n       (let* ((r (app (app blur id) (app #t)))\n              (s (app (app blur id) (app #f))))\n         (app not (app (app blur lp) s (app - n 1))))))\n     <-))\n (menv '((□? (a n)))))\""
+  0
+  (#<void>))
+'(blur
+  1
+  "\"(list\n 'eval\n '(match\n   (-> (app <= n 1) <-)\n   (#t (app id a))\n   (#f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))))\n (menv '((□? (a n)))))\""
+  49
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app - (-> n <-) 1) (menv '((□? (a n)))))\""
+  37
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list 'eval '(app - n (-> 1 <-)) (menv '((□? (a n)))))\""
+  2
+  ((0 0 0)))
+'(blur
+  1
+  "\"(list\n 'eval\n '(match\n   (app <= n 1)\n   (#t (app id a))\n   (->\n    #f\n    (let* ((r (app (app blur id) (app #t))) (s (app (app blur id) (app #f))))\n      (app not (app (app blur lp) s (app - n 1))))\n    <-))\n (menv '((□? (a n)))))\""
+  0
+  (#<void>))
+'(blur
+  1
+  "\"(list 'eval '(app (app blur id) (-> (app #f) <-)) (menv '((□? (a n)))))\""
+  3
+  ((0 0 0)))
 '(blur
   1
   "\"(list 'eval '(app (-> <= <-) n 1) (menv '((□? (a n)))))\""
@@ -2132,8 +2271,19 @@
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app (-> (app blur lp) <-) s (app - n 1)) (menv '((□? (a n)))))\""
-  11
+  "\"(list 'eval '(letrec (id blur lp) (-> (app lp (app #f) 2) <-)) (menv '()))\""
+  0
+  (#<void>))
+'(blur
+  1
+  "\"(list 'eval '(app (-> blur <-) lp) (menv '((□? (a n)))))\""
+  3
+  ((0 0 0)))
+'(blur 1 "\"(list 'eval '(app (-> #t <-)) (menv '((□? (a n)))))\"" 2 ((0 0 0)))
+'(blur
+  1
+  "\"(list\n 'eval\n '(letrec (id\n           blur\n           (->\n            lp\n            =\n            (λ (a n)\n              (match\n               (app <= n 1)\n               (#t (app id a))\n               (#f\n                (let* ((r (app (app blur id) (app #t)))\n                       (s (app (app blur id) (app #f))))\n                  (app not (app (app blur lp) s (app - n 1)))))))\n            <-))\n    bod)\n (menv '()))\""
+  1
   ((0 0 0)))
 '(blur
   1
@@ -2142,204 +2292,38 @@
   (#<void>))
 '(blur
   1
-  "\"(list 'eval '(app blur (-> lp <-)) (menv '((□? (a n)))))\""
+  "\"(list 'eval '(app (-> blur <-) id) (menv '((□? (a n)))))\""
   3
   ((0 0 0)))
 '(blur
   1
-  "\"(list 'eval '(app (-> (app blur id) <-) #t) (menv '((□? (a n)))))\""
+  "\"(list 'eval '(app (-> (app blur id) <-) (app #f)) (menv '((□? (a n)))))\""
   11
   ((0 0 0)))
-'(blur 1 "\"(list 'eval '(top) (menv '()))\"" 0 (#<void>))
-'(cpstak
+'(blur 1 "\"(list 'eval '(λ (x) (-> x <-)) (menv '((□? (x)))))\"" 84 ((2 2 0)))
+'(blur
   1
-  "\"(list 'eval '(app tak x y (-> z <-) (λ (a) a)) (menv '((□? (x y z)))))\""
-  6
+  "\"(list 'eval '(app <= (-> n <-) 1) (menv '((□? (a n)))))\""
+  40
   ((0 0 0)))
-'(cpstak
+'(blur
   1
-  "\"(list 'eval '(app cpstak 32 15 (-> 8 <-)) (menv '()))\""
+  "\"(list 'eval '(app id (-> a <-)) (menv '((□? (a n)))))\""
+  74
+  ((1 1 0)))
+'(blur
   1
+  "\"(list 'eval '(app (app blur lp) s (-> (app - n 1) <-)) (menv '((□? (a n)))))\""
+  37
   ((0 0 0)))
-'(cpstak
+'(blur
   1
-  "\"(list 'eval '(app (-> cpstak <-) 32 15 8) (menv '()))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app (-> - <-) z 1)\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  5
+  "\"(list 'eval '(app (-> (app blur lp) <-) s (app - n 1)) (menv '((□? (a n)))))\""
+  11
   ((0 0 0)))
 '(cpstak
   1
   "\"(list\n 'eval\n '(app\n   tak\n   (-> (app - y 1) <-)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list 'eval '(app (-> k <-) z) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   x\n   (-> (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))) <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app cpstak 32 (-> 15 <-) 8) (menv '()))\""
-  1
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app not (-> (app < y x) <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app (-> tak <-) (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app - x (-> 1 <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  3
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(letrec (cpstak) (-> (app cpstak 32 15 8) <-)) (menv '()))\""
-  10
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(λ (x y z)\n    (->\n     (letrec ((tak\n               (λ (x y z k)\n                 (match\n                  (app not (app < y x))\n                  (#t (app k z))\n                  (#f\n                   (app\n                    tak\n                    (app - x 1)\n                    y\n                    z\n                    (λ (v1)\n                      (app\n                       tak\n                       (app - y 1)\n                       z\n                       x\n                       (λ (v2)\n                         (app\n                          tak\n                          (app - z 1)\n                          x\n                          y\n                          (λ (v3) (app tak v1 v2 v3 k))))))))))))\n       (app tak x y z (λ (a) a)))\n     <-))\n (menv '((□? (x y z)))))\""
-  8
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - y 1)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  5
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app (-> < <-) y x) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  3
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   (-> x <-)\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(λ (v3) (-> (app tak v1 v2 v3 k) <-))\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  11
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (-> #t (app k z) <-)\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - x 1)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(letrec (tak) (-> (app tak x y z (λ (a) a)) <-))\n (menv '((□? (x y z)))))\""
-  7
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   (-> z <-)\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(λ (v2) (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  10
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app - y (-> 1 <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app tak x (-> y <-) z (λ (a) a)) (menv '((□? (x y z)))))\""
-  6
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(letrec ((->\n            cpstak\n            =\n            (λ (x y z)\n              (letrec ((tak\n                        (λ (x y z k)\n                          (match\n                           (app not (app < y x))\n                           (#t (app k z))\n                           (#f\n                            (app\n                             tak\n                             (app - x 1)\n                             y\n                             z\n                             (λ (v1)\n                               (app\n                                tak\n                                (app - y 1)\n                                z\n                                x\n                                (λ (v2)\n                                  (app\n                                   tak\n                                   (app - z 1)\n                                   x\n                                   y\n                                   (λ (v3) (app tak v1 v2 v3 k))))))))))))\n                (app tak x y z (λ (a) a))))\n            <-))\n    bod)\n (menv '()))\""
-  1
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app tak (app - z 1) x y (-> (λ (v3) (app tak v1 v2 v3 k)) <-))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  5
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app (-> - <-) y 1)\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak 1 "\"(list 'eval '(top) (menv '()))\"" 11 ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app - (-> z <-) 1)\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app tak (app - z 1) (-> x <-) y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app tak v1 v2 v3 (-> k <-))\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list 'eval '(app tak x y z (-> (λ (a) a) <-)) (menv '((□? (x y z)))))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app (-> tak <-) x y z (λ (a) a)) (menv '((□? (x y z)))))\""
-  3
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app < y (-> x <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(letrec ((->\n            tak\n            =\n            (λ (x y z k)\n              (match\n               (app not (app < y x))\n               (#t (app k z))\n               (#f\n                (app\n                 tak\n                 (app - x 1)\n                 y\n                 z\n                 (λ (v1)\n                   (app\n                    tak\n                    (app - y 1)\n                    z\n                    x\n                    (λ (v2)\n                      (app\n                       tak\n                       (app - z 1)\n                       x\n                       y\n                       (λ (v3) (app tak v1 v2 v3 k))))))))))\n            <-))\n    bod)\n (menv '((□? (x y z)))))\""
-  2
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   z\n   (->\n    (λ (v1)\n      (app\n       tak\n       (app - y 1)\n       z\n       x\n       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))\n    <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  3
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app k (-> z <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list 'eval '(λ (a) (-> a <-)) (menv '((□? (a)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list 'eval '(app < (-> y <-) x) (menv '((□? (x y z k)) (□? (x y z)))))\""
   0
   (#<void>))
 '(cpstak
@@ -2349,7 +2333,22 @@
   ((0 0 0)))
 '(cpstak
   1
-  "\"(list\n 'eval\n '(app tak (-> v1 <-) v2 v3 k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"(list\n 'eval\n '(app tak v1 v2 v3 (-> k <-))\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app cpstak 32 (-> 15 <-) 8) (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak v1 v2 (-> v3 <-) k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   (-> x <-)\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   0
   (#<void>))
 '(cpstak
@@ -2359,33 +2358,13 @@
   (#<void>))
 '(cpstak
   1
-  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   (-> y <-)\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  "\"(list 'eval '(app (-> k <-) z) (menv '((□? (x y z k)) (□? (x y z)))))\""
   0
   (#<void>))
 '(cpstak
   1
-  "\"(list 'eval '(app - (-> x <-) 1) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (#t (app k z))\n   (->\n    #f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n    <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  8
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(match\n   (-> (app not (app < y x)) <-)\n   (#t (app k z))\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  4
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(λ (v1)\n    (->\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n     <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  9
-  ((0 0 0)))
-'(cpstak
-  1
-  "\"(list 'eval '(app (-> - <-) x 1) (menv '((□? (x y z k)) (□? (x y z)))))\""
-  3
+  "\"(list\n 'eval\n '(app (-> tak <-) (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  6
   ((0 0 0)))
 '(cpstak
   1
@@ -2394,23 +2373,38 @@
   (#<void>))
 '(cpstak
   1
-  "\"(list\n 'eval\n '(app tak v1 v2 (-> v3 <-) k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app tak v1 (-> v2 <-) v3 k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  0
-  (#<void>))
-'(cpstak
-  1
-  "\"(list\n 'eval\n '(app tak (-> (app - z 1) <-) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"(list 'eval '(app k (-> z <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
   0
   (#<void>))
 '(cpstak
   1
   "\"(list\n 'eval\n '(λ (x y z k)\n    (->\n     (match\n      (app not (app < y x))\n      (#t (app k z))\n      (#f\n       (app\n        tak\n        (app - x 1)\n        y\n        z\n        (λ (v1)\n          (app\n           tak\n           (app - y 1)\n           z\n           x\n           (λ (v2)\n             (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n     <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  5
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - x 1)\n   y\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  4
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list 'eval '(app tak x (-> y <-) z (λ (a) a)) (menv '((□? (x y z)))))\""
+  6
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(match\n   (-> (app not (app < y x)) <-)\n   (#t (app k z))\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   (-> y <-)\n   z\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app (-> - <-) y 1)\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  4
   ((0 0 0)))
 '(cpstak
   1
@@ -2419,8 +2413,159 @@
   ((0 0 0)))
 '(cpstak
   1
+  "\"(list\n 'eval\n '(app\n   (-> tak <-)\n   (app - y 1)\n   z\n   x\n   (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  5
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (-> #t (app k z) <-)\n   (#f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app - x (-> 1 <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list 'eval '(app tak x y (-> z <-) (λ (a) a)) (menv '((□? (x y z)))))\""
+  6
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak (app - z 1) x y (-> (λ (v3) (app tak v1 v2 v3 k)) <-))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  5
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(λ (v1)\n    (->\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))\n     <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app < (-> y <-) x) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app - (-> z <-) 1)\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app tak (-> x <-) y z (λ (a) a)) (menv '((□? (x y z)))))\""
+  6
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app - (-> y <-) 1)\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak 1 "\"(list 'eval '(top) (menv '()))\"" 0 (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app (-> cpstak <-) 32 15 8) (menv '()))\""
+  2
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   z\n   (->\n    (λ (v1)\n      (app\n       tak\n       (app - y 1)\n       z\n       x\n       (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))))))\n    <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - y 1)\n   z\n   x\n   (-> (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))) <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  4
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app (-> - <-) z 1)\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  5
+  ((0 0 0)))
+'(cpstak
+  1
   "\"(list 'eval '(app cpstak (-> 32 <-) 15 8) (menv '()))\""
   1
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app (-> not <-) (app < y x))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak (-> v1 <-) v2 v3 k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak (app - z 1) (-> x <-) y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app cpstak 32 15 (-> 8 <-)) (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak v1 (-> v2 <-) v3 k)\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app < y (-> x <-)) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app (-> - <-) x 1) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list 'eval '(letrec (cpstak) (-> (app cpstak 32 15 8) <-)) (menv '()))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app (-> < <-) y x) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(letrec ((->\n            cpstak\n            =\n            (λ (x y z)\n              (letrec ((tak\n                        (λ (x y z k)\n                          (match\n                           (app not (app < y x))\n                           (#t (app k z))\n                           (#f\n                            (app\n                             tak\n                             (app - x 1)\n                             y\n                             z\n                             (λ (v1)\n                               (app\n                                tak\n                                (app - y 1)\n                                z\n                                x\n                                (λ (v2)\n                                  (app\n                                   tak\n                                   (app - z 1)\n                                   x\n                                   y\n                                   (λ (v3) (app tak v1 v2 v3 k))))))))))))\n                (app tak x y z (λ (a) a))))\n            <-))\n    bod)\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list 'eval '(app - (-> x <-) 1) (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(λ (v3) (-> (app tak v1 v2 v3 k) <-))\n (menv '((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app tak x y z (-> (λ (a) a) <-)) (menv '((□? (x y z)))))\""
+  2
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app tak (-> (app - z 1) <-) x y (λ (v3) (app tak v1 v2 v3 k)))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(app (-> tak <-) x y z (λ (a) a)) (menv '((□? (x y z)))))\""
+  3
+  ((0 0 0)))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(letrec ((->\n            tak\n            =\n            (λ (x y z k)\n              (match\n               (app not (app < y x))\n               (#t (app k z))\n               (#f\n                (app\n                 tak\n                 (app - x 1)\n                 y\n                 z\n                 (λ (v1)\n                   (app\n                    tak\n                    (app - y 1)\n                    z\n                    x\n                    (λ (v2)\n                      (app\n                       tak\n                       (app - z 1)\n                       x\n                       y\n                       (λ (v3) (app tak v1 v2 v3 k))))))))))\n            <-))\n    bod)\n (menv '((□? (x y z)))))\""
+  2
   ((0 0 0)))
 '(cpstak
   1
@@ -2429,16 +2574,197 @@
   (#<void>))
 '(cpstak
   1
-  "\"(list\n 'eval\n '(app (-> not <-) (app < y x))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
-  3
+  "\"(list\n 'eval\n '(app - y (-> 1 <-))\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  4
   ((0 0 0)))
 '(cpstak
   1
-  "\"(list\n 'eval\n '(app - (-> y <-) 1)\n (menv '((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"(list\n 'eval\n '(letrec (tak) (-> (app tak x y z (λ (a) a)) <-))\n (menv '((□? (x y z)))))\""
   0
   (#<void>))
 '(cpstak
   1
-  "\"(list 'eval '(app tak (-> x <-) y z (λ (a) a)) (menv '((□? (x y z)))))\""
+  "\"(list\n 'eval\n '(app\n   tak\n   (app - x 1)\n   y\n   (-> z <-)\n   (λ (v1)\n     (app\n      tak\n      (app - y 1)\n      z\n      x\n      (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(λ (x y z)\n    (->\n     (letrec ((tak\n               (λ (x y z k)\n                 (match\n                  (app not (app < y x))\n                  (#t (app k z))\n                  (#f\n                   (app\n                    tak\n                    (app - x 1)\n                    y\n                    z\n                    (λ (v1)\n                      (app\n                       tak\n                       (app - y 1)\n                       z\n                       x\n                       (λ (v2)\n                         (app\n                          tak\n                          (app - z 1)\n                          x\n                          y\n                          (λ (v3) (app tak v1 v2 v3 k))))))))))))\n       (app tak x y z (λ (a) a)))\n     <-))\n (menv '((□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(λ (v2) (-> (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k))) <-))\n (menv '((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(match\n   (app not (app < y x))\n   (#t (app k z))\n   (->\n    #f\n    (app\n     tak\n     (app - x 1)\n     y\n     z\n     (λ (v1)\n       (app\n        tak\n        (app - y 1)\n        z\n        x\n        (λ (v2) (app tak (app - z 1) x y (λ (v3) (app tak v1 v2 v3 k)))))))\n    <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list\n 'eval\n '(app not (-> (app < y x) <-))\n (menv '((□? (x y z k)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(cpstak
+  1
+  "\"(list 'eval '(λ (a) (-> a <-)) (menv '((□? (a)) (□? (x y z)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> #f <-)) (menv '((□? (f1)))))\""
+  2
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> z <-) x1 x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))\""
+  7
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(λ (f1) (-> (let ((_ (app f1 (app #t)))) (app f1 (app #f))) <-))\n (menv '((□? (f1)))))\""
+  32
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app (-> (λ (z) (app z x1 x2)) <-) (λ (y1 y2) y1))\n (menv '((□? (x2)) (□? (x1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app\n   (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n   (-> (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))) <-))\n (menv '((□? (x1)))))\""
+  2
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app\n   (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f))))\n   (->\n    (λ (x1)\n      (app\n       (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n       (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)))))\n    <-))\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(kcfa-2 1 "\"(list 'eval '(top) (menv '()))\"" 29 ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(λ (f2) (-> (let ((_ (app f2 (app #t)))) (app f2 (app #f))) <-))\n (menv '((□? (f2)) (□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app f1 (-> (app #f) <-)) (menv '((□? (f1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> f1 <-) (app #t)) (menv '((□? (f1)))))\""
+  5
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> #t <-)) (menv '((□? (f2)) (□? (x1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> #t <-)) (menv '((□? (f1)))))\""
+  2
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app z (-> x1 <-) x2) (menv '((□? (z)) (□? (x2)) (□? (x1)))))\""
+  18
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> #f <-)) (menv '((□? (f2)) (□? (x1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(λ (z) (-> (app z x1 x2) <-))\n (menv '((□? (z)) (□? (x2)) (□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app z x1 (-> x2 <-)) (menv '((□? (z)) (□? (x2)) (□? (x1)))))\""
+  16
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(let (_) (-> (app f1 (app #f)) <-)) (menv '((□? (f1)))))\""
+  30
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f1) (let ((_ (app f1 (app #t)))) (app f1 (app #f)))) <-)\n   (λ (x1)\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))))\n (menv '()))\""
+  1
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(let ((-> _ = (app f1 (app #t)) <-)) bod) (menv '((□? (f1)))))\""
+  30
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app (λ (z) (app z x1 x2)) (-> (λ (y1 y2) y1) <-))\n (menv '((□? (x2)) (□? (x1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(λ (y1 y2) (-> y1 <-)) (menv '((□? (y1 y2)) (□? (x2)) (□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> f1 <-) (app #f)) (menv '((□? (f1)))))\""
+  5
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app f1 (-> (app #t) <-)) (menv '((□? (f1)))))\""
+  3
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> f2 <-) (app #t)) (menv '((□? (f2)) (□? (x1)))))\""
   6
   ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(λ (x1)\n    (->\n     (app\n      (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f))))\n      (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n     <-))\n (menv '((□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(let (_) (-> (app f2 (app #f)) <-)) (menv '((□? (f2)) (□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app f2 (-> (app #t) <-)) (menv '((□? (f2)) (□? (x1)))))\""
+  4
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(λ (x2) (-> (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1)) <-))\n (menv '((□? (x2)) (□? (x1)))))\""
+  0
+  (#<void>))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app (-> f2 <-) (app #f)) (menv '((□? (f2)) (□? (x1)))))\""
+  6
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list 'eval '(app f2 (-> (app #f) <-)) (menv '((□? (f2)) (□? (x1)))))\""
+  4
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(app\n   (-> (λ (f2) (let ((_ (app f2 (app #t)))) (app f2 (app #f)))) <-)\n   (λ (x2) (app (λ (z) (app z x1 x2)) (λ (y1 y2) y1))))\n (menv '((□? (x1)))))\""
+  2
+  ((0 0 0)))
+'(kcfa-2
+  1
+  "\"(list\n 'eval\n '(let ((-> _ = (app f2 (app #t)) <-)) bod)\n (menv '((□? (f2)) (□? (x1)))))\""
+  0
+  (#<void>))
