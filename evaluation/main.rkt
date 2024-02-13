@@ -77,6 +77,7 @@
 
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
+          [basic-acc-cost 0]
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
@@ -100,6 +101,7 @@
             (for ([qs (shuffle qbs)])
               (match-let ([(list cb pb) qs])
                 (pretty-tracen 0 "Running query ")
+                (set! h1 (run-demand name (length qbs) 'basic m cb pb '_ out-time-basic-acc shufflen h1))
                 (if (equal? shufflen 0)
                     (let ()
                       (define hx (run-demand name (length qbs) 'basic m cb pb out-basic out-time-basic -1 (hash)))
@@ -107,14 +109,18 @@
                       )
                     '()
                     )
-                (set! h1 (run-demand name (length qbs) 'basic m cb pb '_ out-time-basic-acc shufflen h1))
                 )
               )
+            (if (equal? shufflen 0)
+                (set! basic-acc-cost (+ basic-acc-cost (hash-num-keys h1)))
+                '()
+                )
             ); TODO: Clean up output ports
           )
         )
       (pretty-print `(current-m: ,(current-m)))
       (pretty-print `(basic-cost ,basic-cost))
+      (pretty-print `(basic-acc-cost ,basic-acc-cost))
       (pretty-print `(rebind-cost ,rebind-cost))
       (pretty-print `(expm-cost ,expm-cost))
       )

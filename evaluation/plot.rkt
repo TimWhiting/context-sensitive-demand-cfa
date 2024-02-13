@@ -13,15 +13,19 @@
 (define (read-all inport) (map cadr (port->list read inport)))
 (define (average l) (/ (sum l) (length l)))
 (define (sum l) (apply + (replace-zeros l)))
-(define (replace-zeros l) (map (lambda (v) (if (equal? v 0) 1/1000 v)) l))
+(define (replace-zeros l) (map (lambda (v) (match v [0  1/1000] [#f 0] [v v])) l))
 
 (define (avg-time-res line)
+  ; (pretty-print line)
   (match line
     ; Demand shuffled (cached)
+    [`(,name ,m ,shufflen ,query ,hash-num (#f)) #f]
     [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (average (map car time-res))]
     ; Demand no cache
+    [`(,name ,m ,query ,hash-num (#f)) #f]
     [`(,name ,m ,query ,hash-num ,time-res) (average (map car time-res))]
     ; Regular mCFA
+    [`(,name ,m ,hash-num (#f)) #f]
     [`(,name ,m ,hash-num ,time-res) (average (map car time-res))]
     ))
 
@@ -35,13 +39,16 @@
     [`(,name ,m ,hash-num ,time-res) (equal? m mexpected)]
     ))
 
+(define (id l) l)
+
 (define (step-n lines m-value [do-sort #f])
   (define avg (avg-time-res m-value))
   (define avgs (map avg-time-res lines))
-  (define avgsort (if do-sort (sort avgs) avgs))
-  (define cum (cumulative avgsort))
-  (pretty-print avg)
-  (pretty-print cum)
+  (define valid-avgs (filter id avgs))
+  (define avgsort (if do-sort (sort valid-avgs <) valid-avgs))
+  (define cum (cumulative 0 avgsort))
+  ; (pretty-print avg)
+  ; (pretty-print cum)
   (lambda (normt)
     (define t (* normt 1))
     (define res (map (lambda (v) (if (>= t v) 1 0)) cum))
@@ -85,6 +92,7 @@
   (define num-programs (length programs))
   (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-r1)) num-programs)))
   (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-e1)) num-programs)))
+  ; (pretty-print (map avg-time-res dmcfa-b1))
   (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-b1)) num-programs)))
   (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-a1)) (* num-shuffles num-programs))))
   (define (0+ x) (if (zero? x) 1/2 x))
@@ -116,6 +124,7 @@
                  [plot-height 512])
 
     (map (lambda (prog)
+           ;  (pretty-display (format "Looking for program ~a" prog))
            (define p (find-prog prog mcfa-e1))
            (plot
             #:x-min 1/500

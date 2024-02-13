@@ -236,12 +236,42 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -308,6 +338,36 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
    '(#t ())
    (flatenv
@@ -942,6 +1002,11 @@
    '(#f ())
    (flatenv
     '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -1029,6 +1094,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#f ())
    (flatenv
@@ -2301,6 +2371,36 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -2469,12 +2569,42 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -3223,6 +3353,36 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -3330,6 +3490,11 @@
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -3415,6 +3580,11 @@
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -3949,6 +4119,11 @@
    '(#f ())
    (flatenv
     '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -4036,6 +4211,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#f ())
    (flatenv
@@ -4355,9 +4535,43 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (p)
+        (->
+         (app
+          try
+          (λ (n1)
+            (app
+             try
+             (λ (n2)
+               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+         <-))
+      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -4922,9 +5136,43 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (p)
+        (->
+         (app
+          try
+          (λ (n1)
+            (app
+             try
+             (λ (n2)
+               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+         <-))
+      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -5148,9 +5396,35 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -5223,9 +5497,35 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -5322,6 +5622,11 @@
    '(#f ())
    (flatenv
     '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -5409,6 +5714,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#f ())
    (flatenv
@@ -5649,12 +5959,42 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -6020,9 +6360,34 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -6108,6 +6473,31 @@
  (list
   (list
    '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
@@ -6536,17 +6926,13 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (p)
-        (->
-         (app
-          try
-          (λ (n1)
-            (app
-             try
-             (λ (n2)
-               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-         <-))
-      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -6652,19 +7038,15 @@
          <-))
       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))
   (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
    '(#f ())
    (flatenv
-    '((λ (p)
-        (->
-         (app
-          try
-          (λ (n1)
-            (app
-             try
-             (λ (n2)
-               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-         <-))
-      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -7040,6 +7422,16 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
    '(#t ())
    (flatenv
@@ -7048,6 +7440,22 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
@@ -7122,9 +7530,35 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -7204,6 +7638,31 @@
  (list
   (list
    '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
@@ -7412,6 +7871,11 @@
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -7496,12 +7960,27 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
-   '(#f ())
+   '(#t ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -7583,12 +8062,27 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
-   '(#f ())
+   '(#t ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -9077,8 +9571,34 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
    '(#t ())
    (flatenv
@@ -9152,8 +9672,34 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
    '(#t ())
    (flatenv
@@ -9437,12 +9983,27 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
-   '(#f ())
+   '(#t ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -9840,9 +10401,34 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -10020,6 +10606,11 @@
    '(#f ())
    (flatenv
     '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -10111,6 +10702,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#f ())
    (flatenv
@@ -10394,9 +10990,35 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -10493,6 +11115,11 @@
    '(#f ())
    (flatenv
     '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -10580,6 +11207,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#f ())
    (flatenv
@@ -10758,9 +11390,34 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -10839,9 +11496,34 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -11392,12 +12074,27 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
-   '(#f ())
+   '(#t ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -11555,9 +12252,43 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (p)
+        (->
+         (app
+          try
+          (λ (n1)
+            (app
+             try
+             (λ (n2)
+               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+         <-))
+      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())
@@ -11846,12 +12577,27 @@
   (list
    '(#f ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
       (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
-   '(#f ())
+   '(#t ())
    (flatenv
-    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -11952,6 +12698,11 @@
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
+   '(#f ())
+   (flatenv
+    '((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -12250,6 +13001,31 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
@@ -12330,6 +13106,31 @@
  (list
   (list
    '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
@@ -12570,8 +13371,34 @@
   (list
    '(#t ())
    (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
+   '(#t ())
+   (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#f ())
+   (flatenv
+    '((λ (n2)
+        (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
   (list
    '(#t ())
    (flatenv
@@ -12672,9 +13499,43 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (flatenv
+    '((λ (p)
+        (->
+         (app
+          try
+          (λ (n1)
+            (app
+             try
+             (λ (n2)
+               (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+         <-))
+      (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-)))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
+      (app or (app f (app #t)) (-> (app f (app #f)) <-)))))
+  (list
    '(#t ())
    (flatenv
     '((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+      (app or (-> (app f (app #t)) <-) (app f (app #f))))))
+  (list
+   '(#t ())
+   (flatenv
+    '((λ (n1)
+        (->
+         (app
+          try
+          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+         <-))
       (app or (-> (app f (app #t)) <-) (app f (app #f))))))
   (list
    '(#t ())

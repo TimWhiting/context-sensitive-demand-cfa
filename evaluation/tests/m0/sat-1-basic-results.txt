@@ -19,65 +19,8 @@
                      try
                      (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
     (app sat-solve-4 phi)))
-(list 'query: '(top) (menv '()))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> #t <-)) (menv '(())))
-(list 'clos/con: (list (list #t (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))
-'(clos/con: (#<procedure:do-demand-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) (app f (app #t)) (app f (app #f))) (menv '(())))
-'(clos/con: (#<procedure:do-demand-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x3) (menv '(())))
-'(clos/con: (#<procedure:do-demand-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 (-> n2 <-) n3 n4) (menv '(() () () () ())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> f <-) (app #t)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(λ (n4) (app p n1 n2 n3 n4)) (menv '(() () () ())))
-  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (menv '(() () ())))
-  (list
-   '(λ (n1)
-      (app
-       try
-       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-   (menv '(())))
-  (list
-   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
-   (menv '(() ())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x2 <-)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (app or x1 (app not x2) (app not x3))
-   (app or (app not x2) (app not x3))
-   (-> (app or x4 x2) <-))
- (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+(list 'query: '(app f (-> (app #f) <-)) (menv '(())))
+(list 'clos/con: (list (list '(app #f) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -107,12 +50,128 @@
        (app or x4 x2)))
    (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p n1 n2 (-> n3 <-) n4) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+ (menv '(() () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #f <-)) (menv '(())))
+(list 'clos/con: (list (list #f (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 (app not x2) (app not x3))
+   (app or (app not x2) (app not x3))
+   (-> (app or x4 x2) <-))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app try (-> (λ (n4) (app p n1 n2 n3 n4)) <-))
+ (menv '(() () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (n4) (app p n1 n2 n3 n4)) (menv '(() () () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p n1 (-> n2 <-) n3 n4) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))
+'(clos/con: (#<procedure:do-demand-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x2) (menv '(())))
+'(clos/con: (#<procedure:do-demand-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (menv '(())))
+(list 'clos/con: (list (list #t (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x1 (app not x2) (-> (app not x3) <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) x4 x2) (menv '(())))
+'(clos/con: (#<procedure:do-demand-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app not x2) (app not x3)) (menv '(())))
+'(clos/con: (#<procedure:do-demand-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app not (-> x2 <-)) (menv '(())))
 (list
  'clos/con:
  (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> p <-) n1 n2 n3 n4) (menv '(() () () () ())))
+(list
+ 'query:
+ '(λ (n1)
+    (->
+     (app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+     <-))
+ (menv '(() ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) (app #t)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (n4) (app p n1 n2 n3 n4)) (menv '(() () () ())))
+  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (menv '(() () ())))
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+   (menv '(())))
+  (list
+   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
+   (menv '(() ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (menv '(())))
+'(clos/con: (#<procedure:do-demand-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x4 <-) x2) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> (app #t) <-)) (menv '(())))
+(list 'clos/con: (list (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> try <-)
+   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+ (menv '(() ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app sat-solve-4 (-> phi <-)) (menv '()))
 (list
  'clos/con:
  (list
@@ -124,6 +183,162 @@
        (app or (app not x2) (app not x3))
        (app or x4 x2)))
    (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x2) (menv '(())))
+'(clos/con: (#<procedure:do-demand-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> sat-solve-4 <-) phi) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (p)
+      (app
+       try
+       (λ (n1)
+         (app
+          try
+          (λ (n2)
+            (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
+   (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+ (menv '(() () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (menv '()))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n1)
+      (app
+       try
+       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+    <-))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+   (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) x3) (menv '(())))
+'(clos/con: (#<procedure:do-demand-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (-> (app or x1 (app not x2) (app not x3)) <-)
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(app #t) (menv '(())))
+  (list '(app #t) (menv '(())))
+  (list '(app #t) (menv '(())))
+  (list '(app #f) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (x1 x2 x3 x4)
+    (->
+     (app
+      and
+      (app or x1 (app not x2) (app not x3))
+      (app or (app not x2) (app not x3))
+      (app or x4 x2))
+     <-))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app f (app #t)) (app f (app #f))) (menv '(())))
+'(clos/con: (#<procedure:do-demand-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))
+ (menv '(() ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
+   (menv '(() ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p n1 n2 n3 (-> n4 <-)) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   (-> and <-)
+   (app or x1 (app not x2) (app not x3))
+   (app or (app not x2) (app not x3))
+   (app or x4 x2))
+ (menv '(())))
+'(clos/con: (#<procedure:do-demand-and>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p)
+    (->
+     (app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+     <-))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -162,63 +377,128 @@
 (list
  'query:
  '(app
-   (-> and <-)
+   and
    (app or x1 (app not x2) (app not x3))
-   (app or (app not x2) (app not x3))
+   (-> (app or (app not x2) (app not x3)) <-)
    (app or x4 x2))
  (menv '(())))
-'(clos/con: (#<procedure:do-demand-and>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x3) (menv '(())))
-'(clos/con: (#<procedure:do-demand-not>))
+(list
+ 'clos/con:
+ (list
+  (list '(app #t) (menv '(())))
+  (list '(app #t) (menv '(())))
+  (list '(app #f) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
- (menv '(() () ())))
+ '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))
+ (menv '()))
 (list
  'clos/con:
  (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x2) (menv '(())))
-'(clos/con: (#<procedure:do-demand-not>))
+(list 'query: '(app (-> p <-) n1 n2 n3 n4) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (x1 x2 x3 x4)
+      (app
+       and
+       (app or x1 (app not x2) (app not x3))
+       (app or (app not x2) (app not x3))
+       (app or x4 x2)))
+   (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or x4 (-> x2 <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or (app not x2) (-> (app not x3) <-)) (menv '(())))
 (list
  'clos/con:
  (list (list '(app #t) (menv '(()))) (list '(app #f) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (menv '(() () () () ())))
+(list 'query: '(app or (app f (app #t)) (-> (app f (app #f)) <-)) (menv '(())))
 (list
  'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+ (list
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '(())))
+  (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> #f <-)) (menv '(())))
-(list 'clos/con: (list (list #f (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f (-> (app #t) <-)) (menv '(())))
-(list 'clos/con: (list (list '(app #t) (menv '(())))))
+(list
+ 'query:
+ '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))
+ (menv '(() () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(app
-   try
-   (->
-    (λ (n1)
-      (app
-       try
-       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-    <-))
+   (-> try <-)
+   (λ (n1)
+     (app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
  (menv '(())))
 (list
  'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4)))
+ (menv '(() () () ())))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app p (-> n1 <-) n2 n3 n4) (menv '(() () () () ())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> (app f (app #t)) <-) (app f (app #f))) (menv '(())))
+(list
+ 'clos/con:
  (list
-  (list
-   '(λ (n1)
-      (app
-       try
-       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-   (menv '(())))))
+  (list '(app #f) (menv '(())))
+  (list '(app #f) (menv '(())))
+  (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> x3 <-)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '(app #t) (menv '(()))) (list '(app #f) (menv '(())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app try (-> (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) <-))
+ (menv '(() () ())))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (menv '(() () ())))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (phi
+           (-> try = (λ (f) (app or (app f (app #t)) (app f (app #f)))) <-)
+           sat-solve-4)
+    bod)
+ (menv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> f <-) (app #f)) (menv '(())))
 (list
@@ -236,288 +516,8 @@
    '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
    (menv '(() ())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 n2 (-> n3 <-) n4) (menv '(() () () () ())))
+(list 'query: '(app not (-> x2 <-)) (menv '(())))
 (list
  'clos/con:
  (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x3 <-)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p (-> n1 <-) n2 n3 n4) (menv '(() () () () ())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
- (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> try <-) (λ (n4) (app p n1 n2 n3 n4)))
- (menv '(() () () ())))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (app or x1 (app not x2) (app not x3))
-   (-> (app or (app not x2) (app not x3)) <-)
-   (app or x4 x2))
- (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(app #t) (menv '(())))
-  (list '(app #t) (menv '(())))
-  (list '(app #f) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (phi
-           (-> try = (λ (f) (app or (app f (app #t)) (app f (app #f)))) <-)
-           sat-solve-4)
-    bod)
- (menv '()))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app not (-> x3 <-)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> (app not x2) <-) (app not x3)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #t) (menv '(()))) (list '(app #f) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> not <-) x2) (menv '(())))
-'(clos/con: (#<procedure:do-demand-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app f (-> (app #f) <-)) (menv '(())))
-(list 'clos/con: (list (list '(app #f) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) x4 x2) (menv '(())))
-'(clos/con: (#<procedure:do-demand-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (-> try <-)
-   (λ (n1)
-     (app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
- (menv '(())))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (x1 x2 x3 x4)
-    (->
-     (app
-      and
-      (app or x1 (app not x2) (app not x3))
-      (app or (app not x2) (app not x3))
-      (app or x4 x2))
-     <-))
- (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (p)
-    (->
-     (app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-     <-))
- (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> sat-solve-4 <-) phi) (menv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (p)
-      (app
-       try
-       (λ (n1)
-         (app
-          try
-          (λ (n2)
-            (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app try (-> (λ (n4) (app p n1 n2 n3 n4)) <-))
- (menv '(() () () ())))
-(list
- 'clos/con:
- (list (list '(λ (n4) (app p n1 n2 n3 n4)) (menv '(() () () ())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app sat-solve-4 (-> phi <-)) (menv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (x1 x2 x3 x4)
-      (app
-       and
-       (app or x1 (app not x2) (app not x3))
-       (app or (app not x2) (app not x3))
-       (app or x4 x2)))
-   (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> x1 <-) (app not x2) (app not x3)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> x4 <-) x2) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n1)
-    (->
-     (app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
-     <-))
- (menv '(() ())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or x4 (-> x2 <-)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app p n1 n2 n3 (-> n4 <-)) (menv '(() () () () ())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app try (-> (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) <-))
- (menv '(() () ())))
-(list
- 'clos/con:
- (list
-  (list '(λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))) (menv '(() () ())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   try
-   (-> (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))) <-))
- (menv '(() ())))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
-   (menv '(() ())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or x1 (-> (app not x2) <-) (app not x3)) (menv '(())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> try <-) (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))
- (menv '(() () ())))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   (-> try <-)
-   (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
- (menv '(() ())))
-(list
- 'clos/con:
- (list (list '(λ (f) (app or (app f (app #t)) (app f (app #f)))) (menv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (-> (app or x1 (app not x2) (app not x3)) <-)
-   (app or (app not x2) (app not x3))
-   (app or x4 x2))
- (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(app #t) (menv '(())))
-  (list '(app #t) (menv '(())))
-  (list '(app #t) (menv '(())))
-  (list '(app #f) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))
- (menv '()))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> or <-) x1 (app not x2) (app not x3)) (menv '(())))
-'(clos/con: (#<procedure:do-demand-or>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (-> (app f (app #t)) <-) (app f (app #f))) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(app #f) (menv '(())))
-  (list '(app #f) (menv '(())))
-  (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
- (menv '(() () () ())))
-(list
- 'clos/con:
- (list (list '(app #f) (menv '(()))) (list '(app #t) (menv '(())))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app or (app f (app #t)) (-> (app f (app #f)) <-)) (menv '(())))
-(list
- 'clos/con:
- (list
-  (list '(app #f) (menv '(())))
-  (list '(app #f) (menv '(())))
-  (list '(app #t) (menv '(())))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

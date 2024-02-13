@@ -36,7 +36,7 @@
     (kill-thread thd)
     (match res
       [`(#t ,v)
-       (pretty-print `(result ,v))
+       ;  (pretty-print `(result ,v))
        v]
       [`(#f ,err)
        (pretty-display (format "error in ~a! m=~a kind=~a: error ~a" name m k err))

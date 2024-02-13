@@ -1033,6 +1033,11 @@
  'clos/con:
  (list
   (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
@@ -1127,6 +1132,11 @@
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -1196,78 +1206,13 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-  (list
-   '(#t ())
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
- (expenv
-  '((((bod
-       (n1)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (p)
-         (bin
-          letrec
-          sat-solve-4
-          (app sat-solve-4 phi)
-          ((phi
-            (λ (x1 x2 x3 x4)
-              (app
-               and
-               (app or x1 (app not x2) (app not x3))
-               (app or (app not x2) (app not x3))
-               (app or x4 x2))))
-           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-          ()
-          (top)))))
-      app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
-     ((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))))))
-(list
- 'clos/con:
- (list
   (list
    '(#t ())
    (expenv
@@ -1276,580 +1221,772 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
- (expenv
-  '((((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))
-     ((bod
-       (n1)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (p)
-         (bin
-          letrec
-          sat-solve-4
-          (app sat-solve-4 phi)
-          ((phi
-            (λ (x1 x2 x3 x4)
-              (app
-               and
-               (app or x1 (app not x2) (app not x3))
-               (app or (app not x2) (app not x3))
-               (app or x4 x2))))
-           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-          ()
-          (top)))))
-      app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-    (((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))
-     ((bod
-       (p)
-       (bin
-        letrec
-        sat-solve-4
-        (app sat-solve-4 phi)
-        ((phi
-          (λ (x1 x2 x3 x4)
-            (app
-             and
-             (app or x1 (app not x2) (app not x3))
-             (app or (app not x2) (app not x3))
-             (app or x4 x2))))
-         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-        ()
-        (top)))
-      app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
-    (((let-bod
-       letrec
-       ((phi
-         (λ (x1 x2 x3 x4)
-           (app
-            and
-            (app or x1 (app not x2) (app not x3))
-            (app or (app not x2) (app not x3))
-            (app or x4 x2))))
-        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
-        (sat-solve-4
-         (λ (p)
-           (app
-            try
-            (λ (n1)
-              (app
-               try
-               (λ (n2)
-                 (app
-                  try
-                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-       (top))
-      app
-      sat-solve-4
-      phi)))))
-(list
- 'clos/con:
- (list
-  (list
-   '(#t ())
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-  (list
-   '(#t ())
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
- (expenv
-  '((((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))
-     ((bod
-       (n1)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (p)
-         (bin
-          letrec
-          sat-solve-4
-          (app sat-solve-4 phi)
-          ((phi
-            (λ (x1 x2 x3 x4)
-              (app
-               and
-               (app or x1 (app not x2) (app not x3))
-               (app or (app not x2) (app not x3))
-               (app or x4 x2))))
-           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-          ()
-          (top)))))
-      app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-    (((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))
-     ((bod
-       (p)
-       (bin
-        letrec
-        sat-solve-4
-        (app sat-solve-4 phi)
-        ((phi
-          (λ (x1 x2 x3 x4)
-            (app
-             and
-             (app or x1 (app not x2) (app not x3))
-             (app or (app not x2) (app not x3))
-             (app or x4 x2))))
-         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-        ()
-        (top)))
-      app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
-    (((let-bod
-       letrec
-       ((phi
-         (λ (x1 x2 x3 x4)
-           (app
-            and
-            (app or x1 (app not x2) (app not x3))
-            (app or (app not x2) (app not x3))
-            (app or x4 x2))))
-        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
-        (sat-solve-4
-         (λ (p)
-           (app
-            try
-            (λ (n1)
-              (app
-               try
-               (λ (n2)
-                 (app
-                  try
-                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-       (top))
-      app
-      sat-solve-4
-      phi)))))
-(list
- 'clos/con:
- (list
-  (list
-   '(#t ())
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-  (list
-   '(#t ())
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> #t <-))
- (expenv
-  '((((bod
-       (n3)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (n2)
-         (ran
-          try
-          ()
-          ()
-          (bod
-           (n1)
-           (ran
-            try
-            ()
-            ()
-            (bod
-             (p)
-             (bin
-              letrec
-              sat-solve-4
-              (app sat-solve-4 phi)
-              ((phi
-                (λ (x1 x2 x3 x4)
-                  (app
-                   and
-                   (app or x1 (app not x2) (app not x3))
-                   (app or (app not x2) (app not x3))
-                   (app or x4 x2))))
-               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-              ()
-              (top)))))))))
-      app
-      try
-      (λ (n4) (app p n1 n2 n3 n4)))
-     ((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))))))
-(list
- 'clos/con:
- (list
-  (list
-   #t
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app (-> #t <-))
- (expenv
-  '((((bod
-       (n3)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (n2)
-         (ran
-          try
-          ()
-          ()
-          (bod
-           (n1)
-           (ran
-            try
-            ()
-            ()
-            (bod
-             (p)
-             (bin
-              letrec
-              sat-solve-4
-              (app sat-solve-4 phi)
-              ((phi
-                (λ (x1 x2 x3 x4)
-                  (app
-                   and
-                   (app or x1 (app not x2) (app not x3))
-                   (app or (app not x2) (app not x3))
-                   (app or x4 x2))))
-               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-              ()
-              (top)))))))))
-      app
-      try
-      (λ (n4) (app p n1 n2 n3 n4)))
-     ((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))))))
-(list
- 'clos/con:
- (list
-  (list
-   #t
-   (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(app
-   and
-   (app or x1 (app not x2) (app not x3))
-   (app or (app not x2) (app not x3))
-   (-> (app or x4 x2) <-))
- (expenv
-  '((((bod
-       (n4)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (n3)
-         (ran
-          try
-          ()
-          ()
-          (bod
-           (n2)
-           (ran
-            try
-            ()
-            ()
-            (bod
-             (n1)
-             (ran
-              try
-              ()
-              ()
-              (bod
-               (p)
-               (bin
-                letrec
-                sat-solve-4
-                (app sat-solve-4 phi)
-                ((phi
-                  (λ (x1 x2 x3 x4)
-                    (app
-                     and
-                     (app or x1 (app not x2) (app not x3))
-                     (app or (app not x2) (app not x3))
-                     (app or x4 x2))))
-                 (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-                ()
-                (top)))))))))))
-      app
-      p
-      n1
-      n2
-      n3
-      n4)
-     ((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))))))
-(list
- 'clos/con:
- (list
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#f ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
+ (expenv
+  '((((bod
+       (n1)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (p)
+         (bin
+          letrec
+          sat-solve-4
+          (app sat-solve-4 phi)
+          ((phi
+            (λ (x1 x2 x3 x4)
+              (app
+               and
+               (app or x1 (app not x2) (app not x3))
+               (app or (app not x2) (app not x3))
+               (app or x4 x2))))
+           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+          ()
+          (top)))))
+      app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+     ((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#f ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+ (expenv
+  '((((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))
+     ((bod
+       (n1)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (p)
+         (bin
+          letrec
+          sat-solve-4
+          (app sat-solve-4 phi)
+          ((phi
+            (λ (x1 x2 x3 x4)
+              (app
+               and
+               (app or x1 (app not x2) (app not x3))
+               (app or (app not x2) (app not x3))
+               (app or x4 x2))))
+           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+          ()
+          (top)))))
+      app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+    (((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))
+     ((bod
+       (p)
+       (bin
+        letrec
+        sat-solve-4
+        (app sat-solve-4 phi)
+        ((phi
+          (λ (x1 x2 x3 x4)
+            (app
+             and
+             (app or x1 (app not x2) (app not x3))
+             (app or (app not x2) (app not x3))
+             (app or x4 x2))))
+         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+        ()
+        (top)))
+      app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
+    (((let-bod
+       letrec
+       ((phi
+         (λ (x1 x2 x3 x4)
+           (app
+            and
+            (app or x1 (app not x2) (app not x3))
+            (app or (app not x2) (app not x3))
+            (app or x4 x2))))
+        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
+        (sat-solve-4
+         (λ (p)
+           (app
+            try
+            (λ (n1)
+              (app
+               try
+               (λ (n2)
+                 (app
+                  try
+                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+       (top))
+      app
+      sat-solve-4
+      phi)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+ (expenv
+  '((((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))
+     ((bod
+       (n1)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (p)
+         (bin
+          letrec
+          sat-solve-4
+          (app sat-solve-4 phi)
+          ((phi
+            (λ (x1 x2 x3 x4)
+              (app
+               and
+               (app or x1 (app not x2) (app not x3))
+               (app or (app not x2) (app not x3))
+               (app or x4 x2))))
+           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+          ()
+          (top)))))
+      app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+    (((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))
+     ((bod
+       (p)
+       (bin
+        letrec
+        sat-solve-4
+        (app sat-solve-4 phi)
+        ((phi
+          (λ (x1 x2 x3 x4)
+            (app
+             and
+             (app or x1 (app not x2) (app not x3))
+             (app or (app not x2) (app not x3))
+             (app or x4 x2))))
+         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+        ()
+        (top)))
+      app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
+    (((let-bod
+       letrec
+       ((phi
+         (λ (x1 x2 x3 x4)
+           (app
+            and
+            (app or x1 (app not x2) (app not x3))
+            (app or (app not x2) (app not x3))
+            (app or x4 x2))))
+        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
+        (sat-solve-4
+         (λ (p)
+           (app
+            try
+            (λ (n1)
+              (app
+               try
+               (λ (n2)
+                 (app
+                  try
+                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+       (top))
+      app
+      sat-solve-4
+      phi)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> #t <-))
+ (expenv
+  '((((bod
+       (n3)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (n2)
+         (ran
+          try
+          ()
+          ()
+          (bod
+           (n1)
+           (ran
+            try
+            ()
+            ()
+            (bod
+             (p)
+             (bin
+              letrec
+              sat-solve-4
+              (app sat-solve-4 phi)
+              ((phi
+                (λ (x1 x2 x3 x4)
+                  (app
+                   and
+                   (app or x1 (app not x2) (app not x3))
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2))))
+               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+              ()
+              (top)))))))))
+      app
+      try
+      (λ (n4) (app p n1 n2 n3 n4)))
+     ((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> #t <-))
+ (expenv
+  '((((bod
+       (n3)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (n2)
+         (ran
+          try
+          ()
+          ()
+          (bod
+           (n1)
+           (ran
+            try
+            ()
+            ()
+            (bod
+             (p)
+             (bin
+              letrec
+              sat-solve-4
+              (app sat-solve-4 phi)
+              ((phi
+                (λ (x1 x2 x3 x4)
+                  (app
+                   and
+                   (app or x1 (app not x2) (app not x3))
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2))))
+               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+              ()
+              (top)))))))))
+      app
+      try
+      (λ (n4) (app p n1 n2 n3 n4)))
+     ((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   and
+   (app or x1 (app not x2) (app not x3))
+   (app or (app not x2) (app not x3))
+   (-> (app or x4 x2) <-))
+ (expenv
+  '((((bod
+       (n4)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (n3)
+         (ran
+          try
+          ()
+          ()
+          (bod
+           (n2)
+           (ran
+            try
+            ()
+            ()
+            (bod
+             (n1)
+             (ran
+              try
+              ()
+              ()
+              (bod
+               (p)
+               (bin
+                letrec
+                sat-solve-4
+                (app sat-solve-4 phi)
+                ((phi
+                  (λ (x1 x2 x3 x4)
+                    (app
+                     and
+                     (app or x1 (app not x2) (app not x3))
+                     (app or (app not x2) (app not x3))
+                     (app or x4 x2))))
+                 (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+                ()
+                (top)))))))))))
+      app
+      p
+      n1
+      n2
+      n3
+      n4)
+     ((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -2024,8 +2161,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -2105,8 +2267,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -7663,19 +7850,15 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (p)
-         (->
-          (app
-           try
-           (λ (n1)
-             (app
-              try
-              (λ (n2)
-                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-          <-))
-       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
    (expenv
     '(((λ (p)
          (->
@@ -7779,6 +7962,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (p)
@@ -7793,295 +7981,291 @@
           <-))
        (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
   (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (n4) (-> (app p n1 n2 n3 n4) <-))
+ (expenv
+  '((((ran
+       or
+       ()
+       ((app f (app #f)))
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #t))
+     ((bod
+       (n3)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (n2)
+         (ran
+          try
+          ()
+          ()
+          (bod
+           (n1)
+           (ran
+            try
+            ()
+            ()
+            (bod
+             (p)
+             (bin
+              letrec
+              sat-solve-4
+              (app sat-solve-4 phi)
+              ((phi
+                (λ (x1 x2 x3 x4)
+                  (app
+                   and
+                   (app or x1 (app not x2) (app not x3))
+                   (app or (app not x2) (app not x3))
+                   (app or x4 x2))))
+               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+              ()
+              (top)))))))))
+      app
+      try
+      (λ (n4) (app p n1 n2 n3 n4))))
+    (((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))
+     ((bod
+       (n2)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (n1)
+         (ran
+          try
+          ()
+          ()
+          (bod
+           (p)
+           (bin
+            letrec
+            sat-solve-4
+            (app sat-solve-4 phi)
+            ((phi
+              (λ (x1 x2 x3 x4)
+                (app
+                 and
+                 (app or x1 (app not x2) (app not x3))
+                 (app or (app not x2) (app not x3))
+                 (app or x4 x2))))
+             (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+            ()
+            (top)))))))
+      app
+      try
+      (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
+    (((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))
+     ((bod
+       (n1)
+       (ran
+        try
+        ()
+        ()
+        (bod
+         (p)
+         (bin
+          letrec
+          sat-solve-4
+          (app sat-solve-4 phi)
+          ((phi
+            (λ (x1 x2 x3 x4)
+              (app
+               and
+               (app or x1 (app not x2) (app not x3))
+               (app or (app not x2) (app not x3))
+               (app or x4 x2))))
+           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+          ()
+          (top)))))
+      app
+      try
+      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
+    (((ran
+       or
+       ((app f (app #t)))
+       ()
+       (bod
+        (f)
+        (bin
+         letrec
+         try
+         (app sat-solve-4 phi)
+         ((phi
+           (λ (x1 x2 x3 x4)
+             (app
+              and
+              (app or x1 (app not x2) (app not x3))
+              (app or (app not x2) (app not x3))
+              (app or x4 x2)))))
+         ((sat-solve-4
+           (λ (p)
+             (app
+              try
+              (λ (n1)
+                (app
+                 try
+                 (λ (n2)
+                   (app
+                    try
+                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+         (top))))
+      app
+      f
+      (app #f))
+     ((bod
+       (p)
+       (bin
+        letrec
+        sat-solve-4
+        (app sat-solve-4 phi)
+        ((phi
+          (λ (x1 x2 x3 x4)
+            (app
+             and
+             (app or x1 (app not x2) (app not x3))
+             (app or (app not x2) (app not x3))
+             (app or x4 x2))))
+         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
+        ()
+        (top)))
+      app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
+    (((let-bod
+       letrec
+       ((phi
+         (λ (x1 x2 x3 x4)
+           (app
+            and
+            (app or x1 (app not x2) (app not x3))
+            (app or (app not x2) (app not x3))
+            (app or x4 x2))))
+        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
+        (sat-solve-4
+         (λ (p)
+           (app
+            try
+            (λ (n1)
+              (app
+               try
+               (λ (n2)
+                 (app
+                  try
+                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
+       (top))
+      app
+      sat-solve-4
+      phi)))))
+(list
+ 'clos/con:
+ (list
+  (list
    '(#f ())
    (expenv
-    '(((λ (p)
-         (->
-          (app
-           try
-           (λ (n1)
-             (app
-              try
-              (λ (n2)
-                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
-          <-))
-       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (n4) (-> (app p n1 n2 n3 n4) <-))
- (expenv
-  '((((ran
-       or
-       ()
-       ((app f (app #f)))
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #t))
-     ((bod
-       (n3)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (n2)
-         (ran
-          try
-          ()
-          ()
-          (bod
-           (n1)
-           (ran
-            try
-            ()
-            ()
-            (bod
-             (p)
-             (bin
-              letrec
-              sat-solve-4
-              (app sat-solve-4 phi)
-              ((phi
-                (λ (x1 x2 x3 x4)
-                  (app
-                   and
-                   (app or x1 (app not x2) (app not x3))
-                   (app or (app not x2) (app not x3))
-                   (app or x4 x2))))
-               (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-              ()
-              (top)))))))))
-      app
-      try
-      (λ (n4) (app p n1 n2 n3 n4))))
-    (((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))
-     ((bod
-       (n2)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (n1)
-         (ran
-          try
-          ()
-          ()
-          (bod
-           (p)
-           (bin
-            letrec
-            sat-solve-4
-            (app sat-solve-4 phi)
-            ((phi
-              (λ (x1 x2 x3 x4)
-                (app
-                 and
-                 (app or x1 (app not x2) (app not x3))
-                 (app or (app not x2) (app not x3))
-                 (app or x4 x2))))
-             (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-            ()
-            (top)))))))
-      app
-      try
-      (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))
-    (((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))
-     ((bod
-       (n1)
-       (ran
-        try
-        ()
-        ()
-        (bod
-         (p)
-         (bin
-          letrec
-          sat-solve-4
-          (app sat-solve-4 phi)
-          ((phi
-            (λ (x1 x2 x3 x4)
-              (app
-               and
-               (app or x1 (app not x2) (app not x3))
-               (app or (app not x2) (app not x3))
-               (app or x4 x2))))
-           (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-          ()
-          (top)))))
-      app
-      try
-      (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))
-    (((ran
-       or
-       ((app f (app #t)))
-       ()
-       (bod
-        (f)
-        (bin
-         letrec
-         try
-         (app sat-solve-4 phi)
-         ((phi
-           (λ (x1 x2 x3 x4)
-             (app
-              and
-              (app or x1 (app not x2) (app not x3))
-              (app or (app not x2) (app not x3))
-              (app or x4 x2)))))
-         ((sat-solve-4
-           (λ (p)
-             (app
-              try
-              (λ (n1)
-                (app
-                 try
-                 (λ (n2)
-                   (app
-                    try
-                    (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-         (top))))
-      app
-      f
-      (app #f))
-     ((bod
-       (p)
-       (bin
-        letrec
-        sat-solve-4
-        (app sat-solve-4 phi)
-        ((phi
-          (λ (x1 x2 x3 x4)
-            (app
-             and
-             (app or x1 (app not x2) (app not x3))
-             (app or (app not x2) (app not x3))
-             (app or x4 x2))))
-         (try (λ (f) (app or (app f (app #t)) (app f (app #f))))))
-        ()
-        (top)))
-      app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))
-    (((let-bod
-       letrec
-       ((phi
-         (λ (x1 x2 x3 x4)
-           (app
-            and
-            (app or x1 (app not x2) (app not x3))
-            (app or (app not x2) (app not x3))
-            (app or x4 x2))))
-        (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
-        (sat-solve-4
-         (λ (p)
-           (app
-            try
-            (λ (n1)
-              (app
-               try
-               (λ (n2)
-                 (app
-                  try
-                  (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))))))))))
-       (top))
-      app
-      sat-solve-4
-      phi)))))
-(list
- 'clos/con:
- (list
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -8369,6 +8553,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -8655,6 +8844,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -8941,6 +9135,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -9227,6 +9426,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -9513,6 +9717,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -9798,6 +10007,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -10084,6 +10298,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -10722,12 +10941,42 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -10809,13 +11058,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -10896,13 +11160,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -18030,6 +18309,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -18117,8 +18421,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -18437,6 +18766,27 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -18444,7 +18794,12 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -18591,6 +18946,27 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -18598,7 +18974,12 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -18879,13 +19260,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -19165,13 +19561,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -19451,13 +19862,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -19737,13 +20163,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -20023,13 +20464,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -20309,13 +20765,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -20595,13 +21066,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -20881,13 +21367,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -21098,8 +21599,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -21315,8 +21841,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -21532,8 +22083,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -21749,8 +22325,33 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -21918,7 +22519,37 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#t ())
@@ -21938,6 +22569,40 @@
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (p)
+         (->
+          (app
+           try
+           (λ (n1)
+             (app
+              try
+              (λ (n2)
+                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+          <-))
+       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -24021,13 +24686,28 @@
   (list
    '(#f ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
-   '(#f ())
+   '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
-       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -24121,6 +24801,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -24218,6 +24903,11 @@
  'clos/con:
  (list
   (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
@@ -24310,6 +25000,11 @@
  (list
   (list
    '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
@@ -26826,6 +27521,40 @@
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
+   '(#f ())
+   (expenv
+    '(((λ (p)
+         (->
+          (app
+           try
+           (λ (n1)
+             (app
+              try
+              (λ (n2)
+                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+          <-))
+       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -27150,8 +27879,34 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -27225,8 +27980,34 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -30396,6 +31177,11 @@
  'clos/con:
  (list
   (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
@@ -30490,6 +31276,11 @@
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -30943,6 +31734,27 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -30950,7 +31762,12 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -31026,8 +31843,34 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
   (list
    '(#t ())
    (expenv
@@ -31464,6 +32307,40 @@
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
+   '(#f ())
+   (expenv
+    '(((λ (p)
+         (->
+          (app
+           try
+           (λ (n1)
+             (app
+              try
+              (λ (n2)
+                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+          <-))
+       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -31571,6 +32448,11 @@
  'clos/con:
  (list
   (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#f ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
@@ -31667,6 +32549,11 @@
  (list
   (list
    '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
@@ -40960,6 +41847,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -41047,6 +41939,11 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -41268,6 +42165,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -41349,6 +42271,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -41566,6 +42513,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -41783,6 +42755,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -42000,6 +42997,31 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
@@ -42216,6 +43238,31 @@
  (list
   (list
    '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
@@ -44578,6 +45625,27 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -44585,7 +45653,12 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -44653,6 +45726,27 @@
  'clos/con:
  (list
   (list
+   '(#f ())
+   (expenv
+    '(((λ (n2)
+         (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -44660,7 +45754,12 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -45042,6 +46141,11 @@
 (list
  'clos/con:
  (list
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#f ())
    (expenv
@@ -45135,6 +46239,11 @@
  (list
   (list
    '(#f ())
+   (expenv
+    '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
    (expenv
     '(((λ (n4) (-> (app p n1 n2 n3 n4) <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
@@ -45419,6 +46528,40 @@
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
+   '(#f ())
+   (expenv
+    '(((λ (p)
+         (->
+          (app
+           try
+           (λ (n1)
+             (app
+              try
+              (λ (n2)
+                (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
+          <-))
+       (letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
@@ -45641,12 +46784,42 @@
   (list
    '(#t ())
    (expenv
-    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#t ())
    (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (-> (app f (app #t)) <-) (app f (app #f)))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -45743,7 +46916,37 @@
   (list
    '(#t ())
    (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
     '(((λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
+       (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
+  (list
+   '(#t ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
+       (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
+  (list
+   '(#f ())
+   (expenv
+    '(((λ (n1)
+         (->
+          (app
+           try
+           (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
+          <-))
        (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
   (list
    '(#t ())
