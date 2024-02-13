@@ -25,10 +25,7 @@
  (flatenv '()))
 (list
  'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))
-  (list #f (flatenv '()))))
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> p <-) n1 n2 n3 n4) (flatenv '()))
 (list
@@ -53,11 +50,7 @@
  (flatenv '()))
 (list
  'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #t (flatenv '()))
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))))
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -77,13 +70,19 @@
 '(clos/con: (#<procedure:do-not>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or x1 (app not x2) (-> (app not x3) <-)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app not (-> x3 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app p n1 n2 (-> n3 <-) n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -93,10 +92,14 @@
    (app or (app not x2) (app not x3))
    (-> (app or x4 x2) <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app not (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> not <-) x3) (flatenv '()))
 '(clos/con: (#<procedure:do-not>))
@@ -126,10 +129,12 @@
  'query:
  '(λ (n2) (-> (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4))))) <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app f (-> (app #t) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '()))))
+(list 'clos/con: (list (list '(#t ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -150,10 +155,14 @@
       (app or x4 x2))
      <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app p n1 n2 n3 (-> n4 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -161,10 +170,7 @@
  (flatenv '()))
 (list
  'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))
-  (list #f (flatenv '()))))
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -178,7 +184,9 @@
          (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))))
      <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app try (-> (λ (n4) (app p n1 n2 n3 n4)) <-)) (flatenv '()))
 (list 'clos/con: (list (list '(λ (n4) (app p n1 n2 n3 n4)) (flatenv '()))))
@@ -220,7 +228,9 @@
  'query:
  '(letrec (phi try sat-solve-4) (-> (app sat-solve-4 phi) <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> not <-) x3) (flatenv '()))
 '(clos/con: (#<procedure:do-not>))
@@ -229,34 +239,50 @@
  'query:
  '(λ (n3) (-> (app try (λ (n4) (app p n1 n2 n3 n4))) <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app not (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(top) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(λ (n4) (-> (app p n1 n2 n3 n4) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app p (-> n1 <-) n2 n3 n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or x4 (-> x2 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
  '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app f (-> (app #f) <-)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '()))))
+(list 'clos/con: (list (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or (app not x2) (-> (app not x3) <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> #f <-)) (flatenv '()))
 (list 'clos/con: (list (list #f (flatenv '()))))
@@ -320,10 +346,7 @@
  (flatenv '()))
 (list
  'clos/con:
- (list
-  (list #t (flatenv '()))
-  (list #f (flatenv '()))
-  (list #t (flatenv '()))))
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app sat-solve-4 (-> phi <-)) (flatenv '()))
 (list
@@ -350,13 +373,17 @@
       (λ (n2) (app try (λ (n3) (app try (λ (n4) (app p n1 n2 n3 n4)))))))
      <-))
  (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> #t <-)) (flatenv '()))
 (list 'clos/con: (list (list #t (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or (-> x4 <-) x2) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> or <-) (app not x2) (app not x3)) (flatenv '()))
 '(clos/con: (#<procedure:do-or>))
@@ -365,7 +392,9 @@
 '(clos/con: (#<procedure:do-or>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app not (-> x3 <-)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -418,10 +447,14 @@
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or (-> x1 <-) (app not x2) (app not x3)) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app p n1 (-> n2 <-) n3 n4) (flatenv '()))
-(list 'clos/con: (list (list #t (flatenv '())) (list #f (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -434,7 +467,9 @@
 '(clos/con: (#<procedure:do-and>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or (-> (app not x2) <-) (app not x3)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app (-> f <-) (app #f)) (flatenv '()))
 (list
@@ -453,7 +488,9 @@
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app or x1 (-> (app not x2) <-) (app not x3)) (flatenv '()))
-(list 'clos/con: (list (list #f (flatenv '())) (list #t (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(#t ()) (flatenv '())) (list '(#f ()) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:

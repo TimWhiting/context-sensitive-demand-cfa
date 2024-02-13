@@ -13,6 +13,7 @@
                #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
   (run/parameters
+   name
    m kind
    (run-get-hash query (hash))))
 
@@ -26,8 +27,9 @@
   (define query (eval Ce p))
   (define hash-result (hash))
   (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
-  (run/timeoutn
-   num-queries m kind
+  (run/parameters
+   name
+   m kind
    (let
        ([hash-new (run-get-hash query (hash))])
      (set! hash-result hash-new)
@@ -48,7 +50,7 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example syntax-basics])
+      (for ([example (get-examples '(cpstak))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))

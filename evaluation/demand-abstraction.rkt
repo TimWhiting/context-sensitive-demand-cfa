@@ -8,7 +8,7 @@
 
 (define ((>>=eval m fclos flit) k)
   (m (λ (xs)
-       ;  (pretty-trace xs)
+       ;  (pretty-print xs)
        (match xs
          [(product/set xs) ((apply fclos xs) k)]
          [(product/lattice n) ((flit n) k)]

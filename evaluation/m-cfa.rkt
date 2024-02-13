@@ -124,12 +124,13 @@
    `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
    (λ ()
      (match Ce
-       [(cons _ #t) (clos Ce ρ)]
-       [(cons _ #f) (clos Ce ρ)]
+       [(cons _ #t) (truecon Ce ρ)]
+       [(cons _ #f) (falsecon Ce ρ)]
        [(cons _ (? integer? x)) (lit (litint x))]
        [(cons _ (? string? x)) (lit (litstring x))]
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
+       [(cons _ `(app quote ,_)) (>>= ((ran 0) Ce) clos)]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))
@@ -197,10 +198,8 @@
                                        (λ (_) (meval Ce ρ-new)))]
                                  ))))
                           )]
-                    [(cons _ con)
-                     ; (pretty-print `(con))
-                     (>>= (bind-args (range (length args)) ρ evaled-args)
-                          (λ (_) (clos (cons C con) lamρ)))]
+                    [(cons C con)
+                     (clos `(con ,con ,evaled-args) ρ)]
                     ))))
 
          )
@@ -242,17 +241,6 @@
     [_ (clos (cons parent 'match-error) parentρ)]
     ))
 
-(define (store-lookups vars ρ)
-  (match vars
-    [(list) (unit (list))]
-    [(cons var vars)
-     (>>= (store-lookups vars ρ)
-          (λ (vals)
-            (>>= (get-store var ρ)
-                 (λ (val)
-                   (unit (cons val vals))))))]
-    ))
-
 (define (pattern-matches pat val)
   (match val
     [(product/lattice l) (pattern-lit-matches pat l)]
@@ -261,36 +249,40 @@
   )
 
 (define (pattern-con-matches pattern Ce ρ)
+  ; (pretty-print pattern)
+  ; (pretty-print Ce)
+  ; (pretty-print ρ)
   (match pattern
     [`(,con ,@subpats)
      (match Ce
-       [(cons (cons C `(app ,f ,@args)) con1)
-        (if (and (equal? con con1) (equal? (length args) (length subpats)))
-            (>>= (store-lookups (range (length args)) ρ)
-                 (λ (vals)
-                   ;  (pretty-print `(matching ,vals to ,subpats))
-                   (let loop ([subpats subpats] [vals vals])
-                     (if (empty? subpats) (unit (list (list) (list)))
-                         (>>= (pattern-matches (car subpats) (car vals))
-                              (λ (res)
-                                (match res
-                                  [#f (unit #f)]
-                                  [#t (loop (cdr subpats) (cdr vals))]
-                                  [(list carbinds carvals)
-                                   (>>= (loop (cdr subpats) (cdr vals))
-                                        (λ (ress)
-                                          (match ress
-                                            [#f (unit #f)]
-                                            [(list binds vals)
-                                             (unit (list (append carbinds binds) (append carvals vals)))])
-                                          ))
-                                   ]
-                                  )
-                                ))))))
-            #f)]
+       [`(con ,con1 ,vals)
+        ; (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
+        (if (and (equal? con con1) (equal? (length vals) (length subpats)))
+            (begin
+              ; (pretty-print `(matching ,vals to ,subpats))
+              (let loop ([subpats subpats] [vals vals])
+                (if (empty? subpats) (unit (list (list) (list)))
+                    (>>= (pattern-matches (car subpats) (car vals))
+                         (λ (res)
+                           (match res
+                             [#f (unit #f)]
+                             [#t (loop (cdr subpats) (cdr vals))]
+                             [(list carbinds carvals)
+                              (>>= (loop (cdr subpats) (cdr vals))
+                                   (λ (ress)
+                                     (match ress
+                                       [#f (unit #f)]
+                                       [(list binds vals)
+                                        (unit (list (append carbinds binds) (append carvals vals)))])
+                                     ))
+                              ]
+                             )
+                           )))))
+            (unit #f))]
        )
      ]
-    [(? symbol? x) (>>= (meval Ce ρ) (λ (res) (unit (list (list x) (list res)))))]
+    [(? symbol? x)
+     (>>= (clos Ce ρ) (λ (res) (unit (list (list x) (list res)))))]
     [lit1
      (match Ce
        [(cons _ con1); Singleton constructor

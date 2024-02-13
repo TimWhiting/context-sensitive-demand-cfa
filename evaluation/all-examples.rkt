@@ -14,7 +14,7 @@
              (if (string-suffix? (path->string file) ".rkt")
                  (with-handlers
                      ([exn:fail? (lambda (e)
-                                   (pretty-print (format "In ~a: got error ~a" file e))
+                                   ;  (pretty-print (format "In ~a: got error ~a" file e))
                                    (list))])
                    (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr))))
                  (list))))
@@ -63,4 +63,4 @@
 
 ; (pretty-print (get-example-expr 'std-basic))
 ; (pretty-print (free-vars (get-example-expr 'std-basic)))
-(pretty-print (free-vars (get-example-expr 'tic-tac-toe)))
+; (pretty-print (free-vars (get-example-expr 'tic-tac-toe)))

@@ -8,4 +8,4 @@ paper.pdf
 *.pdf
 compiled
 *.rkt~
-
+evaluation/out.rkt

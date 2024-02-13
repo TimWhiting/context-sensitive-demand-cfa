@@ -136,66 +136,67 @@ Finish the paper
     ['< `(prim ,do-lt)] ; Numbers work with the regular data model
     ['newline `(prim, do-newline)]
     ['display `(prim, do-display)]
+    ['void `(prim, do-void)]
     [_ #f]
     ))
 
 (define (do-demand-not ρ C a1)
-  (>>=clos (is-truthy ρ C a1)
-           (λ (Ce ρ)
-             (match Ce
-               [(cons C #f) (true C ρ)]
-               [(cons C #t) (false C ρ)]
-               )
-             )))
+  (>>= (is-truthy ρ C a1)
+       (λ (t)
+         (match t
+           [#f (true C ρ)]
+           [#t (false C ρ)]
+           )
+         )))
 
 (define (is-truthy ρ C v)
   (match v
-    [(product/lattice (literal (list i1 f1 c1 s1))) (true C ρ)]
-    [(product/set (list C `(λ ,_ ,@_))) (true C ρ)]; Closures
-    [(product/set (list (cons C #t) _)) (true C ρ)]
-    [(product/set (list (cons C #f) _)) (false C ρ)]
+    [(product/lattice (literal (list i1 f1 c1 s1))) (unit #t)]
+    [(product/set (list C `(λ ,_ ,@_))) (unit #t)]; Closures
+    ; [(product/set (list (cons C #t) _)) (true C ρ)]
+    ; [(product/set (list (cons C #f) _)) (false C ρ)]
     [(product/set (list Ce ρe)) ; Constructors
      (>>=clos (>>= (rat Ce ρe) eval) ; Eval the constructor
               (λ (Cc ρc)
                 (match Cc ; Check if it is false
-                  [(cons _ #f) (false C ρ)]
-                  [(cons _ _) (true C ρ)]
+                  [(cons _ #f) (unit #f)]
+                  [(cons _ _) (unit #t)]
                   )))]))
 
 (define (do-demand-or ρ C . args)
   (match args
     ['() (false C ρ)]
     [(cons a '())
-     (>>=clos (is-truthy ρ C a)
-              (λ (Ce p)
-                (match Ce
-                  [(cons C #f) (false C p)]
-                  [(cons _ #t) (unit a)]
-                  )))]
+     (>>= (is-truthy ρ C a)
+          (λ (t)
+            (match t
+              [#f (false C ρ)]
+              [#t (unit a)]
+              )))]
     [(cons a as)
-     (>>=clos (is-truthy ρ C a)
-              (λ (Ce _)
-                (match Ce
-                  [(cons _ #f) (apply do-demand-or (cons ρ (cons C as)))]
-                  [(cons _ #t) (unit a)]
-                  )))]))
+     (>>= (is-truthy ρ C a)
+          (λ (t)
+            (match t
+              [#f (apply do-demand-or (cons ρ (cons C as)))]
+              [#t (unit a)]
+              )))]))
 
 (define (do-demand-and ρ C . args)
   (match args
     ['() (true C ρ)]
     [(cons a '())
-     (>>=clos (is-truthy ρ C a)
-              (λ (Ce p)
-                (match Ce
-                  [(cons C #f) (false C p)]
-                  [(cons _ #t) (unit a)])))]
+     (>>= (is-truthy ρ C a)
+          (λ (t)
+            (match t
+              [#f (false C ρ)]
+              [#t (unit a)])))]
     [(cons a as)
-     (>>=clos (is-truthy ρ C a)
-              (λ (Ce p)
-                (match Ce
-                  [(cons C #f) (false C p)]
-                  [(cons _ #t) (apply do-demand-and (cons ρ (cons C as)))]
-                  )))]))
+     (>>= (is-truthy ρ C a)
+          (λ (t)
+            (match t
+              [#f (false C ρ)]
+              [#t (apply do-demand-and (cons ρ (cons C as)))]
+              )))]))
 
 (define (do-demand-equal ρ C a1 a2)
   (match a1
@@ -215,10 +216,11 @@ Finish the paper
    `(eval ,Ce ,ρ)
    (λ ()
      (⊔ (match Ce
-          [(cons C #t) (true C ρ)]
-          [(cons C #f) (false C ρ)]
+          [(cons C #t) (truecon C ρ)]
+          [(cons C #f) (falsecon C ρ)]
           [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
+          [(cons _ `(app quote ,_)) (>>= ((ran 0) Ce) clos)]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
            (>>= ((bind x) Ce ρ)
@@ -229,7 +231,7 @@ Finish the paper
                      (>>= (call C x e ρ)
                           (λ (Ce ρ)
                             (if (equal? (length x) (length (args-e Ce)))
-                                (>>= ((ran i) Ce ρ) (debug-eval `(ref ,i) eval))
+                                (>>= ((ran i) Ce ρ) (debug-eval `(call ref ,i) eval))
                                 ⊥)))
 
                      ]

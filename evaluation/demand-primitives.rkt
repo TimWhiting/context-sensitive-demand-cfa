@@ -6,6 +6,7 @@
   (match x
     ['cons #t]
     ['nil #t]
+    ['error #t]
     ))
 
 (define (lookup-primitive x)
@@ -19,14 +20,16 @@
     ['not `(prim ,do-not)]
     ['or `(prim ,do-or)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
     ['and `(prim ,do-and)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
-    ['equal? `(prim, do-equal)]
-    ['newline `(prim, do-newline)]
-    ['display `(prim, do-display)]
+    ['equal? `(prim ,do-equal)]
+    ['newline `(prim ,do-newline)]
+    ['display `(prim ,do-display)]
+    ['void  `(prim ,do-void)]
     [_ #f]
     )
   )
 
-(define (true C p)
+
+(define (truecon C p)
   (match (analysis-kind)
     ['exponential (clos (cons C #t) p)]
     ['rebinding (clos (cons C #t) p)]
@@ -36,7 +39,7 @@
     )
   )
 
-(define (false C p)
+(define (falsecon C p)
   (match (analysis-kind)
     ['exponential (clos (cons C #f) p)]
     ['rebinding (clos (cons C #f) p)]
@@ -46,13 +49,26 @@
     )
   )
 
-; TODO: Need to handle true / false return in demand abstraction for constructors i.e. (app #f) / (app #t)
-; However what is the surrounding context?
-; - Maybe just the context of the primitive, or a special context i.e. `((prim-body ,C) (app #t))?
-; - This way stepping out of the primitive body is supported, but how would we get in there to begin with?
-; - Maybe some unevaluated variable in a list primitive? i.e. `((prim-body ,C) (append (Cv1 p1) (Cv2 p2)))
-; - How does append even work demand driven? It likely should just be implemented in scheme.
-; - Is there any constructors that need to be returned from primitives other than #t/#f?
+
+(define (true C p)
+  (match (analysis-kind)
+    ['exponential (clos `(con #t ()) p)]
+    ['rebinding (clos `(con #t ()) p)]
+    ['basic (clos (cons C `(app #t)) p)]
+    ['light (clos (cons C `(app #t)) p)]
+    ['hybrid (clos (cons C `(app #t)) p)]
+    )
+  )
+
+(define (false C p)
+  (match (analysis-kind)
+    ['exponential (clos `(con #f ()) p)]
+    ['rebinding (clos `(con #f ()) p)]
+    ['basic (clos (cons C `(app #f)) p)]
+    ['light (clos (cons C `(app #f)) p)]
+    ['hybrid (clos (cons C `(app #f)) p)]
+    )
+  )
 
 (define (is-primitive e)
   (match e
@@ -107,7 +123,7 @@
 (define (do-not p C a1)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1))) (each (true C p) (false C p))]
-    [(product/set (list (cons _ #f) _)) (true C p)]
+    [(product/set (list `(con #f ()) _)) (true C p)]
     [(product/set (list _ _)) (false C p)]
     )
   )
@@ -131,7 +147,7 @@
 
 (define (is-falsey r)
   (match r
-    [(product/set (list (cons C #f) env)) #t]; Only #f counts as falsey in scheme
+    [(product/set (list `(con #f ()) env)) #t]; Only #f counts as falsey in scheme
     [_ #f]
     )
   )
@@ -158,12 +174,9 @@
     [_ ⊥])
   )
 
-(define (do-newline p C)
-  ⊥
-  )
-(define (do-display p C . args)
-  ⊥
-  )
+(define (do-newline p C) ⊥)
+(define (do-display p C . args) ⊥)
+(define (do-void p C) ⊥)
 
 (provide (all-defined-out))
 

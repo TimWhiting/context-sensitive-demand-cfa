@@ -40,7 +40,7 @@
   ; (analysis-kind 'basic)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
-  (analysis-kind 'hybrid)
+  (analysis-kind 'basic)
   ; (pretty-print
   ;  (run-print-query (apply eval (apply bod-e (apply ran-e example1)))))
 
@@ -71,7 +71,8 @@
   (trace 1)
   ; (current-m 1)
   ; (analysis-kind 'hybrid)
-  ; (show-envs-simple #t)
+  (show-envs-simple #t)
+  (show-envs #f)
   ; (define top-query (list (cons `(top) (get-example-expr 'multi-param)) (envenv (list))))
   ; ; (define query (go-bod (go-bin 1 top-query)))\
   ; (define query top-query)
@@ -79,9 +80,10 @@
   ; (pretty-result
   ;  (run-print-query (apply eval query)))
   (current-m 0)
-  (run-basic (get-example-expr 'cpstak) (lambda (q) q))
-  ; (define top-query-mcfa (list (cons `(top) (get-example-expr 'kcfa-2)) (flatenv (list))))
-  ; (pretty-result (run-print-query (apply meval top-query-mcfa)))
+  ; (run-basic (get-example-expr 'constr2) (lambda (q) q))
+  (analysis-kind 'rebinding)
+  (define top-query-mcfa (list (cons `(top) (get-example-expr 'cpstak)) (flatenv (list))))
+  (pretty-result (run-print-query (apply meval top-query-mcfa)))
   )
 
 (define (run-hybrid expr mkq)

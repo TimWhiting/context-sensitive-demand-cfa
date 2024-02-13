@@ -1,0 +1,13 @@
+'(expression:
+  (letrec ((id (λ (x) x))
+           (blur (λ (y) y))
+           (lp
+            (λ (a n)
+              (match
+               (app <= n 1)
+               ((#t) (app id a))
+               ((#f)
+                (let* ((r (app (app blur id) (app #t)))
+                       (s (app (app blur id) (app #f))))
+                  (app not (app (app blur lp) s (app - n 1)))))))))
+    (app lp (app #f) 2)))

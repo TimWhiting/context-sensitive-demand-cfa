@@ -15,6 +15,7 @@
   (define result-hash (hash))
   (define timed-result
     (run/timeout
+     name
      m kind
      (match-let-values
       ([((list hash-new) cpu real gc)
@@ -41,6 +42,7 @@
   (define hash-result (hash))
   (define time-result
     (run/timeoutn
+     name
      num-queries m kind
      (match-let-values
       ([((list hash-new) cpu real gc)

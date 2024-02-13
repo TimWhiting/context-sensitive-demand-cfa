@@ -54,7 +54,7 @@
      ;  (pretty-print `(,nm ,as))
      (match-let ([(list dfs tps) (get-tps tps)]
                  [fns (gen-type-arg-funcs nm as 0 (length args))])
-       (pretty-print fns)
+       ;  (pretty-print fns)
        (list (append dfs fns) (cons `(,nm ,@as) tps))
        )
      ]
@@ -65,8 +65,8 @@
     ['() (list (list (string->symbol (string-append (symbol->string nm) "?"))
                      `(λ (a)
                         (match a
-                          [(,nm ,@(map (λ (_) '_) (range n))) #t]
-                          [_ #f]
+                          [(,nm ,@(map (λ (_) '_) (range n))) (app #t)]
+                          [_ (app #f)]
                           ))))]
     [(cons a as)
      (cons (list (string->symbol (string-append (symbol->string nm) "-" (symbol->string a)))
@@ -146,7 +146,7 @@
     [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(apply translate-top-defs es))]
     [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
     [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(apply translate-top-defs es))]
-    [`(if ,c ,t ,f) `(match ,(translate c) [#t ,(translate t)] [#f ,(translate f)])]
+    [`(if ,c ,t ,f) `(match ,(translate c) [(#t) ,(translate t)] [(#f) ,(translate f)])]
     [`(cond ,@mchs) (unwrap-cond mchs)]
     [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
     [`(type-case ,tp ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
@@ -154,6 +154,8 @@
     [`(define (,id ,@args) ,@exprs) `(define ,id (λ (,@(remove-types args)) ,(apply translate-top-defs exprs)))]
     [`(define ,id ,expr) `(define ,id ,(translate-top-defs expr))]
     [`(begin ,@exprs) (to-begin (map translate exprs))]
+    [`(list ,a ,@as) `(app cons ,(translate a) ,(translate `(list ,@as)))]
+    [`(list) `(app nil)]
     [`(,@es)
      ;  (pretty-print `(translate-app))
      `(app ,@(map translate es))]
@@ -184,6 +186,6 @@
     [(list `(else ,@es)) (apply translate-top-defs es)]
     [(cons `(,c ,@es) xs)
      `(match ,(translate c)
-        [#f ,(unwrap-cond xs)]
+        [(#f) ,(unwrap-cond xs)]
         [_ ,(apply translate-top-defs es)]
         )]))

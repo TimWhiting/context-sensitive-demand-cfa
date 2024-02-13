@@ -2,43 +2,58 @@
 (require "config.rkt" racket/pretty racket/match)
 (provide (all-defined-out))
 
-(define-syntax-rule (run/parameters m k x)
+(define-syntax-rule (run/parameters name m k x)
   (let ()
+    (pretty-display (format "running ~a, m=~a kind=~a" name m k))
     (analysis-kind k)
     (current-m m)
-    x
+    (define start (current-inexact-monotonic-milliseconds))
+    (let ([res x])
+      (define end (current-inexact-monotonic-milliseconds))
+      (pretty-display (format "finished in ~a ms" (- end start)))
+      res)
     )
   )
 
-(define-syntax-rule (run/timen n m k x)
-  (let ()
-    (define result #f)
-    (if (sync/timeout
-         (/ (* timeout acc-trials) n)
-         (thread (lambda ()
-                   (analysis-kind k)
-                   (current-m m)
-                   (with-handlers ([exn:fail? (λ (err) (set! result `(#f ,err)))])
-                     (let ((res x))
-                       (set! result `(#t ,res))
-                       )
+(define-syntax-rule (run/timen name n m k x)
+  (let* [
+         (result (make-channel))
+         (timeout-ms (/ (* timeout acc-trials) n))
+         ;  (_ (pretty-print timeout-ms))
+         (alarm (alarm-evt (+ (current-inexact-monotonic-milliseconds) timeout-ms) #t))
+         (thd (thread
+               (lambda ()
+                 (analysis-kind k)
+                 (current-m m)
+                 (with-handlers ([exn:fail? (λ (err) (channel-put result `(#f ,err)))])
+                   (let ((res x))
+                     (channel-put result `(#t ,res))
                      )
-                   )))
-        (match result
-          [`(#t ,v) v]
-          [`(#f ,err)
-           (pretty-display (string-append "error " "m=" (number->string m) " kind=" (symbol->string k) " " (pretty-format err)))
-           err])
-        (pretty-display (string-append "timeout " "m=" (number->string m) " kind=" (symbol->string k) " time=" (number->string (current-milliseconds))))
-        )))
+                   )
+                 )))
+         (res (sync result alarm))
+         ]
+    (kill-thread thd)
+    (match res
+      [`(#t ,v)
+       (pretty-print `(result ,v))
+       v]
+      [`(#f ,err)
+       (pretty-display (format "error in ~a! m=~a kind=~a: error ~a" name m k err))
+       err]
+      [_
+       (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a" name m k (current-milliseconds)))
+       #f
+       ]
+      )))
 
-(define-syntax-rule (run/timeoutn n m k x)
+(define-syntax-rule (run/timeoutn name n m k x)
   (let ([times '()])
     (for ([_ (in-range time-trials)])
-      (set! times (cons (run/timen n m k x) times))
+      (set! times (cons (run/timen name n m k x) times))
       )
     times
     ))
 
-(define-syntax-rule (run/timeout m k x)
-  (run/timeoutn 1 m k x))
+(define-syntax-rule (run/timeout name m k x)
+  (run/timeoutn name 1 m k x))
