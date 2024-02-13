@@ -9,7 +9,7 @@
   )
 
 (define (hybrid-queries exp)
-  (analysis-kind 'basic)
+  (analysis-kind 'hybrid)
   (gen-queries (cons `(top) exp) (envenv (list)))
   )
 

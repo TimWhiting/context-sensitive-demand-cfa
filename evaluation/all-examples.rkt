@@ -61,6 +61,6 @@
                   (member x general-failures) #f)))
           all-examples))
 
-(pretty-print (get-example-expr 'std-basic))
+; (pretty-print (get-example-expr 'std-basic))
 ; (pretty-print (free-vars (get-example-expr 'std-basic)))
 ; (pretty-print (get-example-expr 'tic-tac-toe))

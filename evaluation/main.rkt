@@ -7,11 +7,6 @@
 (define max-context-length 2)
 
 (define (run-mcfa name kind kindstring query exp m out-time)
-  (define out (open-output-file
-               (string-append "tests/m" (number->string (current-m)) "/"
-                              (symbol->string name) "-" kindstring "-results.txt")
-               #:exists 'replace))
-  (pretty-print `(expression: ,exp) out)
   (define result-hash (hash))
   (define timed-result
     (run/timeout
@@ -25,9 +20,7 @@
       (list cpu real gc)
       )))
 
-  (report-mcfa-hash result-hash out)
   (pretty-print `(,name ,m ,(hash-num-keys result-hash) ,timed-result) out-time)
-  (close-output-port out)
   result-hash
   )
 
@@ -37,7 +30,7 @@
 (define (run-expm name exp m out-time)
   (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m out-time))
 
-(define (run-demand name num-queries kind m Ce p out out-time shufflen old-hash)
+(define (run-demand name num-queries kind m Ce p out-time shufflen old-hash)
   (define query (eval Ce p))
   (define hash-result (hash))
   (define time-result
@@ -55,14 +48,8 @@
       )))
 
   (if (equal? shufflen -1)
-      (begin
-        (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
-        (pretty-result-out out (from-hash query hash-result))
-        (pretty-print `(,name ,m ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
-        )
-      (begin
-        (pretty-print `(,name ,m ,shufflen ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
-        )
+      (pretty-print `(,name ,m ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
+      (pretty-print `(,name ,m ,shufflen ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
       )
   hash-result
   )
@@ -83,13 +70,6 @@
       (current-m m)
       (for ([example successful-examples])
         (match-let ([`(example ,name ,exp) example])
-          (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
-          (pretty-displayn 0 "")
-          (pretty-displayn 0 "")
-          (for ([file (list out-basic)])
-            (pretty-print `(expression: ,exp) file))
-          (pretty-displayn 0 "")
-
           (define rebindhash (run-rebind name exp m out-time-rebind))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
           (define expmhash (run-expm name exp m out-time-expm))
@@ -101,10 +81,10 @@
             (for ([qs (shuffle qbs)])
               (match-let ([(list cb pb) qs])
                 (pretty-tracen 0 "Running query ")
-                (set! h1 (run-demand name (length qbs) 'basic m cb pb '_ out-time-basic-acc shufflen h1))
+                (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
                 (if (equal? shufflen 0)
                     (let ()
-                      (define hx (run-demand name (length qbs) 'basic m cb pb out-basic out-time-basic -1 (hash)))
+                      (define hx (run-demand name (length qbs) 'basic m cb pb out-time-basic -1 (hash)))
                       (set! basic-cost (+ basic-cost (hash-num-keys hx)))
                       )
                     '()

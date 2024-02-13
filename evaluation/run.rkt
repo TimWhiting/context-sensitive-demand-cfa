@@ -40,7 +40,7 @@
        v]
       [`(#f ,err)
        (pretty-display (format "error in ~a! m=~a kind=~a: error ~a" name m k err))
-       err]
+       `(#f ,(format "~a" err))]
       [_
        (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a" name m k (current-milliseconds)))
        #f

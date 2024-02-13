@@ -518,7 +518,7 @@ Finish the paper
                         (>>=clos
                          (>>= (rat Cee ρee) eval)
                          (λ (Cλx.e ρλx.e)
-                           (pretty-print Ce)
+                           ;  (pretty-print Ce)
                            (match-let ([(cons C `(λ ,xs ,e)) Cλx.e])
                              (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                                   (λ (Ce ρ)
