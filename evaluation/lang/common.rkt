@@ -1,5 +1,5 @@
 #lang racket/base
-(require racket/match racket/pretty)
+(require racket/match racket/pretty racket/list)
 (provide (all-defined-out))
 (define (is-def d)
   (match d
@@ -33,21 +33,49 @@
 
 (define (get-types xss)
   (match xss
-    ['() '()]
+    ['() (list '() '())]
     [(cons `(app define-type ,tp ,@body) xs)
      ;  (pretty-print (car xss))
      ;  (pretty-print body)
-     (append (get-tps body) (get-types xs))]
+     (match-let ([(list fns tps) (get-tps body)]
+                 [(list fnss tpss) (get-types xs)])
+       (list (append fns fnss) (append tps tpss))
+       )
+     ]
     [(cons x xs) (get-types xs)]
     )
   )
 (define (get-tps tps)
   (match tps
-    ['() '()]
+    ['() (list '() '())]
     [(cons `(app ,nm ,@args) tps)
-     ;  (pretty-print tps)
-     (cons `(,nm ,@(map remove-tp args)) (get-tps tps))]
+     ;  (pretty-print `(,nm ,args))
+     (define as (map remove-tp args))
+     ;  (pretty-print `(,nm ,as))
+     (match-let ([(list dfs tps) (get-tps tps)]
+                 [fns (gen-type-arg-funcs nm as 0 (length args))])
+       (pretty-print fns)
+       (list (append dfs fns) (cons `(,nm ,@as) tps))
+       )
+     ]
     ))
+
+(define (gen-type-arg-funcs nm args i n)
+  (match args
+    ['() (list (list (string->symbol (string-append (symbol->string nm) "?"))
+                     `(λ (a)
+                        (match a
+                          [(,nm ,@(map (λ (_) '_) (range n))) #t]
+                          [_ #f]
+                          ))))]
+    [(cons a as)
+     (cons (list (string->symbol (string-append (symbol->string nm) "-" (symbol->string a)))
+                 `(λ (a)
+                    (match a
+                      [(,nm ,@(map (λ (ix) (if (= i ix) 'x '_)) (range n))) x]
+                      [_ (app error ,(format "invalid match for ~a" a))]
+                      )))
+           (gen-type-arg-funcs nm as (+ 1 i) n))]))
 
 (define (remove-tp tp)
   (match tp
@@ -58,23 +86,25 @@
 (define (translate-top-defs . ss)
   ; (pretty-print `(translate-top-defs ,ss))
   (define tops-full-defs (map translate-top ss))
-  (define top-types (get-types tops-full-defs))
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
   (define binds (map to-let-bind (filter is-def tops)))
   ; (pretty-print `(translate-top-defs ,tops))
-  (make-type-defs top-types (make-binds binds exprs))
-  )
+  (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
+    ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
+    (make-type-defs top-types (make-binds (append top-type-defs binds) exprs))
+    ))
 
 (define (translate-top-defs-expr expr ss)
   ; (pretty-print `(translate-top-defs ,ss))
   (define tops-full-defs (map translate-top ss))
-  (define top-types (get-types tops-full-defs))
   (define tops (remove-def-types tops-full-defs))
   (define binds (map to-let-bind (filter is-def tops)))
   ; (pretty-print `(translate-top-defs ,expr))
-  (make-type-defs top-types (make-binds binds (list expr)))
-  )
+  (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
+    ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
+    (make-type-defs top-types (make-binds (append top-type-defs binds) (list expr)))
+    ))
 
 (define (make-type-defs tps body)
   (match tps
