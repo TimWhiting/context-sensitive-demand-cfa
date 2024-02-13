@@ -1,2 +1,52 @@
 '(expression:
-  (let ((x (app cons 1 (app nil)))) (match x ((cons 1 n) n) (_ x))))
+  (let ((x (app cons 1 (app nil)))) (match x ((cons 1 n) n) ((_) x))))
+(list 'query: '(match (-> x <-) ((cons 1 n) n) ((_) x)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list
+    'cons
+    (list
+     (product/lattice
+      (literal (list (singleton 1) (bottom) (bottom) (bottom))))
+     (product/set (list '(con nil ()) (flatenv '())))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app cons 1 (-> (app nil) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(nil ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let ((-> x = (app cons 1 (app nil)) <-)) bod) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list
+    'cons
+    (list
+     (product/lattice
+      (literal (list (singleton 1) (bottom) (bottom) (bottom))))
+     (product/set (list '(con nil ()) (flatenv '())))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(let (x) (-> (match x ((cons 1 n) n) ((_) x)) <-))
+ (flatenv '()))
+(list 'clos/con: (list (list '(nil ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> cons <-) 1 (app nil)) (flatenv '()))
+(list 'clos/con: (list (list 'cons (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+(list 'clos/con: (list (list '(nil ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app cons (-> 1 <-) (app nil)) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+(list 'query: '(app (-> nil <-)) (flatenv '()))
+(list 'clos/con: (list (list 'nil (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(match x (-> (cons 1 n) n <-) ((_) x)) (flatenv '()))
+(list 'clos/con: (list (list '(nil ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

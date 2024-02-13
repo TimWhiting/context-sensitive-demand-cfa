@@ -1,0 +1,87 @@
+'(expression:
+  (letrec ((try (λ (f) (app or (app f (app #t))))))
+    (app try (λ (f) (app not f)))))
+(list 'query: '(app try (-> (λ (f) (app not f)) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(λ (f) (app not f)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) f) (flatenv '()))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app or (-> (app f (app #t)) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list '(#t ()) (list (product/set (list '(con #t ()) (flatenv '())))))
+   (flatenv '()))
+  (list '(#f ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (flatenv '()))
+(list 'clos/con: (list (list #t (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list '(#t ()) (list (product/set (list '(con #t ()) (flatenv '())))))
+   (flatenv '()))
+  (list '(#f ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app f (app #t))) (flatenv '()))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f) (-> (app not f) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(#f ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f) (-> (app or (app f (app #t))) <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list '(#t ()) (list (product/set (list '(con #t ()) (flatenv '())))))
+   (flatenv '()))
+  (list '(#f ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> try <-) (λ (f) (app not f))) (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> f <-)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(#t ()) (flatenv '()))
+  (list '(λ (f) (app not f)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) (app #t)) (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(#t ()) (flatenv '()))
+  (list '(λ (f) (app not f)) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (try) (-> (app try (λ (f) (app not f))) <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   (list '(#t ()) (list (product/set (list '(con #t ()) (flatenv '())))))
+   (flatenv '()))
+  (list '(#f ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> (app #t) <-)) (flatenv '()))
+(list 'clos/con: (list (list '(#t ()) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((-> try = (λ (f) (app or (app f (app #t)))) <-)) bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list (list '(λ (f) (app or (app f (app #t)))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

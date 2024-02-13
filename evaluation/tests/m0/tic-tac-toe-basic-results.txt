@@ -1,0 +1,345 @@
+'(expression:
+  (lettypes
+   ((Ze)
+    (On)
+    (Tw)
+    (coord row col)
+    (X)
+    (O)
+    (some v)
+    (none)
+    (blank)
+    (marked xo)
+    (win)
+    (draw)
+    (lose)
+    (horizon outcome step-count)
+    (move coord horizon)
+    (player mark action))
+   (letrec ((Tw? (λ (a) (match a ((Tw) (app #t)) (_ (app #f)))))
+            (On? (λ (a) (match a ((On) (app #t)) (_ (app #f)))))
+            (Ze? (λ (a) (match a ((Ze) (app #t)) (_ (app #f)))))
+            (coord-row
+             (λ (a)
+               (match
+                a
+                ((coord x _) x)
+                (_ (app error "invalid match for row")))))
+            (coord-col
+             (λ (a)
+               (match
+                a
+                ((coord _ x) x)
+                (_ (app error "invalid match for col")))))
+            (coord? (λ (a) (match a ((coord _ _) (app #t)) (_ (app #f)))))
+            (O? (λ (a) (match a ((O) (app #t)) (_ (app #f)))))
+            (X? (λ (a) (match a ((X) (app #t)) (_ (app #f)))))
+            (none? (λ (a) (match a ((none) (app #t)) (_ (app #f)))))
+            (some-v
+             (λ (a)
+               (match a ((some x) x) (_ (app error "invalid match for v")))))
+            (some? (λ (a) (match a ((some _) (app #t)) (_ (app #f)))))
+            (marked-xo
+             (λ (a)
+               (match
+                a
+                ((marked x) x)
+                (_ (app error "invalid match for xo")))))
+            (marked? (λ (a) (match a ((marked _) (app #t)) (_ (app #f)))))
+            (blank? (λ (a) (match a ((blank) (app #t)) (_ (app #f)))))
+            (lose? (λ (a) (match a ((lose) (app #t)) (_ (app #f)))))
+            (draw? (λ (a) (match a ((draw) (app #t)) (_ (app #f)))))
+            (win? (λ (a) (match a ((win) (app #t)) (_ (app #f)))))
+            (horizon-outcome
+             (λ (a)
+               (match
+                a
+                ((horizon x _) x)
+                (_ (app error "invalid match for outcome")))))
+            (horizon-step-count
+             (λ (a)
+               (match
+                a
+                ((horizon _ x) x)
+                (_ (app error "invalid match for step-count")))))
+            (horizon? (λ (a) (match a ((horizon _ _) (app #t)) (_ (app #f)))))
+            (move-coord
+             (λ (a)
+               (match
+                a
+                ((move x _) x)
+                (_ (app error "invalid match for coord")))))
+            (move-horizon
+             (λ (a)
+               (match
+                a
+                ((move _ x) x)
+                (_ (app error "invalid match for horizon")))))
+            (move? (λ (a) (match a ((move _ _) (app #t)) (_ (app #f)))))
+            (player-mark
+             (λ (a)
+               (match
+                a
+                ((player x _) x)
+                (_ (app error "invalid match for mark")))))
+            (player-action
+             (λ (a)
+               (match
+                a
+                ((player _ x) x)
+                (_ (app error "invalid match for action")))))
+            (player? (λ (a) (match a ((player _ _) (app #t)) (_ (app #f)))))
+            (is
+             (app
+              cons
+              (app Ze)
+              (app cons (app On) (app cons (app Tw) (app nil)))))
+            (mark⁻¹ (λ (ma) (match ma ((X) (app O)) ((O) (app X)))))
+            (empty-board (λ (co) (app blank)))
+            (board-mark
+             (λ (co₀ ma bo)
+               (λ (co)
+                 (match
+                  (app equal? co₀ co)
+                  ((#t) (app marked ma))
+                  ((#f) (app board-lookup co bo))))))
+            (board-lookup (λ (co bo) (app bo co)))
+            (marked-with?
+             (λ (b co m)
+               (match
+                (app b co)
+                ((blank) (app #f))
+                ((marked m*) (app equal? m m*)))))
+            (i⁻¹
+             (λ (i) (match i ((Ze) (app Tw)) ((On) (app On)) ((Tw) (app Ze)))))
+            (ormap
+             (λ (f xs)
+               (match
+                xs
+                ((empty) (app #f))
+                ((cons x rest-xs) (app or (app f x) (app ormap f rest-xs))))))
+            (andmap
+             (λ (f xs)
+               (match
+                xs
+                ((empty) (app #t))
+                ((cons x rest-xs)
+                 (app and (app f x) (app andmap f rest-xs))))))
+            (wins?
+             (λ (b m)
+               (app
+                or
+                (app
+                 ormap
+                 (λ (r)
+                   (app
+                    andmap
+                    (λ (c) (app marked-with? b (app coord r c) m))
+                    is))
+                 is)
+                (app
+                 ormap
+                 (λ (c)
+                   (app
+                    andmap
+                    (λ (r) (app marked-with? b (app coord r c) m))
+                    is))
+                 is)
+                (app
+                 andmap
+                 (λ (rc) (app marked-with? b (app coord rc rc) m))
+                 is)
+                (app
+                 andmap
+                 (λ (rc) (app marked-with? b (app coord rc (app i⁻¹ rc)) m))
+                 is))))
+            (full?
+             (λ (b)
+               (app
+                andmap
+                (λ (r)
+                  (app
+                   andmap
+                   (λ (c) (app marked? (app b (app coord r c))))
+                   is))
+                is)))
+            (oc<
+             (λ (oc₀ oc₁)
+               (match
+                oc₀
+                ((win) (app #f))
+                ((draw) (app equal? oc₁ (app win)))
+                ((lose) (app not (app equal? oc₁ (app lose)))))))
+            (horizon<
+             (λ (h₀ h₁)
+               (match
+                h₀
+                ((horizon oc₀ sc₀)
+                 (match
+                  h₁
+                  ((horizon oc₁ sc₁)
+                   (app
+                    or
+                    (app oc< oc₀ oc₁)
+                    (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))))))))
+            (horizon-add1
+             (λ (h) (match h ((horizon oc sc) (app horizon oc (app + sc 1))))))
+            (foldl
+             (λ (f acc l)
+               (match
+                l
+                ((nil) acc)
+                ((cons x xs) (app foldl f (app f acc x) xs)))))
+            (fold/coord
+             (λ (f x)
+               (app
+                foldl
+                (λ (r x) (app foldl (λ (c x) (app f (app coord r c) x)) x is))
+                x
+                is)))
+            (min-maybe-move
+             (λ (mmo mo₁)
+               (match
+                mmo
+                ((some mo₀)
+                 (app
+                  some
+                  (match
+                   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))
+                   ((#t) mo₀)
+                   ((#f) mo₁))))
+                ((none) (app some mo₁)))))
+            (max-maybe-move
+             (λ (mmo mo₁)
+               (match
+                mmo
+                ((some mo₀)
+                 (app
+                  some
+                  (match
+                   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))
+                   ((#t) mo₁)
+                   ((#f) mo₀))))
+                ((none) (app some mo₁)))))
+            (minimax
+             (λ (bo this-mark that-mark)
+               (app
+                fold/coord
+                (λ (co mm)
+                  (match
+                   (app blank? (app board-lookup co bo))
+                   ((#t)
+                    (let ((bo (app board-mark co this-mark bo)))
+                      (app
+                       min-maybe-move
+                       mm
+                       (app
+                        move
+                        co
+                        (match
+                         (app wins? bo this-mark)
+                         ((#f)
+                          (match
+                           (app full? bo)
+                           ((#f)
+                            (app
+                             horizon-add1
+                             (app
+                              move-horizon
+                              (app
+                               some-v
+                               (app maximin bo that-mark this-mark)))))
+                           (_ (app horizon (app draw) 0))))
+                         (_ (app horizon (app lose) 0)))))))
+                   ((#f) mm)))
+                (app none))))
+            (maximin
+             (λ (bo this-mark that-mark)
+               (app
+                fold/coord
+                (λ (co mm)
+                  (match
+                   (app blank? (app board-lookup co bo))
+                   ((#t)
+                    (let ((bo (app board-mark co this-mark bo)))
+                      (app
+                       max-maybe-move
+                       mm
+                       (app
+                        move
+                        co
+                        (match
+                         (app wins? bo this-mark)
+                         ((#f)
+                          (match
+                           (app full? bo)
+                           ((#f)
+                            (app
+                             horizon-add1
+                             (app
+                              move-horizon
+                              (app
+                               some-v
+                               (app minimax bo that-mark this-mark)))))
+                           (_ (app horizon (app draw) 0))))
+                         (_ (app horizon (app win) 0)))))))
+                   ((#f) mm)))
+                (app none))))
+            (human-action
+             (λ (bo) (app error (app quote human-action) "not implemented")))
+            (make-ai-action
+             (λ (ma)
+               (λ (bo)
+                 (app
+                  move-coord
+                  (app some-v (app maximin bo ma (app mark⁻¹ ma)))))))
+            (draw-board! (λ (bo) (app void)))
+            (play-turn
+             (λ (bo this-play that-play)
+               (let ((_ (app draw-board! bo)))
+                 (match
+                  this-play
+                  ((player mark action)
+                   (let ((co
+                          (letrec ((loop
+                                    (λ ()
+                                      (let ((co (app action bo)))
+                                        (match
+                                         (app blank? (app board-lookup co bo))
+                                         ((#t) co)
+                                         ((#f) (app loop)))))))
+                            (app loop))))
+                     (let ((bo (app board-mark co mark bo)))
+                       (match
+                        (app wins? bo mark)
+                        ((#f)
+                         (match
+                          (app full? bo)
+                          ((#f) (app play-turn bo that-play this-play))
+                          (_
+                           (let ((_ (app draw-board! bo)))
+                             (app display "Cat's game.\n")))))
+                        (_ (let ((_ (app draw-board! bo))) (app void)))))))))))
+            (play-game
+             (λ (player-one player-two)
+               (app play-turn empty-board player-one player-two)))
+            (two-player-game
+             (λ ()
+               (app
+                play-game
+                (app player (app X) human-action)
+                (app player (app O) human-action))))
+            (one-player-game
+             (λ ()
+               (app
+                play-game
+                (app player (app X) human-action)
+                (app player (app O) (app make-ai-action (app O))))))
+            (zero-player-game
+             (λ ()
+               (app
+                play-game
+                (app player (app X) (app make-ai-action (app X)))
+                (app player (app O) (app make-ai-action (app O)))))))
+     (app zero-player-game))))
+(list 'query: '(top) (menv '()))

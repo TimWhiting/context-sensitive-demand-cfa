@@ -254,7 +254,7 @@ Finish the paper
                     [(? symbol? x)
                      (match (lookup-demand-primitive x)
                        [#f
-                        (check-known-constructor? x)
+                        ; (check-known-constructor? x)
                         (pretty-tracen 0 `(constructor? ,x))
                         (clos Ce ρ)]
                        [Ce (clos Ce ρ)]
@@ -285,6 +285,8 @@ Finish the paper
                 )
               ))
            ]
+          [(cons _ `(lettypes ,_ ,_))
+           (>>= (bod Ce ρ) eval)]
           [(cons _ `(let ,_ ,_))
            (>>= (bod Ce ρ) eval)]
           [(cons _ `(let* ,_ ,_))
@@ -381,22 +383,23 @@ Finish the paper
   (unit (equal? (to-lit pat) lit2))
   )
 
-(define ((eval-clauselit parent parentρ clauses i) lit)
+(define ((eval-clauselit parent parentρ clauses i) lit1)
   (match clauses
     [(cons clause clauses)
-     (>>= (pattern-matches-lit (car clause) lit)
+     (>>= (pattern-matches-lit (car clause) lit1)
           (λ (matches)
             (if matches
                 (begin
                   ; (pretty-print `(clause-match ,clause))
                   (>>= ((match-clause i) parent parentρ) eval)
                   )
-                ((eval-clauselit parent parentρ clauses (+ i 1)) lit)
+                ((eval-clauselit parent parentρ clauses (+ i 1)) lit1)
                 )))
      ]
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     (clos (cons lit 'match-error) parentρ)
+     (clos (cons `(top) `(app error 'match-error ,lit1)) parentρ)
+     ;  (clos (cons lit 'match-error) parentρ)
      ]
     )
   )
@@ -416,7 +419,8 @@ Finish the paper
                 )))]
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     (clos (cons ce 'match-error) ρ)
+     ;  (clos (cons ce 'match-error) ρ)
+     (clos (cons `(top) `(app error 'match-error)) ρ)
      ] ; TODO: Test match error
     ))
 
@@ -514,6 +518,7 @@ Finish the paper
                         (>>=clos
                          (>>= (rat Cee ρee) eval)
                          (λ (Cλx.e ρλx.e)
+                           (pretty-print Ce)
                            (match-let ([(cons C `(λ ,xs ,e)) Cλx.e])
                              (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                                   (λ (Ce ρ)

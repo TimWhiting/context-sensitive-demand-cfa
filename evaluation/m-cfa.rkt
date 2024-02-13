@@ -96,7 +96,7 @@
    (λ (_ ρ i)
      (match i
        [-1
-        (check-known-constructor? x)
+        ; (check-known-constructor? x)
         ; (pretty-print `(returning-cons ,Ce ,ρ))
         (clos Ce ρ)] ; treat as constructor]
        [_
@@ -131,6 +131,8 @@
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `(app quote ,_)) (>>= ((ran 0) Ce) clos)]
+       [(cons _ `(lettypes ,_ ,_))
+        (>>= (bod Ce ρ) meval)]
        [(cons _ `(let ,binds ,_))
         (>>= (eval* (map
                      (λ (i) ((bin i) Ce ρ))

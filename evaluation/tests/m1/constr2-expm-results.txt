@@ -1,0 +1,160 @@
+'(expression:
+  (letrec ((try (λ (f) (app or (app f (app #t))))))
+    (app try (λ (f) (app not f)))))
+(list
+ 'query:
+ '(app (-> f <-) (app #t))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+(list 'clos/con: (list (list '(λ (f) (app not f)) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app try (-> (λ (f) (app not f)) <-)) (expenv '()))
+(list 'clos/con: (list (list '(λ (f) (app not f)) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> or <-) (app f (app #t)))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+'(clos/con: (#<procedure:do-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (try) (-> (app try (λ (f) (app not f))) <-))
+ (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#f ())
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app or (-> (app f (app #t)) <-))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+(list
+ 'clos/con:
+ (list (list '(#f ()) (expenv '(((app or (-> (app f (app #t)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app not (-> f <-))
+ (expenv
+  '((((ran
+       or
+       ()
+       ()
+       (bod (f) (bin letrec try (app try (λ (f) (app not f))) () () (top))))
+      app
+      f
+      (app #t))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#t ())
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((-> try = (λ (f) (app or (app f (app #t)))) <-)) bod)
+ (expenv '()))
+(list 'clos/con: (list (list '(λ (f) (app or (app f (app #t)))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (expenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#f ())
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f) (-> (app not f) <-))
+ (expenv
+  '((((ran
+       or
+       ()
+       ()
+       (bod (f) (bin letrec try (app try (λ (f) (app not f))) () () (top))))
+      app
+      f
+      (app #t))))))
+(list
+ 'clos/con:
+ (list (list '(#f ()) (expenv '(((app or (-> (app f (app #t)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> try <-) (λ (f) (app not f))) (expenv '()))
+(list 'clos/con: (list (list '(λ (f) (app or (app f (app #t)))) (expenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (f) (-> (app or (app f (app #t))) <-))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#f ())
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app f (-> (app #t) <-))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(#t ())
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> #t <-))
+ (expenv
+  '((((let-bod letrec ((try (λ (f) (app or (app f (app #t)))))) (top))
+      app
+      try
+      (λ (f) (app not f)))))))
+(list
+ 'clos/con:
+ (list
+  (list
+   #t
+   (expenv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app (-> not <-) f)
+ (expenv
+  '((((ran
+       or
+       ()
+       ()
+       (bod (f) (bin letrec try (app try (λ (f) (app not f))) () () (top))))
+      app
+      f
+      (app #t))))))
+'(clos/con: (#<procedure:do-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))

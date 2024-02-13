@@ -50,7 +50,7 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example (get-examples '(cpstak))])
+      (for ([example (get-examples '(tic-tac-toe))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))

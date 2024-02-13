@@ -1,0 +1,75 @@
+'(expression:
+  (letrec ((try (λ (f) (app or (app f (app #t))))))
+    (app try (λ (f) (app not f)))))
+(list 'query: '(app or (-> (app f (app #t)) <-)) (menv '((□? (f)))))
+(list
+ 'clos/con:
+ (list (list '(app #f) (menv '(((app or (-> (app f (app #t)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f) (-> (app not f) <-)) (menv '((□? (f)))))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '((□? (f)))))
+  (list '(app #f) (menv '(((app or (-> (app f (app #t)) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(letrec (try) (-> (app try (λ (f) (app not f))) <-)) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(app #f)
+   (menv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app f (-> (app #t) <-)) (menv '((□? (f)))))
+(list 'clos/con: (list (list '(app #t) (menv '((□? (f)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app try (-> (λ (f) (app not f)) <-)) (menv '()))
+(list 'clos/con: (list (list '(λ (f) (app not f)) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(λ (f) (-> (app or (app f (app #t))) <-)) (menv '((□? (f)))))
+(list
+ 'clos/con:
+ (list
+  (list '(app #f) (menv '((□? (f)))))
+  (list
+   '(app #f)
+   (menv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> try <-) (λ (f) (app not f))) (menv '()))
+(list 'clos/con: (list (list '(λ (f) (app or (app f (app #t)))) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> not <-) f) (menv '((□? (f)))))
+'(clos/con: (#<procedure:do-demand-not>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((-> try = (λ (f) (app or (app f (app #t)))) <-)) bod)
+ (menv '()))
+(list 'clos/con: (list (list '(λ (f) (app or (app f (app #t)))) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> f <-) (app #t)) (menv '((□? (f)))))
+(list 'clos/con: (list (list '(λ (f) (app not f)) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(app #f)
+   (menv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> #t <-)) (menv '((□? (f)))))
+(list 'clos/con: (list (list #t (menv '((□? (f)))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> or <-) (app f (app #t))) (menv '((□? (f)))))
+'(clos/con: (#<procedure:do-demand-or>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app not (-> f <-)) (menv '((□? (f)))))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(app #t)
+   (menv '(((letrec (try) (-> (app try (λ (f) (app not f))) <-))))))))
+'(literals: (⊥ ⊥ ⊥ ⊥))

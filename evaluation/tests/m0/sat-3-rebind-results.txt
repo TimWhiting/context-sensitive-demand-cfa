@@ -1,5 +1,5 @@
 '(expression:
-  (letrec ((println (λ (s) (let ((_ (app display s))) newline)))
+  (letrec ((println (λ (s) (let ((_ (app display s))) (app newline))))
            (phi
             (λ (x1 x2 x3 x4 x5 x6 x7)
               (app
@@ -47,97 +47,11 @@
                                     n6
                                     n7))))))))))))))))))
     (let ((_ (app display (app sat-solve-7 phi)))) (app newline))))
-(list 'query: '(app (-> display <-) (app sat-solve-7 phi)) (flatenv '()))
-'(clos/con: (#<procedure:do-display>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app println (-> "trying" <-)) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ "trying"))
 (list 'query: '(app (-> display <-) s) (flatenv '()))
 '(clos/con: (#<procedure:do-display>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (f)
-    (->
-     (let ((_ (app println "trying")))
-       (app or (app f (app #t)) (app f (app #f))))
-     <-))
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> println <-) "trying") (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (s) (let ((_ (app display s))) newline)) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (println
-           phi
-           (->
-            try
-            =
-            (λ (f)
-              (let ((_ (app println "trying")))
-                (app or (app f (app #t)) (app f (app #f)))))
-            <-)
-           sat-solve-7)
-    bod)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (f)
-      (let ((_ (app println "trying")))
-        (app or (app f (app #t)) (app f (app #f)))))
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(let ((-> _ = (app display (app sat-solve-7 phi)) <-)) bod)
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let ((-> _ = (app println "trying") <-)) bod) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(λ (p)
-    (->
-     (app
-      try
-      (λ (n1)
-        (app
-         try
-         (λ (n2)
-           (app
-            try
-            (λ (n3)
-              (app
-               try
-               (λ (n4)
-                 (app
-                  try
-                  (λ (n5)
-                    (app
-                     try
-                     (λ (n6)
-                       (app
-                        try
-                        (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))
-     <-))
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(let ((-> _ = (app display s) <-)) bod) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list
- 'query:
- '(letrec (println phi try sat-solve-7)
-    (-> (let ((_ (app display (app sat-solve-7 phi)))) (app newline)) <-))
- (flatenv '()))
-'(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -170,46 +84,18 @@
         (app or (app f (app #t)) (app f (app #f)))))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let ((-> _ = (app display s) <-)) bod) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app display (-> s <-)) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ "trying"))
 (list
  'query:
- '(letrec ((-> println = (λ (s) (let ((_ (app display s))) newline)) <-)
-           phi
-           try
-           sat-solve-7)
-    bod)
+ '(letrec (println phi try sat-solve-7)
+    (-> (let ((_ (app display (app sat-solve-7 phi)))) (app newline)) <-))
  (flatenv '()))
-(list
- 'clos/con:
- (list (list '(λ (s) (let ((_ (app display s))) newline)) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app (-> sat-solve-7 <-) phi) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(λ (p)
-      (app
-       try
-       (λ (n1)
-         (app
-          try
-          (λ (n2)
-            (app
-             try
-             (λ (n3)
-               (app
-                try
-                (λ (n4)
-                  (app
-                   try
-                   (λ (n5)
-                     (app
-                      try
-                      (λ (n6)
-                        (app
-                         try
-                         (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))))
-   (flatenv '()))))
+'(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list 'query: '(app sat-solve-7 (-> phi <-)) (flatenv '()))
 (list
@@ -226,6 +112,130 @@
        (app or (app not x2) (app not x3))
        (app or x4 x2)))
    (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> println <-) "trying") (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (s) (let ((_ (app display s))) (app newline))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(top) (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec (println
+           phi
+           (->
+            try
+            =
+            (λ (f)
+              (let ((_ (app println "trying")))
+                (app or (app f (app #t)) (app f (app #f)))))
+            <-)
+           sat-solve-7)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (f)
+      (let ((_ (app println "trying")))
+        (app or (app f (app #t)) (app f (app #f)))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(λ (p)
+    (->
+     (app
+      try
+      (λ (n1)
+        (app
+         try
+         (λ (n2)
+           (app
+            try
+            (λ (n3)
+              (app
+               try
+               (λ (n4)
+                 (app
+                  try
+                  (λ (n5)
+                    (app
+                     try
+                     (λ (n6)
+                       (app
+                        try
+                        (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7)))))))))))))))
+     <-))
+ (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(letrec ((-> println = (λ (s) (let ((_ (app display s))) (app newline))) <-)
+           phi
+           try
+           sat-solve-7)
+    bod)
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(λ (s) (let ((_ (app display s))) (app newline))) (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list
+ 'query:
+ '(app
+   try
+   (->
+    (λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))
+    <-))
+ (flatenv '()))
+(list
+ 'clos/con:
+ (list
+  (list
+   '(λ (n1)
+      (app
+       try
+       (λ (n2)
+         (app
+          try
+          (λ (n3)
+            (app
+             try
+             (λ (n4)
+               (app
+                try
+                (λ (n5)
+                  (app
+                   try
+                   (λ (n6)
+                     (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(app (-> display <-) (app sat-solve-7 phi)) (flatenv '()))
+'(clos/con: (#<procedure:do-display>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
@@ -289,22 +299,45 @@
                          (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))))
    (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app println (-> "trying" <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ "trying"))
 (list 'query: '(app display (-> (app sat-solve-7 phi) <-)) (flatenv '()))
 '(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(app display (-> s <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊥ ⊥ ⊥ "trying"))
+(list 'query: '(app (-> sat-solve-7 <-) phi) (flatenv '()))
 (list
- 'query:
- '(λ (s) (-> (let ((_ (app display s))) newline) <-))
- (flatenv '()))
+ 'clos/con:
+ (list
+  (list
+   '(λ (p)
+      (app
+       try
+       (λ (n1)
+         (app
+          try
+          (λ (n2)
+            (app
+             try
+             (λ (n3)
+               (app
+                try
+                (λ (n4)
+                  (app
+                   try
+                   (λ (n5)
+                     (app
+                      try
+                      (λ (n6)
+                        (app
+                         try
+                         (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))))
+   (flatenv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+(list 'query: '(let ((-> _ = (app println "trying") <-)) bod) (flatenv '()))
 '(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
-(list 'query: '(top) (flatenv '()))
+(list
+ 'query:
+ '(λ (s) (-> (let ((_ (app display s))) (app newline)) <-))
+ (flatenv '()))
 '(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
@@ -344,48 +377,17 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 (list
  'query:
- '(app
-   try
-   (->
-    (λ (n1)
-      (app
-       try
-       (λ (n2)
-         (app
-          try
-          (λ (n3)
-            (app
-             try
-             (λ (n4)
-               (app
-                try
-                (λ (n5)
-                  (app
-                   try
-                   (λ (n6)
-                     (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))
-    <-))
+ '(λ (f)
+    (->
+     (let ((_ (app println "trying")))
+       (app or (app f (app #t)) (app f (app #f))))
+     <-))
  (flatenv '()))
+'(clos/con: ⊥)
+'(literals: (⊥ ⊥ ⊥ ⊥))
 (list
- 'clos/con:
- (list
-  (list
-   '(λ (n1)
-      (app
-       try
-       (λ (n2)
-         (app
-          try
-          (λ (n3)
-            (app
-             try
-             (λ (n4)
-               (app
-                try
-                (λ (n5)
-                  (app
-                   try
-                   (λ (n6)
-                     (app try (λ (n7) (app p n1 n2 n3 n4 n5 n6 n7))))))))))))))
-   (flatenv '()))))
+ 'query:
+ '(let ((-> _ = (app display (app sat-solve-7 phi)) <-)) bod)
+ (flatenv '()))
+'(clos/con: ⊥)
 '(literals: (⊥ ⊥ ⊥ ⊥))

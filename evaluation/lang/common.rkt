@@ -1,6 +1,13 @@
 #lang racket/base
 (require racket/match racket/pretty racket/list)
 (provide (all-defined-out))
+
+(define (translate-top-defs-out . ss)
+  (define result ((translate-top-defs-internal #t) ss))
+  ; (pretty-print result)
+  result
+  )
+
 (define (is-def d)
   (match d
     [`(define ,id ,expr) #t]
@@ -83,12 +90,19 @@
     [x x]
     ))
 
-(define (translate-top-defs . ss)
+
+(define (translate-top-defs ss)
+  ((translate-top-defs-internal #f) ss)
+  )
+
+(define ((translate-top-defs-internal top) ss)
   ; (pretty-print `(translate-top-defs ,ss))
-  (define tops-full-defs (map translate-top ss))
+  (define tops-full-defs (if top (map (translate-top #t) ss) (map (translate-top) ss)))
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
   (define binds (map to-let-bind (filter is-def tops)))
+  ; (pretty-print `(translate-top-defs ,tops-full-defs))
+
   ; (pretty-print `(translate-top-defs ,tops))
   (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
@@ -97,7 +111,7 @@
 
 (define (translate-top-defs-expr expr ss)
   ; (pretty-print `(translate-top-defs ,ss))
-  (define tops-full-defs (map translate-top ss))
+  (define tops-full-defs (map (translate-top) ss))
   (define tops (remove-def-types tops-full-defs))
   (define binds (map to-let-bind (filter is-def tops)))
   ; (pretty-print `(translate-top-defs ,expr))
@@ -118,16 +132,16 @@
     [(cons _ _) `(letrec ,binds ,(to-begin exprs))]
     ))
 
-(define (translate-top s)
+(define ((translate-top [top #f]) s)
   (match (translate s)
-    [`(app ,e) e]
+    [`(app ,e) (if top e `(app ,e))]
     [e e]
     )
   )
 
 (define (translate-def d)
   (match d
-    [`(,x ,e) `(,x ,(translate-top-defs e))]
+    [`(,x ,e) `(,x ,(translate e))]
     )
   )
 
@@ -140,24 +154,31 @@
     [(? symbol? x) x]
     [(? string? x) x]
     [(? char? x) x]
-    [`(λ (,@args) ,@es) `(λ (,@(remove-types args)) ,(apply translate-top-defs es))]
-    [`(lambda (,@args) ,@es) `(λ (,@(remove-types args)) ,(apply translate-top-defs es))]
-    [`(local ,defs ,@es) (translate-top-defs-expr (apply translate-top-defs es) defs)]
-    [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(apply translate-top-defs es))]
-    [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(apply translate-top-defs es))]
-    [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(apply translate-top-defs es))]
+    [`(λ (,@args) ,@es)
+     ;  (pretty-print `(translate-bod ,es))
+     `(λ (,@(remove-types args)) ,(translate-top-defs es))]
+    [`(lambda (,@args) ,@es) `(λ (,@(remove-types args)) ,(translate-top-defs es))]
+    [`(local ,defs ,@es) (translate-top-defs-expr (translate-top-defs es) defs)]
+    [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(translate-top-defs es))]
+    [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(translate-top-defs es))]
+    [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(translate-top-defs es))]
     [`(if ,c ,t ,f) `(match ,(translate c) [(#t) ,(translate t)] [(#f) ,(translate f)])]
     [`(cond ,@mchs) (unwrap-cond mchs)]
     [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
-    [`(type-case ,tp ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
-    [`(define (,id ,@args) : ,returntype ,@exprs) `(define ,id (λ (,@(remove-types args)) ,(apply translate-top-defs exprs)))]
-    [`(define (,id ,@args) ,@exprs) `(define ,id (λ (,@(remove-types args)) ,(apply translate-top-defs exprs)))]
-    [`(define ,id ,expr) `(define ,id ,(translate-top-defs expr))]
+    [`(type-case ,tp ,c ,@mchs)
+     ;  (pretty-print `(translate-type-case ,@mchs))
+     `(match ,(translate c) ,@(map unwrap-match mchs))]
+    [`(define (,id ,@args) : ,returntype ,@exprs) `(define ,id (λ (,@(remove-types args)) ,(translate-top-defs exprs)))]
+    [`(define (,id ,@args) ,@exprs)
+     ;  (pretty-print `(translate-define ,exprs))
+     `(define ,id (λ (,@(remove-types args)) ,(translate-top-defs exprs)))]
+    [`(define ,id ,expr)
+     ;  (pretty-print `(translate-def ,expr))
+     `(define ,id ,(translate expr))]
     [`(begin ,@exprs) (to-begin (map translate exprs))]
     [`(list ,a ,@as) `(app cons ,(translate a) ,(translate `(list ,@as)))]
     [`(list) `(app nil)]
     [`(,@es)
-     ;  (pretty-print `(translate-app))
      `(app ,@(map translate es))]
     )
   )
@@ -177,15 +198,17 @@
 
 (define (unwrap-match mch)
   (match mch
+    [`(,(? symbol? c) ,@es) `((,c) ,(translate-top-defs es))]
     [`(,c ,@es)
-     `(,c ,(apply translate-top-defs es))]))
+     `(,c ,(translate-top-defs es))]
+    ))
 
 (define (unwrap-cond mchs)
   (match mchs
     ['() `(app error)]
-    [(list `(else ,@es)) (apply translate-top-defs es)]
+    [(list `(else ,@es)) (translate-top-defs es)]
     [(cons `(,c ,@es) xs)
      `(match ,(translate c)
         [(#f) ,(unwrap-cond xs)]
-        [_ ,(apply translate-top-defs es)]
+        [_ ,(translate-top-defs es)]
         )]))

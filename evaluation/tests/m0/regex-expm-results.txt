@@ -1,0 +1,188 @@
+'(expression:
+  (letrec ((debug-trace (λ () (app quote do-nothing)))
+           (cadr (λ (p) (app car (app cdr p))))
+           (caddr (λ (p) (app car (app cdr (app cdr p)))))
+           (regex-NULL #f)
+           (regex-BLANK #t)
+           (regex-alt?
+            (λ (re)
+              (app and (app pair? re) (app eq? (app car re) (app quote alt)))))
+           (regex-seq?
+            (λ (re)
+              (app and (app pair? re) (app eq? (app car re) (app quote seq)))))
+           (regex-rep?
+            (λ (re)
+              (app and (app pair? re) (app eq? (app car re) (app quote rep)))))
+           (regex-null? (λ (re) (app eq? re (app #f))))
+           (regex-empty? (λ (re) (app eq? re (app #t))))
+           (regex-atom? (λ (re) (app or (app char? re) (app symbol? re))))
+           (match-seq
+            (λ (re f)
+              (app
+               and
+               (app regex-seq? re)
+               (app f (app cadr re) (app caddr re)))))
+           (match-alt
+            (λ (re f)
+              (app
+               and
+               (app regex-alt? re)
+               (app f (app cadr re) (app caddr re)))))
+           (match-rep
+            (λ (re f) (app and (app regex-rep? re) (app f (app cadr re)))))
+           (seq
+            (λ (pat1 pat2)
+              (match
+               (app regex-null? pat1)
+               ((#f)
+                (match
+                 (app regex-null? pat2)
+                 ((#f)
+                  (match
+                   (app regex-empty? pat1)
+                   ((#f)
+                    (match
+                     (app regex-empty? pat2)
+                     ((#f)
+                      (app
+                       cons
+                       (app quote seq)
+                       (app cons pat1 (app cons pat2 (app quote (app))))))
+                     (_ pat1)))
+                   (_ pat2)))
+                 (_ regex-NULL)))
+               (_ regex-NULL))))
+           (alt
+            (λ (pat1 pat2)
+              (match
+               (app regex-null? pat1)
+               ((#f)
+                (match
+                 (app regex-null? pat2)
+                 ((#f)
+                  (app
+                   cons
+                   (app quote alt)
+                   (app cons pat1 (app cons pat2 (app quote (app))))))
+                 (_ pat1)))
+               (_ pat2))))
+           (rep
+            (λ (pat)
+              (match
+               (app regex-null? pat)
+               ((#f)
+                (match
+                 (app regex-empty? pat)
+                 ((#f)
+                  (app cons (app quote rep) (app cons pat (app quote (app)))))
+                 (_ regex-BLANK)))
+               (_ regex-BLANK))))
+           (regex-empty
+            (λ (re)
+              (match
+               (app regex-empty? re)
+               ((#f)
+                (match
+                 (app regex-null? re)
+                 ((#f)
+                  (match
+                   (app regex-atom? re)
+                   ((#f)
+                    (match
+                     (app
+                      match-seq
+                      re
+                      (λ (pat1 pat2)
+                        (app
+                         seq
+                         (app regex-empty pat1)
+                         (app regex-empty pat2))))
+                     ((#f)
+                      (match
+                       (app
+                        match-alt
+                        re
+                        (λ (pat1 pat2)
+                          (app
+                           alt
+                           (app regex-empty pat1)
+                           (app regex-empty pat2))))
+                       ((#f) (match (app regex-rep? re) ((#f) #f) (_ #t)))
+                       (_ ())))
+                     (_ ())))
+                   (_ #f)))
+                 (_ #f)))
+               (_ #t))))
+           (regex-derivative
+            (λ (re c)
+              (let ((_ debug-trace))
+                (match
+                 (app regex-empty? re)
+                 ((#f)
+                  (match
+                   (app regex-null? re)
+                   ((#f)
+                    (match
+                     (app eq? c re)
+                     ((#f)
+                      (match
+                       (app regex-atom? re)
+                       ((#f)
+                        (match
+                         (app
+                          match-seq
+                          re
+                          (λ (pat1 pat2)
+                            (app
+                             alt
+                             (app seq (app regex-derivative pat1 c) pat2)
+                             (app
+                              seq
+                              (app regex-empty pat1)
+                              (app regex-derivative pat2 c)))))
+                         ((#f)
+                          (match
+                           (app
+                            match-alt
+                            re
+                            (λ (pat1 pat2)
+                              (app
+                               alt
+                               (app regex-derivative pat1 c)
+                               (app regex-derivative pat2 c))))
+                           ((#f)
+                            (match
+                             (app
+                              match-rep
+                              re
+                              (λ (pat)
+                                (app
+                                 seq
+                                 (app regex-derivative pat c)
+                                 (app rep pat))))
+                             ((#f) regex-NULL)
+                             (_ ())))
+                           (_ ())))
+                         (_ ())))
+                       (_ regex-NULL)))
+                     (_ regex-BLANK)))
+                   (_ regex-NULL)))
+                 (_ regex-NULL)))))
+           (regex-match
+            (λ (pattern data)
+              (match
+               (app null? data)
+               ((#t) (app regex-empty? (app regex-empty pattern)))
+               ((#f)
+                (app
+                 regex-match
+                 (app regex-derivative pattern (app car data))
+                 (app cdr data))))))
+           (check-expect (λ (check expect) (app equal? check expect))))
+    (app
+     check-expect
+     (app
+      regex-match
+      (app quote (app seq foo (app rep bar)))
+      (app quote (app foo bar)))
+     (app #f))))

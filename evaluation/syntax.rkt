@@ -129,6 +129,8 @@
      (cons C `(,let-kind ,binds ,e₁))]
     [(cons `(bin ,let-kind ,x ,e₁ ,before ,after ,C) e₀)
      (cons C `(,let-kind ,(append before (list `(,x ,e₀)) after) ,e₁))]
+    [(cons `(lettypes-bod ,binds ,C) e₁)
+     (cons C `(lettypes ,binds ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
 (define (show-extra-simple-ctx Ce)

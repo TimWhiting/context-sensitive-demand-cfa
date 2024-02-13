@@ -10,7 +10,7 @@
   (variable-reference->module-source (#%variable-reference)))
 (define-syntax-rule (module-begin e ...)
   (#%module-begin
-   (define example-expr (translate-top-defs `(e) ...))
+   (define example-expr (translate-top-defs-out `(e) ...))
    (define example-name (string->symbol (path->string (path-replace-extension (file-name-from-path (whereami)) ""))))
    (provide (all-defined-out))
    ;  (pretty-print example-expr)

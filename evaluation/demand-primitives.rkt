@@ -2,12 +2,6 @@
 (require racket/match racket/pretty racket/list)
 (require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt" "config.rkt")
 
-(define (check-known-constructor? x)
-  (match x
-    ['cons #t]
-    ['nil #t]
-    ['error #t]
-    ))
 
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
@@ -33,9 +27,9 @@
   (match (analysis-kind)
     ['exponential (clos (cons C #t) p)]
     ['rebinding (clos (cons C #t) p)]
-    ['basic (clos (cons C #t) p)]
-    ['light (clos (cons C #t) p)]
-    ['hybrid (clos (cons C #t) p)]
+    ['basic (clos (cons `(top) #t) p)]
+    ['light (clos (cons `(top) #t) p)]
+    ['hybrid (clos (cons `(top) #t) p)]
     )
   )
 
@@ -43,9 +37,9 @@
   (match (analysis-kind)
     ['exponential (clos (cons C #f) p)]
     ['rebinding (clos (cons C #f) p)]
-    ['basic (clos (cons C #f) p)]
-    ['light (clos (cons C #f) p)]
-    ['hybrid (clos (cons C #f) p)]
+    ['basic (clos (cons `(top) #f) p)]
+    ['light (clos (cons `(top) #f) p)]
+    ['hybrid (clos (cons `(top) #f) p)]
     )
   )
 
@@ -54,9 +48,9 @@
   (match (analysis-kind)
     ['exponential (clos `(con #t ()) p)]
     ['rebinding (clos `(con #t ()) p)]
-    ['basic (clos (cons C `(app #t)) p)]
-    ['light (clos (cons C `(app #t)) p)]
-    ['hybrid (clos (cons C `(app #t)) p)]
+    ['basic (clos (cons `(top) `(app #t)) p)]
+    ['light (clos (cons `(top) `(app #t)) p)]
+    ['hybrid (clos (cons `(top) `(app #t)) p)]
     )
   )
 
@@ -64,9 +58,9 @@
   (match (analysis-kind)
     ['exponential (clos `(con #f ()) p)]
     ['rebinding (clos `(con #f ()) p)]
-    ['basic (clos (cons C `(app #f)) p)]
-    ['light (clos (cons C `(app #f)) p)]
-    ['hybrid (clos (cons C `(app #f)) p)]
+    ['basic (clos (cons `(top) `(app #f)) p)]
+    ['light (clos (cons `(top) `(app #f)) p)]
+    ['hybrid (clos (cons `(top) `(app #f)) p)]
     )
   )
 

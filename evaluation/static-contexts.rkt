@@ -1,7 +1,7 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require "config.rkt" "envs.rkt" "syntax.rkt" "utils.rkt")
-(require racket/match racket/list)
+(require racket/match racket/list racket/pretty)
 (provide (all-defined-out))
 ; syntax traversal
 
@@ -20,11 +20,33 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
+; Primitive constructors
+(define (check-known-constructor? x)
+  (match x
+    ['cons #t]
+    ['nil #t]
+    ['error #t]
+    ))
+
+(define (check-known-constructor-or-primitive? x)
+  (member x '(cons nil error = - + < <= not or and equal? newline display void)))
+
 (define ((bind x) Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (bind x)))
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
-    [(cons `(top) _) (unit x ρ -1)] ; Constructors
+    [(cons `(top) _)
+     (check-known-constructor-or-primitive? x)
+     (unit x ρ -1)] ; Constructors
+    [(cons `(lettypes-bod ,binds ,C) e₁)
+     ;  (pretty-print (map car binds))
+     ;  (pretty-print x)
+     ;  (pretty-print (member x (map car binds)))
+     (if (member x (map car binds))
+         (unit x ρ -1)
+         (search-out)
+         )
+     ]
     [(cons `(bin ,let-kind ,y ,_ ,before ,after ,_) _)
      ;  (pretty-print `(bin ,y ,x))
      (define defs
@@ -85,6 +107,8 @@
      (unit (cons C `(,let-kind ,binds ,e₁)) ρ)]
     [(cons `(bin ,let-kind ,x ,e₁ ,before ,after ,C) e₀)
      (unit (cons C `(,let-kind ,(append before (list `(,x ,e₀)) after) ,e₁)) ρ)]
+    [(cons `(lettypes-bod ,binds ,C) e₁)
+     (unit (cons C `(lettypes ,binds ,e₁)) ρ)]
     [(cons `(top) _)
      (error 'out "top")]))
 
@@ -115,9 +139,12 @@
        [(lenv cc) (unit (cons `(bod ,x ,C) e) (lenv (cons (take-cc `(□? ,x)) cc)))]
        )
      ]
+    [(cons C `(lettypes ,binds ,e₁))
+     (unit (cons `(lettypes-bod ,binds ,C) e₁) ρ)]
     [(cons C `(,l ,binds ,e₁))
      (check-let l)
-     (unit (cons `(let-bod ,l ,binds ,C) e₁) ρ)]))
+     (unit (cons `(let-bod ,l ,binds ,C) e₁) ρ)]
+    ))
 
 ; For calls this is Lamda Caller CallEnv LambdaEnv
 (define (bod-enter Ce call ρ ρ′)
@@ -132,6 +159,8 @@
        [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
        [(lenv _)  (unit lambod (lenv (cons (enter-cc call ρ) (lenv-m ρ′))))]
        )]
+    [(cons C `(lettypes ,binds ,e₁))
+     (unit (cons `(lettypes-bod ,binds ,C) e₁) ρ)]
     [(cons C `(,l ,binds ,e₁))
      (check-let l)
      ; Environments do not change for let bindings (as long as names do not shadow - which for m-CFA we handle by alphatizing).

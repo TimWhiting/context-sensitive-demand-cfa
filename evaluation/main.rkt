@@ -81,7 +81,7 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example r6rs])
+      (for ([example successful-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           (pretty-displayn 0 "")

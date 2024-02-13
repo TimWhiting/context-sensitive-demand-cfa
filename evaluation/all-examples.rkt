@@ -50,7 +50,7 @@
 (define general-failures (get-examples '(church cpstak)))
 (define bad-results (get-examples '(sat-1))); ?check kcfa-2
 ; Fails to parse: regex, fail to run church
-(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa std std-basic game))); ?check kcfa-2
+(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa std regex std-basic game))); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)
@@ -61,6 +61,6 @@
                   (member x general-failures) #f)))
           all-examples))
 
-; (pretty-print (get-example-expr 'std-basic))
+(pretty-print (get-example-expr 'std-basic))
 ; (pretty-print (free-vars (get-example-expr 'std-basic)))
-; (pretty-print (free-vars (get-example-expr 'tic-tac-toe)))
+; (pretty-print (get-example-expr 'tic-tac-toe))
