@@ -92,7 +92,8 @@
 (define (show-simple-clos/con e)
   (match e
     [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-    [(list (cons C e) env) (if (show-envs) `(expr: ,e env: ,(show-simple-env env)) `(,e ,(show-simple-env env)))]
+    [(list (cons C e) env) (if (show-envs) `(expr: ,(show-simple-ctx (cons C e)) env: ,(show-simple-env env))
+                               `(,(show-simple-ctx (cons C e)) ,(show-simple-env env)))]
     ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
     )
   )

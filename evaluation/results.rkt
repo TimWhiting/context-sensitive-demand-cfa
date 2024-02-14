@@ -78,3 +78,16 @@
      ]
     [x (pretty-format x)]
     ))
+
+(define (show-simple-results r)
+  (match r
+    [(cons s l)
+     (string-append
+      (if (set-empty? s)
+          (pretty-format `(clos/con: ⊥))
+          (pretty-format `(clos/con: ,(map show-simple-clos/con (set->list s)))))
+      "\n"
+      (pretty-format `(literals: ,(show-simple-literal l))))
+     ]
+    [x (pretty-format x)]
+    ))

@@ -10,7 +10,7 @@
     (define start (current-inexact-monotonic-milliseconds))
     (let ([res x])
       (define end (current-inexact-monotonic-milliseconds))
-      (pretty-display (format "finished in ~a ms" (- end start)))
+      (pretty-display (format "finished in ~a ms, result:\n~a\n" (- end start) res))
       res)
     )
   )

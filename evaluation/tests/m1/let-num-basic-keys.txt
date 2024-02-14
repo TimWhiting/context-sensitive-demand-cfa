@@ -1,1 +1,0 @@
-'(expression: (let ((x (λ (y) y))) (app x 1)))

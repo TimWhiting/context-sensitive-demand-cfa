@@ -198,6 +198,11 @@
     [(? number? x) x]
     [(? char? x) x]
     [(? string? x) x]
+    [`(con ,nm ,args) Ce]
+    [_
+     (pretty-print Ce)
+     (error 'fail "")
+     ]
     )
   )
 

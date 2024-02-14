@@ -12,11 +12,18 @@
                               (symbol->string name) "-" kindstring "-results.txt")
                #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
+  (define hash-result (hash))
   (run/parameters
    name
    m kind
    '_
-   (run-get-hash query (hash))))
+   (let ([hash-new (run-get-hash query (hash))])
+     (set! hash-result hash-new)
+     )
+   )
+  (report-mcfa-hash hash-result out)
+  hash-result
+  )
 
 (define (run-rebind name exp m)
   (run-mcfa name 'rebinding "rebind" (meval (cons `(top) exp) (flatenv '())) exp m))
@@ -31,10 +38,11 @@
   (run/parameters
    name
    m kind
-   query
+   (show-simple-ctx Ce)
    (let
        ([hash-new (run-get-hash query (hash))])
      (set! hash-result hash-new)
+     (show-simple-results (from-hash query hash-result))
      ))
   (pretty-result-out out (from-hash query hash-result))
   hash-result
@@ -52,18 +60,18 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example (get-examples '(tic-tac-toe))])
+      (for ([example r6rs])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
           ; (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
           ; (define out-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-results.txt") #:exists 'replace))
-          (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))
+          ; (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))
           ; (define out-keys-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-keys.txt") #:exists 'replace))
           ; (define out-keys-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-keys.txt") #:exists 'replace))
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
-          (for ([file (list out-basic out-keys-basic)]) ;out-hybrid out-light  out-keys-hybrid out-keys-light)])
+          (for ([file (list out-basic)]) ;out-hybrid out-light  out-keys-hybrid out-keys-light)])
             (pretty-print `(expression: ,exp) file))
           (pretty-displayn 0 "")
           ; (show-envs #t)

@@ -1,2 +1,0 @@
-'(expression:
-  (let ((x (app cons 1 (app nil)))) (match x ((cons 1 n) n) (_ x))))

@@ -518,12 +518,16 @@ Finish the paper
                         (>>=clos
                          (>>= (rat Cee ρee) eval)
                          (λ (Cλx.e ρλx.e)
-                           ;  (pretty-print Ce)
-                           (match-let ([(cons C `(λ ,xs ,e)) Cλx.e])
-                             (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
-                                  (λ (Ce ρ)
-                                    (>>= ((find (car (drop xs (length before)))) Ce ρ)
-                                         expr))))))))]
+                           ;  (pretty-print (show-simple-ctx Cλx.e))
+                           (match Cλx.e
+                             [(cons C `(λ ,xs ,e))
+                              (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
+                                   (λ (Ce ρ)
+                                     (>>= ((find (car (drop xs (length before)))) Ce ρ)
+                                          expr))) ]
+                             [(cons C `(app ,@xs)) (clos Cλx.e ρλx.e)]
+
+                             )))) )]
                 [(cons `(bod ,xs ,C) e)
                  (>>= (call C xs e ρ) expr)]
                 ; lambda is returned from let body

@@ -19,7 +19,6 @@
       (set! result-hash hash-new)
       (list cpu real gc)
       )))
-
   (pretty-print `(,name ,m ,(hash-num-keys result-hash) ,timed-result) out-time)
   result-hash
   )
