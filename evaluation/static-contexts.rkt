@@ -100,8 +100,6 @@
              [(flatenv ρ) (flatenv ρ)]; Regular m-cfa environments don't change (all bindings are rebound in the innermost environment)
              [(expenv (cons _ ρ)) (expenv ρ)]
              [(menv (cons _ ρ)) (menv ρ)]
-             [(envenv (cons _ ρ)) (envenv ρ)]
-             [(lenv (cons _ ρ)) (envenv ρ)]
              ))]
     [(cons `(let-bod ,let-kind ,binds ,C) e₁)
      (unit (cons C `(,let-kind ,binds ,e₁)) ρ)]
@@ -135,8 +133,6 @@
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(menv cc) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x, C)) cc)))]
-       [(envenv cc) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x, C)) cc)))]
-       [(lenv cc) (unit (cons `(bod ,x ,C) e) (lenv (cons (take-cc `(□? ,x, C)) cc)))]
        )
      ]
     [(cons C `(lettypes ,binds ,e₁))
@@ -156,8 +152,6 @@
        [(flatenv _) (unit lambod (flatenv (enter-cc call ρ)))]
        [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
        [(menv _)  (unit lambod (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
-       [(envenv _)  (unit lambod (envenv (cons (enter-cc call ρ) (envenv-m ρ′))))]
-       [(lenv _)  (unit lambod (lenv (cons (enter-cc call ρ) (lenv-m ρ′))))]
        )]
     [(cons C `(lettypes ,binds ,e₁))
      (unit (cons `(lettypes-bod ,binds ,C) e₁) ρ)]
@@ -212,18 +206,5 @@
 (module+ main
   (require rackunit)
   (check-equal? (⊑-cc (list) (list)) #t)
-  (define query-1 `(,(cons `(top) `(app (λ (x y) (app x y)) (λ (z) z) 2)) ,(envenv '())))
-  (define test-query-1 (apply rat-e query-1))
-  (define (run-unit2 q) (q (lambda (Ce p) `(,Ce ,p))))
 
-  (analysis-kind 'hybrid)
-  (current-m 0)
-  (check-equal? (run-unit2 (bod-enter (car test-query-1) `(app x y) (cadr test-query-1) (envenv '())))
-                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv '(())))
-                )
-
-  (current-m 1)
-  (check-equal? (run-unit2 (bod-enter (car test-query-1) `(app x y) (cadr test-query-1) (envenv '(lamenv))))
-                `(((bod (x y) (rat ((λ (z) z) 2) (top))) app x y) ,(envenv `((cenv (app x y) ,(envenv '())) lamenv)))
-                )
   )

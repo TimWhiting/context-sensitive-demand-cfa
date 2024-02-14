@@ -52,8 +52,6 @@ Finish the paper
              (λ (ρ′)
                (match ρ
                  [(menv _) (unit (menv (cons cc (menv-m ρ′))))]
-                 [(envenv _) (unit (envenv (cons cc (envenv-m ρ′))))]
-                 [(lenv _) (unit (lenv (cons cc (lenv-m ρ′))))]
                  ))))]
     [_ ⊥]
     ))
@@ -211,7 +209,6 @@ Finish the paper
 
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  (expect-no-cut ρ)
   (print-eval-result
    `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
    (λ ()
@@ -431,7 +428,6 @@ Finish the paper
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
   (define lamenv (inner-lambda-bindings lambod))
-  (expect-no-cut ρ)
   ; (pretty-trace `(call ,C ,xs ,e ,ρ))
   (print-result
    `(call ,(show-simple-ctx (cons C `(λ ,xs ,e))) ,(show-simple-env ρ))
@@ -453,62 +449,12 @@ Finish the paper
                        [else
                         (pretty-tracen 0 `(CALL-NO-REFINE ,cc₀ ,cc₁))
                         ⊥]))))]
-           [(envenv (cons cc₀ ρ₀))
-            (pretty-trace `HYBRID)
-            (define indet-env (envenv (indeterminate-env (cons C `(λ ,xs ,e)))))
-            ; (pretty-print `(hybrid-call ,ρ ,indet-env))
-            (match (head-cc (calibrate-envs (envenv ρ₀) indet-env))
-              [`(cenv ,ce ,ρ′)
-               ;  (pretty-print 'known)
-               (pretty-trace `(CALL-KNOWN))
-               (unit ce ρ′)]
-              [_
-               ;  (pretty-print 'unknown)
-               (begin
-                 (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs (envenv ρ₀) indet-env)))
-                 (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
-                      (λ (Cee ρee)
-                        ; (pretty-trace `(,(show-simple-ctx Cee) ,(show-simple-env ρee)))
-                        (let ([cc₁ (enter-cc Cee ρee)])
-                          (cond
-                            [(equal? cc₀ cc₁)
-                             (pretty-trace "CALL-EQ")
-                             (unit Cee ρee)]
-                            [(⊑-cc cc₁ cc₀)
-                             (pretty-trace "CALL-REFINE")
-                             (pretty-trace `(,cc₁ ,cc₀))
-                             ; strictly refines because of above
-                             (>>= (put-refines (envenv (cons cc₁ ρ₀)) ρ) (λ _ ⊥))
-                             ]
-                            [else
-                             (pretty-trace "CALL-NOREF")
-                             (pretty-trace `(cc₀ ,cc₀ cc₁ ,cc₁))
-                             ⊥])))))]
-              )]
-           [(lenv (cons cc₀ ρ₀))
-            (pretty-trace `lightweight)
-            (define indet-env (lenv (indeterminate-env (cons C `(λ ,xs ,e)))))
-            ; (pretty-print `(hybrid-call ,ρ ,indet-env))
-            (match cc₀
-              [`(cenv ,ce ,ρ′)
-               ;  (pretty-print 'known)
-               (pretty-trace `(CALL-KNOWN))
-               (unit ce (calibrate-envs ρ′ (lenv (indeterminate-env ce))))
-               ]
-              [_
-               ;  (pretty-print 'unknown)
-               (begin
-                 ;  (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs (lenv ρ₀) indet-env)))
-                 (expr (cons C `(λ ,xs ,e)) (lenv ρ₀)); Fallback to normal basic evaluation
-                 )]
-              )]
            )
      )
    )
   )
 
 (define-key (expr Ce ρ)
-  (expect-no-cut ρ)
   (begin
     (print-result
      `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ))

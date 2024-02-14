@@ -12,14 +12,6 @@
   (run-basic (get-example-expr 'tic-tac-toe) (lambda (x) x))
   )
 
-(define (run-hybrid expr mkq)
-  (analysis-kind 'hybrid)
-  (define top-query-h (list (cons `(top) expr) (envenv (list))))
-  (define qh (mkq top-query-h))
-  (pretty-result
-   (run-print-query (apply eval qh)))
-  )
-
 (define (run-basic expr mkq)
   (analysis-kind 'basic)
   (define top-query-b (list (cons `(top) expr) (menv (list))))
@@ -28,12 +20,6 @@
    (run-print-query (apply eval qb)))
   )
 
-
-(define (compare-demand example mkq)
-  (define expr (get-example-expr example))
-  (run-hybrid expr mkq)
-  ; (run-basic expr mkq)
-  )
 
 (define (go-bod q) (apply bod-e q))
 (define (go-ran i q) (apply (ran-e i) q))

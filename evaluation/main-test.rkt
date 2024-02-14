@@ -57,7 +57,6 @@
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
           [light-cost 0]
-          [hybrid-cost 0]
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
@@ -65,14 +64,10 @@
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
-          ; (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
-          ; (define out-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-results.txt") #:exists 'replace))
           ; (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))
-          ; (define out-keys-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-keys.txt") #:exists 'replace))
-          ; (define out-keys-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-keys.txt") #:exists 'replace))
           (pretty-displayn 0 "")
           (pretty-displayn 0 "")
-          (for ([file (list out-basic)]) ;out-hybrid out-light  out-keys-hybrid out-keys-light)])
+          (for ([file (list out-basic)])
             (pretty-print `(expression: ,exp) file))
           (pretty-displayn 0 "")
           ; (show-envs #t)
@@ -82,75 +77,19 @@
           (define expmhash (run-expm name exp m))
           (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
           (define qbs (basic-queries exp))
-          (define qhs (hybrid-queries exp))
-          (define qls (light-queries exp))
+
           ; (pretty-print "Finished regular mcfa")
 
-          (for ([qs (zip qbs qhs qls)])
+          (for ([qs qbs])
             (match-let ([h1 (hash)]
-                        [h2 (hash)]
-                        [h3 (hash)]
                         ; TODO: Is it okay for the continuations to escape and be reused later?
-                        [(list (list cb pb) (list ch ph) (list cl pl)) qs])
+                        [(list cb pb) qs])
               (define evalqb (eval cb pb))
-              (define evalqh (eval ch ph))
               (pretty-tracen 0 "Running query ")
-              ; (pretty-print `(query: ,(show-simple-ctx cb) ,pb))
-              ; (pretty-print `(query: ,(show-simple-ctx ch) ,ph))
 
               (set! h1 (run-demand name (length qbs) 'basic m cb pb out-basic))
               (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-              ; (if #t
-              ;     (begin
-              ;       (set! h2 (run-demand name (length qhs) 'hybrid m ch ph out-hybrid))
-              ;       (set! hybrid-cost (+ hybrid-cost (hash-num-keys h2)))
-              ;       (set! h3 (run-demand name (length qls) 'lightweight m cl pl out-light))
-              ;       (set! light-cost (+ light-cost (hash-num-keys h3)))
-              ;       (if (equal? (length (hash-keys h1)) (length (hash-keys h2)))
-              ;           '()
-              ;           (begin
-              ;             (pretty-display "" out-keys-basic)
-              ;             (pretty-display "" out-keys-hybrid)
-              ;             (pretty-print `(query: ,(show-simple-ctx cb) ,pb) out-keys-basic)
-              ;             (pretty-print `(query: ,(show-simple-ctx ch) ,ph) out-keys-hybrid)
-              ;             (pretty-display "" out-keys-basic)
-              ;             (pretty-display "" out-keys-hybrid)
-              ;             (pretty-print (queries h1) out-keys-basic)
-              ;             (pretty-print (length (hash-keys h1)) out-keys-basic)
-              ;             (pretty-print (queries h2) out-keys-hybrid)
-              ;             (pretty-print (length (hash-keys h2)) out-keys-hybrid)
-              ;             (pretty-display "" out-keys-basic)
-              ;             (pretty-display "" out-keys-hybrid)
-              ;             )
-              ;           )
-              ;       ; (pretty-print h2)
-              ;       (if (equal-simplify-envs? (from-hash evalqb h1) (from-hash evalqh h2))
-              ;           '() ; (pretty-print "Results match")
-              ;           (begin
-              ;             (if print-simple-diff
-              ;                 (pretty-print `(hybrid-diff ,(current-m) ,name ,(simple-key evalqh)))
-              ;                 (begin
-              ;                   (pretty-print (string-append "ERROR: Hybrid and Basic results differ at m=" (number->string (current-m))) (current-error-port))
-              ;                   (displayln "" (current-error-port))
-              ;                   (pretty-print `(query: ,cb ,pb) (current-error-port))
-              ;                   (pretty-display "Basic result: " (current-error-port))
-              ;                   (pretty-result-out (current-error-port) (from-hash evalqb h1))
-              ;                   (displayln "" (current-error-port))
-              ;                   (pretty-print `(query: ,ch ,ph) (current-error-port))
-              ;                   (pretty-display "Hybrid result: " (current-error-port))
-              ;                   (pretty-result-out (current-error-port) (from-hash evalqh h2))
-              ;                   (displayln "" (current-error-port))
-              ;                   (exit)
-              ;                   )
-              ;                 )
-              ;             ;  (show-envs #t)
 
-              ;             ;  (exit)
-              ;             )
-              ;           )
-              ;       )
-              ;     '()
-              ;     )
               )
             )
           )
@@ -159,8 +98,6 @@
       (pretty-print `(basic-cost ,basic-cost))
       (pretty-print `(rebind-cost ,rebind-cost))
       (pretty-print `(expm-cost ,expm-cost))
-      ; (pretty-print `(hybrid-cost ,hybrid-cost))
-      ; (pretty-print `(light-cost ,light-cost))
       )
     )
   )

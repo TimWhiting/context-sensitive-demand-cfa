@@ -8,10 +8,6 @@
 (struct flatenv (m) #:transparent)
 ; m-CFA exponential environments (nested environments)
 (struct expenv (m) #:transparent)
-; Demand m-CFA environments (nested environments, with embedded environments)
-(struct envenv (m) #:transparent)
-; Demand m-CFA environments (nested environments, with embedded environments) - lightweight version
-(struct lenv (m) #:transparent)
 ; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
 (struct menv (m) #:transparent)
 
@@ -19,9 +15,7 @@
 (define (env-list ρ)
   (match ρ
     [(expenv l) l]
-    [(envenv l) l]
     [(menv l) l]
-    [(lenv l) l]
     ))
 
 ; Splits into the current closure's calling context, and the lexically enclosing closure's environment
@@ -31,10 +25,6 @@
     [(flatenv _) (error 'flatenv "Flatenvs do not have lexical splits (they only keep track of innermost calls)")]
     [(expenv (cons head tail)) (cons head (expenv tail))]
     [(expenv '()) (expenv '())]
-    [(envenv (cons head tail)) (cons head (envenv tail))]
-    [(envenv '()) (envenv '())]
-    [(lenv (cons head tail)) (cons head (lenv tail))]
-    [(lenv '()) (lenv '())]
     [(menv (cons head tail)) (cons head (menv tail))]
     [(menv '()) (menv '())]
     )
@@ -70,39 +60,19 @@
 ;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
 (define (⊑-cc cc₀ cc₁)
   (match cc₀
-    ['! ; TODO: Figure out '! cases here
-     (match cc₁
-       [(list) #f] ; equal
-       [`(□? ,_ ,_) #f]
-       [`(cenv ,_ ,_) #f]
-       [(cons _ _) #f]
-       ['! #t])]
+
     [(list)
      (match cc₁
-       ['! #t] ; refines '!
        [(list) #t] ; equal
        [`(□? ,_ ,_) #f]
-       [`(cenv ,_ ,_) #f]
        [(cons _ _) #f])]
     [`(□? ,x ,_)
      (match cc₁
-       ['! #t] ; refines '!
        [(list) #f]; indeterminate is not more refined
        [`(□? ,y ,_) (equal? x y)]; indeterminate is equal if they are equal otherwise false
-       [`(cenv ,_ ,_) #f]; indeterminate is not more refined
        [(cons _ _) #f])]
-    [`(cenv ,Ce₀ ,ρ₀)
-     (match cc₁
-       ['! #t] ; refines '!
-       [(list) #f]; call-env is not more refined
-       [`(□? ,_ ,_) #t]; call-env is more refined
-       [`(cenv ,Ce₁ ,ρ₁)
-        (and (equal? Ce₀ Ce₁)
-             (alls (map ⊑-cc (env-list ρ₀) (env-list ρ₁))))]
-       )]
     [(cons Ce₀ cc₀)
      (match cc₁
-       ['! #t] ; refines '!
        [(list) #f]
        [`(□? ,_ ,_) #t]
        [(cons Ce₁ cc₁)
@@ -116,12 +86,7 @@
 (define (cc-determinedm? m)
   (match-lambda
     [(list) #t]
-    ['! (if (equal? m 0)
-            #t ; No, it cannot be refined further (it is determined), since it has hit the m limit
-            #f)]; Unless we have stepped out since cutting, in which case yes it can be refined (not determined)?
     [`(□? ,_ ,_) #f]
-    [`(cenv ,Ce ,(envenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
-    [`(cenv ,Ce ,(lenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
     [(cons Ce cc) ((cc-determinedm? (- 1 m)) cc)]))
 
 ; Used for flat environments gets the top m stack frames (assuming most recent stack frame is the head of the list)
@@ -149,11 +114,6 @@
          (list)]
         [`(□? ,x ,C)
          `(□? ,x ,C)]
-        ['! '!]
-        [`(cenv ,Ce ,(envenv cs))
-         `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) cs)))]
-        [`(cenv ,Ce ,(lenv cs))
-         `(cenv ,Ce ,(lenv (map (λ (cc) (take-ccm (- m 1) cc)) cs)))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
          (cons Ce (take-ccm (- m 1) cc))])))
 
@@ -162,8 +122,6 @@
   (match ρ
     [(menv _) (take-cc (cons Ce (head-cc ρ)))]
     [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
-    [(envenv _) ((calibrate-ccsm (current-m)) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
-    [(lenv _) ((calibrate-ccsm (current-m) #t) `(cenv ,Ce ,ρ) 'only-ever-cuts)]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
@@ -173,82 +131,6 @@
     [`(□? ,x ,_) '()]
     ['only-ever-cuts (if ignore-cut '() (error 'unexpected-need-indet-ctx-in-enter-cc (pretty-format cc)))]
     [_ (error 'expected-indeterminate-ctx (pretty-format `(got ,cc))) ]
-    )
-  )
-
-(define ((calibrate-ccsm m [lightweight #f]) cc0 cc1)
-  (assert-indeterminate cc1)
-  (if (equal? m 0)
-      (if lightweight
-          '()
-          (match cc0 ; Cut
-            [(list) (list)]; Already 0
-            [`(cenv ,_ ,_) '!]; Cut known
-            ['! '!]
-            [`(□? ,x ,_) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
-            ))
-      (match cc0
-        [(list); Restore indeterminate context if there was any
-         (if lightweight cc1
-             (begin
-               (assert-indeterminate cc1 #f)
-               cc1)
-             )] ; cc1 is always indeterminate
-        ['! cc1];
-        [`(□? ,x ,C) `(□? ,x, C)]
-        [`(cenv ,call ,(envenv cs))
-         (match (calibrate-envsm (envenv cs) (envenv (indeterminate-env call)) (- m 1))
-           [res `(cenv ,call ,res)]
-           )]
-        [`(cenv ,call ,(lenv cs))
-         (match (calibrate-envsm (lenv cs) (lenv (indeterminate-env call)) (- m 1))
-           [res `(cenv ,call ,res)]
-           )]
-        ))
-  )
-
-; Adds missing context
-(define (calibrate-envsm ρ₀ ρ₁ m)
-  (match ρ₀
-    [(envenv _)
-     (let [(res (map (calibrate-ccsm m) (envenv-m ρ₀) (envenv-m ρ₁)))]
-       (envenv res)
-       )]
-    [(lenv _)
-     (let [(res (map (calibrate-ccsm m #t) (lenv-m ρ₀) (lenv-m ρ₁)))]
-       (lenv res)
-       )]
-    )
-  ; (pretty-print `(calibrating-envs ,ρ₀ ,ρ₁))
-  )
-
-(define (calibrate-envs ρ₀ ρ₁)
-  (calibrate-envsm ρ₀ ρ₁ (current-m)))
-
-; Cuts should not be a part of queries, they are just used to if we would lose information
-(define (expect-no-cut p)
-  '()
-  ; (match p
-  ; [(envenv _)
-  ;    (if (not (cut-env p))
-  ;     '()
-  ;     (error 'env-has-cut (pretty-format p)))])
-  )
-
-; Check that a environment is not cut
-(define (cut-env p)
-  (match p
-    [(envenv l)
-     (ors (map cut-cc l))]
-    ))
-
-; Check if a call context has been cut
-(define (cut-cc cc)
-  (match cc
-    [(list) #f]
-    ['! #t]
-    [`(□? ,_ ,_) #f]
-    [`(cenv ,Ce ,ρ) (cut-env ρ)]
     )
   )
 
@@ -293,11 +175,7 @@
   ; (pretty-print `(simple-call-env ,cc))
   (match cc
     [(list) (list)]
-    ['! '!]
     [`(□? ,x ,C) `(□? ,x ,C)]
-    [`(cenv ,Ce ,ρ)
-     ;  (pretty-print `(simplifying ,Ce ,ρ))
-     (cons Ce (simple-call-env (head-cc ρ)))]
     [(cons Ce cc) (cons Ce cc)]
     )
   )
@@ -308,8 +186,6 @@
         [(flatenv l) (flatenv (map show-simple-ctx l))]
         [(expenv l) (expenv (map show-simple-call l))]
         [(menv l) (menv (map show-simple-call l))]
-        [(envenv l) (envenv (map show-simple-call l))]
-        [(lenv l) (lenv (map show-simple-call l))]
         )
       ρ
       )
@@ -327,11 +203,8 @@
   (match cc
     [(list)
      (list)]
-    ['! '!] ; Cut known
     [`(□? ,x ,_)
      `(□? ,x)]
-    [`(cenv ,Ce ,ρ)
-     `(cenv ,(show-simple-ctx Ce) ,(show-simple-env ρ))]
     [(cons Ce cc)
      (cons (show-simple-ctx Ce) (show-simple-call cc))])
   )

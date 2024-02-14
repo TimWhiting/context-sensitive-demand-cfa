@@ -8,16 +8,6 @@
   (gen-queries (cons `(top) exp) (menv (list)))
   )
 
-(define (hybrid-queries exp)
-  (analysis-kind 'hybrid)
-  (gen-queries (cons `(top) exp) (envenv (list)))
-  )
-
-(define (light-queries exp)
-  (analysis-kind 'light)
-  (gen-queries (cons `(top) exp) (lenv (list)))
-  )
-
 (define (gen-queries Ce ρ)
   (define self-query (list Ce ρ))
   (define child-queries (match Ce

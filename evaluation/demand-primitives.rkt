@@ -28,8 +28,6 @@
     ['exponential (clos (cons `(top) #t) (top-env))]
     ['rebinding (clos (cons `(top) #t) (top-env))]
     ['basic (clos (cons `(top) #t) (top-env))]
-    ['light (clos (cons `(top) #t) (top-env))]
-    ['hybrid (clos (cons `(top) #t) (top-env))]
     )
   )
 
@@ -38,8 +36,6 @@
     ['exponential (clos (cons `(top) #f) (top-env))]
     ['rebinding (clos (cons `(top) #f) (top-env))]
     ['basic (clos (cons `(top) #f) (top-env))]
-    ['light (clos (cons `(top) #f) (top-env))]
-    ['hybrid (clos (cons `(top) #f) (top-env))]
     )
   )
 
@@ -49,8 +45,6 @@
     ['exponential (clos `(con #t ()) (top-env))]
     ['rebinding (clos `(con #t ()) (top-env))]
     ['basic (clos (cons `(top) `(app #t)) (top-env))]
-    ['light (clos (cons `(top) `(app #t)) (top-env))]
-    ['hybrid (clos (cons `(top) `(app #t)) (top-env))]
     )
   )
 
@@ -59,8 +53,6 @@
     ['exponential (clos `(con #f ()) (top-env))]
     ['rebinding (clos `(con #f ()) (top-env))]
     ['basic (clos (cons `(top) `(app #f)) (top-env))]
-    ['light (clos (cons `(top) `(app #f)) (top-env))]
-    ['hybrid (clos (cons `(top) `(app #f)) (top-env))]
     )
   )
 

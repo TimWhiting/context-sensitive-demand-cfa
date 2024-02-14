@@ -32,10 +32,6 @@
     [#t #f]
     [#f #t]
     ['() #t]
-    [(envenv l1)
-     (match e2
-       [(envenv l2) (lt-expr l1 l2)]
-       )]
     [(menv l1)
      (match e2
        [(menv l2) (lt-expr l1 l2)]
