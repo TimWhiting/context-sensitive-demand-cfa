@@ -67,7 +67,7 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example successful-examples])
+      (for ([example (get-examples '(sat-small sat-1 sat-2 sat-3))])
         (match-let ([`(example ,name ,exp) example])
           (define rebindhash (run-rebind name exp m out-time-rebind))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))

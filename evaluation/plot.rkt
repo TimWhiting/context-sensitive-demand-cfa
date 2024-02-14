@@ -15,18 +15,25 @@
 (define (sum l) (apply + (replace-zeros l)))
 (define (replace-zeros l) (map (lambda (v) (match v [0 0] [#f 0] [v v])) l))
 
+(define (average-or-false time-res)
+  (if (empty? (filter (lambda (v) (equal? v #f)) time-res))
+      (average (map car time-res))
+      #f
+      )
+  )
+
 (define (avg-time-res line)
   ; (pretty-print line)
   (match line
     ; Demand shuffled (cached)
-    [`(,name ,m ,shufflen ,query ,hash-num (#f)) #f]
-    [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (average (map car time-res))]
+    [`(,name ,m ,shufflen ,query ,hash-num #f) #f]
+    [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (average-or-false time-res)]
     ; Demand no cache
-    [`(,name ,m ,query ,hash-num (#f)) #f]
-    [`(,name ,m ,query ,hash-num ,time-res) (average (map car time-res))]
+    [`(,name ,m ,query ,hash-num #f) #f]
+    [`(,name ,m ,query ,hash-num ,time-res) (average-or-false time-res)]
     ; Regular mCFA
-    [`(,name ,m ,hash-num (#f)) #f]
-    [`(,name ,m ,hash-num ,time-res) (average (map car time-res))]
+    [`(,name ,m ,hash-num #f) #f]
+    [`(,name ,m ,hash-num ,time-res) (average-or-false time-res)]
     ))
 
 (define ((cfa mexpected) line)
@@ -47,8 +54,8 @@
   (define valid-avgs (filter id avgs))
   (define avgsort (if do-sort (sort valid-avgs <) valid-avgs))
   (define cum (cumulative 0 avgsort))
-  (pretty-print avg)
-  (pretty-print cum)
+  ; (pretty-print avg)
+  ; (pretty-print cum)
   (lambda (normt)
     (define t (* normt 1))
     ; Count how many queries returned prior to t (t >= v)
