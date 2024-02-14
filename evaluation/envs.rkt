@@ -10,6 +10,7 @@
 (struct expenv (m) #:transparent)
 ; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
 (struct menv (m) #:transparent)
+(struct callc (m) #:transparent)
 
 ; The lexical environment list
 (define (env-list ρ)
@@ -23,9 +24,9 @@
 (define (split-env env)
   (match env
     [(flatenv _) (error 'flatenv "Flatenvs do not have lexical splits (they only keep track of innermost calls)")]
-    [(expenv (cons head tail)) (cons head (expenv tail))]
+    [(expenv (cons (callc head) tail)) (cons head (expenv tail))]
     [(expenv '()) (expenv '())]
-    [(menv (cons head tail)) (cons head (menv tail))]
+    [(menv (cons (callc head) tail)) (cons head (menv tail))]
     [(menv '()) (menv '())]
     )
   )
@@ -33,17 +34,18 @@
 ; Gets the head calling context of environments, or empty list if the environment is empty
 ; Sometimes we are called from calibrate-envs which returns false if there would be a cut: propagate that
 (define (head-cc ρ)
-  (if ρ
-      (head-or-empty (env-list ρ))
-      #f
-      ))
+  (match (head-or-empty (env-list ρ))
+    [(list) (list)]
+    [(callc c) c]
+    )
+  )
 
 ; Get's the indeterminate lexically enclosing exponential environment representation
 ; (sequence of ccs) that are all indeterminate
 (define (indeterminate-env Ce)
   (match Ce
     [(cons `(bod ,y ,C) e)
-     (cons `(□? ,y ,C) (indeterminate-env (cons C e)))]
+     (cons (callc `(□? ,y ,C)) (indeterminate-env (cons C e)))]
     [(cons `(top) _)
      (list)]
     [_ (indeterminate-env (oute Ce))]))
@@ -59,8 +61,8 @@
 ; Is cc0 more refined or equal to cc1?
 ;  i.e. should an environment with cc1 be instantiate to replace cc1 with cc0?
 (define (⊑-cc cc₀ cc₁)
+  ; (pretty-print `(refined? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
   (match cc₀
-
     [(list)
      (match cc₁
        [(list) #t] ; equal
@@ -74,26 +76,26 @@
     [(cons Ce₀ cc₀)
      (match cc₁
        [(list) #f]
-       [`(□? ,_ ,_) #t]
+       [`(□? ,y ,_) #t]
        [(cons Ce₁ cc₁)
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
 
-(define (cc-determined? cc)
-  ((cc-determinedm? (current-m)) cc))
+(define (cc-determined? ccs)
+  ((cc-determinedm? (current-m)) ccs))
 
 ; Can the environment be refined further?
 (define (cc-determinedm? m)
   (match-lambda
     [(list) #t]
     [`(□? ,_ ,_) #f]
-    [(cons Ce cc) ((cc-determinedm? (- 1 m)) cc)]))
+    [(cons Ce ccs) ((cc-determinedm? (- 1 m)) ccs)]))
 
 ; Used for flat environments gets the top m stack frames (assuming most recent stack frame is the head of the list)
 (define (take-m cc m)
   (if (equal? m 0) '()
       (match cc
-        [(cons c cc) (cons c (take-m cc (- m 1)))]
+        [(cons c ccs) (cons c (take-m ccs (- m 1)))]
         ['() '()]
         ))
   )
@@ -123,14 +125,6 @@
     [(menv _) (take-cc (cons Ce (head-cc ρ)))]
     [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
-    )
-  )
-
-(define (assert-indeterminate cc [ignore-cut #t])
-  (match cc
-    [`(□? ,x ,_) '()]
-    ['only-ever-cuts (if ignore-cut '() (error 'unexpected-need-indet-ctx-in-enter-cc (pretty-format cc)))]
-    [_ (error 'expected-indeterminate-ctx (pretty-format `(got ,cc))) ]
     )
   )
 
@@ -184,8 +178,8 @@
   (if (show-envs-simple)
       (match ρ
         [(flatenv l) (flatenv (map show-simple-ctx l))]
-        [(expenv l) (expenv (map show-simple-call l))]
-        [(menv l) (menv (map show-simple-call l))]
+        [(expenv l) (expenv (map show-simple-call (map callc-m l)))]
+        [(menv l) (menv (map show-simple-call (map callc-m l)))]
         )
       ρ
       )

@@ -1,5 +1,5 @@
 #lang racket/base
-(require racket/set racket/match racket/pretty)
+(require racket/set racket/match racket/pretty "utils.rkt")
 (provide (all-defined-out))
 
 (define (check-let l)
@@ -139,7 +139,7 @@
     [`(prim ,p) `(prim ,p)]
     [`(match ,e ,@mchs) `(match ,(show-simple-expr e) ...)]
     [`(λ ,y ,bod) `(λ ,y ...)]
-    [`(,let-kind ,binds ,bod) `(,let-kind ,(map car binds) ...)]
+    [`(,let-kind ,binds ,bod) `(,let-kind ,(head-or-empty (map car binds)) ... ,(last-or-empty (map car binds)) ...)]
     [''match-error ''match-error]
     [(? symbol? x) x]
     [(? number? x) x]
@@ -165,12 +165,12 @@
     [(cons `(bod ,y ,_) e)
      `(λ ,y (->,(show-simple-expr e) <-))]
     [(cons `(let-bod ,let-kind ,binds ,_) e₁)
-     `(,let-kind ,(map car binds) (->,(show-simple-expr e₁) <-))]
+     `(,let-kind ,(head-or-empty (map car binds)) ... ,(last-or-empty (map car binds)) (->,(show-simple-expr e₁) <-))]
     [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) e₀)
-     `(,let-kind (,@(map car before) (,x (->,(show-simple-expr e₀) <-)) ,@(map car after)) ...)]
+     `(,let-kind (,(last-or-empty (map car before)) (,x (->,(show-simple-expr e₀) <-)) ,(head-or-empty (map car after))) ...)]
     [(cons `(top) e) (cons `(top) (show-simple-expr e))]
     [(cons `(lettypes-bod ,tps, _) bod)
-     `(lettypes ,(map car tps) ,(show-simple-expr bod))
+     `(lettypes ,(head-or-empty (map car tps)) ... ,(last-or-empty (map car tps)) ,(show-simple-expr bod))
      ]
     [(? symbol? x) x]
     [(? number? x) x]

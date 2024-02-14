@@ -1,5 +1,5 @@
 #lang racket/base
-(require "config.rkt" "envs.rkt" "static-contexts.rkt")
+(require "config.rkt" "envs.rkt" "static-contexts.rkt" "syntax.rkt")
 (require racket/match racket/list)
 (provide (all-defined-out))
 
@@ -19,32 +19,21 @@
                                              (range (length args)))))]
                           [(cons _ `(λ ,_ ,_))
                            (apply gen-queries (bod-e Ce ρ))]
-                          [(cons _ `(let ,binds ,_))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (bod-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries ((bin-e i) Ce ρ)))
-                                             (range (length binds)))))
-                           ]
-                          [(cons _ `(letrec ,binds ,_))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (bod-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries ((bin-e i) Ce ρ)))
-                                             (range (length binds)))))
-                           ]
-                          [(cons _ `(let* ,binds ,_))
-                           (foldl append (list)
-                                  (cons (apply gen-queries (bod-e Ce ρ))
-                                        (map (λ (i)
-                                               (apply gen-queries ((bin-e i) Ce ρ)))
-                                             (range (length binds)))))
-                           ]
+                          [(cons _ `(lettypes ,_ ,_))
+                           (apply gen-queries (bod-e Ce ρ))]
                           [(cons _ `(match ,_ ,@ms))
                            (foldl append (list)
                                   (cons (apply gen-queries (focus-match-e Ce ρ))
                                         (map (λ (i)
                                                (apply gen-queries ((match-clause-e i) Ce ρ)))
                                              (range (length ms)))))]
+                          [(cons _ `(,let-kind ,binds ,_))
+                           (check-let let-kind)
+                           (foldl append (list)
+                                  (cons (apply gen-queries (bod-e Ce ρ))
+                                        (map (λ (i)
+                                               (apply gen-queries ((bin-e i) Ce ρ)))
+                                             (range (length binds)))))
+                           ]
                           [_ (list)]))
   (cons self-query child-queries))

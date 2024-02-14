@@ -132,7 +132,7 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv cc) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x, C)) cc)))]
+       [(menv ccs) (unit (cons `(bod ,x ,C) e) (menv (cons (callc (take-cc `(□? ,x, C))) ccs)))]
        )
      ]
     [(cons C `(lettypes ,binds ,e₁))
@@ -150,8 +150,8 @@
      (define lambod (cons `(bod ,x ,C) e))
      (match ρ′
        [(flatenv _) (unit lambod (flatenv (enter-cc call ρ)))]
-       [(expenv _) (unit lambod (expenv (cons (enter-cc call ρ) (expenv-m ρ′))))]
-       [(menv _)  (unit lambod (menv (cons (enter-cc call ρ) (menv-m ρ′))))]
+       [(expenv _) (unit lambod (expenv (cons (callc (enter-cc call ρ)) (expenv-m ρ′))))]
+       [(menv _)  (unit lambod (menv (cons (callc (enter-cc call ρ)) (menv-m ρ′))))]
        )]
     [(cons C `(lettypes ,binds ,e₁))
      (unit (cons `(lettypes-bod ,binds ,C) e₁) ρ)]

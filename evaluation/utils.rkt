@@ -28,6 +28,16 @@
     [(list) (list)]
     ))
 
+(define (last-or-empty cc)
+  (match cc
+    [(cons _ _) (last cc)]
+    [(list) (list)]
+    ))
+
+(define (assert tv msg)
+  (if tv '() (error 'assertion-failed msg))
+  )
+
 (module+ main
   (require rackunit)
   (check-equal? (ors (list #f #f #t)) #t)

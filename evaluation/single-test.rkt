@@ -2,14 +2,14 @@
 (require "all-examples.rkt")
 (require "demand.rkt" "config.rkt" "debug.rkt" "static-contexts.rkt")
 (require "m-cfa.rkt" "envs.rkt" "results.rkt")
+(require racket/pretty)
 
 (module+ main
-  (require racket/pretty)
   (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
-  (current-m 0)
-  (run-basic (get-example-expr 'tic-tac-toe) (lambda (x) x))
+  (current-m 2)
+  (run-basic (get-example-expr 'sat-small) (lambda (x) (go-ran 1 (go-bod (go-bin 1 x)))))
   )
 
 (define (run-basic expr mkq)

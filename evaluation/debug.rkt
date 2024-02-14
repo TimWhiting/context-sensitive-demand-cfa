@@ -71,7 +71,7 @@
          (unit p)))))
 
 (define (print-result input computation)
-  (if (trace) (pretty-print `(start ,input)) '())
+  ; (if (trace) (pretty-print `(start ,input)) '())
   (>>=
    (computation)
    (λ (Cee ρee)

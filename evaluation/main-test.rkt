@@ -56,11 +56,10 @@
   (trace #f)
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
-          [light-cost 0]
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example (get-examples '(sat-small))])
+      (for ([example (get-examples '())])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
