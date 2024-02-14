@@ -53,7 +53,7 @@
 (define (indeterminate-env Ce)
   (match Ce
     [(cons `(bod ,y ,C) e)
-     (cons `(□? ,y) (indeterminate-env (cons C e)))]
+     (cons `(□? ,y ,C) (indeterminate-env (cons C e)))]
     [(cons `(top) _)
      (list)]
     [_ (indeterminate-env (oute Ce))]))
@@ -73,7 +73,7 @@
     ['! ; TODO: Figure out '! cases here
      (match cc₁
        [(list) #f] ; equal
-       [`(□? ,_) #f]
+       [`(□? ,_ ,_) #f]
        [`(cenv ,_ ,_) #f]
        [(cons _ _) #f]
        ['! #t])]
@@ -81,21 +81,21 @@
      (match cc₁
        ['! #t] ; refines '!
        [(list) #t] ; equal
-       [`(□? ,_) #f]
+       [`(□? ,_ ,_) #f]
        [`(cenv ,_ ,_) #f]
        [(cons _ _) #f])]
-    [`(□? ,x)
+    [`(□? ,x ,_)
      (match cc₁
        ['! #t] ; refines '!
        [(list) #f]; indeterminate is not more refined
-       [`(□? ,y) (equal? x y)]; indeterminate is equal if they are equal otherwise false
+       [`(□? ,y ,_) (equal? x y)]; indeterminate is equal if they are equal otherwise false
        [`(cenv ,_ ,_) #f]; indeterminate is not more refined
        [(cons _ _) #f])]
     [`(cenv ,Ce₀ ,ρ₀)
      (match cc₁
        ['! #t] ; refines '!
        [(list) #f]; call-env is not more refined
-       [`(□? ,_) #t]; call-env is more refined
+       [`(□? ,_ ,_) #t]; call-env is more refined
        [`(cenv ,Ce₁ ,ρ₁)
         (and (equal? Ce₀ Ce₁)
              (alls (map ⊑-cc (env-list ρ₀) (env-list ρ₁))))]
@@ -104,7 +104,7 @@
      (match cc₁
        ['! #t] ; refines '!
        [(list) #f]
-       [`(□? ,_) #t]
+       [`(□? ,_ ,_) #t]
        [(cons Ce₁ cc₁)
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
@@ -119,7 +119,7 @@
     ['! (if (equal? m 0)
             #t ; No, it cannot be refined further (it is determined), since it has hit the m limit
             #f)]; Unless we have stepped out since cutting, in which case yes it can be refined (not determined)?
-    [`(□? ,_) #f]
+    [`(□? ,_ ,_) #f]
     [`(cenv ,Ce ,(envenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
     [`(cenv ,Ce ,(lenv cs)) (alls (map (cc-determinedm? (- 1 m)) cs))]
     [(cons Ce cc) ((cc-determinedm? (- 1 m)) cc)]))
@@ -147,8 +147,8 @@
       (match cc
         [(list)
          (list)]
-        [`(□? ,x)
-         `(□? ,x)]
+        [`(□? ,x ,C)
+         `(□? ,x ,C)]
         ['! '!]
         [`(cenv ,Ce ,(envenv cs))
          `(cenv ,Ce ,(envenv (map (λ (cc) (take-ccm (- m 1) cc)) cs)))]
@@ -170,7 +170,7 @@
 
 (define (assert-indeterminate cc [ignore-cut #t])
   (match cc
-    [`(□? ,x) '()]
+    [`(□? ,x ,_) '()]
     ['only-ever-cuts (if ignore-cut '() (error 'unexpected-need-indet-ctx-in-enter-cc (pretty-format cc)))]
     [_ (error 'expected-indeterminate-ctx (pretty-format `(got ,cc))) ]
     )
@@ -185,7 +185,7 @@
             [(list) (list)]; Already 0
             [`(cenv ,_ ,_) '!]; Cut known
             ['! '!]
-            [`(□? ,x) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
+            [`(□? ,x ,_) (list)]; Cut unknown -- TODO: Can we leave the variable since it terminates anyways, and will be reinstantiate to the same thing?
             ))
       (match cc0
         [(list); Restore indeterminate context if there was any
@@ -195,7 +195,7 @@
                cc1)
              )] ; cc1 is always indeterminate
         ['! cc1];
-        [`(□? ,x) `(□? ,x)]
+        [`(□? ,x ,C) `(□? ,x, C)]
         [`(cenv ,call ,(envenv cs))
          (match (calibrate-envsm (envenv cs) (envenv (indeterminate-env call)) (- m 1))
            [res `(cenv ,call ,res)]
@@ -247,7 +247,7 @@
   (match cc
     [(list) #f]
     ['! #t]
-    [`(□? ,_) #f]
+    [`(□? ,_ ,_) #f]
     [`(cenv ,Ce ,ρ) (cut-env ρ)]
     )
   )
@@ -294,7 +294,7 @@
   (match cc
     [(list) (list)]
     ['! '!]
-    [`(□? ,x) `(□? ,x)]
+    [`(□? ,x ,C) `(□? ,x ,C)]
     [`(cenv ,Ce ,ρ)
      ;  (pretty-print `(simplifying ,Ce ,ρ))
      (cons Ce (simple-call-env (head-cc ρ)))]
@@ -320,7 +320,7 @@
     [(list)
      (list)]
     ['! '!] ; Cut known
-    [`(□? ,x)
+    [`(□? ,x ,_)
      `(□? ,x)]
     [`(cenv ,Ce ,ρ)
      `(cenv ,(show-simple-ctx Ce) ,(show-simple-env ρ))]

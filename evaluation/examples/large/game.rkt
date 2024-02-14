@@ -1,4 +1,4 @@
-#lang s-exp "../lang/simple-scheme.rkt"
+#lang s-exp "../../lang/simple-scheme.rkt"
 
 ;take n, applied to a list xs, returns the prefix of xs of length n, or xs itself if n >= length xs.
 (define (take [n : Number] [lst : (Listof 'a)]) : (Listof 'a)

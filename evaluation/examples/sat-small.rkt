@@ -1,4 +1,4 @@
-#lang s-exp "../../lang/simple-scheme.rkt"
+#lang s-exp "../lang/simple-scheme.rkt"
 (define (phi x1 x2)
   (or x1 (not x2)))
 

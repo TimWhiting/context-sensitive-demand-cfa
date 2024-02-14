@@ -134,9 +134,9 @@
      (match ρ
        [(flatenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
        [(expenv _) (error 'not-supported "Bod is not supported for regular mcfa (use bod-enter)")]
-       [(menv cc) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x)) cc)))]
-       [(envenv cc) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x)) cc)))]
-       [(lenv cc) (unit (cons `(bod ,x ,C) e) (lenv (cons (take-cc `(□? ,x)) cc)))]
+       [(menv cc) (unit (cons `(bod ,x ,C) e) (menv (cons (take-cc `(□? ,x, C)) cc)))]
+       [(envenv cc) (unit (cons `(bod ,x ,C) e) (envenv (cons (take-cc `(□? ,x, C)) cc)))]
+       [(lenv cc) (unit (cons `(bod ,x ,C) e) (lenv (cons (take-cc `(□? ,x, C)) cc)))]
        )
      ]
     [(cons C `(lettypes ,binds ,e₁))

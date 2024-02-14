@@ -38,28 +38,31 @@
 (define (get-examples ls)
   (map get-example ls))
 
-(define syntax-basics (get-examples '(basic-letrec basic-letstar)))
-(define basic-num-examples (get-examples '(let-num app-num)))
-(define basic-lambda-examples (get-examples '(id let structural-rec err)))
-(define multiple-param-examples (get-examples '(multi-param)))
-(define constructor-examples (get-examples '(constr)))
-(define r6rs (get-examples '(ack blur cpstak kcfa-2 kcfa-3 sat-1 sat-2 sat-3)))
-(define test-examples (get-examples '(blur)))
+(define syntax-basics '(basic-letrec basic-letstar constr prim-match err id let-num app-num let multi-param structural-rec))
+(define basic-num-examples '(let-num app-num))
+(define basic-lambda-examples '(id let structural-rec err))
+(define basic-let-examples '(basic-letrec basic-letstar))
+(define multiple-param-examples '(multi-param))
+(define constructor-examples '(constr prim-match))
+(define r6rs '(ack blur cpstak kcfa-2 kcfa-3 sat-1 sat-2 sat-3))
 
-(define hybrid-failures (get-examples '(blur sat-small)))
-(define general-failures (get-examples '(church cpstak)))
-(define bad-results (get-examples '(sat-1))); ?check kcfa-2
 ; Fails to parse: regex, fail to run church
-(define untested (get-examples '(deriv eta facehugger flatten loop2-1 map mj09 primtest rsa std regex std-basic game))); ?check kcfa-2
+(define untested '(deriv rsa eta facehugger flatten loop2-1 map mj09 primtest rsa std regex scratch game)); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)
             (not (or
-                  (member x hybrid-failures)
-                  (member x bad-results)
                   (member x untested)
-                  (member x general-failures) #f)))
+                  #f)))
           all-examples))
+
+(define (remove-examples examples)
+  (filter (lambda (x)
+            (match x
+              [`(example ,nm ,expr) (not (member nm examples))]
+              )
+            ) all-examples)
+  )
 
 ; (pretty-print (get-example-expr 'std-basic))
 ; (pretty-print (free-vars (get-example-expr 'std-basic)))

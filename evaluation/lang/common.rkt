@@ -80,7 +80,7 @@
                  `(λ (a)
                     (match a
                       [(,nm ,@(map (λ (ix) (if (= i ix) 'x '_)) (range n))) x]
-                      [_ (app error ,(format "invalid match for ~a" a))]
+                      [_ (app error ,(format "invalid match for ~a-~a" nm a))]
                       )))
            (gen-type-arg-funcs nm as (+ 1 i) n))]))
 

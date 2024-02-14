@@ -1,4 +1,4 @@
-#lang s-exp "../lang/simple-scheme.rkt"
+#lang s-exp "../../lang/simple-scheme.rkt"
 
 (define-type Index
   (Ze)
