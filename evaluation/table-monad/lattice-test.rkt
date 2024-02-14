@@ -1,5 +1,5 @@
 #lang racket/base
-(require "./table-monad/main.rkt" racket/match racket/pretty)
+(require "main.rkt" racket/match racket/pretty)
 
 (struct simple-lattice () #:transparent)
 (struct top simple-lattice () #:transparent)
@@ -27,23 +27,23 @@
 (define ((unit2 xs) k) (k (product/lattice xs)))
 (define ((void k) s) s)
 (define ((>>=1 m f) k) (m (λ (xs)
-  #;(displayln xs)
-  (match xs 
-    [(product/set xs) ((f xs) k)]
-    [(product/lattice n) (id k)]
-    ))))
+                            #;(displayln xs)
+                            (match xs
+                              [(product/set xs) ((f xs) k)]
+                              [(product/lattice n) (id k)]
+                              ))))
 (define ((>>=2 m f) k) (m (λ (xs)
-  #;(displayln xs)
-  (match xs
-    [(product/set xs) (id k)]
-    [(product/lattice n) ((f n) k)]
-    ))))
+                            #;(displayln xs)
+                            (match xs
+                              [(product/set xs) (id k)]
+                              [(product/lattice n) ((f n) k)]
+                              ))))
 
 (define-key (test1 x) #:⊥ (bottom) #:⊑ simple-lte #:⊔ simple-union #:product
   (begin #;(pretty-print "test1")
-    (match x
-      [10 (>>=1 (unit1 x) (λ (x) (unit2 (singleton 1))))]
-      [8 (>>=2 (test1 10) unit2)] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
-      )))
+         (match x
+           [10 (>>=1 (unit1 x) (λ (x) (unit2 (singleton 1))))]
+           [8 (>>=2 (test1 10) unit2)] ;  (λ (l) (pretty-print "lattice cont") (unit (cons x l)))
+           )))
 
 (pretty-print (run (test1 8)))

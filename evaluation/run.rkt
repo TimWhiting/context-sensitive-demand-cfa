@@ -2,9 +2,9 @@
 (require "config.rkt" racket/pretty racket/match)
 (provide (all-defined-out))
 
-(define-syntax-rule (run/parameters name m k x)
+(define-syntax-rule (run/parameters name m k info x)
   (let ()
-    (pretty-display (format "running ~a, m=~a kind=~a" name m k))
+    (pretty-display (format "running ~a, m=~a kind=~a info=~a" name m k info))
     (analysis-kind k)
     (current-m m)
     (define start (current-inexact-monotonic-milliseconds))

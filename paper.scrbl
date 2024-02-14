@@ -72,6 +72,9 @@ We evaluate both, finding that Lightweight Demand $m$-CFA in some cases offers, 
 
 \section{Getting into the Flow}
 
+Adjust to use sat example
+
+
 Conventional control-flow analysis is tactless---unthinking and inconsiderate.
 
 To illustrate, consider the program fragment on the right which defines the recursive \texttt{fold} function.
@@ -150,8 +153,9 @@ consequently, it is not suitable for the same applications of demand analysis as
 
 %\subsection{Contributions}
 
-\item adding indeterminate
+\item adding indeterminate contexts
 \item why context sensitivity
+\item why indeterminate is important - saves effort
 
 This paper makes the following contributions:
 \begin{itemize}

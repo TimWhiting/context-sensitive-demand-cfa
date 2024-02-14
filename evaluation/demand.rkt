@@ -2,7 +2,7 @@
 (require (rename-in "table-monad/main.rkt" [void fail]))
 (require "static-contexts.rkt" "demand-abstraction.rkt"
          "debug.rkt" "demand-primitives.rkt"
-         "envs.rkt" "utils.rkt")
+         "envs.rkt" "utils.rkt" "syntax.rkt")
 (require racket/pretty)
 (require racket/match
          racket/list)
@@ -213,7 +213,7 @@ Finish the paper
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   (expect-no-cut ρ)
   (print-eval-result
-   `(eval ,Ce ,ρ)
+   `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
    (λ ()
      (⊔ (match Ce
           [(cons C #t) (truecon C ρ)]
@@ -302,7 +302,7 @@ Finish the paper
                   ))]
           [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
           )
-        (>>= (get-refines* `(eval ,Ce ,ρ) ρ)
+        (>>= (get-refines* `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
              (λ (ρ′) (eval Ce ρ′)))))))
 
 
@@ -430,10 +430,10 @@ Finish the paper
   (expect-no-cut ρ)
   ; (pretty-trace `(call ,C ,xs ,e ,ρ))
   (print-result
-   `(call ,C ,xs ,e ,ρ)
+   `(call ,(show-simple-ctx (cons C `(λ ,xs ,e))) ,(show-simple-env ρ))
    (λ () (match ρ
            [(menv (cons cc₀ ρ₀))
-            (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
+            ; (pretty-trace `(CALL BASIC ,(cons C `(λ ,xs ,e))))
             (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
                  (λ (Cee ρee)
                    (let ([cc₁ (enter-cc Cee ρee)])
@@ -464,7 +464,7 @@ Finish the paper
                  (pretty-trace `(CALL-UNKNOWN ,(calibrate-envs (envenv ρ₀) indet-env)))
                  (>>= (expr (cons C `(λ ,xs ,e)) (envenv ρ₀)); Fallback to normal basic evaluation
                       (λ (Cee ρee)
-                        (pretty-trace `(,Cee ,ρee))
+                        ; (pretty-trace `(,(show-simple-ctx Cee) ,(show-simple-env ρee)))
                         (let ([cc₁ (enter-cc Cee ρee)])
                           (cond
                             [(equal? cc₀ cc₁)
@@ -507,7 +507,7 @@ Finish the paper
   (expect-no-cut ρ)
   (begin
     (print-result
-     `(expr ,Ce ,ρ)
+     `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ))
      (λ () (⊔ (match Ce
                 [(cons `(rat ,_ ,_) _)
                  ;  (pretty-trace "RAT")
@@ -565,7 +565,7 @@ Finish the paper
                                )))]
                 [(cons `(top) _)
                  ⊥])
-              (>>= (get-refines* `(expr ,Ce ,ρ) ρ) (λ (ρ′) (expr Ce ρ′))))))))
+              (>>= (get-refines* `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ) (λ (ρ′) (expr Ce ρ′))))))))
 
 (provide (all-defined-out)
          (all-from-out "table-monad/main.rkt"))

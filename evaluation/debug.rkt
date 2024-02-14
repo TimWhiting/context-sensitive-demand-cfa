@@ -53,7 +53,7 @@
 
 (define ((debug-eval name comp) . args)
   (apply (λ (Ce p)
-           (print-eval-result `(,name ,Ce ,p)
+           (print-eval-result `(,name ,(show-simple-ctx Ce) ,(show-simple-env p))
                               (λ () (comp Ce p))))
          args)
   )
@@ -66,7 +66,7 @@
      (if (trace)
          (begin
            (pretty-print `(end ,input))
-           (pretty-print `(result ,p))
+           (pretty-print `(result ,(show-simple-env p)))
            (unit p))
          (unit p)))))
 

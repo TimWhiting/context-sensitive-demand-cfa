@@ -155,25 +155,49 @@
     )
   )
 
+(define (show-simple-expr e)
+  (match e
+    [`(app ,@es) `(app ,@(map show-simple-expr es))]
+    [`(prim ,p) `(prim ,p)]
+    [`(match ,e ,@mchs) `(match ,(show-simple-expr e) ...)]
+    [`(λ ,y ,bod) `(λ ,y ...)]
+    [`(,let-kind ,binds ,bod) `(,let-kind ,(map car binds) ...)]
+    [''match-error ''match-error]
+    [(? symbol? x) x]
+    [(? number? x) x]
+    [(? char? x) x]
+    [(? string? x) x]
+    [#t #t]
+    [#f #f]
+    )
+  )
+
 (define (show-simple-ctx Ce)
+  ; (pretty-print Ce)
   (match Ce
     [`(prim ,p) `(prim ,p)]
     [(cons `(rat ,es ,_) e₀)
-     `(app (->,e₀ <-) ,@es)]
+     `(app (->,(show-simple-expr e₀) <-) ,@(map show-simple-expr es))]
     [(cons `(match-e ,es ,_) e₀)
-     `(match (->,e₀ <-) ,@es)]
+     `(match (->,(show-simple-expr e₀) <-) ,@(map car es))]
     [(cons `(ran ,f ,b ,a ,_) e)
-     `(app ,f ,@b (->,e <-) ,@a)]
+     `(app ,(show-simple-expr f) ,@(map show-simple-expr b) (->,(show-simple-expr e) <-) ,@(map show-simple-expr a))]
     [(cons `(match-clause ,m ,f ,b ,a ,_) e)
-     `(match ,f ,@b (->,m ,e <-) ,@a)]
+     `(match ,(show-simple-expr f) ,@(map car b) (->,m ,(show-simple-expr e) <-) ,@(map car a))]
     [(cons `(bod ,y ,_) e)
-     `(λ ,y (->,e <-))]
+     `(λ ,y (->,(show-simple-expr e) <-))]
     [(cons `(let-bod ,let-kind ,binds ,_) e₁)
-     `(,let-kind ,(map car binds) (->,e₁ <-))]
+     `(,let-kind ,(map car binds) (->,(show-simple-expr e₁) <-))]
     [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) e₀)
-     `(,let-kind (,@(map car before) (->,x = ,e₀ <-) ,@(map car after)) bod)]
+     `(,let-kind (,@(map car before) (->,x ,(show-simple-expr e₀) <-) ,@(map car after)) ...)]
     [(cons `(top) _) `(top)]
-    [e e]
+    [(cons `(lettypes-bod ,tps, _) bod)
+     `(lettypes ,(map car tps) ,(show-simple-expr bod))
+     ]
+    [(? symbol? x) x]
+    [(? number? x) x]
+    [(? char? x) x]
+    [(? string? x) x]
     )
   )
 

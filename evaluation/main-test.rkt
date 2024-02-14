@@ -15,6 +15,7 @@
   (run/parameters
    name
    m kind
+   '_
    (run-get-hash query (hash))))
 
 (define (run-rebind name exp m)
@@ -30,6 +31,7 @@
   (run/parameters
    name
    m kind
+   query
    (let
        ([hash-new (run-get-hash query (hash))])
      (set! hash-result hash-new)
