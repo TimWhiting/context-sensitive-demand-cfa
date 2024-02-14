@@ -1,6 +1,6 @@
 #lang racket/base
 (require racket/match racket/pretty racket/list)
-(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt" "config.rkt")
+(require "table-monad/main.rkt" "demand-abstraction.rkt" "debug.rkt" "utils.rkt" "config.rkt" "envs.rkt")
 
 
 (define (lookup-primitive x)
@@ -22,45 +22,45 @@
     )
   )
 
-
+; Primitive constructors can be top env / contexts
 (define (truecon C p)
   (match (analysis-kind)
-    ['exponential (clos (cons C #t) p)]
-    ['rebinding (clos (cons C #t) p)]
-    ['basic (clos (cons `(top) #t) p)]
-    ['light (clos (cons `(top) #t) p)]
-    ['hybrid (clos (cons `(top) #t) p)]
+    ['exponential (clos (cons `(top) #t) (top-env))]
+    ['rebinding (clos (cons `(top) #t) (top-env))]
+    ['basic (clos (cons `(top) #t) (top-env))]
+    ['light (clos (cons `(top) #t) (top-env))]
+    ['hybrid (clos (cons `(top) #t) (top-env))]
     )
   )
 
 (define (falsecon C p)
   (match (analysis-kind)
-    ['exponential (clos (cons C #f) p)]
-    ['rebinding (clos (cons C #f) p)]
-    ['basic (clos (cons `(top) #f) p)]
-    ['light (clos (cons `(top) #f) p)]
-    ['hybrid (clos (cons `(top) #f) p)]
+    ['exponential (clos (cons `(top) #f) (top-env))]
+    ['rebinding (clos (cons `(top) #f) (top-env))]
+    ['basic (clos (cons `(top) #f) (top-env))]
+    ['light (clos (cons `(top) #f) (top-env))]
+    ['hybrid (clos (cons `(top) #f) (top-env))]
     )
   )
 
 
-(define (true C p)
+(define (true C p) ; Singleton constructors can be top context / envs
   (match (analysis-kind)
-    ['exponential (clos `(con #t ()) p)]
-    ['rebinding (clos `(con #t ()) p)]
-    ['basic (clos (cons `(top) `(app #t)) p)]
-    ['light (clos (cons `(top) `(app #t)) p)]
-    ['hybrid (clos (cons `(top) `(app #t)) p)]
+    ['exponential (clos `(con #t ()) (top-env))]
+    ['rebinding (clos `(con #t ()) (top-env))]
+    ['basic (clos (cons `(top) `(app #t)) (top-env))]
+    ['light (clos (cons `(top) `(app #t)) (top-env))]
+    ['hybrid (clos (cons `(top) `(app #t)) (top-env))]
     )
   )
 
 (define (false C p)
   (match (analysis-kind)
-    ['exponential (clos `(con #f ()) p)]
-    ['rebinding (clos `(con #f ()) p)]
-    ['basic (clos (cons `(top) `(app #f)) p)]
-    ['light (clos (cons `(top) `(app #f)) p)]
-    ['hybrid (clos (cons `(top) `(app #f)) p)]
+    ['exponential (clos `(con #f ()) (top-env))]
+    ['rebinding (clos `(con #f ()) (top-env))]
+    ['basic (clos (cons `(top) `(app #f)) (top-env))]
+    ['light (clos (cons `(top) `(app #f)) (top-env))]
+    ['hybrid (clos (cons `(top) `(app #f)) (top-env))]
     )
   )
 

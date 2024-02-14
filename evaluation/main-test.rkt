@@ -9,7 +9,7 @@
 (define (run-mcfa name kind kindstring query exp m)
   (define out (open-output-file
                (string-append "tests/m" (number->string (current-m)) "/"
-                              (symbol->string name) "-" kindstring "-results.txt")
+                              (symbol->string name) "-" kindstring "-results.rkt")
                #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
   (define hash-result (hash))
@@ -34,7 +34,8 @@
 (define (run-demand name num-queries kind m Ce p out)
   (define query (eval Ce p))
   (define hash-result (hash))
-  (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
+  (pretty-display "" out)
+  (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
   (run/parameters
    name
    m kind
@@ -60,10 +61,10 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example r6rs])
+      (for ([example (get-examples '(sat-small))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
-          (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.txt") #:exists 'replace))
+          (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
           ; (define out-hybrid (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-hybrid-results.txt") #:exists 'replace))
           ; (define out-light (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-light-results.txt") #:exists 'replace))
           ; (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))

@@ -201,7 +201,11 @@
                                  ))))
                           )]
                     [(cons C con)
-                     (clos `(con ,con ,evaled-args) ρ)]
+                     (if (= (length args) 0)
+                         (clos `(con ,con ,evaled-args) (top-env))
+                         (clos `(con ,con ,evaled-args) ρ)
+                         )
+                     ]
                     ))))
 
          )

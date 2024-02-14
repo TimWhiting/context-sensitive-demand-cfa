@@ -315,6 +315,14 @@
       )
   )
 
+(define (top-env)
+  (match (analysis-kind)
+    ['exponential (expenv '())]
+    ['rebinding (flatenv '())]
+    ['basic (menv '())]
+    )
+  )
+
 (define (show-simple-call cc)
   (match cc
     [(list)

@@ -8,7 +8,8 @@
   (for ([keyval (hash->list h)])
     (match keyval
       [(cons (and key (meval Ce p)) _)
-       (pretty-print `(query: ,(show-simple-ctx Ce) ,p) out)
+       (pretty-display "" out)
+       (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
        (pretty-result-out out (from-hash key h))
        ]
       [_ '()]

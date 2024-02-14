@@ -266,7 +266,7 @@ Finish the paper
           [(cons C `(app ,@args))
            (pretty-trace `(APP ,ρ))
            (>>=clos
-            (>>= (rat Ce ρ) eval) ; TODO: Switch this to check for primitive apps first?
+            (>>= (rat Ce ρ) eval)
             (λ (Ce′ ρ′)
               ; (pretty-trace `(got closure or primitive ,Ce′))
               (match Ce′
@@ -281,7 +281,11 @@ Finish the paper
                 [(cons _ `(λ ,_ ,_))
                  (>>= (bod-enter Ce′ Ce ρ ρ′) (debug-eval 'app-eval eval))
                  ]
-                [(cons _ con) (clos Ce ρ)]; Constructors just return the application
+                ; Constructors just return the application. We need the context to further resolve demand queries for arguments
+                [(cons _ con)
+                 (if (= (length args) 1)
+                     (clos (cons `(top) `(app ,@args)) (top-env))
+                     (clos Ce ρ))]
                 )
               ))
            ]
