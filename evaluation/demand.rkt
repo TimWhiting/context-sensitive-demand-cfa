@@ -25,7 +25,7 @@ Finish the paper
 
 ; The first is a refinement of the second parameter
 (define (((put-refines ρ₀ ρ₁) k) s)
-  (pretty-trace `(addrefine ,(show-simple-env ρ₀) ,(show-simple-env ρ₁)))
+  ; (pretty-trace `(addrefine ,(show-simple-env ρ₀) ,(show-simple-env ρ₁)))
   ((k #f) ((node-absorb/powerset (refine ρ₁) (list ρ₀)) s)))
 
 
@@ -493,7 +493,16 @@ Finish the paper
                                    (λ (Ce ρ)
                                      (>>= ((find (car (drop xs (length before)))) Ce ρ)
                                           expr))) ]
-                             [(cons C (? symbol? x)) (expr Cλx.e ρλx.e)]
+                             [(cons C (? symbol? x))
+                              (pretty-print `(,x ,(show-simple-ctx Cee)))
+                              (>>= (expr Cee ρee)
+                                   (λ (Cee ρee)
+                                     (pretty-print (show-simple-ctx Cee))
+                                     (exit)
+                                     )
+                                   )
+                              ; Constructor, see where the constructor flows
+                              ]
 
                              )))) )]
                 [(cons `(bod ,xs ,C) e)

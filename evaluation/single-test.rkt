@@ -9,7 +9,16 @@
   (show-envs-simple #t)
   (show-envs #f)
   (current-m 2)
-  (run-basic (get-example-expr 'sat-small) (lambda (x) (go-ran 1 (go-bod (go-bin 1 x)))))
+  (run-basic (get-example-expr 'tic-tac-toe)
+             (lambda (x)
+               (go-ran 0
+                       (go-ran 0
+                               (go-ran 0
+                                       (go-bod
+                                        (go-bod
+                                         (go-bin 26
+                                                 (go-bod x)))))))
+               ))
   )
 
 (define (run-basic expr mkq)
