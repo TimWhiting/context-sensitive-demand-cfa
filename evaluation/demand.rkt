@@ -548,8 +548,11 @@ Finish the paper
                                        )
                                      )
                                )))]
+
                 [(cons `(top) _)
-                 ⊥])
+                 ⊥]
+                [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,(show-simple-ctx Ce))))]
+                )
               (>>= (get-refines* `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ) (λ (ρ′) (expr Ce ρ′))))))))
 
 (provide (all-defined-out)
