@@ -2,16 +2,14 @@
 (require "config.rkt" racket/pretty racket/match)
 (provide (all-defined-out))
 
-(define-syntax-rule (run/parameters name m k info x)
+(define-syntax-rule (run/parameters name m k x)
   (let ()
-    (pretty-display (format "running ~a, m=~a kind=~a info=~a" name m k info))
     (analysis-kind k)
     (current-m m)
     (define start (current-inexact-monotonic-milliseconds))
     (let ([res x])
       (define end (current-inexact-monotonic-milliseconds))
-      (pretty-display (format "finished in ~a ms, result:\n~a\n" (- end start) res))
-      res)
+      (cons res (- end start)))
     )
   )
 

@@ -5,7 +5,7 @@
 (require racket/pretty racket/match)
 
 (define print-simple-diff #t)
-(define max-context-length 2)
+(define max-context-length 0)
 (define (run-mcfa name kind kindstring query exp m)
   (define out (open-output-file
                (string-append "tests/m" (number->string (current-m)) "/"
@@ -13,16 +13,20 @@
                #:exists 'replace))
   (pretty-print `(expression: ,exp) out)
   (define hash-result (hash))
-  (run/parameters
-   name
-   m kind
-   '_
-   (let ([hash-new (run-get-hash query (hash))])
-     (set! hash-result hash-new)
-     )
-   )
-  (report-mcfa-hash hash-result out)
-  hash-result
+  (pretty-display (format "running ~a, m=~a kind=~a" name m kind))
+  (match-let
+      ([(cons res t)
+        (run/parameters
+         name
+         m kind
+         (let ([hash-new (run-get-hash query (hash))])
+           (set! hash-result hash-new)
+           )
+         )])
+    (pretty-display (format "finished in ~a ms, result:\n~a\n" t res))
+    (report-mcfa-hash hash-result out)
+    hash-result
+    )
   )
 
 (define (run-rebind name exp m)
@@ -36,17 +40,24 @@
   (define hash-result (hash))
   (pretty-display "" out)
   (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
-  (run/parameters
-   name
-   m kind
-   (show-simple-ctx Ce)
-   (let
-       ([hash-new (run-get-hash query (hash))])
-     (set! hash-result hash-new)
-     (show-simple-results (from-hash query hash-result))
-     ))
-  (pretty-result-out out (from-hash query hash-result))
-  hash-result
+  (match-let
+      ([(cons res t)
+        (run/parameters
+         name
+         m kind
+         (let
+             ([hash-new (run-get-hash query (hash))])
+           (set! hash-result hash-new)
+           (from-hash query hash-result)
+           ))])
+    (if (is-bottom res)
+        (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind (show-simple-ctx Ce)))
+        '()
+        )
+    ; (pretty-display (format "finished in ~a ms, result:\n~a\n" t (show-simple-results res)))
+    (pretty-result-out out (from-hash query hash-result))
+    hash-result
+    )
   )
 
 (module+ main
@@ -59,7 +70,7 @@
           [rebind-cost 0]
           [expm-cost 0])
       (current-m m)
-      (for ([example (get-examples '())])
+      (for ([example (get-examples '(tic-tac-toe))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))

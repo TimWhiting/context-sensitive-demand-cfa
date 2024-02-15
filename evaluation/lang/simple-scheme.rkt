@@ -1,5 +1,5 @@
 #lang racket
-(require "common.rkt")
+(require "common.rkt" "syntax.rkt")
 (provide (except-out (all-from-out racket)
                      #%module-begin
                      #%top)

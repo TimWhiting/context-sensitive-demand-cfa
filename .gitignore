@@ -9,3 +9,4 @@ paper.pdf
 compiled
 *.rkt~
 evaluation/out.rkt
+evaluation/out.txt

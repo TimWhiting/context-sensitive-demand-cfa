@@ -1,7 +1,7 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
-(require "static-contexts.rkt" "demand-abstraction.rkt"
-         "debug.rkt" "demand-primitives.rkt"
+(require "static-contexts.rkt" "abstract-value.rkt"
+         "debug.rkt" "primitives.rkt"
          "envs.rkt" "utils.rkt" "syntax.rkt")
 (require racket/pretty)
 (require racket/match
@@ -9,8 +9,6 @@
 
 #|
 TODO:
-Work on paper based on pattern matching / constructors
-
 Add more simple tests
 
 Handle Errors
@@ -54,7 +52,7 @@ Finish the paper
                (match ρ′
                  [(menv ccs) (unit (menv (cons (callc c) ccs)))]
                  ))))]
-    [_ ⊥]
+    [(menv '()) ⊥]
     ))
 
 (define ((find x) Ce ρ)

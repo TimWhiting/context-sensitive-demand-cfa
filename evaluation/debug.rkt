@@ -1,6 +1,6 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "demand-abstraction.rkt" "envs.rkt" "syntax.rkt")
+(require "config.rkt" "abstract-value.rkt" "envs.rkt" "syntax.rkt")
 (require racket/match racket/pretty racket/set)
 
 (provide (all-defined-out))

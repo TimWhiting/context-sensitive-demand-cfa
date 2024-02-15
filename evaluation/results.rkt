@@ -1,5 +1,5 @@
 #lang racket/base
-(require "demand.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
+(require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
 (require "m-cfa.rkt")
 (require racket/pretty racket/match racket/set)
 (provide (all-defined-out))
@@ -88,3 +88,11 @@
      ]
     [x (pretty-format x)]
     ))
+
+(define (is-bottom r)
+  (match r
+    [(cons s (literal l))
+     (and (set-empty? s) (andmap bottom? l))
+     ]
+    )
+  )

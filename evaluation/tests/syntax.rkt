@@ -282,56 +282,14 @@
    (horizon outcome step-count)
    (move coord horizon)
    (player mark action))
-  (letrec ((Tw? (λ (a) (match a ((Tw) (app #t)) (_ (app #f)))))
-           (On? (λ (a) (match a ((On) (app #t)) (_ (app #f)))))
-           (Ze? (λ (a) (match a ((Ze) (app #t)) (_ (app #f)))))
-           (coord-row
-            (λ (a)
-              (match
-               a
-               ((coord x _) x)
-               (_ (app error "invalid match for coord-row")))))
-           (coord-col
-            (λ (a)
-              (match
-               a
-               ((coord _ x) x)
-               (_ (app error "invalid match for coord-col")))))
-           (coord? (λ (a) (match a ((coord _ _) (app #t)) (_ (app #f)))))
-           (O? (λ (a) (match a ((O) (app #t)) (_ (app #f)))))
-           (X? (λ (a) (match a ((X) (app #t)) (_ (app #f)))))
-           (none? (λ (a) (match a ((none) (app #t)) (_ (app #f)))))
-           (some-v
+  (letrec ((some-v
             (λ (a)
               (match
                a
                ((some x) x)
                (_ (app error "invalid match for some-v")))))
-           (some? (λ (a) (match a ((some _) (app #t)) (_ (app #f)))))
-           (marked-xo
-            (λ (a)
-              (match
-               a
-               ((marked x) x)
-               (_ (app error "invalid match for marked-xo")))))
            (marked? (λ (a) (match a ((marked _) (app #t)) (_ (app #f)))))
            (blank? (λ (a) (match a ((blank) (app #t)) (_ (app #f)))))
-           (lose? (λ (a) (match a ((lose) (app #t)) (_ (app #f)))))
-           (draw? (λ (a) (match a ((draw) (app #t)) (_ (app #f)))))
-           (win? (λ (a) (match a ((win) (app #t)) (_ (app #f)))))
-           (horizon-outcome
-            (λ (a)
-              (match
-               a
-               ((horizon x _) x)
-               (_ (app error "invalid match for horizon-outcome")))))
-           (horizon-step-count
-            (λ (a)
-              (match
-               a
-               ((horizon _ x) x)
-               (_ (app error "invalid match for horizon-step-count")))))
-           (horizon? (λ (a) (match a ((horizon _ _) (app #t)) (_ (app #f)))))
            (move-coord
             (λ (a)
               (match
@@ -344,20 +302,6 @@
                a
                ((move _ x) x)
                (_ (app error "invalid match for move-horizon")))))
-           (move? (λ (a) (match a ((move _ _) (app #t)) (_ (app #f)))))
-           (player-mark
-            (λ (a)
-              (match
-               a
-               ((player x _) x)
-               (_ (app error "invalid match for player-mark")))))
-           (player-action
-            (λ (a)
-              (match
-               a
-               ((player _ x) x)
-               (_ (app error "invalid match for player-action")))))
-           (player? (λ (a) (match a ((player _ _) (app #t)) (_ (app #f)))))
            (is
             (app
              cons

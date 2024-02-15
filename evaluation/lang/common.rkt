@@ -1,5 +1,5 @@
 #lang racket/base
-(require racket/match racket/pretty racket/list)
+(require racket/match racket/pretty racket/list racket/set "syntax.rkt")
 (provide (all-defined-out))
 
 (define (translate-top-defs-out . ss)
@@ -106,8 +106,16 @@
   ; (pretty-print `(translate-top-defs ,tops))
   (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
-    (make-type-defs top-types (make-binds (append top-type-defs binds) exprs))
+
+    (define fvs (apply set-union (map free-vars (append exprs (map cadr binds)))))
+    ; (pretty-print fvs)
+    (define used (filter (lambda (td)
+                           (match td
+                             [`(,nm ,_) (set-member? fvs nm)]
+                             )) top-type-defs))
+    (make-type-defs top-types (make-binds (append used binds) (to-begin exprs)))
     ))
+
 
 (define (translate-top-defs-expr expr ss)
   ; (pretty-print `(translate-top-defs ,ss))
@@ -117,7 +125,13 @@
   ; (pretty-print `(translate-top-defs ,expr))
   (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
-    (make-type-defs top-types (make-binds (append top-type-defs binds) (list expr)))
+    (define fvs (apply set-union (free-vars (cons expr (map cadr binds)))))
+    ; (pretty-print fvs)
+    (define used (filter (lambda (td)
+                           (match td
+                             [`(,nm ,_) (set-member? fvs nm)]
+                             )) top-type-defs))
+    (make-type-defs top-types (make-binds (append used binds) expr))
     ))
 
 (define (make-type-defs tps body)
@@ -126,10 +140,10 @@
     [tps `(lettypes ,tps ,body)]
     ))
 
-(define (make-binds binds exprs)
+(define (make-binds binds expr)
   (match binds
-    ['() (to-begin exprs)]
-    [(cons _ _) `(letrec ,binds ,(to-begin exprs))]
+    ['() expr]
+    [(cons _ _) `(letrec ,binds ,expr)]
     ))
 
 (define ((translate-top [top #f]) s)
