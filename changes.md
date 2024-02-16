@@ -1,3 +1,17 @@
+TODO: 
+TOMORROW: 
+Work on Paper!!!
+
+- [ ] Work on regular mcfa addresses for constructor parameters
+- [ ] Create tests for each path in the code?
+- [ ] Add back lightweight
+- [ ] Work on writing up our hypotheses for the result section
+- [ ] Work on results 
+  - [ ] Need to compare precision of results
+  - [ ] Need to demonstrate adaptability of queries (i.e. if not precise, increase precision and try again), what kind of graph or visual would be useful here?
+  - [ ] Consider higher $m$s (i.e. m=5) - unlikely time-worth-it unless lightweight
+- [ ] Equivalence of demand-mcfa and mcfa (i.e. if we mcfa returns a result, we get the same result with demand-mcfa)
+
 FEEDBACK from prior submission
 - include 2CFA as well as 1CFA => perhaps even consider, e.g. 5CFA as defensive program analysis does
 - evaluation doesn't show practicality => be concrete about what is going on so that even the less-attentive reader will pick it up
@@ -13,17 +27,6 @@ show a functional program fragment, say that it is embedded within a larger prog
 we could apply CFA to the whole program, but CFA is expensive.
 (obviously, we probably want information about many different locations of the program, spread throughout the program.)
 this subexpression has free variables.
-
-TODO: 
-- [ ] Work on pattern matching / constructor rules
-- [ ] Work on writing up our hypotheses for the result section
-- [ ] Work on results 
-  - [ ] Graph of mcfa vs demand-mcfa (x axis is time, y axis is % of queries answered), at some point mcfa is more useful because it returns 100%
-  - [ ] Need to compare precision of results
-  - [ ] Need to compare caching of queries
-  - [ ] Need to demonstrate adaptability of queries (i.e. if not precise, increase precision and try again), what kind of graph or visual would be useful here?
-  - [ ] Consider higher $m$s (i.e. m=5)
-- [ ] Equivalence of demand-mcfa and mcfa (i.e. if we mcfa returns a result, we get the same result with demand-mcfa)
 
 
 General comments:

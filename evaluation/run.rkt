@@ -4,19 +4,22 @@
 
 (define-syntax-rule (run/parameters name m k x)
   (let ()
+
     (analysis-kind k)
     (current-m m)
     (define start (current-inexact-monotonic-milliseconds))
     (let ([res x])
       (define end (current-inexact-monotonic-milliseconds))
       (cons res (- end start)))
+
     )
   )
 
 (define-syntax-rule (run/timen name n m k x)
   (let* [
          (result (make-channel))
-         (timeout-ms (/ timeout (max 1 (/ n 100))))
+         (timeout-ms timeout)
+         ;  (timeout-ms (/ timeout (max 1 (/ n 100))))
          ;  (_ (pretty-print timeout-ms))
          (alarm (alarm-evt (+ (current-inexact-monotonic-milliseconds) timeout-ms) #t))
          (thd (thread

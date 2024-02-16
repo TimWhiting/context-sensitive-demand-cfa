@@ -12,8 +12,8 @@
     ['< `(prim ,do-lt)]
     ['<= `(prim ,do-lte)]
     ['not `(prim ,do-not)]
-    ['or `(prim ,do-or)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
-    ['and `(prim ,do-and)]; TODO Handle in match positions, TODO: Handle not evaluating all arguments
+    ['or `(prim ,do-or)]; TODO Handle in match positions
+    ['and `(prim ,do-and)]; TODO Handle in match positions
     ['equal? `(prim ,do-equal)]
     ['newline `(prim ,do-newline)]
     ['display `(prim ,do-display)]
@@ -67,11 +67,14 @@
 (define (apply-primitive e C p args)
   (match e
     [`(prim ,f)
-     (print-eval-result `(applying primitive: ,e ,p ,args) (λ () (apply f (cons p (cons C args)))))]
+     ;  (print-eval-result `(applying primitive: ,e ,p ,args) (λ ()
+     (apply f (cons p (cons C args)))
+     ; ))
+     ]
     [_ #f]
     ))
 
-; TODO: Improve the primitives
+; TODO: Improve the primitives (make them more refined)
 (define (do-equal p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))

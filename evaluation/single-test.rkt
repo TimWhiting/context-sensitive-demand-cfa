@@ -1,35 +1,43 @@
 #lang racket/base
 (require "all-examples.rkt")
 (require "demand.rkt" "config.rkt" "debug.rkt" "static-contexts.rkt")
-(require "m-cfa.rkt" "envs.rkt" "results.rkt")
+(require "m-cfa.rkt" "envs.rkt" "results.rkt" "run.rkt")
 (require racket/pretty)
 
 (module+ main
   (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
-  (current-m 2)
-  (run-basic (get-example-expr 'tic-tac-toe)
-             (lambda (x)
-               (go-ran 0
-                       (go-ran 0
-                               (go-ran 0
-                                       (go-bod
-                                        (go-bod
-                                         (go-bin 26
-                                                 (go-bod x)))))))
-               ))
-  )
+
+  (run-basic (get-example-expr 'sat-2)
+             (lambda (x) (alternate 16 go-bod (go-ran-i 0) (go-bin 2 x)))
+             ))
+
+(define (repeat n f a)
+  (if (= n 0) a
+      (repeat (- n 1) f (f a))
+      ))
+
+(define (alternate n f g a)
+  (if (= n 0) a
+      (alternate (- n 1) g f (f a))
+      ))
 
 (define (run-basic expr mkq)
-  (analysis-kind 'basic)
   (define top-query-b (list (cons `(top) expr) (menv (list))))
   (define qb (mkq top-query-b))
-  (pretty-result
-   (run-print-query (apply eval qb)))
+  (run/parameters
+   "sample"
+   1
+   'basic
+   (pretty-result
+    (run-print-query (apply eval qb)))
+   )
   )
 
 
 (define (go-bod q) (apply bod-e q))
+(define ((go-ran-i i) q) (apply (ran-e i) q))
+(define ((go-bin-i i) q) (apply (bin-e i) q))
 (define (go-ran i q) (apply (ran-e i) q))
 (define (go-bin i q) (apply (bin-e i) q))

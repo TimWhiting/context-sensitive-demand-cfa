@@ -65,9 +65,10 @@
     (let ([basic-cost 0]
           [basic-acc-cost 0]
           [rebind-cost 0]
-          [expm-cost 0])
+          [expm-cost 0]
+          [num-queries 0])
       (current-m m)
-      (for ([example (get-examples '(sat-small sat-1 sat-2 sat-3))])
+      (for ([example (get-examples '(sat-small sat-1 sat-2 sat-3 tic-tac-toe))])
         (match-let ([`(example ,name ,exp) example])
           (define rebindhash (run-rebind name exp m out-time-rebind))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
@@ -75,12 +76,13 @@
           (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
           (define qbs (basic-queries exp))
+          (set! num-queries (+ num-queries (length qbs)))
           (for ([shufflen (range num-shuffles)])
             (define h1 (hash))
             (for ([qs (shuffle qbs)])
               (match-let ([(list cb pb) qs])
                 (pretty-tracen 0 "Running query ")
-                (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
+                ; (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
                 (if (equal? shufflen 0)
                     (let ()
                       (define hx (run-demand name (length qbs) 'basic m cb pb out-time-basic -1 (hash)))
@@ -94,12 +96,14 @@
                 (set! basic-acc-cost (+ basic-acc-cost (hash-num-keys h1)))
                 '()
                 )
-            ); TODO: Clean up output ports
+            )
           )
         )
       (pretty-print `(current-m: ,(current-m)))
       (pretty-print `(basic-cost ,basic-cost))
+      (pretty-print `(basic-cost-per-query ,(exact->inexact (/ basic-cost num-queries))))
       (pretty-print `(basic-acc-cost ,basic-acc-cost))
+      (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost num-queries))))
       (pretty-print `(rebind-cost ,rebind-cost))
       (pretty-print `(expm-cost ,expm-cost))
       )

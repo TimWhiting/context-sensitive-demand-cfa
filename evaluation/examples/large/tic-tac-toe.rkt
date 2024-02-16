@@ -1,3 +1,4 @@
+; #lang plait
 #lang s-exp "../../lang/simple-scheme.rkt"
 
 (define-type Index
@@ -117,7 +118,7 @@
 (define (foldl f acc l)
   (match l
     [(nil) acc]
-    [(cons x xs) (foldl f (f acc x) xs)]
+    [(cons x xs) (foldl f (f x acc) xs)]
     ))
 
 (define (fold/coord f x)

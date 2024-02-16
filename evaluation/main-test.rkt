@@ -5,7 +5,8 @@
 (require racket/pretty racket/match)
 
 (define print-simple-diff #t)
-(define max-context-length 0)
+(define max-context-length 2)
+
 (define (run-mcfa name kind kindstring query exp m)
   (define out (open-output-file
                (string-append "tests/m" (number->string (current-m)) "/"
@@ -35,27 +36,33 @@
 (define (run-expm name exp m)
   (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m))
 
-(define (run-demand name num-queries kind m Ce p out)
+(define (run-demand name num-queries kind m Ce p out hashed to-out)
   (define query (eval Ce p))
   (define hash-result (hash))
-  (pretty-display "" out)
-  (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
+
+  (if to-out
+      (pretty-display "" out)
+      '()
+      )
+  (if to-out
+      (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
+      '())
   (match-let
       ([(cons res t)
         (run/parameters
          name
          m kind
          (let
-             ([hash-new (run-get-hash query (hash))])
+             ([hash-new (run-get-hash query hashed)])
            (set! hash-result hash-new)
            (from-hash query hash-result)
            ))])
-    (if (is-bottom res)
+    (if (and to-out (is-bottom res))
         (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind (show-simple-ctx Ce)))
         '()
         )
-    ; (pretty-display (format "finished in ~a ms, result:\n~a\n" t (show-simple-results res)))
-    (pretty-result-out out (from-hash query hash-result))
+    (pretty-display (format "finished ~a in ~a ms, result:\n~a\n" (show-simple-ctx Ce) t (show-simple-results res)))
+    (if to-out (pretty-result-out out (from-hash query hash-result)) '())
     hash-result
     )
   )
@@ -68,9 +75,11 @@
   (for ([m (in-range 0 (+ 1 max-context-length))])
     (let ([basic-cost 0]
           [rebind-cost 0]
-          [expm-cost 0])
+          [expm-cost 0]
+          [num-queries 0]
+          [basic-acc-cost 0])
       (current-m m)
-      (for ([example (get-examples '(tic-tac-toe))])
+      (for ([example (get-examples '(sat-2))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
@@ -89,23 +98,24 @@
           (define qbs (basic-queries exp))
 
           ; (pretty-print "Finished regular mcfa")
-
+          (set! num-queries (+ num-queries (length qbs)))
+          (define h1 (hash))
           (for ([qs qbs])
-            (match-let ([h1 (hash)]
-                        ; TODO: Is it okay for the continuations to escape and be reused later?
-                        [(list cb pb) qs])
-              (define evalqb (eval cb pb))
+            (match-let ([(list cb pb) qs])
               (pretty-tracen 0 "Running query ")
-
-              (set! h1 (run-demand name (length qbs) 'basic m cb pb out-basic))
-              (set! basic-cost (+ basic-cost (hash-num-keys h1)))
-
+              (set! h1 (run-demand name (length qbs) 'basic m cb pb out-basic h1 #t))
+              ; (define h2 (run-demand name (length qbs) 'basic m cb pb out-basic (hash) #t))
+              ; (set! basic-cost (+ basic-cost (hash-num-keys h2)))
+              (set! basic-acc-cost (hash-num-keys h1))
               )
             )
           )
         )
       (pretty-print `(current-m: ,(current-m)))
-      (pretty-print `(basic-cost ,basic-cost))
+      (pretty-print `(avg-cost-per-query-basic-acc ,(exact->inexact (/ basic-acc-cost num-queries))))
+      (pretty-print `(total-cost-basic-acc ,basic-acc-cost))
+      ; (pretty-print `(avg-cost-per-query-basic ,(exact->inexact (/ basic-cost num-queries))))
+      ; (pretty-print `(total-cost-basic ,basic-cost))
       (pretty-print `(rebind-cost ,rebind-cost))
       (pretty-print `(expm-cost ,expm-cost))
       )

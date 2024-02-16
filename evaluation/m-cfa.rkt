@@ -39,6 +39,13 @@
     )
   )
 
+(define (>>=rec xs)
+  (match xs
+    ['() (unit '())]
+    [(cons x xs) (>>= x (λ (r) (>>=rec xs (λ (rs) (unit (cons r rs))))))]
+    )
+  )
+
 (define-key (store addr) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ⊥)
 
@@ -201,9 +208,11 @@
                                  ))))
                           )]
                     [(cons C con)
+                     (define argse (map (lambda (i) ((ran-e i) Ce ρ)) args))
                      (if (= (length args) 0)
-                         (clos `(con ,con ,evaled-args) (top-env))
-                         (clos `(con ,con ,evaled-args) ρ)
+                         (clos `(con ,con) (top-env))
+                         (>>= (bind-args argse ρ evaled-args)
+                              (λ (_) (clos `(con ,con ,@argse) ρ)))
                          )
                      ]
                     ))))
@@ -254,6 +263,10 @@
     )
   )
 
+(define (store-lookup-vals xs p)
+  (>>=rec (map (lambda (x) (get-store x ρ)) xs))
+  )
+
 (define (pattern-con-matches pattern Ce ρ)
   ; (pretty-print pattern)
   ; (pretty-print Ce)
@@ -261,30 +274,32 @@
   (match pattern
     [`(,con ,@subpats)
      (match Ce
-       [`(con ,con1 ,vals)
-        ; (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
-        (if (and (equal? con con1) (equal? (length vals) (length subpats)))
-            (begin
-              ; (pretty-print `(matching ,vals to ,subpats))
-              (let loop ([subpats subpats] [vals vals])
-                (if (empty? subpats) (unit (list (list) (list)))
-                    (>>= (pattern-matches (car subpats) (car vals))
-                         (λ (res)
-                           (match res
-                             [#f (unit #f)]
-                             [#t (loop (cdr subpats) (cdr vals))]
-                             [(list carbinds carvals)
-                              (>>= (loop (cdr subpats) (cdr vals))
-                                   (λ (ress)
-                                     (match ress
-                                       [#f (unit #f)]
-                                       [(list binds vals)
-                                        (unit (list (append carbinds binds) (append carvals vals)))])
-                                     ))
-                              ]
-                             )
-                           )))))
-            (unit #f))]
+       [`(con ,con1 ,@args)
+        (>>= (store-lookup-vals args ρ)
+             (λ (vals)
+               ; (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
+               (if (and (equal? con con1) (equal? (length vals) (length subpats)))
+                   (begin
+                     ; (pretty-print `(matching ,vals to ,subpats))
+                     (let loop ([subpats subpats] [vals vals])
+                       (if (empty? subpats) (unit (list (list) (list)))
+                           (>>= (pattern-matches (car subpats) (car vals))
+                                (λ (res)
+                                  (match res
+                                    [#f (unit #f)]
+                                    [#t (loop (cdr subpats) (cdr vals))]
+                                    [(list carbinds carvals)
+                                     (>>= (loop (cdr subpats) (cdr vals))
+                                          (λ (ress)
+                                            (match ress
+                                              [#f (unit #f)]
+                                              [(list binds vals)
+                                               (unit (list (append carbinds binds) (append carvals vals)))])
+                                            ))
+                                     ]
+                                    ))
+                                ))))))
+             (unit #f))]
        )
      ]
     [(? symbol? x)

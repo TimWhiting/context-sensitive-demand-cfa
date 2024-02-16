@@ -71,10 +71,6 @@ We evaluate both, finding that Lightweight Demand $m$-CFA in some cases offers, 
 \maketitle
 
 \section{Getting into the Flow}
-
-Adjust to use sat example
-
-
 Conventional control-flow analysis is tactless---unthinking and inconsiderate.
 
 To illustrate, consider the program fragment on the right which defines the recursive \texttt{fold} function.

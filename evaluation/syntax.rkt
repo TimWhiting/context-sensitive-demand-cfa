@@ -4,6 +4,13 @@
 (require "lang/syntax.rkt")
 (provide (all-from-out "lang/syntax.rkt"))
 
+(define (is-constructor ce)
+  (match ce
+    [(cons C `(app ,con ,@args)) #t]
+    [_ #f]
+    )
+  )
+
 (define (find-match-bind-loc x ms loc)
   (match ms
     [(cons m ms)
