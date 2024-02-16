@@ -1678,6 +1678,41 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 \section{Evaluation}
 \label{sec:evaluation}
 
+Questions? 
+\begin{enumerate}
+\item Should we do variable timeouts based on 'complexity' of query? 
+  For example lambda queries are constant time always. Is there any insights on what makes a query 'complex'?
+\end{enumerate}
+
+Anticipated Questions to Answer?
+\begin{enumerate}
+\item How does caching work?
+\item How does the pricing model work?
+\item Is the pricing model effective?
+\item What is the breakdown of queries (obviously individual lambdas will be instantateous)?
+\item Is there exponential blowup?
+\item What benchmarks were used and why those ones?
+\item How does it scale to program size?
+\item How is precision compared to exhaustive?
+\end{enumerate}
+
+Desired Takeaways
+\begin{enumerate}
+\item The pricing model allows you to choose what price you are willing to pay for any particular type of flow information
+\item Reusing caches discovers instantiated environments - which can cause exponential blowup (same as regular exponential m-cfa).
+\item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?)
+\end{enumerate}
+
+Needed Data
+\begin{enumerate}
+\item For t timeout what y% of queries are answered prior to time X
+\item For every eval query Ce rho, how many refined queries are made & what percent are fully refined?
+\item Number of eval queries for each program (proxy measure of program size)
+\item Thorough analysis of sat-1/sat-2?
+\item Larger timeouts?
+\end{enumerate}
+
+
 @omit{
 We extended the implementation described in \S\ref{sec:implementation} of (Lightweight) Demand $m$-CFA to handle a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
 conditional expressions;
