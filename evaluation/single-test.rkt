@@ -10,8 +10,12 @@
   (show-envs #f)
 
   (run-basic (get-example-expr 'sat-2)
-             (lambda (x) (alternate 16 go-bod (go-ran-i 0) (go-bin 2 x)))
-             ))
+             (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
+             )
+  ; (run-basic (get-example-expr 'inst)
+  ;            (lambda (x) (repeat 2 go-bod (go-bin 0 x)))
+  ;            )
+  )
 
 (define (repeat n f a)
   (if (= n 0) a
@@ -28,7 +32,7 @@
   (define qb (mkq top-query-b))
   (run/parameters
    "sample"
-   1
+   2
    'basic
    (pretty-result
     (run-print-query (apply eval qb)))

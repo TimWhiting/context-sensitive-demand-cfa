@@ -15,6 +15,11 @@
 '(app (λ (x) (app x x)) 2)
 'constr
 '(let ((x (app cons 1 (app nil)))) (match x ((cons 1 n) n) ((_) x)))
+'inst
+'(letrec ((apply (λ (f) (λ (x) (app f x))))
+          (add1 (λ (x) (app + 1 x)))
+          (sub1 (λ (x) (app - 1 x))))
+   (let ((_ (app (app apply add1) 42))) (app (app apply sub1) 35)))
 'basic-letstar
 '(let* ((a 10) (b a)) a)
 'basic-letrec
@@ -398,7 +403,7 @@
               (match
                l
                ((nil) acc)
-               ((cons x xs) (app foldl f (app f acc x) xs)))))
+               ((cons x xs) (app foldl f (app f x acc) xs)))))
            (fold/coord
             (λ (f x)
               (app

@@ -6,7 +6,7 @@
 (define time-trials 1)
 
 ; the timeout per acc-trial (ms)
-(define timeout 500)
+(define timeout 1000)
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
 (define acc-trials 1)

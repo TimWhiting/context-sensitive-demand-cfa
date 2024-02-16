@@ -208,7 +208,7 @@
                                  ))))
                           )]
                     [(cons C con)
-                     (define argse (map (lambda (i) ((ran-e i) Ce ρ)) args))
+                     (define argse (map (lambda (i) ((ran-e i) Ce ρ)) (range (length args))))
                      (if (= (length args) 0)
                          (clos `(con ,con) (top-env))
                          (>>= (bind-args argse ρ evaled-args)
@@ -263,7 +263,7 @@
     )
   )
 
-(define (store-lookup-vals xs p)
+(define (store-lookup-vals xs ρ)
   (>>=rec (map (lambda (x) (get-store x ρ)) xs))
   )
 
@@ -298,8 +298,10 @@
                                             ))
                                      ]
                                     ))
-                                ))))))
-             (unit #f))]
+                                ))))
+                   (unit #f)
+                   )))
+        ]
        )
      ]
     [(? symbol? x)

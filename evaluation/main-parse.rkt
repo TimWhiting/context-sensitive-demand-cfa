@@ -5,10 +5,11 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define hand-checked '(structural-rec prim-match multi-param let let-num id err constr
+  (define hand-checked '(structural-rec prim-match multi-param let let-num id err constr inst
                                         basic-letstar basic-letrec app-num sat-small
                                         tak sat-3 sat-2 sat-1 kcfa-3 kcfa-2 cpstak
-                                        church blur ack tic-tac-toe))
+                                        church blur ack
+                                        tic-tac-toe))
   (for ([example (remove-examples (append hand-checked untested))])
     (match-let ([`(example ,name ,exp) example])
       (displayln name)

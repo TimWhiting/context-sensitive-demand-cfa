@@ -507,14 +507,14 @@ Finish the paper
                (>>=clos ; Evaluate the lambda or constructor
                 (>>= (rat Cee ρee) eval)
                 (λ (Cλx.e ρλx.e)
-                  ;  (pretty-print (show-simple-ctx Ce))
-                  ;  (pretty-print (show-simple-ctx Cλx.e))
+                   (pretty-print (show-simple-ctx Ce))
+                   (pretty-print (show-simple-ctx Cλx.e))
                   (match Cλx.e
                     [(cons C `(λ ,xs ,e)) ; It is a lambda
                      (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                           (λ (Ce ρ) ; Find where the parameter is used
                             (>>= ((find (car (drop xs arg-offset))) Ce ρ)
-                                 expr))) ]
+                                 expr)))]
                     [(cons C (? symbol? x)) ; Constructors
                      ; (pretty-print `(,x ,(show-simple-ctx Cee)))
                      (>>= (expr Cee ρee) ; Find the deconstruction sites
