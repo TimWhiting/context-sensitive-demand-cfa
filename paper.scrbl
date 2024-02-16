@@ -1678,6 +1678,7 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 \section{Evaluation}
 \label{sec:evaluation}
 
+@omit{
 We extended the implementation described in \S\ref{sec:implementation} of (Lightweight) Demand $m$-CFA to handle a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
 conditional expressions;
 \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
@@ -1810,101 +1811,7 @@ Simultaneously, it retains just enough to perfectly resolve argument values.
 Lightweight Demand 2CFA witnesses a $1000\times$ slowdown as 2-deep environments are enough to support the exponential explosion of environments.
 
 Our takeaway here is that it is worth investigating Lightweight Demand $m$-CFA's context abstraction and mechanism further to determine whether selective context forgetfulness might curtail the explosion in general.
-
-@omit{
-M=0
-ack
-blur
-2
-2
-2
-2
-cpstak
-4
-4
-deriv
-2
-eta
-2
-2
-2
-facehugger
-2
-2
-2
-flatten
-kcfa-2
-kcfa-3
-loop2-1
-map
-2
-2
-2
-2
-2
-mj09
-primtest
-regex
-2
-2
-rsa
-sat-1
-4
-4
-sat-2
-7
-7
-sat-3
-7
-7
-tak
-M=1
-ack
-blur
-2
-cpstak
-4
-4
-deriv
-2
-eta
-2
-facehugger
-2
-flatten
-kcfa-2
-kcfa-3
-loop2-1
-map
-2
-2
-2
-mj09
-primtest
-regex
-2
-2
-rsa
-sat-1
-4
-4
-sat-2
-7
-7
-sat-3
-7
-7
-tak
-
 }
-
-
-
-
-
-
-
-
 
 \section{Related Work}
 \label{sec:related-work}
