@@ -1730,16 +1730,65 @@ Using cached suffers the problem of exponential blowup - but maybe this isssue. 
  or lower $m$ based on timeouts.}
 
 \subsection{Performance}
-To evaluate the practical performance of Demand $m$-CFA we ran all evaluation queries for a program with several different 
-per-query timeouts. We then report the cumulative time taken to evaluate the queries in an optimal ordering (fastest queries first).
+To evaluate the practical performance of Demand $m$-CFA we ran all evaluation queries for a program at several different 
+per-query timeouts. We run Demand $m$-CFA in two configurations, one reusing caches returned from previous queries and one without reuse.
+We then report the cumulative time taken to evaluate the queries in an optimal ordering (fastest queries first).
 Future work could explore ways to dynamically determine which queries might involve more effort in order to increase the timeout, 
 or selectively reducing precision or ignoring queries that take a lot of effort. The time is reported on the x axis, with percent of
-queries that have completed by that time on the y axis. For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish).
+queries that have completed by that time on the y axis.
+For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish).
 It should be recognized, however, that the results of an evaluation query in a demanded setting results in more information that the equivalent exhaustive CFA since it also
-includes information relevant to backwards analyses. Many queries are available instantaneously, this includes the obvious lambdas, but also many
-other simple queries involving references to parameters that are essentially constant, including lambdas passed to higher order functions!
+includes information relevant to backwards analyses.
 
 \tw{Should I color code points by kind of query?, and do points, how to show the many points that all are on top of each other at the beginning?}
+
+As can be seen in the results, many queries are available instantaneously, this includes the obvious \emph{$\lambda$s}, but also many
+other simple queries involving references to parameters that are essentially constant and relavant to optimizations such as inlining, constant propagation, and specialization -
+including $\lambda$s passed to higher order functions!
+\tw{Thinking about this some more, it would be interesting to correlate time to completion and singleton flow sets. 
+I bet they are highly correlated, and I wonder the percentage of singleton flow sets you can resolve effectively instantaneously (at different $m$) }.
+Additionally the results show that caching sometimes improves, and sometimes hurts performance. Investigating the cause of this shows that
+this is the result of previous queries discovering environment instantiations that are irrelevant to the current query. This is due to the
+entanglement of the reachability of the two queries as they are both in the root query set for the analysis.
+
+We also see that the majority of queries are completed quickly regardless of program size (ignoring lambdas). We hypothesize that this
+is due to many functions in a functional language essentially setting up configuration for other functions, without being in the main
+computation path. Breaking down queries by the number of configurations they visit we see that the number of queries that cover large
+footprints of the programs, doesn't make up the majority of large programs, in constrast, however those few queries take a long time to analyze. 
+
+\subsection{Relative Precision}
+
+\tw{Copied from the old, we need to remove references to Lightweight here}
+Demand $m$-CFA makes reachability assumptions which can, in theory, decrease its precision.
+For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
+it assumes that \texttt{(f 42)} is reachable---i.e., it assumes that \texttt{(λ (g) (f 42))} is called.
+If that assumption is false, then the argument \texttt{42} does not actually contribute to the value that Demand $m$-CFA is resolving, and its inclusion is manifest imprecision.
+
+To determine how frequently erroneous reachability assumptions affect precision, we compared the results produced by (Lightweight) Demand $m$-CFA against those produced by an exhaustive analysis.
+We first ran exponential $m$-CFA---that is, standard exhaustive $m$-CFA but \emph{without} performing rebinding---to obtain a cache from configurations to their values.\footnote{We used exponential $m$-CFA rather than $k$-CFA so that we could reconstruct the (lightweight) Demand $m$-CFA environments. However, $[m=0]$-CFA is the same as $[k=0]$-CFA and we manually verified that exponential $[m=1]$-CFA produces the same results as $[k=1]$-CFA on our benchmark suite.}
+From each configuration, we reconstructed an evaluation query;
+in particular, we used the configuration's environment to produce an instantiated (Lightweight) Demand $m$-CFA environment.
+We then compared the query results with the cached results of the exhaustive analysis.
+We performed this comparison when $m=0$ and $m=1$.
+
+For every single of
+1899 [$m$=0]-CFA configurations
+and
+8610 [$m$=1]-CFA configurations,
+both Demand $m$-CFA \emph{and} Lightweight Demand $m$-CFA
+are \emph{exactly as precise} as their exhaustive counterpart.
+We also verified that precision strictly increased with the level of context sensitivity.
+
+
+To be clear, these results mean that, for example, Lightweight Demand 1CFA was able to obtain \emph{all} of the exact same control-flow information as exhaustive 1CFA on the \textsf{sat-2} benchmark \emph{over $300\times$ faster}.
+This result, of course, is not typical.
+That particular benchmark is designed so that $k$-CFA and exponential $m$-CFA produce an exponential number of environments.
+Lightweight Demand $m$-CFA, however, forgets just the right parts of the context so that many of those environments are folded together.
+Simultaneously, it retains just enough to perfectly resolve argument values.
+(We also manually verified that the precision on \texttt{sat-2} actually increases in the transition from $m=0$ to $m=1$.)
+Lightweight Demand 2CFA witnesses a $1000\times$ slowdown as 2-deep environments are enough to support the exponential explosion of environments.
+
+Our takeaway here is that it is worth investigating Lightweight Demand $m$-CFA's context abstraction and mechanism further to determine whether selective context forgetfulness might curtail the explosion in general.
 
 Questions? 
 \begin{enumerate}
@@ -1749,21 +1798,21 @@ Questions?
 
 Anticipated Questions to Answer?
 \begin{enumerate}
-\item How does caching work?
+\item How does caching work? ✓
 \item How does the pricing model work? ✓
-\item Is the pricing model effective?
-\item What is the breakdown of queries (obviously individual lambdas will be instantateous)?
+\item Is the pricing model effective? ✓
+\item What is the breakdown of queries (obviously individual lambdas will be instantateous)? ✓
 \item Is there exponential blowup? ✓
 \item What benchmarks were used and why those ones?
-\item How does it scale to program size?
-\item How is precision compared to exhaustive?
+\item How does it scale to program size? ✓
+\item How is precision compared to exhaustive? ✓
 \end{enumerate}
 
 Desired Takeaways
 \begin{enumerate}
 \item The pricing model allows you to choose what price you are willing to pay for any particular type of flow information ✓
-\item Reusing caches discovers instantiated environments - which can cause exponential blowup (same as regular exponential m-cfa).
-\item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?)
+\item Reusing caches discovers instantiated environments - which can cause exponential blowup (same as regular exponential m-cfa). ✓
+\item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?) ✓
 \end{enumerate}
 
 Needed Data

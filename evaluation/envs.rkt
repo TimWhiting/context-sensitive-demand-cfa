@@ -1,15 +1,16 @@
 #lang racket/base
-(require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "abstract-value.rkt" "syntax.rkt" "utils.rkt")
-(require racket/set racket/match racket/list racket/pretty)
+(require "config.rkt" "syntax.rkt" "utils.rkt")
+(require racket/set racket/match racket/pretty)
 (provide (all-defined-out))
 
 ; m-CFA flat like environments (rebinding free variables)
 (struct flatenv (m) #:transparent)
-; m-CFA exponential environments (nested environments)
+; m-CFA exponential environments (nested lexical environments)
 (struct expenv (m) #:transparent)
-; Demand m-CFA basic environments (nested environments) akin to m-CFA exponential, but with indeterminate calling contexts
+; Demand m-CFA basic environments (nested lexical environments) akin to m-CFA exponential, but with indeterminate calling contexts
 (struct menv (m) #:transparent)
+; Demand m-CFA lightweight environments (nested lexical environments, in which call contexts include the dynamic environment of the call)
+(struct lenv (m) #:transparent)
 (struct callc (m) #:transparent)
 
 ; The lexical environment list
@@ -28,6 +29,8 @@
     [(expenv '()) (expenv '())]
     [(menv (cons (callc head) tail)) (cons head (menv tail))]
     [(menv '()) (menv '())]
+    [(lenv (cons (callc head) tail)) (cons head (lenv tail))]
+    [(lenv '()) (lenv '())]
     )
   )
 
@@ -67,7 +70,8 @@
      (match cc₁
        [(list) #t] ; equal
        [`(□? ,_ ,_) #f]
-       [(cons _ _) #f])]
+       [(cons _ _) #f] ; call:calls
+       )]
     [`(□? ,x ,_)
      (match cc₁
        [(list) #f]; indeterminate is not more refined
@@ -116,6 +120,7 @@
          (list)]
         [`(□? ,x ,C)
          `(□? ,x ,C)]
+        [(cons c (lenv ccs)) (cons c (lenv (map (lambda (c) (take-m c (- m 1))) ccs)))]
         [(cons Ce cc); This case handles regular/exponential m-CFA and basic Demand m-CFA call strings
          (cons Ce (take-ccm (- m 1) cc))])))
 
@@ -124,6 +129,7 @@
   (match ρ
     [(menv _) (take-cc (cons Ce (head-cc ρ)))]
     [(expenv _) (take-cc (cons Ce (head-cc ρ)))]
+    [(lenv _) (take-cc (cons Ce ρ))]
     [(flatenv calls) (take-m (cons Ce calls) (current-m))]; Basic m-CFA doesn't
     )
   )
@@ -170,6 +176,7 @@
   (match cc
     [(list) (list)]
     [`(□? ,x ,C) `(□? ,x ,C)]
+    [(cons Ce (lenv l)) (cons Ce (simple-env (lenv l)))]
     [(cons Ce cc) (cons Ce cc)]
     )
   )
@@ -179,6 +186,7 @@
       (match ρ
         [(flatenv l) (flatenv (map show-simple-ctx l))]
         [(expenv l) (expenv (map show-simple-call (map callc-m l)))]
+        [(lenv l) (lenv (map show-simple-call (map callc-m l)))]
         [(menv l) (menv (map show-simple-call (map callc-m l)))]
         )
       ρ
@@ -189,6 +197,7 @@
   (match (analysis-kind)
     ['exponential (expenv '())]
     ['rebinding (flatenv '())]
+    ['lightweight (lenv '())]
     ['basic (menv '())]
     )
   )
@@ -199,6 +208,8 @@
      (list)]
     [`(□? ,x ,_)
      `(□? ,x)]
+    [(cons Ce (lenv l))
+     (cons (show-simple-ctx Ce) (show-simple-env (lenv l)))]
     [(cons Ce cc)
      (cons (show-simple-ctx Ce) (show-simple-call cc))])
   )
