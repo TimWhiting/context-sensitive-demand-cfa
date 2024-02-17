@@ -1820,8 +1820,10 @@ Needed Data
 \item For t timeout what y% of queries are answered prior to time X
 \item For every eval query Ce rho, how many refined queries are made & what percent are fully refined?
 \item Number of eval queries for each program (proxy measure of program size)
+\item Number of results in the cache & number of refinements in the cache for each query 
+\item Classification for each query - app, lambda, etc...
 \item Thorough analysis of sat-1/sat-2?
-\item Larger timeouts?
+\item Larger timeouts / larger $m$?
 \end{enumerate}
 
 
