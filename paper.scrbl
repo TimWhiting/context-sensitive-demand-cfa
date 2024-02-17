@@ -1815,17 +1815,26 @@ Desired Takeaways
 \item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?) ✓
 \end{enumerate}
 
+Plots
+\begin{enumerate}
+\item x - cumulative time, y % queries answered (sort by time to completion), lines $m$-CFA, Demand at various timeouts and cached / non-cached
+\item Another one with larger $m$ (3 / 4)
+\item One plot (simple + more complex example), same plot axes as above, but with dots colored in type of query, shows simple and complex examples have similar proportion of queries answered fast?
+\item Another one with larger $m$ (3 / 4)?
+\item Selective increase in precision based on whether the result is singleton flow set yet (up to timeout), start m=0?
+\end{enumerate}
+
 Needed Data
 \begin{enumerate}
-\item For t timeout what y% of queries are answered prior to time X
+\item For t timeout what y% of queries are answered prior to cumulative time X - sorted cumulative time
 \item For every eval query Ce rho, how many refined queries are made & what percent are fully refined?
 \item Number of eval queries for each program (proxy measure of program size)
 \item Number of results in the cache & number of refinements in the cache for each query 
 \item Classification for each query - app, lambda, etc...
+\item Number of eval / expr / refine in the cache - per query?
 \item Thorough analysis of sat-1/sat-2?
 \item Larger timeouts / larger $m$?
 \end{enumerate}
-
 
 @omit{
 We extended the implementation described in \S\ref{sec:implementation} of (Lightweight) Demand $m$-CFA to handle a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
