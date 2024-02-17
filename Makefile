@@ -22,3 +22,9 @@ clean:
 	-rm -f *.aux
 	-rm -f *.bbl
 	-rm -f *.blg
+
+watch:
+	while true; do \
+		fswatch paper.scrbl; \
+		make all | echo; \
+	done;

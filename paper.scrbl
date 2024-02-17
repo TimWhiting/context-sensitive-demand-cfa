@@ -13,8 +13,10 @@
 \usepackage{textgreek}
 \usepackage{wrapfig}
 \usepackage{alltt}
+\usepackage[inline]{enumitem}
 
 \newcommand{\TODO}[1]{{\color{red}#1}}
+\newcommand{\tw}[1]{{\color{green}#1}}
 
 \acmJournal{PACMPL}
 \acmVolume{POPL}
@@ -1677,6 +1679,49 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 
 \section{Evaluation}
 \label{sec:evaluation}
+
+We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
+conditional expressions; \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
+definition contexts in which a sequence of definitions and expressions can be mixed in a mutually-recursive scope; and
+a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, as is common in
+functional languages. \tw{Details in Appendix?, Link to Github Here?} 
+
+To evaluate Demand $m$-CFA we need to reflect on the differences imposed by Demand $m$-CFA's pricing model.
+
+\subsection{Implementation Costs}
+In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather at implementation time. If any primitive is not supported,
+any external library whose source code is not available, etc, the developer must make a hard choice. They must approximate the behavior 
+or throw away the results of the analysis. Depending on the language features and escape hatches available, 
+it is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, this becomes a large burden.
+
+In contrast Demand $m$-CFA is formulated so that the analysis of each language feature is specified independantly as much as possible.
+Due to this design we theorize that, as long as \begin{enumerate*} \item the semantics of the feature does not change, and 
+\item the abstraction does not need to change \end{enumerate*} the implementation on an old version of a language will work transparently as new features and primitives are added, 
+as long as the queries do not interact with those features. In addition, when the semantics are the same across languages,
+the same components can be used in a modular way.
+
+For example, we did not implement the \texttt{set!} form of R6RS Scheme which mutates the binding of a given variable, and we did not implement primitives with side effects. 
+This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
+Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
+Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare,
+we expect that relatively few queries encounter mutation.
+
+\subsection{Scalability}
+Demand $m$-CFA has inherent overhead compared to a monolithic analysis. These include:
+\begin{enumerate*}
+\item resolving trace queries in addition to evaluation queries (i.e. Doing both backwards and forwards analyses), and
+\item instantiating environments (this can induce exponential behavior related to lexical binding depth).
+\end{enumerate*}
+
+However, these apparent disadvantages work to the benefit of Demand $m$-CFA in practice. For example,
+tracing flow using @|mcfa-expr-name|, gives backward analyses for free (in terms of implementation cost).
+Additionally indeterminate queries allow the analysis to disregard exponential combinations of environments when
+it is irrelevant to a particular query. In particular we see this in the \textsf{sat-2} benchmark, which induces 
+exponential behavior in normal $m$-CFA.
+
+\subsection{Performance}
+To evaluate the performance in practice for Demand $m$-CFA we ...
+
 
 Questions? 
 \begin{enumerate}

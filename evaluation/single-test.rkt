@@ -5,12 +5,15 @@
 (require racket/pretty)
 
 (module+ main
-  (trace 1)
+  ; (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
 
-  (run-basic (get-example-expr 'sat-2)
-             (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
+  (run-mcfa 1 'exponential (get-example-expr 'sat-2))
+
+  (run-basic 1 (get-example-expr 'sat-2)
+             (lambda (x) x)
+             ;  (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
              )
   ; (run-basic (get-example-expr 'inst)
   ;            (lambda (x) (repeat 2 go-bod (go-bin 0 x)))
@@ -27,12 +30,24 @@
       (alternate (- n 1) g f (f a))
       ))
 
-(define (run-basic expr mkq)
+(define (run-mcfa m kind expr)
+  (analysis-kind kind)
+  (run/parameters
+   "sample"
+   m
+   kind
+   (let ([h (run-get-hash (meval (cons `(top) expr) (top-env)))])
+     (hash-ref h (meval (cons `(top) expr) (top-env)))
+     )
+   )
+  )
+
+(define (run-basic m expr mkq)
   (define top-query-b (list (cons `(top) expr) (menv (list))))
   (define qb (mkq top-query-b))
   (run/parameters
    "sample"
-   2
+   m
    'basic
    (pretty-result
     (run-print-query (apply eval qb)))
