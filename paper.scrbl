@@ -1736,11 +1736,16 @@ We then report the cumulative time taken to evaluate the queries in an optimal o
 Future work could explore ways to dynamically determine which queries might involve more effort in order to increase the timeout, 
 or selectively reducing precision or ignoring queries that take a lot of effort. The time is reported on the x axis, with percent of
 queries that have completed by that time on the y axis.
-For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish).
-It should be recognized, however, that the results of an evaluation query in a demanded setting results in more information that the equivalent exhaustive CFA since it also
-includes information relevant to backwards analyses.
+For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish). We run exhaustive $m$-CFA with exponential environments
+and with rebinding. Exhaustive exponential $m$-CFA mimics our environment structure.
+It should be noted that the results of an evaluation query in a demanded setting include more information than the 
+equivalent exhaustive CFA since they also includes information relevant to backwards analyses.
 
-\tw{Should I color code points by kind of query?, and do points, how to show the many points that all are on top of each other at the beginning?}
+For the benchmarks we used R6RS benchmarks that are commonly reported for control flow analysis\tw{Cite}, as well as a 
+larger example `tic-tac-toe` which we created to evaluate larger and more complex programs with matching and custom datatypes. 
+It includes a lot of higher order behavior, including storing lambdas in datatypes.
+\tw{The previous two sentences reads awkward, it can definitely be improved, but do we need more than tic-tac-toe, and should I mention
+any R6RS programs by name, give details about their size, etc? - I want to have all of the R6RS programs in the original paper working at minimum.}
 
 As can be seen in the results, many queries are available instantaneously, this includes the obvious \emph{$\lambda$s}, but also many
 other simple queries involving references to parameters that are essentially constant and relavant to optimizations such as inlining, constant propagation, and specialization -
@@ -1820,6 +1825,7 @@ Plots
 \item x - cumulative time, y % queries answered (sort by time to completion), lines $m$-CFA, Demand at various timeouts and cached / non-cached
 \item Another one with larger $m$ (3 / 4)
 \item One plot (simple + more complex example), same plot axes as above, but with dots colored in type of query, shows simple and complex examples have similar proportion of queries answered fast?
+\tw{Should I color code points by kind of query?, and do points? How to represent all the points essentially on top of each other at the beginning}
 \item Another one with larger $m$ (3 / 4)?
 \item Selective increase in precision based on whether the result is singleton flow set yet (up to timeout), start m=0?
 \end{enumerate}
@@ -1832,6 +1838,8 @@ Needed Data
 \item Number of results in the cache & number of refinements in the cache for each query 
 \item Classification for each query - app, lambda, etc...
 \item Number of eval / expr / refine in the cache - per query?
+\item Benchmarks for all original programs "ack", "blur", "cpstak", "deriv", "eta",
+ "facehugger", "flatten", "kcfa-2/3" "loop2-1" "map" "mj09", "primtest", "regex", "rsa", "sat-1/3" "tak"
 \item Thorough analysis of sat-1/sat-2?
 \item Larger timeouts / larger $m$?
 \end{enumerate}
