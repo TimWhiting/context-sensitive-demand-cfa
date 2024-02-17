@@ -16,7 +16,7 @@
 \usepackage[inline]{enumitem}
 
 \newcommand{\TODO}[1]{{\color{red}#1}}
-\newcommand{\tw}[1]{{\color{green}#1}}
+\newcommand{\tw}[1]{{\color{red}#1}}
 
 \acmJournal{PACMPL}
 \acmVolume{POPL}
@@ -1721,6 +1721,14 @@ Additionally indeterminate queries allow the analysis to disregard exponential c
 it is irrelevant to a particular query. In particular we see this in the \textsf{sat-2} benchmark, which induces 
 exponential behavior in normal $m$-CFA.
 
+\tw{Discuss results related to # of refined environments discovered, and some sort of metric for the degree of refinement per configuration. 
+(Low meaning refined environments are irrelavent, High meaning we need refinements to resolve the query.) Per query, averaged across all queries, average across cache result in query, with / without cache? 
+Using cached suffers the problem of exponential blowup - but maybe this isssue. And where we talk about that informing the approach we take to measuring performance - no cache?, and informing future work - when to use cache?}
+
+\tw{Discuss varying $m$ based on complexity of the query? Future work 1: Dynamically selecting $m$ to get precision.
+ Future work 2: Dynamically during the query issue subqueries at lower $m$ if we can get fully precise information at that level, 
+ or lower $m$ based on timeouts.}
+
 \subsection{Performance}
 To evaluate the practical performance of Demand $m$-CFA we ran all evaluation queries for a program with several different 
 per-query timeouts. We then report the cumulative time taken to evaluate the queries in an optimal ordering (fastest queries first).
@@ -1733,7 +1741,6 @@ other simple queries involving references to parameters that are essentially con
 
 \tw{Should I color code points by kind of query?, and do points, how to show the many points that all are on top of each other at the beginning?}
 
-
 Questions? 
 \begin{enumerate}
 \item Should we do variable timeouts based on 'complexity' of query? 
@@ -1743,10 +1750,10 @@ Questions?
 Anticipated Questions to Answer?
 \begin{enumerate}
 \item How does caching work?
-\item How does the pricing model work?
+\item How does the pricing model work? ✓
 \item Is the pricing model effective?
 \item What is the breakdown of queries (obviously individual lambdas will be instantateous)?
-\item Is there exponential blowup?
+\item Is there exponential blowup? ✓
 \item What benchmarks were used and why those ones?
 \item How does it scale to program size?
 \item How is precision compared to exhaustive?
@@ -1754,7 +1761,7 @@ Anticipated Questions to Answer?
 
 Desired Takeaways
 \begin{enumerate}
-\item The pricing model allows you to choose what price you are willing to pay for any particular type of flow information
+\item The pricing model allows you to choose what price you are willing to pay for any particular type of flow information ✓
 \item Reusing caches discovers instantiated environments - which can cause exponential blowup (same as regular exponential m-cfa).
 \item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?)
 \end{enumerate}
