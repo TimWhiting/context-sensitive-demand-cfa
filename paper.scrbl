@@ -1706,6 +1706,8 @@ Rather, it means that demand CFA fails on \emph{queries} whose resolution depend
 Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare,
 we expect that relatively few queries encounter mutation.
 
+\tw{Should we report lines of code between the implementations (noting that the exhaustive analysis would actually need to implement all the language features and primitives in order to be sound)}.
+
 \subsection{Scalability}
 Demand $m$-CFA has inherent overhead compared to a monolithic analysis. These include:
 \begin{enumerate*}
@@ -1720,7 +1722,16 @@ it is irrelevant to a particular query. In particular we see this in the \textsf
 exponential behavior in normal $m$-CFA.
 
 \subsection{Performance}
-To evaluate the performance in practice for Demand $m$-CFA we ...
+To evaluate the practical performance of Demand $m$-CFA we ran all evaluation queries for a program with several different 
+per-query timeouts. We then report the cumulative time taken to evaluate the queries in an optimal ordering (fastest queries first).
+Future work could explore ways to dynamically determine which queries might involve more effort in order to increase the timeout, 
+or selectively reducing precision or ignoring queries that take a lot of effort. The time is reported on the x axis, with percent of
+queries that have completed by that time on the y axis. For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish).
+It should be recognized, however, that the results of an evaluation query in a demanded setting results in more information that the equivalent exhaustive CFA since it also
+includes information relevant to backwards analyses. Many queries are available instantaneously, this includes the obvious lambdas, but also many
+other simple queries involving references to parameters that are essentially constant, including lambdas passed to higher order functions!
+
+\tw{Should I color code points by kind of query?, and do points, how to show the many points that all are on top of each other at the beginning?}
 
 
 Questions? 
