@@ -47,7 +47,7 @@
 (define r6rs '(ack blur cpstak kcfa-2 kcfa-3 sat-1 sat-2 sat-3))
 
 ; Fails to parse: regex, fail to run church
-(define untested '(deriv rsa eta facehugger flatten loop2-1 map mj09 primtest rsa std regex scratch game)); ?check kcfa-2
+(define untested '(deriv rsa eta church facehugger flatten loop2-1 map mj09 primtest rsa std regex scratch game)); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)
@@ -64,6 +64,6 @@
             ) all-examples)
   )
 
-; (pretty-print (get-example-expr 'std-basic))
+; (pretty-print (get-example-expr 'regex))
 ; (pretty-print (free-vars (get-example-expr 'std-basic)))
 ; (pretty-print (get-example-expr 'tic-tac-toe))

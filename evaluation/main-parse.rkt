@@ -7,8 +7,9 @@
   (show-envs #f)
   (define hand-checked '(structural-rec prim-match multi-param let let-num id err constr inst
                                         basic-letstar basic-letrec app-num sat-small
-                                        tak sat-3 sat-2 sat-1 kcfa-3 kcfa-2 cpstak
-                                        church blur ack
+                                        ack blur cpstak deriv eta facehugger flatten
+                                        kcfa-2 kcfa-3 loop2-1 map mj09 primtest regex rsa
+                                        sat-1 sat-2 sat-3 tak
                                         tic-tac-toe))
   (for ([example (remove-examples (append hand-checked untested))])
     (match-let ([`(example ,name ,exp) example])

@@ -103,7 +103,6 @@
    (λ (_ ρ i)
      (match i
        [-1
-        ; (check-known-constructor? x)
         ; (pretty-print `(returning-cons ,Ce ,ρ))
         (clos Ce ρ)] ; treat as constructor]
        [_

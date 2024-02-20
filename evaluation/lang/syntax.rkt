@@ -79,6 +79,8 @@
     [#f (set)]
     [#t (set)]
     [(? symbol? x) (set x)]
+    ['() (set)]
+    [`',x (set)]
     ))
 
 (define (pattern-bound-vars pat)

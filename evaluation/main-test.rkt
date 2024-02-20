@@ -5,7 +5,7 @@
 (require racket/pretty racket/match)
 
 (define print-simple-diff #t)
-(define max-context-length 2)
+(define max-context-length 0)
 
 (define (run-mcfa name kind kindstring query exp m)
   (define out (open-output-file
@@ -79,7 +79,7 @@
           [num-queries 0]
           [basic-acc-cost 0])
       (current-m m)
-      (for ([example (get-examples '(ack))])
+      (for ([example (get-examples '(blur cpstak deriv eta facehugger flatten kcfa-2 kcfa-3 loop2-1 map mj09 primtest regex rsa sat-1 sat-2 sat-3 tak))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))

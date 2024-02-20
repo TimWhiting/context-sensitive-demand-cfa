@@ -50,8 +50,40 @@
        )
      ]
     [(cons x xs) (get-types xs)]
-    )
+    ))
+
+(define (get-common-types)
+  (list (list
+         (list 'car
+               `(λ (a)
+                  (match a
+                    [(cons c d) c])
+                  )
+               )
+         (list 'cdr
+               `(λ (a)
+                  (match a
+                    [(cons c d) d])
+                  )
+               )
+         (list 'pair?
+               `(λ (a)
+                  (match a
+                    [(cons c d) #t]
+                    [_ (app error "not a pair")])
+                  )
+               )
+         (list 'null?
+               `(λ (a)
+                  (match a
+                    [(nil) #t]
+                    [_ #f])
+                  )
+               )
+         )
+        (list `(cons car cdr) `(nil) `(error sym str))) ; I don't check arity for error
   )
+
 (define (get-tps tps)
   (match tps
     ['() (list '() '())]
@@ -104,16 +136,23 @@
   ; (pretty-print `(translate-top-defs ,tops-full-defs))
 
   ; (pretty-print `(translate-top-defs ,tops))
-  (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)])
+  (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)]
+              [(list common-type-defs common-types) (if top (get-common-types) (list '() '()) )]
+              )
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
-
-    (define fvs (apply set-union (map free-vars (append exprs (map cadr binds)))))
+    ; (if (empty? common-type-defs) '() (pretty-print common-type-defs))
+    (define bodies (append exprs (map cadr binds)))
+    (define fvs (if (empty? bodies) (set) (apply set-union (map free-vars bodies))))
     ; (pretty-print fvs)
     (define used (filter (lambda (td)
                            (match td
                              [`(,nm ,_) (set-member? fvs nm)]
-                             )) top-type-defs))
-    (make-type-defs top-types (make-binds (append used binds) (to-begin exprs)))
+                             )) (append top-type-defs common-type-defs)))
+    (define used-types (filter (lambda (td)
+                                 (match td
+                                   [`(,nm ,@_) (set-member? fvs nm)]
+                                   )) (append common-types top-types)))
+    (make-type-defs used-types (make-binds (append used binds) (to-begin exprs)))
     ))
 
 
@@ -129,7 +168,7 @@
     ; (pretty-print fvs)
     (define used (filter (lambda (td)
                            (match td
-                             [`(,nm ,_) (set-member? fvs nm)]
+                             [`(,nm ,@_) (set-member? fvs nm)]
                              )) top-type-defs))
     (make-type-defs top-types (make-binds (append used binds) expr))
     ))
@@ -176,7 +215,7 @@
     [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(translate-top-defs es))]
     [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(translate-top-defs es))]
     [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(translate-top-defs es))]
-    [`(if ,c ,t ,f) `(match ,(translate c) [(#t) ,(translate t)] [(#f) ,(translate f)])]
+    [`(if ,c ,t ,f) `(match ,(translate c) [(#f) ,(translate f)] [_ ,(translate t)] )]
     [`(cond ,@mchs) (unwrap-cond mchs)]
     [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
     [`(type-case ,tp ,c ,@mchs)
@@ -192,8 +231,22 @@
     [`(begin ,@exprs) (to-begin (map translate exprs))]
     [`(list ,a ,@as) `(app cons ,(translate a) ,(translate `(list ,@as)))]
     [`(list) `(app nil)]
+    [`(quote ,(? number? x)) x]
+    [`(quote ,(? char? x)) x]
+    [`(quote ,(? string? x)) x]
+    [`(quote ,ls) (to-list ls)]
     [`(,@es)
      `(app ,@(map translate es))]
+    )
+  )
+
+(define (to-list l)
+  (match l
+    ['() `(app nil)]
+    [(cons x xs) `(app cons ,(translate `',x) ,(to-list xs))]
+    [x
+     ;  (pretty-print `(quoting ,x as ',x))
+     `',x]
     )
   )
 

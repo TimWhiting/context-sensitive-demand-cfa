@@ -20,14 +20,6 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
-; Primitive constructors
-(define (check-known-constructor? x)
-  (match x
-    ['cons #t]
-    ['nil #t]
-    ['error #t]
-    ))
-
 (define (check-known-constructor-or-primitive? x)
   (member x '(cons nil error = - + < <= not or and equal? newline display void)))
 
