@@ -53,22 +53,24 @@
 (define ((cfa mexpected) line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
-                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
-                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                      ,eval-groups-avg-size ,eval-sub-avg-determined
-                      ,time-result) (equal? m mexpected)]
+    [`(shuffled-cache ,shufflen ,name ,m ,@_) (equal? m mexpected)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
-                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
-                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                   ,eval-groups-avg-size ,eval-sub-avg-determined
-                   ,time-result) (equal? m mexpected)]
+    [`(clean-cache ,name ,m ,@_) (equal? m mexpected)]
     ; Regular mCFA
     [`(,name ,m ,hash-num ,time-res) (equal? m mexpected)]
     ))
 
 (define (id l) l)
+
+(define (get-name line)
+  (match line
+    ; Demand shuffled (cached)
+    [`(shuffled-cache ,shufflen ,name ,@_) name]
+    ; Demand no cache
+    [`(clean-cache ,name ,@_) name]
+    ; Regular mCFA
+    [`(,name ,m ,hash-num ,time-res) name]
+    ))
 
 (define (step-n lines m-value [do-sort #t])
   (define avg (avg-time-res m-value))
@@ -93,12 +95,12 @@
     ))
 
 (define (find-prog prog values)
-  (filter (lambda (ln) (equal? (car ln) prog)) values))
+  (filter (lambda (ln) (equal? (get-name ln) prog)) values))
 
 (define (find-prog-randiter prog iter values)
   (filter (lambda (ln)
             (match ln
-              [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (and (equal? name prog) (equal? shufflen iter)) ]
+              [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
 

@@ -34,6 +34,7 @@
      (if show
          (begin
            (pretty-print `(end ,input))
+           (pretty-print Cee)
            (pretty-print `(result ,(show-simple-ctx Cee) ,(show-simple-env ρee)))
            (clos Cee ρee))
          (clos Cee ρee)

@@ -5,36 +5,28 @@
             (λ (p) (app try (λ (n1) (app try (λ (n2) (app p n1 n2))))))))
     (app sat-solve-2 phi)))
 
-(list 'query: '((top) letrec (phi try sat-solve-2) ...) (menv '()))
+(list 'query: '((top) letrec (phi ... sat-solve-2) ...) (menv '()))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
- '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...)
+ '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
  (menv '()))
 (list
  'clos/con:
  (list
-  (list '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...) (menv '()))))
+  (list
+   '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(λ (p) (-> (app try (λ (n1) ...)) <-)) (menv '((□? (p)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app try (-> (λ (n1) ...) <-)) (menv '((□? (p)))))
@@ -49,12 +41,7 @@
  (menv '((□? (n1)) (□? (p)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app try (-> (λ (n2) ...) <-)) (menv '((□? (n1)) (□? (p)))))
@@ -69,36 +56,19 @@
  (menv '((□? (n2)) (□? (n1)) (□? (p)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app p n1 (-> n2 <-)) (menv '((□? (n2)) (□? (n1)) (□? (p)))))
 (list
  'clos/con:
- (list
-  (list
-   '(app f (-> (app #f) <-))
-   (menv '(((λ (n1) (-> (app try (λ (n2) ...)) <-))))))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (n1) (-> (app try (λ (n2) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app p (-> n1 <-) n2) (menv '((□? (n2)) (□? (n1)) (□? (p)))))
 (list
  'clos/con:
- (list
-  (list
-   '(app f (-> (app #f) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> p <-) n1 n2) (menv '((□? (n2)) (□? (n1)) (□? (p)))))
@@ -106,7 +76,7 @@
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -114,24 +84,30 @@
 (list
  'clos/con:
  (list
-  (list '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...) (menv '()))))
+  (list
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> try <-) (λ (n1) ...)) (menv '((□? (p)))))
 (list
  'clos/con:
  (list
-  (list '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...) (menv '()))))
+  (list
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
- '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+ '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
  (menv '()))
 (list
  'clos/con:
  (list
-  (list '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...) (menv '()))))
+  (list
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -140,12 +116,7 @@
  (menv '((□? (f)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -154,16 +125,11 @@
  (menv '((□? (f)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app f (-> (app #f) <-)) (menv '((□? (f)))))
-(list 'clos/con: (list (list '(app f (-> (app #f) <-)) (menv '((□? (f)))))))
+(list 'clos/con: (list (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> #f <-)) (menv '((□? (f)))))
@@ -184,16 +150,11 @@
  (menv '((□? (f)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app f (-> (app #t) <-)) (menv '((□? (f)))))
-(list 'clos/con: (list (list '(app f (-> (app #t) <-)) (menv '((□? (f)))))))
+(list 'clos/con: (list (list '((top) app #t) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> #t <-)) (menv '((□? (f)))))
@@ -217,13 +178,13 @@
 
 (list
  'query:
- '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+ '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
  (menv '()))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -233,12 +194,7 @@
  (menv '((□? (x1 x2)))))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app or x1 (-> (app not x2) <-)) (menv '((□? (x1 x2)))))
@@ -250,13 +206,7 @@
 (list 'query: '(app not (-> x2 <-)) (menv '((□? (x1 x2)))))
 (list
  'clos/con:
- (list
-  (list
-   '(app f (-> (app #f) <-))
-   (menv '(((λ (n1) (-> (app try (λ (n2) ...)) <-))))))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (n1) (-> (app try (λ (n2) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> not <-) x2) (menv '((□? (x1 x2)))))
@@ -266,13 +216,7 @@
 (list 'query: '(app or (-> x1 <-) (app not x2)) (menv '((□? (x1 x2)))))
 (list
  'clos/con:
- (list
-  (list
-   '(app f (-> (app #f) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> or <-) x1 (app not x2)) (menv '((□? (x1 x2)))))
@@ -281,16 +225,11 @@
 
 (list
  'query:
- '(letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))
+ '(letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))
  (menv '()))
 (list
  'clos/con:
- (list
-  (list '((top) app #t) (menv '()))
-  (list '((top) app #f) (menv '()))
-  (list
-   '(app f (-> (app #t) <-))
-   (menv '(((λ (p) (-> (app try (λ (n1) ...)) <-))))))))
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app sat-solve-2 (-> phi <-)) (menv '()))
@@ -298,7 +237,7 @@
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -306,5 +245,7 @@
 (list
  'clos/con:
  (list
-  (list '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...) (menv '()))))
+  (list
+   '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
+   (menv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

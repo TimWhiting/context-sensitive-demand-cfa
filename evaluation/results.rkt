@@ -66,17 +66,10 @@
   (pretty-result-out (current-output-port) r))
 
 (define (pretty-result-out out r)
-  (match r
-    [(cons s l)
-     (if (set-empty? s)
-         (pretty-print `(clos/con: ⊥) out)
-         (pretty-print `(clos/con: ,(map show-simple-clos/con (set->list s))) out))
-     (pretty-print `(literals: ,(show-simple-literal l)) out)
-     ]
-    [x (pretty-format x)]
-    ))
+  (displayln (show-simple-results r) out))
 
 (define (show-simple-results r)
+  (pretty-print r)
   (match r
     [(cons s l)
      (string-append

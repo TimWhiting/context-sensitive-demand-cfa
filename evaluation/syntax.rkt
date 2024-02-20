@@ -121,10 +121,9 @@
     [(? number? x) x]
     [(? char? x) x]
     [(? string? x) x]
-    [`(con ,nm ,args) Ce]
+    [`(con ,nm ,@args) Ce]
     [_
-     (pretty-print Ce)
-     (error 'fail "")
+     (error 'fail (pretty-format `(no-simple-context-for ,Ce)))
      ]
     )
   )

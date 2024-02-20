@@ -10,7 +10,7 @@
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -20,7 +20,7 @@
  (expenv
   '(((λ (n2) (-> (app p n1 n2) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -37,18 +37,18 @@
    (expenv
     '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
- '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+ '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
  (expenv '()))
 (list
  'clos/con:
  (list
   (list
-   '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -57,8 +57,10 @@
  '(λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -69,12 +71,12 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -86,12 +88,12 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -100,7 +102,7 @@
  '(app (-> #t <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list 'clos/con: (list (list '((top) . #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -110,7 +112,9 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -121,7 +125,7 @@
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -138,7 +142,7 @@
    (expenv
     '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -149,8 +153,10 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -161,8 +167,10 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -173,7 +181,7 @@
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -181,8 +189,10 @@
  '(app or (app f (app #t)) (-> (app f (app #f)) <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -200,8 +210,10 @@
  (expenv
   '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -215,13 +227,13 @@
 
 (list
  'query:
- '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...)
+ '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
  (expenv '()))
 (list
  'clos/con:
  (list
   (list
-   '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...)
+   '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -249,7 +261,9 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -269,8 +283,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -281,8 +295,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> sat-solve-2 <-) phi) (expenv '()))
@@ -290,7 +304,7 @@
  'clos/con:
  (list
   (list
-   '(letrec (phi try (sat-solve-2 (-> (λ (p) ...) <-))) ...)
+   '(letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -308,14 +322,14 @@
  '(app (-> f <-) (app #f))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
    '(app try (-> (λ (n1) ...) <-))
    (expenv
-    '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+    '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -326,8 +340,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -338,8 +352,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -357,7 +371,9 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -366,7 +382,7 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -375,20 +391,22 @@
  (expenv
   '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
- '(letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))
+ '(letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))
  (expenv '()))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -400,8 +418,10 @@
 '(clos/con: (#<procedure:do-or>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
-(list 'query: '((top) letrec (phi try sat-solve-2) ...) (expenv '()))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list 'query: '((top) letrec (phi ... sat-solve-2) ...) (expenv '()))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -410,12 +430,12 @@
  (expenv
   '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -427,7 +447,7 @@
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -435,19 +455,19 @@
  '(app f (-> (app #t) <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
- '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+ '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
  (expenv '()))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -475,7 +495,7 @@
  (expenv
   '(((λ (n2) (-> (app p n1 n2) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -483,7 +503,7 @@
  '(app (-> or <-) (app f (app #t)) (app f (app #f)))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 '(clos/con: (#<procedure:do-or>))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -493,7 +513,7 @@
  (expenv
   '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
@@ -502,7 +522,7 @@
    (expenv
     '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -510,8 +530,8 @@
  '(app f (-> (app #f) <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -520,7 +540,7 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -540,12 +560,12 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -557,12 +577,12 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec ((phi (-> (λ (x1 x2) ...) <-)) try sat-solve-2) ...)
+   '(letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -571,19 +591,21 @@
  '(app or (-> (app f (app #t)) <-) (app f (app #f)))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
  '(app (-> try <-) (λ (n1) ...))
- (expenv '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+ (expenv '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
-   '(letrec (phi (try (-> (λ (f) ...) <-)) sat-solve-2) ...)
+   '(letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
    (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -593,7 +615,7 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -602,8 +624,10 @@
  (expenv
   '(((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -614,8 +638,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -626,8 +650,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -638,8 +662,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -650,8 +674,8 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -659,14 +683,14 @@
  '(app (-> f <-) (app #t))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
    '(app try (-> (λ (n1) ...) <-))
    (expenv
-    '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+    '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -683,20 +707,20 @@
    (expenv
     '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
  '(app try (-> (λ (n1) ...) <-))
- (expenv '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+ (expenv '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
   (list
    '(app try (-> (λ (n1) ...) <-))
    (expenv
-    '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+    '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -713,7 +737,7 @@
    (expenv
     '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -724,7 +748,7 @@
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -733,7 +757,9 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -742,7 +768,7 @@
  (expenv
   '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
  (list
@@ -751,7 +777,7 @@
    (expenv
     '(((app or (app f (app #t)) (-> (app f (app #f)) <-))
        (λ (p) (-> (app try (λ (n1) ...)) <-)))
-      ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
+      ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -760,7 +786,7 @@
  (expenv
   '(((λ (n1) (-> (app try (λ (n2) ...)) <-))
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -771,7 +797,7 @@
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -779,7 +805,7 @@
  '(app (-> #f <-))
  (expenv
   '(((λ (p) (-> (app try (λ (n1) ...)) <-))
-     (letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+     (letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list 'clos/con: (list (list '((top) . #f) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
@@ -791,10 +817,10 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (app f (app #t)) (-> (app f (app #f)) <-))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -805,17 +831,19 @@
      (λ (n1) (-> (app try (λ (n2) ...)) <-)))
     ((app or (-> (app f (app #t)) <-) (app f (app #f)))
      (λ (p) (-> (app try (λ (n1) ...)) <-)))
-    ((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+    ((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
 (list
  'clos/con:
- (list (list '(con #t ()) (expenv '())) (list '(con #f ()) (expenv '()))))
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
  '(λ (p) (-> (app try (λ (n1) ...)) <-))
- (expenv '(((letrec (phi try sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+ (expenv '(((letrec (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -824,7 +852,9 @@
  (expenv
   '(((λ (n2) (-> (app p n1 n2) <-))
      (app or (app f (app #t)) (-> (app f (app #f)) <-))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
@@ -833,5 +863,5 @@
  (expenv
   '(((λ (n2) (-> (app p n1 n2) <-))
      (app or (-> (app f (app #t)) <-) (app f (app #f)))))))
-(list 'clos/con: (list (list '(con #t ()) (expenv '()))))
+(list 'clos/con: (list (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))

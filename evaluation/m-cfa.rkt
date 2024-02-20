@@ -23,19 +23,19 @@
 
 (define (evalbind* binds ρ args)
   (match args
-    [ (list) (unit (list))]
-    [ (cons e as)
-      (match binds
-        [(cons b bs)
-         (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
-              (λ (e ρ)
-                (>>= (meval e ρ)
-                     (λ (res)
-                       (>>= (extend-store b ρ res)
-                            (λ (_) (evalbind* bs ρ as))))
-                     )))
-         ])
-      ]
+    [(list) (unit (list))]
+    [(cons e as)
+     (match binds
+       [(cons b bs)
+        (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
+             (λ (e ρ)
+               (>>= (meval e ρ)
+                    (λ (res)
+                      (>>= (extend-store b ρ res)
+                           (λ (_) (evalbind* bs ρ as))))
+                    )))
+        ])
+     ]
     )
   )
 
@@ -126,7 +126,6 @@
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  ; (pretty-print "meval")
   (print-eval-result
    `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
    (λ ()
@@ -208,7 +207,9 @@
                                  ))))
                           )]
                     [(cons C con)
-                     (define argse (map (lambda (i) ((ran-e i) Ce ρ)) (range (length args))))
+                     (define argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args))))
+                     ;  (pretty-print con)
+                     ;  (pretty-print ((clos `(con ,con) (top-env)) id))
                      (if (= (length args) 0)
                          (clos `(con ,con) (top-env))
                          (>>= (bind-args argse ρ evaled-args)
@@ -277,10 +278,10 @@
        [`(con ,con1 ,@args)
         (>>= (store-lookup-vals args ρ)
              (λ (vals)
-               ; (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
+               ;  (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
                (if (and (equal? con con1) (equal? (length vals) (length subpats)))
                    (begin
-                     ; (pretty-print `(matching ,vals to ,subpats))
+                     ;  (pretty-print `(matching ,vals to ,subpats))
                      (let loop ([subpats subpats] [vals vals])
                        (if (empty? subpats) (unit (list (list) (list)))
                            (>>= (pattern-matches (car subpats) (car vals))

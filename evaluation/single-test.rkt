@@ -5,16 +5,16 @@
 (require racket/pretty)
 
 (module+ main
-  ; (trace 1)
+  (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
 
-  (run-mcfa 1 'exponential (get-example-expr 'sat-2))
+  (run-mcfa 0 'rebinding (get-example-expr 'sat-small))
 
-  (run-basic 1 (get-example-expr 'sat-2)
-             (lambda (x) x)
-             ;  (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
-             )
+  ; (run-basic 1 (get-example-expr 'sat-2)
+  ;            (lambda (x) x)
+  ;            ;  (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
+  ;            )
   ; (run-basic (get-example-expr 'inst)
   ;            (lambda (x) (repeat 2 go-bod (go-bin 0 x)))
   ;            )
