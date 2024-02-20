@@ -42,16 +42,16 @@
 
 (define (true C p) ; Singleton constructors can be top context / envs
   (match (analysis-kind)
-    ['exponential (clos `(con #t ()) (top-env))]
-    ['rebinding (clos `(con #t ()) (top-env))]
+    ['exponential (clos `(con #t) (top-env))]
+    ['rebinding (clos `(con #t) (top-env))]
     ['basic (clos (cons `(top) `(app #t)) (top-env))]
     )
   )
 
 (define (false C p)
   (match (analysis-kind)
-    ['exponential (clos `(con #f ()) (top-env))]
-    ['rebinding (clos `(con #f ()) (top-env))]
+    ['exponential (clos `(con #f) (top-env))]
+    ['rebinding (clos `(con #f) (top-env))]
     ['basic (clos (cons `(top) `(app #f)) (top-env))]
     )
   )

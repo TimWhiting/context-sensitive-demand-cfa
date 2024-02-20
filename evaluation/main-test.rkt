@@ -79,7 +79,7 @@
           [num-queries 0]
           [basic-acc-cost 0])
       (current-m m)
-      (for ([example (get-examples '(sat-small))])
+      (for ([example (get-examples '(ack))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))

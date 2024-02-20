@@ -9,7 +9,7 @@
   (show-envs-simple #t)
   (show-envs #f)
 
-  (run-mcfa 0 'rebinding (get-example-expr 'sat-small))
+  (run-mcfa 0 'rebinding (get-example-expr 'ack))
 
   ; (run-basic 1 (get-example-expr 'sat-2)
   ;            (lambda (x) x)

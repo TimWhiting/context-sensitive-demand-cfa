@@ -190,7 +190,7 @@
                      (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ evaled-args)]
                     [(cons _ `(λ ,xs ,bod))
-                     ; (pretty-print `(applying closure: ,lam ,args ,ρ))
+                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ))
                      ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
                      (>>= (bod-enter lam Ce ρ lamρ)
                           (λ (Ce ρ-new)
@@ -276,11 +276,13 @@
     [`(,con ,@subpats)
      (match Ce
        [`(con ,con1 ,@args)
-        (>>= (store-lookup-vals args ρ)
-             (λ (vals)
-               ;  (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
-               (if (and (equal? con con1) (equal? (length vals) (length subpats)))
-                   (begin
+        ; (pretty-print `(matching-con-clause ,con ,con1 ,(length args) ,(length subpats)))
+        (if (and (equal? con con1) (equal? (length args) (length subpats)))
+            (begin
+              ; (pretty-print `(looking-up ,@args))
+              (>>= (store-lookup-vals args ρ)
+                   (λ (vals)
+                     ;  (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
                      ;  (pretty-print `(matching ,vals to ,subpats))
                      (let loop ([subpats subpats] [vals vals])
                        (if (empty? subpats) (unit (list (list) (list)))
@@ -299,9 +301,8 @@
                                             ))
                                      ]
                                     ))
-                                ))))
-                   (unit #f)
-                   )))
+                                ))))))
+            (unit #f))
         ]
        )
      ]

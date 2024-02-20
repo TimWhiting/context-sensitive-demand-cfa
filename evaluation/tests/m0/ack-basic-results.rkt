@@ -1,0 +1,215 @@
+'(expression:
+  (letrec ((ack
+            (λ (m n)
+              (match
+               (app = m 0)
+               ((#f)
+                (match
+                 (app = n 0)
+                 ((#f) (app ack (app - m 1) (app ack m (app - n 1))))
+                 (_ (app ack (app - m 1) 1))))
+               (_ (app + n 1))))))
+    (app ack 3 12)))
+
+(list 'query: '((top) letrec (ack) ...) (menv '()))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...)
+ (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(λ (m n) (-> (match (app = m 0) ...) <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(match (app = m 0) (#f) (_ (-> (app + n 1) <-))) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app + n (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+
+(list 'query: '(app + (-> n <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> + <-) n 1) (menv '(())))
+'(clos/con: (#<procedure:do-add>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(match (app = m 0) ((#f) (-> (match (app = n 0) ...) <-)) _)
+ (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(match (app = n 0) (#f) (_ (-> (app ack (app - m 1) 1) <-)))
+ (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack (app - m 1) (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack (-> (app - m 1) <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app - m (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+
+(list 'query: '(app - (-> m <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> - <-) m 1) (menv '(())))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> ack <-) (app - m 1) 1) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(match
+   (app = n 0)
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   _)
+ (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(app ack (app - m 1) (-> (app ack m (app - n 1)) <-))
+ (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack m (-> (app - n 1) <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app - n (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+
+(list 'query: '(app - (-> n <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> - <-) n 1) (menv '(())))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack (-> m <-) (app - n 1)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> ack <-) m (app - n 1)) (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(app ack (-> (app - m 1) <-) (app ack m (app - n 1)))
+ (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app - m (-> 1 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (1 ⊥ ⊥ ⊥))
+
+(list 'query: '(app - (-> m <-) 1) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> - <-) m 1) (menv '(())))
+'(clos/con: (#<procedure:do-sub>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list
+ 'query:
+ '(app (-> ack <-) (app - m 1) (app ack m (app - n 1)))
+ (menv '(())))
+(list
+ 'clos/con:
+ (list
+  (list '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(match (-> (app = n 0) <-) (#f) _) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(app = n (-> 0 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (0 ⊥ ⊥ ⊥))
+
+(list 'query: '(app = (-> n <-) 0) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> = <-) n 0) (menv '(())))
+'(clos/con: (#<procedure:do-demand-equal>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(match (-> (app = m 0) <-) (#f) _) (menv '(())))
+(list
+ 'clos/con:
+ (list (list '((top) app #t) (menv '())) (list '((top) app #f) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(app = m (-> 0 <-)) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (0 ⊥ ⊥ ⊥))
+
+(list 'query: '(app = (-> m <-) 0) (menv '(())))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> = <-) m 0) (menv '(())))
+'(clos/con: (#<procedure:do-demand-equal>))
+'(literals: (⊥ ⊥ ⊥ ⊥))
+
+(list 'query: '(letrec (ack) (-> (app ack 3 12) <-)) (menv '()))
+'(clos/con: ⊥)
+'(literals: (⊤ ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack 3 (-> 12 <-)) (menv '()))
+'(clos/con: ⊥)
+'(literals: (12 ⊥ ⊥ ⊥))
+
+(list 'query: '(app ack (-> 3 <-) 12) (menv '()))
+'(clos/con: ⊥)
+'(literals: (3 ⊥ ⊥ ⊥))
+
+(list 'query: '(app (-> ack <-) 3 12) (menv '()))
+(list
+ 'clos/con:
+ (list
+  (list '(letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (menv '()))))
+'(literals: (⊥ ⊥ ⊥ ⊥))
