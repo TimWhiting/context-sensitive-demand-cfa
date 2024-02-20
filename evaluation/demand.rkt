@@ -206,11 +206,14 @@ Finish the paper
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i1 f1 c1 s1))) (each (true C ρ) (false C ρ))] ; TODO: More refined
-       [_ ⊥]
+       [(product/lattice (literal (list i2 f2 c2 s2)))
+        (define f-lit (for-lit ρ C))
+        (bool-result (f-lit i1 i2 eq?) (f-lit f1 f2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C ρ)
+        ]
+       [_ (false C ρ)] ; Primitive != Clos/Con
        )]
-    [(product/set (list _ `(λ ,_ ,@_))) (false C ρ)]; Closures never are equal
-    [(product/set (list _ _)) (each (true C ρ) (false C ρ))] ; TODO Refine this
+    [(product/set (list _ `(λ ,_ ,@_))) (each (true C ρ) (false C ρ))]; Closures can actually be equal according to scheme
+    [(product/set (list _ _)) (each (true C ρ) (false C ρ))] ; Constructors need refinement for equal? - not eq?
     ))
 
 ; demand evaluation

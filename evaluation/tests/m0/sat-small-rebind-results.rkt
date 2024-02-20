@@ -99,7 +99,9 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app or x1 (-> (app not x2) <-)) (flatenv '()))
-(list 'clos/con: (list (list '(con #f ()) (flatenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '((top) letrec (phi ... sat-solve-2) ...) (flatenv '()))

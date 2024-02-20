@@ -70,7 +70,9 @@
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app or x1 (-> (app not x2) <-)) (expenv '(())))
-(list 'clos/con: (list (list '(con #f ()) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app not (-> x2 <-)) (expenv '(())))

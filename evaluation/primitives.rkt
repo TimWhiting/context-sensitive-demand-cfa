@@ -74,23 +74,28 @@
     [_ #f]
     ))
 
-; TODO: Improve the primitives (make them more refined)
 (define (do-equal p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
+       [(product/lattice (literal (list i2 f2 c2 s2)))
+        (define f-lit (for-lit p C))
+        (bool-result (f-lit i1 i2 eq?) (f-lit f1 f2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C p)
+        ]
        [_ (false C p)]
        )
      ]
-    [_ (each (true C p) (false C p))])
+    [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
 
 (define (do-lte p C a1 a2)
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
+       [(product/lattice (literal (list i2 f2 c2 s2)))
+        (define f-lit (for-lit p C))
+        (bool-result (f-lit i1 i2 <=) (f-lit f1 f2 <=) (f-lit c1 c2 char<=?) (f-lit s1 s2 string<=?) C p)
+        ]
        [_ (clos (cons C 'error-lte-not-implemented) p)]
        )
      ]
@@ -102,7 +107,9 @@
   (match a1
     [(product/lattice (literal (list i1 f1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (each (true C p) (false C p))]
+       [(product/lattice (literal (list i2 f2 c2 s2)))
+        (define f-lit (for-lit p C))
+        (bool-result (f-lit i1 i2 <) (f-lit f1 f2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) C p)]
        [_ (clos (cons C 'error-lte-not-implemented) p)]
        )
      ]
@@ -110,12 +117,7 @@
   )
 
 (define (do-not p C a1)
-  (match a1
-    [(product/lattice (literal (list i1 f1 c1 s1))) (each (true C p) (false C p))]
-    [(product/set (list `(con #f ()) _)) (true C p)]
-    [(product/set (list _ _)) (false C p)]
-    )
-  )
+  (if (is-truthy a1) (false C p) (true C p)))
 
 (define (do-or p C . args)
   (match args
@@ -136,16 +138,16 @@
 
 (define (is-falsey r)
   (match r
-    [(product/set (list `(con #f ()) env)) #t]; Only #f counts as falsey in scheme
+    [(product/set (list `(con #f) _)) #t]; Only literal #f counts as falsey in scheme
     [_ #f]
     )
   )
 
 (define (do-add p C a1 a2)
   (match a1
-    [(product/lattice (literal (list i1 f1 c1 s1)))
+    [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (lit (literal (list (top) (bottom) (bottom) (bottom))))]
+       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 + (top)) (when-lit f1 f2 + (top)) (bottom) (bottom))))]
        [_ ⊥]
        )
      ]
@@ -154,14 +156,50 @@
 
 (define (do-sub p C a1 a2)
   (match a1
-    [(product/lattice (literal (list i1 f1 c1 s1)))
+    [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2))) (lit (literal (list (top) (bottom) (bottom) (bottom))))]
+       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 - (top)) (when-lit f1 f2 - (top)) (bottom) (bottom))))]
        [_ ⊥]
        )
      ]
     [_ ⊥])
   )
+
+(define (when-lit sl1 sl2 f orelse)
+  (match sl1
+    [(singleton s1)
+     (match sl2
+       [(singleton s2) (singleton (f s1 s2))]
+       [_ orelse]
+       )
+     ]
+    [(bottom) (match sl2 [(bottom) (bottom)] [_ orelse])]
+    [_ orelse]
+    )
+  )
+
+(define ((for-lit p C) f1 f2 f)
+  (match f1
+    [(singleton x1)
+     (match f2
+       [(singleton x2) (f x1 x2)]
+       [_ (clos (cons C 'error) p)]
+       )
+     ]
+    [(bottom) (match f2 [(bottom) 'bot])]
+    [(top) 'top]
+    ))
+
+(define (bool-result r1 r2 r3 r4 C p)
+  (if (or (eq? r1 'top) (eq? r2 'top) (eq? r3 'top) (eq? r4 'top))
+      (each (true C p) (false C p))
+      (if (and (eq? r1 'bot) (eq? r2 'bot) (eq? r3 'bot) (eq? r4 'bot))
+          ⊥
+          (apply each (map (to-bool C p) (list r1 r2 r3 r4)))
+          )))
+
+(define ((to-bool C p) r)
+  (if r (true C p) (false C p)))
 
 (define (do-newline p C) ⊥)
 (define (do-display p C . args) ⊥)

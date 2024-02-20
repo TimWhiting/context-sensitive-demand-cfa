@@ -235,6 +235,7 @@
                ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
+                      ; (pretty-print 'finished-binding)
                       (>>= ((match-clause i) parent parentρ) meval)))]
               [#f ((eval-con-clause parent parentρ clauses (+ i 1)) ce ρ)] ; Doesn't match
               [#t (>>= ((match-clause i) parent parentρ) meval)] ; Matches, but doesn't bind anything

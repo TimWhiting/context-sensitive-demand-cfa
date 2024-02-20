@@ -88,14 +88,18 @@
  'query:
  '(let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
  (expenv '(())))
-(list 'clos/con: (list (list '(con #f) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list
  'query:
  '(match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)
  (expenv '(())))
-(list 'clos/con: (list (list '(con #f) (expenv '()))))
+(list
+ 'clos/con:
+ (list (list '(con #f) (expenv '())) (list '(con #t) (expenv '()))))
 '(literals: (⊥ ⊥ ⊥ ⊥))
 
 (list 'query: '(app (-> #f <-)) (expenv '(())))
