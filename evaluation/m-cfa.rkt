@@ -206,14 +206,19 @@
                                  ))))
                           )]
                     [(cons C con)
-                     (define argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args))))
-                     ;  (pretty-print con)
-                     ;  (pretty-print ((clos `(con ,con) (top-env)) id))
-                     (if (= (length args) 0)
-                         (clos `(con ,con) (top-env))
-                         (>>= (bind-args argse ρ evaled-args)
-                              (λ (_) (clos `(con ,con ,@argse) ρ)))
-                         )
+                     (>>=
+                      ((bind con) Ce ρ)
+                      (λ (_ ρ i)
+                        (match i
+                          [-1
+                           (define argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args))))
+                           ;  (pretty-print con)
+                           (pretty-print `(conapp ,con))
+                           (if (= (length args) 0)
+                               (clos `(con ,con) (top-env))
+                               (>>= (bind-args argse ρ evaled-args)
+                                    (λ (_) (clos `(con ,con ,@argse) ρ)))
+                               )])))
                      ]
                     ))))
 

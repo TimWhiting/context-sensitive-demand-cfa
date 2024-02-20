@@ -20,15 +20,18 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
-(define (check-known-constructor-or-primitive? x)
-  (member x '(cons nil error = - + < <= not or and equal? newline display void)))
+(define (check-known-primitive? x)
+  (if (member x '(= - + < <= not or and equal? newline display void))
+      '()
+      (error 'unknown-primitive (format "unknown primitive ~a" x))
+      ))
 
 (define ((bind x) Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (bind x)))
   ; (pretty-print `(bind ,x ,Ce ,ρ))
   (match Ce
     [(cons `(top) _)
-     (check-known-constructor-or-primitive? x)
+     (check-known-primitive? x)
      (unit x ρ -1)] ; Constructors
     [(cons `(lettypes-bod ,binds ,C) e₁)
      ;  (pretty-print (map car binds))
