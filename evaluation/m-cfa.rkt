@@ -269,9 +269,7 @@
   )
 
 (define (pattern-con-matches pattern Ce ρ)
-  ; (pretty-print pattern)
-  ; (pretty-print Ce)
-  ; (pretty-print ρ)
+  ; (pretty-print `(con-matches ,pattern ,Ce ,ρ))
   (match pattern
     [`(,con ,@subpats)
      (match Ce
@@ -307,6 +305,7 @@
        )
      ]
     [(? symbol? x)
+     ;  (pretty-print `(matches-symbol ,x ,Ce))
      (>>= (clos Ce ρ) (λ (res) (unit (list (list x) (list res)))))]
     [lit1
      (match Ce

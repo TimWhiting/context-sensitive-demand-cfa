@@ -183,7 +183,8 @@
     [(singleton x1)
      (match f2
        [(singleton x2) (f x1 x2)]
-       [_ (clos (cons C 'error) p)]
+       [(bottom) 'bot]
+       [_ 'top]
        )
      ]
     [(bottom) (match f2 [(bottom) 'bot])]
