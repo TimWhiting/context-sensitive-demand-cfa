@@ -85,6 +85,13 @@
         (and (equal? Ce₀ Ce₁)
              (⊑-cc cc₀ cc₁))])]))
 
+(define (is-fully-determined? p)
+  (match p
+    [(menv ccs) (andmap cc-determined? ccs)]
+    [(lenv ccs) (error 'not-implemented "Not implemented yet")]
+    )
+  )
+
 (define (cc-determined? ccs)
   ((cc-determinedm? (current-m)) ccs))
 

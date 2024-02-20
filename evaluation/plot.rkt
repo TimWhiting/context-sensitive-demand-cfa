@@ -1,8 +1,6 @@
 #lang racket/base
 (require racket/match
-         racket/string
          racket/set
-         racket/pretty
          racket/list
          racket/port
          plot
@@ -26,11 +24,27 @@
   ; (pretty-print line)
   (match line
     ; Demand shuffled (cached)
-    [`(,name ,m ,shufflen ,query ,hash-num #f) #f]
-    [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (average-or-false time-res)]
+    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
+                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                      ,eval-groups-avg-size ,eval-sub-avg-determined
+                      #f) #f]
+    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
+                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                      ,eval-groups-avg-size ,eval-sub-avg-determined
+                      ,time-result) (average-or-false time-result)]
     ; Demand no cache
-    [`(,name ,m ,query ,hash-num #f) #f]
-    [`(,name ,m ,query ,hash-num ,time-res) (average-or-false time-res)]
+    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
+                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                   ,eval-groups-avg-size ,eval-sub-avg-determined
+                   #f) #f]
+    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
+                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                   ,eval-groups-avg-size ,eval-sub-avg-determined
+                   ,time-result) (average-or-false time-result)]
     ; Regular mCFA
     [`(,name ,m ,hash-num #f) #f]
     [`(,name ,m ,hash-num ,time-res) (average-or-false time-res)]
@@ -39,9 +53,17 @@
 (define ((cfa mexpected) line)
   (match line
     ; Demand shuffled (cached)
-    [`(,name ,m ,shufflen ,query ,hash-num ,time-res) (equal? m mexpected)]
+    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
+                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                      ,eval-groups-avg-size ,eval-sub-avg-determined
+                      ,time-result) (equal? m mexpected)]
     ; Demand no cache
-    [`(,name ,m ,query ,hash-num ,time-res) (equal? m mexpected)]
+    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
+                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                   ,eval-groups-avg-size ,eval-sub-avg-determined
+                   ,time-result) (equal? m mexpected)]
     ; Regular mCFA
     [`(,name ,m ,hash-num ,time-res) (equal? m mexpected)]
     ))

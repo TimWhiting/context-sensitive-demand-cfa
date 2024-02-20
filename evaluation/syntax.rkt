@@ -53,6 +53,22 @@
      (cons C `(lettypes ,binds ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
+(define (expr-kind e)
+  (match e
+    [`(app ,@es) 'app]
+    [`(match ,e ,@mchs) 'match]
+    [`(λ ,y ,bod) 'lambda]
+    [`(,let-kind ,binds ,bod) let-kind]
+    [''match-error ''match-error]
+    [(? symbol? x) 'ref-or-constructor]
+    [(? number? x) 'number]
+    [(? char? x) 'char]
+    [(? string? x) 'string]
+    [#t 'constructor]
+    [#f 'constructor]
+    )
+  )
+
 (define (show-simple-expr e)
   (match e
     [`(app ,@es) `(app ,@(map show-simple-expr es))]

@@ -1689,24 +1689,27 @@ functional languages. \tw{Details in Appendix?, Link to Github Here?}
 To evaluate Demand $m$-CFA we need to reflect on the differences imposed by Demand $m$-CFA's pricing model.
 
 \subsection{Implementation Costs}
-In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather at implementation time. If any primitive is not supported,
-any external library whose source code is not available, etc, the developer must make a hard choice. They must approximate the behavior 
+In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather at implementation time. If any primitive is not supported or
+any source code is not available (i.e. external libraries), the developer must make a hard choice. They must approximate the behavior 
 or throw away the results of the analysis. Depending on the language features and escape hatches available, 
 it is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, this becomes a large burden.
 
-In contrast Demand $m$-CFA is formulated so that the analysis of each language feature is specified independantly as much as possible.
-Due to this design we theorize that, as long as \begin{enumerate*} \item the semantics of the feature does not change, and 
+In contrast Demand $m$-CFA is formulated so that the analysis of each language feature is specified independently as much as possible.
+Due to this design we theorize that, as long as \begin{enumerate*} \item the semantics of the feature does not change, 
+\item the feature's semantics does not depend on other features' semantics which have changed, and 
 \item the abstraction does not need to change \end{enumerate*} the implementation on an old version of a language will work transparently as new features and primitives are added, 
-as long as the queries do not interact with those features. In addition, when the semantics are the same across languages,
+as long as the queries do not interact with those features or primitives. In addition, when the semantics are the same across languages, and the abstraction can be reused,
 the same components can be used in a modular way.
 
 For example, we did not implement the \texttt{set!} form of R6RS Scheme which mutates the binding of a given variable, and we did not implement primitives with side effects. 
 This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
 Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare,
-we expect that relatively few queries encounter mutation.
+we expect that relatively few queries encounter mutation. \tw{Indeed when running on several R6RS examples with set!, we resolved x% of the queries, and verified manually the results were correct.}
 
-\tw{Should we report lines of code between the implementations (noting that the exhaustive analysis would actually need to implement all the language features and primitives in order to be sound)}.
+\tw{Should we report lines of code between the implementations 
+(noting that the exhaustive analysis would actually need to implement all the language features and primitives in order to be sound)
+- I would need to separate out the rebinding / exponential line count, but it isn't too difficult}.
 
 \subsection{Scalability}
 Demand $m$-CFA has inherent overhead compared to a monolithic analysis. These include:

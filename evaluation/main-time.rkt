@@ -29,6 +29,14 @@
 (define (run-expm name exp m out-time)
   (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m out-time))
 
+
+(define (is-expr-determined q)
+  (match-let ([(expr Ce p) q]) (is-fully-determined? p))
+  )
+(define (is-eval-determined q)
+  (match-let ([(eval Ce p) q]) (is-fully-determined? p))
+  )
+
 (define (run-demand name num-queries kind m Ce p out-time shufflen old-hash)
   (define query (eval Ce p))
   (define hash-result (hash))
@@ -45,10 +53,41 @@
       (set! hash-result hash-new)
       (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
-
+  (define num-entries (hash-num-keys hash-result))
+  (define eval-subqueries (filter (lambda (q) (match q [(eval Ce p) #t] [_ #f])) (hash-keys hash-result)))
+  (define expr-subqueries (filter (lambda (q) (match q [(expr Ce p) #t] [_ #f])) (hash-keys hash-result)))
+  (define refines (filter (lambda (q) (match q [(refine p) #t] [_ #f])) (hash-keys hash-result)))
+  (define num-eval-subqueries (length eval-subqueries))
+  (define num-expr-subqueries (length expr-subqueries))
+  (define num-refines (length refines))
+  (define query-kind (match Ce
+                       [(cons C e) (expr-kind e)]
+                       ))
+  (define eval-determined (filter is-eval-determined eval-subqueries))
+  (define expr-determined (filter is-expr-determined expr-subqueries))
+  (define num-eval-determined (length eval-determined))
+  (define num-expr-determined (length expr-determined))
+  (define eval-groups (group-by (lambda (q) (match-let ([(eval Ce p) q]) Ce)) eval-subqueries))
+  (define (avg-determined l)
+    (/ (length (filter is-eval-determined l)) (length l))
+    )
+  (define eval-groups-avg-determined (map avg-determined eval-groups))
+  (define eval-groups-avg-size (/ (count length eval-groups) (length eval-groups)))
+  (define eval-sub-avg-determined (/ (apply + eval-groups-avg-determined) (length eval-groups-avg-determined)))
+  (define num-fully-determined-subqueries (+ num-eval-determined num-expr-determined))
   (if (equal? shufflen -1)
-      (pretty-print `(,name ,m ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
-      (pretty-print `(,name ,m ,shufflen ,(query->string query) ,(hash-num-keys hash-result) ,time-result) out-time)
+      (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query)
+                                  ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                                  ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                                  ,eval-groups-avg-size ,eval-sub-avg-determined
+                                  ,time-result) out-time)
+      ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
+      (pretty-print `(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,(query->string query)
+                                     ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
+                                     ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
+                                     ,eval-groups-avg-size ,eval-sub-avg-determined
+                                     ,time-result) out-time)
+
       )
   hash-result
   )
