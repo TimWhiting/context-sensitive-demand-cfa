@@ -142,8 +142,11 @@ Finish the paper
     ['* `(prim ,do-mult)] ; Numbers work with the regular data model
     ['/ `(prim ,do-div)] ; Numbers work with the regular data model
     ['modulo `(prim ,do-modulo)]
+    ['gcd `(prim ,do-gcd)]
+    ['quotient `(prim ,do-quotient)]
     ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
     ['< `(prim ,do-lt)] ; Numbers work with the regular data model
+    ['> `(prim ,do-gt)] ; Numbers work with the regular data model
     ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
     ['newline `(prim, do-newline)]
     ['display `(prim, do-display)]

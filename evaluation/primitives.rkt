@@ -15,7 +15,10 @@
     ['* `(prim ,do-mult)]
     ['/ `(prim ,do-div)]
     ['modulo `(prim ,do-modulo)]
+    ['gcd `(prim ,do-gcd)]
+    ['quotient `(prim ,do-quotient)]
     ['< `(prim ,do-lt)]
+    ['> `(prim ,do-gt)]
     ['<= `(prim ,do-lte)]
     ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
     ['not `(prim ,do-not)]
@@ -117,10 +120,23 @@
        [(product/lattice (literal (list i2 f2 c2 s2)))
         (define f-lit (for-lit p C))
         (bool-result (f-lit i1 i2 <) (f-lit f1 f2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) C p)]
-       [_ (clos (cons C 'error-lte-not-implemented) p)]
+       [_ (clos (cons C 'error-lt-not-implemented) p)]
        )
      ]
-    [_ (clos (cons C 'error-lte-not-implemented) p)])
+    [_ (clos (cons C 'error-lt-not-implemented) p)])
+  )
+
+(define (do-gt p C a1 a2)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1)))
+     (match a2
+       [(product/lattice (literal (list i2 f2 c2 s2)))
+        (define f-lit (for-lit p C))
+        (bool-result (f-lit i1 i2 >) (f-lit f1 f2 >) (f-lit c1 c2 char>?) (f-lit s1 s2 string>?) C p)]
+       [_ (clos (cons C 'error-gt-not-implemented) p)]
+       )
+     ]
+    [_ (clos (cons C 'error-gt-not-implemented) p)])
   )
 
 (define (do-odd p C a1)
@@ -180,6 +196,14 @@
 
 (define (do-modulo p C a1 a2)
   (do-num-op a1 a2 modulo)
+  )
+
+(define (do-gcd p C a1 a2)
+  (do-num-op a1 a2 gcd)
+  )
+
+(define (do-quotient p C a1 a2)
+  (do-num-op a1 a2 quotient)
   )
 
 (define (do-ceiling p C a1)
