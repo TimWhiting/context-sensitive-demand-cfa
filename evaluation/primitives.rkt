@@ -214,9 +214,9 @@
 (define ((to-bool C p) r)
   (if r (true C p) (false C p)))
 
-(define (do-newline p C) ⊥)
-(define (do-display p C . args) ⊥)
-(define (do-void p C) ⊥)
+(define (do-newline p C) (clos `((top) app void) p))
+(define (do-display p C . args) (clos `((top) app void) p))
+(define (do-void p C) (clos `((top) app void) p))
 
 (provide (all-defined-out))
 
