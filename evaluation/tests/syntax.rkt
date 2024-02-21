@@ -96,6 +96,14 @@
   (letrec*
    ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
     (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
+    (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
+    (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
+    (map
+     (λ (map-f map-l)
+       (match
+        map-l
+        ((cons map-c map-d) (app cons (app map-f map-c) (app map map-f map-d)))
+        ((nil) (app nil)))))
     (pair?
      (λ (pair?-v)
        (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
@@ -370,6 +378,8 @@
   (letrec*
    ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
     (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
+    (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
+    (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
     (pair?
      (λ (pair?-v)
        (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
@@ -455,8 +465,8 @@
                  (λ (pat1 pat2)
                    (app alt (app regex-empty pat1) (app regex-empty pat2))))
                 ((#f) (match (app regex-rep? re) ((#f) (app #f)) (_ (app #t))))
-                (_ ())))
-              (_ ())))
+                (c-x c-x)))
+              (c-x c-x)))
             (_ (app #f))))
           (_ (app #f))))
         (_ (app #t)))))
@@ -505,9 +515,9 @@
                        (λ (pat)
                          (app seq (app regex-derivative pat c) (app rep pat))))
                       ((#f) regex-NULL)
-                      (_ ())))
-                    (_ ())))
-                  (_ ())))
+                      (c-x c-x)))
+                    (c-x c-x)))
+                  (c-x c-x)))
                 (_ regex-NULL)))
               (_ regex-BLANK)))
             (_ regex-NULL)))

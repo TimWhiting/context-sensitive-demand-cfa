@@ -302,6 +302,11 @@
   (match mchs
     ['() `(app error)]
     [(list `(else ,@es)) (translate-top-defs es)]
+    [(cons `(,c) xs)
+     `(match ,(translate c)
+        [(#f) ,(unwrap-cond xs)]
+        [c-x c-x]
+        )]
     [(cons `(,c ,@es) xs)
      `(match ,(translate c)
         [(#f) ,(unwrap-cond xs)]

@@ -171,9 +171,8 @@ Finish the paper
 (define (is-truthy ρ C v)
   (match v
     [(product/lattice (literal (list i1 f1 c1 s1))) (unit #t)]
-    [(product/set (list C `(λ ,_ ,@_))) (unit #t)]; Closures
-    ; [(product/set (list (cons C #t) _)) (true C ρ)]
-    ; [(product/set (list (cons C #f) _)) (false C ρ)]
+    [(product/set (list (cons C `(λ ,_ ,@_)) p)) (unit #t)]; Closures
+    [(product/set (list (cons C `',x) p)) (unit #t)]; quoted symbols
     [(product/set (list Ce ρe)) ; Constructors
      (>>=clos (>>= (rat Ce ρe) eval) ; Eval the constructor
               (λ (Cc ρc)
