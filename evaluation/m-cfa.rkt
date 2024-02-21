@@ -240,10 +240,10 @@
     [(cons clause clauses)
      (>>= (pattern-con-matches (car clause) ce ρ)
           (λ (matches)
-            (pretty-print `(clause-res ,matches))
+            ; (pretty-print `(clause-res ,matches))
             (match matches
               [(list vars exprs) ; Matches and binds variables
-               (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
+               ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,(map show-simple-result exprs)))
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
                       ; (pretty-print 'finished-binding)
