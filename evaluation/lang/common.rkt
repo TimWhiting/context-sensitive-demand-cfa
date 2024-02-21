@@ -72,6 +72,24 @@
                     [(cons cdr-c cdr-d) cdr-d])
                   )
                )
+         (list 'cadr
+               `(λ (cadr-v)
+                  (car (cdr cadr-v))
+                  )
+               )
+         (list 'caddr
+               `(λ (cadr-v)
+                  (car (cdr (cdr cadr-v)))
+                  )
+               )
+         (list 'map
+               `(λ (map-f map-l)
+                  (match map-l
+                    [(cons map-c map-d) (app cons (app map-f map-c) (app map map-f map-d))]
+                    [(nil) (app nil)]
+                    )
+                  )
+               )
          (list 'pair?
                `(λ (pair?-v)
                   (match pair?-v

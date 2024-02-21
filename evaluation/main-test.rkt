@@ -79,9 +79,9 @@
           [num-queries 0]
           [basic-acc-cost 0])
       (current-m m)
-      (for ([example (get-examples '(ack blur cpstak eta facehugger flatten
+      (for ([example (get-examples '(ack blur cpstak deriv eta facehugger flatten
                                          kcfa-2 kcfa-3 loop2-1 map mj09 primtest
-                                         regex rsa sat-1 sat-2 sat-3 tak sat-small))]) ;  deriv regex))])
+                                         rsa sat-1 sat-2 sat-3 tak sat-small))]) ;  deriv regex))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
