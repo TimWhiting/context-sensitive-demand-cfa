@@ -5,7 +5,7 @@
 (require racket/pretty)
 
 (module+ main
-  (trace 1)
+  ; (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
 

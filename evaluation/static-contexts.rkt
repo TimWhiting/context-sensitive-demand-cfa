@@ -21,7 +21,7 @@
      args]))
 
 (define (check-known-primitive? x)
-  (if (member x '(= - + * < <= not or and equal? error newline display void nil #f #t))
+  (if (member x '(= - + * < <= not or and equal? error newline display void #f #t))
       '()
       (error 'unknown-primitive (format "unknown primitive ~a" x))
       ))
