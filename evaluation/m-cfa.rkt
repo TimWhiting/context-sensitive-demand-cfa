@@ -264,8 +264,8 @@
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
             (match matches
-              [#f ((eval-con-clause parent clauses (+ i 1)) lit)]
-              [#f (>>= ((match-clause i) parent parentρ) meval)]
+              [#f ((eval-lit-clause parent parentρ clauses (+ i 1)) lit)]
+              [#t (>>= ((match-clause i) parent parentρ) meval)]
               [(list vars exprs)
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
