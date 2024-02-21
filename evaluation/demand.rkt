@@ -231,10 +231,10 @@ Finish the paper
            (pretty-print `(quoted ,x))
            (>>= ((ran 0) Ce) clos)]
           [(cons _ (? symbol? x))
-           ;  (pretty-trace `(bind ,x ,Ce ,ρ))
+           (pretty-print `(bind ,x ,Ce ,ρ))
            (>>= ((bind x) Ce ρ)
                 (λ (Cex ρ i)
-                  ; (pretty-print `(bound-to ,x ,i ,(show-simple-ctx Cex)))
+                  (pretty-print `(bound-to ,x ,i ,(show-simple-ctx Cex)))
                   (match Cex
                     [(cons `(bod ,xs ,C) e)
                      (>>= (call C xs e ρ)
@@ -265,7 +265,7 @@ Finish the paper
                     [(? symbol? x)
                      (match (lookup-demand-primitive x)
                        [#f
-                        ; (pretty-tracen 0 `(constructor? ,x))
+                        (pretty-print `(constructor? ,x))
                         (clos Ce ρ)]
                        [Ce (clos Ce ρ)]
                        )]
