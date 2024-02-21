@@ -201,23 +201,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -246,12 +251,13 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -296,22 +302,11 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
    (app
     cons
     'seq
@@ -324,68 +319,68 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -443,23 +438,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -489,23 +489,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -537,23 +542,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -588,23 +598,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -622,50 +637,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -694,41 +689,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -758,23 +754,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -837,23 +838,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -918,23 +924,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -980,23 +991,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1026,23 +1042,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1052,10 +1073,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))
   (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1083,23 +1101,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1132,8 +1155,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1174,23 +1199,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1205,8 +1235,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -1237,23 +1269,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1302,23 +1339,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1348,23 +1390,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1432,12 +1479,58 @@ clos/con:
 	'((con
    cons
    (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
+  (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
+  (env ()))
+	'((con
+   cons
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app car (-> data <-)) (env (())))
+clos/con:
+	'((con
+   cons
+   (app
     cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    'foo
+    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+  (env ()))
+	'((con
+   cons
    (app
     cons
     'seq
@@ -1450,83 +1543,26 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app car (-> data <-)) (env (())))
-clos/con:
-	'((con
-   cons
    (app
-    cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1559,23 +1595,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1607,50 +1648,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1678,23 +1699,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1740,41 +1766,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1830,23 +1857,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1878,23 +1910,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1933,41 +1970,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1998,41 +2036,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2067,23 +2106,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2124,41 +2168,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2193,23 +2238,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2241,23 +2291,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2294,23 +2349,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2338,8 +2398,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons 'rep (-> (app cons pat (app nil)) <-)) (env (())))
 clos/con:
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -2369,8 +2428,16 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -2408,23 +2475,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2455,41 +2527,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2519,23 +2592,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2623,41 +2701,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2688,12 +2767,58 @@ clos/con:
 	'((con
    cons
    (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
+  (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
+  (env ()))
+	'((con
+   cons
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app null? (-> data <-)) (env (())))
+clos/con:
+	'((con
+   cons
+   (app
     cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    'foo
+    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+  (env ()))
+	'((con
+   cons
    (app
     cons
     'seq
@@ -2706,83 +2831,26 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app null? (-> data <-)) (env (())))
-clos/con:
-	'((con
-   cons
    (app
-    cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -2833,23 +2901,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2884,23 +2957,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2952,41 +3030,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3026,23 +3105,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3073,41 +3157,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3115,11 +3200,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))
 clos/con:
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env ()))
@@ -3168,41 +3249,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3235,23 +3317,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3286,23 +3373,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3340,23 +3432,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3391,23 +3488,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3442,23 +3544,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3497,23 +3604,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3543,23 +3655,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3597,50 +3714,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -3669,41 +3766,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3772,23 +3870,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3820,23 +3923,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -3868,22 +3976,11 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
    (app
     cons
     'seq
@@ -3896,68 +3993,68 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -3988,23 +4085,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4043,60 +4145,36 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons pat1 (-> (app cons pat2 (app nil)) <-)) (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) (app cdr p)) (env (())))
@@ -4156,23 +4234,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4201,12 +4284,31 @@ clos/con:
 	'((con
    cons
    (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
+clos/con:
+	'((con
+   cons
+   (app
     cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    'foo
+    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+  (env ()))
+	'((con
+   cons
    (app
     cons
     'seq
@@ -4217,58 +4319,15 @@ clos/con:
       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
      <-)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -4311,41 +4370,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4383,23 +4443,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4430,41 +4495,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4504,23 +4570,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4566,23 +4637,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4612,23 +4688,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4676,23 +4757,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4722,23 +4808,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4803,23 +4894,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4855,41 +4951,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -4931,23 +5028,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -4977,41 +5079,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5026,8 +5129,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -5087,23 +5192,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5133,23 +5243,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5190,41 +5305,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5255,41 +5371,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5320,41 +5437,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5385,41 +5503,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5478,23 +5597,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5526,8 +5650,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
+   (app
+    cons
+    'foo
+    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -5555,23 +5681,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5615,41 +5746,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5708,23 +5840,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5800,23 +5937,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5861,23 +6003,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5908,41 +6055,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -5993,23 +6141,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6055,23 +6208,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6140,23 +6298,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6224,41 +6387,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6301,23 +6465,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -6351,23 +6520,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6399,23 +6573,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -6426,55 +6605,43 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -6507,23 +6674,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6553,23 +6725,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6599,23 +6776,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6679,23 +6861,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6725,23 +6912,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6781,23 +6973,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -6845,23 +7042,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6911,23 +7113,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -6967,23 +7174,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7034,23 +7246,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7070,50 +7287,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -7168,23 +7365,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7215,41 +7417,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7284,23 +7487,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7319,50 +7527,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -7428,41 +7616,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7517,8 +7706,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -7558,23 +7749,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7611,23 +7807,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7669,23 +7870,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7715,23 +7921,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7778,23 +7989,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7838,23 +8054,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7886,23 +8107,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -7975,23 +8201,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8022,41 +8253,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8095,23 +8327,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -8120,10 +8357,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))
   (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -8161,50 +8395,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -8238,23 +8452,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8297,41 +8516,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8354,55 +8574,43 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -8431,41 +8639,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8509,41 +8718,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8578,23 +8788,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8684,23 +8899,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8721,11 +8941,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons pat1 (-> (app cons pat2 (app nil)) <-)) (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -8760,23 +8976,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8806,23 +9027,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8857,23 +9083,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8920,41 +9151,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -8972,50 +9204,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -9049,41 +9261,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9113,23 +9326,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9167,23 +9385,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9220,23 +9443,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9289,23 +9517,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9336,41 +9569,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9400,23 +9634,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9460,23 +9699,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9518,23 +9762,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9549,8 +9798,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -9608,41 +9859,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9677,23 +9929,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9724,41 +9981,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9796,23 +10054,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9842,23 +10105,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9894,41 +10162,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -9971,41 +10240,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10045,23 +10315,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10091,23 +10366,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10167,41 +10447,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10213,8 +10494,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -10224,8 +10504,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -10271,23 +10553,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10331,23 +10618,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10411,23 +10703,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10468,23 +10765,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10516,23 +10818,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10540,11 +10847,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons 'foo (-> (app cons 'bar (app nil)) <-)) (env ()))
 clos/con:
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
@@ -10556,8 +10859,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
+   (app
+    cons
+    'foo
+    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -10610,18 +10915,14 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app cons 'rep (-> (app cons pat (app nil)) <-)) (env (())))
 clos/con:
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))
   (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -10636,55 +10937,43 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -10720,23 +11009,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10774,23 +11068,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10821,41 +11120,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10885,23 +11185,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10936,23 +11241,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -10998,22 +11308,11 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
    (app
     cons
     'seq
@@ -11026,68 +11325,68 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11128,23 +11427,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11160,11 +11464,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app cons pat1 (-> (app cons pat2 (app nil)) <-)) (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: pat2 (env (() ())))
@@ -11191,23 +11491,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11255,11 +11560,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app cons pat1 (-> (app cons pat2 (app nil)) <-)) (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: regex-match (env ()))
@@ -11299,41 +11600,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11345,29 +11647,19 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11387,12 +11679,13 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
-    'foo
-    (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11420,23 +11713,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
@@ -11465,23 +11763,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11519,23 +11822,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11583,22 +11891,11 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
    (app
     cons
     'seq
@@ -11611,68 +11908,68 @@ clos/con:
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (->
+     (app
+      cons
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11680,10 +11977,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))
   (env (())))
 clos/con:
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11716,23 +12010,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11762,23 +12061,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11808,23 +12112,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -11836,50 +12145,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -11975,41 +12264,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12027,8 +12317,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -12057,41 +12346,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12141,23 +12431,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12195,23 +12490,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12241,23 +12541,28 @@ clos/con:
 	'((app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil)))) (env (())))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12269,55 +12574,43 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    regex-match
+    (app
+     cons
+     'seq
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+    (-> (app cons 'foo (app cons 'bar (app nil))) <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'foo <-) (app cons 'bar (app nil)))
-   (app cons 'foo (-> (app cons 'bar (app nil)) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -12346,41 +12639,42 @@ clos/con:
 	'((con
    cons
    (app
-    cons
-    (-> 'seq <-)
-    (app
-     cons
-     'foo
-     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
-   (app
-    cons
-    'seq
+    regex-match
     (->
      (app
       cons
-      'foo
-      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-     <-)))
+      'seq
+      (app
+       cons
+       'foo
+       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))
+     <-)
+    (app cons 'foo (app cons 'bar (app nil)))))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> 'rep <-) (app cons 'bar (app nil)))
-   (app cons 'rep (-> (app cons 'bar (app nil)) <-)))
+   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'rep <-) (app cons pat (app nil)))
-   (app cons 'rep (-> (app cons pat (app nil)) <-)))
+   (match
+    (app regex-empty? pat)
+    ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))
+    _))
   (env (())))
 	'((con
    cons
-   (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))
-   (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
+   (match
+    (app regex-empty? pat2)
+    ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
+  (env (())))
+	'((con
+   cons
+   (match
+    (app regex-null? pat2)
+    ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))
+    _))
   (env (())))
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -12398,11 +12692,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app cons 'foo (-> (app cons 'bar (app nil)) <-)) (env ()))
 clos/con:
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: _ (env (())))
@@ -12416,50 +12706,30 @@ clos/con:
    cons
    (app
     cons
-    (-> 'foo <-)
-    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
-   (app
-    cons
     'foo
     (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
+   (app
+    cons
+    'seq
+    (->
+     (app
+      cons
+      'foo
+      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))
+     <-)))
   (env ()))
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))
-   (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-)))
-  (env ()))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat1 <-) (app cons pat2 (app nil)))
-   (app cons pat1 (-> (app cons pat2 (app nil)) <-)))
+	'((con cons (app cons 'foo (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
+	'((con cons (app cons 'rep (-> (app cons pat (app nil)) <-))) (env (())))
+	'((con cons (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-)))
   (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con
-   cons
-   (app cons (-> pat2 <-) (app nil))
-   (app cons pat2 (-> (app nil) <-)))
-  (env (())))
-	'((con cons (app cons (-> pat <-) (app nil)) (app cons pat (-> (app nil) <-)))
-  (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
+	'((con cons (app cons pat1 (-> (app cons pat2 (app nil)) <-))) (env (())))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -12478,9 +12748,5 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))
 clos/con:
-	'((con
-   cons
-   (app cons (-> 'bar <-) (app nil))
-   (app cons 'bar (-> (app nil) <-)))
-  (env ()))
+	'((con cons (app cons 'rep (-> (app cons 'bar (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)

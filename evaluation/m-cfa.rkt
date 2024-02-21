@@ -231,7 +231,7 @@
                            (if (= (length args) 0)
                                (clos `(con ,con) (top-env))
                                (>>= (bind-args argse ρ evaled-args)
-                                    (λ (_) (clos `(con ,con ,@argse) ρ)))
+                                    (λ (_) (clos `(con ,con ,Ce) ρ)))
                                ))
                          (error 'invalid-rator (format "~a" con))
                          )
@@ -310,7 +310,11 @@
   (match pattern
     [`(,con ,@subpats)
      (match Ce
-       [`(con ,con1 ,@args)
+       [`(con ,con1)
+        (if (eq? con con1) (unit #t) (unit #f))
+        ]
+       [`(con ,con1 ,Ce)
+        (define args (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length (args-e Ce)))))
         ; (pretty-print `(matching-con-clause ,con ,con1 ,(length args) ,(length subpats)))
         (if (and (equal? con con1) (equal? (length args) (length subpats)))
             (begin

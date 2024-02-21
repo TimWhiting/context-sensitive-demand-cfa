@@ -108,14 +108,24 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: ((top) lettypes (cons) ...) (env ()))
 clos/con:
 	'(((top) app void) (env ()))
-	'((con error (app error (-> "RSA fail!" <-))) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app * (-> y <-) (app quotient a b)) (env (())))
@@ -126,7 +136,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -199,7 +213,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -207,7 +225,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -257,8 +279,8 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -296,10 +318,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) (app extended-gcd a n)) (env (())))
@@ -330,7 +353,8 @@ literals: '(42 ⊥ ⊥ ⊥)
   (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))
   (env (())))
 clos/con:
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -372,10 +396,11 @@ literals: '(7 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app - (-> exp <-) 1) (env (())))
@@ -448,8 +473,8 @@ literals: '(42 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -540,7 +565,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -904,7 +933,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -929,7 +962,13 @@ literals: '(1 ⊥ ⊥ ⊥)
    (_ (-> (app error "RSA fail!") <-)))
   (env ()))
 clos/con:
-	'((con error (app error (-> "RSA fail!" <-))) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env (())))
@@ -989,10 +1028,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -1073,10 +1113,11 @@ literals: '(40 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> decrypt <-) ciphertext d n) (env ()))
@@ -1088,10 +1129,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> totient <-) p q) (env (())))
@@ -1152,7 +1194,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
-	'((con error (app error (-> "RSA fail!" <-))) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -1200,7 +1248,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
-	'((con error (app error (-> "RSA fail!" <-))) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -1259,20 +1313,22 @@ literals: '(41 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app car (-> (app extended-gcd a n) <-)) (env (())))
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -1335,7 +1391,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -1350,7 +1410,11 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -1424,7 +1488,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -1448,10 +1516,11 @@ literals: '(7 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: x (env (())))
@@ -1480,10 +1549,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: (app error (-> "RSA fail!" <-)) (env ()))
@@ -1498,7 +1568,11 @@ literals: '(47 ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -1510,7 +1584,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    error
-   (app error (-> "The modulus is too small to encrypt the message." <-)))
+   (match
+    (app > m n)
+    (#f)
+    (_
+     (-> (app error "The modulus is too small to encrypt the message.") <-))))
   (env (())))
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -1518,10 +1596,11 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con
    cons
-   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
-   (app cons y (-> (app - x (app * y (app quotient a b))) <-)))
+   (let* (x:y ... y)
+     (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-	'((con cons (app cons (-> 0 <-) 1) (app cons 0 (-> 1 <-))) (env (())))
+	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
+  (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: modulo-power (env ()))
