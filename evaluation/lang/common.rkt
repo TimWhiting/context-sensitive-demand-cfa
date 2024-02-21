@@ -74,12 +74,12 @@
                )
          (list 'cadr
                `(λ (cadr-v)
-                  (car (cdr cadr-v))
+                  (app car (app cdr cadr-v))
                   )
                )
          (list 'caddr
                `(λ (cadr-v)
-                  (car (cdr (cdr cadr-v)))
+                  (app car (app cdr (app cdr cadr-v)))
                   )
                )
          (list 'map

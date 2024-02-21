@@ -74,6 +74,7 @@ Finish the paper
   (match Ce
     [(cons _ #t) ⊥]
     [(cons _ #f) ⊥]
+    [(cons C `',x) ⊥]
     [(cons _ (? string?)) ⊥]
     [(cons _ (? symbol? y))
      (if (equal? x y)
@@ -350,6 +351,7 @@ Finish the paper
         ; (pretty-print `(got-con ,con ,locsub ,sub ,(show-simple-ctx Ce)))
         (match Ce
           [`((top) app ,con1) ⊥]; Singleton constructor -- no arguments possible
+          [(cons C `',x) ⊥] ; Doesn't match cons
           [_ (>>=clos
               ; This is the application site of the constructor, need to see what constructor it is
               (>>= (rat Ce ρ) eval)
@@ -390,6 +392,7 @@ Finish the paper
     [`(,con ,@subpats)
      (match Ce
        [`((top) app ,con1) (if (equal? con con1) (unit #t) (unit #f))] ; Singleton constructors
+       [(cons C `',x) (unit #f)] ; Symbols
        [_  (>>=clos
             ; This is the application site of the constructor, need to see what constructor it is
             (>>= (rat Ce ρe) eval)
@@ -407,9 +410,15 @@ Finish the paper
                             )]
                        )
                      ; Wrong constructor
-                     (unit #f))])))]
+                     (unit #f))])))])
+     ]
+    [`',x
+     (match Ce
+       [(cons C `',x1)
+        (if (eq? x x1) (unit #t) (unit #f))
+        ]
+       [_ (unit #f)]
        )
-
      ]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1

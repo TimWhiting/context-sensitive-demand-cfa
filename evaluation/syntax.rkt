@@ -7,6 +7,7 @@
 (define (is-constructor ce)
   (match ce
     [(cons C `(app ,con ,@args)) #t]
+    [(cons C `',x) #t]
     [_ #f]
     )
   )

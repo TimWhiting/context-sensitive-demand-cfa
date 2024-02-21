@@ -340,14 +340,19 @@
                                 ))))))
             (unit #f))
         ]
-       [`',x
-        (pretty-print `(,con ,@subpats))
-        (pretty-print x)
-        (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+       [(cons C `',x)
+        (unit #f)
         ]
        [_ (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))]
        )
      ]
+    [`',x
+     (match Ce
+       [(cons C `',x1)
+        (if (eq? x x1) (unit #t) (unit #f))
+        ]
+       [_ (unit #f)]
+       )]
     [(? symbol? x)
      ;  (pretty-print `(matches-symbol ,x ,Ce))
      (if (eq? x '_) (unit (list (list) (list)))
