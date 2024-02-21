@@ -136,6 +136,7 @@ Finish the paper
     ['not `(prim ,do-demand-not)]
     ['- `(prim ,do-sub)] ; Numbers work with the regular data model
     ['+ `(prim ,do-add)] ; Numbers work with the regular data model
+    ['* `(prim ,do-mult)] ; Numbers work with the regular data model
     ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
     ['< `(prim ,do-lt)] ; Numbers work with the regular data model
     ['newline `(prim, do-newline)]
@@ -226,7 +227,9 @@ Finish the paper
           [(cons C #f) (falsecon C ρ)]
           [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
-          [(cons C `(app quote ,v)) (clos (cons C `(app quote ,v)) ρ)]
+          [(cons C `(app quote ,x))
+           (pretty-print `(quoted ,x))
+           (>>= ((ran 0) Ce) clos)]
           [(cons _ (? symbol? x))
            ;  (pretty-trace `(bind ,x ,Ce ,ρ))
            (>>= ((bind x) Ce ρ)
@@ -398,6 +401,8 @@ Finish the paper
   )
 
 (define (pattern-matches-lit pat lit2)
+  (pretty-print pat)
+  (pretty-print lit2)
   (unit (or (symbol? pat) (equal? (to-lit pat) lit2)))
   )
 
@@ -416,8 +421,10 @@ Finish the paper
      ]
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     (clos (cons `(top) `(app error 'match-error ,lit1)) parentρ)
+
+     ;  (clos (cons `(top) `(app error 'match-error ,lit1)) parentρ)
      ;  (clos (cons lit 'match-error) parentρ)
+     ⊥
      ]
     )
   )
@@ -439,7 +446,8 @@ Finish the paper
     [_
      ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
      ;  (clos (cons ce 'match-error) ρ)
-     (clos (cons `(top) `(app error 'match-error)) ρ)
+     ;  (clos (cons `(top) `(app error 'match-error)) ρ)
+     ⊥
      ] ; TODO: Test match error
     ))
 

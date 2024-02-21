@@ -39,10 +39,16 @@
     )
   )
 
-(define (>>=rec xs)
-  (match xs
+(define (lookup-all xss)
+  (match xss
     ['() (unit '())]
-    [(cons x xs) (>>= x (λ (r) (>>=rec xs (λ (rs) (unit (cons r rs))))))]
+    [(cons x xs)
+     (>>= (lookup-all xs)
+          (λ (rs)
+            (>>= x ; (store ...)
+                 (λ (r)
+                   (unit (cons r rs))
+                   ))))]
     )
   )
 
@@ -213,7 +219,7 @@
                           [-1
                            (define argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args))))
                            ;  (pretty-print con)
-                           (pretty-print `(conapp ,con))
+                           ;  (pretty-print `(conapp ,con))
                            (if (= (length args) 0)
                                (clos `(con ,con) (top-env))
                                (>>= (bind-args argse ρ evaled-args)
@@ -246,7 +252,8 @@
               [#t (>>= ((match-clause i) parent parentρ) meval)] ; Matches, but doesn't bind anything
               )
             ))]
-    [_ (clos (cons parent 'match-error) parentρ)]
+    [_ ;(clos (cons parent 'match-error) parentρ)
+     ⊥]
     ))
 
 (define ((eval-lit-clause parent parentρ clauses i) lit)
@@ -259,7 +266,9 @@
                 (>>= ((match-clause i) parent parentρ) meval)
                 ((eval-con-clause parent clauses (+ i 1)) lit)
                 )))]
-    [_ (clos (cons parent 'match-error) parentρ)]
+    [_ ;(clos (cons parent 'match-error) parentρ)
+     ⊥
+     ]
     ))
 
 (define (pattern-matches pat val)
@@ -270,7 +279,8 @@
   )
 
 (define (store-lookup-vals xs ρ)
-  (>>=rec (map (lambda (x) (get-store x ρ)) xs))
+  ; (pretty-print `(lookup ,(map show-simple-ctx xs)))
+  (lookup-all (map (lambda (x) (get-store x ρ)) xs))
   )
 
 (define (pattern-con-matches pattern Ce ρ)

@@ -21,7 +21,7 @@
      args]))
 
 (define (check-known-primitive? x)
-  (if (member x '(= - + < <= not or and equal? newline display void))
+  (if (member x '(= - + * < <= not or and equal? error newline display void nil #f #t))
       '()
       (error 'unknown-primitive (format "unknown primitive ~a" x))
       ))
@@ -32,7 +32,7 @@
   (match Ce
     [(cons `(top) _)
      (check-known-primitive? x)
-     (unit x ρ -1)] ; Constructors
+     (unit x ρ -1)] ; Primitives
     [(cons `(lettypes-bod ,binds ,C) e₁)
      ;  (pretty-print (map car binds))
      ;  (pretty-print x)

@@ -9,6 +9,7 @@
     ['= `(prim ,do-equal)]
     ['- `(prim ,do-sub)]
     ['+ `(prim ,do-add)]
+    ['* `(prim ,do-mult)]
     ['< `(prim ,do-lt)]
     ['<= `(prim ,do-lte)]
     ['not `(prim ,do-not)]
@@ -148,6 +149,17 @@
     [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
      (match a2
        [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 + (top)) (when-lit f1 f2 + (top)) (bottom) (bottom))))]
+       [_ ⊥]
+       )
+     ]
+    [_ ⊥])
+  )
+
+(define (do-mult p C a1 a2)
+  (match a1
+    [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
+     (match a2
+       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 * (top)) (when-lit f1 f2 * (top)) (bottom) (bottom))))]
        [_ ⊥]
        )
      ]

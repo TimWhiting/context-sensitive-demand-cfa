@@ -69,19 +69,19 @@
          (list 'pair?
                `(λ (a)
                   (match a
-                    [(cons c d) #t]
+                    [(cons c d) (app #t)]
                     [_ (app error "not a pair")])
                   )
                )
          (list 'null?
                `(λ (a)
                   (match a
-                    [(nil) #t]
-                    [_ #f])
+                    [(nil) (app #t)]
+                    [_ (app #f)])
                   )
                )
          )
-        (list `(cons car cdr) `(nil) `(error sym str))) ; I don't check arity for error
+        (list `(cons car cdr) `(nil)))
   )
 
 (define (get-tps tps)

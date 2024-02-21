@@ -9,7 +9,7 @@
   (show-envs-simple #t)
   (show-envs #f)
 
-  (run-mcfa 0 'rebinding (get-example-expr 'facehugger))
+  (run-mcfa 0 'rebinding (get-example-expr 'flatten))
 
   ; (run-basic 1 (get-example-expr 'sat-2)
   ;            (lambda (x) x)
@@ -32,6 +32,7 @@
 
 (define (run-mcfa m kind expr)
   (analysis-kind kind)
+  (pretty-print expr)
   (run/parameters
    "sample"
    m
