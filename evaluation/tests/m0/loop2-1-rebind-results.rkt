@@ -213,3 +213,38 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 '(query: (app - j (-> 1 <-)) (env ()))
 clos/con: ⊥
 literals: '(1 ⊥ ⊥ ⊥)
+
+'(store: n (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: x (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: lp1 (env ()))
+clos/con:
+	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: i (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: f (env ()))
+clos/con:
+	'((app lp2 10 (-> (λ (n) ...) <-) x) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: j (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: lp2 (env ()))
+clos/con:
+	'((letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

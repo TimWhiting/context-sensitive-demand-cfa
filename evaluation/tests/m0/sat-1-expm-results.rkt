@@ -383,3 +383,79 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-4 ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x4 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: phi (env ()))
+clos/con:
+	'((letrec (... () (phi (-> (λ (x1 x2 x3 x4) ...) <-)) try ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x1 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f (env (())))
+clos/con:
+	'((app try (-> (λ (n1) ...) <-)) (env (())))
+	'((app try (-> (λ (n2) ...) <-)) (env (() ())))
+	'((app try (-> (λ (n3) ...) <-)) (env (() () ())))
+	'((app try (-> (λ (n4) ...) <-)) (env (() () () ())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x2 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n2 (env (() () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x3 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n4 (env (() () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n1 (env (() ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n3 (env (() () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: p (env (())))
+clos/con:
+	'((letrec (... () (phi (-> (λ (x1 x2 x3 x4) ...) <-)) try ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: sat-solve-4 (env ()))
+clos/con:
+	'((letrec (... try (sat-solve-4 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: try (env ()))
+clos/con:
+	'((letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-4 ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

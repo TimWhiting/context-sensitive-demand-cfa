@@ -15,6 +15,16 @@
       [_ '()]
       )
     )
+  (for ([keyval (hash->list h)])
+    (match keyval
+      [(cons (and key (store (cons Ce p))) _)
+       (pretty-display "" out)
+       (pretty-print `(store: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
+       (pretty-result-out out (from-hash key h))
+       ]
+      [_ '()]
+      )
+    )
   )
 
 (define (lt-expr e1 e2)

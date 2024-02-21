@@ -230,3 +230,28 @@ literals: '(1 ⊥ ⊥ ⊥)
   (env (())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: id (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x (env (())))
+clos/con:
+	'((letrec (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
+	'((letrec (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f (env ()))
+clos/con:
+	'((letrec (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: g (env ()))
+clos/con:
+	'((letrec (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

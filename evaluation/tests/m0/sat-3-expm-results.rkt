@@ -698,3 +698,141 @@ clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n7 (env (() () () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x4 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: phi (env ()))
+clos/con:
+	'((letrec (... println (phi (-> (λ (x1 x2 x3 x4 x5 x6 x7) ...) <-)) try ...)
+    ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: sat-solve-7 (env ()))
+clos/con:
+	'((letrec (... try (sat-solve-7 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x1 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: println (env ()))
+clos/con:
+	'((letrec (... () (println (-> (λ (s) ...) <-)) phi ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n6 (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n5 (env (() () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f (env (())))
+clos/con:
+	'((app try (-> (λ (n1) ...) <-)) (env (())))
+	'((app try (-> (λ (n2) ...) <-)) (env (() ())))
+	'((app try (-> (λ (n3) ...) <-)) (env (() () ())))
+	'((app try (-> (λ (n4) ...) <-)) (env (() () () ())))
+	'((app try (-> (λ (n5) ...) <-)) (env (() () () () ())))
+	'((app try (-> (λ (n6) ...) <-)) (env (() () () () () ())))
+	'((app try (-> (λ (n7) ...) <-)) (env (() () () () () () ())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x5 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: s (env (())))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊥ "trying")
+
+'(store: _ (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x2 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x7 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n2 (env (() () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x3 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x6 (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n4 (env (() () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n1 (env (() ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n3 (env (() () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: p (env (())))
+clos/con:
+	'((letrec (... println (phi (-> (λ (x1 x2 x3 x4 x5 x6 x7) ...) <-)) try ...)
+    ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: try (env ()))
+clos/con:
+	'((letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-7 ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: _ (env (())))
+clos/con:
+	'(((top) app void) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)

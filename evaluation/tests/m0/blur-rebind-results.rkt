@@ -243,3 +243,52 @@ clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: id (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: r (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: lp (env ()))
+clos/con:
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: blur (env ()))
+clos/con:
+	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: y (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: s (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: a (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

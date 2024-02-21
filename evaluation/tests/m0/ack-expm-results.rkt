@@ -194,3 +194,16 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 '(query: (app - (-> n <-) 1) (env (())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: ack (env ()))
+clos/con:
+	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: m (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: n (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)

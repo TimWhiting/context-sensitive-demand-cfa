@@ -307,3 +307,61 @@ clos/con:
 	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
 	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: v2 (env (() () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: z (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: v3 (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (env (())))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥ ⊥)
+
+'(store: x (env (())))
+clos/con: ⊥
+literals: '(32 ⊥ ⊥ ⊥)
+
+'(store: cpstak (env ()))
+clos/con:
+	'((letrec (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: k (env (() ())))
+clos/con:
+	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
+	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
+	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
+	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: v1 (env (() () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: tak (env (())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: z (env (())))
+clos/con: ⊥
+literals: '(8 ⊥ ⊥ ⊥)
+
+'(store: a (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: x (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)

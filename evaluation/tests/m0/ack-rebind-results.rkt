@@ -190,3 +190,16 @@ literals: '(3 ⊥ ⊥ ⊥)
 '(query: (app ack (-> (app - m 1) <-) 1) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: n (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: ack (env ()))
+clos/con:
+	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: m (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)

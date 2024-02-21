@@ -178,3 +178,48 @@ clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: z (env ()))
+clos/con:
+	'((app (λ (z) ...) (-> (λ (y1 y2) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: y1 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: _ (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: y2 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f1 (env ()))
+clos/con:
+	'((app (λ (f1) ...) (-> (λ (x1) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x2 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f2 (env ()))
+clos/con:
+	'((app (λ (f2) ...) (-> (λ (x2) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x1 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

@@ -189,3 +189,53 @@ clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: phi (env ()))
+clos/con:
+	'((letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: p (env ()))
+clos/con:
+	'((letrec (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: sat-solve-2 (env ()))
+clos/con:
+	'((letrec (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x1 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x2 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f (env ()))
+clos/con:
+	'((app try (-> (λ (n1) ...) <-)) (env ()))
+	'((app try (-> (λ (n2) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n1 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: try (env ()))
+clos/con:
+	'((letrec (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n2 (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

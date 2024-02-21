@@ -226,3 +226,20 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 '(query: (match (app not (app < y x)) (#f) (_ (-> z <-))) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: tak (env ()))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: x (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: z (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)

@@ -6,7 +6,7 @@
 (require racket/match
          racket/list
          racket/set)
-(provide meval)
+(provide meval store)
 
 (define (eval* args)
   (match args
@@ -240,10 +240,10 @@
     [(cons clause clauses)
      (>>= (pattern-con-matches (car clause) ce ρ)
           (λ (matches)
-            ; (pretty-print `(clause-res ,matches))
+            (pretty-print `(clause-res ,matches))
             (match matches
               [(list vars exprs) ; Matches and binds variables
-               ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
+               (pretty-print `(pattern ,(car clause) binds ,vars to ,exprs))
                (>>= (bind-args vars parentρ exprs)
                     (λ (_)
                       ; (pretty-print 'finished-binding)
@@ -263,10 +263,14 @@
      (>>= (pattern-lit-matches (car clause) lit)
           (λ (matches)
             ; (pretty-print `(clause-res ,matches))
-            (if matches
-                (>>= ((match-clause i) parent parentρ) meval)
-                ((eval-con-clause parent clauses (+ i 1)) lit)
-                )))]
+            (match matches
+              [#f ((eval-con-clause parent clauses (+ i 1)) lit)]
+              [#f (>>= ((match-clause i) parent parentρ) meval)]
+              [(list vars exprs)
+               (>>= (bind-args vars parentρ exprs)
+                    (λ (_)
+                      (>>= ((match-clause i) parent parentρ) meval)))
+               ])))]
     [_ ;(clos (cons parent 'match-error) parentρ)
      ;  (pretty-print `(match-error ,(show-simple-ctx (car (focus-match-e parent parentρ))) ,(show-simple-literal lit)))
      ⊥
@@ -280,13 +284,19 @@
     )
   )
 
+(define (pattern-lit-matches pattern lit2)
+  (match pattern
+    [(? symbol? pat) (unit (list (list pat) (list (product/lattice lit2))))]
+    [lit1 (unit (equal? (to-lit lit1) lit2))]
+    ))
+
 (define (store-lookup-vals xs ρ)
   ; (pretty-print `(lookup ,(map show-simple-ctx xs)))
   (lookup-all (map (lambda (x) (get-store x ρ)) xs))
   )
 
 (define (pattern-con-matches pattern Ce ρ)
-  ; (pretty-print `(con-matches ,pattern ,Ce ,ρ))
+  ; (pretty-print `(con-matches ,pattern ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
   (match pattern
     [`(,con ,@subpats)
      (match Ce
@@ -294,15 +304,16 @@
         ; (pretty-print `(matching-con-clause ,con ,con1 ,(length args) ,(length subpats)))
         (if (and (equal? con con1) (equal? (length args) (length subpats)))
             (begin
-              ; (pretty-print `(looking-up ,@args))
+              ; (pretty-print `(looking-up ,@(map show-simple-ctx args)))
               (>>= (store-lookup-vals args ρ)
                    (λ (vals)
-                     ;  (pretty-print `(matching ,vals to ,subpats and ,con to ,con1))
                      ;  (pretty-print `(matching ,vals to ,subpats))
                      (let loop ([subpats subpats] [vals vals])
+                       ;  (pretty-print `(matching ,(map show-simple-result vals) to ,subpats))
                        (if (empty? subpats) (unit (list (list) (list)))
                            (>>= (pattern-matches (car subpats) (car vals))
                                 (λ (res)
+                                  ; (pretty-print `(matched ,(car subpats) ,(show-simple-result (car vals)) ,res))
                                   (match res
                                     [#f (unit #f)]
                                     [#t (loop (cdr subpats) (cdr vals))]
@@ -323,7 +334,8 @@
      ]
     [(? symbol? x)
      ;  (pretty-print `(matches-symbol ,x ,Ce))
-     (>>= (clos Ce ρ) (λ (res) (unit (list (list x) (list res)))))]
+     (if (eq? x '_) (unit (list (list) (list)))
+         (>>= (clos Ce ρ) (λ (res) (unit (list (list x) (list res))))))]
     [lit1
      (match Ce
        [(cons _ con1); Singleton constructor
@@ -334,7 +346,4 @@
             )])
      ]))
 
-(define (pattern-lit-matches pattern lit2)
-  (match pattern
-    [lit1 (unit (equal? (to-lit lit1) lit2))]
-    ))
+

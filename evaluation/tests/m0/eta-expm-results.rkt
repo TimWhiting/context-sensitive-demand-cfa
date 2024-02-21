@@ -132,3 +132,41 @@ clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: a (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: id (env ()))
+clos/con:
+	'((letrec (... do-something (id (-> (λ (y) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: y (env (())))
+clos/con:
+	'((app id (-> (λ (a) ...) <-)) (env ()))
+	'((app id (-> (λ (b) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: b (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: _ (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: do-something (env ()))
+clos/con:
+	'((letrec (... () (do-something (-> (λ () ...) <-)) id ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: _ (env (())))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥ ⊥)
