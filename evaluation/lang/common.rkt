@@ -55,27 +55,27 @@
 (define (get-common-types)
   (list (list
          (list 'car
-               `(λ (a)
-                  (match a
-                    [(cons c d) c])
+               `(λ (car-v)
+                  (match car-v
+                    [(cons car-c car-d) car-c])
                   )
                )
          (list 'cdr
-               `(λ (a)
-                  (match a
-                    [(cons c d) d])
+               `(λ (cdr-v)
+                  (match cdr-v
+                    [(cons cdr-c cdr-d) cdr-d])
                   )
                )
          (list 'pair?
-               `(λ (a)
-                  (match a
-                    [(cons c d) (app #t)]
+               `(λ (pair?-v)
+                  (match pair?-v
+                    [(cons pair?-c pair?-d) (app #t)]
                     [_ (app #f)])
                   )
                )
          (list 'null?
-               `(λ (a)
-                  (match a
+               `(λ (null?-v)
+                  (match null?-v
                     [(nil) (app #t)]
                     [_ (app #f)])
                   )
@@ -108,10 +108,13 @@
                           [_ (app #f)]
                           ))))]
     [(cons a as)
-     (cons (list (string->symbol (string-append (symbol->string nm) "-" (symbol->string a)))
-                 `(λ (a)
-                    (match a
-                      [(,nm ,@(map (λ (ix) (if (= i ix) 'x '_)) (range n))) x]
+     (define name (string-append (symbol->string nm) "-" (symbol->string a)))
+     (define match-name (string-append name "-v"))
+     (define select-name (string-append name "-x"))
+     (cons (list (string->symbol name)
+                 `(λ (,(string->symbol match-name))
+                    (match ,(string->symbol match-name)
+                      [(,nm ,@(map (λ (ix) (if (= i ix) (string->symbol select-name) '_)) (range n))) x]
                       [_ (app error ,(format "invalid match for ~a-~a" nm a))]
                       )))
            (gen-type-arg-funcs nm as (+ 1 i) n))]))

@@ -92,11 +92,12 @@
    (app cpstak 32 15 8))
 'deriv
 '(lettypes
-  ((cons car cdr) (nil) (error sym str))
-  (letrec ((car (λ (a) (match a ((cons c d) c))))
-           (cdr (λ (a) (match a ((cons c d) d))))
+  ((cons car cdr) (nil))
+  (letrec ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
            (pair?
-            (λ (a) (match a ((cons c d) #t) (_ (app error "not a pair")))))
+            (λ (pair?-v)
+              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
            (deriv
             (λ (a)
               (match
@@ -209,11 +210,12 @@
 'flatten
 '(lettypes
   ((cons car cdr) (nil))
-  (letrec ((car (λ (a) (match a ((cons c d) c))))
-           (cdr (λ (a) (match a ((cons c d) d))))
+  (letrec ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
            (pair?
-            (λ (a) (match a ((cons c d) #t) (_ (app error "not a pair")))))
-           (null? (λ (a) (match a ((nil) #t) (_ #f))))
+            (λ (pair?-v)
+              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
+           (null? (λ (null?-v) (match null?-v ((nil) (app #t)) (_ (app #f)))))
            (append
             (λ (x y)
               (match
@@ -277,10 +279,11 @@
 'map
 '(lettypes
   ((cons car cdr) (nil))
-  (letrec ((car (λ (a) (match a ((cons c d) c))))
-           (cdr (λ (a) (match a ((cons c d) d))))
+  (letrec ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
            (pair?
-            (λ (a) (match a ((cons c d) #t) (_ (app error "not a pair")))))
+            (λ (pair?-v)
+              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
            (debug-trace (λ () (app #f)))
            (id (λ (xx) (let ((_ (app debug-trace))) xx)))
            (my-map
@@ -373,11 +376,12 @@
 'regex
 '(lettypes
   ((cons car cdr) (nil))
-  (letrec ((car (λ (a) (match a ((cons c d) c))))
-           (cdr (λ (a) (match a ((cons c d) d))))
+  (letrec ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
            (pair?
-            (λ (a) (match a ((cons c d) #t) (_ (app error "not a pair")))))
-           (null? (λ (a) (match a ((nil) #t) (_ #f))))
+            (λ (pair?-v)
+              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
+           (null? (λ (null?-v) (match null?-v ((nil) (app #t)) (_ (app #f)))))
            (debug-trace (λ () 'do-nothing))
            (cadr (λ (p) (app car (app cdr p))))
            (caddr (λ (p) (app car (app cdr (app cdr p)))))
@@ -570,9 +574,9 @@
      (app #f))))
 'rsa
 '(lettypes
-  ((cons car cdr) (error sym str))
-  (letrec ((car (λ (a) (match a ((cons c d) c))))
-           (cdr (λ (a) (match a ((cons c d) d))))
+  ((cons car cdr))
+  (letrec ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
            (extended-gcd
             (λ (a b)
               (match
@@ -769,7 +773,6 @@
 '(lettypes
   ((cons car cdr)
    (nil)
-   (error sym str)
    (Ze)
    (On)
    (Tw)
@@ -787,24 +790,24 @@
    (move coord horizon)
    (player mark action))
   (letrec ((some-v
-            (λ (a)
+            (λ (some-v-v)
               (match
-               a
-               ((some x) x)
+               some-v-v
+               ((some some-v-x) x)
                (_ (app error "invalid match for some-v")))))
            (marked? (λ (a) (match a ((marked _) (app #t)) (_ (app #f)))))
            (blank? (λ (a) (match a ((blank) (app #t)) (_ (app #f)))))
            (move-coord
-            (λ (a)
+            (λ (move-coord-v)
               (match
-               a
-               ((move x _) x)
+               move-coord-v
+               ((move move-coord-x _) x)
                (_ (app error "invalid match for move-coord")))))
            (move-horizon
-            (λ (a)
+            (λ (move-horizon-v)
               (match
-               a
-               ((move _ x) x)
+               move-horizon-v
+               ((move _ move-horizon-x) x)
                (_ (app error "invalid match for move-horizon")))))
            (is
             (app
