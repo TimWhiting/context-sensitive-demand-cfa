@@ -25,7 +25,11 @@
 
 (define litbottom (literal (list (bottom) (bottom) (bottom) (bottom))))
 (define (litint i) (literal (list (singleton i) (bottom) (bottom) (bottom))))
+(define topint (literal (list (top) (bottom) (bottom) (bottom))))
 (define (litfloat f) (literal (list (bottom) (singleton f) (bottom) (bottom))))
+(define topfloat (literal (list (bottom) (top) (bottom) (bottom))))
+(define topnum (each (lit topint) (lit topfloat)))
+(define (litnum i) (if (integer? i) (litint i) (litfloat i)))
 (define (litchar c) (literal (list (bottom) (bottom) (singleton c) (bottom))))
 (define (litstring s) (literal (list (bottom) (bottom) (bottom) (singleton s))))
 

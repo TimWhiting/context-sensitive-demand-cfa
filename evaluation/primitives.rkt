@@ -6,12 +6,18 @@
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x
+    ['random `(prim, do-random)]
+    ['ceiling `(prim, do-ceiling)]
+    ['log `(prim, do-log)]
     ['= `(prim ,do-equal)]
     ['- `(prim ,do-sub)]
     ['+ `(prim ,do-add)]
     ['* `(prim ,do-mult)]
+    ['/ `(prim ,do-div)]
+    ['modulo `(prim ,do-modulo)]
     ['< `(prim ,do-lt)]
     ['<= `(prim ,do-lte)]
+    ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
     ['not `(prim ,do-not)]
     ['or `(prim ,do-or)]; TODO Handle in match positions
     ['and `(prim ,do-and)]; TODO Handle in match positions
@@ -117,6 +123,18 @@
     [_ (clos (cons C 'error-lte-not-implemented) p)])
   )
 
+(define (do-odd p C a1)
+  (match a1
+    [(product/lattice (literal (list (singleton x) (bottom) (bottom) (bottom))))
+     (if (odd? x) (true C p) (false C p))
+     ]
+    [(product/lattice (literal (list (top) (bottom) (bottom) (bottom))))
+     (each (true C p) (false C p))
+     ]
+    [_ ⊥] ; For now, since it can go to float, but I don't have good support for error propagation
+    ; [_ (clos (cons C 'error-odd-not-implemented) p)]
+    ))
+
 (define (do-not p C a1)
   (if (is-truthy a1) (false C p) (true C p)))
 
@@ -145,50 +163,93 @@
   )
 
 (define (do-add p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
-     (match a2
-       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 + (top)) (when-lit f1 f2 + (top)) (bottom) (bottom))))]
-       [_ ⊥]
-       )
-     ]
-    [_ ⊥])
+  (do-num-op a1 a2 +)
   )
 
 (define (do-mult p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
-     (match a2
-       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 * (top)) (when-lit f1 f2 * (top)) (bottom) (bottom))))]
-       [_ ⊥]
-       )
-     ]
-    [_ ⊥])
+  (do-num-op a1 a2 *)
+  )
+
+(define (do-div p C a1 a2)
+  (do-num-op-to-float a1 a2 /); TWO ints can be a float
   )
 
 (define (do-sub p C a1 a2)
+  (do-num-op a1 a2 -)
+  )
+
+(define (do-modulo p C a1 a2)
+  (do-num-op a1 a2 modulo)
+  )
+
+(define (do-ceiling p C a1)
+  (match a1
+    [(product/lattice (literal (list x y (bottom) (bottom))))
+     (apply each (list
+                  (if (singleton? x) (lit (litint x)) ⊥)
+                  (if (singleton? y) (lit (litint (ceiling y))) ⊥)
+                  (if (or (top? x) (top? y))
+                      (lit (literal (list (top) (bottom) (bottom) (bottom))))
+                      ⊥
+                      )))
+     ]
+    [_ ⊥])
+  )
+
+(define (do-log p C a1)
+  (match a1
+    [(product/lattice (literal (list x y (bottom) (bottom))))
+     (apply each (list
+                  (if (singleton? x) (if (eq? x 1) (lit (litint 0)) (lit topint)) ⊥)
+                  (if (singleton? y) (if (eq? y 1) (lit (litint 0)) (lit topint)) ⊥)
+                  (if (or (top? x) (top? y))
+                      (lit (literal (list (top) (bottom) (bottom) (bottom))))
+                      ⊥
+                      )))
+     ]
+    [_ ⊥])
+  )
+
+(define (do-num-op-to-int a1 a2 op)
+  (do-num-op-to-default a1 a2 op (lambda (x) (lit topint)))
+  )
+
+(define (do-num-op-to-float a1 a2 op)
+  (do-num-op-to-default a1 a2 op (lambda (x) (lit topfloat)))
+  )
+
+(define (do-num-op a1 a2 op)
+  (do-num-op-to-default a1 a2 op
+                        (lambda (tp)
+                          (match tp
+                            ['ints (lit topint)]
+                            ['floats (lit topfloat)]
+                            ['mixed topnum]
+                            )
+                          )))
+
+(define (do-num-op-to-default a1 a2 op default)
   (match a1
     [(product/lattice (literal (list i1 f1 (bottom) (bottom))))
      (match a2
-       [(product/lattice (literal (list i2 f2 (bottom) (bottom)))) (lit (literal (list (when-lit i1 i2 - (top)) (when-lit f1 f2 - (top)) (bottom) (bottom))))]
+       [(product/lattice (literal (list i2 f2 (bottom) (bottom))))
+        (apply each (list
+                     (if (and (singleton? i1) (singleton? i2)) (lit (litnum (op (singleton-x i1) (singleton-x i2)))) ⊥)
+                     (if (and (singleton? f1) (singleton? f2)) (lit (litnum (op (singleton-x f1) (singleton-x f2)))) ⊥)
+                     (if (and (singleton? i1) (singleton? f2)) (lit (litnum (op (singleton-x i1) (singleton-x f2)))) ⊥)
+                     (if (and (singleton? f1) (singleton? i2)) (lit (litnum (op (singleton-x f1) (singleton-x i2)))) ⊥)
+                     (if (and (or (top? f1) (top? f2)) (bottom? i1) (bottom? i2)) (default 'floats) ⊥)
+                     (if (and (or (top? i1) (top? i2)) (bottom? f1) (bottom? f2)) (default 'ints) ⊥)
+                     (if (and (or (top? f1) (top? f2)) (or (top? i1) (top? i2))) (default 'mixed) ⊥)
+                     )
+               )
+        ]
        [_ ⊥]
        )
      ]
     [_ ⊥])
   )
 
-(define (when-lit sl1 sl2 f orelse)
-  (match sl1
-    [(singleton s1)
-     (match sl2
-       [(singleton s2) (singleton (f s1 s2))]
-       [_ orelse]
-       )
-     ]
-    [(bottom) (match sl2 [(bottom) (bottom)] [_ orelse])]
-    [_ orelse]
-    )
-  )
 
 (define ((for-lit p C) f1 f2 f)
   (match f1
@@ -199,7 +260,7 @@
        [_ 'top]
        )
      ]
-    [(bottom) (match f2 [(bottom) 'bot])]
+    [(bottom) (match f2 [_ 'bot])]
     [(top) 'top]
     ))
 
@@ -217,6 +278,15 @@
 (define (do-newline p C) (clos `((top) app void) p))
 (define (do-display p C . args) (clos `((top) app void) p))
 (define (do-void p C) (clos `((top) app void) p))
+(define (do-random p C . args)
+  (match args
+    [(list b t) (error 'unsupported-primitive-random-2-args "")]
+    [(list n)
+     (lit (literal (list (top) (bottom) (bottom) (bottom))))]
+    [(list)
+     (lit (literal (list (bottom) (top) (bottom) (bottom))))])
+  )
+
 
 (provide (all-defined-out))
 

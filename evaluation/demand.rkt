@@ -134,11 +134,17 @@ Finish the paper
     ['or `(prim ,do-demand-or)]; TODO Handle in match positions
     ['and `(prim ,do-demand-and)]; TODO Handle in match positions
     ['not `(prim ,do-demand-not)]
+    ['random `(prim, do-random)]
+    ['ceiling `(prim, do-ceiling)]
+    ['log `(prim, do-log)]
     ['- `(prim ,do-sub)] ; Numbers work with the regular data model
     ['+ `(prim ,do-add)] ; Numbers work with the regular data model
     ['* `(prim ,do-mult)] ; Numbers work with the regular data model
+    ['/ `(prim ,do-div)] ; Numbers work with the regular data model
+    ['modulo `(prim ,do-modulo)]
     ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
     ['< `(prim ,do-lt)] ; Numbers work with the regular data model
+    ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
     ['newline `(prim, do-newline)]
     ['display `(prim, do-display)]
     ['void `(prim, do-void)]
