@@ -79,6 +79,7 @@
     [(? number? x) x]
     [(? char? x) x]
     [(? string? x) x]
+    [`',x `',x]
     [#t #t]
     [#f #f]
     )

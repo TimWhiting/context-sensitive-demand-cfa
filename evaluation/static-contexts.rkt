@@ -21,7 +21,7 @@
      args]))
 
 (define (check-known-primitive? x)
-  (if (member x '(= - + * / modulo ceiling random log gcd quotient odd? < <= > not or and equal? error newline display void #f #t))
+  (if (member x '(= - + * / modulo ceiling random log gcd quotient odd? < <= > not or and equal? eq? symbol? error newline display void #f #t))
       '()
       (error 'unknown-primitive (format "unknown primitive ~a" x))
       ))

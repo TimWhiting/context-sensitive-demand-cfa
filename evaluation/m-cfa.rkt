@@ -143,7 +143,7 @@
        [(cons _ (? string? x)) (lit (litstring x))]
        [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
-       [(cons _ `(app quote ,_)) (>>= ((ran 0) Ce) clos)]
+       [(cons _ `',x) (clos Ce ρ)]
        [(cons _ `(lettypes ,_ ,_))
         (>>= (bod Ce ρ) meval)]
        [(cons _ `(let ,binds ,_))
@@ -340,6 +340,12 @@
                                 ))))))
             (unit #f))
         ]
+       [`',x
+        (pretty-print `(,con ,@subpats))
+        (pretty-print x)
+        (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+        ]
+       [_ (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))]
        )
      ]
     [(? symbol? x)

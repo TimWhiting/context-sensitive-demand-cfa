@@ -132,6 +132,9 @@ Finish the paper
   (match x
     ['= `(prim ,do-demand-equal)]
     ['equal? `(prim, do-demand-equal)]
+    ['eq? `(prim, do-demand-equal)]
+    ['symbol? `(prim, do-symbol?)]
+    ['char? `(prim, do-char?)]
     ['or `(prim ,do-demand-or)]; TODO Handle in match positions
     ['and `(prim ,do-demand-and)]; TODO Handle in match positions
     ['not `(prim ,do-demand-not)]
@@ -237,9 +240,9 @@ Finish the paper
           [(cons C #f) (falsecon C ρ)]
           [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
-          [(cons C `(app quote ,x))
-           ;  (pretty-print `(quoted ,x))
-           (>>= ((ran 0) Ce) clos)]
+          [(cons _ `',x);  (pretty-print `(quoted ,x))
+           (clos Ce ρ)
+           ]
           [(cons _ (? symbol? x))
            ;  (pretty-print `(bind ,x ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
            (>>= ((bind x) Ce ρ)

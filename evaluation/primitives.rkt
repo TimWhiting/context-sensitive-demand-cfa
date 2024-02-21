@@ -25,6 +25,9 @@
     ['or `(prim ,do-or)]; TODO Handle in match positions
     ['and `(prim ,do-and)]; TODO Handle in match positions
     ['equal? `(prim ,do-equal)]
+    ['eq? `(prim, do-equal)]
+    ['symbol? `(prim, do-symbol?)]
+    ['char? `(prim, do-char?)]
     ['newline `(prim ,do-newline)]
     ['display `(prim ,do-display)]
     ['void  `(prim ,do-void)]
@@ -97,6 +100,21 @@
      ]
     [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
+
+(define (do-symbol? p C a1)
+  (match a1
+    [(product/set (list (cons C `',x) p))
+     (true C p) ]
+    [_ (false C p)])
+  )
+
+(define (do-char? p C a1)
+  (match a1
+    [(product/lattice (literal (list i1 f1 c1 s1)))
+     (if (not (bottom? c1)) (true C p) (false C p)) ]
+    [_ (false C p)])
+  )
+
 
 (define (do-lte p C a1 a2)
   (match a1
