@@ -165,6 +165,16 @@
              (λ (_)
                ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                (>>= (bod Ce ρ) meval)))]
+       [(cons _ `(letrec* ,binds ,_))
+        (>>= (evalbind*
+              (map car binds)
+              ρ
+              (map
+               (λ (i) ((bin i) Ce ρ))
+               (range (length binds))))
+             (λ (_)
+               ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+               (>>= (bod Ce ρ) meval)))]
        [(cons _ `(letrec ,binds ,_))
         ; Scheme rules state that the recursive definitions should not depend on order
         ; and shouldn't reference each other until they have all been initialized

@@ -48,6 +48,7 @@
        (match let-kind
          ; Only the prior definitions are bound for let*
          ['let* (map car before)]
+         ['letrec* (append (map car before) (list y))]
          ; All definitions are in scope for letrec
          ['letrec (append (map car before) (list y) (map car after))]
          ; None of the definitions are in scope for regular let

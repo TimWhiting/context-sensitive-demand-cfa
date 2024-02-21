@@ -102,6 +102,7 @@ Finish the paper
     ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
     [(cons _ `(let (,@binds) ,_))    (handle-let binds)]
     [(cons _ `(letrec (,@binds) ,_)) (handle-let binds)]
+    [(cons _ `(letrec* (,@binds) ,_)) (handle-let binds)]
     [(cons _ `(let* (,@binds) ,_))   (handle-let binds)]
     [(cons _ e) (error 'find (pretty-format `(no match for find ,e)))]
     ))
@@ -320,6 +321,8 @@ Finish the paper
           [(cons _ `(let* ,_ ,_))
            (>>= (bod Ce ρ) eval)]
           [(cons _ `(letrec ,_ ,_))
+           (>>= (bod Ce ρ) eval)]
+          [(cons _ `(letrec* ,_ ,_))
            (>>= (bod Ce ρ) eval)]
           [(cons _ `(match ,_ ,@clauses))
            (>>= (focus-match Ce ρ)
@@ -621,14 +624,24 @@ Finish the paper
                                                        ;  (pretty-print `(found ,x ,(show-simple-ctx Cee)))
                                                        (expr Cee ρee))))))
                                        (range (+ 1 (length before) (length after))))]
+                                 ['letrec*
+                                  ; x could be referenced in all of the bindings after as well as it's own
+                                  (map (λ (i)
+                                         (>>= ((bin i) Cex ρe)
+                                              (λ (Cee ρee)
+                                                ; (pretty-print `(try-to-find ,x ,(show-simple-ctx Cee)))
+                                                (>>= ((find x) Cee ρee)
+                                                     (λ (Cee ρee)
+                                                       ;  (pretty-print `(found ,x ,(show-simple-ctx Cee)))
+                                                       (expr Cee ρee))))))
+                                       (range (length before) (+ 1 (length before) (length after))))]
                                  ['let* ; x could be referenced in all following bindings
                                   (if (> 1 (length after))
                                       (map (λ (i)
                                              (>>= ((bin i) Cex ρe)
                                                   (λ (Cee ρee)
                                                     (>>= ((find x) Cee ρee) expr))))
-                                           ; (length before) + 1 is the current binding, start one after
-                                           (range (+ 2 (length before)) (+ 1 (length before) (length after))))
+                                           (range (+ 1 (length before)) (+ 1 (length before) (length after))))
                                       '())]
                                  [_ '()]
                                  )

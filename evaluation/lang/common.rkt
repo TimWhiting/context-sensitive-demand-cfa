@@ -8,6 +8,12 @@
   result
   )
 
+(define (is-lam-def d)
+  (match d
+    [`(define ,id (λ ,xs ,bod)) #t]
+    [_ #f])
+  )
+
 (define (is-def d)
   (match d
     [`(define ,id ,expr) #t]
@@ -135,7 +141,8 @@
   (define tops-full-defs (if top (map (translate-top #t) ss) (map (translate-top) ss)))
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
-  (define binds (map to-let-bind (filter is-def tops)))
+  (define all-defs (filter is-def tops))
+  (define binds (map to-let-bind all-defs))
   ; (pretty-print `(translate-top-defs ,tops-full-defs))
 
   ; (pretty-print `(translate-top-defs ,tops))
@@ -185,7 +192,7 @@
 (define (make-binds binds expr)
   (match binds
     ['() expr]
-    [(cons _ _) `(letrec ,binds ,expr)]
+    [(cons _ _) `(letrec* ,binds ,expr)]
     ))
 
 (define ((translate-top [top #f]) s)

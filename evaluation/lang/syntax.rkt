@@ -13,6 +13,7 @@
     ['let #t]
     ['letrec #t]
     ['let* #t]
+    ['letrec* #t]
     [_ #f]
     ))
 
@@ -70,8 +71,23 @@
                ; (set of free variables of the following expressions - the binding)
                (loop bs (set-union (free-vars expr) (set-remove fvs binding)))
                )
-             ]))
-        ])
+             ]
+
+            ))
+        ]
+       ['letrec*
+        (define rbinds (reverse binds))
+        (let loop ([rbinds rbinds]
+                   [fvs (free-vars bod)])
+          (match rbinds
+            ['() fvs]
+            [(cons b bs)
+             (match-let ([(list binding expr) b])
+               ; add the free variables of the expression to the
+               ; (set of free variables of the following expressions - the binding)
+               (loop bs (set-remove (set-union (free-vars expr) fvs) binding)))
+             ] ))]
+       )
      ]
     [(? number? x) (set)]
     [(? string? x) (set)]

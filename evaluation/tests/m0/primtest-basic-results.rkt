@@ -1,91 +1,92 @@
 '(expression:
-  (letrec ((square (λ (x) (app * x x)))
-           (modulo-power
-            (λ (base exp n)
-              (match
-               (app = exp 0)
-               ((#f)
-                (match
-                 (app odd? exp)
-                 ((#f)
-                  (app
-                   modulo
-                   (app square (app modulo-power base (app / exp 2) n))
-                   n))
-                 (_
-                  (app
-                   modulo
-                   (app * base (app modulo-power base (app - exp 1) n))
-                   n))))
-               (_ 1))))
-           (is-trivial-composite?
-            (λ (n)
-              (app
-               or
-               (app = (app modulo n 2) 0)
-               (app = (app modulo n 3) 0)
-               (app = (app modulo n 5) 0)
-               (app = (app modulo n 7) 0)
-               (app = (app modulo n 11) 0)
-               (app = (app modulo n 13) 0)
-               (app = (app modulo n 17) 0)
-               (app = (app modulo n 19) 0)
-               (app = (app modulo n 23) 0))))
-           (is-fermat-prime?
-            (λ (n iterations)
-              (app
-               or
-               (app <= iterations 0)
-               (let* ((byte-size (app ceiling (app / (app log n) (app log 2))))
-                      (a (app random byte-size)))
-                 (match
-                  (app = (app modulo-power a (app - n 1) n) 1)
-                  ((#f) (app #f))
-                  (_ (app is-fermat-prime? n (app - iterations 1))))))))
-           (generate-fermat-prime
-            (λ (byte-size iterations)
-              (let ((n (app random byte-size)))
-                (match
-                 (app
-                  and
-                  (app not (app is-trivial-composite? n))
-                  (app is-fermat-prime? n iterations))
-                 ((#f) (app generate-fermat-prime byte-size iterations))
-                 (_ n)))))
-           (iterations 10)
-           (byte-size 15))
-    (app generate-fermat-prime byte-size iterations)))
+  (letrec*
+   ((square (λ (x) (app * x x)))
+    (modulo-power
+     (λ (base exp n)
+       (match
+        (app = exp 0)
+        ((#f)
+         (match
+          (app odd? exp)
+          ((#f)
+           (app modulo (app square (app modulo-power base (app / exp 2) n)) n))
+          (_
+           (app
+            modulo
+            (app * base (app modulo-power base (app - exp 1) n))
+            n))))
+        (_ 1))))
+    (is-trivial-composite?
+     (λ (n)
+       (app
+        or
+        (app = (app modulo n 2) 0)
+        (app = (app modulo n 3) 0)
+        (app = (app modulo n 5) 0)
+        (app = (app modulo n 7) 0)
+        (app = (app modulo n 11) 0)
+        (app = (app modulo n 13) 0)
+        (app = (app modulo n 17) 0)
+        (app = (app modulo n 19) 0)
+        (app = (app modulo n 23) 0))))
+    (is-fermat-prime?
+     (λ (n iterations)
+       (app
+        or
+        (app <= iterations 0)
+        (let* ((byte-size (app ceiling (app / (app log n) (app log 2))))
+               (a (app random byte-size)))
+          (match
+           (app = (app modulo-power a (app - n 1) n) 1)
+           ((#f) (app #f))
+           (_ (app is-fermat-prime? n (app - iterations 1))))))))
+    (generate-fermat-prime
+     (λ (byte-size iterations)
+       (let ((n (app random byte-size)))
+         (match
+          (app
+           and
+           (app not (app is-trivial-composite? n))
+           (app is-fermat-prime? n iterations))
+          ((#f) (app generate-fermat-prime byte-size iterations))
+          (_ n)))))
+    (iterations 10)
+    (byte-size 15))
+   (app generate-fermat-prime byte-size iterations)))
 
-'(query: ((top) letrec (square ... byte-size) ...) (env ()))
+'(query: ((top) letrec* (square ... byte-size) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(query: (letrec (... iterations (byte-size (-> 15 <-)) () ...) ...) (env ()))
+'(query: (letrec* (... iterations (byte-size (-> 15 <-)) () ...) ...) (env ()))
 clos/con: ⊥
 literals: '(15 ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (... generate-fermat-prime (iterations (-> 10 <-)) byte-size ...)
-    ...)
+  (letrec*
+   (... generate-fermat-prime (iterations (-> 10 <-)) byte-size ...)
+   ...)
   (env ()))
 clos/con: ⊥
 literals: '(10 ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (...
-           is-fermat-prime?
-           (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-           iterations
-           ...)
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
     ...)
+   ...)
   (env ()))
 clos/con:
-	'((letrec (...
-           is-fermat-prime?
-           (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-           iterations
-           ...)
+	'((letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -156,12 +157,13 @@ literals: '(15 ⊥ ⊥ ⊥)
 
 '(query: (app (-> generate-fermat-prime <-) byte-size iterations) (env (())))
 clos/con:
-	'((letrec (...
-           is-fermat-prime?
-           (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-           iterations
-           ...)
+	'((letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -202,12 +204,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> is-fermat-prime? <-) n iterations) (env (())))
 clos/con:
-	'((letrec (...
-           is-trivial-composite?
-           (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-           generate-fermat-prime
-           ...)
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -234,12 +237,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> is-trivial-composite? <-) n) (env (())))
 clos/con:
-	'((letrec (...
-           modulo-power
-           (is-trivial-composite? (-> (λ (n) ...) <-))
-           is-fermat-prime?
-           ...)
+	'((letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -259,20 +263,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (...
-           is-trivial-composite?
-           (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-           generate-fermat-prime
-           ...)
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
     ...)
+   ...)
   (env ()))
 clos/con:
-	'((letrec (...
-           is-trivial-composite?
-           (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-           generate-fermat-prime
-           ...)
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -402,12 +408,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> is-fermat-prime? <-) n (app - iterations 1)) (env (())))
 clos/con:
-	'((letrec (...
-           is-trivial-composite?
-           (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-           generate-fermat-prime
-           ...)
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -469,12 +476,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) a (app - n 1) n) (env (())))
 clos/con:
-	'((letrec (...
-           square
-           (modulo-power (-> (λ (base exp n) ...) <-))
-           is-trivial-composite?
-           ...)
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -512,20 +520,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (...
-           modulo-power
-           (is-trivial-composite? (-> (λ (n) ...) <-))
-           is-fermat-prime?
-           ...)
+  (letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
     ...)
+   ...)
   (env ()))
 clos/con:
-	'((letrec (...
-           modulo-power
-           (is-trivial-composite? (-> (λ (n) ...) <-))
-           is-fermat-prime?
-           ...)
+	'((letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -964,20 +974,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (...
-           square
-           (modulo-power (-> (λ (base exp n) ...) <-))
-           is-trivial-composite?
-           ...)
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
+   ...)
   (env ()))
 clos/con:
-	'((letrec (...
-           square
-           (modulo-power (-> (λ (base exp n) ...) <-))
-           is-trivial-composite?
-           ...)
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1052,12 +1064,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app - exp 1) n) (env (())))
 clos/con:
-	'((letrec (...
-           square
-           (modulo-power (-> (λ (base exp n) ...) <-))
-           is-trivial-composite?
-           ...)
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1138,12 +1151,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app / exp 2) n) (env (())))
 clos/con:
-	'((letrec (...
-           square
-           (modulo-power (-> (λ (base exp n) ...) <-))
-           is-trivial-composite?
-           ...)
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
@@ -1151,7 +1165,8 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (app (-> square <-) (app modulo-power base (app / exp 2) n))
   (env (())))
 clos/con:
-	'((letrec (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...) (env ()))
+	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -1196,10 +1211,11 @@ clos/con:
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
+  (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
 clos/con:
-	'((letrec (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...) (env ()))
+	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (λ (x) (-> (app * x x) <-)) (env (())))
@@ -1220,8 +1236,9 @@ clos/con:
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (square ... byte-size)
-    (-> (app generate-fermat-prime byte-size iterations) <-))
+  (letrec*
+   (square ... byte-size)
+   (-> (app generate-fermat-prime byte-size iterations) <-))
   (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
@@ -1236,11 +1253,12 @@ literals: '(15 ⊥ ⊥ ⊥)
 
 '(query: (app (-> generate-fermat-prime <-) byte-size iterations) (env ()))
 clos/con:
-	'((letrec (...
-           is-fermat-prime?
-           (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-           iterations
-           ...)
+	'((letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
     ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
