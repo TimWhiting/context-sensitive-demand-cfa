@@ -228,13 +228,13 @@ Finish the paper
           [(cons _ (? string? s)) (lit (litstring s))]
           [(cons _ (? integer? x)) (lit (litint x))]
           [(cons C `(app quote ,x))
-           (pretty-print `(quoted ,x))
+           ;  (pretty-print `(quoted ,x))
            (>>= ((ran 0) Ce) clos)]
           [(cons _ (? symbol? x))
-           (pretty-print `(bind ,x ,Ce ,ρ))
+           ;  (pretty-print `(bind ,x ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
            (>>= ((bind x) Ce ρ)
                 (λ (Cex ρ i)
-                  (pretty-print `(bound-to ,x ,i ,(show-simple-ctx Cex)))
+                  ; (pretty-print `(bound-to ,x ,i ,(show-simple-ctx Cex)))
                   (match Cex
                     [(cons `(bod ,xs ,C) e)
                      (>>= (call C xs e ρ)
@@ -265,7 +265,7 @@ Finish the paper
                     [(? symbol? x)
                      (match (lookup-demand-primitive x)
                        [#f
-                        (pretty-print `(constructor? ,x))
+                        ; (pretty-print `(constructor? ,x))
                         (clos Ce ρ)]
                        [Ce (clos Ce ρ)]
                        )]
@@ -328,21 +328,26 @@ Finish the paper
 (define ((eval-match-binding match-bind) Ce ρ)
   (match match-bind
     [`(,con ,locsub ,sub)
+     ;  (pretty-print `(eval-binding ,con ,locsub ,sub ,(show-simple-ctx Ce)))
      (>>=clos
       (eval Ce ρ) ; Evaluate the constructor
       (λ (Ce ρ)
-        (>>=clos
-         ; This is the application site of the constructor, need to see what constructor it is
-         (>>= (rat Ce ρ) eval)
-         (λ (Cc ρc)
-           (match Cc
-             [(cons _ con1)
-              (if (equal? con con1)
-                  ; (pretty-print `(ran subpat ,sub ,locsub))
-                  (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))
-                  ⊥
-                  )]
-             ))))) ]
+        ; (pretty-print `(got-con ,con ,locsub ,sub ,(show-simple-ctx Ce)))
+        (match Ce
+          [`((top) app ,con1) ⊥]; Singleton constructor -- no arguments possible
+          [_ (>>=clos
+              ; This is the application site of the constructor, need to see what constructor it is
+              (>>= (rat Ce ρ) eval)
+              (λ (Cc ρc)
+                (match Cc
+                  [(cons _ con1)
+                   ;  (pretty-print `(ran subpat ,sub ,locsub))
+                   (if (equal? con con1)
+                       (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))
+                       ⊥
+                       )]
+                  )))])))
+     ]
     [#t (eval Ce ρ)]
     ))
 
@@ -368,25 +373,29 @@ Finish the paper
 (define (pattern-matches pattern Ce ρe)
   (match pattern
     [`(,con ,@subpats)
-     (>>=clos
-      ; This is the application site of the constructor, need to see what constructor it is
-      (>>= (rat Ce ρe) eval)
-      (λ (Cc ρc)
-        (match Cc
-          [(cons _ con1)
-           (if (equal? con con1)
-               ; Find where the constructor is applied
-               (match Ce
-                 [(cons _ `(app ,_ ,@as))
-                  ;  (pretty-print `(subpat ,subpats ,as))
-                  (if (equal? (length as) (length subpats))
-                      (patterns-match Ce ρe as subpats 0)
-                      (unit #f)
-                      )]
-                 )
-               ; Wrong constructor
-               (unit #f))]))
-      )]
+     (match Ce
+       [`((top) app ,con1) (if (equal? con con1) (unit #t) (unit #f))] ; Singleton constructors
+       [_  (>>=clos
+            ; This is the application site of the constructor, need to see what constructor it is
+            (>>= (rat Ce ρe) eval)
+            (λ (Cc ρc)
+              (match Cc
+                [(cons _ con1)
+                 (if (equal? con con1)
+                     ; Find where the constructor is applied
+                     (match Ce
+                       [(cons _ `(app ,_ ,@as))
+                        ;  (pretty-print `(subpat ,subpats ,as))
+                        (if (equal? (length as) (length subpats))
+                            (patterns-match Ce ρe as subpats 0)
+                            (unit #f)
+                            )]
+                       )
+                     ; Wrong constructor
+                     (unit #f))])))]
+       )
+
+     ]
     [(? symbol? _) (unit #t)] ; Variable binding
     [lit1
      (match Ce
@@ -401,8 +410,8 @@ Finish the paper
   )
 
 (define (pattern-matches-lit pat lit2)
-  (pretty-print pat)
-  (pretty-print lit2)
+  ; (pretty-print pat)
+  ; (pretty-print lit2)
   (unit (or (symbol? pat) (equal? (to-lit pat) lit2)))
   )
 

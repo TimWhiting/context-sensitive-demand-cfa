@@ -79,7 +79,9 @@
          ;  (pretty-print "extend")
          (>>= (extend-store var ρ (car values))
               (λ (_) (bind-args vars ρ (cdr values))))])
-      ⊥))
+      ⊥ ; Two closures with different numbers of arguments flow to the same place
+      ;(error 'invalid-num-args (format "in bind args got ~a ~a" vars (map show-simple-result values)))
+      ))
 
 (define (rebind-vars Ce vars ρ ρnew)
   ; (pretty-print `(rebind-vars ,(show-simple-ctx Ce) ,vars ,(show-simple-env ρ) ,(show-simple-env ρnew)))
@@ -180,7 +182,7 @@
                  (eval-con-clause Ce ρ clauses 0)
                  (eval-lit-clause Ce ρ clauses 0))]
        [(cons C `(app ,f ,@args))
-        (pretty-trace `(eval-fun ,f ,(show-simple-env ρ)))
+        ; (pretty-trace `(eval-fun ,f ,(show-simple-env ρ)))
         (>>=clos
          (>>= (rat Ce ρ) meval)
          (λ (lam lamρ)
@@ -189,10 +191,10 @@
                         (λ (i) ((ran i) Ce ρ))
                         (range (length args))))
                 (λ (evaled-args)
-                  ; (pretty-trace `(got closure or primitive ,(show-simple-ctx lam)))
+                  ; (pretty-print `(evaled-args ,(map show-simple-result evaled-args)))
                   (match lam
                     [`(prim ,_)
-                     (pretty-trace `(applying prim: ,lam ,args))
+                     ;  (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ evaled-args)]
                     [(cons _ `(λ ,xs ,bod))
                      ;  (pretty-print `(applying closure: ,lam ,args ,ρ))
@@ -212,19 +214,17 @@
                                  ))))
                           )]
                     [(cons C con)
-                     (>>=
-                      ((bind con) Ce ρ)
-                      (λ (_ ρ i)
-                        (match i
-                          [-1
-                           (define argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args))))
+                     (if (or (equal? con #t) (equal? con #f) (symbol? con))
+                         (let ([argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args)))])
                            ;  (pretty-print con)
                            ;  (pretty-print `(conapp ,con))
                            (if (= (length args) 0)
                                (clos `(con ,con) (top-env))
                                (>>= (bind-args argse ρ evaled-args)
                                     (λ (_) (clos `(con ,con ,@argse) ρ)))
-                               )])))
+                               ))
+                         (error 'invalid-rator (format "~a" con))
+                         )
                      ]
                     ))))
 
@@ -253,6 +253,7 @@
               )
             ))]
     [_ ;(clos (cons parent 'match-error) parentρ)
+     ;  (pretty-print `(match-error ,(show-simple-ctx (car (focus-match-e parent parentρ))) ,(show-simple-ctx ce)))
      ⊥]
     ))
 
@@ -267,6 +268,7 @@
                 ((eval-con-clause parent clauses (+ i 1)) lit)
                 )))]
     [_ ;(clos (cons parent 'match-error) parentρ)
+     ;  (pretty-print `(match-error ,(show-simple-ctx (car (focus-match-e parent parentρ))) ,(show-simple-literal lit)))
      ⊥
      ]
     ))

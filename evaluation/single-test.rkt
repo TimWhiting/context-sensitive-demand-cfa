@@ -9,8 +9,8 @@
   (show-envs-simple #t)
   (show-envs #f)
 
-  ; (run-mcfa 0 'rebinding (get-example-expr 'flatten))
-  (run-basic 0 (get-example-expr 'flatten) (lambda (x) x))
+  (run-mcfa 0 'rebinding (get-example-expr 'flatten))
+  ; (run-basic 0 (get-example-expr 'flatten) (lambda (x) x))
 
   ; (run-basic 1 (get-example-expr 'sat-2)
   ;            (lambda (x) x)

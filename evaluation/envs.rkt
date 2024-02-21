@@ -188,15 +188,20 @@
     )
   )
 
-(define (show-simple-env ρ)
-  (if (show-envs-simple)
+(define (show-simple-env ρ [no-env-datatype #t])
+  (if no-env-datatype
       (match ρ
-        [(flatenv l) (flatenv (map show-simple-ctx l))]
-        [(expenv l) (expenv (map show-simple-call (map callc-m l)))]
-        [(lenv l) (lenv (map show-simple-call (map callc-m l)))]
-        [(menv l) (menv (map show-simple-call (map callc-m l)))]
-        )
-      ρ
+        [(flatenv l) `(env ,(map show-simple-ctx l))]
+        [_ `(env ,(map show-simple-call (map callc-m (env-list ρ))))])
+      (if (show-envs-simple)
+          (match ρ
+            [(flatenv l) (flatenv (map show-simple-ctx l))]
+            [(expenv l) (expenv (map show-simple-call (map callc-m l)))]
+            [(lenv l) (lenv (map show-simple-call (map callc-m l)))]
+            [(menv l) (menv (map show-simple-call (map callc-m l)))]
+            )
+          ρ
+          )
       )
   )
 

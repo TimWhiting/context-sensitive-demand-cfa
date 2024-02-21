@@ -12,306 +12,234 @@
                (_ (app id a))))))
     (app lp (app #f) 2)))
 
-(list 'query: '(app (app blur id) (-> (app #f) <-)) (flatenv '()))
-(list 'clos/con: (list (list '(con #f) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur id) (-> (app #f) <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> blur <-) id) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) id) (env ()))
+clos/con:
+	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> #f <-)) (flatenv '()))
-(list 'clos/con: (list (list '((top) . #f) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> #f <-)) (env ()))
+clos/con:
+	'(((top) . #f) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> lp <-) (app #f) 2) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp <-) (app #f) 2) (env ()))
+clos/con:
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app <= n (-> 1 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app <= n (-> 1 <-)) (env ()))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(app not (-> (app (app blur lp) s (app - n 1)) <-))
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (a n) (-> (match (app <= n 1) ...) <-)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - n (-> 1 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app - n (-> 1 <-)) (env ()))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> (app blur id) <-) (app #t)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (flatenv '()))
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur id) <-) (app #t)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '((top) letrec (id ... lp) ...) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: ((top) letrec (id ... lp) ...) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> #t <-)) (flatenv '()))
-(list 'clos/con: (list (list '((top) . #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> #t <-)) (env ()))
+clos/con:
+	'(((top) . #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)
+  (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(match (app <= n 1) (#f) (_ (-> (app id a) <-))) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> id <-) a) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> id <-) a) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (y) (-> y <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (flatenv '()))
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (y) (-> y <-)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app id (-> a <-)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app id (-> a <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> blur <-) id) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) id) (env ()))
+clos/con:
+	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+clos/con:
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app blur (-> id <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> id <-)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app blur (-> id <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> id <-)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> - <-) n 1) (flatenv '()))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> - <-) n 1) (env ()))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> blur <-) lp) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> blur <-) lp) (env ()))
+clos/con:
+	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (app blur lp) s (-> (app - n 1) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app (app blur lp) s (-> (app - n 1) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+  (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query:
+  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> <= <-) n 1) (flatenv '()))
-'(clos/con: (#<procedure:do-lte>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> <= <-) n 1) (env ()))
+clos/con:
+	#<procedure:do-lte>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(match (-> (app <= n 1) <-) (#f) _) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (match (-> (app <= n 1) <-) (#f) _) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (x) (-> x <-)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (λ (x) (-> x <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp (app #f) (-> 2 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (2 ⊥ ⊥ ⊥))
+'(query: (app lp (app #f) (-> 2 <-)) (env ()))
+clos/con: ⊥
+literals: '(2 ⊥ ⊥ ⊥)
 
-(list 'query: '(app blur (-> lp <-)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app blur (-> lp <-)) (env ()))
+clos/con:
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> #f <-)) (flatenv '()))
-(list 'clos/con: (list (list '((top) . #f) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> #f <-)) (env ()))
+clos/con:
+	'(((top) . #f) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (app blur lp) (-> s <-) (app - n 1)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur lp) (-> s <-) (app - n 1)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+clos/con:
+	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - (-> n <-) 1) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app - (-> n <-) 1) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(app (-> not <-) (app (app blur lp) s (app - n 1)))
- (flatenv '()))
-'(clos/con: (#<procedure:do-not>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> not <-) (app (app blur lp) s (app - n 1))) (env ()))
+clos/con:
+	#<procedure:do-not>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp (-> (app #f) <-) 2) (flatenv '()))
-(list 'clos/con: (list (list '(con #f) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app lp (-> (app #f) <-) 2) (env ()))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app <= (-> n <-) 1) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app <= (-> n <-) 1) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (app blur id) (-> (app #t) <-)) (flatenv '()))
-(list 'clos/con: (list (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (app blur id) (-> (app #t) <-)) (env ()))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> (app blur id) <-) (app #f)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (flatenv '()))
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur id) <-) (app #f)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> (app blur lp) <-) s (app - n 1)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list '(letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (flatenv '()))
-  (list
-   '(letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> (app blur lp) <-) s (app - n 1)) (env ()))
+clos/con:
+	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
+	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)

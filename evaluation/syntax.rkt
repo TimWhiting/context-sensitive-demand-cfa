@@ -59,7 +59,6 @@
     [`(match ,e ,@mchs) 'match]
     [`(λ ,y ,bod) 'lambda]
     [`(,let-kind ,binds ,bod) let-kind]
-    [''match-error ''match-error]
     [(? symbol? x) 'ref-or-constructor]
     [(? number? x) 'number]
     [(? char? x) 'char]
@@ -76,7 +75,6 @@
     [`(match ,e ,@mchs) `(match ,(show-simple-expr e) ...)]
     [`(λ ,y ,bod) `(λ ,y ...)]
     [`(,let-kind ,binds ,bod) `(,let-kind ,(show-simple-binds binds) ...)]
-    [''match-error ''match-error]
     [(? symbol? x) x]
     [(? number? x) x]
     [(? char? x) x]
@@ -121,7 +119,7 @@
     [(? number? x) x]
     [(? char? x) x]
     [(? string? x) x]
-    [`(con ,nm ,@args) Ce]
+    [`(con ,nm ,@args) `(con ,nm ,@(map show-simple-ctx args))]
     [_
      (error 'fail (pretty-format `(no-simple-context-for ,Ce)))
      ]

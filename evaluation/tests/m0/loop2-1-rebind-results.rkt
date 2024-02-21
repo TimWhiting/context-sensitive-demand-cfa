@@ -14,237 +14,202 @@
                (_ x)))))
     (app lp1 10 0)))
 
-(list
- 'query:
- '(letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+clos/con:
+	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> lp1 <-) (app - i 1) y) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp1 <-) (app - i 1) y) (env ()))
+clos/con:
+	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp1 10 (-> 0 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (0 ⊥ ⊥ ⊥))
+'(query: (app lp1 10 (-> 0 <-)) (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥ ⊥)
 
-(list 'query: '(app f (-> y <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app f (-> y <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 10 (λ (n) ...) (-> x <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app lp2 10 (λ (n) ...) (-> x <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> = <-) 0 i) (flatenv '()))
-'(clos/con: (#<procedure:do-equal>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> = <-) 0 i) (env ()))
+clos/con:
+	#<procedure:do-equal>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app = (-> 0 <-) i) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (0 ⊥ ⊥ ⊥))
+'(query: (app = (-> 0 <-) i) (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _)
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> - <-) i 1) (flatenv '()))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> - <-) i 1) (env ()))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> = <-) 0 j) (flatenv '()))
-'(clos/con: (#<procedure:do-equal>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> = <-) 0 j) (env ()))
+clos/con:
+	#<procedure:do-equal>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app = (-> 0 <-) j) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (0 ⊥ ⊥ ⊥))
+'(query: (app = (-> 0 <-) j) (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥ ⊥)
 
-(list 'query: '(app = 0 (-> j <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app = 0 (-> j <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - (-> i <-) 1) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app - (-> i <-) 1) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> lp2 <-) (app - j 1) f (app f y)) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp2 <-) (app - j 1) f (app f y)) (env ()))
+clos/con:
+	'((letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 (app - j 1) (-> f <-) (app f y)) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(app lp2 10 (-> (λ (n) ...) <-) x) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app lp2 (app - j 1) (-> f <-) (app f y)) (env ()))
+clos/con:
+	'((app lp2 10 (-> (λ (n) ...) <-) x) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 (-> 10 <-) (λ (n) ...) x) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (10 ⊥ ⊥ ⊥))
+'(query: (app lp2 (-> 10 <-) (λ (n) ...) x) (env ()))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp1 (app - i 1) (-> y <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app lp1 (app - i 1) (-> y <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 (-> (app - j 1) <-) f (app f y)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app lp2 (-> (app - j 1) <-) f (app f y)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 (app - j 1) f (-> (app f y) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app lp2 (app - j 1) f (-> (app f y) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app + (-> n <-) i) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app + (-> n <-) i) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(match (app = 0 j) ((#f) (-> (app lp2 (app - j 1) f (app f y)) <-)) _)
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query:
+  (match (app = 0 j) ((#f) (-> (app lp2 (app - j 1) f (app f y)) <-)) _)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - (-> j <-) 1) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app - (-> j <-) 1) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '((top) letrec (lp1) ...) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: ((top) letrec (lp1) ...) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp1 (-> 10 <-) 0) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (10 ⊥ ⊥ ⊥))
+'(query: (app lp1 (-> 10 <-) 0) (env ()))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (i x) (-> (match (app = 0 i) ...) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (λ (i x) (-> (match (app = 0 i) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(match (-> (app = 0 i) <-) (#f) _) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (match (-> (app = 0 i) <-) (#f) _) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> - <-) j 1) (flatenv '()))
-'(clos/con: (#<procedure:do-sub>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> - <-) j 1) (env ()))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(letrec (lp1) (-> (app lp1 10 0) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp1 (-> (app - i 1) <-) y) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app lp1 (-> (app - i 1) <-) y) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> f <-) y) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(app lp2 10 (-> (λ (n) ...) <-) x) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> f <-) y) (env ()))
+clos/con:
+	'((app lp2 10 (-> (λ (n) ...) <-) x) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> lp1 <-) 10 0) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp1 <-) 10 0) (env ()))
+clos/con:
+	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app lp2 10 (-> (λ (n) ...) <-) x) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(app lp2 10 (-> (λ (n) ...) <-) x) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app lp2 10 (-> (λ (n) ...) <-) x) (env ()))
+clos/con:
+	'((app lp2 10 (-> (λ (n) ...) <-) x) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (j f y) (-> (match (app = 0 j) ...) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (λ (j f y) (-> (match (app = 0 j) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> + <-) n i) (flatenv '()))
-'(clos/con: (#<procedure:do-add>))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> + <-) n i) (env ()))
+clos/con:
+	#<procedure:do-add>
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)
- (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env ()))
+clos/con:
+	'((letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(match (-> (app = 0 j) <-) (#f) _) (flatenv '()))
-(list
- 'clos/con:
- (list (list '(con #f) (flatenv '())) (list '(con #t) (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (match (-> (app = 0 j) <-) (#f) _) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list
- 'query:
- '(match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))
- (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-))) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app (-> lp2 <-) 10 (λ (n) ...) x) (flatenv '()))
-(list
- 'clos/con:
- (list
-  (list
-   '(letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)
-   (flatenv '()))))
-'(literals: (⊥ ⊥ ⊥ ⊥))
+'(query: (app (-> lp2 <-) 10 (λ (n) ...) x) (env ()))
+clos/con:
+	'((letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
-(list 'query: '(app = 0 (-> i <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app = 0 (-> i <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - i (-> 1 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app - i (-> 1 <-)) (env ()))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
 
-(list 'query: '(match (app = 0 i) (#f) (_ (-> x <-))) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (match (app = 0 i) (#f) (_ (-> x <-))) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(λ (n) (-> (app + n i) <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (λ (n) (-> (app + n i) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app + n (-> i <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (⊤ ⊥ ⊥ ⊥))
+'(query: (app + n (-> i <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
-(list 'query: '(app - j (-> 1 <-)) (flatenv '()))
-'(clos/con: ⊥)
-'(literals: (1 ⊥ ⊥ ⊥))
+'(query: (app - j (-> 1 <-)) (env ()))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)

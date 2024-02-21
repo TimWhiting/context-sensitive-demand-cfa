@@ -35,6 +35,7 @@
     [(? number? n) (litfloat n)]
     [(? string? s) (litstring s)]
     [(? char? c) (litchar c)]
+    [_ #f]
     )
   )
 

@@ -1,7 +1,7 @@
 #lang racket/base
 (require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
 (require "m-cfa.rkt")
-(require racket/pretty racket/match racket/set)
+(require racket/pretty racket/match racket/set racket/string)
 (provide (all-defined-out))
 
 (define (report-mcfa-hash h out)
@@ -69,15 +69,15 @@
   (displayln (show-simple-results r) out))
 
 (define (show-simple-results r)
-  (pretty-print r)
+  ; (pretty-print r)
   (match r
     [(cons s l)
      (string-append
       (if (set-empty? s)
-          (pretty-format `(clos/con: ⊥))
-          (pretty-format `(clos/con: ,(map show-simple-clos/con (set->list s)))))
+          "clos/con: ⊥"
+          (format "clos/con:\n\t~a" (string-join (sort (map (lambda (x) (pretty-format (show-simple-clos/con x))) (set->list s)) string<?) "\n\t")))
       "\n"
-      (pretty-format `(literals: ,(show-simple-literal l))))
+      (format "literals: ~a" (pretty-format (show-simple-literal l))))
      ]
     [x (pretty-format x)]
     ))

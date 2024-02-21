@@ -70,7 +70,7 @@
                `(λ (a)
                   (match a
                     [(cons c d) (app #t)]
-                    [_ (app error "not a pair")])
+                    [_ (app #f)])
                   )
                )
          (list 'null?

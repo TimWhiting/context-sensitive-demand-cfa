@@ -89,11 +89,11 @@
     )
   )
 
-(define (show-simple-clos/con e)
+(define (show-simple-clos/con e [no-env-datatype #t])
   (match e
-    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env)) l)]
-    [(list (cons C e) env) (if (show-envs) `(expr: ,(show-simple-ctx (cons C e)) env: ,(show-simple-env env))
-                               `(,(show-simple-ctx (cons C e)) ,(show-simple-env env)))]
+    [(list `(prim ,l) env) (if (show-envs) `(prim: ,l env: ,(show-simple-env env no-env-datatype)) l)]
+    [(list (cons C e) env) (if (show-envs) `(expr: ,(show-simple-ctx (cons C e)) env: ,(show-simple-env env no-env-datatype))
+                               `(,(show-simple-ctx (cons C e)) ,(show-simple-env env no-env-datatype)))]
     ;  [(list const env) (if (show-envs) `(con: ,const env: ,(show-simple-env env)) const)]
     )
   )
