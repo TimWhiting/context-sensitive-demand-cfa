@@ -15,7 +15,7 @@
     )
   )
 
-(define-syntax-rule (run/timen name n m k x)
+(define-syntax-rule (run/timen name n m k info x)
   (let* [
          (result (make-channel))
          (timeout-ms timeout)
@@ -40,21 +40,21 @@
        ;  (pretty-print `(result ,v))
        v]
       [`(#f ,err)
-       (pretty-display (format "error in ~a! m=~a kind=~a: error ~a" name m k err))
+       (pretty-display (format "error in ~a! m=~a kind=~a: error ~a info=~a" name m k err info))
        `(#f ,(format "~a" err))]
       [_
-       (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a" name m k (current-milliseconds)))
+       (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a info=~a" name m k (current-milliseconds) info))
        #f
        ]
       )))
 
-(define-syntax-rule (run/timeoutn name n m k x)
+(define-syntax-rule (run/timeoutn name n m k info x)
   (let ([times '()])
     (for ([_ (in-range time-trials)])
-      (set! times (cons (run/timen name n m k x) times))
+      (set! times (cons (run/timen name n m k info x) times))
       )
     times
     ))
 
-(define-syntax-rule (run/timeout name m k x)
-  (run/timeoutn name 1 m k x))
+(define-syntax-rule (run/timeout name m k info x)
+  (run/timeoutn name 1 m k info x))
