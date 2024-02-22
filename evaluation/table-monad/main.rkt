@@ -159,8 +159,8 @@
 (define (run-get-hash m [s (hash)])
   (run* m s))
 
-(define (from-hash m s)
-  (from-value (hash-ref s m #f)))
+(define (from-hash key s)
+  (from-value (hash-ref s key #f)))
 
 (define (from-value v)
   (match v
