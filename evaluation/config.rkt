@@ -5,14 +5,18 @@
 ; number of times to time the computation (to get a statistical average / stderr)
 (define time-trials 1)
 
-; the timeout per acc-trial (ms)
-(define timeout 1000)
+; the timeout per query (ms)
+(define full-timeout 5000)
+
+(define timeout (make-parameter 10))
+
+(define timeouts (list 10 100 500))
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
 (define acc-trials 1)
 
 ; number of ways to shuffle queries when caching
-(define num-shuffles 3)
+(define num-shuffles 2)
 
 ; m stack frames
 (define current-m (make-parameter 1))
