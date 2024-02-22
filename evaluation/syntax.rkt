@@ -64,6 +64,7 @@
     [(? number? x) 'number]
     [(? char? x) 'char]
     [(? string? x) 'string]
+    [`',x 'quoted]
     [#t 'constructor]
     [#f 'constructor]
     )

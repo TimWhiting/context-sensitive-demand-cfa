@@ -1,8 +1,9 @@
 #lang racket/base
-(require "demand.rkt" "all-examples.rkt" "config.rkt" "utils.rkt"
+(require "demand.rkt" "all-examples.rkt" "config.rkt" "utils.rkt" "abstract-value.rkt"
          "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt" "run.rkt" "results.rkt")
 (require "m-cfa.rkt")
-(require racket/pretty racket/match racket/list)
+(require (rename-in "table-monad/main.rkt" [void fail]))
+(require racket/pretty racket/match racket/list racket/set)
 
 (define max-context-length 2)
 
@@ -37,6 +38,7 @@
   (match-let ([(eval Ce p) q]) (is-fully-determined? p))
   )
 
+; TODO: We need a few different timeout levels?
 (define (run-demand name num-queries kind m Ce p out-time shufflen old-hash)
   (define query (eval Ce p))
   (define hash-result (hash))
@@ -55,14 +57,13 @@
       )))
   (define num-entries (hash-num-keys hash-result))
   (define eval-subqueries (filter (lambda (q) (match q [(eval Ce p) #t] [_ #f])) (hash-keys hash-result)))
+  (define eval-results (filter (lambda (q) (match q [(cons (eval Ce p) _) #t] [_ #f])) (hash->list hash-result)))
   (define expr-subqueries (filter (lambda (q) (match q [(expr Ce p) #t] [_ #f])) (hash-keys hash-result)))
   (define refines (filter (lambda (q) (match q [(refine p) #t] [_ #f])) (hash-keys hash-result)))
   (define num-eval-subqueries (length eval-subqueries))
   (define num-expr-subqueries (length expr-subqueries))
   (define num-refines (length refines))
-  (define query-kind (match Ce
-                       [(cons C e) (expr-kind e)]
-                       ))
+  (define query-kind (expr-kind (cadr Ce)))
   (define eval-determined (filter is-eval-determined eval-subqueries))
   (define expr-determined (filter is-expr-determined expr-subqueries))
   (define num-eval-determined (length eval-determined))
@@ -74,18 +75,24 @@
   (define eval-groups-avg-determined (map avg-determined eval-groups))
   (define eval-groups-avg-size (/ (count length eval-groups) (length eval-groups)))
   (define eval-sub-avg-determined (/ (apply + eval-groups-avg-determined) (length eval-groups-avg-determined)))
+  (define (result-size r)
+    (match-let ([(cons s (literal l)) (from-value (cdr r))])
+      (+ (set-count s) (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l))
+      )
+    )
+  (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
   (define num-fully-determined-subqueries (+ num-eval-determined num-expr-determined))
   (if (equal? shufflen -1)
       (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query)
                                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                                  ,eval-groups-avg-size ,eval-sub-avg-determined
+                                  ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                                   ,time-result) out-time)
       ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
       (pretty-print `(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,(query->string query)
                                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                                     ,eval-groups-avg-size ,eval-sub-avg-determined
+                                     ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                                      ,time-result) out-time)
 
       )

@@ -27,23 +27,23 @@
     [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                      ,eval-groups-avg-size ,eval-sub-avg-determined
+                      ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                       #f) #f]
     [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                      ,eval-groups-avg-size ,eval-sub-avg-determined
+                      ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                       ,time-result) (average-or-false time-result)]
     ; Demand no cache
     [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                   ,eval-groups-avg-size ,eval-sub-avg-determined
+                   ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                    #f) #f]
     [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                   ,eval-groups-avg-size ,eval-sub-avg-determined
+                   ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
                    ,time-result) (average-or-false time-result)]
     ; Regular mCFA
     [`(,name ,m ,hash-num #f) #f]
