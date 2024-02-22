@@ -160,7 +160,10 @@
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
   (define all-defs (filter is-def tops))
-  (define binds (map to-let-bind all-defs))
+  (define rec-defs (filter is-lam-def all-defs))
+  (define other-defs (filter (lambda (x) (not (is-lam-def x))) all-defs))
+  (define rec-binds (map to-let-bind rec-defs))
+  (define other-binds (map to-let-bind other-defs))
   ; (pretty-print `(translate-top-defs ,tops-full-defs))
 
   ; (pretty-print `(translate-top-defs ,tops))
@@ -169,7 +172,7 @@
               )
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
     ; (if (empty? common-type-defs) '() (pretty-print common-type-defs))
-    (define bodies (append exprs (map cadr binds)))
+    (define bodies (append exprs (map cadr (append rec-binds other-binds))))
     (define fvs (if (empty? bodies) (set) (apply set-union (map free-vars bodies))))
     ; (pretty-print fvs)
     (define used (filter (lambda (td)
@@ -180,7 +183,7 @@
                                  (match td
                                    [`(,nm ,@_) (set-member? fvs nm)]
                                    )) (append common-types top-types)))
-    (make-type-defs used-types (make-binds (append used binds) (to-begin exprs)))
+    (make-type-defs used-types (make-let-rec (append used rec-binds other-binds) (to-begin exprs)))
     ))
 
 
@@ -198,7 +201,7 @@
                            (match td
                              [`(,nm ,@_) (set-member? fvs nm)]
                              )) top-type-defs))
-    (make-type-defs top-types (make-binds (append used binds) expr))
+    (make-type-defs top-types (make-let-recstar (append used binds) expr))
     ))
 
 (define (make-type-defs tps body)
@@ -207,10 +210,22 @@
     [tps `(lettypes ,tps ,body)]
     ))
 
-(define (make-binds binds expr)
+(define (make-let-recstar binds expr)
   (match binds
     ['() expr]
     [(cons _ _) `(letrec* ,binds ,expr)]
+    ))
+
+(define (make-let-rec binds expr)
+  (match binds
+    ['() expr]
+    [(cons _ _) `(letrec ,binds ,expr)]
+    ))
+
+(define (make-let-star binds expr)
+  (match binds
+    ['() expr]
+    [(cons _ _) `(let* ,binds ,expr)]
     ))
 
 (define ((translate-top [top #f]) s)

@@ -87,7 +87,7 @@
 
 (define (is-fully-determined? p)
   (match p
-    [(menv ccs) (andmap cc-determined? ccs)]
+    [(menv ccs) (andmap cc-determined? (map callc-m ccs))]
     [(lenv ccs) (error 'not-implemented "Not implemented yet")]
     )
   )
@@ -100,7 +100,8 @@
   (match-lambda
     [(list) #t]
     [`(□? ,_ ,_) #f]
-    [(cons Ce ccs) ((cc-determinedm? (- 1 m)) ccs)]))
+    [(cons Ce ccs) ((cc-determinedm? (- 1 m)) ccs)]
+    ))
 
 ; Used for flat environments gets the top m stack frames (assuming most recent stack frame is the head of the list)
 (define (take-m cc m)

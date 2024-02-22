@@ -387,8 +387,6 @@
     (debug-trace (λ () 'do-nothing))
     (cadr (λ (p) (app car (app cdr p))))
     (caddr (λ (p) (app car (app cdr (app cdr p)))))
-    (regex-NULL (app #f))
-    (regex-BLANK (app #t))
     (regex-alt? (λ (re) (app and (app pair? re) (app eq? (app car re) 'alt))))
     (regex-seq? (λ (re) (app and (app pair? re) (app eq? (app car re) 'seq))))
     (regex-rep? (λ (re) (app and (app pair? re) (app eq? (app car re) 'rep))))
@@ -532,7 +530,9 @@
           (app regex-derivative pattern (app car data))
           (app cdr data)))
         (_ (app regex-empty? (app regex-empty pattern))))))
-    (check-expect (λ (check expect) (app equal? check expect))))
+    (check-expect (λ (check expect) (app equal? check expect)))
+    (regex-NULL (app #f))
+    (regex-BLANK (app #t)))
    (app
     check-expect
     (app
@@ -776,7 +776,6 @@
         move-horizon-v
         ((move _ move-horizon-x) x)
         (_ (app error "invalid match for move-horizon")))))
-    (is (app cons (app Ze) (app cons (app On) (app cons (app Tw) (app nil)))))
     (mark⁻¹ (λ (ma) (match ma ((X) (app O)) ((O) (app X)))))
     (empty-board (λ (co) (app blank)))
     (board-mark
@@ -993,5 +992,6 @@
        (app
         play-game
         (app player (app X) (app make-ai-action (app X)))
-        (app player (app O) (app make-ai-action (app O)))))))
+        (app player (app O) (app make-ai-action (app O))))))
+    (is (app cons (app Ze) (app cons (app On) (app cons (app Tw) (app nil))))))
    (app zero-player-game)))

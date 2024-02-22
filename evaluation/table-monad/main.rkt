@@ -160,7 +160,10 @@
   (run* m s))
 
 (define (from-hash m s)
-  (match (hash-ref s m #f)
+  (from-value (hash-ref s m #f)))
+
+(define (from-value v)
+  (match v
     [(powerset-node _ xss) xss]
     [(lattice-node _ n _ _) n]
     [(product-node _ xss n _ _ _) (cons xss n)]
@@ -170,5 +173,6 @@
          run
          run-get-hash
          from-hash
+         from-value
          define-key)
 

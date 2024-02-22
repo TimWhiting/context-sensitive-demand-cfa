@@ -4,23 +4,42 @@
 (require racket/pretty racket/match racket/set racket/string)
 (provide (all-defined-out))
 
+(define (sort-by-key l)
+  (sort l (lambda (x y) (string<? (car x) (car y))))
+  )
+
 (define (report-mcfa-hash h out)
-  (for ([keyval (hash->list h)])
+  (define evals (filter (lambda (x) (match x [(cons (meval _ _) _) #t] [_ #f])) (hash->list h)))
+  (define stores (filter (lambda (x) (match x [(cons (store _) _) #t] [_ #f])) (hash->list h)))
+  (define eval-new-key
+    (sort-by-key
+     (map (lambda (x)
+            (match x [(cons (meval Ce p) v)
+                      (cons (pretty-format `(query: ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
+          evals)))
+  (define store-new-key
+    (sort-by-key
+     (map (lambda (x)
+            (match x [(cons (store (cons Ce p)) v)
+                      (cons (pretty-format `(store: ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
+          stores)))
+
+  (for ([keyval eval-new-key])
     (match keyval
-      [(cons (and key (meval Ce p)) _)
+      [(cons key v)
        (pretty-display "" out)
-       (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
-       (pretty-result-out out (from-hash key h))
+       (displayln key out)
+       (pretty-result-out out (from-value v))
        ]
       [_ '()]
       )
     )
-  (for ([keyval (hash->list h)])
+  (for ([keyval store-new-key])
     (match keyval
-      [(cons (and key (store (cons Ce p))) _)
+      [(cons key v)
        (pretty-display "" out)
-       (pretty-print `(store: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
-       (pretty-result-out out (from-hash key h))
+       (displayln key out)
+       (pretty-result-out out (from-value v))
        ]
       [_ '()]
       )

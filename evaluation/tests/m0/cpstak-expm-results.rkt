@@ -1,197 +1,45 @@
 '(expression:
-  (letrec*
-   ((cpstak
-     (λ (x y z)
-       (letrec*
-        ((tak
-          (λ (x y z k)
-            (match
-             (app not (app < y x))
-             ((#f)
-              (app
-               tak
-               (app - x 1)
-               y
-               z
-               (λ (v1)
-                 (app
-                  tak
-                  (app - y 1)
-                  z
-                  x
-                  (λ (v2)
-                    (app
-                     tak
-                     (app - z 1)
-                     x
-                     y
-                     (λ (v3) (app tak v1 v2 v3 k))))))))
-             (_ (app k z))))))
-        (app tak x y z (λ (a) a))))))
-   (app cpstak 32 15 8)))
-
-'(query: (app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
-clos/con:
-	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak (-> (app - z 1) <-) x y (λ (v3) ...)) (env (() () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app cpstak (-> 32 <-) 15 8) (env ()))
-clos/con: ⊥
-literals: '(32 ⊥ ⊥ ⊥)
-
-'(query: (app tak v1 v2 (-> v3 <-) k) (env (() () () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - z 1) x (-> y <-) (λ (v3) ...)) (env (() () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - x 1) (-> y <-) z (λ (v1) ...)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak v1 v2 v3 (-> k <-)) (env (() () () () ())))
-clos/con:
-	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
-	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
-	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
-	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak (-> (app - y 1) <-) z x (λ (v2) ...)) (env (() () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - x 1) y (-> z <-) (λ (v1) ...)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app cpstak 32 15 (-> 8 <-)) (env ()))
-clos/con: ⊥
-literals: '(8 ⊥ ⊥ ⊥)
-
-'(query: (app (-> - <-) x 1) (env (() ())))
-clos/con:
-	#<procedure:do-sub>
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app cpstak 32 (-> 15 <-) 8) (env ()))
-clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - y 1) (-> z <-) x (λ (v2) ...)) (env (() () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+  (letrec ((cpstak
+            (λ (x y z)
+              (letrec ((tak
+                        (λ (x y z k)
+                          (match
+                           (app not (app < y x))
+                           ((#f)
+                            (app
+                             tak
+                             (app - x 1)
+                             y
+                             z
+                             (λ (v1)
+                               (app
+                                tak
+                                (app - y 1)
+                                z
+                                x
+                                (λ (v2)
+                                  (app
+                                   tak
+                                   (app - z 1)
+                                   x
+                                   y
+                                   (λ (v3) (app tak v1 v2 v3 k))))))))
+                           (_ (app k z))))))
+                (app tak x y z (λ (a) a))))))
+    (app cpstak 32 15 8)))
 
 '(query:
-  (letrec* (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...)
+  (letrec (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...)
   (env ()))
 clos/con:
-	'((letrec* (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
+	'((letrec (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app (-> - <-) y 1) (env (() () ())))
-clos/con:
-	#<procedure:do-sub>
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak x (-> y <-) z (λ (a) ...)) (env (())))
-clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
-
-'(query: (match (-> (app not (app < y x)) <-) (#f) _) (env (() ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak (-> v1 <-) v2 v3 k) (env (() () () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app (-> tak <-) (app - x 1) y z (λ (v1) ...)) (env (() ())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> k <-) z) (env (() ())))
-clos/con:
-	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
-	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
-	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
-	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> tak <-) x y z (λ (a) ...)) (env (())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak (-> (app - x 1) <-) y z (λ (v1) ...)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app < y (-> x <-)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: ((top) letrec* (cpstak) ...) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (λ (a) (-> a <-)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app (-> - <-) z 1) (env (() () () ())))
-clos/con:
-	#<procedure:do-sub>
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (λ (x y z) (-> (letrec* (tak) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak v1 (-> v2 <-) v3 k) (env (() () () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - z 1) (-> x <-) y (λ (v3) ...)) (env (() () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (λ (x y z k) (-> (match (app not (app < y x)) ...) <-)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query:
-  (letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...)
+  (letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...)
   (env (())))
 clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
-clos/con:
-	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> not <-) (app < y x)) (env (() ())))
-clos/con:
-	#<procedure:do-not>
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -203,86 +51,9 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(query: (app tak (-> x <-) y z (λ (a) ...)) (env (())))
-clos/con: ⊥
-literals: '(32 ⊥ ⊥ ⊥)
-
-'(query:
-  (λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-))
-  (env (() () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak x y (-> z <-) (λ (a) ...)) (env (())))
-clos/con: ⊥
-literals: '(8 ⊥ ⊥ ⊥)
-
-'(query: (app (-> < <-) y x) (env (() ())))
-clos/con:
-	#<procedure:do-lt>
-literals: '(⊥ ⊥ ⊥ ⊥)
-
 '(query:
   (match (app not (app < y x)) (#f) (_ (-> (app k z) <-)))
   (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app - z (-> 1 <-)) (env (() () () ())))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
-
-'(query: (app (-> cpstak <-) 32 15 8) (env ()))
-clos/con:
-	'((letrec* (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app - (-> z <-) 1) (env (() () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - y 1) z (-> x <-) (λ (v2) ...)) (env (() () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app k (-> z <-)) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
-clos/con:
-	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app not (-> (app < y x) <-)) (env (() ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> tak <-) v1 v2 v3 k) (env (() () () () ())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app - x (-> 1 <-)) (env (() ())))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
-
-'(query: (app tak x y z (-> (λ (a) ...) <-)) (env (())))
-clos/con:
-	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app < (-> y <-) x) (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (λ (v3) (-> (app tak v1 v2 v3 k) <-)) (env (() () () () ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query: (app - (-> y <-) 1) (env (() () ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -292,51 +63,258 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(query: (app - y (-> 1 <-)) (env (() () ())))
+'(query:
+  (λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-))
+  (env (() () () ())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: ((top) letrec (cpstak) ...) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app (-> - <-) x 1) (env (() ())))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> - <-) y 1) (env (() () ())))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> - <-) z 1) (env (() () () ())))
+clos/con:
+	#<procedure:do-sub>
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> < <-) y x) (env (() ())))
+clos/con:
+	#<procedure:do-lt>
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> cpstak <-) 32 15 8) (env ()))
+clos/con:
+	'((letrec (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> k <-) z) (env (() ())))
+clos/con:
+	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
+	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
+	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
+	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> not <-) (app < y x)) (env (() ())))
+clos/con:
+	#<procedure:do-not>
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> tak <-) (app - x 1) y z (λ (v1) ...)) (env (() ())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> tak <-) (app - y 1) z x (λ (v2) ...)) (env (() () ())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> tak <-) (app - z 1) x y (λ (v3) ...)) (env (() () () ())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> tak <-) v1 v2 v3 k) (env (() () () () ())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app (-> tak <-) x y z (λ (a) ...)) (env (())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app - (-> x <-) 1) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(query: (app (-> tak <-) (app - z 1) x y (λ (v3) ...)) (env (() () () ())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> tak <-) (app - y 1) z x (λ (v2) ...)) (env (() () ())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: v2 (env (() () () ())))
+'(query: (app - (-> y <-) 1) (env (() () ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: z (env (() ())))
+'(query: (app - (-> z <-) 1) (env (() () () ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: v3 (env (() () () () ())))
+'(query: (app - x (-> 1 <-)) (env (() ())))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
+
+'(query: (app - y (-> 1 <-)) (env (() () ())))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
+
+'(query: (app - z (-> 1 <-)) (env (() () () ())))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥ ⊥)
+
+'(query: (app < (-> y <-) x) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: y (env (() ())))
+'(query: (app < y (-> x <-)) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: y (env (())))
-clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
-
-'(store: x (env (())))
+'(query: (app cpstak (-> 32 <-) 15 8) (env ()))
 clos/con: ⊥
 literals: '(32 ⊥ ⊥ ⊥)
 
+'(query: (app cpstak 32 (-> 15 <-) 8) (env ()))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥ ⊥)
+
+'(query: (app cpstak 32 15 (-> 8 <-)) (env ()))
+clos/con: ⊥
+literals: '(8 ⊥ ⊥ ⊥)
+
+'(query: (app k (-> z <-)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app not (-> (app < y x) <-)) (env (() ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app tak (-> (app - x 1) <-) y z (λ (v1) ...)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (-> (app - y 1) <-) z x (λ (v2) ...)) (env (() () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (-> (app - z 1) <-) x y (λ (v3) ...)) (env (() () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (-> v1 <-) v2 v3 k) (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (-> x <-) y z (λ (a) ...)) (env (())))
+clos/con: ⊥
+literals: '(32 ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - x 1) (-> y <-) z (λ (v1) ...)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - x 1) y (-> z <-) (λ (v1) ...)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
+clos/con:
+	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - y 1) (-> z <-) x (λ (v2) ...)) (env (() () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - y 1) z (-> x <-) (λ (v2) ...)) (env (() () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
+clos/con:
+	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - z 1) (-> x <-) y (λ (v3) ...)) (env (() () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - z 1) x (-> y <-) (λ (v3) ...)) (env (() () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
+clos/con:
+	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app tak v1 (-> v2 <-) v3 k) (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak v1 v2 (-> v3 <-) k) (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (app tak v1 v2 v3 (-> k <-)) (env (() () () () ())))
+clos/con:
+	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
+	'((app tak (app - y 1) z x (-> (λ (v2) ...) <-)) (env (() () ())))
+	'((app tak (app - z 1) x y (-> (λ (v3) ...) <-)) (env (() () () ())))
+	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app tak x (-> y <-) z (λ (a) ...)) (env (())))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥ ⊥)
+
+'(query: (app tak x y (-> z <-) (λ (a) ...)) (env (())))
+clos/con: ⊥
+literals: '(8 ⊥ ⊥ ⊥)
+
+'(query: (app tak x y z (-> (λ (a) ...) <-)) (env (())))
+clos/con:
+	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (letrec (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (letrec (tak) (-> (app tak x y z (λ (a) ...)) <-)) (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not (app < y x)) <-) (#f) _) (env (() ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (λ (a) (-> a <-)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (λ (v3) (-> (app tak v1 v2 v3 k) <-)) (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (λ (x y z k) (-> (match (app not (app < y x)) ...) <-)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(query: (λ (x y z) (-> (letrec (tak) ...) <-)) (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: a (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
 '(store: cpstak (env ()))
 clos/con:
-	'((letrec* (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
+	'((letrec (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: k (env (() ())))
@@ -347,23 +325,43 @@ clos/con:
 	'((app tak x y z (-> (λ (a) ...) <-)) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
+'(store: tak (env (())))
+clos/con:
+	'((letrec (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
 '(store: v1 (env (() () ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: tak (env (())))
-clos/con:
-	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: z (env (())))
+'(store: v2 (env (() () () ())))
 clos/con: ⊥
-literals: '(8 ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: v3 (env (() () () () ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(store: x (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: a (env (() ())))
+'(store: x (env (())))
+clos/con: ⊥
+literals: '(32 ⊥ ⊥ ⊥)
+
+'(store: y (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (env (())))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥ ⊥)
+
+'(store: z (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: z (env (())))
+clos/con: ⊥
+literals: '(8 ⊥ ⊥ ⊥)
