@@ -138,7 +138,7 @@
      (cons (list (string->symbol name)
                  `(λ (,(string->symbol match-name))
                     (match ,(string->symbol match-name)
-                      [(,nm ,@(map (λ (ix) (if (= i ix) (string->symbol select-name) '_)) (range n))) x]
+                      [(,nm ,@(map (λ (ix) (if (= i ix) (string->symbol select-name) '_)) (range n))) ,(string->symbol select-name)]
                       [_ (app error ,(format "invalid match for ~a-~a" nm a))]
                       )))
            (gen-type-arg-funcs nm as (+ 1 i) n))]))

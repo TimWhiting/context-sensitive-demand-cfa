@@ -1,9 +1,9 @@
 '(sat-small 0 42 ((0 0 0)))
 '(sat-1 0 71 ((3 3 0)))
-'(sat-2 0 115 ((18 18 0)))
-'(sat-3 0 122 ((21 21 0)))
+'(sat-2 0 115 ((16 16 0)))
+'(sat-3 0 122 ((22 22 0)))
 '(tic-tac-toe
   0
   0
   ((#f
-    "#(struct:exn:fail unknown-primitive: unknown primitive board-lookup #<continuation-mark-set>)")))
+    "#(struct:exn:fail unknown-primitive: unknown primitive x #<continuation-mark-set>)")))

@@ -1,9 +1,5 @@
-'(sat-small 0 42 ((0 0 0)))
+'(sat-small 0 42 ((2 2 1)))
 '(sat-1 0 71 ((2 2 0)))
 '(sat-2 0 115 ((4 4 0)))
 '(sat-3 0 123 ((10 10 0)))
-'(tic-tac-toe
-  0
-  0
-  ((#f
-    "#(struct:exn:fail unknown-primitive: unknown primitive board-lookup #<continuation-mark-set>)")))
+'(tic-tac-toe 0 313 ((20 20 0)))
