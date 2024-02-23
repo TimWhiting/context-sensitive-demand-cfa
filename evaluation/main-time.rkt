@@ -20,7 +20,7 @@
       (set! result-hash hash-new)
       (list cpu real gc)
       )))
-  (pretty-print `(,name ,m ,(hash-num-keys result-hash) ,timed-result) out-time)
+  (pretty-print `(,name ,m ,(timeout) ,(hash-num-keys result-hash) ,timed-result) out-time)
   result-hash
   )
 
@@ -56,7 +56,7 @@
       (set! hash-result hash-new)
       (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
-  (match (and (not (is-instant-query query-kind)) (andmap (lambda (x) x) time-result))
+  (match (andmap (lambda (x) x) time-result)
     [#f (if (equal? shufflen -1)
             (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query)
                                         0 0 0 0

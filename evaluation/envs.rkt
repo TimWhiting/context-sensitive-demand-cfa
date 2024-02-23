@@ -43,22 +43,6 @@
     )
   )
 
-; Get's the indeterminate lexically enclosing exponential environment representation
-; (sequence of ccs) that are all indeterminate
-(define (indeterminate-env Ce)
-  (match Ce
-    [(cons `(bod ,y ,C) e)
-     (cons (callc `(□? ,y ,C)) (indeterminate-env (cons C e)))]
-    [(cons `(top) _)
-     (list)]
-    [_ (indeterminate-env (oute Ce))]))
-
-; Gets the innermost indeterminate lambda environment or #f if not in a lambda
-(define (inner-lambda-bindings Ce)
-  (match (indeterminate-env Ce)
-    [(cons b _) b]
-    [_ #f]))
-
 ; calling contexts
 
 ; Is cc0 more refined or equal to cc1?
@@ -244,4 +228,10 @@
   (check-equal? (find-match-bind 'a `(cons b a)) `(cons 1 #t))
   (check-equal? (find-match-bind 'a `(cons b (cons a))) `(cons 1 (cons 0 #t)))
   (check-equal? (find-match-bind 'a `(cons b (cons 1.0 nil))) #f)
+  )
+
+(module+ main
+  (require rackunit)
+  (check-equal? (⊑-cc (list) (list)) #t)
+
   )

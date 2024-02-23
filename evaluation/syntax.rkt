@@ -70,8 +70,14 @@
     )
   )
 
-(define (is-instant-query k)
+(define (is-instant-query-kind k)
   (member k '(lambda number char string quoted constructor))
+  )
+
+(define (is-instant-query q)
+  (match-let ([(cons (cons C e) p) q])
+    (is-instant-query-kind (expr-kind e))
+    )
   )
 
 (define (show-simple-expr e)

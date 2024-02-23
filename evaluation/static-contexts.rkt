@@ -80,6 +80,10 @@
     [(cons _ _) (search-out)]
     ))
 
+(define (out-e Ce ρ)
+  (>>=list (out Ce ρ))
+  )
+
 (define (out Ce ρ)
   ; (pretty-print `(out ,Ce ,ρ))
   (match Ce
@@ -200,8 +204,44 @@
      ;  (pretty-print after-args)
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
+(define (go-bod q) (apply bod-e q))
+(define ((go-ran-i i) q) (apply (ran-e i) q))
+(define ((go-bin-i i) q) (apply (bin-e i) q))
+(define (go-ran i q) (apply (ran-e i) q))
+(define (go-bin i q) (apply (bin-e i) q))
+(define (go-match-clause i q) (apply (match-clause-e i) q))
+(define (go-match q) (apply focus-match-e q))
+(define (go-out q) (apply out-e q))
+
+(define (repeat n f a)
+  (if (= n 0) a
+      (repeat (- n 1) f (f a))
+      ))
+
+(define (alternate n f g a)
+  (if (= n 0) a
+      (alternate (- n 1) g f (f a))
+      ))
+
+
 (module+ main
   (require rackunit)
-  (check-equal? (⊑-cc (list) (list)) #t)
+  (define example (list `((top) λ (x y) (let ((x 0)) (app 0 1))) (menv '())))
+  (check-equal? (cadr (go-bod (go-bod example))) (menv (list (callc '(□? (x y) (top))))))
+
+  (current-m 2)
+  (define call-example (>>=list (bod-enter (car example) ; Lambda
+                                           'ce-call ; Caller expression
+                                           (menv (list (callc '(call-env1 call-env2)))) ; Caller environment
+                                           (menv (list (callc 'lam-env)))) ; Lambda environment
+                                ))
+  (check-equal? call-example
+                (list
+                 '((bod (x y) (top)) let ((x 0)) (app 0 1))
+                 (menv (list (callc '(ce-call call-env1)) (callc 'lam-env)))))
+
+  (check-equal? (go-out call-example)
+                (list (car example) (menv (list (callc 'lam-env))))
+                )
 
   )

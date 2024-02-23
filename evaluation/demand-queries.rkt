@@ -36,4 +36,7 @@
                                              (range (length binds)))))
                            ]
                           [_ (list)]))
-  (cons self-query child-queries))
+  (if (is-instant-query self-query)
+      child-queries
+      (cons self-query child-queries)
+      ))

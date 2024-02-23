@@ -19,22 +19,13 @@
   ;            (lambda (x) (repeat 2 (go-ran-i 0) (repeat 7 go-bod (go-bin 0 x))))
   ;            )
   (run-basic 2 (get-example-expr 'sat-small)
-             (lambda (x) (go-ran 0 go-bod (go-bin 2 x)))
+             (lambda (x) (go-ran 0 (go-bod (go-bin 0 x)))
+               )
              )
   ; (run-basic (get-example-expr 'inst)
   ;            (lambda (x) (repeat 2 go-bod (go-bin 0 x)))
   ;            )
   )
-
-(define (repeat n f a)
-  (if (= n 0) a
-      (repeat (- n 1) f (f a))
-      ))
-
-(define (alternate n f g a)
-  (if (= n 0) a
-      (alternate (- n 1) g f (f a))
-      ))
 
 (define (run-mcfa m kind expr)
   (analysis-kind kind)
@@ -63,10 +54,3 @@
   )
 
 
-(define (go-bod q) (apply bod-e q))
-(define ((go-ran-i i) q) (apply (ran-e i) q))
-(define ((go-bin-i i) q) (apply (bin-e i) q))
-(define (go-ran i q) (apply (ran-e i) q))
-(define (go-bin i q) (apply (bin-e i) q))
-(define (go-match-clause i q) (apply (match-clause-e i) q))
-(define (go-match q) (apply focus-match-e q))
