@@ -160,10 +160,11 @@
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
   (define all-defs (filter is-def tops))
-  (define rec-defs (filter is-lam-def all-defs))
-  (define other-defs (filter (lambda (x) (not (is-lam-def x))) all-defs))
-  (define rec-binds (map to-let-bind rec-defs))
-  (define other-binds (map to-let-bind other-defs))
+  (define all-binds (map to-let-bind all-defs))
+  ; (define rec-defs (filter is-lam-def all-defs))
+  ; (define other-defs (filter (lambda (x) (not (is-lam-def x))) all-defs))
+  ; (define rec-binds (map to-let-bind rec-defs))
+  ; (define other-binds (map to-let-bind other-defs))
   ; (pretty-print `(translate-top-defs ,tops-full-defs))
 
   ; (pretty-print `(translate-top-defs ,tops))
@@ -172,7 +173,7 @@
               )
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
     ; (if (empty? common-type-defs) '() (pretty-print common-type-defs))
-    (define bodies (append exprs (map cadr (append rec-binds other-binds))))
+    (define bodies (append exprs (map cadr all-binds)))
     (define fvs (if (empty? bodies) (set) (apply set-union (map free-vars bodies))))
     ; (pretty-print fvs)
     (define used (filter (lambda (td)
@@ -183,7 +184,7 @@
                                  (match td
                                    [`(,nm ,@_) (set-member? fvs nm)]
                                    )) (append common-types top-types)))
-    (make-type-defs used-types (make-let-rec (append used rec-binds other-binds) (to-begin exprs)))
+    (make-type-defs used-types (make-let-recstar (append used all-binds) (to-begin exprs)))
     ))
 
 

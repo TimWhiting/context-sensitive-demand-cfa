@@ -8,9 +8,8 @@
   (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
-
-  (run-mcfa 0 'rebinding (get-example-expr 'deriv))
-  ; (run-basic 0 (get-example-expr 'flatten) (lambda (x) x))
+  (run-mcfa 0 'exponential (get-example-expr 'map))
+  ; (run-basic 0 (get-example-expr 'primtest) (lambda (x) (go-ran 0 (go-bin 0 (go-bod (go-bin 4 x))))))
 
   ; (run-basic 1 (get-example-expr 'sat-2)
   ;            (lambda (x) x)
@@ -39,12 +38,13 @@
    m
    kind
    (let ([h (run-get-hash (meval (cons `(top) expr) (top-env)))])
-     (hash-ref h (meval (cons `(top) expr) (top-env)))
+     (show-simple-results (from-hash (meval (cons `(top) expr) (top-env)) h))
      )
    )
   )
 
 (define (run-basic m expr mkq)
+  (current-m m)
   (define top-query-b (list (cons `(top) expr) (menv (list))))
   (define qb (mkq top-query-b))
   (run/parameters
@@ -62,3 +62,4 @@
 (define ((go-bin-i i) q) (apply (bin-e i) q))
 (define (go-ran i q) (apply (ran-e i) q))
 (define (go-bin i q) (apply (bin-e i) q))
+(define (go-match-clause i q) (apply (match-clause-e i) q))

@@ -2,15 +2,12 @@ TODO:
 TOMORROW: 
 Work on Paper!!!
 
-- [ ] Work on regular mcfa addresses for constructor parameters
+- [ ] Fix issues causing inequivalence of demand-mcfa and mcfa (i.e. if we mcfa returns a result, we get the same result with demand-mcfa)
 - [ ] Create tests for each path in the code?
-- [ ] Add back lightweight
-- [ ] Work on writing up our hypotheses for the result section
+- [ ] Remove discussion of lightweight
 - [ ] Work on results 
-  - [ ] Need to compare precision of results
   - [ ] Need to demonstrate adaptability of queries (i.e. if not precise, increase precision and try again), what kind of graph or visual would be useful here?
-  - [ ] Consider higher $m$s (i.e. m=5) - unlikely time-worth-it unless lightweight
-- [ ] Equivalence of demand-mcfa and mcfa (i.e. if we mcfa returns a result, we get the same result with demand-mcfa)
+  - [ ] Consider higher $m$s (i.e. m=5) - unlikely time-worth-it unless lightweight?
 
 FEEDBACK from prior submission
 - include 2CFA as well as 1CFA => perhaps even consider, e.g. 5CFA as defensive program analysis does

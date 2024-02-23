@@ -8,6 +8,10 @@
          racket/set)
 (provide meval store)
 
+(define (repeat x m)
+  (map (lambda (_) x) (range m))
+  )
+
 (define (eval* args)
   (match args
     [(list) (unit (list))]
@@ -21,115 +25,135 @@
                         )))))]
     ))
 
-(define (evalbind* binds ρ args)
+(define (evalbind* ces vars ρnew args)
+  ; (pretty-print (map show-simple-ctx binds))
   (match args
     [(list) (unit (list))]
     [(cons e as)
-     (match binds
+     (match vars
        [(cons b bs)
         (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
              (λ (e ρ)
                (>>= (meval e ρ)
                     (λ (res)
-                      (>>= (extend-store b ρ res)
-                           (λ (_) (evalbind* bs ρ as))))
+                      ; (pretty-print `(evalbind* ,(show-simple-ctx (car ces)) ,b ,(show-simple-result res) ,(show-simple-env ρnew)))
+                      (>>= (extend-store (car ces) b ρnew res)
+                           (λ (_) (evalbind* (cdr ces) bs ρnew as))))
                     )))
         ])
      ]
     )
   )
 
-(define (lookup-all xss)
-  (match xss
-    ['() (unit '())]
-    [(cons x xs)
-     (>>= (lookup-all xs)
-          (λ (rs)
-            (>>= x ; (store ...)
-                 (λ (r)
-                   (unit (cons r rs))
-                   ))))]
-    )
-  )
-
 (define-key (store addr) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   ⊥)
 
-(define (extend-store var env val)
-  ; (pretty-print "extend")
-  ; (pretty-print `(extend-store ,var ,(show-simple-env env) ,(show-simple-result val)))
-  ; (store (cons var env))
-  (extend-store-internal var env val)
-  )
 (define product-absorb-lit (node-absorb/product litbottom lit-lte lit-union))
 
-(define (((extend-store-internal var env val) k) s)
-  ((k #f) ((product-absorb-lit (store (cons var env)) val) s)))
+(define (((extend-store Ce x env val) k) s)
+  ; (pretty-print `(extend-store ,(show-simple-ctx Ce) ,x ,(show-simple-env env) ,(show-simple-result val)))
+  ((k #f) ((product-absorb-lit (store (list Ce x env)) val) s)))
 
-(define (get-store var env)
-  (store (cons var env)))
+(define (get-store Ce x env)
+  ; (pretty-print `(store-lookup ,(show-simple-ctx Ce) ,x ,(show-simple-env env)))
+  (store (list Ce x env)))
 
-(define (bind-args vars ρ values)
-  ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ) ,values))
-  ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ) ,(map show-simple-result values)))
-  (if (equal? (length vars) (length values))
+(define (get-store-val Ce x env)
+  (>>= (get-store Ce x env)
+       (λ (val)
+         ;  (pretty-print `(store-lookup-got ,val))
+         (match val
+           [(product/set (list Ce ρ)) (clos Ce ρ)]
+           [(product/lattice l) (lit l)]
+           ))
+       )
+  )
+
+(define (bind-args ces vars ρ values)
+  (if (and (equal? (length vars) (length values)) (equal? (length vars) (length ces)))
       (match vars
         [(list) (unit #f)]
         [(cons var vars)
-         ;  (pretty-print "extend")
-         (>>= (extend-store var ρ (car values))
-              (λ (_) (bind-args vars ρ (cdr values))))])
+         ;  (pretty-print `(bind-args ,(show-simple-ctx (car ces)) ,var ,(show-simple-result (car values))))
+         (>>= (extend-store (car ces) var ρ (car values))
+              (λ (_) (bind-args (cdr ces) vars ρ (cdr values))))])
       ⊥ ; Two closures with different numbers of arguments flow to the same place
       ;(error 'invalid-num-args (format "in bind args got ~a ~a" vars (map show-simple-result values)))
       ))
 
 (define (rebind-vars Ce vars ρ ρnew)
-  ; (pretty-print `(rebind-vars ,(show-simple-ctx Ce) ,vars ,(show-simple-env ρ) ,(show-simple-env ρnew)))
   (match vars
     [(list) (unit #f)]
     [(cons var vars)
      (match (lookup-primitive var)
        [#f
+        ; (pretty-print `(rebind-vars ,(show-simple-ctx Ce) ,var ,(show-simple-env ρ) ,(show-simple-env ρnew)))
         (>>=
          ((bind var) Ce ρ)
-         (λ (_ __ i)
+         (λ (Cex __ i)
            (match i
-             [-1 (rebind-vars Ce vars ρ ρnew)]
-             [_  (>>= (get-store var ρ)
+             [-1
+
+              ; (pretty-print `(no-rebind-con ,var))
+              (rebind-vars Ce vars ρ ρnew)]
+             [_  (>>= (store-lookup Cex var ρ)
                       (λ (v)
-                        (>>= (extend-store var ρnew v)
+                        ; (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
+                        (>>= (extend-store Ce var ρnew v)
                              (λ (_) (rebind-vars Ce vars ρ ρnew)))))])
            ))
         ]
-       [_ (rebind-vars Ce vars ρ ρnew)]
+       [_
+        ; (pretty-print `(no-rebind-prim ,var))
+        (rebind-vars Ce vars ρ ρnew)]
        )
      ]))
 
 (define (store-lookup Ce x ρ)
   (>>=
    ((bind x) Ce ρ)
-   (λ (_ ρ i)
-     (match i
-       [-1
-        ; (pretty-print `(returning-cons ,Ce ,ρ))
-        (clos Ce ρ)] ; treat as constructor]
+   (λ (Cex px i)
+     (define plookup
+       (match (analysis-kind)
+         ['exponential px]
+         ['rebinding ρ]
+         ))
+     (match Cex
+       [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+        ; (pretty-print `(let-bod-lookup ,i))
+        (>>= (>>= (out Cex ρ) (bin i))
+             (λ (Ce _)
+               (get-store-val Ce x plookup)))]
+       [(cons `(let-bod ,_ ,_ ,_) _)
+        ; (pretty-print `(let-bod-lookup ,i))
+        (>>= (>>= (out Cex ρ) (bin i))
+             (λ (Ce _)
+               (get-store-val Ce x plookup)))]
        [_
-        ; (pretty-print "lookup")
-        ;  (pretty-print `(store-lookup ,x ,ρ))
-        (>>= (get-store x ρ)
-             (λ (val)
-               ; (pretty-print `(store-lookup got ,val ,x ,ρ))
-               (match val
-                 [(product/set (list Ce ρ)) (clos Ce ρ)]
-                 [(product/lattice l) (lit l)]
-                 ))
-             )]))))
+        (match i
+          [-1
+           ;  (pretty-print `(returning-cons ,Ce ,ρ))
+           (clos Ce ρ)] ; treat as constructor - bound in the original environment
+          [_
+           ; (pretty-print "lookup")
+           ;  (pretty-print `(store-lookup ,(show-simple-ctx Cex) ,x ,(show-simple-env ρ)))
+           (get-store-val Cex x plookup)
+           ])]
+       ))
+   ))
+
 
 (define (symbol-lookup Ce x ρ)
   (match (lookup-primitive x)
     [#f (store-lookup Ce x ρ)]
     [Ce (clos Ce ρ)]
     ))
+
+(define (bins Ce ρ binds)
+  (map car (map
+            (λ (i) ((bin-e i) Ce ρ))
+            (range (length binds))))
+  )
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
@@ -151,12 +175,13 @@
                      (λ (i) ((bin i) Ce ρ))
                      (range (length binds))))
              (λ (evaled-binds)
-               (>>= (bind-args (map car binds) ρ evaled-binds)
+               (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
                     (λ (_)
                       ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                       (>>= (bod Ce ρ) meval)))))]
        [(cons _ `(let* ,binds ,_))
         (>>= (evalbind*
+              (bins Ce ρ binds)
               (map car binds)
               ρ
               (map
@@ -167,6 +192,7 @@
                (>>= (bod Ce ρ) meval)))]
        [(cons _ `(letrec* ,binds ,_))
         (>>= (evalbind*
+              (bins Ce ρ binds)
               (map car binds)
               ρ
               (map
@@ -183,7 +209,7 @@
                      (λ (i) ((bin i) Ce ρ))
                      (range (length binds))))
              (λ (evaled-binds)
-               (>>= (bind-args (map car binds) ρ evaled-binds)
+               (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
                     (λ (_)
                       ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
                       (>>= (bod Ce ρ) meval)))))]
@@ -196,14 +222,14 @@
         (>>=clos
          (>>= (rat Ce ρ) meval)
          (λ (lam lamρ)
-           (pretty-trace `(eval-args ,args))
+           ;  (pretty-trace `(eval-args ,lam ,args))
            (>>= (eval* (map
                         (λ (i) ((ran i) Ce ρ))
                         (range (length args))))
                 (λ (evaled-args)
                   ; (pretty-print `(evaled-args ,(map show-simple-result evaled-args)))
                   (match lam
-                    [`(prim ,_)
+                    [`(prim ,_ ,_)
                      ;  (pretty-trace `(applying prim: ,lam ,args))
                      (apply-primitive lam C ρ evaled-args)]
                     [(cons _ `(λ ,xs ,bod))
@@ -213,7 +239,7 @@
                           (λ (Ce ρ-new)
                             ;  (pretty-print `(binding in ,ρ-new))
                             (>>=
-                             (bind-args xs ρ-new evaled-args)
+                             (bind-args (repeat Ce (length xs)) xs ρ-new evaled-args)
                              (λ (_)
                                (match (analysis-kind)
                                  ['exponential (meval Ce ρ-new)]
@@ -230,7 +256,7 @@
                            ;  (pretty-print `(conapp ,con))
                            (if (= (length args) 0)
                                (clos `(con ,con) (top-env))
-                               (>>= (bind-args argse ρ evaled-args)
+                               (>>= (bind-args (repeat 'con (length argse)) argse ρ evaled-args)
                                     (λ (_) (clos `(con ,con ,Ce) ρ)))
                                ))
                          (error 'invalid-rator (format "~a" con))
@@ -253,8 +279,9 @@
             ; (pretty-print `(clause-res ,matches))
             (match matches
               [(list vars exprs) ; Matches and binds variables
-               ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,(map show-simple-result exprs)))
-               (>>= (bind-args vars parentρ exprs)
+               (define clauseCe (car ((match-clause-e i) parent parentρ)))
+               ;  (pretty-print `(pattern ,(car clause) binds ,vars to ,(map show-simple-result exprs) in ,(show-simple-ctx clauseCe)))
+               (>>= (bind-args (repeat clauseCe (length vars)) vars parentρ exprs)
                     (λ (_)
                       ; (pretty-print 'finished-binding)
                       (>>= ((match-clause i) parent parentρ) meval)))]
@@ -277,7 +304,8 @@
               [#f ((eval-lit-clause parent parentρ clauses (+ i 1)) lit)]
               [#t (>>= ((match-clause i) parent parentρ) meval)]
               [(list vars exprs)
-               (>>= (bind-args vars parentρ exprs)
+               (define clauseCe (car ((match-clause-e i) parent parentρ)))
+               (>>= (bind-args (repeat clauseCe (length vars)) vars parentρ exprs)
                     (λ (_)
                       (>>= ((match-clause i) parent parentρ) meval)))
                ])))]
@@ -300,10 +328,26 @@
     [lit1 (unit (equal? (to-lit lit1) lit2))]
     ))
 
+
 (define (store-lookup-vals xs ρ)
   ; (pretty-print `(lookup ,(map show-simple-ctx xs)))
-  (lookup-all (map (lambda (x) (get-store x ρ)) xs))
+  ; (>>=
+  (lookup-all (map (lambda (x) (get-store 'con x ρ)) xs))
+  ;  (λ (xs)
+  ;  (pretty-print `(lookup-result ,(map show-simple-result xs)) )
+  ;  xs))
   )
+
+(define (lookup-all xss)
+  (match xss
+    ['() (unit '())]
+    [(cons x xs)
+     (>>= (lookup-all xs)
+          (λ (rs)
+            (>>= x ; (store ...)
+                 (λ (r)
+                   (unit (cons r rs))
+                   ))))]))
 
 (define (pattern-con-matches pattern Ce ρ)
   ; (pretty-print `(con-matches ,pattern ,(show-simple-ctx Ce) ,(show-simple-env ρ)))

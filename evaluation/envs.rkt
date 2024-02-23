@@ -166,7 +166,7 @@
     [(cons s l)
      (define (simple-closure-envs c)
        (match c
-         [(list `(prim ,l) env) (list `(prim ,l) (simple-env env))]
+         [(list `(prim ,n ,l) env) (list `(prim ,n) (simple-env env))]
          [(list (cons C e) env) (list (cons C e) (simple-env env))]
          ;  [(list const env) (list const (simple-env env))]
          ))

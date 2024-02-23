@@ -131,31 +131,31 @@ Finish the paper
 (define (lookup-demand-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x
-    ['= `(prim ,do-demand-equal)]
-    ['equal? `(prim, do-demand-equal)]
-    ['eq? `(prim, do-demand-equal)]
-    ['symbol? `(prim, do-symbol?)]
-    ['char? `(prim, do-char?)]
-    ['or `(prim ,do-demand-or)]; TODO Handle in match positions
-    ['and `(prim ,do-demand-and)]; TODO Handle in match positions
-    ['not `(prim ,do-demand-not)]
-    ['random `(prim, do-random)]
-    ['ceiling `(prim, do-ceiling)]
-    ['log `(prim, do-log)]
-    ['- `(prim ,do-sub)] ; Numbers work with the regular data model
-    ['+ `(prim ,do-add)] ; Numbers work with the regular data model
-    ['* `(prim ,do-mult)] ; Numbers work with the regular data model
-    ['/ `(prim ,do-div)] ; Numbers work with the regular data model
-    ['modulo `(prim ,do-modulo)]
-    ['gcd `(prim ,do-gcd)]
-    ['quotient `(prim ,do-quotient)]
-    ['<= `(prim ,do-lte)] ; Numbers work with the regular data model
-    ['< `(prim ,do-lt)] ; Numbers work with the regular data model
-    ['> `(prim ,do-gt)] ; Numbers work with the regular data model
-    ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
-    ['newline `(prim, do-newline)]
-    ['display `(prim, do-display)]
-    ['void `(prim, do-void)]
+    ['= `(prim = ,do-demand-equal)]
+    ['equal? `(prim equal? ,do-demand-equal)]
+    ['eq? `(prim eq? ,do-demand-equal)]
+    ['symbol? `(prim symbol? ,do-symbol?)]
+    ['char? `(prim char? ,do-char?)]
+    ['or `(prim or ,do-demand-or)]; TODO Handle in match positions
+    ['and `(prim and ,do-demand-and)]; TODO Handle in match positions
+    ['not `(prim not ,do-demand-not)]
+    ['random `(prim random ,do-random)]
+    ['ceiling `(prim ceiling ,do-ceiling)]
+    ['log `(prim log ,do-log)]
+    ['- `(prim - ,do-sub)] ; Numbers work with the regular data model
+    ['+ `(prim + ,do-add)] ; Numbers work with the regular data model
+    ['* `(prim * ,do-mult)] ; Numbers work with the regular data model
+    ['/ `(prim / ,do-div)] ; Numbers work with the regular data model
+    ['modulo `(prim modulo ,do-modulo)]
+    ['gcd `(prim gcd ,do-gcd)]
+    ['quotient `(prim quotient ,do-quotient)]
+    ['<= `(prim <= ,do-lte)] ; Numbers work with the regular data model
+    ['< `(prim < ,do-lt)] ; Numbers work with the regular data model
+    ['> `(prim > ,do-gt)] ; Numbers work with the regular data model
+    ['odd? `(prim odd? ,do-odd)] ; Numbers work with the regular data model
+    ['newline `(prim newline ,do-newline)]
+    ['display `(prim display ,do-display)]
+    ['void `(prim void ,do-void)]
     [_ #f]
     ))
 
@@ -188,15 +188,15 @@ Finish the paper
      (>>= (is-truthy ρ C a)
           (λ (t)
             (match t
-              [#f (false C ρ)]
               [#t (unit a)]
+              [#f (false C ρ)]
               )))]
     [(cons a as)
      (>>= (is-truthy ρ C a)
           (λ (t)
             (match t
-              [#f (apply do-demand-or (cons ρ (cons C as)))]
               [#t (unit a)]
+              [#f (apply do-demand-or (cons ρ (cons C as)))]
               )))]))
 
 (define (do-demand-and ρ C . args)
@@ -206,14 +206,15 @@ Finish the paper
      (>>= (is-truthy ρ C a)
           (λ (t)
             (match t
+              [#t (unit a)]
               [#f (false C ρ)]
-              [#t (unit a)])))]
+              )))]
     [(cons a as)
      (>>= (is-truthy ρ C a)
           (λ (t)
             (match t
-              [#f (false C ρ)]
               [#t (apply do-demand-and (cons ρ (cons C as)))]
+              [#f (false C ρ)]
               )))]))
 
 (define (do-demand-equal ρ C a1 a2)
@@ -293,7 +294,7 @@ Finish the paper
             (λ (Ce′ ρ′)
               ; (pretty-trace `(got closure or primitive ,Ce′))
               (match Ce′
-                [`(prim ,_)
+                [`(prim ,_ ,_)
                  ;  (pretty-trace `(eval args prim: ,args))
                  (>>= (eval* (map
                               (λ (i) ((ran i) Ce ρ))
@@ -632,7 +633,7 @@ Finish the paper
                                                 ; (pretty-print `(try-to-find ,x ,(show-simple-ctx Cee)))
                                                 (>>= ((find x) Cee ρee)
                                                      (λ (Cee ρee)
-                                                       ;  (pretty-print `(found ,x ,(show-simple-ctx Cee)))
+                                                       ; (pretty-print `(found ,x ,(show-simple-ctx Cee)))
                                                        (expr Cee ρee))))))
                                        (range (+ 1 (length before) (length after))))]
                                  ['letrec*

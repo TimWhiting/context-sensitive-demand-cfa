@@ -6,31 +6,31 @@
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
   (match x
-    ['random `(prim, do-random)]
-    ['ceiling `(prim, do-ceiling)]
-    ['log `(prim, do-log)]
-    ['= `(prim ,do-equal)]
-    ['- `(prim ,do-sub)]
-    ['+ `(prim ,do-add)]
-    ['* `(prim ,do-mult)]
-    ['/ `(prim ,do-div)]
-    ['modulo `(prim ,do-modulo)]
-    ['gcd `(prim ,do-gcd)]
-    ['quotient `(prim ,do-quotient)]
-    ['< `(prim ,do-lt)]
-    ['> `(prim ,do-gt)]
-    ['<= `(prim ,do-lte)]
-    ['odd? `(prim ,do-odd)] ; Numbers work with the regular data model
-    ['not `(prim ,do-not)]
-    ['or `(prim ,do-or)]; TODO Handle in match positions
-    ['and `(prim ,do-and)]; TODO Handle in match positions
-    ['equal? `(prim ,do-equal)]
-    ['eq? `(prim, do-equal)]
-    ['symbol? `(prim, do-symbol?)]
-    ['char? `(prim, do-char?)]
-    ['newline `(prim ,do-newline)]
-    ['display `(prim ,do-display)]
-    ['void  `(prim ,do-void)]
+    ['random `(prim random ,do-random)]
+    ['ceiling `(prim ceiling ,do-ceiling)]
+    ['log `(prim log ,do-log)]
+    ['= `(prim = ,do-equal)]
+    ['- `(prim - ,do-sub)]
+    ['+ `(prim + ,do-add)]
+    ['* `(prim * ,do-mult)]
+    ['/ `(prim / ,do-div)]
+    ['modulo `(prim modulo ,do-modulo)]
+    ['gcd `(prim gcd ,do-gcd)]
+    ['quotient `(prim quotient,do-quotient)]
+    ['< `(prim < ,do-lt)]
+    ['> `(prim > ,do-gt)]
+    ['<= `(prim <= ,do-lte)]
+    ['odd? `(prim odd? ,do-odd)] ; Numbers work with the regular data model
+    ['not `(prim not ,do-not)]
+    ['or `(prim or ,do-or)]; TODO Handle in match positions
+    ['and `(prim and ,do-and)]; TODO Handle in match positions
+    ['equal? `(prim equal? ,do-equal)]
+    ['eq? `(prim eq? ,do-equal)]
+    ['symbol? `(prim symbol? ,do-symbol?)]
+    ['char? `(prim char? ,do-char?)]
+    ['newline `(prim newline ,do-newline)]
+    ['display `(prim display ,do-display)]
+    ['void  `(prim void ,do-void)]
     [_ #f]
     )
   )
@@ -71,7 +71,7 @@
 
 (define (is-primitive e)
   (match e
-    [`(prim ,f) #t]
+    [`(prim ,_ ,f) #t]
     [_ #f]
     )
   )
@@ -79,7 +79,7 @@
 ; Evaluates a primitive with fully evaluated primitive arguments
 (define (apply-primitive e C p args)
   (match e
-    [`(prim ,f)
+    [`(prim ,_ ,f)
      ;  (print-eval-result `(applying primitive: ,e ,p ,args) (λ ()
      (apply f (cons p (cons C args)))
      ; ))

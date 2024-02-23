@@ -21,6 +21,9 @@
          (timeout-ms (timeout))
          ;  (timeout-ms (/ timeout (max 1 (/ n 100))))
          ;  (_ (pretty-print timeout-ms))
+         (collect-garbage)
+         (collect-garbage)
+         (collect-garbage)
          (alarm (alarm-evt (+ (current-inexact-monotonic-milliseconds) timeout-ms) #t))
          (thd (thread
                (lambda ()

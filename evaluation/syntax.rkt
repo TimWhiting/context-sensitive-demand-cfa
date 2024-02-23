@@ -73,7 +73,7 @@
 (define (show-simple-expr e)
   (match e
     [`(app ,@es) `(app ,@(map show-simple-expr es))]
-    [`(prim ,p) `(prim ,p)]
+    [`(prim ,n ,p) `(prim ,n)]
     [`(match ,e ,@mchs) `(match ,(show-simple-expr e) ...)]
     [`(λ ,y ,bod) `(λ ,y ...)]
     [`(,let-kind ,binds ,bod) `(,let-kind ,(show-simple-binds binds) ...)]
@@ -99,7 +99,7 @@
 (define (show-simple-ctx Ce)
   ; (pretty-print Ce)
   (match Ce
-    [`(prim ,p) `(prim ,p)]
+    [`(prim ,n ,p) `(prim ,n)]
     [(cons `(rat ,es ,_) e₀)
      `(app (->,(show-simple-expr e₀) <-) ,@(map show-simple-expr es))]
     [(cons `(match-e ,es ,_) e₀)
