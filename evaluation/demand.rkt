@@ -269,12 +269,14 @@ Finish the paper
                                (bin i))
                           eval)
                      ]
-                    [(cons `(match-clause ,_ ,_ ,_ ,_ ,_) _)
+                    [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
                      ;  (pretty-print `(bound-in-match ,x ,(show-simple-ctx Cex)))
                      (>>= (out Cex ρ)
                           (λ (Ce ρ)
-                            (>>= (focus-match Ce ρ)
-                                 (eval-match-binding i))))
+                            (>>=eval (>>= (focus-match Ce ρ) eval)
+                                     (eval-match-binding m i Ce ρ)
+                                     (eval-match-binding-lit i)
+                                     )))
                      ]
                     [(? symbol? x)
                      (match (lookup-demand-primitive x)
@@ -302,8 +304,11 @@ Finish the paper
                       (λ (args)
                         ; (pretty-trace `(applying prim: ,Ce′ ,args))
                         (apply-primitive Ce′ C ρ args)))]
-                [(cons _ `(λ ,_ ,_))
-                 (>>= (bod-enter Ce′ Ce ρ ρ′) eval)
+                [(cons _ `(λ ,y ,C))
+                 (>>= (bod-enter Ce′ Ce ρ ρ′)
+                      (λ (Ce p)
+                        (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                             (λ _ (eval Ce p)))))
                  ]
                 ; Constructors just return the application. We need the context to further resolve demand queries for arguments
                 [(cons _ con)
@@ -341,31 +346,67 @@ Finish the paper
    ))
 
 
-(define ((eval-match-binding match-bind) Ce ρ)
+(define (take-till m l)
+  (match l
+    ['() '()]
+    [(cons x rst) (if (equal? m x) '() (cons x (take-till m rst)))]
+    )
+  )
+
+(define ((eval-match-binding m match-bind parentCe parentρ) Ce ρ)
+  ; (pretty-print `(eval-match-bind ,m ,(show-simple-ctx Ce)))
+  (match-let ([(cons _ `(match ,_ ,@clauses)) parentCe])
+    (>>= (let loop ([cls (take-till m (map car clauses))])
+           (match cls
+             ['() (unit #f)]
+             [(cons cl cls)
+              (>>= (pattern-matches cl Ce ρ)
+                   (λ (m) (if m
+                              ; (begin (pretty-print `(matches-prev ,(show-simple-ctx Ce) ,cl))
+                              (unit #t);)
+                              (loop cls)))
+                   )]
+             ))
+         (λ (res)
+           ;  (pretty-print `(eval-match ,m ,(show-simple-ctx Ce) ,res))
+           (if res
+               ⊥
+               ((eval-match-bindingx match-bind) Ce ρ)
+               )
+           )
+         ))); Ensure the previous
+
+(define ((eval-match-binding-lit match-bind) l)
+  (match match-bind
+    [#t (lit l)]
+    [_ ⊥]
+    ))
+
+(define ((eval-match-bindingx match-bind) Ce ρ)
   (match match-bind
     [`(,con ,locsub ,sub)
-     ;  (pretty-print `(eval-binding ,con ,locsub ,sub ,(show-simple-ctx Ce)))
-     (>>=clos
-      (eval Ce ρ) ; Evaluate the constructor
-      (λ (Ce ρ)
-        ; (pretty-print `(got-con ,con ,locsub ,sub ,(show-simple-ctx Ce)))
-        (match Ce
-          [`((top) app ,con1) ⊥]; Singleton constructor -- no arguments possible
-          [(cons C `',x) ⊥] ; Doesn't match cons
-          [_ (>>=clos
-              ; This is the application site of the constructor, need to see what constructor it is
-              (>>= (rat Ce ρ) eval)
-              (λ (Cc ρc)
-                (match Cc
-                  [(cons _ con1)
-                   ;  (pretty-print `(ran subpat ,sub ,locsub))
-                   (if (equal? con con1)
-                       (>>= ((ran locsub) Ce ρ) (eval-match-binding sub))
-                       ⊥
-                       )]
-                  )))])))
+     ; (pretty-print `(got-con ,con ,locsub ,sub ,(show-simple-ctx Ce)))
+     (match Ce
+       [`((top) app ,con1) ⊥]; Singleton constructor -- no arguments possible
+       [(cons C `',x) ⊥] ; Doesn't match cons
+       [_ (>>=clos
+           ; This is the application site of the constructor, need to see what constructor it is
+           (>>= (rat Ce ρ) eval)
+           (λ (Cc ρc)
+             (match Cc
+               [(cons _ con1)
+                ;  (pretty-print `(ran subpat ,sub ,locsub))
+                (if (equal? con con1)
+                    (>>=eval
+                     (>>= ((ran locsub) Ce ρ) eval)
+                     (eval-match-bindingx sub)
+                     (eval-match-binding-lit sub)
+                     )
+                    ⊥
+                    )]
+               )))])
      ]
-    [#t (eval Ce ρ)]
+    [#t (clos Ce ρ)]
     ))
 
 (define (patterns-match Ce ρ args subpats i)
@@ -384,8 +425,7 @@ Finish the paper
                    (λ (matches)
                      ; (pretty-print `(subpat match ,subpat ,Ce ,matches))
                      (if matches (patterns-match Ce ρ as subpats (+ 1 i)) (unit #f))
-                     )))))]
-    ))
+                     )))))]))
 
 (define (pattern-matches pattern Ce ρe)
   (match pattern
@@ -393,24 +433,26 @@ Finish the paper
      (match Ce
        [`((top) app ,con1) (if (equal? con con1) (unit #t) (unit #f))] ; Singleton constructors
        [(cons C `',x) (unit #f)] ; Symbols
-       [_  (>>=clos
-            ; This is the application site of the constructor, need to see what constructor it is
-            (>>= (rat Ce ρe) eval)
-            (λ (Cc ρc)
-              (match Cc
-                [(cons _ con1)
-                 (if (equal? con con1)
-                     ; Find where the constructor is applied
-                     (match Ce
-                       [(cons _ `(app ,_ ,@as))
-                        ;  (pretty-print `(subpat ,subpats ,as))
-                        (if (equal? (length as) (length subpats))
-                            (patterns-match Ce ρe as subpats 0)
-                            (unit #f)
-                            )]
-                       )
-                     ; Wrong constructor
-                     (unit #f))])))])
+       [_
+        ; (pretty-print (show-simple-ctx Ce))
+        (>>=clos
+         ; This is the application site of the constructor, need to see what constructor it is
+         (>>= (rat Ce ρe) eval)
+         (λ (Cc ρc)
+           (match Cc
+             [(cons _ con1)
+              (if (equal? con con1)
+                  ; Find where the constructor is applied
+                  (match Ce
+                    [(cons _ `(app ,_ ,@as))
+                     ;  (pretty-print `(subpat ,subpats ,as))
+                     (if (equal? (length as) (length subpats))
+                         (patterns-match Ce ρe as subpats 0)
+                         (unit #f)
+                         )]
+                    )
+                  ; Wrong constructor
+                  (unit #f))])))])
      ]
     [`',x
      (match Ce
@@ -497,7 +539,7 @@ Finish the paper
              (λ (Cee ρee)
                (let ([cc₁ (enter-cc Cee ρee)])
                  (cond
-                   [(⊑-cc cc₀ cc₁)
+                   [(equal? cc₀ cc₁)
                     ;  (pretty-trace "equal")
                     ;  (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                     (unit Cee ρee)]
@@ -556,8 +598,10 @@ Finish the paper
                        [(cons C `(λ ,xs ,e)) ; It is a lambda
                         (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                              (λ (Ce ρ) ; Find where the parameter is used
-                               (>>= ((find (car (drop xs arg-offset))) Ce ρ)
-                                    expr)))]
+                               (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
+                                    (λ _
+                                      (>>= ((find (car (drop xs arg-offset))) Ce ρ)
+                                           expr)))))]
                        [(cons C (? symbol? x)) ; Constructors
                         ; (pretty-print `(,x ,(show-simple-ctx Cee)))
                         (>>= (expr Cee ρee) ; Find the deconstruction sites

@@ -3,7 +3,6 @@
          "debug.rkt" "syntax.rkt" "envs.rkt" "demand-queries.rkt" "results.rkt" "run.rkt")
 (require "m-cfa.rkt")
 (require racket/pretty racket/match racket/hash racket/set)
-(define max-context-length 0)
 
 (define (run-mcfa kind query m)
   (define hash-result (hash))
@@ -38,28 +37,6 @@
     )
   )
 
-; TODO: Prior to this we need to simplify to make them comparable.
-(define (compare-hashes name m expm demand)
-  (define out '())
-  (define (add-error message)
-    (if (equal? out '())
-        (set! out (open-output-file (format "tests/diff/~a_~a.rkt" name m) #:exists 'replace))
-        '()
-        )
-    (displayln message out)
-    )
-  (define exmp-simple (simplify-hash expm))
-  (define demand-simple (simplify-hash demand))
-  (for ([query (hash->list exmp-simple)])
-    (match-let ([(cons key val) query])
-      (if (equal? val (hash-ref demand-simple key #f))
-          '()
-          (match-let ([`(eval ,c) key])
-            (add-error (format "difference: ~a\n\tmcfa:~a\n\tdemand:~a" (show-simple-ctx c) val (hash-ref demand-simple key #f)))
-            )
-          )
-      )))
-
 (define (simple-cons/clos x)
   (match x
     [(list `(prim ,n ,l) env) `(prim ,n)]
@@ -68,43 +45,31 @@
     [(list (cons C e) env) (show-simple-ctx (cons C e))]
     )
   )
-
-
 (define (simplify-val v)
   (match (from-value v)
     [(cons xss n) (cons (apply set (map simple-cons/clos (set->list xss))) n)]
     )
   )
 
-(define ((update-simple-val new) old)
-  (match old
-    [(cons xss n)
-     (match new
-       [(cons xss1 n1)
-        (cons (set-union xss xss1) (lit-union n n1))]
-       )
-     ]
-    )
-  )
-
-(define (simplify-hash h)
-  (define new-hash (hash))
-  (for ([key-val (hash->list h)])
-    (match-let ([(cons key val) key-val])
-      (define simple-val (simplify-val val))
-      (define updater (update-simple-val simple-val))
-      (match key
-        [(meval c p)
-         (set! new-hash
-               (hash-update new-hash `(eval ,c) updater simple-val))]
-        [(eval c p)
-         (set! new-hash
-               (hash-update new-hash `(eval ,c) updater simple-val))]
-        [_ '()]
+(define (check-result add-error name m key exp-res demand-res)
+  (define exp-val (simplify-val exp-res))
+  (define demand-val (simplify-val demand-res))
+  (if (equal? exp-val demand-val)
+      '()
+      (match-let ([(eval c p) key])
+        (add-error (format "difference: ~a, env: ~a\n\tmcfa:~a\n\tdemand:~a" (show-simple-ctx c) (show-simple-env p) exp-val demand-val))
         )
       )
+  )
+
+(define (translate-queries h)
+  (for/list ([key-val (hash->list h)]
+             #:when (match key-val [(cons (meval _ _) _) #t] [_ #f])
+             )
+    (match key-val
+      [(cons (meval c p) val) (cons val (eval c (menv (env-list p))))]
+      )
     )
-  new-hash
   )
 
 (module+ main
@@ -115,24 +80,25 @@
                              kcfa-2 kcfa-3 loop2-1 map mj09 primtest
                              regex rsa sat-1 sat-2 sat-3 tak sat-small))
   (trace #f)
-  (for ([m (in-range 0 (+ 1 max-context-length))])
-    (let ([basic-cost 0]
-          [rebind-cost 0]
-          [expm-cost 0]
-          [num-queries 0]
-          [basic-acc-cost 0])
-      (current-m m)
-      (for ([example (get-examples all-examples)])
-        ; (for ([example test-examples])
-        (match-let ([`(example ,name ,exp) example])
-          (define exp-hash (run-expm name exp m))
-          (define demand-hash (hash))
-          (define qbs (basic-queries exp))
-          (for ([qs qbs])
-            (match-let ([(list cb pb) qs])
-              (define query (eval cb pb))
-              (define res (run-demand name 'basic m query))
-              (set! demand-hash (hash-set demand-hash query res))
-              ))
-          (compare-hashes name m exp-hash demand-hash)
+
+  (for ([m (in-range 1 2)])
+    (current-m m)
+    (for ([example (get-examples '(blur))])
+      (match-let ([`(example ,name ,exp) example])
+        (define exp-hash (run-expm name exp m))
+        (define out '())
+        (define fname  (format "tests/diff/~a_~a.rkt" name m))
+        (if (file-exists? fname)
+            (delete-file fname)
+            '())
+        (define (add-error message)
+          (if (equal? out '())
+              (set! out (open-output-file fname #:exists 'replace))
+              '()
+              )
+          (displayln message out))
+        (for ([trans (translate-queries exp-hash)])
+          (match-let ([(cons exp-result demand-query) trans])
+            (check-result add-error name m demand-query exp-result (run-demand name 'basic m demand-query))
+            )
           )))))

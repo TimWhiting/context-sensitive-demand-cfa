@@ -8,9 +8,9 @@
   (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
-  (run-mcfa 0 'exponential (get-example-expr 'map))
+  ; (run-mcfa 0 'exponential (get-example-expr 'map))
   ; (run-basic 0 (get-example-expr 'primtest) (lambda (x) (go-ran 0 (go-bin 0 (go-bod (go-bin 4 x))))))
-
+  (run-basic 1 (get-example-expr 'blur) (λ (x) (go-ran 0 (go-match (go-bod (go-bin 2 x))))))
   ; (run-basic 1 (get-example-expr 'sat-2)
   ;            (lambda (x) x)
   ;            ;  (lambda (x) (alternate 15 go-bod (go-ran-i 0) (go-bin 2 x)))
@@ -63,3 +63,4 @@
 (define (go-ran i q) (apply (ran-e i) q))
 (define (go-bin i q) (apply (bin-e i) q))
 (define (go-match-clause i q) (apply (match-clause-e i) q))
+(define (go-match q) (apply focus-match-e q))
