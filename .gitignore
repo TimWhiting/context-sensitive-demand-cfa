@@ -10,3 +10,4 @@ compiled
 *.rkt~
 evaluation/out.rkt
 evaluation/out.txt
+evaluation/tests/diff

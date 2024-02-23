@@ -307,8 +307,10 @@ Finish the paper
              [(cons _ `(λ ,y ,C))
               (>>= (bod-enter Ce′ Ce ρ ρ′)
                    (λ (Ce p)
-                     (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
-                          (λ _ (eval Ce p)))))
+                     ;  (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                     ; (λ _
+                     (eval Ce p)))
+              ; ))
               ]
              ; Constructors just return the application. We need the context to further resolve demand queries for arguments
              [(cons _ con)
@@ -540,21 +542,24 @@ Finish the paper
             (let ([cc₁ (enter-cc Cee ρee)])
               (cond
                 [(equal? cc₀ cc₁)
-                 ;  (pretty-trace "equal")
+                 ;  (pretty-print "equal")
                  ;  (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  (unit Cee ρee)]
                 [(⊑-cc cc₁ cc₀)
-                 ;  (pretty-trace "refines")
+                 (pretty-print `(refines-new? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  ;  (pretty-trace `(CALL-REFINES ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  ; strictly refines because of above
                  (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥))
                  ]
-                ;  [(⊑-cc cc₀ cc₁)
-                ;   (define new-cc (take-cc (replace-cc cc₁ cc₀)))
-                ;   (pretty-trace "old-refines")
-                ;   (pretty-trace `(CALL-OLD-REFINES ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁) ,(show-simple-call new-cc)))
-                ;   (unit Cee (menv (cons (callc cc₀) ρ₀)))
-                ;   ]
+                [(⊑-cc cc₀ cc₁)
+                 (pretty-print `(refines? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
+                 (>>= (put-refines ρ (menv (cons (callc cc₀) ρ₀))) (λ _ (unit Cee ρee)))
+                 ;  ⊥
+                 ;   (define new-cc (take-cc (replace-cc cc₁ cc₀)))
+                 ;   (pretty-trace "old-refines")
+                 ;   (pretty-trace `(CALL-OLD-REFINES ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁) ,(show-simple-call new-cc)))
+                 ;   (unit Cee (menv (cons (callc cc₀) ρ₀)))
+                 ]
                 [else
                  ;  (pretty-trace "no-refine")
                  ;  (pretty-tracen 0 `(CALL-NO-REFINE ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
@@ -598,10 +603,12 @@ Finish the paper
                     [(cons C `(λ ,xs ,e)) ; It is a lambda
                      (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                           (λ (Ce ρ) ; Find where the parameter is used
-                            (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
-                                 (λ _
-                                   (>>= ((find (car (drop xs arg-offset))) Ce ρ)
-                                        expr)))))]
+                            ; (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
+                            ;      (λ _
+                            (>>= ((find (car (drop xs arg-offset))) Ce ρ)
+                                 expr)))
+                     ; ))
+                     ]
                     [(cons C (? symbol? x)) ; Constructors
                      ; (pretty-print `(,x ,(show-simple-ctx Cee)))
                      (>>= (expr Cee ρee) ; Find the deconstruction sites

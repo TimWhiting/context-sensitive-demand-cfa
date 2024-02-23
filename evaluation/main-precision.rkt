@@ -81,9 +81,9 @@
                              regex rsa sat-1 sat-2 sat-3 tak sat-small))
   (trace #f)
 
-  (for ([m (in-range 1 2)])
+  (for ([m (in-range 2 3)])
     (current-m m)
-    (for ([example (get-examples '(blur))])
+    (for ([example (get-examples '(sat-small))])
       (match-let ([`(example ,name ,exp) example])
         (define exp-hash (run-expm name exp m))
         (define out '())
