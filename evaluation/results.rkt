@@ -20,8 +20,8 @@
   (define store-new-key
     (sort-by-key
      (map (lambda (x)
-            (match x [(cons (store (cons Ce p)) v)
-                      (cons (pretty-format `(store: ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
+            (match x [(cons (store (list Ce x p)) v)
+                      (cons (pretty-format `(store: ,x ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
           stores)))
 
   (for ([keyval eval-new-key])

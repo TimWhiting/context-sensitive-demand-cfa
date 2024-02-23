@@ -32,27 +32,27 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> + <-) n i) (env (() ())))
 clos/con:
-	#<procedure:do-add>
+	'((prim +) (env (() ())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) i 1) (env (() ())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env (() ())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) j 1) (env (() ())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env (() ())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) 0 i) (env (())))
 clos/con:
-	#<procedure:do-equal>
+	'((prim =) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) 0 j) (env (() ())))
 clos/con:
-	#<procedure:do-equal>
+	'((prim =) (env (() ())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> f <-) y) (env (() ())))
@@ -216,37 +216,40 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: f (env (() ())))
-clos/con:
-	'((app lp2 10 (-> (λ (n) ...) <-) x) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: i (env (())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store: j (env (() ())))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store: lp1 (env ()))
-clos/con:
-	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: lp2 (env (())))
+'(store:
+  lp2
+  (letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)
+  (env (())))
 clos/con:
 	'((letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: n (env (() ())))
+'(store: f (λ (j f y) (-> (match (app = 0 j) ...) <-)) (env (() ())))
+clos/con:
+	'((app lp2 10 (-> (λ (n) ...) <-) x) (env (())))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: i (λ (i x) (-> (match (app = 0 i) ...) <-)) (env (())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: x (env (())))
+'(store: j (λ (j f y) (-> (match (app = 0 j) ...) <-)) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: y (env (() ())))
+'(store: lp1 (letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+clos/con:
+	'((letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: n (λ (n) (-> (app + n i) <-)) (env (() ())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: x (λ (i x) (-> (match (app = 0 i) ...) <-)) (env (())))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (λ (j f y) (-> (match (app = 0 j) ...) <-)) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)

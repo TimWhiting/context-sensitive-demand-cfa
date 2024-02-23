@@ -154,40 +154,54 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: b (env ()))
+'(store: b (λ (b) (-> (let (g) ...) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: f (env ()))
+'(store: b (λ (k) (-> (match b ...) <-)) (env ()))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(store: f (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: g (env ()))
+'(store: g (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: h (env ()))
+'(store: h (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: k (env ()))
+'(store: k (λ (k) (-> (match b ...) <-)) (env ()))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: x (env ()))
+'(store: x (let (... () (x (-> (app h (app #t)) <-)) y ...) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: y (env ()))
+'(store: x (λ (x) (-> x <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(store: z (env ()))
+'(store: y (let (... () (y (-> (app f (λ (x) ...)) <-)) () ...) ...) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: y (let (... x (y (-> (app h (app #f)) <-)) () ...) ...) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥ ⊥)
+
+'(store: z (λ (z) (-> z <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)

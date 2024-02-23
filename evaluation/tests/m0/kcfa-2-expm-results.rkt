@@ -179,53 +179,56 @@ clos/con:
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: _ (env (() ())))
+'(store:
+  _
+  (let (... () (_ (-> (app f2 (app #t)) <-)) () ...) ...)
+  (env (() ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: _ (env (())))
+'(store: _ (let (... () (_ (-> (app f1 (app #t)) <-)) () ...) ...) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: f1 (env (())))
+'(store: f1 (λ (f1) (-> (let (_) ...) <-)) (env (())))
 clos/con:
 	'((app (λ (f1) ...) (-> (λ (x1) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: f2 (env (() ())))
+'(store: f2 (λ (f2) (-> (let (_) ...) <-)) (env (() ())))
 clos/con:
 	'((app (λ (f2) ...) (-> (λ (x2) ...) <-)) (env (())))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: x1 (env (())))
+'(store: x1 (λ (x1) (-> (app (λ (f2) ...) (λ (x2) ...)) <-)) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: x2 (env (() ())))
+'(store: x2 (λ (x2) (-> (app (λ (z) ...) (λ (y1 y2) ...)) <-)) (env (() ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: y1 (env (() () ())))
+'(store: y1 (λ (y1 y2) (-> y1 <-)) (env (() () ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: y2 (env (() () ())))
+'(store: y2 (λ (y1 y2) (-> y1 <-)) (env (() () ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(store: z (env (() () ())))
+'(store: z (λ (z) (-> (app z x1 x2) <-)) (env (() () ())))
 clos/con:
 	'((app (λ (z) ...) (-> (λ (y1 y2) ...) <-)) (env (() ())))
 literals: '(⊥ ⊥ ⊥ ⊥)

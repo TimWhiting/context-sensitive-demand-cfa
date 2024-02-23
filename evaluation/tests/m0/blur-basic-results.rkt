@@ -148,7 +148,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) n 1) (env (())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (app blur lp) (-> s <-) (app - n 1)) (env (())))
@@ -175,7 +175,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> not <-) (app (app blur lp) s (app - n 1))) (env (())))
 clos/con:
-	#<procedure:do-demand-not>
+	'((prim not) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (match (-> (app <= n 1) <-) (#f) _) (env (())))
@@ -194,7 +194,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> <= <-) n 1) (env (())))
 clos/con:
-	#<procedure:do-lte>
+	'((prim <=) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))

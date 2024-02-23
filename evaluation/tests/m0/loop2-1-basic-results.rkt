@@ -68,7 +68,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) i 1) (env (() ())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> lp1 <-) (app - i 1) y) (env (() ())))
@@ -114,7 +114,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) j 1) (env (() ())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> lp2 <-) (app - j 1) f (app f y)) (env (() ())))
@@ -138,7 +138,7 @@ literals: '(0 ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) 0 j) (env (() ())))
 clos/con:
-	#<procedure:do-demand-equal>
+	'((prim =) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env (())))
@@ -168,7 +168,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> + <-) n i) (env (() ())))
 clos/con:
-	#<procedure:do-add>
+	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app lp2 (-> 10 <-) (λ (n) ...) x) (env (())))
@@ -196,7 +196,7 @@ literals: '(0 ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) 0 i) (env (())))
 clos/con:
-	#<procedure:do-demand-equal>
+	'((prim =) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))

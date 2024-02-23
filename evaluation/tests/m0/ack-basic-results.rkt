@@ -1,23 +1,24 @@
 '(expression:
-  (letrec ((ack
-            (λ (m n)
-              (match
-               (app = m 0)
-               ((#f)
-                (match
-                 (app = n 0)
-                 ((#f) (app ack (app - m 1) (app ack m (app - n 1))))
-                 (_ (app ack (app - m 1) 1))))
-               (_ (app + n 1))))))
-    (app ack 3 12)))
+  (letrec*
+   ((ack
+     (λ (m n)
+       (match
+        (app = m 0)
+        ((#f)
+         (match
+          (app = n 0)
+          ((#f) (app ack (app - m 1) (app ack m (app - n 1))))
+          (_ (app ack (app - m 1) 1))))
+        (_ (app + n 1))))))
+   (app ack 3 12)))
 
-'(query: ((top) letrec (ack) ...) (env ()))
+'(query: ((top) letrec* (ack) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
-'(query: (letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+'(query: (letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 clos/con:
-	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (λ (m n) (-> (match (app = m 0) ...) <-)) (env (())))
@@ -38,7 +39,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> + <-) n 1) (env (())))
 clos/con:
-	#<procedure:do-add>
+	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -71,12 +72,12 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) m 1) (env (())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> ack <-) (app - m 1) 1) (env (())))
 clos/con:
-	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
@@ -106,7 +107,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) n 1) (env (())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app ack (-> m <-) (app - n 1)) (env (())))
@@ -115,7 +116,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> ack <-) m (app - n 1)) (env (())))
 clos/con:
-	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app ack (-> (app - m 1) <-) (app ack m (app - n 1))) (env (())))
@@ -132,12 +133,12 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) m 1) (env (())))
 clos/con:
-	#<procedure:do-sub>
+	'((prim -) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> ack <-) (app - m 1) (app ack m (app - n 1))) (env (())))
 clos/con:
-	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (match (-> (app = n 0) <-) (#f) _) (env (())))
@@ -156,7 +157,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) n 0) (env (())))
 clos/con:
-	#<procedure:do-demand-equal>
+	'((prim =) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (match (-> (app = m 0) <-) (#f) _) (env (())))
@@ -175,10 +176,10 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) m 0) (env (())))
 clos/con:
-	#<procedure:do-demand-equal>
+	'((prim =) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
 
-'(query: (letrec (ack) (-> (app ack 3 12) <-)) (env ()))
+'(query: (letrec* (ack) (-> (app ack 3 12) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥ ⊥)
 
@@ -192,5 +193,5 @@ literals: '(3 ⊥ ⊥ ⊥)
 
 '(query: (app (-> ack <-) 3 12) (env ()))
 clos/con:
-	'((letrec (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
+	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥ ⊥)
