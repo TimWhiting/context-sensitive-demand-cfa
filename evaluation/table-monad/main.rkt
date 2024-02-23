@@ -55,6 +55,22 @@
          node-depend/lattice
          node-depend/product)
 
+(define (((node-exists/powerset nm) k) s)
+  (match (hash-ref s nm #f)
+    [#f
+     ;  (pretty-print `(new-refine ,nm))
+     ((k #f) s)]
+    [(powerset-node _ s1)
+     (define empty (set-empty? s1))
+     (if empty
+         ((k #f) s)
+         ((k #t) s)
+         )
+     ]
+    [_ ((k #t) s)]
+    )
+  )
+
 (define ((node-absorb/powerset nm xs) s)
   (match (hash-ref s nm #f)
     [#f
@@ -172,6 +188,7 @@
 (provide (all-from-out "monad.rkt")
          run
          run-get-hash
+         node-exists/powerset
          from-hash
          from-value
          define-key)
