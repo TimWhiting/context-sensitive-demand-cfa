@@ -18,12 +18,12 @@
 (define-syntax-rule (run/timen name n m k info x)
   (let* [
          (result (make-channel))
-         (timeout-ms (timeout))
+         (timeout-ms (* acc-trials (timeout)))
          ;  (timeout-ms (/ timeout (max 1 (/ n 100))))
          ;  (_ (pretty-print timeout-ms))
-         (collect-garbage)
-         (collect-garbage)
-         (collect-garbage)
+         (_ (collect-garbage))
+         (_ (collect-garbage))
+         (_ (collect-garbage))
          (alarm (alarm-evt (+ (current-inexact-monotonic-milliseconds) timeout-ms) #t))
          (thd (thread
                (lambda ()

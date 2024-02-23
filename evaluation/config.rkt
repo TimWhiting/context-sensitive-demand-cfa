@@ -3,7 +3,7 @@
 (provide (all-defined-out))
 
 ; number of times to time the computation (to get a statistical average / stderr)
-(define time-trials 1)
+(define time-trials 3)
 
 ; the timeout per query (ms)
 (define full-timeout 5000)
@@ -13,7 +13,7 @@
 (define timeouts (list 10 100 500))
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
-(define acc-trials 1)
+(define acc-trials 2)
 
 ; number of ways to shuffle queries when caching
 (define num-shuffles 2)

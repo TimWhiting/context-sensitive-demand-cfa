@@ -56,7 +56,7 @@
       (set! hash-result hash-new)
       (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
-  (match (andmap (lambda (x) x) time-result)
+  (match (and (not (is-instant-query query-kind)) (andmap (lambda (x) x) time-result))
     [#f (if (equal? shufflen -1)
             (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query)
                                         0 0 0 0
@@ -148,7 +148,7 @@
               (for ([qs (shuffle qbs)])
                 (match-let ([(list cb pb) qs])
                   (pretty-tracen 0 "Running query ")
-                  ; (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
+                  (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
                   (if (equal? shufflen 0)
                       (let ()
                         (define hx (run-demand name (length qbs) 'basic m cb pb out-time-basic -1 (hash)))

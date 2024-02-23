@@ -157,9 +157,9 @@
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  (print-eval-result
-   `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-   (λ ()
+  ; (print-eval-result
+  ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+  ;  (λ ()
      (match Ce
        [(cons _ #t) (truecon Ce ρ)]
        [(cons _ #f) (falsecon Ce ρ)]
@@ -267,7 +267,8 @@
          )
         ]
        [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
-       ))))
+       ))
+      ;  ))
 
 
 (define ((eval-con-clause parent parentρ clauses i) ce ρ)

@@ -70,6 +70,10 @@
     )
   )
 
+(define (is-instant-query k)
+  (member k '(lambda number char string quoted constructor))
+  )
+
 (define (show-simple-expr e)
   (match e
     [`(app ,@es) `(app ,@(map show-simple-expr es))]
