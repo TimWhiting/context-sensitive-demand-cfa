@@ -128,7 +128,7 @@
             [expm-cost 0]
             [num-queries 0])
         (current-m m)
-        (for ([example (get-examples '(sat-1 sat-2 sat-3 tic-tac-toe))])
+        (for ([example (get-examples '(regex))])
           (match-let ([`(example ,name ,exp) example])
             (define out-time (open-output-file (format "tests/m~a/~a-time_~a.sexpr" m name t) #:exists 'replace))
 
