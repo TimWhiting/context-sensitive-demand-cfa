@@ -54,6 +54,19 @@
      (cons C `(lettypes ,binds ,e₁))]
     [(cons `(top) _) (error 'out "top")]))
 
+(define ((lookup-constructor c) Ce)
+  (define (search-out) ((lookup-constructor c) (oute Ce)))
+  (match Ce
+    [(cons `(top) _) #f]
+    [(cons `(lettypes-bod ,binds ,C) e₁)
+     (if (member (car binds) c)
+         Ce
+         (search-out)
+         )]
+    [_ (search-out)]
+    )
+  )
+
 (define (expr-kind e)
   (match e
     [`(app ,@es) 'app]
