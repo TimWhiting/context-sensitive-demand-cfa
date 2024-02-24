@@ -72,16 +72,17 @@
   (show-envs #f)
   ; (trace 1)
   (trace #f)
-  (for ([m (in-range 0 (+ 1 max-context-length))])
+  (for ([m (in-range 1 2)])
     (let ([basic-cost 0]
           [rebind-cost 0]
           [expm-cost 0]
           [num-queries 0]
           [basic-acc-cost 0])
       (current-m m)
-      (for ([example (get-examples '(ack blur cpstak deriv eta facehugger flatten
-                                         kcfa-2 kcfa-3 loop2-1 map mj09 primtest
-                                         regex rsa sat-1 sat-2 sat-3 tak sat-small))])
+      (define all-examples '(ack blur cpstak deriv eta facehugger flatten
+                                 kcfa-2 kcfa-3 loop2-1 map mj09 primtest
+                                 regex rsa sat-1 sat-2 sat-3 tak sat-small))
+      (for ([example (get-examples '(sat-1))])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))

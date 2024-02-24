@@ -20,11 +20,40 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
+(define (is-known-primitive x)
+  (member x '(= - + * / modulo ceiling random log gcd quotient odd? < <= > not or and equal? eq? symbol? char? error newline display void #f #t))
+  )
+
 (define (check-known-primitive? x)
-  (if (member x '(= - + * / modulo ceiling random log gcd quotient odd? < <= > not or and equal? eq? symbol? char? error newline display void #f #t))
+  (if (is-known-primitive x)
       '()
       (error 'unknown-primitive (format "unknown primitive ~a" x))
       ))
+
+
+(define (is-instant-query q)
+  (match-let ([(list (cons C e) p) q])
+    (or (is-instant-query-kind (expr-kind e))
+        (and (symbol? e)
+             (match-let ([(list Ce p i) ((bind-e e) (cons C e) p)])
+               (if (equal? i -1)
+                   #t ; Constructors are instant
+                   (match Ce ; Bindings that are lambdas are pretty syntactically obvious
+                     [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+                      (is-instant-query-kind (expr-kind (cdr (car (go-bin i (out-e Ce p))))))]
+                     [(cons `(let-bod ,_ ,_ ,_) _)
+                      (is-instant-query-kind (expr-kind (cdr (car (go-bin i (out-e Ce p))))))]
+                     [_ #f]; All other are non-trivial as far as syntactically obvious
+                     );
+                   ))
+             )
+        )
+    )
+  )
+
+(define ((bind-e x) Ce p)
+  (((bind x) Ce p) (λ (Ce p i) (list Ce p i)))
+  )
 
 (define ((bind x) Ce ρ)
   (define (search-out) (>>= (out Ce ρ) (bind x)))
@@ -55,12 +84,12 @@
          ; None of the definitions are in scope for regular let
          [_ (list)]
          ))
-     (if (ors (map (λ (y) (equal? x y)) defs))
+     (if (ormap (λ (y) (equal? x y)) defs)
          (unit Ce ρ (index-of defs x)) ; Index works for all types of let
          (search-out))]
     [(cons `(bod ,ys ,_) _)
      ;  (pretty-print `(bodbind ,ys ,x ,(ors (map (λ (y) (equal? x y)) ys)) ,(index-of ys x)))
-     (if (ors (map (λ (y) (equal? x y)) ys))
+     (if (ormap (λ (y) (equal? x y)) ys)
          (unit Ce ρ (index-of ys x))
          (search-out))]
     [(cons `(let-bod ,_ ,binds ,_) _)
@@ -69,7 +98,7 @@
      ; in case of shadowing
      (define defs-rev (reverse (map car binds)))
      ;  (pretty-print `(bin ,defs))
-     (if (ors (map (λ (y) (equal? x y)) defs-rev))
+     (if (ormap (λ (y) (equal? x y)) defs-rev)
          ; Adjust the index because the defs are in reversed order
          (unit Ce ρ (- defs-len 1 (index-of defs-rev x)))
          (search-out))]

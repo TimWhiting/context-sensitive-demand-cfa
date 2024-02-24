@@ -29,18 +29,16 @@
   ; (pretty-print (map show-simple-ctx binds))
   (match args
     [(list) (unit (list))]
-    [(cons e as)
-     (match vars
-       [(cons b bs)
-        (>>= e; This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
-             (λ (e ρ)
-               (>>= (meval e ρ)
-                    (λ (res)
-                      ; (pretty-print `(evalbind* ,(show-simple-ctx (car ces)) ,b ,(show-simple-result res) ,(show-simple-env ρnew)))
-                      (>>= (extend-store (car ces) b ρnew res)
-                           (λ (_) (evalbind* (cdr ces) bs ρnew as))))
-                    )))
-        ])
+    [(cons arg args)
+     (match-let ([(cons var vars) vars]
+                 [(cons bind binds) ces])
+       (>>= (>>= arg meval); This is just a compuation i.e. ((ran i) Ce ρ) and needs to be evaluated
+            (λ (res)
+              ; (pretty-print `(evalbind* ,(show-simple-ctx (car ces)) ,var ,(show-simple-result res) ,(show-simple-env ρnew)))
+              (>>= (extend-store bind var ρnew res)
+                   (λ (_) (evalbind* binds vars ρnew args))))
+
+            ))
      ]
     )
   )
@@ -51,12 +49,20 @@
 (define product-absorb-lit (node-absorb/product litbottom lit-lte lit-union))
 
 (define (((extend-store Ce x env val) k) s)
+  (match (analysis-kind)
+    ['rebinding ((k #f) ((product-absorb-lit (store (list '_ x env)) val) s))]
+    ['exponential ((k #f) ((product-absorb-lit (store (list Ce x env)) val) s))]
+    )
   ; (pretty-print `(extend-store ,(show-simple-ctx Ce) ,x ,(show-simple-env env) ,(show-simple-result val)))
-  ((k #f) ((product-absorb-lit (store (list Ce x env)) val) s)))
+  )
 
 (define (get-store Ce x env)
   ; (pretty-print `(store-lookup ,(show-simple-ctx Ce) ,x ,(show-simple-env env)))
-  (store (list Ce x env)))
+  (match (analysis-kind)
+    ['rebinding (store (list '_ x env))]
+    ['exponential (store (list Ce x env))]
+    )
+  )
 
 (define (get-store-val Ce x env)
   (>>= (get-store Ce x env)
@@ -96,7 +102,7 @@
 
               ; (pretty-print `(no-rebind-con ,var))
               (rebind-vars Ce vars ρ ρnew)]
-             [_  (>>= (store-lookup Cex var ρ)
+             [_  (>>= (store-lookup Ce var ρ)
                       (λ (v)
                         ; (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
                         (>>= (extend-store Ce var ρnew v)
@@ -109,37 +115,37 @@
        )
      ]))
 
+
 (define (store-lookup Ce x ρ)
   (>>=
    ((bind x) Ce ρ)
    (λ (Cex px i)
-     (define plookup
-       (match (analysis-kind)
-         ['exponential px]
-         ['rebinding ρ]
-         ))
-     (match Cex
-       [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
-        ; (pretty-print `(let-bod-lookup ,i))
-        (>>= (>>= (out Cex ρ) (bin i))
-             (λ (Ce _)
-               (get-store-val Ce x plookup)))]
-       [(cons `(let-bod ,_ ,_ ,_) _)
-        ; (pretty-print `(let-bod-lookup ,i))
-        (>>= (>>= (out Cex ρ) (bin i))
-             (λ (Ce _)
-               (get-store-val Ce x plookup)))]
-       [_
-        (match i
-          [-1
-           ;  (pretty-print `(returning-cons ,Ce ,ρ))
-           (clos Ce ρ)] ; treat as constructor - bound in the original environment
+     (match (analysis-kind)
+       ['rebinding (get-store-val '_ x ρ)] ; lookup ctx
+       ['exponential
+        (match Cex
+          [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+           (>>= (>>= (out Cex ρ) (bin i))
+                (λ (Cex p)
+                  ; (pretty-print `(let-bin-lookup ,(show-simple-ctx Cex) ,i ,(show-simple-env plookup)))
+                  (get-store-val Cex x px)))]
+          [(cons `(let-bod ,_ ,_ ,_) _)
+           (>>= (>>= (out Cex ρ) (bin i))
+                (λ (Cex p)
+                  ; (pretty-print `(let-bod-lookup ,(show-simple-ctx Cex) ,i ,(show-simple-env plookup)))
+                  (get-store-val Cex x px)))]
           [_
-           ; (pretty-print "lookup")
-           ;  (pretty-print `(store-lookup ,(show-simple-ctx Cex) ,x ,(show-simple-env ρ)))
-           (get-store-val Cex x plookup)
-           ])]
-       ))
+           (match i
+             [-1
+              ;  (pretty-print `(returning-cons ,Ce ,ρ))
+              (clos Ce ρ)] ; treat as constructor - bound in the original environment
+             [_
+              ; (pretty-print "lookup")
+              ; (pretty-print `(store-lookup ,(show-simple-ctx Cex) ,x ,(show-simple-env ρ)))
+              (get-store-val Cex x px)
+              ])]
+          )]) ; bound ctx
+     )
    ))
 
 
@@ -157,9 +163,9 @@
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  ; (print-eval-result
-  ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-  ;  (λ ()
+  (print-eval-result
+   `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+   (λ ()
      (match Ce
        [(cons _ #t) (truecon Ce ρ)]
        [(cons _ #f) (falsecon Ce ρ)]
@@ -268,7 +274,7 @@
         ]
        [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
        ))
-      ;  ))
+   ))
 
 
 (define ((eval-con-clause parent parentρ clauses i) ce ρ)

@@ -74,12 +74,6 @@
   (member k '(lambda number char string quoted constructor))
   )
 
-(define (is-instant-query q)
-  (match-let ([(cons (cons C e) p) q])
-    (is-instant-query-kind (expr-kind e))
-    )
-  )
-
 (define (show-simple-expr e)
   (match e
     [`(app ,@es) `(app ,@(map show-simple-expr es))]

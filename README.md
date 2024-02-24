@@ -13,7 +13,7 @@ Demand-scalable - a constant cost (time / codeunit) gives nontrivial flow inform
 
 ### Compiling the paper and graphs
 
-Make sure textlive is installed `sudo apt install textlive-full` 
+Make sure texlive is installed `sudo apt install texlive-full` 
 ```bash
 make
 ```
