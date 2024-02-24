@@ -6,6 +6,11 @@
 (require racket/pretty racket/match racket/list racket/set)
 
 (define max-context-length 2)
+(define (result-size r)
+  (match-let ([(cons s (literal l)) (from-value (cdr r))])
+    (+ (set-count s) (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l))
+    )
+  )
 
 (define (run-mcfa name kind kindstring query exp m out-time)
   (define result-hash (hash))
@@ -20,7 +25,13 @@
       (set! result-hash hash-new)
       (list cpu real gc)
       )))
-  (pretty-print `(,name ,m ,(timeout) ,(hash-num-keys result-hash) ,timed-result) out-time)
+  (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) #t] [_ #f])) (hash-keys result-hash)))
+  (define eval-results (filter (lambda (q) (match q [(cons (meval Ce p) _) #t] [_ #f])) (hash->list result-hash)))
+  (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
+  (define num-eval-subqueries (length eval-subqueries))
+  (define num-store-values (length store-keys))
+  (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
+  (pretty-print `(,name ,m ,(timeout) ,num-eval-subqueries ,num-store-values ,avg-precision ,timed-result) out-time)
   result-hash
   )
 
@@ -57,20 +68,13 @@
       (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
       )))
   (match (andmap (lambda (x) x) time-result)
-    [#f (if (equal? shufflen -1)
-            (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query)
-                                        0 0 0 0
-                                        0 0 0
-                                        0 0 0
-                                        #f) out-time)
-            ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
-            (pretty-print `(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,(query->string query)
-                                           0 0 0 0
-                                           0 0 0
-                                           0 0 0
-                                           #f) out-time)
+    [#f
+     (if (equal? shufflen -1)
+         (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query) #f) out-time)
+         ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
+         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,(query->string query) #f) out-time)
 
-            )]
+         )]
     [_
      (define num-entries (hash-num-keys hash-result))
      (define eval-subqueries (filter (lambda (q) (match q [(eval Ce p) #t] [_ #f])) (hash-keys hash-result)))
@@ -91,11 +95,7 @@
      (define eval-groups-avg-determined (map avg-determined eval-groups))
      (define eval-groups-avg-size (/ (count length eval-groups) (length eval-groups)))
      (define eval-sub-avg-determined (/ (apply + eval-groups-avg-determined) (length eval-groups-avg-determined)))
-     (define (result-size r)
-       (match-let ([(cons s (literal l)) (from-value (cdr r))])
-         (+ (set-count s) (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l))
-         )
-       )
+
      (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
      (define num-fully-determined-subqueries (+ num-eval-determined num-expr-determined))
      (if (equal? shufflen -1)
@@ -120,10 +120,6 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define out-time-basic (open-output-file "tests/basic-time.sexpr" #:exists 'replace))
-  (define out-time-basic-acc (open-output-file "tests/basic-time-acc.sexpr" #:exists 'replace))
-  (define out-time-rebind (open-output-file "tests/rebind-time.sexpr" #:exists 'replace))
-  (define out-time-expm (open-output-file "tests/expm-time.sexpr" #:exists 'replace))
   (for ([t timeouts])
     (for ([m (in-range 0 (+ 1 max-context-length))])
       (let ([basic-cost 0]
@@ -132,51 +128,48 @@
             [expm-cost 0]
             [num-queries 0])
         (current-m m)
-        (for ([example (get-examples '(sat-small sat-1 sat-2 sat-3 tic-tac-toe))])
+        (for ([example (get-examples '(sat-1 sat-2 sat-3 tic-tac-toe))])
           (match-let ([`(example ,name ,exp) example])
+            (define out-time (open-output-file (format "tests/m~a/~a-time_~a.sexpr" m name t) #:exists 'replace))
+
             (timeout full-timeout)
-            (define rebindhash (run-rebind name exp m out-time-rebind))
+
+            (define rebindhash (run-rebind name exp m out-time))
             (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
-            (define expmhash (run-expm name exp m out-time-expm))
+            (define expmhash (run-expm name exp m out-time))
             (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
             (timeout t)
             (define qbs (basic-queries exp))
             (set! num-queries (+ num-queries (length qbs)))
+            (for ([qs qbs])
+              (match-let ([(list cb pb) qs])
+                (define hx (run-demand name (length qbs) 'basic m cb pb out-time -1 (hash)))
+                (set! basic-cost (+ basic-cost (hash-num-keys hx)))
+                )
+              )
+
             (for ([shufflen (range num-shuffles)])
               (define h1 (hash))
               (for ([qs (shuffle qbs)])
                 (match-let ([(list cb pb) qs])
-                  (pretty-tracen 0 "Running query ")
-                  (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time-basic-acc shufflen h1))
-                  (if (equal? shufflen 0)
-                      (let ()
-                        (define hx (run-demand name (length qbs) 'basic m cb pb out-time-basic -1 (hash)))
-                        (set! basic-cost (+ basic-cost (hash-num-keys hx)))
-                        )
-                      '()
-                      )
+                  (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time shufflen h1))
+                  (set! basic-acc-cost (+ basic-acc-cost (hash-num-keys h1)))
                   )
                 )
-              (if (equal? shufflen 0)
-                  (set! basic-acc-cost (+ basic-acc-cost (hash-num-keys h1)))
-                  '()
-                  )
               )
+
+            (close-output-port out-time)
             )
           )
         (pretty-print `(current-m: ,(current-m)))
         (pretty-print `(basic-cost ,basic-cost))
         (pretty-print `(basic-cost-per-query ,(exact->inexact (/ basic-cost num-queries))))
         (pretty-print `(basic-acc-cost ,basic-acc-cost))
-        (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost num-queries))))
+        (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost  (* num-shuffles num-queries)))))
         (pretty-print `(rebind-cost ,rebind-cost))
         (pretty-print `(expm-cost ,expm-cost))
         )
       )
     )
-  (close-output-port out-time-basic)
-  (close-output-port out-time-basic-acc)
-  (close-output-port out-time-rebind)
-  (close-output-port out-time-expm)
   )

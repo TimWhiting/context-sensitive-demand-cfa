@@ -548,7 +548,7 @@ Finish the paper
                     ;  (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                     (unit Cee ρee)]
                    [(⊑-cc cc₁ cc₀)
-                    (pretty-print `(refines-new? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
+                    ; (pretty-print `(refines-new? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                     ;  (pretty-trace `(CALL-REFINES ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                     ; strictly refines because of above
                     (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥))
