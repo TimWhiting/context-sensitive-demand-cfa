@@ -1,5 +1,3 @@
-'(rebinding tic-tac-toe 1 5000 3 6 0 4 ((0 0 0) (0 0 0) (0 0 0)))
-'(exponential tic-tac-toe 1 5000 113 98 72 529/113 ((9 9 0) (9 9 0) (13 13 0)))
 '(clean-cache
   tic-tac-toe
   1

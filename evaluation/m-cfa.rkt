@@ -39,82 +39,16 @@
   (store (list Ce x env))
   )
 
-(define (get-rebindce var bind)
-  (match (analysis-kind)
-    ['exponential bind]
-    ['rebinding
-     (if (equal? bind 'con)
-         'con
-         (match (lookup-primitive var)
-           [#f
-            (match ((lookup-constructor var) bind)
-              [#f (rebindce bind)]
-              [c #f]
-              )]
-           [p #f]
-           )
-         )
-     ])
-  )
-
-(define ((rebindce x) ce)
-  (match ce
-    [(cons `(out) _) ce]
-    [(cons `(bod ,y ,C) e)
-     (cons C `(λ ,y ,e))]
-    [_ ((rebindce x) (oute ce))]
-    )
-  )
-
 (define (get-store-val Ce x env)
   (>>= (get-store (get-rebindce x Ce) x env)
        (λ (val)
-         ;  (pretty-print `(store-lookup-got ,val))
+        ;  (pretty-print `(store-lookup-got ,(show-simple-result val)))
          (match val
            [(product/set (list Ce ρ)) (clos Ce ρ)]
            [(product/lattice l) (lit l)]
            ))
        )
   )
-
-
-(define (eval* args)
-  (seql (map (λ (a) (>>= a meval)) args))
-  )
-
-(define (evalbind* binds vars ρnew args)
-  (seql (map (λ (arg var bind)
-               (>>= (>>= arg meval)
-                    (λ (res)
-                      ; (pretty-print `(evalbind* ,(show-simple-ctx (car ces)) ,var ,(show-simple-result res) ,(show-simple-env ρnew)))
-                      (extend-store (get-rebindce var bind) var ρnew res))
-                    )))
-        args vars binds))
-
-(define (bind-args binds vars ρ vals)
-  (if (and (equal? (length vars) (length vals)) (equal? (length vars) (length binds)))
-      (seql (map
-             (λ (val var bind)
-               ;  (pretty-print `(bind-args ,(show-simple-ctx bind) ,var ,(show-simple-result val)))
-               (extend-store (get-rebindce var bind) var ρ val)
-               ) vals vars binds))
-      ⊥ ; Two closures with different numbers of arguments flow to the same place
-      ))
-
-(define (rebind-vars Ce lam vars ρ ρnew)
-  (seql
-   (map
-    (λ (var)
-      (match (get-rebindce var Ce)
-        [#f
-         ; (pretty-print `(no-rebind-con ,var))
-         (unit #f)]
-        [Cex
-         (>>= (store-lookup Cex var ρ)
-              (λ (v)
-                ; (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
-                (extend-store lam var ρnew v)))])
-      ) vars)))
 
 (define (store-lookup Ce x ρ)
   (>>=
@@ -168,6 +102,70 @@
   ;  (pretty-print `(lookup-result ,(map show-simple-result xs)) )
   ;  xs))
   )
+
+(define (get-rebindce var bind)
+  (match (analysis-kind)
+    ['exponential bind]
+    ['rebinding
+     (if (equal? bind 'con)
+         'con
+         (match (lookup-primitive var)
+           [#f
+            (match ((lookup-constructor var) bind)
+              [#f ((rebindce var) bind)]
+              [c bind]
+              )]
+           [p bind]
+           )
+         )
+     ])
+  )
+
+(define ((rebindce x) ce)
+  (match ce
+    [(cons `(top) _) ce]
+    [(cons `(bod ,y ,C) e)
+     (cons C `(λ ,y ,e))]
+    [_ ((rebindce x) (oute ce))]
+    )
+  )
+
+(define (eval* args)
+  (seql (map (λ (a) (>>= a meval)) args))
+  )
+
+(define (evalbind* binds vars ρnew args)
+  (seql (map (λ (arg var bind)
+               (>>= (>>= arg meval)
+                    (λ (res)
+                      (define ctx (get-rebindce var bind))
+                      ; (pretty-print `(bind-eval ,(show-simple-ctx ctx) ,var ,(show-simple-result res) ,(show-simple-env ρnew)))
+                      (extend-store ctx var ρnew res))
+                    ))
+             args vars binds)))
+
+(define (bind-args binds vars ρ vals)
+  (if (and (equal? (length vars) (length vals)) (equal? (length vars) (length binds)))
+      (seql (map
+             (λ (val var bind)
+               (define ctx (get-rebindce var bind))
+              ;  (pretty-print `(bind-args ,(show-simple-ctx ctx) ,var ,(show-simple-result val)))
+               (extend-store ctx var ρ val)
+               ) vals vars binds))
+      ⊥ ; Two closures with different numbers of arguments flow to the same place
+      ))
+
+(define (rebind-vars Ce lam vars ρ ρnew)
+  (seql
+   (map
+    (λ (var)
+      ; (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew)))
+      (>>= (store-lookup (get-rebindce var Ce) var ρ)
+           (λ (v)
+            ;  (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
+             (extend-store lam var ρnew v)))
+      ) vars)))
+
 
 (define (bins Ce ρ binds)
   (map car (map

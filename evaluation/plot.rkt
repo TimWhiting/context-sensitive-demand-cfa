@@ -3,6 +3,7 @@
          racket/set
          racket/list
          racket/port
+         racket/pretty
          plot
          "config.rkt"
          )
@@ -24,31 +25,40 @@
   ; (pretty-print line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
+    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query #f) #f]
+    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                      ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
-                      #f) #f]
-    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query
-                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
-                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                      ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
+                      ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
                       ,time-result) (average-or-false time-result)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
+    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query #f) #f]
+    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                   ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
-                   #f) #f]
-    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query
-                   ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
-                   ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
-                   ,eval-groups-avg-size ,eval-sub-avg-determined ,avg-precision
+                   ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
                    ,time-result) (average-or-false time-result)]
     ; Regular mCFA
-    [`(,name ,m ,hash-num #f) #f]
-    [`(,name ,m ,hash-num ,time-res) (average-or-false time-res)]
+    [`(,kind ,name ,m ,timeout ,num-eval ,num-store ,singletons ,avg-precision #f) #f]
+    [`(,kind ,name ,m ,timeout ,num-eval ,num-store ,singletons ,avg-precision ,time-res) (average-or-false time-res)]
     ))
+
+(define ((restore-time timeout) line)
+  ; (pretty-print line)
+  (match line
+    ; Demand shuffled (cached)
+    [`(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,query #f)
+     `(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query #f)]
+    [`(shuffled-cache ,@rest) `(shuffled-cache ,@rest)]
+    ; Demand no cache
+    [`(clean-cache ,name ,m ,num-queries ,query-kind ,query #f)
+     `(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query #f)]
+    [`(clean-cache ,@rest) `(clean-cache ,@rest)]
+    ))
+
+(define (is-result line)
+  (avg-time-res line)
+  )
 
 (define ((cfa mexpected) line)
   (match line
@@ -57,7 +67,20 @@
     ; Demand no cache
     [`(clean-cache ,name ,m ,@_) (equal? m mexpected)]
     ; Regular mCFA
-    [`(,name ,m ,hash-num ,time-res) (equal? m mexpected)]
+    [`(,kind ,name ,m ,timeout ,num-eval ,num-store ,singletons ,avg-precision ,time-res) (equal? m mexpected)]
+    ))
+
+(define ((filter-timeout timeout) line)
+  (match line
+    ; Demand shuffled (cached)
+    [`(shuffled-cache ,shufflen ,name ,m ,t ,@_) (equal? timeout t)]
+    ; Demand no cache
+    [`(clean-cache ,name ,m ,t ,@_) (equal? timeout t)]
+    ))
+
+(define ((filter-kind mexpected) line)
+  (match line
+    [`(,kind ,@_) (equal? kind mexpected)]
     ))
 
 (define (id l) l)
@@ -69,7 +92,7 @@
     ; Demand no cache
     [`(clean-cache ,name ,@_) name]
     ; Regular mCFA
-    [`(,name ,m ,hash-num ,time-res) name]
+    [`(,kind ,name ,m ,timeout ,num-eval ,num-store ,singletons ,avg-precision ,time-res) name]
     ))
 
 (define (step-n lines m-value [do-sort #t])
@@ -95,7 +118,9 @@
     ))
 
 (define (find-prog prog values)
-  (filter (lambda (ln) (equal? (get-name ln) prog)) values))
+  (filter (lambda (ln)
+            ; (pretty-print (get-name ln))
+            (equal? (get-name ln) prog)) values))
 
 (define (find-prog-randiter prog iter values)
   (filter (lambda (ln)
@@ -104,13 +129,35 @@
               ))
           values))
 
-(let* ([mcfa-rebind-results (read-file "tests/rebind-time.sexpr")]
-       [mcfa-expm-results (read-file "tests/expm-time.sexpr")]
-       [dmcfa-results (read-file "tests/basic-time.sexpr")]
-       [dmcfa-acc-results (read-file "tests/basic-time-acc.sexpr")]
-       [ms (list 0 1 2)]
-       [kinds (list (cons "mcfa-r" mcfa-rebind-results) (cons "mcfa-e" mcfa-expm-results)
-                    (cons "dmcfa-b" dmcfa-results) (cons "dmcfa-a" dmcfa-acc-results))]
+(define all-programs '(sat-1 regex))
+
+(define all-results
+  (let ([results (list)])
+    (for ([m (range 3)])
+      (for ([program all-programs])
+        (for ([t timeouts])
+          (set! results (append (map (restore-time t) (read-file (format "tests/m~a/~a-time_~a.sexpr" m program t))) results))
+          )
+        )
+      )
+    (for ([m (range 3)])
+      (for ([program all-programs])
+        (set! results (append (read-file (format "tests/m~a/exhaustive_~a-time.sexpr" m program)) results))
+        )
+      )
+    results
+    )
+  )
+
+(let* ([ms (list 0 1 2)]
+       [expm-res (filter (filter-kind 'exponential) all-results)]
+       [rebind-res (filter (filter-kind 'rebinding) all-results)]
+       [basic-res (filter (filter-kind 'clean-cache) all-results)]
+       [acc-res (filter (filter-kind 'shuffled-cache) all-results)]
+       [kinds (list (cons "mcfa-r" rebind-res)
+                    (cons "mcfa-e" expm-res)
+                    (cons "dmcfa-b" basic-res)
+                    (cons "dmcfa-a" acc-res))]
        [hashes
         (for/list ([m ms])
           (let loop ([kinds kinds]
@@ -123,9 +170,11 @@
           )
         ]
        )
-  (define programs (set->list (set-subtract (apply set (map car mcfa-rebind-results))
-                                            ; The following are simple test programs for evaluating correctness, not for benchmarking
-                                            (apply set '(id err constr constr2 basic-letrec basic-letstar app-num let let-num multi-param structural-rec)))))
+  ; (pretty-print rebind-res)
+  ; (define programs (set->list (set-subtract (apply set (map car mcfa-rebind-results))
+  ;                                           ; The following are simple test programs for evaluating correctness, not for benchmarking
+  ;                                           (apply set '(id err constr constr2 basic-letrec basic-letstar app-num let let-num multi-param structural-rec)))))
+  (define programs all-programs)
   (define num-programs (length programs))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-r1)) num-programs)))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-e1)) num-programs)))
@@ -146,68 +195,108 @@
           (pre-tick 100 #t)
           (pre-tick 500 #f)))
 
-  (parameterize (
-                 [plot-x-transform log-transform]
-                 [plot-x-ticks (ticks (λ (y₀ y₁) ts)
-                                      (λ (y₀ y₁ ts)
-                                        (map (match-lambda
-                                               [(pre-tick x _)
-                                                (format "~ams" x)])
-                                             ts)))]
-                 [plot-x-far-ticks no-ticks]
-                 [plot-x-label "Time"]
-                 [plot-y-label "% Queries Answered"]
-                 [plot-width 1024]
-                 [plot-height 512])
-    (map
-     (lambda (h m)
-       (map (lambda (prog)
-              ;  (pretty-display (format "Looking for program ~a" prog))
-              (define pr (find-prog prog (hash-ref h "mcfa-r")))
-              (define pe (find-prog prog (hash-ref h "mcfa-e")))
-              (plot
-               #:x-min 1/500
-               #:x-max 500
-               #:y-min 0
-               #:y-max 1.1
-               #:out-file (format "plots/m~a/~a.pdf" m prog)
-               (cons
-                (function (step-n pr (car pr))
-                          1/500 500
-                          #:samples 1000
-                          #:style 'solid
-                          #:label (format "1CFA ~a (rebinding)" prog)
-                          #:color 0)
-                (cons
-                 (function (step-n pe (car pe))
-                           1/500 500
-                           #:samples 1000
-                           #:style 'solid
-                           #:label (format "1CFA ~a (exponential)" prog)
-                           #:color 1)
-                 (cons (function (step-n (find-prog prog (hash-ref h "dmcfa-b")) (car pe) #t)
-                                 1/500 500
-                                 #:samples 1000
-                                 #:style 'short-dash
-                                 #:label (format "d1CFA ~a" prog)
-                                 #:color 2)
-                       (map (lambda (iter)
-                              (function (step-n (find-prog-randiter prog iter (hash-ref h "dmcfa-a")) (car pe))
-                                        1/500 500
-                                        #:samples 1000
-                                        #:style 'long-dash
-                                        #:label (format "d1CFA ~a cached" prog)
-                                        #:color (+ 3 iter))
-                              )
-                            (range num-shuffles)))
-                 )
-
-                )
-               )
-              ) programs)
-       )
-     hashes
-     (range 3)
-     )
+  (plot
+   (map
+    (λ (m h)
+      (discrete-histogram
+       (map (λ (p) (list p (avg-time-res (car (find-prog p (hash-ref h "mcfa-r")))))) programs)
+       #:label (format "m=~a" m)
+       #:skip 3.5
+       #:x-min m
+       ))
+    (range 3) hashes
     )
+   #:x-label "Program Size"
+   #:y-label "Time (ms)"
+   #:out-file (format "plots/mcfa.png")
+   )
+
+
+  (plot
+   (map
+    (λ (m h)
+      (discrete-histogram
+       (map (λ (t)
+              (define results (filter (filter-timeout t) (hash-ref h "dmcfa-b")))
+              (list t (/ (count is-result results) (length results))))
+            timeouts)
+       #:label (format "m=~a" m)
+       #:skip 3.5
+       #:x-min m
+       ))
+    (range 3) hashes
+    )
+
+   #:x-label "Timeouts (ms)"
+   #:y-label "% Answers"
+   #:out-file (format "plots/dmcfa.png")
+   )
+
+  ; (parameterize (
+  ;                [plot-x-transform log-transform]
+  ;                [plot-x-ticks (ticks (λ (y₀ y₁) ts)
+  ;                                     (λ (y₀ y₁ ts)
+  ;                                       (map (match-lambda
+  ;                                              [(pre-tick x _)
+  ;                                               (format "~ams" x)])
+  ;                                            ts)))]
+  ;                [plot-x-far-ticks no-ticks]
+  ;                [plot-x-label "Time"]
+  ;                [plot-y-label "% Queries Answered"]
+  ;                [plot-width 1024]
+  ;                [plot-height 512])
+  ; (map
+  ;  (lambda (h m)
+  ;    (pretty-print (hash-ref h "mcfa-r"))
+  ;    (map (lambda (prog)
+  ;           ; (pretty-display (format "Looking for program ~a" prog))
+  ;           (define pr (find-prog prog (hash-ref h "mcfa-r")))
+  ;           ; (pretty-print pr)
+  ;           (define pe (find-prog prog (hash-ref h "mcfa-e")))
+  ;           ; (pretty-print pe)
+  ;           (plot
+  ;            #:x-min 1/500
+  ;            #:x-max 500
+  ;            #:y-min 0
+  ;            #:y-max 1.1
+  ;            #:out-file (format "plots/m~a/~a.pdf" m prog)
+  ;            (cons
+  ;             (function (step-n pr (car pr))
+  ;                       1/500 500
+  ;                       #:samples 1000
+  ;                       #:style 'solid
+  ;                       #:label (format "1CFA ~a (rebinding)" prog)
+  ;                       #:color 0)
+  ;             (cons
+  ;              (function (step-n pe (car pe))
+  ;                        1/500 500
+  ;                        #:samples 1000
+  ;                        #:style 'solid
+  ;                        #:label (format "1CFA ~a (exponential)" prog)
+  ;                        #:color 1)
+  ;              (cons (function (step-n (find-prog prog (hash-ref h "dmcfa-b")) (car pe) #t)
+  ;                              1/500 500
+  ;                              #:samples 1000
+  ;                              #:style 'short-dash
+  ;                              #:label (format "d1CFA ~a" prog)
+  ;                              #:color 2)
+  ;                    (map (lambda (iter)
+  ;                           (function (step-n (find-prog-randiter prog iter (hash-ref h "dmcfa-a")) (car pe))
+  ;                                     1/500 500
+  ;                                     #:samples 1000
+  ;                                     #:style 'long-dash
+  ;                                     #:label (format "d1CFA ~a cached" prog)
+  ;                                     #:color (+ 3 iter))
+  ;                           )
+  ;                         (range num-shuffles)))
+  ;              )
+
+  ;             )
+  ;            )
+  ;           ) programs)
+  ;    )
+  ;  hashes
+  ;  (range 3)
+  ;  )
+  ; )
   )

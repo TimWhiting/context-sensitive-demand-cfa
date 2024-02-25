@@ -8,7 +8,7 @@
   (trace 1)
   (show-envs-simple #t)
   (show-envs #f)
-  (run-mcfa 1 'rebinding (get-example-expr 'sat-1))
+  (run-mcfa 1 'rebinding (get-example-expr 'tic-tac-toe))
   ; (run-basic 0 (get-example-expr 'primtest) (lambda (x) (go-ran 0 (go-bin 0 (go-bod (go-bin 4 x))))))
   ; (run-basic 1 (get-example-expr 'blur) (λ (x) (go-ran 0 (go-match (go-bod (go-bin 2 x))))))
   ; (run-basic 1 (get-example-expr 'sat-2)

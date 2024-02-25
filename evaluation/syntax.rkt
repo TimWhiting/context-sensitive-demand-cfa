@@ -59,7 +59,7 @@
   (match Ce
     [(cons `(top) _) #f]
     [(cons `(lettypes-bod ,binds ,C) e₁)
-     (if (member (car binds) c)
+     (if (member c (map car binds))
          Ce
          (search-out)
          )]

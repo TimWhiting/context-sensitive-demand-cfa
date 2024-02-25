@@ -1,10 +1,17 @@
 TODO: 
-TOMORROW: 
 Work on Paper!!!
-
-- [ ] Fix issues causing inequivalence of demand-mcfa and mcfa (i.e. if we mcfa returns a result, we get the same result with demand-mcfa)
-- [ ] Create tests for each path in the code?
+- [ ] Generate results for more r6rs programs
+- [ ] Fix mcfa returning bottom on `ormap`? in `tic-tac-toe` - maybe find the issue while doing the above
+- [ ] Include error bars in the plots (for mcfa for the trials, and for demand-mcfa for the trials? and for across programs)
+- [ ] Work on precision results (i.e. %singletons)
 - [ ] Remove discussion of lightweight
+- [ ] Move discussion of DDPA
+- [ ] Rewrite Thesis
+
+Lower Priority / Future Work:
+- [ ] Create tests for each path in the demand / mcfa code?
+- [ ] Consider adding prepass for determining reachability
+  - [ ] Recursive `expr` (similar to the delegation in call, but don't add refinements - (is there any case we would want to add refinements?))
 - [ ] Work on results 
   - [ ] Need to demonstrate adaptability of queries (i.e. if not precise, increase precision and try again), what kind of graph or visual would be useful here?
   - [ ] Consider higher $m$s (i.e. m=5) - unlikely time-worth-it unless lightweight?
