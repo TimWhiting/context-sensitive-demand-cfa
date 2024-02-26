@@ -9,7 +9,6 @@
 \usepackage{mathpartir}
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.8}
-\usepackage{tikz-cd}
 \usepackage{textgreek}
 \usepackage{wrapfig}
 \usepackage{alltt}
@@ -19,66 +18,37 @@
 \newcommand{\tw}[1]{{\color{red}#1}}
 
 \acmJournal{PACMPL}
-\acmVolume{POPL}
-\acmYear{2021}
+\acmVolume{ICFP}
+\acmYear{2024}
 \citestyle{acmauthoryear}
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
 
+\author{Tim Whiting}
+\affiliation{Brigham Young University}
 \author{Kimball Germane}
 \affiliation{Brigham Young University}
 \author{Jay McCarthy}
 \affiliation{University of Massachusetts Lowell}
 
-\acmConference[POPL '22]{Principles of Programming Languages}{January 17--22}{Philadelphia, Pennsylvania, USA}
+\acmConference[ICFP '24]{International Conference on Functional Programming}{Sept 2024}{Milan, Italy}
 
-% DON'T WRITE IT BEGGING TO GET IN
-% WRITE IT SO THAT THEY WOULD BE FOOLISH NOT TO ACCEPT IT
-% CONVINCE THEM THAT THIS WORK WILL BRING PRESTIGE TO THEIR CONFERENCE
-% I.E.
-% DON'T WRITE IT SO THAT THEY CAN ACCEPT IT
-% WRITE IT SO THAT THEY CAN'T REJECT IT
-
-% SHOW THEM THAT
+% SHOW THAT
 % - IT'S USEFUL
 % - IT'S DIFFICULT (so need some false starts, maybe)
 % - YOU DID IT
-
-% LOOK AT A REALLY WELL-WRITTEN PAPER AND TRY TO CHANNEL IT
 
 \begin{abstract}
 By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
 At present, however, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-This paper presents two strategies for achieving context-sensitive demand CFA, each of which induces a hierarchy of CFA.
-The first is based on the top-$m$-stack-frames abstraction of $m$-CFA and induces Demand $m$-CFA.
-The second exploits the ability of demand CFA to operate with reduced context knowledge and induces Lightweight Demand $m$-CFA.
-We evaluate both, finding that Lightweight Demand $m$-CFA in some cases offers, strikingly, the precision of context sensitivity at the price of context insensitivity.
+This paper presents a strategy for achieving context-sensitive demand CFA which induces a hierarchy of CFA.
+The approach is based on the top-$m$-stack-frames abstraction of $m$-CFA and induces Demand $m$-CFA.
+We evaluate the scalability of Demand m-CFA in constrast to scalability of exhaustive analysis. We find that
+Demand m-CFA resolves many non-trivial control flows in constant time regardless of program size. 
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
-
-@omit{
-FEEDBACK
-- include 2CFA as well as 1CFA => perhaps even consider, e.g. 5CFA as defensive program analysis does
-- evaluation doesn't show practicality => be concrete about what is going on so that even the less-attentive reader will pick it up
-- motivation of context sensitivity is not clear => show the pathology of 0CFA forgetting and discuss the counter-intuitive result that more precision can mean less work is done
-- paper's core idea is unclear => the core idea is a context representation which can model unknown information (via variables) and abstract information.
-  - also, the fact that two unknowns can have the same name is powerful—we know they must be identical.
-    is this useful for environment analysis? (just mention that it could be.)
-- "Are you making repeated queries until the model is sound for all call sites? This is an all-important detail!"
-  => this is obviously a misconception, but it's my fault.
-- talk about how to integrate defensive program analysis.
-
-show a functional program fragment, say that it is embedded within a larger program, and say that we want some piece of information about a particular subexpression.
-
-we could apply CFA to the whole program, but CFA is expensive.
-
-(obviously, we probably want information about many different locations of the program, spread throughout the program.)
-
-this subexpression has free variables.
-}
-
 
 \begin{document}
 \def\labelitemi{\normalfont\bfseries{--}}
@@ -109,7 +79,7 @@ The values of \texttt{f} and \texttt{g} flow in parallel within the fold itself,
 (2)~flowing to its corresponding parameter, and
 (3)~being called directly once per iteration.
 But their flows don't completely overlap:
-\texttt{f}'s value's flow begins at \texttt{sub1} whereas \texttt{g}'s value's continues at \texttt{h}
+\texttt{f}'s value's flow begins at \texttt{sub1} whereas \texttt{g}'s value's comes from a reference to \texttt{h}
 and
 \texttt{f}'s value's flow branches into the call to \texttt{g}.
 
@@ -122,147 +92,6 @@ To obtain \texttt{f}'s value with a conventional CFA, the user must be willing t
 Inspired by demand dataflow analysis@~cite{duesterwald1997practical}, a \emph{demand} CFA does not determine every segment to every flow but only those segments which contribute to the values of user-specified program points.
 Moreover, because its segmentation of flows is explicit, it need analyze each segment only once and can reuse the result in any flow which contains the segment.
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
-
-@omit{
-
-Moreover, it considers the segments of individual flows and independence of distinct flows completely implicitly.
-This exhaustive nature XXX
-
-@omit{
-is bound to a free variable \texttt{h}
-Each flows to a single apparent call in the fold but \texttt{f} flows into the call to \texttt{g} and may be called therein.
-
-, since \texttt{f} is passed to \texttt{g}, it may 
-since Each also flowshas a single apparent call in the fold, but \texttt{f} flows\texttt{g} may call \texttt{f} during its calis passed to \texttt{g}during the fold;
-each flows to its corresponding parameter and to a single syntactic call.
-
-The flow of \texttt{f}'s value consists of
-(1) the binding of \texttt{sub1}'s value to \texttt{f} in the initial call to \texttt{fold},
-(2) the binding of \texttt{f}'s to \texttt{f} in the inner call to \texttt{fold}, and
-(3) the call to \texttt{f}'s value in \texttt{(f n)}.
-The tail of \texttt{g}'s value's flow parallels \texttt{f}'s value's flowflow of the \texttt{g}'s value parallels that of bound to \texttt{g} parallel's \texttt{f} within the call to \texttt{g}'s value in \texttt{(g f n a)}.
-The first three segments are completely determined and relatively local;
-the final segment is undetermined, as it depends on \texttt{g}'s value, and could depend on other values within the call to it.
-}
-
-This \emph{exhaustive} attitude of conventional CFA treats the independence and segmentability of flows completely implicitlycouples control-flow information:
-because the flows of \texttt{f}'s and \texttt{g}'s values overlap,
-users
-temporarily flow in parallel,
-users must decide u
-
-In this respect, conventional CFA is \emph{exhaustive}: it begins at the entry point of its given program component and resolves every flow within it.
-
-
-
-the flows of \texttt{f} and \texttt{g} are adjacent
-the flow of \texttt{f} in \texttt{(f n)} can be had cheaply only if the user is willing to forgo \texttt{g}'s
-for a user 
-If the user desires an account of the flows within the call to \texttt{g}, she must ensure that this program component is large enough to give sufficient meaning to \texttt{g}.
-
-This \emph{exhaustive} nature of conventional CFA couples control-flow information, requiring users to pay the cost of every flow in order to purchase any of them.
-
-
-orientation ward exhau
-
-Now consider the behavior of a conventional control-flow analysis (CFA) task with determining the value of \texttt{f} in the call \texttt{(f n)} in order to, e.g., expand \texttt{f} inline.
-It begins analysis at the entry point of its given program component---the fragment above embedded within a program context---and resolves the flows of all values within.
-
-would 
-
-A conventional control-flow analysis (CFA) provides this information by starting analysis at the entry point and resolving the flows of all values within.
-When it encounters the free reference to \texttt{g}, it typically and conservatively assumes the worst---that \texttt{g} could refer to any value.
-That \texttt{g} is unknown does not prevent the CFA 
-
-A conventional control-flow analysis (CFA) of this fragment starts at its entry point and resolves the flows of all values within.
-Its behavior when it encounters the free reference to \texttt{g} is dictated by policy.
-Typically, CFAs that strive for soundness conservatively assume the worst---that \texttt{g} could be any function.
-For a CFA to yield a more-precise approximation of the fragment's behavior (without a priori knowledge of \texttt{g}'s value), it must be given the fragment embedded in a context giving meaning to \texttt{g}.
-Once again, a conventional CFA starts at the entry point of this is desired, 
-Shivers' When it encountersIts behavior If it encounters 
-Since \texttt{g} is free in this fragment, the amount of work necessary to resolve its value depends on the context in which the fragment is embedded and could be significant.
-
-Once embedded within a 
-A conventional control-flow analysis (CFA) of this fragment would begi at its entry point and resolves all flows within;
-in this sense, conventional CFA is \emph{exhaustive}.
-When an exhaustive 
-resolves all of these flows, and those of every other value, in anticipation of questions we might ask about program behavior;
-in this sense, conventional CFA is \emph{exhaustive}.
-For example, a user may seek the flow of \texttt{f} in the call \texttt{(f n)} in order to, e.g., 
-
-
-Supported by demand CFA, 
-But consider a tool focused on the call \texttt{(f n)} and interested in the value of \texttt{f}.
-Having this value in hand might allow the tool to
-The first three segments alone are sufficient to completely determine this value \emph{and} This value is completely determined by the first three segments andTo get a conservative summary of the possible values of \texttt{f} at \texttt{(f n)}, we need to trace \texttt{f}'s value's flow back to its point of construction.
-A conventional control-flow analysis (CFA) resolves the entirety of every value's flow;
-it certainly resolves \texttt{f}'s value's flow to its reference in \texttt{(f n)} but also 
-XXX
-the segment of \texttt{f}'s value's flow from 
-
-
-\footnote{That \texttt{g} is free is the telltale sign that we are looking at a program \emph{fragment} meant to be embedded in an expression context with an appropriate \texttt{g} in scope.}
-
-An effective technique to determine \texttt{f}'s value(s) is control-flow analysis (CFA) which produces a conservative account of the values to which an expression (such as a variable reference) evaluates.
-But a standard CFA is \emph{exhaustive}:
-it determines the values to which each expression evaluates.
-The context into which the preceding fragment is embedded is largely unconstrained, and an exhaustive analysis of the fragment in context may be costly.
-The client, however, may itself be constrained by low time and/or space budgets, making any significant cost prohibitive.
-
-This state of affairs is unsatisfying to this example because the flow of \texttt{f} is obviously (to us) local.
-Thus, with respect to the user's request, much of the exhaustive analysis and its associated cost is unnecessary.
-To satisfy the request, the analysis must resolve the flow(s) of \texttt{f} only up to the point of \texttt{f}'s reference in \texttt{(f n)}.
-Suppose the analysis starts at \texttt{(f n)} and works backwards to resolve each flow to its source, a value constructor.
-Proceeding in this way, it becomes apparent that the analysis does not need to resolve \texttt{f}'s flow through \texttt{g} to succeed and, consequently, does not need to resolve the value of \texttt{g} itself.
-Thus, resolving flows backwards, on demand, intrinsically avoids some unnecessary analysis.
-
-
-
-It is also relatively straightforward, though the presence of recursion may thwart shallow tools, and indirecting its control flow certainly will.
-
-
-To satisfy the user's request, we must 
-As the analysis proceeds, 
-
-in order to do this, the analyzer must be able to...
-when the analyzer encounters a variable reference, it cannot simply refer to the environment, as an exhaustive analysis can, because the environment is not guaranteed to be instantiated.instead, it must reconstruct it sufficiently to resolve the reference.
-
-These flows, 
-want to know the possible value(s) of f, so we need to know the flows of f up to this point.
-to answer this, the analysis will never need to consider f's flow through g and, consequently, never need to resolve the value of g
-
-
-
-[the first sentence is snappy;
-     the rest is good only for the sentiment]
-Users (and potential users) of control-flow analysis (CFA) face a difficult/less-than-ideal/poor/etc. situation/dilemma:
-On one hand, CFA provides useful information that can assist compilers, verifiers, and the like in their goals.
-[give more examples, such as environment analysis, function inlining, LFA for verification, etc.]
-On the other, CFA is, in the worst case, prohibitively expensive, and it is difficult to tell a priori whether a program will provoke worst-case behavior from an analyzer.
-Off-the-shelf CFAs threaten cubic analysis time and bespoke CFAs (like flow-sensitive type analysis) require significant technical and labor investment.
-Moreover, CFAs can fail for myriad reasons, such as implementation defects or resource exhaustion.
-In such cases, the user obtains no sound information about their program's behavior (but does learn that it is interesting for a particular definition of interesting).
-
-
-
-
-
-
-The typical control-flow analysis (CFA), like the typical dataflow analysis, is exhaustive:
-it calculates control-flow facts for each point in the program.
-This exhaustive nature exists for both pragmatic and technical reasons.
-Pragmatically, a user of CFA typically \emph{wants} control-flow information about the entire program.
-Technically, CFA must grapple with the interplay between control and data flow, whose base case is most easily accessed from a program's top level, lending typical formulations of CFA an inherently global view.
-
-
-Exhaustive dataflow analysis does not suit all users (or potential users) however.
-More fitting for some is a \emph{demand} dataflow analysis@~cite{duesterwald1997practical} which does not by default calculate dataflow for the entire program, but instead only at user-specified points.
-Moreover, it is designed to calculate dataflow as parsimoniously as possible, avoiding all analysis which does not contribute to the queried information.
-
-Demand CFA is the higher-order analogue of demand dataflow analysis.
-A user interacts with a demand CFA by specifying a program expression as a \emph{query} which the analyzer resolves whatever control and data flow is necessary to answer (and, ideally, none else).
-
-}
 
 The interface and pricing model demand analysis offers---and exhibited by demand CFA---make many useful applications practical.
 @citet{horwitz1995demand} identify several ways this practicality is realized:
@@ -301,8 +130,13 @@ Demand-Driven Program Analysis (DDPA)@~cite{palmer2016higher},
 a higher-order program analysis which provides a dataflow ``lookup'' facility.
 However, DDPA's lookup facility depends on a global control-flow graph which it must bootstrap before it can resolve general dataflow queries;
 consequently, it is not suitable for the same applications of demand analysis as we have described it.
-We evaluate both Demand $m$-CFA and Lightweight Demand $m$-CFA\footnote{From this point on, we will refer to these together as \emph{(Lightweight) Demand $m$-CFA}.} against DDPA in \S~\ref{sec:evaluation} and compare them in depth in \S~\ref{sec:related-work} along with other related work.
-We additionally benchmark (Lightweight) Demand $m$-CFA to obtain empirical evidence that each is a genuine demand CFA.
+
+Additionally context-sensitivity in a truly demand-driven CFA was more recently investigated in Lifting On-Demand Analysis To Higher-Order Languages@~cite{schoepe2023lifting}.
+This however, requires forward and backward demand-driven analyses to already be formulated for the language in question, and higher order features of control flow are decoupled from
+the sensitivity of the underlying analyses. 
+
+In contrast with Demand $m$-CFA, we give a unified formulation that directly addresses the higher order nature of lambdas and their environments,
+and results in a simple and straightforward analysis. 
 
 %\subsection{Contributions}
 
@@ -310,11 +144,9 @@ This paper makes the following contributions:
 \begin{itemize}
 \item a new formalism for Demand 0CFA which can be implemented straightforwardly using contemporary techniques@~cite{darais2017abstracting,wei2018refunctionalization} (\S~\ref{sec:demand-0cfa});
 \item Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (\S~\ref{sec:demand-mcfa-correctness});
-\item Lightweight Demand $m$-CFA, a hierarchy of demand CFAs using a different approach to achieving context sensitivity;
-\item an empirical evalution of Demand 0CFA to demonstrate that it is a genuine demand CFA; and
-\item an empirical evaluation of (Lightweight) Demand $m$-CFA against $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA} and DDPA@~cite{palmer2016higher}.
+\item an empirical evalution of Demand 0CFA to demonstrate that it is a genuine demand CFA
+\item an empirical evaluation of the scalability and precision of Demand $m$-CFA against $m$-CFA@~cite{dvanhorn:Might2010Resolving}
 \end{itemize}
-
 
 
 \section{Demand CFA, Intuitively}
@@ -1847,141 +1679,6 @@ Needed Data
 \item Larger timeouts / larger $m$?
 \end{enumerate}
 
-@omit{
-We extended the implementation described in \S\ref{sec:implementation} of (Lightweight) Demand $m$-CFA to handle a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
-conditional expressions;
-\texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
-definition contexts in which a sequence of definitions and expressions can be mixed in a mutually-recursive scope; and
-a few dozen primitives.
-We did not implement the \texttt{set!} form which mutates the binding of a given variable nor primitives with side effects.\footnote{
-This omission does \emph{not} mean that demand CFA fails on any program that uses \texttt{set!}.
-Rather, it means that demand CFA fails on any \emph{query} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
-Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare,
-we expect that relatively few queries encounter mutation.}
-
-We evaluate (Lightweight) Demand $m$-CFA with respect to three questions:
-\begin{enumerate}
-\item \emph{What is the overhead of (Lightweight) Demand $m$-CFA relative to an off-the-shelf exhaustive CFA?}
-\item \emph{Does (Lightweight) Demand $m$-CFA behave in practice as a demand CFA?}
-\item \emph{How much does the assumption of reachability compromise precision?}
-\end{enumerate}
-
-Although this paper focuses on context-sensitive demand CFA, we include an evaluation of context-insensitive demand CFA as well.
-Specifically, we evaluate Demand 0CFA against 0DDPA, the context-insensitive base of DDPA@~cite{palmer2016higher} hierarchy, and (exhaustive) 0CFA.
-Likewise, we evaluate both Demand 1CFA and Lightweight Demand 1CFA against 1DDPA and (exhaustive) $[k=1]$-CFA.
-We use DDPA's own implementation in OCaml for benchmarks, using a lightly-modified testbench (described next).
-We implement all other analyses in Racket@~cite{plt-tr1}, each using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation strategy, so that we obtain as close to an apples-to-apples comparison as possible.
-
-To benchmark DDPA, we lightly modified its own implementation in OCaml@~cite{facchinetti2019ddpa}.
-We altered the top level of DDPA's evaluator to time only the resolution of the query, omitting the time taken to transform the program into DDPA's IR as well as that of the the evaluator process to start up and initialize.
-At least conceptually, DDPA has an initialization phase in which it constructs a global CFG along which it performs ``lookups''.
-Ideally, we would measure the time of this construction alone and each individual lookup alone to get a sense for how this initialization cost is amortized over an analysis session.
-It appeared to us that this phase was entangled with general lookups in the implementation.
-Instead, we report the same metric as @citet{facchinetti2019ddpa}: the time to both construct the global CFG and perform lookups over the entire program.
-
-We evaluate each analysis against a suite of 19 R6RS programs, compiled from a variety of benchmarks by @citet{facchinetti2019ddpa}.
-This suite includes, among others,
-a derivative-based regular expression matcher@~cite{Brzozowski:1964},
-a toy RSA implementation,
-a toy computer algebra system,
-various programs that exhibit specific functional idioms, and
-pathological programs designed to provoke exponential run times or to hemorrhage precision.
-We ensure each program is alphatized to aid $k$-CFA.
-None of the programs in our benchmark suite use mutation.
-
-We ran our benchmarks on a 2015 MacBook Pro with a four-core Intel Core i7 processor and 16 GB RAM.
-For $k$-CFA and (Lightweight) Demand $m$-CFA, we used Racket CS 7.7.
-For DDPA, we used OCaml 4.0.6.
-
-\subsection{Demand CFA Overhead}
-
-A demand analysis is typically more expensive per fact than a corresponding exhaustive analysis \emph{on average}.
-Demand analysis is viable only because not all facts require the same amount of analysis to obtain.
-Thus, a demand analysis can often obtain a useful subset of facts in a fraction of the time of an exhaustive analysis.
-
-Nevertheless, some idea of the raw overhead of demand analysis is useful.
-To get such an idea, we measured the time taken by (Lightweight) Demand $m$-CFA, DDPA, and $k$-CFA to analyze each program.
-Each analysis was tasked with analyzing the entire given program.
-For $k$-CFA, we simply ran it on the program.
-For DDPA, we used the testbench of @citet{facchinetti2019ddpa}\footnote{Accessed from \url{https://github.com/JHU-PL-Lab/odefa/tree/toplas}.} which preprocesses the program, builds a CFG, and performs lookups on all program variables.
-For (Lightweight) Demand $k$-CFA, we issued an evaluation query for each expression.
-We performed the measurement both without and with context sensitivity.
-
-Figure~\ref{fig:v-ddpa} presents the measurements for 0CFA, 0DDPA, and Demand 0CFA.
-(We excluded Lightweight Demand 0CFA because it is the same analysis as Demand 0CFA.)
-\begin{figure}
-\includegraphics[scale=0.4]{comprehensive-ci.pdf}
-\caption{This table presents the analysis time taken by 0DDPA and Demand 0CFA, normalized to the time taken by exhaustive 0CFA, for each program in our benchmark suite.
-Note that the y-axis is log-scaled.}
-\label{fig:v-ddpa}
-\end{figure}
-In all cases, Demand 0CFA is within a factor of three from exhaustive 0CFA.
-This is promising because, as the size of programs scales up, the cost to obtain many control flow facts remains constant.
-Thus, even as exhaustive CFA becomes impractically expensive, Demand 0CFA remains practical for many parts of the program.
-In every case, Demand 0CFA is substantially faster than 0DDPA.
-This difference is due in part to the reachability assumptions Demand 0CFA makes and, relatedly, its reliance on lexical scope.
-
-Figure~\ref{fig:v-ddpa-2} presents the measurements for 1CFA, 1DDPA, and (Lightweight) Demand 1CFA.
-\begin{figure}
-\includegraphics[scale=0.4]{comprehensive-cs.pdf}
-\caption{This table presents the analysis time taken by 1DDPA and (Lightweight) Demand 1CFA, normalized to the time taken by exhaustive 1CFA, for each program in our benchmark suite.
-Note that the y-axis is log-scaled.}
-\label{fig:v-ddpa-2}
-\end{figure}
-The overhead of Demand 1CFA is in some cases 4--11$\times$;
-for a few programs, the overhead is lower (but still >1$\times$) and, for one program (\textsf{regex}), Demand 1CFA is more than $5\times$ faster.
-However, Demand 1CFA is many times 50--500$\times$ slower.
-Demand 1CFA's performance relative to 1DDPA varies widely.
-It is at times $20\times$ slower and at other times $100\times$ faster.
-The performance of Lightweight Demand 1CFA, on the other hand, is remarkable:
-it is typically faster than 1CFA by $5\times$ and, for some programs, even more than $100\times$.
-We discuss possible reasons for this performance below.
-
-\subsection{A demand CFA in practice?}
-
-Given that demand CFA is inherently more expensive that exhaustive CFA for a given fact, it doesn't make sense to apply it to every part of the program.
-This question seeks to what extent (Lightweight) Demand $m$-CFA can obtain flow information economically.
-Our methodology is to measure the time a comparable exhaustive CFA takes to analyze the program as a baseline.
-We then calculate what timeout to impose on (Lightweight) Demand $m$-CFA so that total analysis time is 30\% of the baseline, by considering the number of expressions to analyze.
-(We chose 30\% simply because it makes CFA reasonably more practical.)
-We report the fraction of control-flow information obtained across all programs with this timeout in place:
-Demand 0CFA obtained 49.7\%, Demand 1CFA obtained 65.8\%, and Lightweight Demand 1CFA obtained 76.0\%.
-These fractions demonstrate that (Lightweight) Demand $m$-CFA is able to obtain an appreciable fraction of control flow at a fairly large discount.
-
-\subsection{Relative Precision}
-
-Demand $m$-CFA makes reachability assumptions which can, in theory, decrease its precision.
-For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
-it assumes that \texttt{(f 42)} is reachable---i.e., it assumes that \texttt{(λ (g) (f 42))} is called.
-If that assumption is false, then the argument \texttt{42} does not actually contribute to the value that Demand $m$-CFA is resolving, and its inclusion is manifest imprecision.
-
-To determine how frequently erroneous reachability assumptions affect precision, we compared the results produced by (Lightweight) Demand $m$-CFA against those produced by an exhaustive analysis.
-We first ran exponential $m$-CFA---that is, standard exhaustive $m$-CFA but \emph{without} performing rebinding---to obtain a cache from configurations to their values.\footnote{We used exponential $m$-CFA rather than $k$-CFA so that we could reconstruct the (lightweight) Demand $m$-CFA environments. However, $[m=0]$-CFA is the same as $[k=0]$-CFA and we manually verified that exponential $[m=1]$-CFA produces the same results as $[k=1]$-CFA on our benchmark suite.}
-From each configuration, we reconstructed an evaluation query;
-in particular, we used the configuration's environment to produce an instantiated (Lightweight) Demand $m$-CFA environment.
-We then compared the query results with the cached results of the exhaustive analysis.
-We performed this comparison when $m=0$ and $m=1$.
-
-For every single of
-1899 [$m$=0]-CFA configurations
-and
-8610 [$m$=1]-CFA configurations,
-both Demand $m$-CFA \emph{and} Lightweight Demand $m$-CFA
-are \emph{exactly as precise} as their exhaustive counterpart.
-We also verified that precision strictly increased with the level of context sensitivity.
-
-
-To be clear, these results mean that, for example, Lightweight Demand 1CFA was able to obtain \emph{all} of the exact same control-flow information as exhaustive 1CFA on the \textsf{sat-2} benchmark \emph{over $300\times$ faster}.
-This result, of course, is not typical.
-That particular benchmark is designed so that $k$-CFA and exponential $m$-CFA produce an exponential number of environments.
-Lightweight Demand $m$-CFA, however, forgets just the right parts of the context so that many of those environments are folded together.
-Simultaneously, it retains just enough to perfectly resolve argument values.
-(We also manually verified that the precision on \texttt{sat-2} actually increases in the transition from $m=0$ to $m=1$.)
-Lightweight Demand 2CFA witnesses a $1000\times$ slowdown as 2-deep environments are enough to support the exponential explosion of environments.
-
-Our takeaway here is that it is worth investigating Lightweight Demand $m$-CFA's context abstraction and mechanism further to determine whether selective context forgetfulness might curtail the explosion in general.
-}
-
 \section{Related Work}
 \label{sec:related-work}
 
@@ -1989,18 +1686,15 @@ The original inspiration for demand CFA is demand dataflow analysis@~cite{horwit
 Demand CFA seeks algorithms with those same characteristics which operate in the presence of first-class functions.
 This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embodiment of demand CFA, with context sensitivity using the context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
 
+Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages@~cite{schoepe2023lifting}.
+The approach developed meets all of our criteria above, including context sensitivity, but relegates the context sensitivity to the underlying analyses, and requires
+multiple demand-driven analyses for the language in question. Our work differs in two major ways, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, and it
+directly addresses context sensitivity of variables bound in higher order and nested lexical closure environments.
+
 DDPA@~cite{palmer2016higher} is a context-sensitive, demand-driven analysis for higher-order programs so, nominally, it is in precisely the same category as (Lightweight) Demand $m$-CFA.
 However, before resolving any on-demand queries, DDPA must bootstrap a global control-flow graph to support them.
 Because of this large, fixed, up-front cost, DDPA doesn't provide the pricing model of a demand analysis and does not make the kinds of applications targeted by demand analysis practical.
-@omit{
-However, DDPA differs from this work in two significant ways.
-First, DDPA has an initialization phase in which it bootstraps a global control-flow graph (CFG) using its demand-driven lookup mechanism to provide further lookups with function callers.
-Because this phase performs a global analysis, its existence violates the characteristics of demand CFA that analysis be local and parsimonious.
-In contrast, (Lightweight) Demand $m$-CFA determines function callers on demand using trace queries.
-Second, DDPA resolves each free variable by tracing control flow backward (along the previously-built CFG) to the construction of the closure which captured it.
-This has the benefit of ensuring that variable references are reachable at the cost of witnessing the reaching path.
-In contrast, (Lightweight) Demand $m$-CFA resolves each free variable by immediately jumping to the closure construction, ignoring intervening control flow.
-}
+
 Several other ``demand-driven'' analyses exist for functional programs.
 @citet{midtgaard2008calculational} present a ``demand-driven 0-CFA'' derived via a calculational approach which analyzes only those parts of the program on which the program's result depends.
 @citet{biswas1997demand} presents a demand analysis that takes a similar approach to ``demand-driven 0-CFA'' to analyze first-order functional programs.

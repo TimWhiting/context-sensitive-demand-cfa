@@ -34,6 +34,12 @@
     [(list) (list)]
     ))
 
+(define (tail-or-empty cc)
+  (match cc
+    [(cons _ ccs) ccs]
+    [(list) (list)]
+    ))
+
 (define (assert tv msg)
   (if tv '() (error 'assertion-failed msg))
   )

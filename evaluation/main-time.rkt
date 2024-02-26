@@ -14,7 +14,7 @@
 
 (define (is-singleton r)
   (match-let ([(cons s (literal l)) (from-value (cdr r))])
-    (or (and (equal? 1 (length (set->list s))) (andmap bottom? l))
+    (or (and (equal? 1 (set-count (apply set (map car (set->list s))))) (andmap bottom? l))
         (equal? 1 (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l)))
     )
   )
@@ -33,15 +33,20 @@
       (set! result-hash hash-new)
       (list cpu real gc)
       )))
-  (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
-  (define eval-results (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
-  (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
-  (define num-eval-subqueries (length eval-subqueries))
-  (define num-store-values (length store-keys))
+  (match (andmap (lambda (x) x) timed-result)
+    [#f (pretty-print `(,kind ,name ,m ,(timeout) #f) out-time)]
+    [_
+     (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
+     (define eval-results (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
+     (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
+     (define num-eval-subqueries (length eval-subqueries))
+     (define num-store-values (length store-keys))
 
-  (define singletons (count is-singleton eval-results))
-  (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
-  (pretty-print `(,kind ,name ,m ,(timeout) ,num-eval-subqueries ,num-store-values ,singletons ,avg-precision ,timed-result) out-time)
+     (define singletons (count is-singleton eval-results))
+     (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
+     (pretty-print `(,kind ,name ,m ,(timeout) ,num-eval-subqueries ,num-store-values ,singletons ,avg-precision ,timed-result) out-time)
+     ]
+    )
   result-hash
   )
 
@@ -131,14 +136,17 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define do-run-demand #f)
+  (define do-run-demand #t)
   (define do-run-exhaustive #t)
+  ; sat-1 regex  -- issues with deriv, rsa
+  ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest))
+  (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest))
   (if do-run-exhaustive
       (for ([m (in-range 0 3)])
         (let ([rebind-cost 0]
               [expm-cost 0])
           (current-m m)
-          (for ([example (get-examples '(sat-1 regex tic-tac-toe))])
+          (for ([example (get-examples programs)])
             (match-let ([`(example ,name ,exp) example])
               (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a-time.sexpr" m name) #:exists 'replace))
 
@@ -166,7 +174,7 @@
                 [basic-acc-cost 0]
                 [num-queries 0])
             (current-m m)
-            (for ([example (get-examples '(sat-1 regex tic-tac-toe))])
+            (for ([example (get-examples programs)])
               (match-let ([`(example ,name ,exp) example])
                 (define out-time (open-output-file (format "tests/m~a/~a-time_~a.sexpr" m name t) #:exists 'replace))
 

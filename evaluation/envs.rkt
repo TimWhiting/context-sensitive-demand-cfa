@@ -43,6 +43,10 @@
     )
   )
 
+(define (env-tail ρ)
+  (tail-or-empty (env-list ρ))
+  )
+
 ; calling contexts
 
 ; Is cc0 more refined or equal to cc1?

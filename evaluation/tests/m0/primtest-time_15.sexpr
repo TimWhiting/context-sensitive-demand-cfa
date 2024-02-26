@@ -1,0 +1,5477 @@
+'(clean-cache
+  primtest
+  0
+  94
+  letrec*
+  "\"'(eval ((top) letrec* (square ... byte-size) ...) (env ()))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  94
+  let
+  "\"'(eval (λ (byte-size iterations) (-> (let (n) ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env (())))\""
+  9
+  6
+  3
+  0
+  6
+  3
+  9
+  1
+  1
+  1
+  #f
+  25/6
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  7
+  4
+  3
+  0
+  4
+  3
+  7
+  1
+  1
+  0
+  #f
+  4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  match
+  "\"'(eval\n  (let (n)\n    (->\n     (match\n      (app\n       and\n       (app not (app is-trivial-composite? n))\n       (app is-fermat-prime? n iterations))\n      ...)\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   (#f)\n   (_ (-> n <-)))\n  (env (())))\""
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  1
+  #f
+  29/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env (())))\""
+  6
+  3
+  3
+  0
+  3
+  3
+  6
+  1
+  1
+  0
+  #f
+  4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env (())))\""
+  6
+  3
+  3
+  0
+  3
+  3
+  6
+  1
+  1
+  0
+  #f
+  4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (->\n    (app\n     and\n     (app not (app is-trivial-composite? n))\n     (app is-fermat-prime? n iterations))\n    <-)\n   (#f)\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (app not (app is-trivial-composite? n))\n   (-> (app is-fermat-prime? n iterations) <-))\n  (env (())))\""
+  115
+  100
+  12
+  3
+  100
+  12
+  112
+  1
+  1
+  32
+  #f
+  9/2
+  ((6 6 0) (11/2 11/2 0) (11/2 11/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? n (-> iterations <-)) (env (())))\""
+  7
+  4
+  3
+  0
+  4
+  3
+  7
+  1
+  1
+  0
+  #f
+  4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) iterations) (env (())))\""
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  1
+  #f
+  29/7
+  ((1/2 1/2 0) (1/2 1/2 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (-> (app not (app is-trivial-composite? n)) <-)\n   (app is-fermat-prime? n iterations))\n  (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-trivial-composite? (-> n <-)) (env (())))\""
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  1
+  #f
+  29/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (λ (n iterations)\n    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))\n  (env (())))\""
+  113
+  98
+  12
+  3
+  98
+  12
+  110
+  1
+  1
+  31
+  #f
+  439/98
+  ((11/2 11/2 0) (11/2 11/2 0) (11/2 11/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  let*
+  "\"'(eval\n  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))\n  (env (())))\""
+  113
+  98
+  12
+  3
+  98
+  12
+  110
+  1
+  1
+  31
+  #f
+  439/98
+  ((11/2 6 0) (11/2 11/2 0) (11/2 11/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)\n  (env (())))\""
+  27
+  21
+  6
+  0
+  21
+  6
+  27
+  1
+  1
+  6
+  #f
+  30/7
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  25
+  19
+  6
+  0
+  19
+  6
+  25
+  1
+  1
+  5
+  #f
+  81/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))\n         a\n         ...)\n    ...)\n  (env (())))\""
+  24
+  18
+  6
+  0
+  18
+  6
+  24
+  1
+  1
+  5
+  #f
+  77/18
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env (())))\""
+  22
+  16
+  6
+  0
+  16
+  6
+  22
+  1
+  1
+  4
+  #f
+  17/4
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (app log n) (-> (app log 2) <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  1
+  #f
+  13/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (-> (app log n) <-) (app log 2)) (env (())))\""
+  17
+  11
+  6
+  0
+  11
+  6
+  17
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app log (-> n <-)) (env (())))\""
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  1
+  #f
+  37/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (let* (byte-size ... a)\n    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))\n  (env (())))\""
+  113
+  98
+  12
+  3
+  98
+  12
+  110
+  1
+  1
+  31
+  #f
+  439/98
+  ((11/2 11/2 0) (6 13/2 0) (11/2 11/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))\""
+  113
+  98
+  12
+  3
+  98
+  12
+  110
+  1
+  1
+  31
+  #f
+  439/98
+  ((13/2 13/2 0) (6 6 0) (11/2 11/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env (())))\""
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> iterations <-) 1) (env (())))\""
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env (())))\""
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env (())))\""
+  89
+  75
+  12
+  2
+  75
+  12
+  87
+  1
+  1
+  22
+  #f
+  328/75
+  ((9/2 9/2 0) (11/2 11/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))\""
+  86
+  72
+  12
+  2
+  72
+  12
+  84
+  1
+  1
+  21
+  #f
+  313/72
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power a (app - n 1) (-> n <-)) (env (())))\""
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  1
+  #f
+  37/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power a (-> (app - n 1) <-) n) (env (())))\""
+  18
+  12
+  6
+  0
+  12
+  6
+  18
+  1
+  1
+  2
+  #f
+  25/6
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env (())))\""
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  1
+  #f
+  37/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> a <-) (app - n 1) n) (env (())))\""
+  28
+  22
+  6
+  0
+  22
+  6
+  28
+  1
+  1
+  6
+  #f
+  47/11
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))\n  (env (())))\""
+  18
+  12
+  6
+  0
+  12
+  6
+  18
+  1
+  1
+  2
+  #f
+  13/3
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app <= (-> iterations <-) 0) (env (())))\""
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  1
+  #f
+  37/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (λ (n)\n    (->\n     (app\n      or\n      (app = (app modulo n 2) 0)\n      (app = (app modulo n 3) 0)\n      (app = (app modulo n 5) 0)\n      (app = (app modulo n 7) 0)\n      (app = (app modulo n 11) 0)\n      (app = (app modulo n 13) 0)\n      (app = (app modulo n 17) 0)\n      (app = (app modulo n 19) 0)\n      (app = (app modulo n 23) 0))\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (-> (app = (app modulo n 23) 0) <-))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 23) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 23) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (-> (app = (app modulo n 19) 0) <-)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 19) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 19) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (-> (app = (app modulo n 17) 0) <-)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 17) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 17) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (-> (app = (app modulo n 13) 0) <-)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 13) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 13) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 11) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 11) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (-> (app = (app modulo n 7) 0) <-)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 7) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 7) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (-> (app = (app modulo n 5) 0) <-)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 5) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 5) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (-> (app = (app modulo n 3) 0) <-)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 3) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 3) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (-> (app = (app modulo n 2) 0) <-)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 2) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 2) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env (())))\""
+  22
+  12
+  10
+  0
+  12
+  10
+  22
+  1
+  1
+  1
+  #f
+  49/12
+  ((1 1 0) (1 3/2 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (4 9/2 0) (4 4 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((4 4 0) (4 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app - exp 1) (-> n <-)) (env (())))\""
+  21
+  11
+  10
+  0
+  11
+  10
+  21
+  1
+  1
+  1
+  #f
+  45/11
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app - exp 1) <-) n) (env (())))\""
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  4
+  #f
+  21/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> exp <-) 1) (env (())))\""
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  4
+  #f
+  21/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app - exp 1) n) (env (())))\""
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  6
+  #f
+  17/4
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env (())))\""
+  35
+  25
+  10
+  0
+  25
+  10
+  35
+  1
+  1
+  6
+  #f
+  106/25
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env (())))\""
+  22
+  12
+  10
+  0
+  12
+  10
+  22
+  1
+  1
+  1
+  #f
+  49/12
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((5 11/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app / exp 2) (-> n <-)) (env (())))\""
+  21
+  11
+  10
+  0
+  11
+  10
+  21
+  1
+  1
+  1
+  #f
+  45/11
+  ((1 1 0) (1 3/2 0) (1 1 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app / exp 2) <-) n) (env (())))\""
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  4
+  #f
+  21/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app / (-> exp <-) 2) (env (())))\""
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  4
+  #f
+  21/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app / exp 2) n) (env (())))\""
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  6
+  #f
+  17/4
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env (())))\""
+  33
+  23
+  10
+  0
+  23
+  10
+  33
+  1
+  1
+  5
+  #f
+  99/23
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app odd? (-> exp <-)) (env (())))\""
+  31
+  21
+  10
+  0
+  21
+  10
+  31
+  1
+  1
+  4
+  #f
+  88/21
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env (())))\""
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  5
+  #f
+  103/24
+  ((2 2 0) (2 2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app = (-> exp <-) 0) (env (())))\""
+  31
+  21
+  10
+  0
+  21
+  10
+  31
+  1
+  1
+  4
+  #f
+  88/21
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (λ (x) (-> (app * x x) <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 5 0) (5 5 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * x (-> x <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> x <-) x) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (app not (app is-trivial-composite? n))\n   (-> (app is-fermat-prime? n iterations) <-))\n  (env (())))\""
+  115
+  100
+  12
+  3
+  100
+  12
+  112
+  1
+  1
+  32
+  #f
+  9/2
+  ((13/2 13/2 0) (6 6 0) (6 6 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))\""
+  115
+  100
+  12
+  3
+  100
+  12
+  112
+  1
+  1
+  32
+  #f
+  9/2
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env (())))\""
+  115
+  100
+  12
+  3
+  100
+  12
+  112
+  1
+  1
+  32
+  #f
+  9/2
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env (())))\""
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  1
+  #f
+  37/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   (#f)\n   (_ (-> n <-)))\n  (env (())))\""
+  16
+  10
+  6
+  0
+  10
+  6
+  16
+  1
+  1
+  1
+  #f
+  41/10
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 19) <-) 0) (env (())))\""
+  23
+  15
+  8
+  0
+  15
+  8
+  23
+  1
+  1
+  2
+  #f
+  62/15
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  21
+  #f
+  329/76
+  ((7/2 4 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app / (-> exp <-) 2) (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  21
+  #f
+  329/76
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  21
+  #f
+  329/76
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> exp <-) 1) (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  21
+  #f
+  329/76
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  match
+  "\"'(eval\n  (let (n)\n    (->\n     (match\n      (app\n       and\n       (app not (app is-trivial-composite? n))\n       (app is-fermat-prime? n iterations))\n      ...)\n     <-))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (-> (app = (app modulo n 2) 0) <-)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 3) (env (())))\""
+  20
+  15
+  5
+  0
+  15
+  5
+  20
+  1
+  1
+  3
+  #f
+  13/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (-> (app = (app modulo n 3) 0) <-)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  26
+  21
+  5
+  0
+  21
+  5
+  26
+  1
+  1
+  5
+  #f
+  31/7
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (let* (byte-size ... a)\n    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))\n  (env (())))\""
+  130
+  113
+  14
+  3
+  113
+  14
+  127
+  1
+  1
+  35
+  #f
+  507/113
+  ((13/2 13/2 0) (11/2 11/2 0) (11/2 11/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env (())))\""
+  130
+  113
+  14
+  3
+  113
+  14
+  127
+  1
+  1
+  35
+  #f
+  507/113
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app - exp 1) <-) n) (env (())))\""
+  130
+  113
+  14
+  3
+  113
+  14
+  127
+  1
+  1
+  35
+  #f
+  507/113
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env (())))\""
+  130
+  113
+  14
+  3
+  113
+  14
+  127
+  1
+  1
+  35
+  #f
+  507/113
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (-> (app = (app modulo n 23) 0) <-))\n  (env (())))\""
+  137
+  120
+  14
+  3
+  120
+  14
+  134
+  1
+  1
+  37
+  #f
+  539/120
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 2) (env (())))\""
+  137
+  120
+  14
+  3
+  120
+  14
+  134
+  1
+  1
+  37
+  #f
+  539/120
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 11) <-) 0) (env (())))\""
+  141
+  124
+  14
+  3
+  124
+  14
+  138
+  1
+  1
+  38
+  #f
+  139/31
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 13) <-) 0) (env (())))\""
+  145
+  128
+  14
+  3
+  128
+  14
+  142
+  1
+  1
+  39
+  #f
+  573/128
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (-> (app = (app modulo n 7) 0) <-)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * x (-> x <-)) (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))\""
+  152
+  135
+  14
+  3
+  135
+  14
+  149
+  1
+  1
+  41
+  #f
+  121/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 5) <-) 0) (env (())))\""
+  156
+  139
+  14
+  3
+  139
+  14
+  153
+  1
+  1
+  42
+  #f
+  622/139
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 19) (env (())))\""
+  157
+  140
+  14
+  3
+  140
+  14
+  154
+  1
+  1
+  42
+  #f
+  313/70
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 17) (env (())))\""
+  158
+  141
+  14
+  3
+  141
+  14
+  155
+  1
+  1
+  42
+  #f
+  210/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  let
+  "\"'(eval (λ (byte-size iterations) (-> (let (n) ...) <-)) (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app = (-> exp <-) 0) (env (())))\""
+  41
+  29
+  12
+  0
+  29
+  12
+  41
+  1
+  1
+  6
+  #f
+  124/29
+  ((3/2 3/2 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> x <-) x) (env (())))\""
+  57
+  42
+  14
+  1
+  42
+  14
+  56
+  1
+  1
+  10
+  #f
+  13/3
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> iterations <-) 1) (env (())))\""
+  65
+  50
+  14
+  1
+  50
+  14
+  64
+  1
+  1
+  11
+  #f
+  43/10
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 2) <-) 0) (env (())))\""
+  69
+  54
+  14
+  1
+  54
+  14
+  68
+  1
+  1
+  12
+  #f
+  116/27
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))\""
+  71
+  56
+  14
+  1
+  56
+  14
+  70
+  1
+  1
+  13
+  #f
+  241/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 17) <-) 0) (env (())))\""
+  75
+  60
+  14
+  1
+  60
+  14
+  74
+  1
+  1
+  14
+  #f
+  43/10
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power a (app - n 1) (-> n <-)) (env (())))\""
+  76
+  61
+  14
+  1
+  61
+  14
+  75
+  1
+  1
+  14
+  #f
+  262/61
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app - exp 1) n) (env (())))\""
+  92
+  77
+  14
+  1
+  77
+  14
+  91
+  1
+  1
+  19
+  #f
+  331/77
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))\""
+  92
+  77
+  14
+  1
+  77
+  14
+  91
+  1
+  1
+  19
+  #f
+  331/77
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 7) (env (())))\""
+  93
+  78
+  14
+  1
+  78
+  14
+  92
+  1
+  1
+  19
+  #f
+  335/78
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env (())))\""
+  103
+  88
+  14
+  1
+  88
+  14
+  102
+  1
+  1
+  22
+  #f
+  189/44
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 5) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 3) <-) 0) (env (())))\""
+  17
+  12
+  5
+  0
+  12
+  5
+  17
+  1
+  1
+  2
+  #f
+  25/6
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app / exp 2) n) (env (())))\""
+  42
+  30
+  12
+  0
+  30
+  12
+  42
+  1
+  1
+  7
+  #f
+  127/30
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  21
+  #f
+  329/76
+  ((3 3 0) (3 3 0) (3 3 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (λ (x) (-> (app * x x) <-)) (env (())))\""
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  20
+  #f
+  152/35
+  ((9/2 5 0) (5 5 0) (5 5 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (λ (n)\n    (->\n     (app\n      or\n      (app = (app modulo n 2) 0)\n      (app = (app modulo n 3) 0)\n      (app = (app modulo n 5) 0)\n      (app = (app modulo n 7) 0)\n      (app = (app modulo n 11) 0)\n      (app = (app modulo n 13) 0)\n      (app = (app modulo n 17) 0)\n      (app = (app modulo n 19) 0)\n      (app = (app modulo n 23) 0))\n     <-))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (-> (app not (app is-trivial-composite? n)) <-)\n   (app is-fermat-prime? n iterations))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env (())))\""
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  5
+  #f
+  103/24
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app / exp 2) <-) n) (env (())))\""
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  5
+  #f
+  103/24
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))\""
+  36
+  26
+  10
+  0
+  26
+  10
+  36
+  1
+  1
+  7
+  #t
+  113/26
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (->\n    (app\n     and\n     (app not (app is-trivial-composite? n))\n     (app is-fermat-prime? n iterations))\n    <-)\n   (#f)\n   _)\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) iterations) (env (())))\""
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  1
+  #f
+  29/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 23) <-) 0) (env (())))\""
+  17
+  12
+  5
+  0
+  12
+  5
+  17
+  1
+  1
+  2
+  #f
+  25/6
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-trivial-composite? (-> n <-)) (env (())))\""
+  17
+  12
+  5
+  0
+  12
+  5
+  17
+  1
+  1
+  2
+  #f
+  25/6
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env (())))\""
+  21
+  13
+  8
+  0
+  13
+  8
+  21
+  1
+  1
+  2
+  #f
+  54/13
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? n (-> iterations <-)) (env (())))\""
+  25
+  17
+  8
+  0
+  17
+  8
+  25
+  1
+  1
+  2
+  #f
+  70/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env (())))\""
+  25
+  17
+  8
+  0
+  17
+  8
+  25
+  1
+  1
+  2
+  #f
+  70/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (-> (app = (app modulo n 13) 0) <-)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  32
+  24
+  8
+  0
+  24
+  8
+  32
+  1
+  1
+  4
+  #f
+  17/4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 11) (env (())))\""
+  33
+  25
+  8
+  0
+  25
+  8
+  33
+  1
+  1
+  4
+  #f
+  106/25
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env (())))\""
+  103
+  87
+  14
+  2
+  87
+  14
+  101
+  1
+  1
+  23
+  #f
+  13/3
+  ((4 4 0) (4 4 0) (4 9/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)\n  (env (())))\""
+  103
+  87
+  14
+  2
+  87
+  14
+  101
+  1
+  1
+  23
+  #f
+  13/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (λ (n iterations)\n    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))\n  (env (())))\""
+  128
+  111
+  14
+  3
+  111
+  14
+  125
+  1
+  1
+  34
+  #f
+  496/111
+  ((3/2 2 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  94
+  letrec*
+  "\"'(eval ((top) letrec* (square ... byte-size) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 23) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env (())))\""
+  26
+  14
+  12
+  0
+  14
+  12
+  26
+  1
+  1
+  1
+  #f
+  57/14
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 13) (env (())))\""
+  27
+  15
+  12
+  0
+  15
+  12
+  27
+  1
+  1
+  1
+  #f
+  61/15
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  let*
+  "\"'(eval\n  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))\n  (env (())))\""
+  118
+  101
+  14
+  3
+  101
+  14
+  115
+  1
+  1
+  31
+  #f
+  451/101
+  ((5 5 0) (9/2 9/2 0) (5 5 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env (())))\""
+  118
+  101
+  14
+  3
+  101
+  14
+  115
+  1
+  1
+  31
+  #f
+  451/101
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (-> (app = (app modulo n 17) 0) <-)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  161/36
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> a <-) (app - n 1) n) (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  161/36
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (app log n) (-> (app log 2) <-)) (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  161/36
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  161/36
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 7) <-) 0) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power a (-> (app - n 1) <-) n) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app / exp 2) (-> n <-)) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app odd? (-> exp <-)) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app <= (-> iterations <-) 0) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (-> (app log n) <-) (app log 2)) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))\n  (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  125/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (-> (app = (app modulo n 5) 0) <-)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  76/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  76/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app - exp 1) (-> n <-)) (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  76/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))\n         a\n         ...)\n    ...)\n  (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  76/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app log (-> n <-)) (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  76/17
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (-> (app = (app modulo n 19) 0) <-)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  143
+  126
+  14
+  3
+  126
+  14
+  140
+  1
+  1
+  38
+  #f
+  94/21
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app odd? (-> exp <-)) (env (())))\""
+  31
+  21
+  10
+  0
+  21
+  10
+  31
+  1
+  1
+  4
+  #f
+  88/21
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> iterations <-) 1) (env (())))\""
+  39
+  29
+  10
+  0
+  29
+  10
+  39
+  1
+  1
+  5
+  #f
+  121/29
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  50
+  40
+  10
+  0
+  40
+  10
+  50
+  1
+  1
+  9
+  #f
+  169/40
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 17) (env (())))\""
+  54
+  42
+  12
+  0
+  42
+  12
+  54
+  1
+  1
+  9
+  #f
+  59/14
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (-> (app = (app modulo n 7) 0) <-)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  61
+  49
+  12
+  0
+  49
+  12
+  61
+  1
+  1
+  11
+  #f
+  209/49
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  68
+  56
+  12
+  0
+  56
+  12
+  68
+  1
+  1
+  13
+  #f
+  241/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env (())))\""
+  70
+  58
+  12
+  0
+  58
+  12
+  70
+  1
+  1
+  14
+  #f
+  125/29
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))\""
+  86
+  72
+  12
+  2
+  72
+  12
+  84
+  1
+  1
+  21
+  #f
+  313/72
+  ((5 5 0) (5 11/2 0) (5 11/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env (())))\""
+  94
+  80
+  12
+  2
+  80
+  12
+  92
+  1
+  1
+  22
+  #f
+  173/40
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (-> (app = (app modulo n 19) 0) <-)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  104
+  88
+  14
+  2
+  88
+  14
+  102
+  1
+  1
+  24
+  #f
+  191/44
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 7) <-) 0) (env (())))\""
+  108
+  92
+  14
+  2
+  92
+  14
+  106
+  1
+  1
+  25
+  #f
+  399/92
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (app log n) (-> (app log 2) <-)) (env (())))\""
+  108
+  92
+  14
+  2
+  92
+  14
+  106
+  1
+  1
+  25
+  #f
+  399/92
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))\""
+  108
+  92
+  14
+  2
+  92
+  14
+  106
+  1
+  1
+  25
+  #f
+  399/92
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (-> (app = (app modulo n 13) 0) <-)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  115
+  99
+  14
+  2
+  99
+  14
+  113
+  1
+  1
+  27
+  #f
+  431/99
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app / (-> exp <-) 2) (env (())))\""
+  115
+  99
+  14
+  2
+  99
+  14
+  113
+  1
+  1
+  27
+  #f
+  431/99
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (let* (byte-size ... a)\n    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))\n  (env (())))\""
+  134
+  117
+  14
+  3
+  117
+  14
+  131
+  1
+  1
+  36
+  #f
+  524/117
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env (())))\""
+  134
+  117
+  14
+  3
+  117
+  14
+  131
+  1
+  1
+  36
+  #f
+  524/117
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (λ (x) (-> (app * x x) <-)) (env (())))\""
+  134
+  117
+  14
+  3
+  117
+  14
+  131
+  1
+  1
+  36
+  #f
+  524/117
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 23) <-) 0) (env (())))\""
+  138
+  121
+  14
+  3
+  121
+  14
+  135
+  1
+  1
+  37
+  #f
+  541/121
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  match
+  "\"'(eval\n  (let (n)\n    (->\n     (match\n      (app\n       and\n       (app not (app is-trivial-composite? n))\n       (app is-fermat-prime? n iterations))\n      ...)\n     <-))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 19) <-) 0) (env (())))\""
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  2
+  #f
+  46/11
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env (())))\""
+  91
+  75
+  14
+  2
+  75
+  14
+  89
+  1
+  1
+  21
+  #f
+  13/3
+  ((4 4 0) (4 4 0) (11/2 11/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  let*
+  "\"'(eval\n  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))\n  (env (())))\""
+  120
+  103
+  14
+  3
+  103
+  14
+  117
+  1
+  1
+  32
+  #f
+  460/103
+  ((1 1 0) (3/2 3/2 0) (1 1 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app / exp 2) n) (env (())))\""
+  120
+  103
+  14
+  3
+  103
+  14
+  117
+  1
+  1
+  32
+  #f
+  460/103
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 3) (env (())))\""
+  121
+  104
+  14
+  3
+  104
+  14
+  118
+  1
+  1
+  32
+  #f
+  58/13
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) iterations) (env (())))\""
+  121
+  104
+  14
+  3
+  104
+  14
+  118
+  1
+  1
+  32
+  #f
+  58/13
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env (())))\""
+  121
+  104
+  14
+  3
+  104
+  14
+  118
+  1
+  1
+  32
+  #f
+  58/13
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 5) (env (())))\""
+  122
+  105
+  14
+  3
+  105
+  14
+  119
+  1
+  1
+  32
+  #f
+  156/35
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 3) <-) 0) (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  481/108
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app <= (-> iterations <-) 0) (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  481/108
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env (())))\""
+  125
+  108
+  14
+  3
+  108
+  14
+  122
+  1
+  1
+  33
+  #f
+  481/108
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 11) <-) 0) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  249/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-fermat-prime? n (-> iterations <-)) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  249/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #f
+  249/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))\""
+  129
+  112
+  14
+  3
+  112
+  14
+  126
+  1
+  1
+  34
+  #t
+  249/56
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 2) (env (())))\""
+  130
+  113
+  14
+  3
+  113
+  14
+  127
+  1
+  1
+  34
+  #f
+  502/113
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (-> (app = (app modulo n 5) 0) <-)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  136
+  119
+  14
+  3
+  119
+  14
+  133
+  1
+  1
+  36
+  #f
+  530/119
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (λ (n)\n    (->\n     (app\n      or\n      (app = (app modulo n 2) 0)\n      (app = (app modulo n 3) 0)\n      (app = (app modulo n 5) 0)\n      (app = (app modulo n 7) 0)\n      (app = (app modulo n 11) 0)\n      (app = (app modulo n 13) 0)\n      (app = (app modulo n 17) 0)\n      (app = (app modulo n 19) 0)\n      (app = (app modulo n 23) 0))\n     <-))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (-> (app = (app modulo n 3) 0) <-)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  3
+  #f
+  61/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env (())))\""
+  45
+  33
+  12
+  0
+  33
+  12
+  45
+  1
+  1
+  8
+  #f
+  142/33
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env (())))\""
+  45
+  33
+  12
+  0
+  33
+  12
+  45
+  1
+  1
+  8
+  #f
+  142/33
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env (())))\""
+  94
+  78
+  14
+  2
+  78
+  14
+  92
+  1
+  1
+  22
+  #f
+  170/39
+  ((5/2 5/2 0) (3 3 0) (3 3 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 11) (env (())))\""
+  95
+  79
+  14
+  2
+  79
+  14
+  93
+  1
+  1
+  22
+  #f
+  344/79
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app / exp 2) <-) n) (env (())))\""
+  95
+  79
+  14
+  2
+  79
+  14
+  93
+  1
+  1
+  22
+  #f
+  344/79
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))\n         a\n         ...)\n    ...)\n  (env (())))\""
+  95
+  79
+  14
+  2
+  79
+  14
+  93
+  1
+  1
+  22
+  #f
+  344/79
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * x (-> x <-)) (env (())))\""
+  95
+  79
+  14
+  2
+  79
+  14
+  93
+  1
+  1
+  22
+  #f
+  344/79
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 7) (env (())))\""
+  96
+  80
+  14
+  2
+  80
+  14
+  94
+  1
+  1
+  22
+  #f
+  87/20
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  letrec*
+  "\"'(eval ((top) letrec* (square ... byte-size) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env (())))\""
+  22
+  16
+  6
+  0
+  16
+  6
+  22
+  1
+  1
+  4
+  #f
+  17/4
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power base (-> (app - exp 1) <-) n) (env (())))\""
+  38
+  28
+  10
+  0
+  28
+  10
+  38
+  1
+  1
+  7
+  #f
+  17/4
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> a <-) (app - n 1) n) (env (())))\""
+  44
+  34
+  10
+  0
+  34
+  10
+  44
+  1
+  1
+  9
+  #f
+  145/34
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (-> (app = (app modulo n 2) 0) <-)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  54
+  42
+  12
+  0
+  42
+  12
+  54
+  1
+  1
+  11
+  #f
+  181/42
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 13) <-) 0) (env (())))\""
+  58
+  46
+  12
+  0
+  46
+  12
+  58
+  1
+  1
+  12
+  #f
+  99/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power (-> base <-) (app - exp 1) n) (env (())))\""
+  60
+  48
+  12
+  0
+  48
+  12
+  60
+  1
+  1
+  12
+  #f
+  103/24
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app = (-> exp <-) 0) (env (())))\""
+  61
+  49
+  12
+  0
+  49
+  12
+  61
+  1
+  1
+  12
+  #f
+  30/7
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app / (-> (app log n) <-) (app log 2)) (env (())))\""
+  61
+  49
+  12
+  0
+  49
+  12
+  61
+  1
+  1
+  12
+  #f
+  30/7
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  let
+  "\"'(eval (λ (byte-size iterations) (-> (let (n) ...) <-)) (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env (())))\""
+  89
+  75
+  12
+  2
+  75
+  12
+  87
+  1
+  1
+  22
+  #f
+  328/75
+  ((9/2 9/2 0) (9/2 9/2 0) (5 5 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app modulo-power a (-> (app - n 1) <-) n) (env (())))\""
+  89
+  75
+  12
+  2
+  75
+  12
+  87
+  1
+  1
+  22
+  #f
+  328/75
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 2) <-) 0) (env (())))\""
+  96
+  80
+  14
+  2
+  80
+  14
+  94
+  1
+  1
+  23
+  #f
+  349/80
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))\""
+  96
+  80
+  14
+  2
+  80
+  14
+  94
+  1
+  1
+  23
+  #f
+  349/80
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (->\n    (app\n     and\n     (app not (app is-trivial-composite? n))\n     (app is-fermat-prime? n iterations))\n    <-)\n   (#f)\n   _)\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 23) (env (())))\""
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  1
+  #f
+  33/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env (())))\""
+  38
+  26
+  12
+  0
+  26
+  12
+  38
+  1
+  1
+  5
+  #f
+  111/26
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  match
+  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))\""
+  42
+  30
+  12
+  0
+  30
+  12
+  42
+  1
+  1
+  6
+  #f
+  64/15
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)\n  (env (())))\""
+  27
+  21
+  6
+  0
+  21
+  6
+  27
+  1
+  1
+  6
+  #f
+  30/7
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app is-trivial-composite? (-> n <-)) (env (())))\""
+  28
+  22
+  6
+  0
+  22
+  6
+  28
+  1
+  1
+  6
+  #f
+  47/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env (())))\""
+  31
+  25
+  6
+  0
+  25
+  6
+  31
+  1
+  1
+  6
+  #f
+  106/25
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app random (-> byte-size <-)) (env (())))\""
+  31
+  25
+  6
+  0
+  25
+  6
+  31
+  1
+  1
+  6
+  #f
+  106/25
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app * (-> x <-) x) (env (())))\""
+  88
+  74
+  12
+  2
+  74
+  12
+  86
+  1
+  1
+  20
+  #f
+  160/37
+  ((7/2 7/2 0) (3 3 0) (3 7/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app log (-> n <-)) (env (())))\""
+  88
+  74
+  12
+  2
+  74
+  12
+  86
+  1
+  1
+  20
+  #f
+  160/37
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 19) (env (())))\""
+  91
+  75
+  14
+  2
+  75
+  14
+  89
+  1
+  1
+  20
+  #f
+  108/25
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   (#f)\n   (_ (-> n <-)))\n  (env (())))\""
+  92
+  76
+  14
+  2
+  76
+  14
+  90
+  1
+  1
+  20
+  #f
+  82/19
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))\n  (env (())))\""
+  101
+  85
+  14
+  2
+  85
+  14
+  99
+  1
+  1
+  22
+  #f
+  368/85
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (app not (app is-trivial-composite? n))\n   (-> (app is-fermat-prime? n iterations) <-))\n  (env (())))\""
+  120
+  103
+  14
+  3
+  103
+  14
+  117
+  1
+  1
+  32
+  #f
+  462/103
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env (())))\""
+  120
+  103
+  14
+  3
+  103
+  14
+  117
+  1
+  1
+  32
+  #f
+  462/103
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app - (-> exp <-) 1) (env (())))\""
+  120
+  103
+  14
+  3
+  103
+  14
+  117
+  1
+  1
+  32
+  #f
+  462/103
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (-> (app = (app modulo n 23) 0) <-))\n  (env (())))\""
+  127
+  110
+  14
+  3
+  110
+  14
+  124
+  1
+  1
+  34
+  #f
+  247/55
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env (())))\""
+  127
+  110
+  14
+  3
+  110
+  14
+  124
+  1
+  1
+  34
+  #f
+  247/55
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 5) <-) 0) (env (())))\""
+  131
+  114
+  14
+  3
+  114
+  14
+  128
+  1
+  1
+  35
+  #f
+  511/114
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app / exp 2) (-> n <-)) (env (())))\""
+  131
+  114
+  14
+  3
+  114
+  14
+  128
+  1
+  1
+  35
+  #f
+  511/114
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power a (app - n 1) (-> n <-)) (env (())))\""
+  131
+  114
+  14
+  3
+  114
+  14
+  128
+  1
+  1
+  35
+  #f
+  511/114
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo (-> n <-) 13) (env (())))\""
+  132
+  115
+  14
+  3
+  115
+  14
+  129
+  1
+  1
+  35
+  #f
+  103/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))\""
+  132
+  115
+  14
+  3
+  115
+  14
+  129
+  1
+  1
+  35
+  #f
+  103/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval (app modulo-power base (app - exp 1) (-> n <-)) (env (())))\""
+  132
+  115
+  14
+  3
+  115
+  14
+  129
+  1
+  1
+  35
+  #f
+  103/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env (())))\""
+  132
+  115
+  14
+  3
+  115
+  14
+  129
+  1
+  1
+  35
+  #f
+  103/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (λ (n iterations)\n    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))\n  (env (())))\""
+  132
+  115
+  14
+  3
+  115
+  14
+  129
+  1
+  1
+  35
+  #f
+  103/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (-> (app = (app modulo n 17) 0) <-)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))\""
+  139
+  122
+  14
+  3
+  122
+  14
+  136
+  1
+  1
+  37
+  #f
+  547/122
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  94
+  app
+  "\"'(eval\n  (app\n   and\n   (-> (app not (app is-trivial-composite? n)) <-)\n   (app is-fermat-prime? n iterations))\n  (env (())))\""
+  #f)
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  ref-or-constructor
+  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env (())))\""
+  22
+  12
+  10
+  0
+  12
+  10
+  22
+  1
+  1
+  1
+  #f
+  49/12
+  ((3/2 3/2 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  primtest
+  0
+  15
+  94
+  app
+  "\"'(eval (app = (-> (app modulo n 17) <-) 0) (env (())))\""
+  29
+  17
+  12
+  0
+  17
+  12
+  29
+  1
+  1
+  2
+  #f
+  70/17
+  ((0 0 0) (0 0 0) (0 0 0)))

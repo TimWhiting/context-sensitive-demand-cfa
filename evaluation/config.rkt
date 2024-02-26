@@ -10,7 +10,7 @@
 
 (define timeout (make-parameter 10))
 
-(define timeouts (list 5 10 15))
+(define timeouts (list 5 15 25))
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
 (define acc-trials 2)

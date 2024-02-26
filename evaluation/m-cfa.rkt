@@ -42,7 +42,7 @@
 (define (get-store-val Ce x env)
   (>>= (get-store (get-rebindce x Ce) x env)
        (λ (val)
-        ;  (pretty-print `(store-lookup-got ,(show-simple-result val)))
+         ;  (pretty-print `(store-lookup-got ,(show-simple-result val)))
          (match val
            [(product/set (list Ce ρ)) (clos Ce ρ)]
            [(product/lattice l) (lit l)]
@@ -149,7 +149,7 @@
       (seql (map
              (λ (val var bind)
                (define ctx (get-rebindce var bind))
-              ;  (pretty-print `(bind-args ,(show-simple-ctx ctx) ,var ,(show-simple-result val)))
+               ;  (pretty-print `(bind-args ,(show-simple-ctx ctx) ,var ,(show-simple-result val)))
                (extend-store ctx var ρ val)
                ) vals vars binds))
       ⊥ ; Two closures with different numbers of arguments flow to the same place
@@ -162,7 +162,7 @@
       ; (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew)))
       (>>= (store-lookup (get-rebindce var Ce) var ρ)
            (λ (v)
-            ;  (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
+             ;  (pretty-print `(rebind-var ,(show-simple-ctx Ce) ,var ,(show-simple-env ρnew) ,(show-simple-result v)))
              (extend-store lam var ρnew v)))
       ) vars)))
 
@@ -175,118 +175,118 @@
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  (print-eval-result
-   `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-   (λ ()
-     (match Ce
-       [(cons _ #t) (truecon Ce ρ)]
-       [(cons _ #f) (falsecon Ce ρ)]
-       [(cons _ (? integer? x)) (lit (litint x))]
-       [(cons _ (? string? x)) (lit (litstring x))]
-       [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
-       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
-       [(cons _ `',x) (clos Ce ρ)]
-       [(cons _ `(lettypes ,_ ,_))
-        (>>= (bod Ce ρ) meval)]
-       [(cons _ `(let ,binds ,_))
+  ; (print-eval-result
+  ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+  ;  (λ ()
+  (match Ce
+    [(cons _ #t) (truecon Ce ρ)]
+    [(cons _ #f) (falsecon Ce ρ)]
+    [(cons _ (? integer? x)) (lit (litint x))]
+    [(cons _ (? string? x)) (lit (litstring x))]
+    [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
+    [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
+    [(cons _ `',x) (clos Ce ρ)]
+    [(cons _ `(lettypes ,_ ,_))
+     (>>= (bod Ce ρ) meval)]
+    [(cons _ `(let ,binds ,_))
+     (>>= (eval* (map
+                  (λ (i) ((bin i) Ce ρ))
+                  (range (length binds))))
+          (λ (evaled-binds)
+            (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
+                 (λ (_)
+                   ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+                   (>>= (bod Ce ρ) meval)))))]
+    [(cons _ `(let* ,binds ,_))
+     (>>= (evalbind*
+           (bins Ce ρ binds)
+           (map car binds)
+           ρ
+           (map
+            (λ (i) ((bin i) Ce ρ))
+            (range (length binds))))
+          (λ (_)
+            ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+            (>>= (bod Ce ρ) meval)))]
+    [(cons _ `(letrec* ,binds ,_))
+     (>>= (evalbind*
+           (bins Ce ρ binds)
+           (map car binds)
+           ρ
+           (map
+            (λ (i) ((bin i) Ce ρ))
+            (range (length binds))))
+          (λ (_)
+            ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+            (>>= (bod Ce ρ) meval)))]
+    [(cons _ `(letrec ,binds ,_))
+     ; Scheme rules state that the recursive definitions should not depend on order
+     ; and shouldn't reference each other until they have all been initialized
+     ; (as is often the case with recursive lambdas), as such we treat just like normal let
+     (>>= (eval* (map
+                  (λ (i) ((bin i) Ce ρ))
+                  (range (length binds))))
+          (λ (evaled-binds)
+            (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
+                 (λ (_)
+                   ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
+                   (>>= (bod Ce ρ) meval)))))]
+    [(cons _ `(match ,_ ,@clauses))
+     (>>=eval (>>= (focus-match Ce ρ) meval)
+              (eval-con-clause Ce ρ clauses 0)
+              (eval-lit-clause Ce ρ clauses 0))]
+    [(cons C `(app ,f ,@args))
+     ; (pretty-trace `(eval-fun ,f ,(show-simple-env ρ)))
+     (>>=clos
+      (>>= (rat Ce ρ) meval)
+      (λ (lam lamρ)
+        ;  (pretty-trace `(eval-args ,lam ,args))
         (>>= (eval* (map
-                     (λ (i) ((bin i) Ce ρ))
-                     (range (length binds))))
-             (λ (evaled-binds)
-               (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
-                    (λ (_)
-                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
-                      (>>= (bod Ce ρ) meval)))))]
-       [(cons _ `(let* ,binds ,_))
-        (>>= (evalbind*
-              (bins Ce ρ binds)
-              (map car binds)
-              ρ
-              (map
-               (λ (i) ((bin i) Ce ρ))
-               (range (length binds))))
-             (λ (_)
-               ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
-               (>>= (bod Ce ρ) meval)))]
-       [(cons _ `(letrec* ,binds ,_))
-        (>>= (evalbind*
-              (bins Ce ρ binds)
-              (map car binds)
-              ρ
-              (map
-               (λ (i) ((bin i) Ce ρ))
-               (range (length binds))))
-             (λ (_)
-               ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
-               (>>= (bod Ce ρ) meval)))]
-       [(cons _ `(letrec ,binds ,_))
-        ; Scheme rules state that the recursive definitions should not depend on order
-        ; and shouldn't reference each other until they have all been initialized
-        ; (as is often the case with recursive lambdas), as such we treat just like normal let
-        (>>= (eval* (map
-                     (λ (i) ((bin i) Ce ρ))
-                     (range (length binds))))
-             (λ (evaled-binds)
-               (>>= (bind-args (bins Ce ρ binds) (map car binds) ρ evaled-binds)
-                    (λ (_)
-                      ; (pretty-print `(bound-let-vars ,(map car binds) ,ρ ,evaled-binds))
-                      (>>= (bod Ce ρ) meval)))))]
-       [(cons _ `(match ,_ ,@clauses))
-        (>>=eval (>>= (focus-match Ce ρ) meval)
-                 (eval-con-clause Ce ρ clauses 0)
-                 (eval-lit-clause Ce ρ clauses 0))]
-       [(cons C `(app ,f ,@args))
-        ; (pretty-trace `(eval-fun ,f ,(show-simple-env ρ)))
-        (>>=clos
-         (>>= (rat Ce ρ) meval)
-         (λ (lam lamρ)
-           ;  (pretty-trace `(eval-args ,lam ,args))
-           (>>= (eval* (map
-                        (λ (i) ((ran i) Ce ρ))
-                        (range (length args))))
-                (λ (evaled-args)
-                  ; (pretty-print `(evaled-args ,(map show-simple-result evaled-args)))
-                  (match lam
-                    [`(prim ,_ ,_)
-                     ;  (pretty-trace `(applying prim: ,lam ,args))
-                     (apply-primitive lam C ρ evaled-args)]
-                    [(cons _ `(λ ,xs ,bod))
-                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ))
-                     ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
-                     (>>= (bod-enter lam Ce ρ lamρ)
-                          (λ (Ce ρ-new)
-                            ;  (pretty-print `(binding in ,ρ-new))
-                            (>>=
-                             (bind-args (repeat Ce (length xs)) xs ρ-new evaled-args)
-                             (λ (_)
-                               (match (analysis-kind)
-                                 ['exponential (meval Ce ρ-new)]
-                                 ['rebinding
-                                  (define frees (set->list (set-subtract (free-vars `(λ ,xs ,bod)) (apply set xs))))
-                                  (>>= (rebind-vars Ce lam frees lamρ ρ-new)
-                                       (λ (_) (meval Ce ρ-new)))]
-                                 ))))
-                          )]
-                    [(cons C con)
-                     (if (or (equal? con #t) (equal? con #f) (symbol? con))
-                         (let ([argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args)))])
-                           ;  (pretty-print con)
-                           ;  (pretty-print `(conapp ,con))
-                           (if (= (length args) 0)
-                               (clos `(con ,con) (top-env))
-                               (>>= (bind-args (repeat 'con (length argse)) argse ρ evaled-args)
-                                    (λ (_) (clos `(con ,con ,Ce) ρ)))
-                               ))
-                         (error 'invalid-rator (format "~a" con))
-                         )
-                     ]
-                    ))))
+                     (λ (i) ((ran i) Ce ρ))
+                     (range (length args))))
+             (λ (evaled-args)
+               ; (pretty-print `(evaled-args ,(map show-simple-result evaled-args)))
+               (match lam
+                 [`(prim ,_ ,_)
+                  ;  (pretty-trace `(applying prim: ,lam ,args))
+                  (apply-primitive lam C ρ evaled-args)]
+                 [(cons _ `(λ ,xs ,bod))
+                  ;  (pretty-print `(applying closure: ,lam ,args ,ρ))
+                  ;  (pretty-print `(applying closure: ,lam ,args ,ρ ,lamρ ,evaled-args))
+                  (>>= (bod-enter lam Ce ρ lamρ)
+                       (λ (Ce ρ-new)
+                         ;  (pretty-print `(binding in ,ρ-new))
+                         (>>=
+                          (bind-args (repeat Ce (length xs)) xs ρ-new evaled-args)
+                          (λ (_)
+                            (match (analysis-kind)
+                              ['exponential (meval Ce ρ-new)]
+                              ['rebinding
+                               (define frees (set->list (set-subtract (free-vars `(λ ,xs ,bod)) (apply set xs))))
+                               (>>= (rebind-vars Ce lam frees lamρ ρ-new)
+                                    (λ (_) (meval Ce ρ-new)))]
+                              ))))
+                       )]
+                 [(cons C con)
+                  (if (or (equal? con #t) (equal? con #f) (symbol? con))
+                      (let ([argse (map (lambda (i) (car ((ran-e i) Ce ρ))) (range (length args)))])
+                        ;  (pretty-print con)
+                        ;  (pretty-print `(conapp ,con))
+                        (if (= (length args) 0)
+                            (clos `(con ,con) (top-env))
+                            (>>= (bind-args (repeat 'con (length argse)) argse ρ evaled-args)
+                                 (λ (_) (clos `(con ,con ,Ce) ρ)))
+                            ))
+                      (error 'invalid-rator (format "~a" con))
+                      )
+                  ]
+                 ))))
 
-         )
-        ]
-       [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
-       ))
-   ))
+      )
+     ]
+    [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
+    ))
+;  ))
 
 
 (define ((eval-con-clause parent parentρ clauses i) ce ρ)

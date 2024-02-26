@@ -59,14 +59,14 @@
 
 (define (ormap f xs)
   (type-case (Listof 'a) xs
-    [empty
+    [(nil)
      #f]
     [(cons x rest-xs)
      (or (f x) (ormap f rest-xs))]))
 
 (define (andmap f xs)
   (type-case (Listof 'a) xs
-    [empty
+    [(nil)
      #t]
     [(cons x rest-xs)
      (and (f x) (andmap f rest-xs))]))

@@ -1,0 +1,1348 @@
+'(clean-cache
+  blur
+  1
+  23
+  letrec
+  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  23
+  match
+  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
+  63
+  36
+  23
+  4
+  29
+  13
+  42
+  1
+  5/6
+  36
+  #t
+  5
+  ((7/2 7/2 0) (7/2 4 0) (7/2 7/2 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
+  49
+  25
+  20
+  4
+  24
+  13
+  37
+  1
+  15/16
+  25
+  #t
+  5
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(clean-cache
+  blur
+  1
+  23
+  let*
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
+  27
+  11
+  12
+  4
+  4
+  4
+  8
+  1
+  4/11
+  11
+  #t
+  5
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
+  12
+  6
+  4
+  2
+  3
+  1
+  4
+  1
+  1/2
+  6
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
+  27
+  11
+  12
+  4
+  4
+  4
+  8
+  1
+  4/11
+  11
+  #t
+  5
+  ((1 1 0) (1/2 1/2 0) (1 1 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
+  12
+  6
+  4
+  2
+  3
+  1
+  4
+  1
+  1/2
+  6
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  23
+  app
+  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  23
+  app
+  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
+  28
+  16
+  10
+  2
+  12
+  6
+  18
+  1
+  17/21
+  6
+  #f
+  35/8
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
+  25
+  13
+  10
+  2
+  12
+  6
+  18
+  1
+  20/21
+  5
+  #f
+  57/13
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
+  28
+  12
+  12
+  4
+  4
+  4
+  8
+  1
+  1/3
+  12
+  #t
+  5
+  ((1 1 0) (1/2 1 0) (1 1 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
+  12
+  6
+  4
+  2
+  3
+  1
+  4
+  1
+  1/2
+  6
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
+  34
+  22
+  10
+  2
+  18
+  6
+  24
+  1
+  9/11
+  8
+  #f
+  49/11
+  ((3/2 3/2 0) (3/2 2 0) (3/2 3/2 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
+  25
+  13
+  10
+  2
+  12
+  6
+  18
+  1
+  7/8
+  5
+  #f
+  57/13
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
+  12
+  6
+  4
+  2
+  2
+  1
+  3
+  1
+  1/3
+  5
+  #f
+  31/6
+  ((1/2 1/2 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
+  65
+  37
+  23
+  5
+  30
+  13
+  43
+  1
+  31/36
+  36
+  #f
+  186/37
+  ((4 4 0) (7/2 7/2 0) (4 9/2 0)))
+'(clean-cache
+  blur
+  1
+  23
+  app
+  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
+  #f)
+'(clean-cache
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
+  27
+  11
+  12
+  4
+  4
+  4
+  8
+  1
+  4/11
+  11
+  #t
+  5
+  ((1 2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
+  30
+  14
+  12
+  4
+  5
+  4
+  9
+  1
+  4/13
+  14
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
+  72
+  45
+  23
+  4
+  34
+  13
+  47
+  1
+  16/21
+  45
+  #t
+  5
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
+  82
+  55
+  23
+  4
+  43
+  13
+  56
+  1
+  7/9
+  47
+  #f
+  267/55
+  ((0 0 0) (0 0 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
+  82
+  55
+  23
+  4
+  43
+  13
+  56
+  1
+  7/9
+  47
+  #t
+  267/55
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  letrec
+  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
+  120
+  92
+  23
+  5
+  79
+  13
+  92
+  1
+  8/9
+  68
+  #f
+  5
+  ((3/2 3/2 0) (3/2 2 0) (2 2 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
+  121
+  93
+  23
+  5
+  79
+  13
+  92
+  1
+  119/135
+  68
+  #f
+  464/93
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
+  123
+  94
+  23
+  6
+  79
+  13
+  92
+  1
+  473/540
+  68
+  #f
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
+  124
+  95
+  23
+  6
+  79
+  13
+  92
+  1
+  469/540
+  69
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  let*
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
+  125
+  96
+  23
+  6
+  79
+  13
+  92
+  1
+  31/36
+  69
+  #f
+  481/96
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
+  125
+  96
+  23
+  6
+  79
+  13
+  92
+  1
+  31/36
+  69
+  #t
+  481/96
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
+  126
+  97
+  23
+  6
+  79
+  13
+  92
+  1
+  461/540
+  70
+  #t
+  486/97
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
+  127
+  98
+  23
+  6
+  79
+  13
+  92
+  1
+  457/540
+  70
+  #f
+  246/49
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
+  128
+  99
+  23
+  6
+  79
+  13
+  92
+  1
+  151/180
+  70
+  #f
+  496/99
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
+  129
+  100
+  23
+  6
+  79
+  13
+  92
+  1
+  5/6
+  70
+  #f
+  251/50
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
+  129
+  100
+  23
+  6
+  79
+  13
+  92
+  1
+  5/6
+  70
+  #f
+  251/50
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  match
+  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
+  130
+  101
+  23
+  6
+  79
+  13
+  92
+  1
+  223/270
+  70
+  #f
+  508/101
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
+  131
+  102
+  23
+  6
+  79
+  13
+  92
+  1
+  221/270
+  70
+  #f
+  257/51
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
+  131
+  102
+  23
+  6
+  79
+  13
+  92
+  1
+  221/270
+  70
+  #t
+  257/51
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
+  131
+  102
+  23
+  6
+  79
+  13
+  92
+  1
+  221/270
+  70
+  #t
+  257/51
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
+  132
+  103
+  23
+  6
+  79
+  13
+  92
+  1
+  73/90
+  70
+  #f
+  520/103
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
+  133
+  104
+  23
+  6
+  79
+  13
+  92
+  1
+  217/270
+  71
+  #t
+  525/104
+  ((0 1/2 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
+  134
+  105
+  23
+  6
+  79
+  13
+  92
+  1
+  43/54
+  72
+  #t
+  106/21
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
+  25
+  13
+  10
+  2
+  12
+  6
+  18
+  1
+  20/21
+  5
+  #f
+  57/13
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
+  82
+  57
+  20
+  5
+  55
+  13
+  68
+  1
+  217/222
+  41
+  #f
+  281/57
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
+  83
+  58
+  20
+  5
+  55
+  13
+  68
+  1
+  215/222
+  42
+  #t
+  143/29
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
+  84
+  59
+  20
+  5
+  55
+  13
+  68
+  1
+  71/74
+  42
+  #f
+  290/59
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
+  97
+  72
+  20
+  5
+  68
+  13
+  81
+  1
+  113/117
+  47
+  #f
+  359/72
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
+  98
+  73
+  20
+  5
+  68
+  13
+  81
+  1
+  112/117
+  47
+  #f
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
+  99
+  74
+  20
+  5
+  68
+  13
+  81
+  1
+  37/39
+  47
+  #f
+  369/74
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
+  102
+  77
+  20
+  5
+  70
+  13
+  83
+  1
+  113/120
+  49
+  #f
+  5
+  ((0 1/2 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
+  103
+  78
+  20
+  5
+  70
+  13
+  83
+  1
+  14/15
+  50
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
+  104
+  79
+  20
+  5
+  70
+  13
+  83
+  1
+  37/40
+  51
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  let*
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
+  105
+  80
+  20
+  5
+  70
+  13
+  83
+  1
+  11/12
+  51
+  #f
+  401/80
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
+  106
+  81
+  20
+  5
+  70
+  13
+  83
+  1
+  109/120
+  52
+  #t
+  406/81
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
+  107
+  82
+  20
+  5
+  70
+  13
+  83
+  1
+  9/10
+  52
+  #f
+  206/41
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
+  108
+  83
+  20
+  5
+  70
+  13
+  83
+  1
+  107/120
+  53
+  #t
+  417/83
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  match
+  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
+  109
+  84
+  20
+  5
+  70
+  13
+  83
+  1
+  53/60
+  53
+  #f
+  141/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
+  109
+  84
+  20
+  5
+  70
+  13
+  83
+  1
+  53/60
+  53
+  #t
+  141/28
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
+  110
+  85
+  20
+  5
+  70
+  13
+  83
+  1
+  7/8
+  54
+  #t
+  428/85
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  letrec
+  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
+  111
+  86
+  20
+  5
+  71
+  13
+  84
+  1
+  36/41
+  54
+  #f
+  217/43
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  ref-or-constructor
+  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
+  117
+  91
+  20
+  6
+  75
+  13
+  88
+  1
+  113/129
+  58
+  #f
+  460/91
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
+  118
+  92
+  20
+  6
+  75
+  13
+  88
+  1
+  112/129
+  59
+  #t
+  465/92
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
+  123
+  97
+  20
+  6
+  79
+  13
+  92
+  1
+  77/90
+  64
+  #t
+  490/97
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
+  124
+  98
+  20
+  6
+  79
+  13
+  92
+  1
+  229/270
+  65
+  #t
+  495/98
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  blur
+  1
+  5
+  23
+  app
+  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
+  125
+  99
+  20
+  6
+  79
+  13
+  92
+  1
+  227/270
+  66
+  #t
+  500/99
+  ((0 0 0) (0 0 0) (0 0 0)))
