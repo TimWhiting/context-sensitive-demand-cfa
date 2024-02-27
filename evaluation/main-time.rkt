@@ -7,21 +7,26 @@
 
 (define max-context-length 2)
 (define (result-size r)
-  (match-let ([(cons s (literal l)) (from-value (cdr r))])
+  (result-size-val (cons '_ (from-value (cdr r)))))
+
+(define (result-size-val r)
+  (match-let ([(cons s (literal l)) (cdr r)])
     (+ (set-count s) (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l))
-    )
-  )
+    ))
 
 (define (is-singleton r)
-  (match-let ([(cons s (literal l)) (from-value (cdr r))])
+  (is-singleton-val (cons '_ (from-value (cdr r)))))
+
+(define (is-singleton-val r)
+  (match-let ([(cons s (literal l)) (cdr r)])
     (or (and (equal? 1 (set-count (apply set (map car (set->list s))))) (andmap bottom? l))
         (equal? 1 (count (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l)))
     )
   )
 
 (define (join oldres res)
-  (match-let ([(cons s1 (literal l1)) oldres]
-              [(cons s2 (literal l2)) (from-value res)])
+  (match-let ([(cons s1 l1) oldres]
+              [(cons s2 l2) (from-value res)])
     (cons (set-union s1 s2) (lit-union l1 l2))
     )
   )
@@ -55,8 +60,8 @@
      (define num-eval-subqueries (length eval-subqueries))
      (define num-store-values (length store-keys))
 
-     (define singletons (count is-singleton eval-results))
-     (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
+     (define singletons (count is-singleton-val eval-results))
+     (define avg-precision (/ (apply + (map result-size-val eval-results)) (length eval-results)))
      (pretty-print `(,kind ,name ,m ,(timeout) ,num-eval-subqueries ,num-store-values ,singletons ,avg-precision ,timed-result) out-time)
      ]
     )
@@ -149,10 +154,10 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define do-run-demand #t)
+  (define do-run-demand #f)
   (define do-run-exhaustive #t)
-  ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
-  (define programs '(blur eta kcfa-2 loop2-1))
+  (define all-programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
+  (define programs all-programs); '(blur eta kcfa-2 loop2-1))
   (if do-run-exhaustive
       (for ([m (in-range 0 3)])
         (let ([rebind-cost 0]
