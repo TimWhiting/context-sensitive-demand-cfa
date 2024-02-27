@@ -149,14 +149,14 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((eta 13) (ack 20) (mj09 21) (kcfa-2 22) (blur 23) (facehugger 23) (loop2-1 26) (kcfa-3 31) (sat-1 34) (cpstak 36) (map 52) (flatten 59) (primtest 94) (regex 255)))
+(define program-size '((eta 13) (ack 20) (mj09 21) (kcfa-2 22) (blur 23) (facehugger 23) (loop2-1 26) (kcfa-3 31) (sat-1 34) (cpstak 36) (map 52) (sat-2 56) (flatten 59) (sat-3 59) (primtest 94) (regex 255)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
 
-(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 cpstak map flatten primtest) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
@@ -226,7 +226,7 @@
    (map
     (λ (m h)
       (discrete-histogram
-       (map (λ (p) (list p (avg-time-res (car (find-prog p (hash-ref h "mcfa-r")))))) programs)
+       (map (λ (p) (list (format "~a (~a)" p (get-program-size p)) (avg-time-res (car (find-prog p (hash-ref h "mcfa-r")))))) programs)
        #:label (format "m=~a" m)
        #:skip 3.5
        #:x-min m

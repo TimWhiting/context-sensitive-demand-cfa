@@ -73,7 +73,7 @@
                   (get-store-val Cex x px)))]
           [_
            (match i
-             [-1 (error 'constructor "Should be handled previously")] ; treat as constructor - bound in the original environment
+             [-1 (error 'constructor `(constructor-should-be-handled ,(show-simple-ctx Ce) ,x))] ; treat as constructor - bound in the original environment
              [_
               ; (pretty-print "lookup")
               ; (pretty-print `(store-lookup ,(show-simple-ctx Cex) ,x ,(show-simple-env ρ)))

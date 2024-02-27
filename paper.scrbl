@@ -1688,10 +1688,10 @@ This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embod
 
 Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages@~cite{schoepe2023lifting}.
 The approach developed meets all of our criteria above, including context sensitivity, but relegates the context sensitivity to the underlying analyses, and requires
-multiple demand-driven analyses for the language in question. Our work differs in two major ways, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, and it
+multiple demand-driven analyses for the language in question. Our work differs in two major ways: first, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, and second, it
 directly addresses context sensitivity of variables bound in higher order and nested lexical closure environments.
 
-DDPA@~cite{palmer2016higher} is a context-sensitive, demand-driven analysis for higher-order programs so, nominally, it is in precisely the same category as (Lightweight) Demand $m$-CFA.
+DDPA@~cite{palmer2016higher} is a context-sensitive, demand-driven analysis for higher-order programs so, nominally, it is in precisely the same category as Demand $m$-CFA.
 However, before resolving any on-demand queries, DDPA must bootstrap a global control-flow graph to support them.
 Because of this large, fixed, up-front cost, DDPA doesn't provide the pricing model of a demand analysis and does not make the kinds of applications targeted by demand analysis practical.
 
@@ -1738,16 +1738,16 @@ Our work is similar in that it may be possible to cast it as a logic program and
 
 More recently, \citet{sui2016supa} developed \textsc{Supa}, an on-demand analyzer for C programs which refines value flows during analysis.
 \textsc{Supa} is designed for low-budget environments and its evaluation explicitly weighs its ultimate precision against its initial budget.
-Lightweight Demand $m$-CFA can be positioned similarly where the low-budget environments are compilers and IDEs for functional programs.
+Demand $m$-CFA can be positioned similarly where the low-budget environments are compilers and IDEs for functional programs.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented two strategies for achieving context-sensitive demand CFA, each based on the top-$m$-stack-frames context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
-The first strategy leads to the Demand $m$-CFA hierarchy which exhibits pushdown precision
+This paper presented one strategy for achieving context-sensitive demand CFA, based on the top-$m$-stack-frames context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
+This strategy leads to the Demand $m$-CFA hierarchy which exhibits pushdown precision
 (1) with respect to the demand semantics, by virtue of using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation approach, and
 (2) with respect to the direct semantics, by virtue of using the continuation address identified in \emph{Pushdown for Free}@~cite{local:p4f}.
-The second strategy leads to the Lightweight Demand $m$-CFA hierarchy which, in some cases, offers the precision of context sensitivity at the price of context insensitivity.
+This leads to the Demand $m$-CFA hierarchy, which, in many cases, offers the precision of context sensitivity at the price of context insensitivity.
 
 The techniques we used to achieve context-sensitive demand CFA may also be effective at realizing selective context sensitivity@~cite{li2020principled} in a functional setting.
 It might also be possible to combine demand CFA with selective context sensitivity such that the user can specify what aspects of the results should be preserved by analysis, allowing the analyzer to approximate other aspects where profitable.

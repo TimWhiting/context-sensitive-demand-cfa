@@ -140,7 +140,7 @@
   (define do-run-exhaustive #t)
   ; sat-1 regex  -- issues with deriv, rsa
   ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest))
-  (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest))
+  (define programs '(tic-tac-toe))
   (if do-run-exhaustive
       (for ([m (in-range 0 3)])
         (let ([rebind-cost 0]

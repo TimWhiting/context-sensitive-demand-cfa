@@ -1,0 +1,4936 @@
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  lettypes
+  "\"'(eval ((top) lettypes (cons ... player) ...) (env ()))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  letrec*
+  "\"'(eval\n  (lettypes cons ... player (letrec* (some-v ... zero-player-game) ...))\n  (env ()))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) (app make-ai-action (app X)))\n      (app player (app O) (app make-ai-action (app O))))\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (app player (app X) (app make-ai-action (app X)))\n   (-> (app player (app O) (app make-ai-action (app O))) <-))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (app O) (-> (app make-ai-action (app O)) <-)) (env (())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app make-ai-action (-> (app O) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app O) <-) (app make-ai-action (app O))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (-> (app player (app X) (app make-ai-action (app X))) <-)\n   (app player (app O) (app make-ai-action (app O))))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (app X) (-> (app make-ai-action (app X)) <-)) (env (())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app make-ai-action (-> (app X) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app X) <-) (app make-ai-action (app X))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) human-action)\n      (app player (app O) (app make-ai-action (app O))))\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (app player (app X) human-action)\n   (-> (app player (app O) (app make-ai-action (app O))) <-))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (app O) (-> (app make-ai-action (app O)) <-)) (env (())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app make-ai-action (-> (app O) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app O) <-) (app make-ai-action (app O))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (-> (app player (app X) human-action) <-)\n   (app player (app O) (app make-ai-action (app O))))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app X) <-) human-action) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) human-action)\n      (app player (app O) human-action))\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (app player (app X) human-action)\n   (-> (app player (app O) human-action) <-))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app O) <-) human-action) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   play-game\n   (-> (app player (app X) human-action) <-)\n   (app player (app O) human-action))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app player (-> (app X) <-) human-action) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (player-one player-two)\n    (-> (app play-turn empty-board player-one player-two) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app play-turn empty-board player-one (-> player-two <-)) (env (())))\""
+  11
+  7
+  4
+  0
+  7
+  4
+  11
+  1
+  1
+  6
+  #f
+  37/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app play-turn empty-board (-> player-one <-) player-two) (env (())))\""
+  11
+  7
+  4
+  0
+  7
+  4
+  11
+  1
+  1
+  6
+  #f
+  37/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval (λ (bo this-play that-play) (-> (let (_) ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app draw-board! (-> bo <-)) (env (())))\""
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  7
+  #f
+  41/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (let (_) (-> (match this-play ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval\n  (match this-play ((player mark action) (-> (let (co) ...) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  letrec
+  "\"'(eval (let (... () (co (-> (letrec (loop) ...) <-)) () ...) ...) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval (λ () (-> (let (co) ...) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (let (... () (co (-> (app action bo) <-)) () ...) ...) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app action (-> bo <-)) (env (() ())))\""
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  7
+  #f
+  41/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> action <-) bo) (env (() ())))\""
+  38
+  30
+  7
+  1
+  30
+  7
+  37
+  1
+  1
+  24
+  #f
+  17/3
+  ((3 3 0) (3 3 0) (3 3 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (let (co) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> co <-)))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> (app loop) <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app blank? (-> (app board-lookup co bo) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup co (-> bo <-)) (env (() ())))\""
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  7
+  #f
+  41/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup (-> co <-) bo) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (letrec (loop) (-> (app loop) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval (let (co) (-> (let (bo) ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (let (... () (bo (-> (app board-mark co mark bo) <-)) () ...) ...)\n  (env (())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co mark (-> bo <-)) (env (())))\""
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  7
+  #f
+  41/8
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co (-> mark <-) bo) (env (())))\""
+  37
+  30
+  7
+  0
+  30
+  7
+  37
+  1
+  1
+  24
+  #f
+  17/3
+  ((5/2 5/2 0) (5/2 5/2 0) (2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark (-> co <-) mark bo) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (let (bo) (-> (match (app wins? bo mark) ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  let
+  "\"'(eval (match (app wins? bo mark) (#f) (_ (-> (let (_) ...) <-))) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app draw-board! (-> bo <-)) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (let (_) (-> (app void) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (match (app wins? bo mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  let
+  "\"'(eval (match (app full? bo) (#f) (_ (-> (let (_) ...) <-))) (env (())))\""
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  3
+  #t
+  19/4
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app draw-board! (-> bo <-)) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (let (_) (-> (app display \"Cat's game.\\n\") <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  2
+  #t
+  14/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   (app full? bo)\n   ((#f) (-> (app play-turn bo that-play this-play) <-))\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app play-turn bo that-play (-> this-play <-)) (env (())))\""
+  23
+  16
+  7
+  0
+  16
+  7
+  23
+  1
+  1
+  12
+  #f
+  47/8
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app play-turn bo (-> that-play <-) this-play) (env (())))\""
+  23
+  16
+  7
+  0
+  16
+  7
+  23
+  1
+  1
+  12
+  #f
+  47/8
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app play-turn (-> bo <-) that-play this-play) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app full? bo) <-) (#f) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app full? (-> bo <-)) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app wins? bo mark) <-) (#f) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? bo (-> mark <-)) (env (())))\""
+  37
+  30
+  7
+  0
+  30
+  7
+  37
+  1
+  1
+  24
+  #f
+  17/3
+  ((2 5/2 0) (2 5/2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? (-> bo <-) mark) (env (())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> this-play <-) (player mark action)) (env (())))\""
+  24
+  17
+  7
+  0
+  17
+  7
+  24
+  1
+  1
+  12
+  #f
+  104/17
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (λ (bo) (-> (app void) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (bo)\n    (-> (app move-coord (app some-v (app maximin bo ma (app mark⁻¹ ma)))) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app move-coord (-> (app some-v (app maximin bo ma (app mark⁻¹ ma))) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app some-v (-> (app maximin bo ma (app mark⁻¹ ma)) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app maximin bo ma (-> (app mark⁻¹ ma) <-)) (env (() ())))\""
+  23
+  16
+  6
+  1
+  16
+  6
+  22
+  1
+  1
+  12
+  #f
+  21/4
+  ((3/2 3/2 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app mark⁻¹ (-> ma <-)) (env (() ())))\""
+  11
+  7
+  4
+  0
+  7
+  4
+  11
+  1
+  1
+  6
+  #f
+  36/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app maximin bo (-> ma <-) (app mark⁻¹ ma)) (env (() ())))\""
+  11
+  7
+  4
+  0
+  7
+  4
+  11
+  1
+  1
+  6
+  #f
+  36/7
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app maximin (-> bo <-) ma (app mark⁻¹ ma)) (env (() ())))\""
+  41
+  18
+  20
+  3
+  18
+  20
+  38
+  1
+  1
+  16
+  #f
+  46/9
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (λ (bo) (-> (app error 'human-action \"not implemented\") <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (bo this-mark that-mark)\n    (-> (app fold/coord (λ (co mm) ...) (app none)) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app fold/coord (λ (co mm) ...) (-> (app none) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> (let (bo) ...) <-)))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (let (... () (bo (-> (app board-mark co this-mark bo) <-)) () ...) ...)\n  (env (() ())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co this-mark (-> bo <-)) (env (() ())))\""
+  48
+  22
+  23
+  3
+  22
+  23
+  45
+  1
+  1
+  19
+  #f
+  113/22
+  ((3 3 0) (3 3 0) (3 3 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co (-> this-mark <-) bo) (env (() ())))\""
+  19
+  10
+  9
+  0
+  10
+  9
+  19
+  1
+  1
+  6
+  #f
+  27/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark (-> co <-) this-mark bo) (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (let (bo)\n    (->\n     (app max-maybe-move mm (app move co (match (app wins? bo this-mark) ...)))\n     <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   max-maybe-move\n   mm\n   (-> (app move co (match (app wins? bo this-mark) ...)) <-))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (app move co (-> (match (app wins? bo this-mark) ...) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match (app wins? bo this-mark) (#f) (_ (-> (app horizon (app win) 0) <-)))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app horizon (-> (app win) <-) 0) (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (match (app wins? bo this-mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match (app full? bo) (#f) (_ (-> (app horizon (app draw) 0) <-)))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app horizon (-> (app draw) <-) 0) (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   (app full? bo)\n   ((#f)\n    (->\n     (app\n      horizon-add1\n      (app move-horizon (app some-v (app minimax bo that-mark this-mark))))\n     <-))\n   _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   horizon-add1\n   (->\n    (app move-horizon (app some-v (app minimax bo that-mark this-mark)))\n    <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app move-horizon (-> (app some-v (app minimax bo that-mark this-mark)) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app some-v (-> (app minimax bo that-mark this-mark) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app minimax bo that-mark (-> this-mark <-)) (env (() ())))\""
+  18
+  9
+  9
+  0
+  9
+  9
+  18
+  1
+  1
+  6
+  #f
+  16/3
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app minimax bo (-> that-mark <-) this-mark) (env (() ())))\""
+  30
+  18
+  11
+  1
+  18
+  11
+  29
+  1
+  1
+  12
+  #f
+  16/3
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app minimax (-> bo <-) that-mark this-mark) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app full? bo) <-) (#f) _) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app full? (-> bo <-)) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app wins? bo this-mark) <-) (#f) _) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? bo (-> this-mark <-)) (env (() ())))\""
+  19
+  10
+  9
+  0
+  10
+  9
+  19
+  1
+  1
+  6
+  #f
+  27/5
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? (-> bo <-) this-mark) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app move (-> co <-) (match (app wins? bo this-mark) ...))\n  (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((1/2 1/2 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app\n   max-maybe-move\n   (-> mm <-)\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> mm <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app blank? (-> (app board-lookup co bo) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup co (-> bo <-)) (env (() ())))\""
+  48
+  22
+  23
+  3
+  22
+  23
+  45
+  1
+  1
+  19
+  #f
+  113/22
+  ((3 3 0) (3 3 0) (3 3 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup (-> co <-) bo) (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (bo this-mark that-mark)\n    (-> (app fold/coord (λ (co mm) ...) (app none)) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app fold/coord (λ (co mm) ...) (-> (app none) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  let
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> (let (bo) ...) <-)))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (let (... () (bo (-> (app board-mark co this-mark bo) <-)) () ...) ...)\n  (env (() ())))\""
+  5
+  4
+  0
+  1
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co this-mark (-> bo <-)) (env (() ())))\""
+  9
+  6
+  2
+  1
+  6
+  2
+  8
+  1
+  1
+  6
+  #t
+  5
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark co (-> this-mark <-) bo) (env (() ())))\""
+  31
+  19
+  11
+  1
+  19
+  11
+  30
+  1
+  1
+  12
+  #f
+  102/19
+  ((2 2 0) (2 2 0) (2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-mark (-> co <-) this-mark bo) (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (let (bo)\n    (->\n     (app min-maybe-move mm (app move co (match (app wins? bo this-mark) ...)))\n     <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app\n   min-maybe-move\n   mm\n   (-> (app move co (match (app wins? bo this-mark) ...)) <-))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (app move co (-> (match (app wins? bo this-mark) ...) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match (app wins? bo this-mark) (#f) (_ (-> (app horizon (app lose) 0) <-)))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app horizon (-> (app lose) <-) 0) (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (match (app wins? bo this-mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match (app full? bo) (#f) (_ (-> (app horizon (app draw) 0) <-)))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app horizon (-> (app draw) <-) 0) (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   (app full? bo)\n   ((#f)\n    (->\n     (app\n      horizon-add1\n      (app move-horizon (app some-v (app maximin bo that-mark this-mark))))\n     <-))\n   _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   horizon-add1\n   (->\n    (app move-horizon (app some-v (app maximin bo that-mark this-mark)))\n    <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app move-horizon (-> (app some-v (app maximin bo that-mark this-mark)) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app some-v (-> (app maximin bo that-mark this-mark) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app maximin bo that-mark (-> this-mark <-)) (env (() ())))\""
+  30
+  18
+  11
+  1
+  18
+  11
+  29
+  1
+  1
+  12
+  #f
+  16/3
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app maximin bo (-> that-mark <-) this-mark) (env (() ())))\""
+  18
+  9
+  9
+  0
+  9
+  9
+  18
+  1
+  1
+  6
+  #f
+  16/3
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app maximin (-> bo <-) that-mark this-mark) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app full? bo) <-) (#f) _) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app full? (-> bo <-)) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app wins? bo this-mark) <-) (#f) _) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? bo (-> this-mark <-)) (env (() ())))\""
+  31
+  19
+  11
+  1
+  19
+  11
+  30
+  1
+  1
+  12
+  #f
+  102/19
+  ((2 2 0) (2 5/2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app wins? (-> bo <-) this-mark) (env (() ())))\""
+  6
+  5
+  0
+  1
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app move (-> co <-) (match (app wins? bo this-mark) ...))\n  (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app\n   min-maybe-move\n   (-> mm <-)\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> mm <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app blank? (-> (app board-lookup co bo) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup co (-> bo <-)) (env (() ())))\""
+  9
+  6
+  2
+  1
+  6
+  2
+  8
+  1
+  1
+  6
+  #t
+  5
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup (-> co <-) bo) (env (() ())))\""
+  8
+  5
+  2
+  1
+  5
+  2
+  7
+  1
+  1
+  5
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (mmo mo₁) (-> (match mmo ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match mmo (some mo₀) ((none) (-> (app some mo₁) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app some (-> mo₁ <-)) (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match\n   mmo\n   ((some mo₀)\n    (->\n     (app\n      some\n      (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n     <-))\n   (none))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...)\n    <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   (#f)\n   (_ (-> mo₁ <-)))\n  (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   ((#f) (-> mo₀ <-))\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   (-> (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) <-)\n   (#f)\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app horizon< (app move-horizon mo₀) (-> (app move-horizon mo₁) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app move-horizon (-> mo₁ <-)) (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app horizon< (-> (app move-horizon mo₀) <-) (app move-horizon mo₁))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app move-horizon (-> mo₀ <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> mmo <-) (some mo₀) (none)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (mmo mo₁) (-> (match mmo ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match mmo (some mo₀) ((none) (-> (app some mo₁) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app some (-> mo₁ <-)) (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match\n   mmo\n   ((some mo₀)\n    (->\n     (app\n      some\n      (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n     <-))\n   (none))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...)\n    <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   (#f)\n   (_ (-> mo₀ <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   ((#f) (-> mo₁ <-))\n   _)\n  (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   (-> (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) <-)\n   (#f)\n   _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app horizon< (app move-horizon mo₀) (-> (app move-horizon mo₁) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app move-horizon (-> mo₁ <-)) (env (())))\""
+  5
+  3
+  2
+  0
+  3
+  2
+  5
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app horizon< (-> (app move-horizon mo₀) <-) (app move-horizon mo₁))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app move-horizon (-> mo₀ <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> mmo <-) (some mo₀) (none)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (f x) (-> (app foldl (λ (r x) ...) x is) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl (λ (r x) ...) x (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl (λ (r x) ...) (-> x <-) is) (env (())))\""
+  8
+  5
+  3
+  0
+  5
+  3
+  8
+  1
+  1
+  5
+  #t
+  5
+  ((1/2 1/2 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (r x) (-> (app foldl (λ (c x) ...) x is) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl (λ (c x) ...) x (-> is <-)) (env (() ())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl (λ (c x) ...) (-> x <-) is) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (c x) (-> (app f (app coord r c) x) <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app f (app coord r c) (-> x <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app f (-> (app coord r c) <-) x) (env (() () ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord r (-> c <-)) (env (() () ())))\""
+  31
+  23
+  7
+  1
+  23
+  7
+  30
+  1
+  1
+  19
+  #f
+  124/23
+  ((2 2 0) (2 2 0) (3/2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> r <-) c) (env (() () ())))\""
+  31
+  23
+  7
+  1
+  23
+  7
+  30
+  1
+  1
+  19
+  #f
+  124/23
+  ((3/2 3/2 0) (3/2 2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app coord r c) x) (env (() () ())))\""
+  6
+  3
+  3
+  0
+  3
+  3
+  6
+  1
+  1
+  2
+  #f
+  16/3
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (f acc l) (-> (match l ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match l (nil) ((cons x xs) (-> (app foldl f (app f x acc) xs) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl f (app f x acc) (-> xs <-)) (env (())))\""
+  16
+  12
+  4
+  0
+  12
+  4
+  16
+  1
+  1
+  10
+  #f
+  65/12
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app foldl f (-> (app f x acc) <-) xs) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app f x (-> acc <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app f (-> x <-) acc) (env (())))\""
+  23
+  19
+  4
+  0
+  19
+  4
+  23
+  1
+  1
+  16
+  #f
+  102/19
+  ((1 1 0) (1 1 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) x acc) (env (())))\""
+  8
+  4
+  4
+  0
+  4
+  4
+  8
+  1
+  1
+  2
+  #f
+  11/2
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app foldl (-> f <-) (app f x acc) xs) (env (())))\""
+  7
+  3
+  4
+  0
+  3
+  4
+  7
+  1
+  1
+  2
+  #f
+  16/3
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match l ((nil) (-> acc <-)) (cons x xs)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> l <-) (nil) (cons x xs)) (env (())))\""
+  16
+  12
+  4
+  0
+  12
+  4
+  16
+  1
+  1
+  10
+  #f
+  65/12
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (h) (-> (match h ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match h ((horizon oc sc) (-> (app horizon oc (app + sc 1)) <-)))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app horizon oc (-> (app + sc 1) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app + (-> sc <-) 1) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app horizon (-> oc <-) (app + sc 1)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> h <-) (horizon oc sc)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (h₀ h₁) (-> (match h₀ ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (match h₀ ((horizon oc₀ sc₀) (-> (match h₁ ...) <-))) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   h₁\n   ((horizon oc₁ sc₁)\n    (->\n     (app or (app oc< oc₀ oc₁) (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))\n     <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (app oc< oc₀ oc₁)\n   (-> (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app and (app equal? oc₀ oc₁) (-> (app < sc₀ sc₁) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app < sc₀ (-> sc₁ <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app < (-> sc₀ <-) sc₁) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app and (-> (app equal? oc₀ oc₁) <-) (app < sc₀ sc₁)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? oc₀ (-> oc₁ <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? (-> oc₀ <-) oc₁) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (-> (app oc< oc₀ oc₁) <-)\n   (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app oc< oc₀ (-> oc₁ <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app oc< (-> oc₀ <-) oc₁) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> h₁ <-) (horizon oc₁ sc₁)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> h₀ <-) (horizon oc₀ sc₀)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (oc₀ oc₁) (-> (match oc₀ ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   oc₀\n   (win)\n   (draw)\n   ((lose) (-> (app not (app equal? oc₁ (app lose))) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app not (-> (app equal? oc₁ (app lose)) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app equal? oc₁ (-> (app lose) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? (-> oc₁ <-) (app lose)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match oc₀ (win) ((draw) (-> (app equal? oc₁ (app win)) <-)) (lose))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app equal? oc₁ (-> (app win) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? (-> oc₁ <-) (app win)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match oc₀ ((win) (-> (app #f) <-)) (draw) (lose)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> oc₀ <-) (win) (draw) (lose)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (b) (-> (app andmap (λ (r) ...) is) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (r) ...) (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (r) (-> (app andmap (λ (c) ...) is) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (c) ...) (-> is <-)) (env (() ())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (c) (-> (app marked? (app b (app coord r c))) <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app marked? (-> (app b (app coord r c)) <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app b (-> (app coord r c) <-)) (env (() () ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord r (-> c <-)) (env (() () ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> r <-) c) (env (() () ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((2 2 0) (2 2 0) (2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> b <-) (app coord r c)) (env (() () ())))\""
+  17
+  12
+  4
+  1
+  12
+  4
+  16
+  1
+  1
+  12
+  #t
+  5
+  ((3/2 3/2 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (b m)\n    (->\n     (app\n      or\n      (app ormap (λ (r) ...) is)\n      (app ormap (λ (c) ...) is)\n      (app andmap (λ (rc) ...) is)\n      (app andmap (λ (rc) ...) is))\n     <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (app ormap (λ (c) ...) is)\n   (app andmap (λ (rc) ...) is)\n   (-> (app andmap (λ (rc) ...) is) <-))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (rc) ...) (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (λ (rc) (-> (app marked-with? b (app coord rc (app i⁻¹ rc)) m) <-))\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app marked-with? b (app coord rc (app i⁻¹ rc)) (-> m <-))\n  (env (() ())))\""
+  77
+  54
+  22
+  1
+  54
+  22
+  76
+  1
+  1
+  36
+  #f
+  151/27
+  ((6 6 0) (6 13/2 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app marked-with? b (-> (app coord rc (app i⁻¹ rc)) <-) m)\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app coord rc (-> (app i⁻¹ rc) <-)) (env (() ())))\""
+  53
+  38
+  13
+  2
+  38
+  13
+  51
+  1
+  1
+  31
+  #f
+  205/38
+  ((3 3 0) (3 3 0) (7/2 7/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app i⁻¹ (-> rc <-)) (env (() ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((2 2 0) (2 2 0) (2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> rc <-) (app i⁻¹ rc)) (env (() ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((2 2 0) (2 2 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval\n  (app marked-with? (-> b <-) (app coord rc (app i⁻¹ rc)) m)\n  (env (() ())))\""
+  17
+  12
+  4
+  1
+  12
+  4
+  16
+  1
+  1
+  12
+  #t
+  5
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (app ormap (λ (c) ...) is)\n   (-> (app andmap (λ (rc) ...) is) <-)\n   (app andmap (λ (rc) ...) is))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (rc) ...) (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (rc) (-> (app marked-with? b (app coord rc rc) m) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? b (app coord rc rc) (-> m <-)) (env (() ())))\""
+  77
+  54
+  22
+  1
+  54
+  22
+  76
+  1
+  1
+  36
+  #f
+  151/27
+  ((8 8 0) (13/2 13/2 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app marked-with? b (-> (app coord rc rc) <-) m) (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord rc (-> rc <-)) (env (() ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((5/2 5/2 0) (5/2 5/2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> rc <-) rc) (env (() ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((5/2 5/2 0) (5/2 5/2 0) (2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? (-> b <-) (app coord rc rc) m) (env (() ())))\""
+  17
+  12
+  4
+  1
+  12
+  4
+  16
+  1
+  1
+  12
+  #t
+  5
+  ((1 1 0) (1 1 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (-> (app ormap (λ (c) ...) is) <-)\n   (app andmap (λ (rc) ...) is)\n   (app andmap (λ (rc) ...) is))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app ormap (λ (c) ...) (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (c) (-> (app andmap (λ (r) ...) is) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (r) ...) (-> is <-)) (env (() ())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (r) (-> (app marked-with? b (app coord r c) m) <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? b (app coord r c) (-> m <-)) (env (() () ())))\""
+  77
+  54
+  22
+  1
+  54
+  22
+  76
+  1
+  1
+  36
+  #f
+  151/27
+  ((6 13/2 0) (13/2 13/2 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app marked-with? b (-> (app coord r c) <-) m) (env (() () ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord r (-> c <-)) (env (() () ())))\""
+  31
+  23
+  7
+  1
+  23
+  7
+  30
+  1
+  1
+  19
+  #f
+  124/23
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> r <-) c) (env (() () ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? (-> b <-) (app coord r c) m) (env (() () ())))\""
+  17
+  12
+  4
+  1
+  12
+  4
+  16
+  1
+  1
+  12
+  #t
+  5
+  ((1 3/2 0) (1 3/2 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (app\n   or\n   (-> (app ormap (λ (r) ...) is) <-)\n   (app ormap (λ (c) ...) is)\n   (app andmap (λ (rc) ...) is)\n   (app andmap (λ (rc) ...) is))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app ormap (λ (r) ...) (-> is <-)) (env (())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (r) (-> (app andmap (λ (c) ...) is) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (λ (c) ...) (-> is <-)) (env (() ())))\""
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (c) (-> (app marked-with? b (app coord r c) m) <-)) (env (() () ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? b (app coord r c) (-> m <-)) (env (() () ())))\""
+  77
+  54
+  22
+  1
+  54
+  22
+  76
+  1
+  1
+  36
+  #f
+  151/27
+  ((13/2 13/2 0) (6 13/2 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app marked-with? b (-> (app coord r c) <-) m) (env (() () ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord r (-> c <-)) (env (() () ())))\""
+  39
+  27
+  11
+  1
+  27
+  11
+  38
+  1
+  1
+  23
+  #f
+  16/3
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app coord (-> r <-) c) (env (() () ())))\""
+  31
+  23
+  7
+  1
+  23
+  7
+  30
+  1
+  1
+  19
+  #f
+  124/23
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked-with? (-> b <-) (app coord r c) m) (env (() () ())))\""
+  17
+  12
+  4
+  1
+  12
+  4
+  16
+  1
+  1
+  12
+  #t
+  5
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (f xs) (-> (match xs ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   xs\n   (nil)\n   ((cons x rest-xs) (-> (app and (app f x) (app andmap f rest-xs)) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app and (app f x) (-> (app andmap f rest-xs) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap f (-> rest-xs <-)) (env (())))\""
+  24
+  16
+  8
+  0
+  16
+  8
+  24
+  1
+  1
+  14
+  #f
+  85/16
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app andmap (-> f <-) rest-xs) (env (())))\""
+  15
+  7
+  8
+  0
+  7
+  8
+  15
+  1
+  1
+  6
+  #f
+  40/7
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app and (-> (app f x) <-) (app andmap f rest-xs)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app f (-> x <-)) (env (())))\""
+  31
+  23
+  8
+  0
+  23
+  8
+  31
+  1
+  1
+  20
+  #f
+  122/23
+  ((2 2 0) (2 2 0) (3/2 2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) x) (env (())))\""
+  16
+  8
+  8
+  0
+  8
+  8
+  16
+  1
+  1
+  6
+  #f
+  25/4
+  ((1 1 0) (1 3/2 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match xs ((nil) (-> (app #t) <-)) (cons x rest-xs)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> xs <-) (nil) (cons x rest-xs)) (env (())))\""
+  24
+  16
+  8
+  0
+  16
+  8
+  24
+  1
+  1
+  14
+  #f
+  85/16
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (f xs) (-> (match xs ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match\n   xs\n   (nil)\n   ((cons x rest-xs) (-> (app or (app f x) (app ormap f rest-xs)) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app or (app f x) (-> (app ormap f rest-xs) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app ormap f (-> rest-xs <-)) (env (())))\""
+  16
+  12
+  4
+  0
+  12
+  4
+  16
+  1
+  1
+  10
+  #f
+  65/12
+  ((1/2 1/2 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app ormap (-> f <-) rest-xs) (env (())))\""
+  7
+  3
+  4
+  0
+  3
+  4
+  7
+  1
+  1
+  2
+  #f
+  16/3
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (app or (-> (app f x) <-) (app ormap f rest-xs)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app f (-> x <-)) (env (())))\""
+  23
+  19
+  4
+  0
+  19
+  4
+  23
+  1
+  1
+  16
+  #f
+  102/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) x) (env (())))\""
+  8
+  4
+  4
+  0
+  4
+  4
+  8
+  1
+  1
+  2
+  #f
+  11/2
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match xs ((nil) (-> (app #f) <-)) (cons x rest-xs)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> xs <-) (nil) (cons x rest-xs)) (env (())))\""
+  16
+  12
+  4
+  0
+  12
+  4
+  16
+  1
+  1
+  10
+  #f
+  65/12
+  ((1/2 1/2 0) (1 1 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  match
+  "\"'(eval (λ (i) (-> (match i ...) <-)) (env (())))\""
+  49
+  35
+  13
+  1
+  35
+  13
+  48
+  1
+  1
+  29
+  #f
+  188/35
+  ((5/2 3 0) (5/2 5/2 0) (5/2 3 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match i (Ze) (On) ((Tw) (-> (app Ze) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match i (Ze) ((On) (-> (app On) <-)) (Tw)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match i ((Ze) (-> (app Tw) <-)) (On) (Tw)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> i <-) (Ze) (On) (Tw)) (env (())))\""
+  42
+  28
+  13
+  1
+  28
+  13
+  41
+  1
+  1
+  23
+  #f
+  151/28
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (b co m) (-> (match (app b co) ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (app b co) (blank) ((marked m*) (-> (app equal? m m*) <-)))\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? m (-> m* <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? (-> m <-) m*) (env (())))\""
+  86
+  58
+  27
+  1
+  58
+  27
+  85
+  1
+  1
+  36
+  #f
+  163/29
+  ((8 8 0) (8 17/2 0) (8 8 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match (app b co) ((blank) (-> (app #f) <-)) (marked m*)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app b co) <-) (blank) (marked m*)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app b (-> co <-)) (env (())))\""
+  14
+  9
+  5
+  0
+  9
+  5
+  14
+  1
+  1
+  8
+  #f
+  16/3
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> b <-) co) (env (())))\""
+  26
+  16
+  9
+  1
+  16
+  9
+  25
+  1
+  1
+  16
+  #t
+  5
+  ((5/2 5/2 0) (5/2 3 0) (5/2 5/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (λ (co bo) (-> (app bo co) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app bo (-> co <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app (-> bo <-) co) (env (())))\""
+  69
+  32
+  34
+  3
+  32
+  34
+  66
+  1
+  1
+  24
+  #f
+  21/4
+  ((11/2 11/2 0) (11/2 6 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (co) (-> (match (app equal? co₀ co) ...) <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match (app equal? co₀ co) (#f) (_ (-> (app marked ma) <-)))\n  (env (() ())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app marked (-> ma <-)) (env (() ())))\""
+  77
+  54
+  22
+  1
+  54
+  22
+  76
+  1
+  1
+  36
+  #f
+  151/27
+  ((8 10 0) (6 6 0) (6 6 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval\n  (match (app equal? co₀ co) ((#f) (-> (app board-lookup co bo) <-)) _)\n  (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup co (-> bo <-)) (env (() ())))\""
+  60
+  28
+  29
+  3
+  28
+  29
+  57
+  1
+  1
+  23
+  #f
+  145/28
+  ((5 5 0) (5 11/2 0) (9/2 9/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app board-lookup (-> co <-) bo) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  app
+  "\"'(eval (match (-> (app equal? co₀ co) <-) (#f) _) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? co₀ (-> co <-)) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (app equal? (-> co₀ <-) co) (env (() ())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (λ (co) (-> (app blank) <-)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  match
+  "\"'(eval (λ (ma) (-> (match ma ...) <-)) (env (())))\""
+  19
+  13
+  6
+  0
+  13
+  6
+  19
+  1
+  1
+  10
+  #f
+  68/13
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match ma (X) ((O) (-> (app X) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match ma ((X) (-> (app O) <-)) (O)) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> ma <-) (X) (O)) (env (())))\""
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  6
+  #f
+  21/4
+  ((1/2 1/2 0) (1 1 0) (1/2 1/2 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (letrec*\n   (...\n    move-horizon\n    (is\n     (->\n      (app cons (app Ze) (app cons (app On) (app cons (app Tw) (app nil))))\n      <-))\n    mark⁻¹\n    ...)\n   ...)\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app cons (app Ze) (-> (app cons (app On) (app cons (app Tw) (app nil))) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app cons (app On) (-> (app cons (app Tw) (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app cons (app Tw) (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app cons (-> (app Tw) <-) (app nil)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (app cons (-> (app On) <-) (app cons (app Tw) (app nil))) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (app cons (-> (app Ze) <-) (app cons (app On) (app cons (app Tw) (app nil))))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (move-horizon-v) (-> (match move-horizon-v ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match\n   move-horizon-v\n   (move _ move-horizon-x)\n   (_ (-> (app error \"invalid match for move-horizon\") <-)))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match move-horizon-v ((move _ move-horizon-x) (-> move-horizon-x <-)) _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> move-horizon-v <-) (move _ move-horizon-x) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (move-coord-v) (-> (match move-coord-v ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match\n   move-coord-v\n   (move move-coord-x _)\n   (_ (-> (app error \"invalid match for move-coord\") <-)))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval\n  (match move-coord-v ((move move-coord-x _) (-> move-coord-x <-)) _)\n  (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> move-coord-v <-) (move move-coord-x _) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (a) (-> (match a ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match a (blank) (_ (-> (app #f) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match a ((blank) (-> (app #t) <-)) _) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> a <-) (blank) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (a) (-> (match a ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match a (marked _) (_ (-> (app #f) <-))) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval (match a ((marked _) (-> (app #t) <-)) _) (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> a <-) (marked _) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  match
+  "\"'(eval (λ (some-v-v) (-> (match some-v-v ...) <-)) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  25
+  353
+  app
+  "\"'(eval\n  (match\n   some-v-v\n   (some some-v-x)\n   (_ (-> (app error \"invalid match for some-v\") <-)))\n  (env (())))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match some-v-v ((some some-v-x) (-> some-v-x <-)) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
+  0
+  353
+  ref-or-constructor
+  "\"'(eval (match (-> some-v-v <-) (some some-v-x) _) (env (())))\""
+  #f)
+'(clean-cache
+  tic-tac-toe
