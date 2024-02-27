@@ -1,12 +1,40 @@
 #lang racket/base
 (require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
 (require "m-cfa.rkt")
-(require racket/pretty racket/match racket/set racket/string)
+(require racket/pretty racket/match racket/set racket/string racket/list)
 (provide (all-defined-out))
 
 (define (sort-by-key l)
   (sort l (lambda (x y) (string<? (car x) (car y))))
   )
+
+(define (result-size r)
+  (result-size-val (cons '_ (from-value (cdr r)))))
+
+(define (result-size-val r)
+  (match-let ([(cons s (literal l)) (cdr r)])
+    (+ (set-count s) (apply + (map (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l)))
+    ))
+
+(define (is-singleton r)
+  (is-singleton-val (cons '_ (from-value (cdr r)))))
+
+(define (is-singleton-val r)
+  (match-let ([(cons s (literal l)) (cdr r)])
+    (or (and (equal? 1 (set-count (apply set (map car (set->list s)))))
+             (andmap bottom? l))
+        (and (equal? 0 (set-count s))
+             (equal? 1 (apply + (map (match-lambda [(bottom) 0] [(singleton _) 1] [(top) 2]) l)))))
+    )
+  )
+
+(define (join oldres res)
+  (match-let ([(cons s1 l1) oldres]
+              [(cons s2 l2) (from-value res)])
+    (cons (set-union s1 s2) (lit-union l1 l2))
+    )
+  )
+
 
 (define (report-mcfa-hash h out)
   (define evals (filter (lambda (x) (match x [(cons (meval _ _) _) #t] [_ #f])) (hash->list h)))
