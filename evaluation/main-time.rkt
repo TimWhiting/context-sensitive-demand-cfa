@@ -138,9 +138,8 @@
   (show-envs #f)
   (define do-run-demand #t)
   (define do-run-exhaustive #t)
-  ; sat-1 regex  -- issues with deriv, rsa
-  ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest))
-  (define programs '(tic-tac-toe))
+  ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
+  (define programs '(deriv rsa))
   (if do-run-exhaustive
       (for ([m (in-range 0 3)])
         (let ([rebind-cost 0]

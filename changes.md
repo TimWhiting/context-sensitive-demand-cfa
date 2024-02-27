@@ -7,6 +7,8 @@ Work on Paper!!!
 - [ ] Remove discussion of lightweight
 - [ ] Move discussion of DDPA
 - [ ] Rewrite Thesis
+- [ ] For precision, we should really compare an increase from 0-CFA instead of comparing to m-CFA.
+- [ ] Update implementation code sample to use regular m-CFA instead of lightweight formulation
 
 Lower Priority / Future Work:
 - [ ] Create tests for each path in the demand / mcfa code?

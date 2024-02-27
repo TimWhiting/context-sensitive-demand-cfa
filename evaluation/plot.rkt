@@ -149,14 +149,14 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((eta 13) (ack 20) (mj09 21) (kcfa-2 22) (blur 23) (facehugger 23) (loop2-1 26) (kcfa-3 31) (sat-1 34) (cpstak 36) (map 52) (sat-2 56) (flatten 59) (sat-3 59) (primtest 94) (regex 255)))
+(define program-size '((eta 13) (ack 20) (mj09 21) (kcfa-2 22) (blur 23) (facehugger 23) (loop2-1 26) (kcfa-3 31) (sat-1 34) (cpstak 36) (map 52) (sat-2 56) (flatten 59) (sat-3 59) (primtest 94) (rsa 122) (deriv 130) (regex 255) (tic-tac-toe 353)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
 
-(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
@@ -246,12 +246,13 @@
     (λ (m h)
       (discrete-histogram
        (map (λ (p)
-              (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
+              ; (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
               (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-b"))))))
-              (list p (/
-                       (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
-                       (max 1 num-mcfa)
-                       )))
+              ;  (/
+              ;            (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
+              ;            (max 1 num-mcfa)
+              ;            )
+              (list p num-demand))
             programs)
        #:label (format "m=~a" m)
        #:skip 3.5
@@ -275,10 +276,11 @@
        (map (λ (p)
               (define num-mcfa (* num-shuffles (num-singletons (car (find-prog p (hash-ref h "mcfa-e"))))))
               (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-a"))))))
-              (list p (/
-                       (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
-                       (* num-shuffles (max 1 num-mcfa))
-                       )))
+              ; (/
+              ;  (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
+              ;  (* num-shuffles (max 1 num-mcfa))
+              ;  )
+              (list p num-demand))
             programs)
        #:label (format "m=~a" m)
        #:skip 3.5
@@ -288,7 +290,7 @@
     (range 3) hashes
     )
    #:x-label "Program"
-   #:y-label "# Singletons Demand / # Singletons Exhaustive"
+   #:y-label "# Singletons Demand"
    #:width 1500
    #:height 500
    #:out-file (format "plots/precision-acc.png")
