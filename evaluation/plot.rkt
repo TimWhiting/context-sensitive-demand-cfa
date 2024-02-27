@@ -156,7 +156,7 @@
     )
   )
 
-(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
