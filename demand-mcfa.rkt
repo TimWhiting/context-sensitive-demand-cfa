@@ -63,6 +63,7 @@
     ["bind(x,C[x],ρ)" (bind (var 'x) (cursor (ref (var 'x)) (∘e)) (ρ))]
     ["ctx₀" (cc 0)]
     ["ctx₁" (cc 1)]
+    ["ctx₂" (cc 2)]
     ["time-succ(C'[(e₀ e₁)],ρ')" (time-succ (parse-cursor "C'[(e₀ e₁)]") (ρ "'"))]
     ["q''" "q''"]
     ["subst(q',ρ,ρ')" "\\mathsf{subst}(q',\\rho,\\rho')"]

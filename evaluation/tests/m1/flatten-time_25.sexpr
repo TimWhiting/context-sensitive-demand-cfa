@@ -52,1425 +52,8 @@
   39
   #f
   385/62
-  ((21/2 21/2 0) (21/2 21/2 0) (21/2 21/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #f
-  371/60
-  ((19/2 10 0) (19/2 10 0) (10 10 0)))
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
-  76
-  62
-  10
-  4
-  59
-  4
-  63
-  1
-  185/188
-  39
-  #f
-  192/31
-  ((25/2 13 0) (21/2 21/2 0) (21/2 11 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #f
-  371/60
-  ((11 23/2 0) (10 10 0) (19/2 10 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
-  108
-  90
-  13
-  5
-  84
-  5
-  89
-  1
-  235/244
-  56
-  #f
-  286/45
-  ((31/2 16 0) (16 16 0) (33/2 33/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (19/2 19/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 10 0) (10 10 0) (19/2 19/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
-  93
-  75
-  13
-  5
-  72
-  5
-  77
-  1
-  37/38
-  48
-  #f
-  464/75
-  ((29/2 29/2 0) (27/2 14 0) (27/2 27/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (19/2 19/2 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
-  92
-  75
-  12
-  5
-  72
-  5
-  77
-  1
-  37/38
-  48
-  #f
-  464/75
-  ((13 13 0) (13 13 0) (13 13 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 19/2 0) (19/2 10 0) (19/2 19/2 0)))
-'(clean-cache
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app car (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
-  89
-  72
-  12
-  5
-  67
-  5
-  72
-  1
-  205/216
-  45
-  #f
-  457/72
-  ((29/2 15 0) (16 33/2 0) (29/2 15 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
-  81
-  64
-  12
-  5
-  62
-  5
-  67
-  1
-  191/196
-  39
-  #f
-  407/64
-  ((11 11 0) (11 23/2 0) (11 11 0)))
-'(clean-cache
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
-  #f)
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
-  79
-  64
-  10
-  5
-  59
-  4
-  63
-  1
-  185/196
-  41
-  #f
-  197/32
-  ((21/2 21/2 0) (21/2 21/2 0) (21/2 21/2 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
-  108
-  90
-  13
-  5
-  84
-  5
-  89
-  1
-  235/244
-  56
-  #f
-  286/45
-  ((16 16 0) (16 33/2 0) (17 17 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
-  123
-  102
-  15
-  6
-  92
-  6
-  98
-  1
-  253/272
-  63
-  #f
-  329/51
-  ((5 5 0) (5 5 0) (11/2 6 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
-  4
-  4
-  0
-  0
-  4
-  0
-  4
-  1
-  1
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (19/2 19/2 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
-  77
-  62
-  10
-  5
-  59
-  4
-  63
-  1
-  47/50
-  40
-  #t
-  381/62
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
-  77
-  62
-  10
-  5
-  59
-  4
-  63
-  1
-  47/50
-  40
-  #t
-  381/62
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
-  81
-  66
-  10
-  5
-  62
-  4
-  66
-  1
-  12/13
-  44
-  #t
-  403/66
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
-  99
-  80
-  13
-  6
-  75
-  5
-  80
-  1
-  223/236
-  53
-  #f
-  491/80
   ((4 4 0) (4 4 0) (4 4 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
-  101
-  82
-  13
-  6
-  75
-  5
-  80
-  1
-  219/236
-  55
-  #t
-  501/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
-  4
-  4
-  0
-  0
-  4
-  0
-  4
-  1
-  1
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))\""
-  76
-  62
-  10
-  4
-  59
-  4
-  63
-  1
-  185/188
-  39
-  #f
-  385/62
-  ((21/2 11 0) (21/2 21/2 0) (21/2 11 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
-  81
-  64
-  12
-  5
-  62
-  5
-  67
-  1
-  191/196
-  39
-  #f
-  407/64
-  ((11 11 0) (11 11 0) (23/2 12 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
-  81
-  64
-  12
-  5
-  62
-  5
-  67
-  1
-  191/196
-  39
-  #t
-  407/64
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
-  83
-  66
-  12
-  5
-  62
-  5
-  67
-  1
-  191/204
-  41
-  #t
-  139/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #f
-  371/60
-  ((10 10 0) (19/2 10 0) (19/2 10 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
-  91
-  74
-  12
-  5
-  72
-  5
-  77
-  1
-  223/228
-  47
-  #f
-  459/74
-  ((7/2 7/2 0) (7/2 7/2 0) (3 3 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
-  91
-  74
-  12
-  5
-  72
-  5
-  77
-  1
-  223/228
-  47
-  #t
-  459/74
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  91
-  74
-  12
-  5
-  72
-  5
-  77
-  1
-  223/228
-  47
-  #t
-  459/74
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  0
+'(clean-cache
   flatten
   1
   25
@@ -1489,38 +72,115 @@
   38
   #f
   371/60
-  ((19/2 10 0) (21/2 11 0) (10 10 0)))
-'(shuffled-cache
-  0
+  ((7/2 7/2 0) (7/2 7/2 0) (4 4 0)))
+'(clean-cache
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
+  #f)
+'(clean-cache
   flatten
   1
   25
   59
-  ref-or-constructor
-  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
-  75
-  61
+  app
+  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
+  76
+  62
   10
   4
   59
   4
   63
   1
-  187/192
-  38
+  185/188
+  39
   #f
-  385/61
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
+  192/31
+  ((4 4 0) (4 4 0) (4 4 0)))
+'(clean-cache
   flatten
   1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  187/188
+  38
+  #f
+  371/60
+  ((4 4 0) (4 4 0) (4 4 0)))
+'(clean-cache
+  flatten
+  1
+  25
   59
   match
-  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
+  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
+  108
+  90
+  13
+  5
+  84
+  5
+  89
+  1
+  235/244
+  56
+  #f
+  286/45
+  ((13/2 13/2 0) (13/2 13/2 0) (13/2 13/2 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
+  3
+  2
   0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
   flatten
   1
   25
@@ -1540,32 +200,380 @@
   #t
   5
   ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
+  93
+  75
+  13
+  5
+  72
+  5
+  77
+  1
+  37/38
+  48
+  #f
+  464/75
+  ((11/2 11/2 0) (11/2 11/2 0) (11/2 11/2 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (4 4 0) (7/2 7/2 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
+  92
+  75
+  12
+  5
+  72
+  5
+  77
+  1
+  37/38
+  48
+  #f
+  464/75
+  ((5 5 0) (5 5 0) (5 5 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(clean-cache
   flatten
   1
   59
-  letrec*
-  "\"'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))\""
+  match
+  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
   #f)
-'(shuffled-cache
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
+  3
+  2
   0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
   flatten
   1
   59
   app
-  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
+  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
   #f)
-'(shuffled-cache
-  0
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  app
+  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
   flatten
   1
   59
   ref-or-constructor
   "\"'(eval (app car (-> x <-)) (env ((□? (x y)))))\""
   #f)
-'(shuffled-cache
+'(clean-cache
+  flatten
+  1
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
+  3
+  2
   0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  match
+  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
+  89
+  72
+  12
+  5
+  67
+  5
+  72
+  1
+  205/216
+  45
+  #f
+  457/72
+  ((6 6 0) (6 6 0) (6 6 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
+  81
+  64
+  12
+  5
+  62
+  5
+  67
+  1
+  191/196
+  39
+  #f
+  407/64
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(clean-cache
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
+  #f)
+'(clean-cache
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
+  #f)
+'(clean-cache
   flatten
   1
   25
@@ -1585,6 +593,429 @@
   #t
   5
   ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(clean-cache
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  match
+  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
+  108
+  90
+  13
+  5
+  84
+  5
+  89
+  1
+  235/244
+  56
+  #f
+  286/45
+  ((13/2 13/2 0) (13/2 13/2 0) (13/2 13/2 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  108
+  90
+  13
+  5
+  84
+  5
+  89
+  1
+  235/244
+  56
+  #t
+  286/45
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))\""
+  108
+  90
+  13
+  5
+  84
+  5
+  89
+  1
+  235/244
+  56
+  #t
+  286/45
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app cdr (-> x <-)) (env ((□? (x)))))\""
+  109
+  91
+  13
+  5
+  84
+  5
+  89
+  1
+  117/122
+  56
+  #f
+  586/91
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
+  109
+  91
+  13
+  5
+  84
+  5
+  89
+  1
+  117/122
+  56
+  #t
+  586/91
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
+  109
+  91
+  13
+  5
+  84
+  5
+  89
+  1
+  117/122
+  56
+  #t
+  586/91
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
+  110
+  92
+  13
+  5
+  84
+  5
+  89
+  1
+  233/244
+  56
+  #f
+  150/23
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
+  #f)
 '(shuffled-cache
   0
   flatten
@@ -1605,39 +1036,15 @@
   38
   #f
   371/60
-  ((19/2 19/2 0) (10 10 0) (19/2 19/2 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
-  #f)
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
 '(shuffled-cache
   0
   flatten
   1
   25
   59
-  ref-or-constructor
-  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
+  app
+  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
   74
   60
   10
@@ -1648,37 +1055,8 @@
   1
   47/48
   38
-  #f
+  #t
   371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (11 11 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
@@ -1687,175 +1065,43 @@
   25
   59
   app
-  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
-  4
-  4
-  0
-  0
-  4
-  0
-  4
-  1
-  1
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  59
-  lettypes
-  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
+  "\"'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))\""
+  75
+  61
   10
   4
   59
   4
   63
   1
-  47/48
+  187/192
   38
   #f
-  371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (19/2 19/2 0)))
+  380/61
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
-  1
-  flatten
-  1
-  59
-  lettypes
-  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
+  0
   flatten
   1
   25
   59
   app
-  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  75
+  61
   10
   4
   59
   4
   63
   1
-  47/48
+  187/192
   38
-  #f
-  371/60
-  ((19/2 19/2 0) (19/2 19/2 0) (19/2 19/2 0)))
+  #t
+  380/61
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
-  #f)
-'(shuffled-cache
-  1
+  0
   flatten
   1
   59
@@ -1863,417 +1109,7 @@
   "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
   #f)
 '(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
-  89
-  72
-  12
-  5
-  67
-  5
-  72
-  1
-  205/216
-  45
-  #f
-  457/72
-  ((29/2 15 0) (29/2 15 0) (31/2 16 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
-  89
-  72
-  12
-  5
-  67
-  5
-  72
-  1
-  205/216
-  45
-  #t
-  457/72
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))\""
-  93
-  76
-  12
-  5
-  70
-  5
-  75
-  1
-  209/224
-  49
-  #t
-  477/76
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
-  97
-  80
-  12
-  5
-  73
-  5
-  78
-  1
-  213/232
-  53
-  #t
-  499/80
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
-  97
-  80
-  12
-  5
-  73
-  5
-  78
-  1
-  213/232
-  53
-  #t
-  499/80
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
-  97
-  80
-  12
-  5
-  73
-  5
-  78
-  1
-  213/232
-  53
-  #t
-  499/80
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
-  97
-  80
-  12
-  5
-  73
-  5
-  78
-  1
-  213/232
-  53
-  #t
-  499/80
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
-  97
-  80
-  12
-  5
-  73
-  5
-  78
-  1
-  213/232
-  53
-  #t
-  499/80
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
-  100
-  82
-  12
-  6
-  73
-  5
-  78
-  1
-  71/80
-  55
-  #t
-  509/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
-  100
-  82
-  12
-  6
-  73
-  5
-  78
-  1
-  71/80
-  55
-  #t
-  509/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  100
-  82
-  12
-  6
-  73
-  5
-  78
-  1
-  71/80
-  55
-  #t
-  509/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
-  100
-  82
-  12
-  6
-  73
-  5
-  78
-  1
-  71/80
-  55
-  #f
-  509/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #f
-  371/60
-  ((11 11 0) (10 10 0) (19/2 10 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #t
-  371/60
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
-  75
-  61
-  10
-  4
-  59
-  4
-  63
-  1
-  187/192
-  38
-  #f
-  385/61
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))\""
-  75
-  61
-  10
-  4
-  59
-  4
-  63
-  1
-  187/192
-  38
-  #t
-  385/61
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
-  75
-  61
-  10
-  4
-  59
-  4
-  63
-  1
-  187/192
-  38
-  #t
-  385/61
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app car (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))\""
-  76
-  62
-  10
-  4
-  59
-  4
-  63
-  1
-  185/188
-  39
-  #f
-  385/62
-  ((21/2 21/2 0) (21/2 21/2 0) (23/2 12 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
+  0
   flatten
   1
   59
@@ -2281,123 +1117,7 @@
   "\"'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))\""
   #f)
 '(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
   0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
-  92
-  75
-  12
-  5
-  72
-  5
-  77
-  1
-  37/38
-  48
-  #f
-  464/75
-  ((13 27/2 0) (13 13 0) (13 13 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
-  93
-  75
-  13
-  5
-  72
-  5
-  77
-  1
-  37/38
-  48
-  #f
-  464/75
-  ((27/2 14 0) (27/2 27/2 0) (27/2 14 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
-  96
-  77
-  13
-  6
-  72
-  5
-  77
-  1
-  111/118
-  50
-  #t
-  474/77
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
   flatten
   1
   25
@@ -2418,256 +1138,13 @@
   5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  match
-  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
-  108
-  90
-  13
-  5
-  84
-  5
-  89
-  1
-  235/244
-  56
-  #f
-  286/45
-  ((31/2 16 0) (16 33/2 0) (35/2 18 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
-  108
-  90
-  13
-  5
-  84
-  5
-  89
-  1
-  235/244
-  56
-  #t
-  286/45
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
-  108
-  90
-  13
-  5
-  84
-  5
-  89
-  1
-  235/244
-  56
-  #t
-  286/45
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  letrec*
-  "\"'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  47/48
-  38
-  #f
-  371/60
-  ((19/2 10 0) (19/2 10 0) (19/2 10 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
-  76
-  62
-  10
-  4
-  59
-  4
-  63
-  1
-  185/188
-  39
-  #f
-  192/31
-  ((21/2 21/2 0) (21/2 11 0) (21/2 21/2 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  app
-  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  ref-or-constructor
-  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
-  74
-  60
-  10
-  4
-  59
-  4
-  63
-  1
-  187/188
-  38
-  #f
-  371/60
-  ((10 10 0) (19/2 19/2 0) (19/2 19/2 0)))
-'(shuffled-cache
-  1
-  flatten
-  1
-  59
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  flatten
-  1
-  25
-  59
-  app
-  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
-  3
-  2
   0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
   flatten
   1
   25
   59
   app
-  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
+  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
   5
   4
   0
@@ -2681,3 +1158,1526 @@
   #t
   5
   ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  7
+  6
+  0
+  1
+  4
+  0
+  4
+  1
+  2/3
+  6
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app car (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  match
+  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
+  89
+  72
+  12
+  5
+  67
+  5
+  72
+  1
+  205/216
+  45
+  #f
+  457/72
+  ((6 6 0) (6 6 0) (6 6 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
+  76
+  62
+  10
+  4
+  59
+  4
+  63
+  1
+  185/188
+  39
+  #f
+  192/31
+  ((4 4 0) (4 4 0) (4 4 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
+  5
+  4
+  0
+  1
+  2
+  0
+  2
+  1
+  1/2
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
+  84
+  66
+  12
+  6
+  62
+  5
+  67
+  1
+  191/204
+  41
+  #f
+  139/22
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
+  95
+  77
+  12
+  6
+  72
+  5
+  77
+  1
+  109/114
+  50
+  #f
+  474/77
+  ((5 5 0) (5 5 0) (5 5 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  lettypes
+  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  letrec*
+  "\"'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
+  75
+  61
+  10
+  4
+  59
+  4
+  63
+  1
+  47/49
+  38
+  #f
+  385/61
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
+  75
+  61
+  10
+  4
+  59
+  4
+  63
+  1
+  47/49
+  38
+  #t
+  385/61
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
+  77
+  63
+  10
+  4
+  59
+  4
+  63
+  1
+  47/51
+  40
+  #t
+  395/63
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
+  81
+  67
+  10
+  4
+  62
+  4
+  66
+  1
+  48/53
+  44
+  #t
+  417/67
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
+  93
+  75
+  13
+  5
+  72
+  5
+  77
+  1
+  37/38
+  48
+  #f
+  464/75
+  ((5 5 0) (5 5 0) (5 5 0)))
+'(shuffled-cache
+  0
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  0
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))\""
+  76
+  62
+  10
+  4
+  59
+  4
+  63
+  1
+  185/188
+  39
+  #f
+  192/31
+  ((4 4 0) (4 4 0) (4 4 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
+  83
+  66
+  12
+  5
+  62
+  5
+  67
+  1
+  27/28
+  40
+  #f
+  70/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  83
+  66
+  12
+  5
+  62
+  5
+  67
+  1
+  27/28
+  40
+  #t
+  70/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))\""
+  83
+  66
+  12
+  5
+  62
+  5
+  67
+  1
+  27/28
+  40
+  #t
+  70/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 5 (-> (app nil) <-)) (env ()))\""
+  83
+  66
+  12
+  5
+  62
+  5
+  67
+  1
+  27/28
+  40
+  #t
+  70/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))\""
+  83
+  66
+  12
+  5
+  62
+  5
+  67
+  1
+  27/28
+  40
+  #t
+  70/11
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  match
+  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
+  89
+  72
+  12
+  5
+  67
+  5
+  72
+  1
+  23/24
+  44
+  #f
+  115/18
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  lettypes
+  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))\""
+  93
+  75
+  13
+  5
+  72
+  5
+  77
+  1
+  37/38
+  48
+  #f
+  464/75
+  ((5 5 0) (5 5 0) (5 5 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  letrec*
+  "\"'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))\""
+  5
+  4
+  0
+  1
+  2
+  0
+  2
+  1
+  1/2
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  match
+  "\"'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))\""
+  110
+  92
+  13
+  5
+  84
+  5
+  89
+  1
+  235/252
+  58
+  #f
+  291/46
+  ((6 6 0) (6 6 0) (6 6 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))\""
+  110
+  92
+  13
+  5
+  84
+  5
+  89
+  1
+  235/252
+  58
+  #t
+  291/46
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app car (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (app cdr (-> x <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  match
+  "\"'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))\""
+  76
+  62
+  10
+  4
+  59
+  4
+  63
+  1
+  185/188
+  39
+  #f
+  385/62
+  ((4 4 0) (4 4 0) (4 4 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
+  79
+  64
+  10
+  5
+  59
+  4
+  63
+  1
+  185/196
+  41
+  #t
+  395/64
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #t
+  371/60
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app pair? (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  ref-or-constructor
+  "\"'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 2 (-> (app nil) <-)) (env ()))\""
+  6
+  6
+  0
+  0
+  6
+  0
+  6
+  1
+  1
+  6
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))\""
+  8
+  8
+  0
+  0
+  8
+  0
+  8
+  1
+  1
+  8
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app null? (-> x <-)) (env ((□? (x)))))\""
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  38
+  #f
+  371/60
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
+  77
+  62
+  10
+  5
+  59
+  4
+  63
+  1
+  47/50
+  40
+  #t
+  381/62
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
+  80
+  64
+  10
+  6
+  59
+  4
+  63
+  1
+  47/52
+  42
+  #t
+  391/64
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))\""
+  97
+  78
+  12
+  7
+  72
+  5
+  77
+  1
+  11/12
+  51
+  #f
+  479/78
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app cdr (-> x <-)) (env ((□? (x)))))\""
+  98
+  79
+  12
+  7
+  72
+  5
+  77
+  1
+  73/80
+  51
+  #f
+  493/79
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  ref-or-constructor
+  "\"'(eval (app car (-> x <-)) (env ((□? (x)))))\""
+  99
+  80
+  12
+  7
+  72
+  5
+  77
+  1
+  109/120
+  51
+  #f
+  507/80
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  flatten
+  1
+  25
+  59
+  app
+  "\"'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  flatten
+  1
+  59
+  app
+  "\"'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))\""
+  #f)

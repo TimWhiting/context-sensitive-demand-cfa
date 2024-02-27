@@ -154,7 +154,7 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define do-run-demand #f)
+  (define do-run-demand #t)
   (define do-run-exhaustive #t)
   (define all-programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
   (define programs all-programs); '(blur eta kcfa-2 loop2-1))

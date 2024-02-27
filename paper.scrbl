@@ -46,6 +46,8 @@ This paper presents a strategy for achieving context-sensitive demand CFA which 
 The approach is based on the top-$m$-stack-frames abstraction of $m$-CFA and induces Demand $m$-CFA.
 We evaluate the scalability of Demand m-CFA in constrast to scalability of exhaustive analysis. We find that
 Demand m-CFA resolves many non-trivial control flows in constant time regardless of program size. 
+Demand m-CFA also resolves almost all singleton flows in constant time, which
+matches intuition about such flows, and is crucial for common optimizations and analyses.
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -130,7 +132,7 @@ a higher-order program analysis which provides a dataflow ``lookup'' facility.
 However, DDPA's lookup facility depends on a global control-flow graph which it must bootstrap before it can resolve general dataflow queries;
 consequently, it is not suitable for the same applications of demand analysis as we have described it.
 
-Additionally context-sensitivity in a truly demand-driven CFA was more recently investigated in Lifting On-Demand Analysis To Higher-Order Languages@~cite{schoepe2023lifting}.
+Additionally context-sensitivity in a truly demand-driven CFA was more recently investigated in Lifting On-Demand Analysis To Higher-Order Languages@citet{schoepe2023lifting}.
 This however, requires forward and backward demand-driven analyses to already be formulated for the language in question, and higher order features of control flow are decoupled from
 the sensitivity of the underlying analyses. 
 
@@ -171,7 +173,7 @@ which is written in an applicative functional language with Lisp syntax.
 
 \subsection{Without Context Sensitivity}
 
-As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\emph{in}sensitive embodiment of demand CFA, resolves queries.
+As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\textbf{in}sensitive embodiment of demand CFA, resolves queries.
 
 \begin{wrapfigure}{l}{0.35\textwidth}
 \begin{tabular}{cl}
@@ -253,7 +255,7 @@ The query's environment $\langle\texttt{(f 35)}\rangle$ records the context in w
 In order to evaluate \texttt{x}, Demand $m$-CFA issues a \emph{caller} query $q_3'$ to determine the caller of \texttt{(λ (x) x)} that yielded the environment $\langle\texttt{(f 35)}\rangle$.
 It then issues the trace query $q_4$, this time subordinate to $q_3'$, which issues $q_5$ and $q_6$ and results in the same two applications of \texttt{f}.
 However, when $q_3'$ receives a caller from $q_4$, Demand $m$-CFA ensures that the caller could produce the binding context of the parameter in $q_3'$'s environment.
-If so, $q_3'$ forwards the result to $q_3$; if not, it cuts off the resolution process for that path.
+If so, $q_3'$ yields the result to $q_3$; if not, it cuts off the resolution process for that path.
 In this case, $q_5$'s result \texttt{(f 42)} isn't compatible with $q_3'$, and Demand $m$-CFA ceases resolving it rather than issuing $q_7$.
 However, $q_6$'s result \texttt{(f 35)} is compatible, and its resolution continues, issuing $q_8$.
 Resolution of $q_8$ occurs immediately and its result is propagated to the top-level query.
@@ -418,11 +420,11 @@ The @clause-label{App} rule captures the intuition that an application evaluates
 Hence, if the operator @(e 0) evaluates to @(lam (var 'x) (e)), and @(e) evaluates to @(lam (var 'y) (e "_v")), then the application @(app (e 0) (e 1)) evaluates to @(lam (var 'y) (e "_v")) as well.
 Notice that the @clause-label{App} does not evaluate the argument;
 if the argument is needed, indicated by a reference to the operator's parameter @(var 'x) during evaluation of its body, the @clause-label{Ref} rule obtains it.
-The @clause-label{Ref} rule captures the intuition that a reference to a parameter @(var 'x) takes on the values of the arguments of each site at which the $\lambda$ which binds @(var 'x) is called.
-If the @|0cfa-bind-name| metafunction determines the binding configuration of @(var 'x)---i.e. the body of the $\lambda$ term which binds it---to be @(e),
-@(app (e 0) (e 1)) is a caller of that $\lambda$ term, and
-@(e 1) evaluates to @(lam (var 'y) (e "_v")), then
-the reference to @(var 'x) evaluates to @(lam (var 'y) (e "_v")) as well.
+The @clause-label{Ref} rule captures the intuition that a reference to a parameter @(var 'x) takes on the value of the argument at each call site where the $\lambda$ which binds @(var 'x) is called.
+% If the @|0cfa-bind-name| metafunction determines the binding configuration of @(var 'x)---i.e. the body of the $\lambda$ term which binds it---to be @(e),
+% @(app (e 0) (e 1)) is a caller of that $\lambda$ term, and
+% @(e 1) evaluates to @(lam (var 'y) (e "_v")), then
+% the reference to @(var 'x) evaluates to @(lam (var 'y) (e "_v")) as well.
 The @|0cfa-bind-name| metafunction determines the binding configuration of @(var 'x) by walking outward on the syntax tree until it encounters @(var 'x)'s binder.
 Figure~\ref{fig:0cfa-bind} presents its definition.
 
@@ -863,7 +865,7 @@ Now we are in a position to discuss the definition of @|mcfa-call-name|, present
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Known-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
+q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₀ ⊏ ctx₁
 ——
 C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
 
@@ -877,18 +879,18 @@ ctx₀::ρ R ctx₁::ρ
 \label{fig:mcfa-call-reachability}
 \end{figure}
 Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in terms of reachability.
-The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the binding context of the call is the same as the caller query's,
+The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the caller query's binding context refines the discovered binding context of the call,
 the resultant caller of the trace query is also a result of the caller query.
 The call is \emph{known} because the caller query has the context of the call already in its environment.
 If @(≠ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
 In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
 Formally, the refinement relation $\sqsubset$ as the least relation satisfying
 \begin{align*}
-?_{@(cursor (e) (∘e))} \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
+@(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) \sqsubset\; ?_{@(cursor (e) (∘e))} & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
 \end{align*}
 If @(mcfa-cc 1) refines @(mcfa-cc 1), @clause-label{Unknown-Call} does not conclude a @|mcfa-call-name| judgement, but rather an \emph{instantiation} judgement @(mcfa-instantiation (:: (mcfa-cc 0) (mcfa-ρ)) (:: (mcfa-cc 1) (mcfa-ρ))) which denotes that \emph{any} environment @(:: (mcfa-cc 0) (mcfa-ρ)) may be instantiated to @(:: (mcfa-cc 1) (mcfa-ρ)).
 It is by this instantiation that @clause-label{Known-Call} will be triggered.
-When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignore which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
+When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignored which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
 
 Figure~\ref{fig:demand-mcfa-instantiation} presents an extension of @|mcfa-reach-name| which propagates instantiations to all reachable queries.
 \begin{figure}
@@ -1360,7 +1362,7 @@ For example, we did not implement the \texttt{set!} form of R6RS Scheme which mu
 This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
 Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare,
-we expect that relatively few queries encounter mutation. \tw{Indeed when running on several R6RS examples with set!, we resolved x% of the queries, and verified manually the results were correct.}
+we expect that relatively few queries encounter mutation. \tw{Indeed when running on several R6RS examples with set!, we resolved x\% of the queries, and verified manually the results were correct.}
 
 \tw{Should we report lines of code between the implementations 
 (noting that the exhaustive analysis would actually need to implement all the language features and primitives in order to be sound)
@@ -1511,7 +1513,7 @@ The original inspiration for demand CFA is demand dataflow analysis@~cite{horwit
 Demand CFA seeks algorithms with those same characteristics which operate in the presence of first-class functions.
 This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embodiment of demand CFA, with context sensitivity using the context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
 
-Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages@~cite{schoepe2023lifting}.
+Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages@citet{schoepe2023lifting}.
 The approach developed meets all of our criteria above, including context sensitivity, but relegates the context sensitivity to the underlying analyses, and requires
 multiple demand-driven analyses for the language in question. Our work differs in two major ways: first, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, and second, it
 directly addresses context sensitivity of variables bound in higher order and nested lexical closure environments.

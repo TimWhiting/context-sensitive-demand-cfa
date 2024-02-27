@@ -17,7 +17,7 @@
   16
   #f
   214/47
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   facehugger
   0
@@ -37,7 +37,7 @@
   7
   #f
   89/20
-  ((1/2 1 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -57,7 +57,7 @@
   7
   #f
   89/20
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -77,7 +77,7 @@
   7
   #f
   89/20
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (1/2 1/2 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -137,7 +137,7 @@
   3
   #f
   13/3
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -157,7 +157,7 @@
   4
   #f
   9/2
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -177,7 +177,7 @@
   3
   #f
   13/3
-  ((1/2 1/2 0) (1/2 1/2 0) (0 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -197,7 +197,7 @@
   7
   #f
   89/20
-  ((1 1 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -217,7 +217,7 @@
   7
   #f
   89/20
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -237,7 +237,7 @@
   7
   #f
   89/20
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -297,7 +297,7 @@
   3
   #f
   13/3
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -317,7 +317,7 @@
   4
   #f
   9/2
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -337,7 +337,7 @@
   3
   #f
   13/3
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   facehugger
   0
@@ -377,7 +377,7 @@
   16
   #f
   105/23
-  ((3/2 3/2 0) (2 2 0) (2 2 0)))
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   facehugger
   0
@@ -397,7 +397,7 @@
   15
   #f
   191/42
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   facehugger
   0
@@ -437,7 +437,7 @@
   15
   #f
   191/42
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   facehugger
   0
@@ -464,20 +464,41 @@
   0
   15
   23
-  app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
-  22
-  12
+  ref-or-constructor
+  "\"'(eval (app <= (-> n <-) 1) (env (())))\""
+  19
+  9
   9
   1
-  12
   9
-  21
+  9
+  18
   1
   1
-  4
+  3
   #f
-  9/2
+  13/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  letrec*
+  "\"'(eval ((top) letrec* (id ... g) ...) (env ()))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   0
@@ -485,134 +506,8 @@
   0
   15
   23
-  app
-  "\"'(eval (app + (-> (app (app id f) 3) <-) (app (app id g) 4)) (env ()))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  letrec*
-  "\"'(eval ((top) letrec* (id ... g) ...) (env ()))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
   ref-or-constructor
-  "\"'(eval (app * (-> n <-) (app f (app - n 1))) (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  match
-  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  match
-  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (app f (-> (app - n 1) <-)) (env (())))\""
+  "\"'(eval (λ (x) (-> x <-)) (env (())))\""
   63
   47
   12
@@ -654,7 +549,7 @@
   15
   23
   app
-  "\"'(eval (app (-> (app id g) <-) 4) (env ()))\""
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
   63
   47
   12
@@ -674,8 +569,8 @@
   0
   15
   23
-  ref-or-constructor
-  "\"'(eval (app * (-> n <-) (app g (app - n 1))) (env (())))\""
+  app
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)\n  (env (())))\""
   63
   47
   12
@@ -738,69 +633,6 @@
   15
   23
   app
-  "\"'(eval (app g (-> (app - n 1) <-)) (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)\n  (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (λ (x) (-> x <-)) (env (())))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  facehugger
-  0
-  15
-  23
-  app
   "\"'(eval (app * n (-> (app g (app - n 1)) <-)) (env (())))\""
   63
   47
@@ -822,7 +654,49 @@
   15
   23
   app
-  "\"'(eval (app * n (-> (app f (app - n 1)) <-)) (env (())))\""
+  "\"'(eval (app + (-> (app (app id f) 3) <-) (app (app id g) 4)) (env ()))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app g (-> (app - n 1) <-)) (env (())))\""
   63
   47
   12
@@ -884,8 +758,29 @@
   0
   15
   23
+  match
+  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
   app
-  "\"'(eval (app (-> (app id f) <-) 3) (env ()))\""
+  "\"'(eval (app f (-> (app - n 1) <-)) (env (())))\""
   63
   47
   12
@@ -927,7 +822,112 @@
   15
   23
   ref-or-constructor
-  "\"'(eval (app <= (-> n <-) 1) (env (())))\""
+  "\"'(eval (app * (-> n <-) (app f (app - n 1))) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app * n (-> (app f (app - n 1)) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  ref-or-constructor
+  "\"'(eval (app * (-> n <-) (app g (app - n 1))) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app (-> (app id g) <-) 4) (env ()))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app (-> (app id f) <-) 3) (env ()))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  facehugger
+  0
+  15
+  23
+  match
+  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
   63
   47
   12
@@ -961,49 +961,7 @@
   15
   #f
   191/42
-  ((2 2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (app <= (-> n <-) 1) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (app * n (-> (app f (app - n 1)) <-)) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
   facehugger
@@ -1012,195 +970,6 @@
   23
   match
   "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app f (app - n 1))) <-)) _)\n  (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)\n  (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (app - (-> n <-) 1) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (app (-> (app id f) <-) 3) (env ()))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  match
-  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (app * (-> n <-) (app f (app - n 1))) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (λ (x) (-> x <-)) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (app f (-> (app - n 1) <-)) (env (())))\""
-  58
-  42
-  12
-  4
-  42
-  12
-  54
-  1
-  1
-  15
-  #f
-  191/42
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  app
-  "\"'(eval (app g (-> (app - n 1) <-)) (env (())))\""
   58
   42
   12
@@ -1241,8 +1010,71 @@
   0
   15
   23
+  ref-or-constructor
+  "\"'(eval (app - (-> n <-) 1) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  ref-or-constructor
+  "\"'(eval (λ (x) (-> x <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  ref-or-constructor
+  "\"'(eval (app * (-> n <-) (app g (app - n 1))) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
   app
-  "\"'(eval (app (-> (app id g) <-) 4) (env ()))\""
+  "\"'(eval\n  (letrec* (id ... g) (-> (app + (app (app id f) 3) (app (app id g) 4)) <-))\n  (env ()))\""
   63
   47
   12
@@ -1264,6 +1096,132 @@
   23
   app
   "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  match
+  "\"'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app g (-> (app - n 1) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app * n (-> (app f (app - n 1)) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  ref-or-constructor
+  "\"'(eval (app <= (-> n <-) 1) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app * n (-> (app g (app - n 1)) <-)) (env (())))\""
   63
   47
   12
@@ -1305,7 +1263,7 @@
   15
   23
   app
-  "\"'(eval (app * n (-> (app g (app - n 1)) <-)) (env (())))\""
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app f (app - n 1))) <-)) _)\n  (env (())))\""
   63
   47
   12
@@ -1326,28 +1284,7 @@
   15
   23
   app
-  "\"'(eval\n  (letrec* (id ... g) (-> (app + (app (app id f) 3) (app (app id g) 4)) <-))\n  (env ()))\""
-  63
-  47
-  12
-  4
-  47
-  12
-  59
-  1
-  1
-  16
-  #f
-  214/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  facehugger
-  0
-  15
-  23
-  ref-or-constructor
-  "\"'(eval (app * (-> n <-) (app g (app - n 1))) (env (())))\""
+  "\"'(eval (app (-> (app id f) <-) 3) (env ()))\""
   63
   47
   12
@@ -1389,7 +1326,70 @@
   15
   23
   app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))\""
+  "\"'(eval (app f (-> (app - n 1) <-)) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  ref-or-constructor
+  "\"'(eval (app * (-> n <-) (app f (app - n 1))) (env (())))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval (app (-> (app id g) <-) 4) (env ()))\""
+  63
+  47
+  12
+  4
+  47
+  12
+  59
+  1
+  1
+  16
+  #f
+  214/47
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  facehugger
+  0
+  15
+  23
+  app
+  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)\n  (env (())))\""
   63
   47
   12
