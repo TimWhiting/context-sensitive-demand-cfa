@@ -247,7 +247,7 @@
       (discrete-histogram
        (map (λ (p)
               ; (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
-              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-b"))))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
               ;  (/
               ;            (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
               ;            (max 1 num-mcfa)
@@ -274,7 +274,7 @@
       (discrete-histogram
        (map (λ (p)
               (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
-              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-b"))))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
               (list p (/
                        (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
                        (max 1 num-mcfa)
@@ -301,7 +301,7 @@
       (discrete-histogram
        (map (λ (p)
               (define num-mcfa (* num-shuffles (num-singletons (car (find-prog p (hash-ref h "mcfa-e"))))))
-              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-a"))))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-a"))))))
               (list p num-demand))
             programs)
        #:label (format "m=~a" m)
@@ -324,7 +324,7 @@
       (discrete-histogram
        (map (λ (p)
               (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
-              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-a"))))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-a"))))))
               (list p (/
                        (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
                        (* num-shuffles (max 1 num-mcfa))

@@ -80,6 +80,29 @@
     )
   )
 
+
+(define (lexical-extendb ccs bind)
+  (match ccs
+    [(cons call cls) (cons call (lexical-extendb cls (lexical-bind call)))]
+    [`(□? ,y ,C) `(□? ,y ,C)]
+    [(list) bind]
+    )
+  )
+
+(define (lexical-extend ccs)
+  (match ccs
+    [(cons call cls) (take-cc (cons call (lexical-extendb cls (lexical-bind call))))]
+    )
+  )
+
+(define (lexical-bind Ce)
+  (match Ce
+    [(cons `(bod ,y ,C) e) `(□? ,y ,C)]
+    [(cons `(top) _) '()]
+    [_ (lexical-bind (oute Ce))]
+    )
+  )
+
 (define (cc-determined? ccs)
   ((cc-determinedm? (current-m)) ccs))
 
@@ -147,7 +170,7 @@
              )]
           )
         )
-      )  )
+      ))
 
 (define (simplify-envs result)
   (match result

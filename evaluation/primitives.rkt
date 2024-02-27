@@ -205,7 +205,7 @@
   )
 
 (define (do-div p C a1 a2)
-  (do-num-op-to-float a1 a2 /); TWO ints can be a float
+  (do-num-to-topnum a1 a2 /); TWO ints can be a float, or an int
   )
 
 (define (do-sub p C a1 a2)
@@ -213,7 +213,7 @@
   )
 
 (define (do-modulo p C a1 a2)
-  (do-num-op a1 a2 modulo)
+  (do-num-op a1 a2 modulo) ; Two ints are always an int, two floats = float, two nums = num
   )
 
 (define (do-gcd p C a1 a2)
@@ -256,8 +256,8 @@
   (do-num-op-to-default a1 a2 op (lambda (x) (lit topint)))
   )
 
-(define (do-num-op-to-float a1 a2 op)
-  (do-num-op-to-default a1 a2 op (lambda (x) (lit topfloat)))
+(define (do-num-to-topnum a1 a2 op)
+  (do-num-op-to-default a1 a2 op (lambda (x) topnum))
   )
 
 (define (do-num-op a1 a2 op)
@@ -315,7 +315,12 @@
           )))
 
 (define ((to-bool C p) r)
-  (if r (true C p) (false C p)))
+  (match r
+    ['bot ⊥]
+    ['top (each (true C p) (false C p))]
+    [#f (false C p)]
+    [#t (true C p)]
+    ))
 
 (define (do-newline p C) (clos `((top) app void) p))
 (define (do-display p C . args) (clos `((top) app void) p))

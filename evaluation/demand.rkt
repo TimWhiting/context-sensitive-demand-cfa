@@ -531,6 +531,7 @@ Finish the paper
      ] ; TODO: Test match error
     ))
 
+
 (define (call C xs e ρ)
   (define lambod (car (bod-e (cons C `(λ ,xs ,e)) ρ)))
   ; (print-result
@@ -545,7 +546,7 @@ Finish the paper
               (cond
                 [(equal? cc₀ cc₁)
                  ;  (pretty-print "equal")
-                 ;  (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
+                 ; (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  (unit Cee ρee)]
                 [(⊑-cc cc₁ cc₀)
                  ; (pretty-print `(refines-new? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
@@ -554,13 +555,20 @@ Finish the paper
                  (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥))
                  ]
                 [(⊑-cc cc₀ cc₁)
-                 ; (pretty-print `(refines? ,(show-simple-call cc₀) ,(head-cc ρee)))
-                 ; (>>= (put-refines ρ (menv (cons (callc cc₀) ρ₀))) (λ _
-                 (unit Cee (menv (cons (callc cc₀) (env-tail ρee))))
+                 ; (define refined (menv (cons (callc (lexical-extend (tail-or-empty cc₀))) (env-tail ρee))))
+                 ; (pretty-print `(call-refines? ,(show-simple-ctx Cee)
+                 ;                               cc-0 ,(show-simple-call cc₀)
+                 ;                               cc-1 ,(show-simple-call cc₁)
+                 ;                               p-0 ,(show-simple-env ρ)
+                 ;                               p-1 ,(show-simple-env ρee)
+                 ;                               proposed: ,(show-simple-env refined)
+                 ;                               ))
+                 ; (>>= (put-refines ...) (λ _ ⊥))
+                 (unit Cee ρee); refined)
                  ]
                 [else
-                 ;  (pretty-trace "no-refine")
-                 ;  (pretty-tracen 0 `(CALL-NO-REFINE ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
+                 ; (pretty-trace "no-refine")
+                 ; (pretty-tracen 0 `(CALL-NO-REFINE ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  ⊥]))))]
     )
   )
