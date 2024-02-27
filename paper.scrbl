@@ -1221,30 +1221,41 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
 \begin{figure}
 \begin{alltt}
 (define ((eval eval expr call) \ensuremath{C[e']} \ensuremath{\rho})
-  (match \ensuremath{C[e']}
-    [\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
-    [\ensuremath{C[x]} (let ([(\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho})]) 
-            (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
-                 (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
-                   (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
-    [\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                   (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                     (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)::\rho\sb{\lambda}}))))]))
+  (>>= (get-refines \ensuremath{\rho}) 
+       (λ (\ensuremath{\rho})
+            (match \ensuremath{C[e']}
+            [\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
+            [\ensuremath{C[x]} (let ([(\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho})]) 
+                        (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
+                           (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
+                              (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
+            [\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+                              (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+                              (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})))]))))
 
 (define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
-  (match \ensuremath{C'[e]}
-    [\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho})]
-    [\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                     (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                       (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (calibrate m \ensuremath{(C[(e\sb{0}\,\,e\sb{1})],\rho)::\rho\sb{\lambda}}))
-                            expr)))]     
-    [\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)]
-    [\ensuremath{[e]} fail]))
+  (>>= (get-refines \ensuremath{\rho}) 
+       (λ (\ensuremath{\rho})
+            (match \ensuremath{C'[e]}
+            [\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho})]
+            [\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+                              (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+                                 (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})
+                                    expr)))]     
+            [\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)]
+            [\ensuremath{[e]} fail]))))
 
-(define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}::\rho})
-  (match \ensuremath{\mathit{ctx}}
-    [\ensuremath{\square} (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
-    [\ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho')} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} (calibrate m \ensuremath{\rho'}))]))
+(define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}\sb{0}::\rho})
+   (>>= (get-refines \ensuremath{\rho}) 
+        (λ (\ensuremath{\rho})
+            (>>= (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})
+            (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
+                  (let ([\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})]))
+                  (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
+                      (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
+                      (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
+                  ))))))
+    
 \end{alltt}
 \caption{The core of Demand $m$-CFA's implementation using the \textit{ADI} approach}
 \label{fig:implementation}
@@ -1309,7 +1320,7 @@ answers for a subset of the queries.
 
 \subsection{Scalability}
 Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
-we typically determine the computational complexity in terms of the program size. 0CFA has a minimum complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@~citet{}. $m$-CFA (with rebinding) has the advantage is that it gives context sensitivity
+we typically determine the computational complexity in terms of the program size. 0CFA has a minimum complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@citet{dvanhorn:VanHorn-Mairson:ICFP08}. $m$-CFA (with rebinding) has the advantage is that it gives context sensitivity
 at a polynomial complexity. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
 In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
 the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
