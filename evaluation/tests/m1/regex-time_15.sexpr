@@ -37,7 +37,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -99,7 +99,7 @@
   14/15
   13
   #f
-  115/21
+  31/21
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   regex
@@ -119,7 +119,7 @@
   44/45
   12
   #f
-  104/19
+  28/19
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   regex
@@ -146,7 +146,7 @@
   61/66
   17
   #f
-  160/29
+  44/29
   ((2 2 0) (2 2 0) (2 2 0)))
 '(clean-cache
   regex
@@ -166,7 +166,7 @@
   15/16
   12
   #f
-  104/19
+  28/19
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   regex
@@ -193,7 +193,7 @@
   14/15
   21
   #f
-  87/16
+  23/16
   ((2 2 0) (2 2 0) (2 2 0)))
 '(clean-cache
   regex
@@ -213,7 +213,7 @@
   15/16
   12
   #f
-  104/19
+  28/19
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   regex
@@ -240,7 +240,7 @@
   1/2
   4
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -267,7 +267,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -294,7 +294,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -321,7 +321,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -348,7 +348,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -410,7 +410,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -717,7 +717,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -744,7 +744,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -771,7 +771,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -826,7 +826,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -846,7 +846,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1027,7 +1027,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1054,7 +1054,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1074,7 +1074,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1094,7 +1094,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1114,7 +1114,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1197,7 +1197,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1217,7 +1217,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1237,7 +1237,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1257,7 +1257,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1326,7 +1326,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1353,7 +1353,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1401,7 +1401,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1421,7 +1421,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1441,7 +1441,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1461,7 +1461,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1579,7 +1579,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1655,7 +1655,7 @@
   0
   2
   #f
-  16/3
+  4/3
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1731,7 +1731,7 @@
   0
   2
   #f
-  16/3
+  4/3
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1807,7 +1807,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1841,7 +1841,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -1994,7 +1994,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2014,7 +2014,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2083,8 +2083,8 @@
   115/132
   19
   #f
-  11/2
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+  3/2
+  ((5/2 5/2 0) (5/2 5/2 0) (3 3 0)))
 '(clean-cache
   regex
   1
@@ -2103,7 +2103,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2123,7 +2123,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2143,8 +2143,8 @@
   47/51
   13
   #f
-  61/11
-  ((1 1 0) (1 1 0) (1 1 0)))
+  17/11
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
 '(clean-cache
   regex
   1
@@ -2170,7 +2170,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2190,7 +2190,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2315,7 +2315,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2342,7 +2342,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2362,7 +2362,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2382,7 +2382,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2402,7 +2402,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2422,7 +2422,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2442,7 +2442,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2462,7 +2462,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2482,7 +2482,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2502,7 +2502,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   regex
@@ -2522,44 +2522,7 @@
   1
   2
   #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
   1
-  255
-  app
-  "\"'(eval\n  (app\n   regex-match\n   (-> (app regex-derivative pattern (app car data)) <-)\n   (app cdr data))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (match (app eq? c re) (#f) (_ (-> regex-BLANK <-))) (env ((□? (re c)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
@@ -2567,100 +2530,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (-> (app regex-derivative pat1 c) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-derivative pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))\""
+  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2676,7 +2546,73 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app match-rep (-> re <-) (λ (pat) ...)) (env ((□? (re c)))))\""
+  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match (app regex-rep? re) (#f) (_ (-> (app #t) <-))) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2684,7 +2620,474 @@
   1
   255
   app
-  "\"'(eval (app eq? (-> (app car re) <-) 'seq) (env ((□? (re)))))\""
+  "\"'(eval (app cdr (-> (app cdr p) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app seq (app regex-derivative pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car data))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match (app regex-null? re) ((#f) (-> (match (app eq? c re) ...) <-)) _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (λ (pattern data) (-> (match (app null? data) ...) <-))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  lettypes
+  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'rep)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app alt (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (p) (-> (app car (app cdr p)) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (re) (-> (app eq? re (app #t)) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (re) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'seq) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))\""
+  36
+  19
+  11
+  6
+  18
+  3
+  21
+  1
+  15/16
+  12
+  #f
+  28/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re f) (-> (app and (app regex-rep? re) (app f (app cadr re))) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   cons\n   'seq\n   (->\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n    <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-seq? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   cons\n   'foo\n   (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-seq? (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app eq? c re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app regex-alt? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? (-> re <-) (app #f)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr (app cdr p)) <-)) (env ((□? (p)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2705,15 +3108,15 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
   regex
   1
   255
-  letrec*
-  "\"'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))\""
+  app
+  "\"'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2721,7 +3124,36 @@
   1
   255
   ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (letrec* (... caddr (regex-NULL (-> (app #f) <-)) regex-BLANK ...) ...)\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (-> (app regex-derivative pat1 c) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2729,15 +3161,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> re <-) (app #f)) (env ((□? (re)))))\""
+  "\"'(eval\n  (match (app regex-empty? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2745,7 +3169,7 @@
   1
   255
   app
-  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re c)))))\""
+  "\"'(eval (app eq? (-> (app car re) <-) 'alt) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2753,7 +3177,7 @@
   1
   255
   app
-  "\"'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))\""
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2761,23 +3185,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app eq? c (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app or (-> (app char? re) <-) (app symbol? re)) (env ((□? (re)))))\""
+  "\"'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2791,10 +3199,103 @@
   0
   regex
   1
+  255
+  match
+  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative pat1 c) pat2)\n      (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr p) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> data <-)) (env ((□? (pattern data)))))\""
+  36
+  19
+  11
+  6
+  18
+  3
+  21
+  1
+  15/16
+  12
+  #f
+  28/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'alt)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-derivative pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match (app eq? c re) ((#f) (-> (match (app regex-atom? re) ...) <-)) _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
   15
   255
   app
-  "\"'(eval\n  (app\n   regex-match\n   (app\n    cons\n    'seq\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n   (-> (app cons 'foo (app cons 'bar (app nil))) <-))\n  (env ()))\""
+  "\"'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (-> (app #f) <-))\n  (env ()))\""
   2
   2
   0
@@ -2806,7 +3307,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
@@ -2814,7 +3315,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2822,7 +3323,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app regex-derivative pat (-> c <-)) (env ((□? (pat)) (□? (re c)))))\""
+  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2830,15 +3331,7 @@
   1
   255
   match
-  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
+  "\"'(eval\n  (match\n   (app regex-empty? pat1)\n   ((#f) (-> (match (app regex-empty? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
   #f)
 '(shuffled-cache
   0
@@ -2859,8 +3352,133 @@
   44/45
   12
   #f
-  104/19
+  28/19
   ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-derivative pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-seq? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (let (_) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app regex-rep? re) <-) (app f (app cadr re)))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app char? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
+  #f)
 '(shuffled-cache
   0
   regex
@@ -2869,6 +3487,2833 @@
   255
   app
   "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) ((#f) (-> regex-NULL <-)) c-x)\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat) (-> (app seq (app regex-derivative pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app or (app char? re) (-> (app symbol? re) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat)\n   ((#f) (-> (match (app regex-empty? pat) ...) <-))\n   _)\n  (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'seq)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app cdr (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-rep? re) (-> (app f (app cadr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'rep (-> (app cons pat (app nil)) <-)) (env ((□? (pat)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (match (app eq? c re) (#f) (_ (-> regex-BLANK <-))) (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-))\n  (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   alt\n   (app seq (app regex-derivative pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app regex-derivative pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app or (-> (app char? re) <-) (app symbol? re)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  5
+  4
+  0
+  1
+  2
+  0
+  2
+  1
+  1/2
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-))\n  (env ()))\""
+  6
+  5
+  0
+  1
+  4
+  0
+  4
+  1
+  4/5
+  5
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  match
+  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
+  50
+  30
+  13
+  7
+  25
+  4
+  29
+  1
+  115/132
+  19
+  #f
+  3/2
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  let
+  "\"'(eval (λ (re c) (-> (let (_) ...) <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-derivative (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   alt\n   (-> (app seq (app regex-derivative pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app eq? (-> (app car re) <-) 'seq) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-derivative pat (-> c <-)) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app symbol? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-alt? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-alt? (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-rep (-> re <-) (λ (pat) ...)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (app regex-derivative pat1 c) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
+  9
+  3
+  3
+  3
+  0
+  1
+  1
+  1
+  0
+  2
+  #f
+  4/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
+  7
+  5
+  0
+  2
+  2
+  0
+  2
+  1
+  2/5
+  5
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons pat (-> (app nil) <-)) (env ((□? (pat)))))\""
+  10
+  7
+  0
+  3
+  2
+  0
+  2
+  1
+  2/7
+  7
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-alt? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app eq? re (-> (app #f) <-)) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pattern <-) (app car data))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))\n   _)\n  (env ((□? (pat)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat) <-) (#f) _) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))\""
+  9
+  6
+  0
+  3
+  2
+  0
+  2
+  1
+  1/3
+  6
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? pat) <-) (#f) _) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app\n     check-expect\n     (app\n      regex-match\n      (app\n       cons\n       'seq\n       (app\n        cons\n        'foo\n        (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n      (app cons 'foo (app cons 'bar (app nil))))\n     (app #f))\n    <-))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'alt) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (re) (-> (app eq? re (app #f)) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (-> (app regex-derivative pattern (app car data)) <-)\n   (app cdr data))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))\""
+  38
+  21
+  11
+  6
+  18
+  3
+  21
+  1
+  14/15
+  13
+  #f
+  31/21
+  ((3/2 3/2 0) (1 1 0) (3/2 3/2 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'rep) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (letrec* (... regex-NULL (regex-BLANK (-> (app #t) <-)) regex-alt? ...) ...)\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-derivative pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? c (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
+  9
+  3
+  3
+  3
+  0
+  1
+  1
+  1
+  0
+  2
+  #f
+  4/3
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  12
+  6
+  3
+  3
+  2
+  1
+  3
+  1
+  1/3
+  5
+  #t
+  7/6
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app cadr re)) (env ((□? (re f)))))\""
+  6
+  2
+  2
+  2
+  0
+  1
+  1
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (p) (-> (app car (app cdr (app cdr p))) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (app\n    cons\n    'seq\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n   (-> (app cons 'foo (app cons 'bar (app nil))) <-))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))\""
+  52
+  32
+  13
+  7
+  29
+  4
+  33
+  1
+  14/15
+  21
+  #f
+  23/16
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app or (app char? re) (app symbol? re)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app regex-seq? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app equal? check (-> expect <-)) (env ((□? (check expect)))))\""
+  9
+  5
+  2
+  2
+  2
+  2
+  4
+  1
+  2/5
+  5
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? (-> re <-) (app #t)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (pat) (-> (match (app regex-null? pat) ...) <-)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? (-> c <-) re) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  letrec*
+  "\"'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
+  42
+  22
+  13
+  7
+  20
+  4
+  24
+  1
+  47/51
+  13
+  #f
+  17/11
+  ((1 1 0) (1 1 0) (3/2 3/2 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? re)\n   ((#f) (-> (match (app regex-atom? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))\""
+  59
+  29
+  20
+  10
+  26
+  4
+  30
+  1
+  61/66
+  17
+  #f
+  44/29
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app\n      cons\n      'seq\n      (app\n       cons\n       'foo\n       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n     (app cons 'foo (app cons 'bar (app nil))))\n    <-)\n   (app #f))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app eq? re (-> (app #t) <-)) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (match (app regex-empty? pat1) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (->\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    <-)\n   (app cons 'foo (app cons 'bar (app nil))))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
+  5
+  4
+  0
+  1
+  2
+  0
+  2
+  1
+  1/2
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'seq)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat) <-) (#f) _) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app eq? re (-> (app #t) <-)) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app or (app char? re) (-> (app symbol? re) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-rep? re) (-> (app f (app cadr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-derivative pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
+  6
+  4
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-))\n  (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-empty? pat1)\n   ((#f) (-> (match (app regex-empty? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app eq? re (-> (app #f) <-)) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (pat) (-> (match (app regex-null? pat) ...) <-)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'seq) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app char? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? pat) <-) (#f) _) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (re) (-> (app eq? re (app #f)) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (-> (app regex-derivative pat1 c) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app\n      cons\n      'seq\n      (app\n       cons\n       'foo\n       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n     (app cons 'foo (app cons 'bar (app nil))))\n    <-)\n   (app #f))\n  (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (p) (-> (app car (app cdr p)) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (re) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))\""
+  59
+  29
+  20
+  10
+  26
+  4
+  30
+  1
+  61/66
+  17
+  #f
+  44/29
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? re)\n   ((#f) (-> (match (app regex-atom? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? c (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))\""
+  36
+  19
+  11
+  6
+  18
+  3
+  21
+  1
+  44/45
+  12
+  #f
+  28/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-alt? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app equal? check (-> expect <-)) (env ((□? (check expect)))))\""
+  9
+  5
+  2
+  2
+  2
+  2
+  4
+  1
+  2/5
+  5
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat) (-> (app seq (app regex-derivative pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat)\n   ((#f) (-> (match (app regex-empty? pat) ...) <-))\n   _)\n  (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-derivative pat (-> c <-)) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'alt) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re f) (-> (app and (app regex-rep? re) (app f (app cadr re))) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))\""
+  38
+  21
+  11
+  6
+  18
+  3
+  21
+  1
+  14/15
+  13
+  #f
+  31/21
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (match (app regex-empty? pat1) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app eq? (-> (app car re) <-) 'alt) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  let
+  "\"'(eval (λ (re c) (-> (let (_) ...) <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-derivative pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? (-> c <-) re) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (app regex-derivative pat1 c) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
+  7
+  5
+  0
+  2
+  2
+  0
+  2
+  1
+  2/5
+  5
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app eq? (-> (app car re) <-) 'rep) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) ((#f) (-> regex-NULL <-)) c-x)\n  (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative pat1 c) pat2)\n      (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> data <-)) (env ((□? (pattern data)))))\""
+  36
+  19
+  11
+  6
+  18
+  3
+  21
+  1
+  15/16
+  12
+  #f
+  28/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
   39
   21
   11
@@ -2877,155 +6322,21 @@
   3
   21
   1
-  44/51
+  5/6
   14
   #t
-  38/7
+  10/7
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
-  0
-  regex
   1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))\""
-  40
-  22
-  11
-  7
-  18
-  3
-  21
-  1
-  43/51
-  14
-  #f
-  60/11
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
-  43
-  24
-  11
-  8
-  18
-  3
-  21
-  1
-  43/57
-  16
-  #t
-  65/12
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re)) (env ((□? (re f)))))\""
-  49
-  26
-  13
-  10
-  18
-  4
-  22
-  1
-  43/63
-  18
-  #t
-  70/13
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
   regex
   1
   255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
+  letrec*
+  "\"'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))\""
   #f)
 '(shuffled-cache
-  0
-  regex
   1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))\""
-  40
-  22
-  11
-  7
-  20
-  3
-  23
-  1
-  17/19
-  15
-  #f
-  119/22
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))\""
-  42
-  24
-  11
-  7
-  22
-  3
-  25
-  1
-  19/21
-  17
-  #t
-  43/8
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
   regex
   1
   255
@@ -3033,2193 +6344,7 @@
   "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
   #f)
 '(shuffled-cache
-  0
-  regex
   1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
-  42
-  22
-  13
-  7
-  20
-  4
-  24
-  1
-  47/51
-  13
-  #f
-  61/11
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   cons\n   'seq\n   (->\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (app regex-derivative pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) ((#f) (-> regex-NULL <-)) c-x)\n  (env ((□? (re c)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? pat) <-) (#f) _) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))\""
-  6
-  4
-  0
-  2
-  2
-  0
-  2
-  1
-  1/2
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app regex-alt? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (match (app regex-empty? pat1) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat)\n   ((#f) (-> (match (app regex-empty? pat) ...) <-))\n   _)\n  (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-alt? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app char? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat) <-) (#f) _) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  match
-  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
-  50
-  30
-  13
-  7
-  25
-  4
-  29
-  1
-  115/132
-  19
-  #f
-  11/2
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
-  13
-  6
-  3
-  4
-  2
-  1
-  3
-  1
-  1/3
-  5
-  #f
-  31/6
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'alt) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'rep)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app cdr (-> (app cdr p) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> c <-) re) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app regex-rep? re) <-) (app f (app cadr re)))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match (app regex-null? re) ((#f) (-> (match (app eq? c re) ...) <-)) _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (letrec* (... regex-NULL (regex-BLANK (-> (app #t) <-)) regex-alt? ...) ...)\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app regex-seq? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app eq? re (-> (app #t) <-)) (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (re) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative pat1 c) pat2)\n      (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   alt\n   (-> (app seq (app regex-derivative pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  lettypes
-  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'alt)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app cdr (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app\n     check-expect\n     (app\n      regex-match\n      (app\n       cons\n       'seq\n       (app\n        cons\n        'foo\n        (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n      (app cons 'foo (app cons 'bar (app nil))))\n     (app #f))\n    <-))\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))\n   _)\n  (env ((□? (pat)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re f) (-> (app and (app regex-rep? re) (app f (app cadr re))) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
-  6
-  4
-  0
-  2
-  0
-  0
-  0
-  1
-  0
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))\""
-  52
-  32
-  13
-  7
-  29
-  4
-  33
-  1
-  14/15
-  21
-  #f
-  87/16
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app\n      cons\n      'seq\n      (app\n       cons\n       'foo\n       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n     (app cons 'foo (app cons 'bar (app nil))))\n    <-)\n   (app #f))\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-seq? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (-> (app #f) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (re) (-> (app eq? re (app #f)) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (λ (pattern data) (-> (match (app null? data) ...) <-))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (letrec* (... caddr (regex-NULL (-> (app #f) <-)) regex-BLANK ...) ...)\n  (env ()))\""
-  5
-  4
-  0
-  1
-  2
-  0
-  2
-  1
-  1/2
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (let (_) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app eq? c re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app eq? (-> (app car re) <-) 'alt) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (p) (-> (app car (app cdr p)) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? pat1)\n   ((#f) (-> (match (app regex-empty? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'rep) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  let
-  "\"'(eval (λ (re c) (-> (let (_) ...) <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (pat) (-> (match (app regex-null? pat) ...) <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   regex-match\n   (->\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    <-)\n   (app cons 'foo (app cons 'bar (app nil))))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app symbol? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-derivative pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pattern <-) (app car data))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> re <-) (app #t)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (app regex-derivative pat1 c) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr (app cdr p)) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match (app regex-rep? re) (#f) (_ (-> (app #t) <-))) (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'seq) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app alt (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app eq? re (-> (app #f) <-)) (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'seq)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app regex-rep? re) (-> (app f (app cadr re)) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match (app eq? c re) ((#f) (-> (match (app regex-atom? re) ...) <-)) _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> data <-)) (env ((□? (pattern data)))))\""
-  36
-  19
-  11
-  6
-  18
-  3
-  21
-  1
-  15/16
-  12
-  #f
-  104/19
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-))\n  (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? re)\n   ((#f) (-> (match (app regex-atom? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car data))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))\""
-  59
-  29
-  20
-  10
-  26
-  4
-  30
-  1
-  61/66
-  17
-  #f
-  160/29
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))\""
-  62
-  31
-  20
-  11
-  26
-  4
-  30
-  1
-  61/72
-  19
-  #t
-  170/31
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
-  9
-  3
-  3
-  3
-  0
-  1
-  1
-  1
-  0
-  2
-  #f
-  16/3
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
-  11
-  5
-  3
-  3
-  2
-  1
-  3
-  1
-  2/5
-  4
-  #t
-  26/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
-  14
-  7
-  3
-  4
-  2
-  1
-  3
-  1
-  2/7
-  6
-  #t
-  36/7
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
-  17
-  10
-  3
-  4
-  4
-  1
-  5
-  1
-  2/5
-  9
-  #t
-  51/10
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app seq (app regex-derivative pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   alt\n   (app seq (app regex-derivative pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app regex-derivative pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-derivative (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-alt? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app equal? check (-> expect <-)) (env ((□? (check expect)))))\""
-  6
-  3
-  2
-  1
-  2
-  2
-  4
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app or (app char? re) (-> (app symbol? re) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat) (-> (app seq (app regex-derivative pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app regex-alt? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app or (app char? re) (app symbol? re)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-seq? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (p) (-> (app car (app cdr (app cdr p))) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app regex-seq? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   cons\n   'foo\n   (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-))\n  (env ()))\""
-  5
-  4
-  0
-  1
-  2
-  0
-  2
-  1
-  1/2
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
-  8
-  6
-  0
-  2
-  2
-  0
-  2
-  1
-  1/3
-  6
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr p) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  0
   regex
   1
   15
@@ -5237,73 +6362,7 @@
   0
   2
   #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
   1
-  255
-  app
-  "\"'(eval (λ (re) (-> (app eq? re (app #t)) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons pat (-> (app nil) <-)) (env ((□? (pat)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
-  7
-  5
-  0
-  2
-  2
-  0
-  2
-  1
-  2/5
-  5
-  #t
-  5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -5311,7 +6370,39 @@
   1
   255
   app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))\""
+  "\"'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -5319,356 +6410,7 @@
   1
   255
   match
-  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))\""
-  38
-  21
-  11
-  6
-  18
-  3
-  21
-  1
-  14/15
-  13
-  #f
-  115/21
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app eq? c re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (app regex-derivative pat1 c) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))\""
-  36
-  19
-  11
-  6
-  18
-  3
-  21
-  1
-  44/45
-  12
-  #f
-  104/19
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app symbol? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (p) (-> (app car (app cdr p)) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-))\n  (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-seq? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (match (app regex-empty? pat1) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   cons\n   'seq\n   (->\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n    <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
-  44
-  24
-  13
-  7
-  22
-  4
-  26
-  1
-  53/57
-  15
-  #f
-  11/2
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   regex-match\n   (-> (app regex-derivative pattern (app car data)) <-)\n   (app cdr data))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> data <-)) (env ((□? (pattern data)))))\""
-  36
-  19
-  11
-  6
-  18
-  3
-  21
-  1
-  15/16
-  12
-  #f
-  104/19
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  match
-  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
-  50
-  30
-  13
-  7
-  25
-  4
-  29
-  1
-  39/46
-  19
-  #f
-  11/2
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app eq? re (-> (app #f) <-)) (env ((□? (re)))))\""
-  53
-  32
-  13
-  8
-  25
-  4
-  29
-  1
-  39/50
-  21
-  #t
-  175/32
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re)))))\""
+  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -5677,255 +6419,6 @@
   255
   match
   "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'rep)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app or (app char? re) (-> (app symbol? re) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))\""
-  52
-  32
-  13
-  7
-  29
-  4
-  33
-  1
-  14/15
-  21
-  #f
-  87/16
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app or (app char? re) (app symbol? re)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  letrec*
-  "\"'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app regex-rep? re) (-> (app f (app cadr re)) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (match (app eq? c re) (#f) (_ (-> regex-BLANK <-))) (env ((□? (re c)))))\""
-  7
-  5
-  0
-  2
-  2
-  0
-  2
-  1
-  2/5
-  5
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match (app eq? c re) ((#f) (-> (match (app regex-atom? re) ...) <-)) _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons pat (-> (app nil) <-)) (env ((□? (pat)))))\""
-  6
-  4
-  0
-  2
-  0
-  0
-  0
-  1
-  0
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
   #f)
 '(shuffled-cache
   1
@@ -5946,7 +6439,7 @@
   1
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -5954,134 +6447,57 @@
   1
   15
   255
+  app
+  "\"'(eval\n  (app\n   cons\n   'seq\n   (->\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n    <-))\n  (env ()))\""
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
   ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  "\"'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app cadr re)) (env ((□? (re f)))))\""
   6
-  5
-  0
-  1
-  4
-  0
-  4
-  1
-  4/5
-  5
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app regex-alt? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app alt (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app eq? (-> (app car re) <-) 'rep) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app eq? (-> (app car re) <-) 'alt) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'foo (-> (app cons 'bar (app nil)) <-)) (env ()))\""
+  2
   2
   2
   0
-  0
-  2
-  0
-  2
   1
   1
+  1
+  0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
   regex
   1
-  15
   255
   ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
-  11
-  5
-  3
-  3
-  2
-  1
-  3
-  1
-  2/5
-  4
-  #f
-  26/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re f) (-> (app and (app regex-rep? re) (app f (app cadr re))) <-))\n  (env ((□? (re f)))))\""
+  "\"'(eval (app regex-empty? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6089,7 +6505,15 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  lettypes
+  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
   #f)
 '(shuffled-cache
   1
@@ -6105,15 +6529,7 @@
   1
   255
   app
-  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app or (-> (app char? re) <-) (app symbol? re)) (env ((□? (re)))))\""
+  "\"'(eval (λ (re) (-> (app eq? re (app #t)) <-)) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6121,65 +6537,41 @@
   1
   15
   255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  match
+  "\"'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))\""
+  50
+  30
+  13
+  7
+  25
   4
-  3
-  0
+  29
   1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat) <-) (#f) _) (env ((□? (pat)))))\""
-  #f)
+  115/132
+  19
+  #f
+  3/2
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
 '(shuffled-cache
   1
   regex
   1
   15
   255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
+  app
+  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
+  50
+  30
+  13
+  7
+  25
   4
-  3
-  0
+  29
   1
-  2
-  0
-  2
-  1
-  2/3
-  3
+  115/132
+  19
   #t
-  5
+  3/2
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -6187,7 +6579,7 @@
   1
   255
   app
-  "\"'(eval\n  (λ (pat) (-> (app seq (app regex-derivative pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6196,7 +6588,7 @@
   15
   255
   app
-  "\"'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))\""
+  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
   3
   2
   0
@@ -6208,7 +6600,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -6217,19 +6609,173 @@
   15
   255
   app
-  "\"'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))\""
+  "\"'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))\""
+  9
   6
-  4
   0
+  3
+  2
+  0
+  2
+  1
+  1/3
+  6
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match (app regex-null? re) ((#f) (-> (match (app eq? c re) ...) <-)) _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (λ (pattern data) (-> (match (app null? data) ...) <-))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (let (_) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr p) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match (app eq? c re) ((#f) (-> (match (app regex-atom? re) ...) <-)) _)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   alt\n   (app seq (app regex-derivative pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app regex-derivative pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (app regex-seq? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app or (app char? re) (app symbol? re)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   cons\n   'foo\n   (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-))\n  (env ()))\""
+  2
   2
   0
   0
+  2
   0
+  2
   1
-  0
-  4
+  1
+  2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -6237,7 +6783,7 @@
   1
   255
   app
-  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6245,16 +6791,82 @@
   1
   255
   app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))\""
+  "\"'(eval (λ (p) (-> (app car (app cdr (app cdr p))) <-)) (env ((□? (p)))))\""
   #f)
 '(shuffled-cache
   1
   regex
   1
   255
-  app
-  "\"'(eval\n  (app seq (app regex-derivative pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))\""
+  ref-or-constructor
+  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re f)))))\""
   #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))\n   _)\n  (env ((□? (pat)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
   regex
@@ -6270,52 +6882,20 @@
   15
   255
   app
-  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
+  "\"'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))\""
+  52
+  32
+  13
+  7
+  29
+  4
+  33
   1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> c <-) re) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app char? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-alt? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
+  14/15
+  21
+  #f
+  23/16
+  ((2 2 0) (2 2 0) (2 2 0)))
 '(shuffled-cache
   1
   regex
@@ -6323,19 +6903,19 @@
   15
   255
   ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
+  "\"'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))\""
+  54
+  33
+  13
+  8
+  29
   4
-  3
-  0
+  33
   1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
+  137/150
+  21
+  #f
+  49/33
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -6350,8 +6930,8 @@
   regex
   1
   255
-  ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  app
+  "\"'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6359,150 +6939,7 @@
   1
   255
   app
-  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  let
-  "\"'(eval (λ (re c) (-> (let (_) ...) <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative pat1 c) pat2)\n      (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (re) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app equal? check (-> expect <-)) (env ((□? (check expect)))))\""
-  6
-  3
-  2
-  1
-  2
-  2
-  4
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? pat1)\n   ((#f) (-> (match (app regex-empty? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re)))))\""
+  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'rep) <-))\n  (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6517,8 +6954,48 @@
   regex
   1
   255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
   ref-or-constructor
-  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
+  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-empty? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6527,7 +7004,163 @@
   15
   255
   app
-  "\"'(eval (app cons 'bar (-> (app nil) <-)) (env ()))\""
+  "\"'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-rep (-> re <-) (λ (pat) ...)) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (letrec* (... regex-NULL (regex-BLANK (-> (app #t) <-)) regex-alt? ...) ...)\n  (env ()))\""
+  5
+  4
+  0
+  1
+  2
+  0
+  2
+  1
+  1/2
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-))\n  (env ()))\""
+  7
+  6
+  0
+  1
+  4
+  0
+  4
+  1
+  2/3
+  6
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car data))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (-> (app #f) <-))\n  (env ()))\""
   2
   2
   0
@@ -6539,15 +7172,36 @@
   1
   2
   #t
-  5
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons 'foo (-> (app cons 'bar (app nil)) <-)) (env ()))\""
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
   regex
   1
   255
-  app
-  "\"'(eval\n  (app and (app regex-seq? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
+  ref-or-constructor
+  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6555,7 +7209,44 @@
   1
   255
   app
-  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re)))))\""
+  "\"'(eval (app car (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'alt)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (match (app eq? c re) (#f) (_ (-> regex-BLANK <-))) (env ((□? (re c)))))\""
+  4
+  3
+  0
+  1
+  2
+  0
+  2
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app symbol? (-> re <-)) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6563,7 +7254,440 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
+  "\"'(eval (app regex-derivative (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app cdr (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-alt? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app regex-rep? re) <-) (app f (app cadr re)))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   regex-match\n   (-> (app regex-derivative pattern (app car data)) <-)\n   (app cdr data))\n  (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-alt? (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app eq? (-> re <-) (app #t)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (pat1 pat2)\n    (->\n     (app alt (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app or (-> (app char? re) <-) (app symbol? re)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))\""
+  36
+  19
+  11
+  6
+  18
+  3
+  21
+  1
+  15/16
+  12
+  #f
+  28/19
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-seq? (-> re <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app car (-> (app cdr (app cdr p)) <-)) (env ((□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app eq? c re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app seq (-> (app regex-derivative pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'rep)) <-))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  match
+  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval (app cons pat (-> (app nil) <-)) (env ((□? (pat)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6584,7 +7708,44 @@
   0
   2
   #t
-  5
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  app
+  "\"'(eval\n  (letrec* (... caddr (regex-NULL (-> (app #f) <-)) regex-BLANK ...) ...)\n  (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -6599,8 +7760,8 @@
   regex
   1
   255
-  app
-  "\"'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))\""
+  ref-or-constructor
+  "\"'(eval\n  (app seq (app regex-derivative pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6608,15 +7769,7 @@
   1
   255
   match
-  "\"'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
+  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6624,36 +7777,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app match-rep (-> re <-) (λ (pat) ...)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (letrec* (... regex-NULL (regex-BLANK (-> (app #t) <-)) regex-alt? ...) ...)\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
+  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6661,7 +7785,7 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
+  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6670,65 +7794,20 @@
   15
   255
   ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
-  4
+  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
+  9
+  3
+  3
   3
   0
   1
-  2
+  1
+  1
   0
   2
-  1
-  2/3
-  3
-  #t
-  5
+  #f
+  4/3
   ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> re <-) (app #f)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'seq)) <-))\n  (env ((□? (re)))))\""
-  #f)
 '(shuffled-cache
   1
   regex
@@ -6743,15 +7822,15 @@
   1
   255
   app
-  "\"'(eval (match (-> (app regex-empty? pat) <-) (#f) _) (env ((□? (pat)))))\""
+  "\"'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
   #f)
 '(shuffled-cache
   1
   regex
   1
   255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))\""
+  app
+  "\"'(eval (app cdr (-> (app cdr p) <-)) (env ((□? (p)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6774,16 +7853,48 @@
   regex
   1
   255
-  app
-  "\"'(eval (app car (-> (app cdr p) <-)) (env ((□? (p)))))\""
+  ref-or-constructor
+  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
   #f)
 '(shuffled-cache
   1
   regex
   1
   255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
+  ref-or-constructor
+  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app and (-> (app regex-alt? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (app\n   alt\n   (-> (app seq (app regex-derivative pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6792,7 +7903,7 @@
   15
   255
   app
-  "\"'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))\""
+  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))\""
   3
   2
   0
@@ -6804,8 +7915,32 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re c)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  ref-or-constructor
+  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval (app eq? (-> (app car re) <-) 'seq) (env ((□? (re)))))\""
+  #f)
 '(shuffled-cache
   1
   regex
@@ -6813,28 +7948,20 @@
   15
   255
   ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
-  12
-  5
+  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))\""
+  4
   3
-  4
   0
   1
-  1
-  1
+  2
   0
-  4
-  #f
-  26/5
+  2
+  1
+  2/3
+  3
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
 '(shuffled-cache
   1
   regex
@@ -6849,7 +7976,7 @@
   1
   255
   app
-  "\"'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))\""
+  "\"'(eval (match (-> (app regex-empty? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
   #f)
 '(shuffled-cache
   1
@@ -6858,167 +7985,56 @@
   15
   255
   app
-  "\"'(eval (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))\""
+  "\"'(eval (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))\""
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  regex
+  1
+  255
+  app
+  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
+  #f)
+'(shuffled-cache
+  1
+  regex
+  1
+  15
+  255
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))\""
+  9
   3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  6
-  4
-  0
-  2
-  0
-  0
-  0
-  1
-  0
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app cdr (-> (app cdr p) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-rep re (λ (pat) ...)) ((#f) (-> regex-NULL <-)) c-x)\n  (env ((□? (re c)))))\""
-  4
+  3
   3
   0
   1
-  2
+  1
+  1
   0
   2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))\n  (env ()))\""
-  6
-  5
-  0
-  1
-  4
-  0
-  4
-  1
-  4/5
-  5
-  #t
-  5
+  #f
+  4/3
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
   regex
   1
   255
-  app
-  "\"'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   cons\n   'foo\n   (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (λ (pattern data) (-> (match (app null? data) ...) <-))\n  (env ((□? (pattern data)))))\""
+  ref-or-constructor
+  "\"'(eval (app eq? (-> re <-) (app #f)) (env ((□? (re)))))\""
   #f)
 '(shuffled-cache
   1
@@ -7039,347 +8055,7 @@
   1
   2
   #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (-> (app #f) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-derivative (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-rep? (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (re) (-> (app eq? re (app #t)) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   alt\n   (-> (app seq (app regex-derivative pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app pair? (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (letrec* (... caddr (regex-NULL (-> (app #f) <-)) regex-BLANK ...) ...)\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app eq? (-> (app car re) <-) 'seq) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   alt\n   (app seq (app regex-derivative pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app regex-derivative pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app seq (app regex-derivative pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))\""
-  59
-  29
-  20
-  10
-  26
-  4
-  30
-  1
-  61/66
-  17
-  #f
-  160/29
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app car (-> re <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-derivative pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-empty? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (-> (app regex-derivative pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -7387,288 +8063,20 @@
   1
   15
   255
-  app
-  "\"'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))\""
-  9
+  ref-or-constructor
+  "\"'(eval\n  (match (app regex-atom? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))\""
   6
-  0
-  3
-  2
-  0
-  2
-  1
-  1/3
-  6
-  #t
   5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match (app regex-null? re) ((#f) (-> (match (app eq? c re) ...) <-)) _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? (-> re <-) (app #t)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (re) (-> (app eq? re (app #f)) <-)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'alt)) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (re f)\n    (-> (app and (app regex-alt? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))\""
-  3
-  2
   0
   1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? re)\n   ((#f) (-> (match (app regex-atom? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))\n   _)\n  (env ((□? (pat)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app eq? c (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'alt) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (-> (app regex-derivative pat1 c) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cadr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app car (-> (app cdr (app cdr p)) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'rep) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-))\n  (env ()))\""
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match (app regex-empty? re) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))\""
-  5
   4
   0
-  1
-  2
-  0
-  2
-  1
-  1/2
   4
-  #t
+  1
+  4/5
   5
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -7676,413 +8084,5 @@
   1
   255
   ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  lettypes
-  "\"'(eval ((top) lettypes (cons ... nil) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app cadr re)) (env ((□? (re f)))))\""
-  6
-  2
-  2
-  2
-  0
-  1
-  1
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app eq? re (-> (app #t) <-)) (env ((□? (re)))))\""
-  9
-  4
-  2
-  3
-  0
-  1
-  1
-  1
-  0
-  4
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))\""
-  11
-  6
-  2
-  3
-  2
-  1
-  3
-  1
-  1/3
-  6
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'seq) <-))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))\""
-  36
-  19
-  11
-  6
-  18
-  3
-  21
-  1
-  15/16
-  12
-  #f
-  104/19
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (-> (app regex-rep? re) <-) (app f (app cadr re)))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (app cons 'rep (-> (app cons pat (app nil)) <-)) (env ((□? (pat)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app\n      cons\n      'seq\n      (app\n       cons\n       'foo\n       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n     (app cons 'foo (app cons 'bar (app nil))))\n    <-)\n   (app #f))\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (app cdr (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app and (app regex-alt? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-null? pat)\n   ((#f) (-> (match (app regex-empty? pat) ...) <-))\n   _)\n  (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval (let (_) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app caddr (-> re <-)) (env ((□? (re f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app cdr (-> p <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app regex-null? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))\""
-  4
-  3
-  0
-  1
-  2
-  0
-  2
-  1
-  2/3
-  3
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  match
-  "\"'(eval (λ (pat) (-> (match (app regex-null? pat) ...) <-)) (env ((□? (pat)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-empty? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (p) (-> (app car (app cdr (app cdr p))) <-)) (env ((□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car data))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  15
-  255
-  app
-  "\"'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))\""
-  3
-  2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
-  5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  ref-or-constructor
-  "\"'(eval (app regex-derivative pat (-> c <-)) (env ((□? (pat)) (□? (re c)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))\""
-  #f)
-'(shuffled-cache
-  1
-  regex
-  1
-  255
-  app
-  "\"'(eval (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))\""
+  "\"'(eval (app regex-atom? (-> re <-)) (env ((□? (re)))))\""
   #f)

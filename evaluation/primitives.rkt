@@ -101,6 +101,33 @@
     [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
 
+(define (do-not p C a1)
+  (if (is-truthy a1) (false C p) (true C p)))
+
+(define (do-or p C . args)
+  (match args
+    ['() (false C p)]
+    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
+    [(cons x xs) (if (is-truthy x) (unit x) (apply do-or (cons p (cons C xs))))]
+    ))
+
+(define (do-and p C . args)
+  (match args
+    ['() (true C p)]
+    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
+    [(cons x xs) (if (is-truthy x) (apply do-and (cons p (cons C xs))) (false C p))]
+    ))
+
+(define (is-truthy r)
+  (not (is-falsey r)))
+
+(define (is-falsey r)
+  (match r
+    [(product/set (list `(con #f) _)) #t]; Only literal #f counts as falsey in scheme
+    [_ #f]
+    )
+  )
+
 (define (do-symbol? p C a1)
   (match a1
     [(product/set (list (cons C `',x) p))
@@ -168,33 +195,6 @@
     [_ ⊥] ; For now, since it can go to float, but I don't have good support for error propagation
     ; [_ (clos (cons C 'error-odd-not-implemented) p)]
     ))
-
-(define (do-not p C a1)
-  (if (is-truthy a1) (false C p) (true C p)))
-
-(define (do-or p C . args)
-  (match args
-    ['() (false C p)]
-    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
-    [(cons x xs) (if (is-truthy x) (unit x) (apply do-or (cons p (cons C xs))))]
-    ))
-
-(define (do-and p C . args)
-  (match args
-    ['() (true C p)]
-    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
-    [(cons x xs) (if (is-truthy x) (apply do-and (cons p (cons C xs))) (false C p))]
-    ))
-
-(define (is-truthy r)
-  (not (is-falsey r)))
-
-(define (is-falsey r)
-  (match r
-    [(product/set (list `(con #f) _)) #t]; Only literal #f counts as falsey in scheme
-    [_ #f]
-    )
-  )
 
 (define (do-add p C a1 a2)
   (do-num-op a1 a2 +)

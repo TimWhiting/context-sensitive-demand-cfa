@@ -7,25 +7,11 @@
 (require racket/match
          racket/list)
 
-#|
-TODO:
-Add more simple tests
-
-Handle Errors
-
-Make sure more r6rs programs work
-
-Work on Koka version
-
-Finish the paper
-|#
-
 ; environment refinement
 (define-key (refine ρ) fail)
 
 ; The first is a refinement of the second parameter
 (define (((put-refines ρ₀ ρ₁) k) s)
-  ; (pretty-trace `(addrefine ,(show-simple-env ρ₀) ,(show-simple-env ρ₁)))
   ((k #f) ((node-absorb/powerset (refine ρ₁) (list ρ₀)) s)))
 
 
@@ -34,16 +20,11 @@ Finish the paper
   ; (pretty-print `(get-refines ,ρ))
   (match (env-list ρ)
     [(list) (unit ρ)]
-    [(cons _ _)
-     ;(print-result-env `(refines ,kind) (λ ()
-     (do-get-refines* ρ) ; ))
-     ]))
+    [(cons _ _) (do-get-refines* ρ)]))
 
 (define (do-get-refines* ρ)
   (match (split-env ρ)
     [(cons c ρ′)
-     ;  (pretty-trace "GET-REFINES")
-     ;  (pretty-trace ρ)
      (⊔ (if (cc-determined? c) ; won't have any refinements at this scope
             (unit ρ)
             (>>= (node-exists/powerset (refine ρ))
@@ -58,7 +39,6 @@ Finish the paper
     ))
 
 (define ((find x) Ce ρ)
-  ; (pretty-print `(find ,x ,(drop Ce 1) ,ρ))
   ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
   (define (handle-let binds)
     (apply each
@@ -118,11 +98,9 @@ Finish the paper
       [(list) (unit acc)]
       [(cons e as)
        (>>= e (λ (ce ρ)
-                ; (pretty-print `(evaling-arg ,(show-simple-ctx ce) ,(show-simple-env ρ)))
                 (>>=
                  (eval ce ρ)
                  (λ (r)
-                   ;  (pretty-print `(evaling-arg-result ,(show-simple-ctx ce) result ,r))
                    (loop as (append acc (list r)))))))]
       )
     )
@@ -131,7 +109,6 @@ Finish the paper
 ; We need special primitives that can evaluate only what is needed
 ;  in the demanded constructor / closure data model
 (define (lookup-demand-primitive x)
-  ; (pretty-print `(primitive-lookup ,x))
   (match x
     ['= `(prim = ,do-demand-equal)]
     ['equal? `(prim equal? ,do-demand-equal)]
@@ -245,19 +222,14 @@ Finish the paper
            [(cons C #f) (falsecon C ρ)]
            [(cons _ (? string? s)) (lit (litstring s))]
            [(cons _ (? integer? x)) (lit (litint x))]
-           [(cons _ `',x);  (pretty-print `(quoted ,x))
-            (clos Ce ρ)
-            ]
+           [(cons _ `',x) (clos Ce ρ)]
            [(cons _ (? symbol? x))
-            ;  (pretty-print `(bind ,x ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
             (>>= ((bind x) Ce ρ)
                  (λ (Cex ρ i)
-                   ; (pretty-print `(bound-to ,x ,i ,(show-simple-ctx Cex)))
                    (match Cex
                      [(cons `(bod ,xs ,C) e)
                       (>>= (call C xs e ρ)
                            (λ (Ce ρ)
-                             ; (pretty-print `(call-for-ref ,x ,i ,(show-simple-ctx Ce)))
                              (if (equal? (length xs) (length (args-e Ce)))
                                  (>>= ((ran i) Ce ρ) eval)
                                  ⊥)))
@@ -274,7 +246,6 @@ Finish the paper
                            eval)
                       ]
                      [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
-                      ;  (pretty-print `(bound-in-match ,x ,(show-simple-ctx Cex)))
                       (>>= (out Cex ρ)
                            (λ (Ce ρ)
                              (>>=eval (>>= (focus-match Ce ρ) eval)
@@ -291,22 +262,18 @@ Finish the paper
                         )]
                      )))]
            [(cons _ `(λ ,_ ,_))
-            ;  (pretty-trace "LAM")
             (clos Ce ρ)]
            [(cons C `(app ,f ,@args))
-            ;  (pretty-trace `(APP ,ρ))
             (>>=clos
              (>>= (rat Ce ρ) eval)
              (λ (Ce′ ρ′)
                ; (pretty-trace `(got closure or primitive ,Ce′))
                (match Ce′
                  [`(prim ,_ ,_)
-                  ;  (pretty-trace `(eval args prim: ,args))
                   (>>= (eval* (map
                                (λ (i) ((ran i) Ce ρ))
                                (range (length args))))
                        (λ (args)
-                         ; (pretty-trace `(applying prim: ,Ce′ ,args))
                          (apply-primitive Ce′ C ρ args)))]
                  [(cons _ `(λ ,y ,C))
                   (>>= (bod-enter Ce′ Ce ρ ρ′)
@@ -342,7 +309,6 @@ Finish the paper
            [(cons _ `(match ,_ ,@clauses))
             (>>= (focus-match Ce ρ)
                  (λ (Cm ρm)
-                   ; (pretty-print `(eval-match ,Cm ,ρm))
                    (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
                    ))]
            [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
@@ -359,7 +325,6 @@ Finish the paper
   )
 
 (define ((eval-match-binding m match-bind parentCe parentρ) Ce ρ)
-  ; (pretty-print `(eval-match-bind ,m ,(show-simple-ctx Ce)))
   (match-let ([(cons _ `(match ,_ ,@clauses)) parentCe])
     (>>= (let loop ([cls (take-till m (map car clauses))])
            (match cls
@@ -367,13 +332,11 @@ Finish the paper
              [(cons cl cls)
               (>>= (pattern-matches cl Ce ρ)
                    (λ (m) (if m
-                              ; (begin (pretty-print `(matches-prev ,(show-simple-ctx Ce) ,cl))
                               (unit #t);)
                               (loop cls)))
                    )]
              ))
          (λ (res)
-           ;  (pretty-print `(eval-match ,m ,(show-simple-ctx Ce) ,res))
            (if res
                ⊥
                ((eval-match-bindingx match-bind) Ce ρ)
@@ -390,7 +353,6 @@ Finish the paper
 (define ((eval-match-bindingx match-bind) Ce ρ)
   (match match-bind
     [`(,con ,locsub ,sub)
-     ; (pretty-print `(got-con ,con ,locsub ,sub ,(show-simple-ctx Ce)))
      (match Ce
        [`((top) app ,con1) ⊥]; Singleton constructor -- no arguments possible
        [(cons C `',x) ⊥] ; Doesn't match cons
@@ -400,7 +362,6 @@ Finish the paper
            (λ (Cc ρc)
              (match Cc
                [(cons _ con1)
-                ;  (pretty-print `(ran subpat ,sub ,locsub))
                 (if (equal? con con1)
                     (>>=eval
                      (>>= ((ran locsub) Ce ρ) eval)
@@ -419,16 +380,13 @@ Finish the paper
     [(list) (unit #t)]
     [(cons _ as)
      (match-let ([(cons subpat subpats) subpats])
-       ;  (pretty-print `(subpat-matches ,(show-simple-ctx Ce) ,args))
        (>>= ((ran i) Ce ρ)
             (λ (Cex ρx)
               (>>= (>>=eval (eval Cex ρx)
                             (λ (Ce ρ) (pattern-matches subpat Ce ρ))
                             (λ (lit)
-                              ; (pretty-print `(subpat ,subpat ,lit))
                               (pattern-matches-lit subpat lit)))
                    (λ (matches)
-                     ; (pretty-print `(subpat match ,subpat ,Ce ,matches))
                      (if matches (patterns-match Ce ρ as subpats (+ 1 i)) (unit #f))
                      )))))]))
 
@@ -439,7 +397,6 @@ Finish the paper
        [`((top) app ,con1) (if (equal? con con1) (unit #t) (unit #f))] ; Singleton constructors
        [(cons C `',x) (unit #f)] ; Symbols
        [_
-        ; (pretty-print (show-simple-ctx Ce))
         (>>=clos
          ; This is the application site of the constructor, need to see what constructor it is
          (>>= (rat Ce ρe) eval)
@@ -450,7 +407,6 @@ Finish the paper
                   ; Find where the constructor is applied
                   (match Ce
                     [(cons _ `(app ,_ ,@as))
-                     ;  (pretty-print `(subpat ,subpats ,as))
                      (if (equal? (length as) (length subpats))
                          (patterns-match Ce ρe as subpats 0)
                          (unit #f)
@@ -471,7 +427,6 @@ Finish the paper
     [lit1
      (match Ce
        [(cons _ con1); Singleton constructor #t #f
-        ; (pretty-print `(match-singleton constructor ,con1 ,lit1 ,(equal? lit1 con1)))
         (if (equal? lit1 con1)
             (unit #t)
             (unit #f)
@@ -481,8 +436,6 @@ Finish the paper
   )
 
 (define (pattern-matches-lit pat lit2)
-  ; (pretty-print pat)
-  ; (pretty-print lit2)
   (unit (or (symbol? pat) (equal? (to-lit pat) lit2)))
   )
 
@@ -493,19 +446,12 @@ Finish the paper
           (λ (matches)
             (if matches
                 (begin
-                  ; (pretty-print `(clause-match ,clause))
                   (>>= ((match-clause i) parent parentρ) eval)
                   )
                 ((eval-clauselit parent parentρ clauses (+ i 1)) lit1)
                 )))
      ]
-    [_
-     ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-
-     ;  (clos (cons `(top) `(app error 'match-error ,lit1)) parentρ)
-     ;  (clos (cons lit 'match-error) parentρ)
-     ⊥
-     ]
+    [_ ⊥]
     )
   )
 
@@ -515,20 +461,11 @@ Finish the paper
     [(cons clause clauses)
      (>>= (pattern-matches (car clause) ce ρ)
           (λ (matches)
-            ; (pretty-print `(clause-res ,matches))
             (if matches
-                (begin
-                  ; (pretty-print `(clause-match ,clause))
-                  (>>= ((match-clause i) parent parentρ) eval)
-                  )
+                (>>= ((match-clause i) parent parentρ) eval)
                 ((eval-clausecon parent parentρ clauses (+ i 1)) ce ρ)
                 )))]
-    [_
-     ;  (pretty-print `(no match in ,parent for ,(cdr ce)))
-     ;  (clos (cons ce 'match-error) ρ)
-     ;  (clos (cons `(top) `(app error 'match-error)) ρ)
-     ⊥
-     ] ; TODO: Test match error
+    [_ ⊥] ; TODO: Test match error
     ))
 
 
@@ -539,37 +476,19 @@ Finish the paper
   ;  (λ ()
   (match ρ
     [(menv (cons (callc cc₀) ρ₀))
-     ; (pretty-trace `(CALL-BASIC ,(show-simple-ctx (cons C `(λ ,xs ,e)))))
      (>>= (expr (cons C `(λ ,xs ,e)) (menv ρ₀))
           (λ (Cee ρee)
             (let ([cc₁ (enter-cc Cee ρee)])
               (cond
                 [(equal? cc₀ cc₁)
-                 ;  (pretty-print "equal")
-                 ; (pretty-trace `(CALL-EQ ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
                  (unit Cee ρee)]
                 [(⊑-cc cc₁ cc₀)
-                 ; (pretty-print `(refines-new? ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
-                 ;  (pretty-trace `(CALL-REFINES ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
-                 ; strictly refines because of above
-                 (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥))
+                 (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥)) ; strictly refines because of above
                  ]
                 [(⊑-cc cc₀ cc₁)
-                 ; (define refined (menv (cons (callc (lexical-extend (tail-or-empty cc₀))) (env-tail ρee))))
-                 ; (pretty-print `(call-refines? ,(show-simple-ctx Cee)
-                 ;                               cc-0 ,(show-simple-call cc₀)
-                 ;                               cc-1 ,(show-simple-call cc₁)
-                 ;                               p-0 ,(show-simple-env ρ)
-                 ;                               p-1 ,(show-simple-env ρee)
-                 ;                               proposed: ,(show-simple-env refined)
-                 ;                               ))
-                 ; (>>= (put-refines ...) (λ _ ⊥))
-                 (unit Cee ρee); refined)
+                 (unit Cee ρee)
                  ]
-                [else
-                 ; (pretty-trace "no-refine")
-                 ; (pretty-tracen 0 `(CALL-NO-REFINE ,xs ,(show-simple-call cc₀) ,(show-simple-call cc₁)))
-                 ⊥]))))]
+                [else ⊥]))))]
     )
   )
 ;  ))
@@ -605,8 +524,6 @@ Finish the paper
                    (>>=clos ; Evaluate the lambda or constructor
                     (>>= (rat Cee ρee) eval)
                     (λ (Cλx.e ρλx.e)
-                      ;  (pretty-print (show-simple-ctx Ce))
-                      ;  (pretty-print (show-simple-ctx Cλx.e))
                       (match Cλx.e
                         [(cons C `(λ ,xs ,e)) ; It is a lambda
                          (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
@@ -618,7 +535,6 @@ Finish the paper
                                 ))
                          ]
                         [(cons C (? symbol? x)) ; Constructors
-                         ; (pretty-print `(,x ,(show-simple-ctx Cee)))
                          (>>= (expr Cee ρee) ; Find the deconstruction sites
                               (λ (Cem ρem)
                                 (match Cem
@@ -634,7 +550,6 @@ Finish the paper
                                                     (if (equal? con x)
                                                         (match bind
                                                           [(? symbol? _)
-                                                           ; (pretty-print `(flow-from ,(show-simple-ctx Ce) to-match (,con ,@args) ,bind ,(show-simple-expr e)))
                                                            (>>= ((match-clause index) Cem ρem)
                                                                 (λ (Cec ρec) (>>= ((find bind) Cec ρec) expr)))]
 
@@ -656,7 +571,6 @@ Finish the paper
                                    (if (equal? con x)
                                        (match bind
                                          [(? symbol? _)
-                                          ;  (pretty-print `(flow-from ,(show-simple-ctx Ce) to-match (,con ,@bound-args) ,bind ,(show-simple-ctx Cec)))
                                           (>>= ((find bind) Cec ρem) expr)]
                                          [`(,con2 ,@args2) (unit `(con-param ,bind ,Cec) ρem)]
                                          [_ ⊥]
@@ -672,16 +586,13 @@ Finish the paper
                         )))) )]
            ; lambda / struct is bound by let binding with name ,x
            [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) _)
-            ;  (pretty-print `(bin-expr ,let-kind ,x))
             (>>= (out Ce ρ)
                  (λ (Cex ρe)
-                   ; (pretty-print `(bin-find ,let-kind ,x ,Cex))
                    (apply each
                           (cons (>>= (bod Cex ρe)
                                      (λ (Cee ρee)
                                        (>>= ((find x) Cee ρee)
                                             (λ (Cee ρee)
-                                              ;  (pretty-print `(find-body-found: ,(show-simple-ctx Cee)))
                                               (expr Cee ρee)))))
                                 (match let-kind
                                   ['letrec
@@ -689,10 +600,8 @@ Finish the paper
                                    (map (λ (i)
                                           (>>= ((bin i) Cex ρe)
                                                (λ (Cee ρee)
-                                                 ; (pretty-print `(try-to-find ,x ,(show-simple-ctx Cee)))
                                                  (>>= ((find x) Cee ρee)
                                                       (λ (Cee ρee)
-                                                        ; (pretty-print `(found ,x ,(show-simple-ctx Cee)))
                                                         (expr Cee ρee))))))
                                         (range (+ 1 (length before) (length after))))]
                                   ['letrec*
@@ -700,10 +609,8 @@ Finish the paper
                                    (map (λ (i)
                                           (>>= ((bin i) Cex ρe)
                                                (λ (Cee ρee)
-                                                 ; (pretty-print `(try-to-find ,x ,(show-simple-ctx Cee)))
                                                  (>>= ((find x) Cee ρee)
                                                       (λ (Cee ρee)
-                                                        ;  (pretty-print `(found ,x ,(show-simple-ctx Cee)))
                                                         (expr Cee ρee))))))
                                         (range (+ 1 (length before) (length after))))]
                                   ['let* ; x could be referenced in all following bindings

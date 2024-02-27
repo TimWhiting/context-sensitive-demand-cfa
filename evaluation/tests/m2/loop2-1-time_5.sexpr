@@ -63,9 +63,9 @@
   3
   1
   1/5
-  3
+  9
   #f
-  55/13
+  17/13
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -83,9 +83,9 @@
   3
   1
   1/5
-  3
+  9
   #f
-  55/13
+  17/13
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -126,7 +126,7 @@
   0
   7
   #t
-  5
+  1
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -146,7 +146,7 @@
   0
   6
   #t
-  5
+  1
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -164,9 +164,9 @@
   0
   1
   0
-  5
+  13
   #f
-  89/21
+  29/21
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   loop2-1
@@ -184,9 +184,9 @@
   0
   1
   0
-  5
+  13
   #f
-  89/21
+  29/21
   ((1 1 0) (1 1 0) (1 1 0)))
 '(clean-cache
   loop2-1
@@ -204,9 +204,9 @@
   0
   1
   0
-  10
+  24
   #f
-  160/37
+  50/37
   ((2 2 0) (2 2 0) (2 2 0)))
 '(clean-cache
   loop2-1
@@ -224,9 +224,9 @@
   0
   1
   0
-  5
+  13
   #f
-  93/22
+  31/22
   ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
 '(clean-cache
   loop2-1
@@ -265,9 +265,9 @@
   3
   1
   1/6
-  3
+  9
   #f
-  59/14
+  19/14
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -292,9 +292,9 @@
   6
   1
   2/9
-  6
+  16
   #f
-  100/23
+  30/23
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -312,9 +312,9 @@
   3
   1
   1/6
-  3
+  9
   #f
-  59/14
+  19/14
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   loop2-1
@@ -322,80 +322,6 @@
   26
   app
   "\"'(eval (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  5
-  26
-  ref-or-constructor
-  "\"'(eval\n  (app lp2 (app - j 1) (-> f <-) (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  13
-  6
-  3
-  4
-  0
-  0
-  0
-  1
-  0
-  6
-  #t
-  5
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  match
-  "\"'(eval\n  (λ (j f y) (-> (match (app = 0 j) ...) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  5
-  26
-  app
-  "\"'(eval (match (-> (app = 0 i) <-) (#f) _) (env ((□? (i x)))))\""
-  31
-  23
-  3
-  5
-  4
-  2
-  6
-  1
-  2/9
-  6
-  #f
-  100/23
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  match
-  "\"'(eval (λ (i x) (-> (match (app = 0 i) ...) <-)) (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  letrec
-  "\"'(eval ((top) letrec (lp1) ...) (env ()))\""
   #f)
 '(shuffled-cache
   0
@@ -414,41 +340,17 @@
   3
   1
   1/5
-  3
+  9
   #f
-  55/13
+  17/13
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   0
   loop2-1
   2
   26
-  letrec
-  "\"'(eval\n  (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _)\n  (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
   ref-or-constructor
-  "\"'(eval (app + (-> n <-) i) (env ((□? (n)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval (λ (n) (-> (app + n i) <-)) (env ((□? (n)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (match (app = 0 i) (#f) (_ (-> x <-))) (env ((□? (i x)))))\""
+  "\"'(eval\n  (app lp2 (app - j 1) (-> f <-) (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   0
@@ -456,57 +358,28 @@
   2
   5
   26
-  ref-or-constructor
-  "\"'(eval (app - (-> j <-) 1) (env ((□? (j f y)) (□? (i x)))))\""
-  28
+  app
+  "\"'(eval (app lp1 (-> (app - i 1) <-) y) (env ((□? (j f y)) (□? (i x)))))\""
   21
+  13
   3
-  4
-  0
-  0
-  0
+  5
   1
-  0
-  5
-  #f
-  89/21
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  loop2-1
   2
-  5
-  26
-  app
-  "\"'(eval\n  (app lp2 (-> (app - j 1) <-) f (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  28
-  21
   3
-  4
-  0
-  0
-  0
   1
-  0
-  5
+  1/5
+  9
   #f
-  89/21
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (app f (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
+  17/13
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   0
   loop2-1
   2
   26
   app
-  "\"'(eval\n  (app lp2 (app - j 1) f (-> (app f y) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  "\"'(eval (match (-> (app = 0 j) <-) (#f) _) (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   0
@@ -515,6 +388,14 @@
   26
   app
   "\"'(eval (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  match
+  "\"'(eval\n  (λ (j f y) (-> (match (app = 0 j) ...) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   0
@@ -530,94 +411,7 @@
   2
   26
   ref-or-constructor
-  "\"'(eval (app lp1 (app - i 1) (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  5
-  26
-  app
-  "\"'(eval (match (-> (app = 0 j) <-) (#f) _) (env ((□? (j f y)) (□? (i x)))))\""
-  44
-  37
-  3
-  4
-  0
-  0
-  0
-  1
-  0
-  10
-  #f
-  160/37
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (app + n (-> i <-)) (env ((□? (n)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval\n  (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  5
-  26
-  ref-or-constructor
-  "\"'(eval (app = 0 (-> i <-)) (env ((□? (i x)))))\""
-  22
-  14
-  3
-  5
-  1
-  2
-  3
-  1
-  1/6
-  3
-  #f
-  59/14
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  5
-  26
-  app
-  "\"'(eval (app lp1 (-> (app - i 1) <-) y) (env ((□? (j f y)) (□? (i x)))))\""
-  22
-  14
-  3
-  5
-  1
-  2
-  3
-  1
-  1/6
-  3
-  #f
-  59/14
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (app = 0 (-> j <-)) (env ((□? (j f y)) (□? (i x)))))\""
+  "\"'(eval (app f (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   0
@@ -638,47 +432,18 @@
   0
   7
   #t
-  5
+  1
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   0
   loop2-1
   2
   26
-  app
-  "\"'(eval (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ((□? (i x)))))\""
+  ref-or-constructor
+  "\"'(eval (app + n (-> i <-)) (env ((□? (n)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
-  1
-  loop2-1
-  2
-  5
-  26
-  ref-or-constructor
-  "\"'(eval (app - (-> j <-) 1) (env ((□? (j f y)) (□? (i x)))))\""
-  28
-  21
-  3
-  4
   0
-  0
-  0
-  1
-  0
-  5
-  #f
-  89/21
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  ref-or-constructor
-  "\"'(eval (app f (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
   loop2-1
   2
   5
@@ -694,9 +459,221 @@
   6
   1
   2/9
-  6
+  16
   #f
-  100/23
+  30/23
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (app lp2 (-> (app - j 1) <-) f (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (app lp1 (app - i 1) (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  5
+  26
+  ref-or-constructor
+  "\"'(eval (app - (-> j <-) 1) (env ((□? (j f y)) (□? (i x)))))\""
+  28
+  21
+  3
+  4
+  0
+  0
+  0
+  1
+  0
+  13
+  #f
+  29/21
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  letrec
+  "\"'(eval ((top) letrec (lp1) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  5
+  26
+  ref-or-constructor
+  "\"'(eval (app = 0 (-> j <-)) (env ((□? (j f y)) (□? (i x)))))\""
+  29
+  22
+  3
+  4
+  0
+  0
+  0
+  1
+  0
+  13
+  #f
+  31/22
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  match
+  "\"'(eval (λ (i x) (-> (match (app = 0 i) ...) <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  5
+  26
+  ref-or-constructor
+  "\"'(eval (app = 0 (-> i <-)) (env ((□? (i x)))))\""
+  22
+  14
+  3
+  5
+  1
+  2
+  3
+  1
+  1/6
+  9
+  #f
+  19/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  letrec
+  "\"'(eval\n  (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _)\n  (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (λ (n) (-> (app + n i) <-)) (env ((□? (n)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (app + (-> n <-) i) (env ((□? (n)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (app lp2 (app - j 1) f (-> (app f y) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  0
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (match (app = 0 i) (#f) (_ (-> x <-))) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (λ (n) (-> (app + n i) <-)) (env ((□? (n)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  ref-or-constructor
+  "\"'(eval (app + (-> n <-) i) (env ((□? (n)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  5
+  26
+  ref-or-constructor
+  "\"'(eval (app + n (-> i <-)) (env ((□? (n)) (□? (i x)))))\""
+  23
+  14
+  3
+  6
+  1
+  2
+  3
+  1
+  1/6
+  9
+  #f
+  19/14
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
@@ -710,23 +687,31 @@
   1
   loop2-1
   2
+  26
+  match
+  "\"'(eval (λ (i x) (-> (match (app = 0 i) ...) <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
   5
   26
-  app
-  "\"'(eval (match (-> (app = 0 j) <-) (#f) _) (env ((□? (j f y)) (□? (i x)))))\""
-  44
-  37
+  ref-or-constructor
+  "\"'(eval (app = 0 (-> i <-)) (env ((□? (i x)))))\""
+  22
+  14
   3
-  4
-  0
-  0
-  0
+  5
   1
-  0
-  10
+  2
+  3
+  1
+  1/6
+  9
   #f
-  160/37
-  ((2 2 0) (2 2 0) (2 2 0)))
+  19/14
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
   loop2-1
@@ -734,19 +719,19 @@
   5
   26
   app
-  "\"'(eval\n  (app lp2 (-> (app - j 1) <-) f (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  44
-  37
+  "\"'(eval (match (-> (app = 0 i) <-) (#f) _) (env ((□? (i x)))))\""
+  29
+  21
   3
+  5
   4
-  0
-  0
-  0
+  2
+  6
   1
-  0
-  10
+  7/27
+  14
   #f
-  160/37
+  4/3
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -754,44 +739,7 @@
   2
   26
   ref-or-constructor
-  "\"'(eval (app = 0 (-> i <-)) (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  5
-  26
-  app
-  "\"'(eval (app lp1 (-> (app - i 1) <-) y) (env ((□? (j f y)) (□? (i x)))))\""
-  21
-  13
-  3
-  5
-  1
-  2
-  3
-  1
-  1/5
-  3
-  #f
-  55/13
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval\n  (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  match
-  "\"'(eval\n  (λ (j f y) (-> (match (app = 0 j) ...) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  "\"'(eval (app (-> f <-) y) (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   1
@@ -810,76 +758,10 @@
   0
   1
   0
-  5
+  13
   #f
-  93/22
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  match
-  "\"'(eval (λ (i x) (-> (match (app = 0 i) ...) <-)) (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  5
-  26
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) y) (env ((□? (j f y)) (□? (i x)))))\""
-  14
-  7
-  3
-  4
-  0
-  0
-  0
-  1
-  0
-  7
-  #t
-  5
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval\n  (app lp2 (app - j 1) f (-> (app f y) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  5
-  26
-  ref-or-constructor
-  "\"'(eval (app + n (-> i <-)) (env ((□? (n)) (□? (i x)))))\""
-  23
-  14
-  3
-  6
-  1
-  2
-  3
-  1
-  1/6
-  3
-  #f
-  59/14
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  letrec
-  "\"'(eval\n  (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _)\n  (env ((□? (i x)))))\""
-  #f)
+  31/22
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
 '(shuffled-cache
   1
   loop2-1
@@ -893,8 +775,106 @@
   loop2-1
   2
   26
+  match
+  "\"'(eval\n  (λ (j f y) (-> (match (app = 0 j) ...) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
   ref-or-constructor
-  "\"'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env ((□? (i x)))))\""
+  "\"'(eval (app lp1 (app - i 1) (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  5
+  26
+  ref-or-constructor
+  "\"'(eval (app - (-> j <-) 1) (env ((□? (j f y)) (□? (i x)))))\""
+  28
+  21
+  3
+  4
+  0
+  0
+  0
+  1
+  0
+  13
+  #f
+  29/21
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (app lp1 (-> (app - i 1) <-) y) (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  5
+  26
+  app
+  "\"'(eval\n  (app lp2 (-> (app - j 1) <-) f (app f y))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  28
+  21
+  3
+  4
+  0
+  0
+  0
+  1
+  0
+  13
+  #f
+  29/21
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (match (app = 0 j) ((#f) (-> (app lp2 (app - j 1) f (app f y)) <-)) _)\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval\n  (app lp2 (app - j 1) f (-> (app f y) <-))\n  (env ((□? (j f y)) (□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  app
+  "\"'(eval (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ((□? (i x)))))\""
+  #f)
+'(shuffled-cache
+  1
+  loop2-1
+  2
+  26
+  letrec
+  "\"'(eval\n  (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _)\n  (env ((□? (i x)))))\""
   #f)
 '(shuffled-cache
   1
@@ -915,7 +895,7 @@
   0
   6
   #t
-  5
+  1
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
@@ -923,23 +903,7 @@
   2
   26
   ref-or-constructor
-  "\"'(eval (app + (-> n <-) i) (env ((□? (n)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval (λ (n) (-> (app + n i) <-)) (env ((□? (n)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval\n  (match (app = 0 j) ((#f) (-> (app lp2 (app - j 1) f (app f y)) <-)) _)\n  (env ((□? (j f y)) (□? (i x)))))\""
+  "\"'(eval (app f (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
   #f)
 '(shuffled-cache
   1
@@ -958,31 +922,15 @@
   3
   1
   1/5
-  3
+  9
   #f
-  55/13
+  17/13
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
   loop2-1
   2
   26
-  ref-or-constructor
-  "\"'(eval (app lp1 (app - i 1) (-> y <-)) (env ((□? (j f y)) (□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
   app
-  "\"'(eval (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ((□? (i x)))))\""
-  #f)
-'(shuffled-cache
-  1
-  loop2-1
-  2
-  26
-  app
-  "\"'(eval (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))\""
+  "\"'(eval (match (-> (app = 0 j) <-) (#f) _) (env ((□? (j f y)) (□? (i x)))))\""
   #f)

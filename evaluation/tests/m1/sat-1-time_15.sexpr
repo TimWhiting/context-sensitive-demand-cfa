@@ -58,7 +58,7 @@
   5/7
   6
   #f
-  36/7
+  8/7
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -78,7 +78,7 @@
   5/7
   6
   #f
-  36/7
+  8/7
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -98,7 +98,7 @@
   5/7
   6
   #f
-  36/7
+  8/7
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -118,7 +118,7 @@
   5/7
   6
   #f
-  36/7
+  8/7
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -138,7 +138,7 @@
   2/3
   3
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -172,7 +172,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -192,7 +192,7 @@
   0
   4
   #f
-  28/5
+  8/5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -219,7 +219,7 @@
   0
   2
   #t
-  5
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -239,7 +239,7 @@
   0
   4
   #f
-  28/5
+  8/5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   sat-1
@@ -266,7 +266,7 @@
   21/34
   23
   #f
-  181/34
+  45/34
   ((3 3 0) (3 3 0) (3 3 0)))
 '(clean-cache
   sat-1
@@ -286,7 +286,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -306,7 +306,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -326,8 +326,8 @@
   9/14
   26
   #f
-  107/20
-  ((3 3 0) (3 3 0) (3 3 0)))
+  27/20
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
 '(clean-cache
   sat-1
   1
@@ -346,7 +346,7 @@
   5/7
   14
   #f
-  47/9
+  11/9
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -366,7 +366,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -386,7 +386,7 @@
   5/7
   14
   #f
-  47/9
+  11/9
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -406,7 +406,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -426,8 +426,8 @@
   77/108
   40
   #f
-  43/8
-  ((7 7 0) (7 7 0) (7 7 0)))
+  11/8
+  ((13/2 13/2 0) (13/2 13/2 0) (13/2 13/2 0)))
 '(clean-cache
   sat-1
   1
@@ -446,8 +446,8 @@
   5/7
   14
   #f
-  47/9
-  ((1/2 1/2 0) (1 1 0) (1 1 0)))
+  11/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
   1
@@ -466,7 +466,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -486,7 +486,7 @@
   5/7
   14
   #f
-  47/9
+  11/9
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -506,7 +506,7 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -526,7 +526,7 @@
   4/5
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(clean-cache
   sat-1
@@ -539,18 +539,44 @@
   0
   sat-1
   1
+  15
   34
   app
-  "\"'(eval (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ((□? (p)))))\""
-  #f)
+  "\"'(eval (app f (-> (app #t) <-)) (env ((□? (f)))))\""
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
   sat-1
   1
+  15
   34
   app
-  "\"'(eval\n  (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n  (env ((□? (f)))))\""
-  #f)
+  "\"'(eval (app f (-> (app #f) <-)) (env ((□? (f)))))\""
+  5
+  4
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  4
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
   sat-1
@@ -558,49 +584,49 @@
   15
   34
   ref-or-constructor
-  "\"'(eval\n  (app or (-> x1 <-) (app not x2) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
   31
-  12
-  6
-  13
-  8
-  5
-  13
-  1
-  4/5
-  10
-  #f
-  31/6
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  34
-  app
-  "\"'(eval (letrec* (phi ... sat-solve-4) (-> (app sat-solve-4 phi) <-)) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app or (app not x2) (-> (app not x3) <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  33
-  18
+  16
   6
   9
-  11
+  7
   4
-  15
+  11
   1
-  5/7
+  1/2
   14
   #f
-  47/9
+  9/8
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (n2) (-> (app try (λ (n3) ...)) <-))\n  (env ((□? (n2)) (□? (n1)) (□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  56
+  34
+  11
+  11
+  16
+  6
+  22
+  1
+  21/34
+  23
+  #f
+  45/34
+  ((3 3 0) (3 3 0) (3 3 0)))
 '(shuffled-cache
   0
   sat-1
@@ -615,29 +641,121 @@
   1
   15
   34
-  ref-or-constructor
-  "\"'(eval\n  (app p n1 (-> n2 <-) n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  16
-  7
-  3
+  app
+  "\"'(eval\n  (app or x1 (app not x2) (-> (app not x3) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  33
+  18
   6
-  5
-  2
-  7
+  9
+  11
+  4
+  15
   1
   5/7
-  6
+  14
   #f
-  36/7
-  ((0 0 0) (0 0 0) (0 0 0)))
+  11/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  34
+  letrec*
+  "\"'(eval ((top) letrec* (phi ... sat-solve-4) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app or x4 (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  29
+  12
+  6
+  11
+  7
+  4
+  11
+  1
+  7/10
+  10
+  #f
+  7/6
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   0
   sat-1
   1
   34
   app
-  "\"'(eval\n  (λ (x1 x2 x3 x4)\n    (->\n     (app\n      and\n      (app or x1 (app not x2) (app not x3))\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  "\"'(eval (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ((□? (p)))))\""
   #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app #f)) (env ((□? (f)))))\""
+  15
+  5
+  5
+  5
+  0
+  1
+  1
+  1
+  0
+  4
+  #f
+  8/5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 n2 n3 (-> n4 <-))\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  26
+  12
+  8
+  6
+  5
+  3
+  8
+  1
+  5/12
+  10
+  #f
+  4/3
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval (app or (-> (app not x2) <-) (app not x3)) (env ((□? (x1 x2 x3 x4)))))\""
+  68
+  38
+  15
+  15
+  16
+  7
+  23
+  1
+  1/2
+  30
+  #f
+  32/19
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
 '(shuffled-cache
   0
   sat-1
@@ -652,863 +770,12 @@
   1
   15
   34
-  app
-  "\"'(eval\n  (app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  109
-  64
-  22
-  23
-  32
-  15
-  47
-  1
-  77/108
-  40
-  #f
-  43/8
-  ((7 7 0) (7 7 0) (7 7 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app or (-> x4 <-) x2) (env ((□? (x1 x2 x3 x4)))))\""
-  189
-  111
-  43
-  35
-  44
-  17
-  61
-  1
-  470/729
-  73
-  #f
-  593/111
-  ((21/2 21/2 0) (21/2 21/2 0) (21/2 21/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  193
-  115
-  43
-  35
-  47
-  17
-  64
-  1
-  215/324
-  74
-  #f
-  616/115
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  194
-  116
-  43
-  35
-  47
-  17
-  64
-  1
-  262/405
-  74
-  #f
-  311/58
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  195
-  117
-  43
-  35
-  47
-  17
-  64
-  1
-  524/837
-  74
-  #f
-  628/117
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p n1 n2 n3 (-> n4 <-))\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  202
-  119
-  44
-  39
-  47
-  17
-  64
-  1
-  1222/1953
-  75
-  #f
-  639/119
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app f (-> (app #t) <-)) (env ((□? (f)))))\""
-  203
-  120
-  44
-  39
-  47
-  17
-  64
-  1
-  6047/9765
-  76
-  #t
-  161/30
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (λ (n3) (-> (app try (λ (n4) ...)) <-))\n  (env ((□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  299
-  199
-  51
-  49
-  67
-  20
-  87
-  1
-  23749/32760
-  127
-  #f
-  1088/199
-  ((23/2 23/2 0) (12 12 0) (12 12 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p (-> n1 <-) n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  323
-  212
-  54
-  57
-  67
-  20
-  87
-  1
-  3391/4680
-  135
-  #f
-  11/2
-  ((5 5 0) (5 5 0) (5 5 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app f (-> (app #f) <-)) (env ((□? (f)))))\""
-  324
-  213
-  54
-  57
-  67
-  20
-  87
-  1
-  3373/4680
-  136
-  #t
-  1171/213
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p n1 n2 (-> n3 <-) n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  373
-  249
-  59
-  65
-  67
-  20
-  87
-  1
-  3359/4680
-  159
-  #f
-  1388/249
-  ((25/2 25/2 0) (25/2 25/2 0) (25/2 25/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app or (-> (app not x2) <-) (app not x3)) (env ((□? (x1 x2 x3 x4)))))\""
-  374
-  250
-  59
-  65
-  67
-  20
-  87
-  1
-  1657/2340
-  159
-  #f
-  697/125
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  375
-  251
-  59
-  65
-  67
-  20
-  87
-  1
-  3269/4680
-  159
-  #f
-  1400/251
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ((□? (n1)) (□? (p)))))\""
-  441
-  304
-  59
-  78
-  83
-  20
-  103
-  1
-  6547/10080
-  179
-  #f
-  1735/304
-  ((13/2 13/2 0) (13/2 13/2 0) (13/2 13/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
   ref-or-constructor
   "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  442
-  305
-  59
-  78
-  83
-  20
-  103
-  1
-  6457/10080
-  179
-  #f
-  1741/305
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app or x1 (app not x2) (-> (app not x3) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  442
-  305
-  59
-  78
-  83
-  20
-  103
-  1
-  6457/10080
-  179
-  #f
-  1741/305
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env ((□? (f)))))\""
-  447
-  309
-  59
-  79
-  86
-  20
-  106
-  1
-  3341/5130
-  181
-  #f
-  1763/309
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (λ (n2) (-> (app try (λ (n3) ...)) <-))\n  (env ((□? (n2)) (□? (n1)) (□? (p)))))\""
-  448
-  310
-  59
-  79
-  86
-  20
-  106
-  1
-  7343/11286
-  181
-  #f
-  1769/310
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app (-> p <-) n1 n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  449
-  311
-  59
-  79
-  86
-  20
-  106
-  1
-  7343/11286
-  182
-  #t
-  1774/311
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app or x1 (-> (app not x2) <-) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  449
-  311
-  59
-  79
-  86
-  20
-  106
-  1
-  7343/11286
-  182
-  #f
-  1774/311
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app #t)) (env ((□? (f)))))\""
-  450
-  312
-  59
-  79
-  86
-  20
-  106
-  1
-  14587/22572
-  182
-  #f
-  226/39
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app #f)) (env ((□? (f)))))\""
-  451
-  313
-  59
-  79
-  86
-  20
-  106
-  1
-  72539/112860
-  182
-  #f
-  1842/313
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  letrec*
-  "\"'(eval ((top) letrec* (phi ... sat-solve-4) ...) (env ()))\""
-  461
-  322
-  59
-  80
-  95
-  20
-  115
-  1
-  79007/118800
-  184
-  #f
-  947/161
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  462
-  323
-  59
-  80
-  95
-  20
-  115
-  1
-  78017/118800
-  184
-  #f
-  100/17
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app or x4 (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  463
-  324
-  59
-  80
-  95
-  20
-  115
-  1
-  77027/118800
-  184
-  #f
-  953/162
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app #f)) (env ((□? (f)))))\""
-  15
-  5
-  5
-  5
-  0
-  1
-  1
-  1
-  0
-  4
-  #f
-  28/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p n1 (-> n2 <-) n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  32
-  16
-  8
-  8
-  5
-  3
-  8
-  1
-  5/12
-  14
-  #f
-  23/4
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  app
-  "\"'(eval\n  (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n  (env ((□? (f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app or (-> (app not x2) <-) (app not x3)) (env ((□? (x1 x2 x3 x4)))))\""
-  35
-  18
-  6
-  11
-  11
-  4
-  15
-  1
-  5/7
-  14
-  #f
-  47/9
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app (-> f <-) (app #t)) (env ((□? (f)))))\""
-  46
-  21
-  11
-  14
-  11
-  5
-  16
-  1
-  5/8
-  17
-  #t
-  37/7
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app or x4 (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  47
-  22
-  11
-  14
-  11
-  5
-  16
-  1
-  10/17
-  17
-  #f
-  117/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app or (app not x2) (-> (app not x3) <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  73
-  41
-  16
-  16
-  17
-  7
-  24
-  1
-  12/23
-  28
-  #f
-  226/41
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  74
-  42
-  16
-  16
-  17
-  7
-  24
-  1
-  1/2
-  28
-  #f
-  116/21
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  app
-  "\"'(eval\n  (λ (n2) (-> (app try (λ (n3) ...)) <-))\n  (env ((□? (n2)) (□? (n1)) (□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p (-> n1 <-) n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  16
-  7
-  3
-  6
-  5
-  2
-  7
-  1
-  5/7
-  6
-  #f
-  36/7
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  app
-  "\"'(eval\n  (λ (n3) (-> (app try (λ (n4) ...)) <-))\n  (env ((□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  #f)
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app or (-> x1 <-) (app not x2) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  31
+  29
   12
   6
-  13
-  8
-  5
-  13
-  1
-  4/5
-  10
-  #f
-  31/6
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  55
-  27
   11
-  17
-  14
-  9
-  23
-  1
-  2/3
-  19
-  #f
-  143/27
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app p n1 n2 (-> n3 <-) n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  80
-  42
-  15
-  23
-  18
-  11
-  29
-  1
-  26/45
-  29
-  #f
-  223/42
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval\n  (app (-> p <-) n1 n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
-  85
-  45
-  17
-  23
-  20
-  13
-  33
-  1
-  16/27
-  32
-  #t
-  238/45
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval (app f (-> (app #t) <-)) (env ((□? (f)))))\""
-  86
-  46
-  17
-  23
-  20
-  13
-  33
-  1
-  125/216
-  33
-  #t
-  243/46
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app or x1 (-> (app not x2) <-) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  91
-  51
-  17
-  23
-  24
-  13
-  37
-  1
-  173/276
-  36
-  #f
-  90/17
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  app
-  "\"'(eval (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env ((□? (f)))))\""
-  #f)
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  ref-or-constructor
-  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  27
-  12
-  6
-  9
   7
   4
   11
@@ -1516,110 +783,18 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
-  1
+  0
   sat-1
   1
-  15
   34
   app
-  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  60
-  36
-  11
-  13
-  20
-  6
-  26
-  1
-  8/11
-  24
-  #f
-  16/3
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  114
-  69
-  22
-  23
-  39
-  15
-  54
-  1
-  461/576
-  42
-  #f
-  124/23
-  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app or x1 (app not x2) (-> (app not x3) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  115
-  70
-  22
-  23
-  39
-  15
-  54
-  1
-  113/144
-  42
-  #f
-  27/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  15
-  34
-  app
-  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
-  198
-  120
-  43
-  35
-  54
-  17
-  71
-  1
-  767/1026
-  76
-  #f
-  161/30
-  ((21/2 21/2 0) (11 11 0) (11 11 0)))
-'(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  letrec*
-  "\"'(eval ((top) letrec* (phi ... sat-solve-4) ...) (env ()))\""
+  "\"'(eval\n  (λ (n3) (-> (app try (λ (n4) ...)) <-))\n  (env ((□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
   #f)
 '(shuffled-cache
-  1
-  sat-1
-  1
-  34
-  app
-  "\"'(eval (letrec* (phi ... sat-solve-4) (-> (app sat-solve-4 phi) <-)) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
+  0
   sat-1
   1
   15
@@ -1637,23 +812,336 @@
   7/10
   10
   #f
-  31/6
+  7/6
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
+  0
+  sat-1
   1
+  15
+  34
+  app
+  "\"'(eval (app or (app not x2) (-> (app not x3) <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  51
+  31
+  11
+  9
+  15
+  6
+  21
+  1
+  11/17
+  22
+  #f
+  40/31
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app (-> p <-) n1 n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  60
+  34
+  13
+  13
+  17
+  8
+  25
+  1
+  13/20
+  25
+  #t
+  43/34
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
   sat-1
   1
   34
   app
-  "\"'(eval (app or (-> (app f (app #t)) <-) (app f (app #f))) (env ((□? (f)))))\""
+  "\"'(eval\n  (app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
   #f)
 '(shuffled-cache
+  0
+  sat-1
   1
+  34
+  app
+  "\"'(eval (letrec* (phi ... sat-solve-4) (-> (app sat-solve-4 phi) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app #t)) (env ((□? (f)))))\""
+  15
+  5
+  5
+  5
+  0
+  1
+  1
+  1
+  0
+  4
+  #f
+  8/5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p (-> n1 <-) n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  36
+  18
+  8
+  10
+  5
+  3
+  8
+  1
+  5/12
+  16
+  #f
+  17/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  34
+  app
+  "\"'(eval (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ((□? (n1)) (□? (p)))))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n  (env ((□? (f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app or (-> x1 <-) (app not x2) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  31
+  12
+  6
+  13
+  8
+  5
+  13
+  1
+  4/5
+  10
+  #f
+  7/6
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  55
+  27
+  11
+  17
+  14
+  9
+  23
+  1
+  2/3
+  19
+  #f
+  35/27
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  34
+  app
+  "\"'(eval (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env ((□? (f)))))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 (-> n2 <-) n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  16
+  7
+  3
+  6
+  5
+  2
+  7
+  1
+  5/7
+  6
+  #f
+  8/7
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  71
+  42
+  12
+  17
+  20
+  6
+  26
+  1
+  9/14
+  27
+  #f
+  19/14
+  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 n2 (-> n3 <-) n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  80
+  46
+  15
+  19
+  20
+  6
+  26
+  1
+  9/14
+  30
+  #f
+  31/23
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app or x1 (-> (app not x2) <-) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  83
+  49
+  15
+  19
+  22
+  6
+  28
+  1
+  31/48
+  31
+  #f
+  67/49
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
   sat-1
   1
   34
   app
   "\"'(eval\n  (λ (x1 x2 x3 x4)\n    (->\n     (app\n      and\n      (app or x1 (app not x2) (app not x3))\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  #f)
+'(shuffled-cache
+  0
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  27
+  12
+  6
+  9
+  7
+  4
+  11
+  1
+  7/10
+  10
+  #f
+  7/6
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  64
+  40
+  11
+  13
+  20
+  6
+  26
+  1
+  9/14
+  26
+  #f
+  27/20
+  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  65
+  41
+  11
+  13
+  20
+  6
+  26
+  1
+  27/44
+  26
+  #f
+  56/41
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (n2) (-> (app try (λ (n3) ...)) <-))\n  (env ((□? (n2)) (□? (n1)) (□? (p)))))\""
   #f)
 '(shuffled-cache
   1
@@ -1669,8 +1157,58 @@
   1
   15
   34
+  app
+  "\"'(eval (app or (app not x2) (-> (app not x3) <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  33
+  18
+  6
+  9
+  11
+  4
+  15
+  1
+  5/7
+  14
+  #f
+  11/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
   ref-or-constructor
-  "\"'(eval\n  (app p n1 n2 n3 (-> n4 <-))\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  "\"'(eval (app or x4 (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  57
+  33
+  11
+  13
+  15
+  6
+  21
+  1
+  10/17
+  23
+  #f
+  43/33
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (x1 x2 x3 x4)\n    (->\n     (app\n      and\n      (app or x1 (app not x2) (app not x3))\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 n2 (-> n3 <-) n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
   16
   7
   3
@@ -1682,8 +1220,108 @@
   5/7
   6
   #f
-  36/7
+  8/7
   ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (n3) (-> (app try (λ (n4) ...)) <-))\n  (env ((□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app not (-> x2 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  29
+  12
+  6
+  11
+  7
+  4
+  11
+  1
+  7/10
+  10
+  #f
+  7/6
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app\n   and\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  106
+  61
+  22
+  23
+  32
+  15
+  47
+  1
+  172/225
+  39
+  #f
+  83/61
+  ((6 6 0) (6 6 0) (6 6 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval (app or (-> (app not x2) <-) (app not x3)) (env ((□? (x1 x2 x3 x4)))))\""
+  109
+  64
+  22
+  23
+  34
+  15
+  49
+  1
+  371/486
+  40
+  #f
+  11/8
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 n2 n3 (-> n4 <-))\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  136
+  83
+  26
+  27
+  38
+  17
+  55
+  1
+  371/522
+  52
+  #f
+  114/83
+  ((3 3 0) (3 3 0) (3 3 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env ((□? (f)))))\""
+  #f)
 '(shuffled-cache
   1
   sat-1
@@ -1696,22 +1334,285 @@
   1
   sat-1
   1
+  34
+  app
+  "\"'(eval (letrec* (phi ... sat-solve-4) (-> (app sat-solve-4 phi) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app #f)) (env ((□? (f)))))\""
+  15
+  5
+  5
+  5
+  0
+  1
+  1
+  1
+  0
+  4
+  #f
+  8/5
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app or (-> x4 <-) x2) (env ((□? (x1 x2 x3 x4)))))\""
+  42
+  21
+  11
+  10
+  8
+  5
+  13
+  1
+  1/2
+  18
+  #f
+  34/21
+  ((1 1 0) (1 1 0) (1 1 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  letrec*
+  "\"'(eval ((top) letrec* (phi ... sat-solve-4) ...) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app or x1 (-> (app not x2) <-) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  35
+  18
+  6
+  11
+  11
+  4
+  15
+  1
+  5/7
+  14
+  #f
+  11/9
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app\n   and\n   (app or x1 (app not x2) (app not x3))\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  58
+  36
+  11
+  11
+  18
+  6
+  24
+  1
+  13/20
+  24
+  #f
+  4/3
+  ((2 2 0) (2 2 0) (2 2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval\n  (app or x1 (app not x2) (-> (app not x3) <-))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  102
+  63
+  22
+  17
+  24
+  8
+  32
+  1
+  3/5
+  40
+  #f
+  86/63
+  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p n1 (-> n2 <-) n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  109
+  65
+  23
+  21
+  24
+  8
+  32
+  1
+  3/5
+  41
+  #f
+  89/65
+  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
+  110
+  66
+  23
+  21
+  24
+  8
+  32
+  1
+  29/50
+  41
+  #f
+  91/66
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app p (-> n1 <-) n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  194
+  106
+  47
+  41
+  43
+  17
+  60
+  1
+  895/1458
+  74
+  #f
+  69/53
+  ((10 10 0) (10 10 0) (10 10 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
   15
   34
   app
   "\"'(eval (app f (-> (app #f) <-)) (env ((□? (f)))))\""
+  195
+  107
+  47
+  41
+  43
+  17
+  60
+  1
+  4421/7290
+  75
+  #t
+  139/107
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app or (-> x1 <-) (app not x2) (app not x3))\n  (env ((□? (x1 x2 x3 x4)))))\""
+  205
+  117
+  47
+  41
+  43
+  17
+  60
+  1
+  4421/7560
+  77
+  #f
+  157/117
+  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval\n  (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))\n  (env ((□? (f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  34
+  app
+  "\"'(eval (app or (-> (app f (app #t)) <-) (app f (app #f))) (env ((□? (f)))))\""
+  #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval\n  (app (-> p <-) n1 n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))\""
+  10
   3
   2
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  2
-  #t
   5
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  app
+  "\"'(eval (app f (-> (app #t) <-)) (env ((□? (f)))))\""
+  13
+  5
+  2
+  6
+  2
+  2
+  4
+  1
+  2/5
+  5
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
@@ -1721,18 +1622,18 @@
   34
   ref-or-constructor
   "\"'(eval (app not (-> x3 <-)) (env ((□? (x1 x2 x3 x4)))))\""
-  29
-  14
-  6
+  38
+  17
+  8
+  13
   9
-  7
-  4
-  11
+  6
+  15
   1
-  3/5
-  12
+  8/13
+  15
   #f
-  36/7
+  19/17
   ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
 '(shuffled-cache
   1
@@ -1742,3 +1643,24 @@
   app
   "\"'(eval (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ((□? (n1)) (□? (p)))))\""
   #f)
+'(shuffled-cache
+  1
+  sat-1
+  1
+  15
+  34
+  ref-or-constructor
+  "\"'(eval (app (-> f <-) (app #t)) (env ((□? (f)))))\""
+  15
+  5
+  5
+  5
+  0
+  1
+  1
+  1
+  0
+  4
+  #f
+  8/5
+  ((0 0 0) (0 0 0) (0 0 0)))

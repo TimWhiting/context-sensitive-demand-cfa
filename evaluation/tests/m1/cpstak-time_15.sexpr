@@ -51,8 +51,8 @@
   0
   23
   #f
-  107/13
-  ((8 8 0) (8 8 0) (8 8 0)))
+  55/13
+  ((17/2 17/2 0) (8 8 0) (8 8 0)))
 '(clean-cache
   cpstak
   1
@@ -99,8 +99,8 @@
   0
   23
   #f
-  191/25
-  ((15/2 15/2 0) (8 8 0) (8 8 0)))
+  91/25
+  ((15/2 15/2 0) (15/2 15/2 0) (15/2 15/2 0)))
 '(clean-cache
   cpstak
   1
@@ -264,9 +264,9 @@
   3
   1
   1/2
-  0
-  #f
-  4
+  2
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   cpstak
@@ -284,9 +284,9 @@
   3
   1
   1/2
-  0
-  #f
-  4
+  2
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   cpstak
@@ -304,9 +304,9 @@
   3
   1
   1/2
-  0
-  #f
-  4
+  2
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
 '(clean-cache
   cpstak
@@ -319,46 +319,9 @@
   0
   cpstak
   1
-  15
   36
   ref-or-constructor
-  "\"'(eval (app tak (-> x <-) y z (λ (a) ...)) (env ((□? (x y z)))))\""
-  5
-  2
-  2
-  1
-  1
-  2
-  3
-  1
-  1/2
-  0
-  #f
-  4
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (match (-> (app not (app < y x)) <-) (#f) _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  letrec*
-  "\"'(eval (λ (x y z) (-> (letrec* (tak) ...) <-)) (env ((□? (x y z)))))\""
+  "\"'(eval\n  (app tak (app - x 1) (-> y <-) z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
@@ -374,7 +337,230 @@
   1
   36
   ref-or-constructor
+  "\"'(eval\n  (app tak (app - y 1) z (-> x <-) (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - z 1) (-> x <-) y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app < (-> y <-) x) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (app tak (-> (app - y 1) <-) z x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  match
+  "\"'(eval\n  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
   "\"'(eval\n  (app tak (app - y 1) (-> z <-) x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (λ (a) (-> a <-)) (env ((□? (a)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak v1 v2 (-> v3 <-) k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak v1 (-> v2 <-) v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app k (-> z <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app - (-> x <-) 1) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (app tak (-> (app - x 1) <-) y z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (match\n   (app not (app < y x))\n   ((#f) (-> (app tak (app - x 1) y z (λ (v1) ...)) <-))\n   _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  15
+  36
+  ref-or-constructor
+  "\"'(eval (app (-> k <-) z) (env ((□? (x y z k)) (□? (x y z)))))\""
+  52
+  26
+  6
+  20
+  0
+  0
+  0
+  1
+  0
+  23
+  #f
+  55/13
+  ((8 8 0) (8 8 0) (8 8 0)))
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app < y (-> x <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  letrec*
+  "\"'(eval (λ (x y z) (-> (letrec* (tak) ...) <-)) (env ((□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  15
+  36
+  ref-or-constructor
+  "\"'(eval (app tak x (-> y <-) z (λ (a) ...)) (env ((□? (x y z)))))\""
+  5
+  2
+  2
+  1
+  1
+  2
+  3
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (λ (v3) (-> (app tak v1 v2 v3 k) <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - z 1) x (-> y <-) (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app - (-> y <-) 1) (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  app
+  "\"'(eval (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  0
+  cpstak
+  1
+  15
+  36
+  ref-or-constructor
+  "\"'(eval (app tak x y (-> z <-) (λ (a) ...)) (env ((□? (x y z)))))\""
+  5
+  2
+  2
+  1
+  1
+  2
+  3
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  0
+  cpstak
+  1
+  36
+  letrec*
+  "\"'(eval ((top) letrec* (cpstak) ...) (env ()))\""
   #f)
 '(shuffled-cache
   0
@@ -395,61 +581,16 @@
   0
   23
   #f
-  191/25
+  91/25
   ((15/2 15/2 0) (15/2 15/2 0) (15/2 15/2 0)))
 '(shuffled-cache
   0
   cpstak
   1
   36
-  app
-  "\"'(eval\n  (match\n   (app not (app < y x))\n   ((#f) (-> (app tak (app - x 1) y z (λ (v1) ...)) <-))\n   _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
   ref-or-constructor
-  "\"'(eval\n  (app tak (app - y 1) z (-> x <-) (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval (app tak (-> x <-) y z (λ (a) ...)) (env ((□? (x y z)))))\""
   #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  15
-  36
-  ref-or-constructor
-  "\"'(eval (app tak x y (-> z <-) (λ (a) ...)) (env ((□? (x y z)))))\""
-  5
-  2
-  2
-  1
-  1
-  2
-  3
-  1
-  1/2
-  0
-  #f
-  4
-  ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   0
   cpstak
@@ -463,8 +604,8 @@
   cpstak
   1
   36
-  match
-  "\"'(eval\n  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - x 1) y (-> z <-) (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
@@ -472,15 +613,7 @@
   1
   36
   ref-or-constructor
-  "\"'(eval\n  (app tak (app - z 1) x (-> y <-) (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (app tak (-> (app - x 1) <-) y z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (app tak (-> v1 <-) v2 v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
@@ -489,14 +622,6 @@
   36
   app
   "\"'(eval\n  (λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval (app k (-> z <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
@@ -512,34 +637,66 @@
   1
   36
   app
-  "\"'(eval\n  (λ (v3) (-> (app tak v1 v2 v3 k) <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (match (-> (app not (app < y x)) <-) (#f) _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
   cpstak
   1
   36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (-> v1 <-) v2 v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  app
+  "\"'(eval\n  (λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   0
   cpstak
   1
   36
-  ref-or-constructor
-  "\"'(eval (λ (a) (-> a <-)) (env ((□? (a)) (□? (x y z)))))\""
+  app
+  "\"'(eval\n  (app tak (-> (app - z 1) <-) x y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
-  0
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - z 1) (-> x <-) y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval (app - (-> y <-) 1) (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (match (app not (app < y x)) (#f) (_ (-> (app k z) <-)))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
   cpstak
   1
   15
   36
   ref-or-constructor
-  "\"'(eval (app (-> k <-) z) (env ((□? (x y z k)) (□? (x y z)))))\""
-  52
-  26
+  "\"'(eval\n  (app tak v1 v2 v3 (-> k <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  51
+  25
   6
   20
   0
@@ -549,18 +706,18 @@
   0
   23
   #f
-  107/13
-  ((17/2 17/2 0) (17/2 17/2 0) (17/2 17/2 0)))
+  91/25
+  ((15/2 15/2 0) (15/2 15/2 0) (15/2 15/2 0)))
 '(shuffled-cache
-  0
+  1
   cpstak
   1
   36
   ref-or-constructor
-  "\"'(eval (app - (-> y <-) 1) (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval (app k (-> z <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
-  0
+  1
   cpstak
   1
   36
@@ -568,7 +725,7 @@
   "\"'(eval\n  (app tak v1 v2 (-> v3 <-) k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
-  0
+  1
   cpstak
   1
   36
@@ -576,55 +733,7 @@
   "\"'(eval (app - (-> x <-) 1) (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
-  0
-  cpstak
   1
-  36
-  ref-or-constructor
-  "\"'(eval (app < y (-> x <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (app tak (-> (app - z 1) <-) x y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - x 1) (-> y <-) z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval (app < (-> y <-) x) (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak v1 (-> v2 <-) v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  letrec*
-  "\"'(eval ((top) letrec* (cpstak) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  0
   cpstak
   1
   36
@@ -632,81 +741,12 @@
   "\"'(eval\n  (app tak (-> (app - y 1) <-) z x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - z 1) (-> x <-) y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  0
-  cpstak
-  1
-  15
-  36
-  ref-or-constructor
-  "\"'(eval (app tak x (-> y <-) z (λ (a) ...)) (env ((□? (x y z)))))\""
-  5
-  2
-  2
-  1
-  1
-  2
-  3
-  1
-  1/2
-  0
-  #f
-  4
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - x 1) y (-> z <-) (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - z 1) (-> x <-) y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
   1
   cpstak
   1
   36
   letrec*
   "\"'(eval ((top) letrec* (cpstak) ...) (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (match (-> (app not (app < y x)) <-) (#f) _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (app tak (-> (app - z 1) <-) x y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -715,30 +755,6 @@
   36
   ref-or-constructor
   "\"'(eval\n  (app tak (app - z 1) x (-> y <-) (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (λ (v3) (-> (app tak v1 v2 v3 k) <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (-> v1 <-) v2 v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))\""
   #f)
 '(shuffled-cache
   1
@@ -757,67 +773,33 @@
   3
   1
   1/2
-  0
-  #f
-  4
+  2
+  #t
+  1
   ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  cpstak
-  1
-  15
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak v1 v2 v3 (-> k <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  61
-  28
-  9
-  24
-  7
-  4
-  11
-  1
-  17/42
-  23
-  #f
-  111/14
-  ((23/2 23/2 0) (23/2 23/2 0) (23/2 23/2 0)))
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval (app - (-> y <-) 1) (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  15
-  36
-  ref-or-constructor
-  "\"'(eval (app (-> k <-) z) (env ((□? (x y z k)) (□? (x y z)))))\""
-  52
-  26
-  6
-  20
-  0
-  0
-  0
-  1
-  0
-  23
-  #f
-  107/13
-  ((17/2 17/2 0) (17/2 17/2 0) (17/2 17/2 0)))
 '(shuffled-cache
   1
   cpstak
   1
   36
   app
-  "\"'(eval\n  (app tak (-> (app - x 1) <-) y z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (app tak (-> (app - z 1) <-) x y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - y 1) z (-> x <-) (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - x 1) y (-> z <-) (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -836,17 +818,91 @@
   3
   1
   1/2
-  0
+  2
+  #t
+  1
+  ((0 0 0) (0 0 0) (0 0 0)))
+'(shuffled-cache
+  1
+  cpstak
+  1
+  15
+  36
+  ref-or-constructor
+  "\"'(eval (app (-> k <-) z) (env ((□? (x y z k)) (□? (x y z)))))\""
+  58
+  28
+  9
+  21
+  7
+  4
+  11
+  1
+  17/48
+  25
   #f
   4
+  ((9 9 0) (9 9 0) (9 9 0)))
+'(shuffled-cache
+  1
+  cpstak
+  1
+  15
+  36
+  ref-or-constructor
+  "\"'(eval (app tak x y (-> z <-) (λ (a) ...)) (env ((□? (x y z)))))\""
+  60
+  30
+  9
+  21
+  8
+  4
+  12
+  1
+  23/60
+  27
+  #t
+  19/5
   ((0 0 0) (0 0 0) (0 0 0)))
 '(shuffled-cache
   1
   cpstak
   1
   36
+  ref-or-constructor
+  "\"'(eval\n  (app tak v1 (-> v2 <-) v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (-> v1 <-) v2 v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - y 1) (-> z <-) x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
   app
-  "\"'(eval\n  (match (app not (app < y x)) (#f) (_ (-> (app k z) <-)))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (app tak (-> (app - x 1) <-) y z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -862,86 +918,6 @@
   1
   36
   app
-  "\"'(eval\n  (λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval (app - (-> x <-) 1) (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
-  "\"'(eval\n  (letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-))\n  (env ((□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app - (-> z <-) 1)\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - y 1) z (-> x <-) (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - x 1) (-> y <-) z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak v1 (-> v2 <-) v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - x 1) y (-> z <-) (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  match
-  "\"'(eval\n  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak v1 v2 (-> v3 <-) k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  app
   "\"'(eval\n  (λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
@@ -950,7 +926,15 @@
   1
   36
   app
-  "\"'(eval\n  (match\n   (app not (app < y x))\n   ((#f) (-> (app tak (app - x 1) y z (λ (v1) ...)) <-))\n   _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  ref-or-constructor
+  "\"'(eval\n  (app tak (app - x 1) (-> y <-) z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -966,7 +950,7 @@
   1
   36
   app
-  "\"'(eval\n  (app tak (-> (app - y 1) <-) z x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (match (-> (app not (app < y x)) <-) (#f) _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -974,7 +958,31 @@
   1
   36
   ref-or-constructor
-  "\"'(eval (app k (-> z <-)) (env ((□? (x y z k)) (□? (x y z)))))\""
+  "\"'(eval\n  (app - (-> z <-) 1)\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (λ (v3) (-> (app tak v1 v2 v3 k) <-))\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-))\n  (env ((□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
+  app
+  "\"'(eval\n  (match\n   (app not (app < y x))\n   ((#f) (-> (app tak (app - x 1) y z (λ (v1) ...)) <-))\n   _)\n  (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
 '(shuffled-cache
   1
@@ -989,35 +997,14 @@
   cpstak
   1
   36
+  match
+  "\"'(eval\n  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))\""
+  #f)
+'(shuffled-cache
+  1
+  cpstak
+  1
+  36
   ref-or-constructor
   "\"'(eval (app < (-> y <-) x) (env ((□? (x y z k)) (□? (x y z)))))\""
   #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  36
-  ref-or-constructor
-  "\"'(eval\n  (app tak (app - y 1) (-> z <-) x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))\""
-  #f)
-'(shuffled-cache
-  1
-  cpstak
-  1
-  15
-  36
-  ref-or-constructor
-  "\"'(eval (app tak x y (-> z <-) (λ (a) ...)) (env ((□? (x y z)))))\""
-  5
-  2
-  2
-  1
-  1
-  2
-  3
-  1
-  1/2
-  0
-  #f
-  4
-  ((0 0 0) (0 0 0) (0 0 0)))
