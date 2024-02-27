@@ -19,7 +19,13 @@
     )
   )
 
-; TODO num singletons
+(define (join oldres res)
+  (match-let ([(cons s1 (literal l1)) oldres]
+              [(cons s2 (literal l2)) (from-value res)])
+    (cons (set-union s1 s2) (lit-union l1 l2))
+    )
+  )
+
 (define (run-mcfa name kind kindstring query exp m out-time)
   (define result-hash (hash))
   (define timed-result
@@ -37,7 +43,14 @@
     [#f (pretty-print `(,kind ,name ,m ,(timeout) #f) out-time)]
     [_
      (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
-     (define eval-results (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
+     (define eval-results-x (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
+     (define eval-results-hash (hash))
+     (for ([result eval-results-x])
+       (match-let ([(cons (meval Ce p) res) result])
+         (set! eval-results-hash (hash-update eval-results-hash Ce (λ (oldres) (join oldres res)) (from-value res)))
+         )
+       )
+     (define eval-results (hash->list eval-results-hash))
      (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
      (define num-eval-subqueries (length eval-subqueries))
      (define num-store-values (length store-keys))
@@ -139,7 +152,7 @@
   (define do-run-demand #t)
   (define do-run-exhaustive #t)
   ; (define programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
-  (define programs '(deriv rsa))
+  (define programs '(blur eta kcfa-2 loop2-1))
   (if do-run-exhaustive
       (for ([m (in-range 0 3)])
         (let ([rebind-cost 0]

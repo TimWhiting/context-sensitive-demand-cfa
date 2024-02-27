@@ -262,10 +262,36 @@
     (range 3) hashes
     )
    #:x-label "Program"
-   #:y-label "# Singletons Demand / # Singletons Exhaustive"
+   #:y-label "# Singletons"
    #:width 1500
    #:height 500
    #:out-file (format "plots/precision.png")
+   )
+
+  (plot
+   (map
+    (λ (m h)
+      (discrete-histogram
+       (map (λ (p)
+              (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-b"))))))
+              (list p (/
+                       (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
+                       (max 1 num-mcfa)
+                       )))
+            programs)
+       #:label (format "m=~a" m)
+       #:skip 3.5
+       #:x-min m
+       #:color m
+       ))
+    (range 3) hashes
+    )
+   #:x-label "Program"
+   #:y-label "# Singletons Demand / # Singletons Exhaustive"
+   #:width 1500
+   #:height 500
+   #:out-file (format "plots/precision-cmp.png")
    )
 
 
@@ -276,10 +302,6 @@
        (map (λ (p)
               (define num-mcfa (* num-shuffles (num-singletons (car (find-prog p (hash-ref h "mcfa-e"))))))
               (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-a"))))))
-              ; (/
-              ;  (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
-              ;  (* num-shuffles (max 1 num-mcfa))
-              ;  )
               (list p num-demand))
             programs)
        #:label (format "m=~a" m)
@@ -294,6 +316,32 @@
    #:width 1500
    #:height 500
    #:out-file (format "plots/precision-acc.png")
+   )
+
+  (plot
+   (map
+    (λ (m h)
+      (discrete-histogram
+       (map (λ (p)
+              (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
+              (define num-demand (sum (map num-singletons (filter (filter-timeout 25) (find-prog p (hash-ref h "dmcfa-a"))))))
+              (list p (/
+                       (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
+                       (* num-shuffles (max 1 num-mcfa))
+                       )))
+            programs)
+       #:label (format "m=~a" m)
+       #:skip 3.5
+       #:x-min m
+       #:color m
+       ))
+    (range 3) hashes
+    )
+   #:x-label "Program"
+   #:y-label "# Singletons Demand / # Singletons Exhaustive"
+   #:width 1500
+   #:height 500
+   #:out-file (format "plots/precision-acc-cmp.png")
    )
 
 
