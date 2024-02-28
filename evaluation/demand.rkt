@@ -149,7 +149,7 @@
 
 (define (is-truthy ρ C v)
   (match v
-    [(product/lattice (literal (list i1 f1 c1 s1))) (unit #t)]
+    [(product/lattice (literal (list i1 c1 s1))) (unit #t)]
     [(product/set (list (cons C `(λ ,_ ,@_)) p)) (unit #t)]; Closures
     [(product/set (list (cons C `',x) p)) (unit #t)]; quoted symbols
     [(product/set (list Ce ρe)) ; Constructors
@@ -198,11 +198,11 @@
 
 (define (do-demand-equal ρ C a1 a2)
   (match a1
-    [(product/lattice (literal (list i1 f1 c1 s1)))
+    [(product/lattice (literal (list i1 c1 s1)))
      (match a2
-       [(product/lattice (literal (list i2 f2 c2 s2)))
+       [(product/lattice (literal (list i2 c2 s2)))
         (define f-lit (for-lit ρ C))
-        (bool-result (f-lit i1 i2 eq?) (f-lit f1 f2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C ρ)
+        (bool-result (f-lit i1 i2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C ρ)
         ]
        [_ (false C ρ)] ; Primitive != Clos/Con
        )]
@@ -221,7 +221,7 @@
            [(cons C #t) (truecon C ρ)]
            [(cons C #f) (falsecon C ρ)]
            [(cons _ (? string? s)) (lit (litstring s))]
-           [(cons _ (? integer? x)) (lit (litint x))]
+           [(cons _ (? number? x)) (lit (litnum x))]
            [(cons _ `',x) (clos Ce ρ)]
            [(cons _ (? symbol? x))
             (>>= ((bind x) Ce ρ)
@@ -486,6 +486,7 @@
                  (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥)) ; strictly refines because of above
                  ]
                 [(⊑-cc cc₀ cc₁)
+                 ;  (pretty-print `(refine-x))
                  (unit Cee ρee)
                  ]
                 [else ⊥]))))]

@@ -81,7 +81,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  110
+  96
+  10
+  4
+  95
+  4
+  99
+  1
+  375/376
+  63
+  #f
+  181/96
+  ((14 15 0)))
 '(clean-cache
   flatten
   2
@@ -162,7 +174,7 @@
   63
   #f
   181/96
-  ((15 15 0)))
+  ((14 15 0)))
 '(clean-cache
   flatten
   2
@@ -243,7 +255,19 @@
   ref-or-constructor
   "'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))"
   #f
-  #f)
+  110
+  96
+  10
+  4
+  95
+  4
+  99
+  1
+  47/48
+  63
+  #f
+  181/96
+  ((14 14 0)))
 '(clean-cache
   flatten
   2
@@ -354,7 +378,19 @@
   ref-or-constructor
   "'(eval (app null? (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  110
+  96
+  10
+  4
+  95
+  4
+  99
+  1
+  47/48
+  63
+  #f
+  181/96
+  ((14 15 0)))
 '(clean-cache
   flatten
   2
@@ -393,7 +429,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  110
+  96
+  10
+  4
+  95
+  4
+  99
+  1
+  47/48
+  63
+  #f
+  181/96
+  ((14 15 0)))
 '(clean-cache
   flatten
   2

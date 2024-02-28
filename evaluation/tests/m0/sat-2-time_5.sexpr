@@ -414,7 +414,7 @@
   9
   #t
   1
-  ((1 1 0)))
+  ((2 2 0)))
 '(clean-cache
   sat-2
   0
@@ -498,7 +498,7 @@
   5
   #t
   1
-  ((0 1 0)))
+  ((1 1 0)))
 '(clean-cache
   sat-2
   0
@@ -1131,19 +1131,7 @@
   app
   "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env (() () () () () () ())))"
   #f
-  34
-  21
-  11
-  2
-  21
-  11
-  32
-  1
-  1
-  14
-  #f
-  4/3
-  ((4 4 0)))
+  #f)
 '(clean-cache
   sat-2
   0
@@ -1185,7 +1173,7 @@
   8
   #f
   6/5
-  ((1 1 0)))
+  ((2 2 0)))
 '(clean-cache
   sat-2
   0
@@ -1479,7 +1467,7 @@
   8
   #f
   6/5
-  ((1 1 0)))
+  ((2 2 0)))
 '(clean-cache
   sat-2
   0

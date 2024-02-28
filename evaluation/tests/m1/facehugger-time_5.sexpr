@@ -102,7 +102,7 @@
   19
   #f
   43/31
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   facehugger
   1
@@ -753,7 +753,7 @@
   54
   #f
   112/83
-  ((4 4 0)))
+  ((5 5 0)))
 '(clean-cache
   facehugger
   1

@@ -485,7 +485,7 @@
   1
   11
   #f
-  11/7
+  31/21
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -506,7 +506,7 @@
   1
   10
   #f
-  30/19
+  28/19
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -548,7 +548,7 @@
   1
   10
   #f
-  14/9
+  13/9
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -569,7 +569,7 @@
   1
   9
   #f
-  25/16
+  23/16
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -933,19 +933,7 @@
   app
   "'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env (())))"
   #f
-  89
-  75
-  12
-  2
-  75
-  12
-  87
-  1
-  1
-  33
-  #f
-  131/75
-  ((4 5 0)))
+  #f)
 '(clean-cache
   primtest
   0
@@ -986,8 +974,8 @@
   1
   31
   #f
-  127/72
-  ((4 4 0)))
+  113/72
+  ((5 5 0)))
 '(clean-cache
   primtest
   0
@@ -1112,7 +1100,7 @@
   1
   11
   #f
-  35/22
+  3/2
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -1752,7 +1740,7 @@
   9
   #f
   19/14
-  ((0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
@@ -2675,8 +2663,8 @@
   1
   30
   #f
-  62/35
-  ((4 4 0)))
+  11/7
+  ((4 5 0)))
 '(clean-cache
   primtest
   0
@@ -2706,7 +2694,19 @@
   match
   "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))"
   #f
-  #f)
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  30
+  #f
+  11/7
+  ((4 4 0)))
 '(clean-cache
   primtest
   0
@@ -2745,7 +2745,19 @@
   app
   "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env (())))"
   #f
-  #f)
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  30
+  #f
+  11/7
+  ((4 4 0)))
 '(clean-cache
   primtest
   0
@@ -2765,8 +2777,8 @@
   1
   30
   #f
-  62/35
-  ((4 4 0)))
+  11/7
+  ((5 5 0)))
 '(clean-cache
   primtest
   0
@@ -2807,7 +2819,7 @@
   1
   11
   #f
-  37/20
+  29/20
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -2849,7 +2861,7 @@
   1
   11
   #f
-  37/20
+  29/20
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -2891,7 +2903,7 @@
   1
   11
   #f
-  13/8
+  37/24
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -2933,7 +2945,7 @@
   1
   11
   #f
-  41/25
+  39/25
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -2996,7 +3008,7 @@
   1
   30
   #f
-  62/35
+  11/7
   ((5 5 0)))
 '(clean-cache
   primtest
@@ -3038,8 +3050,8 @@
   1
   30
   #f
-  62/35
-  ((4 5 0)))
+  11/7
+  ((5 5 0)))
 '(clean-cache
   primtest
   0
@@ -3059,8 +3071,8 @@
   1
   30
   #f
-  62/35
-  ((4 4 0)))
+  11/7
+  ((4 5 0)))
 '(clean-cache
   primtest
   0
@@ -3101,8 +3113,8 @@
   1
   11
   #f
-  37/20
-  ((1 1 0)))
+  29/20
+  ((2 2 0)))
 '(clean-cache
   primtest
   0
@@ -3143,7 +3155,7 @@
   1
   11
   #f
-  37/20
+  29/20
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -3185,7 +3197,7 @@
   1
   11
   #f
-  13/8
+  37/24
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -3269,8 +3281,8 @@
   1
   12
   #f
-  44/23
-  ((1 1 0)))
+  34/23
+  ((2 2 0)))
 '(clean-cache
   primtest
   0
@@ -3290,7 +3302,7 @@
   1
   11
   #f
-  41/21
+  31/21
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -3332,8 +3344,8 @@
   1
   13
   #f
-  15/8
-  ((2 2 0)))
+  35/24
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
@@ -3374,7 +3386,7 @@
   1
   11
   #f
-  41/21
+  31/21
   ((1 1 0)))
 '(clean-cache
   primtest
@@ -3437,8 +3449,8 @@
   1
   30
   #f
-  62/35
-  ((4 4 0)))
+  11/7
+  ((5 5 0)))
 '(clean-cache
   primtest
   0
@@ -3458,7 +3470,7 @@
   1
   30
   #f
-  62/35
+  11/7
   ((4 4 0)))
 '(clean-cache
   primtest
@@ -3479,7 +3491,7 @@
   1
   30
   #f
-  62/35
+  11/7
   ((4 4 0)))
 '(clean-cache
   primtest

@@ -18,7 +18,7 @@
   24
   #f
   70/47
-  ((1 1 0)))
+  ((2 2 0)))
 '(clean-cache
   facehugger
   0
@@ -753,7 +753,7 @@
   24
   #f
   34/23
-  ((1 1 0)))
+  ((2 2 0)))
 '(clean-cache
   facehugger
   0

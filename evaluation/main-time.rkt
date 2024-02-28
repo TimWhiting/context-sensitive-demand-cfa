@@ -45,7 +45,6 @@
      (define num-eval-subqueries (length eval-subqueries))
      (define num-instant-eval-subqueries (length eval-subqueries-instant))
      (define num-store-values (length store-keys))
-
      (define singletons (count is-singleton-val eval-results))
      (define singletons-instant (count is-singleton-val eval-instant-results))
      (define avg-precision (/ (apply + (map result-size-val eval-results)) (length eval-results)))

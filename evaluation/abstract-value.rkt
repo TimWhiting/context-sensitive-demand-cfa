@@ -23,20 +23,15 @@
 (struct bottom flat-lattice () #:transparent)
 (struct singleton flat-lattice (x) #:transparent)
 
-(define litbottom (literal (list (bottom) (bottom) (bottom) (bottom))))
-(define (litint i) (literal (list (singleton i) (bottom) (bottom) (bottom))))
-(define topint (literal (list (top) (bottom) (bottom) (bottom))))
-(define (litfloat f) (literal (list (bottom) (singleton f) (bottom) (bottom))))
-(define topfloat (literal (list (bottom) (top) (bottom) (bottom))))
-(define topnum (each (lit topint) (lit topfloat)))
-(define (litnum i) (if (integer? i) (litint i) (litfloat i)))
-(define (litchar c) (literal (list (bottom) (bottom) (singleton c) (bottom))))
-(define (litstring s) (literal (list (bottom) (bottom) (bottom) (singleton s))))
+(define litbottom (literal (list (bottom) (bottom) (bottom))))
+(define (litnum f) (literal (list (singleton f) (bottom) (bottom))))
+(define topnum (lit (literal (list (top) (bottom) (bottom)))))
+(define (litchar c) (literal (list (bottom) (singleton c) (bottom))))
+(define (litstring s) (literal (list (bottom) (bottom) (singleton s))))
 
 (define (to-lit lit)
   (match lit
-    [(? integer? i) (litint i)]
-    [(? number? n) (litfloat n)]
+    [(? number? n) (litnum n)]
     [(? string? s) (litstring s)]
     [(? char? c) (litchar c)]
     [_ #f]

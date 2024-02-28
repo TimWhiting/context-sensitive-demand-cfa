@@ -524,8 +524,8 @@
   13/18
   23
   #f
-  73/45
-  ((4 5 0)))
+  67/45
+  ((5 5 0)))
 '(clean-cache
   primtest
   1
@@ -545,7 +545,7 @@
   35/48
   20
   #f
-  20/13
+  58/39
   ((4 4 0)))
 '(clean-cache
   primtest
@@ -981,7 +981,7 @@
   16
   #f
   42/29
-  ((3 4 0)))
+  ((3 3 0)))
 '(clean-cache
   primtest
   1
@@ -1251,7 +1251,7 @@
   18
   #f
   40/29
-  ((3 3 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -1545,7 +1545,7 @@
   18
   #f
   40/29
-  ((3 3 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -1734,7 +1734,7 @@
   14
   #f
   32/23
-  ((3 3 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -1827,7 +1827,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  36
+  29
+  5
+  2
+  18
+  3
+  21
+  1
+  13/21
+  18
+  #f
+  40/29
+  ((3 3 0)))
 '(clean-cache
   primtest
   1
@@ -1869,7 +1881,7 @@
   14
   #f
   32/23
-  ((1 2 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2268,7 +2280,7 @@
   18
   #f
   40/29
-  ((2 3 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1

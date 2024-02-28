@@ -163,7 +163,7 @@
   (match Ce
     [(cons _ #t) (truecon Ce ρ)]
     [(cons _ #f) (falsecon Ce ρ)]
-    [(cons _ (? integer? x)) (lit (litint x))]
+    [(cons _ (? number? x)) (lit (litnum x))]
     [(cons _ (? string? x)) (lit (litstring x))]
     [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
     [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
