@@ -150,11 +150,12 @@ Moreover, because its segmentation of flows is explicit, it only need analyze ea
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
 
 % Practicality and scalability of Demand-CFA in general
+\subsection{Practicality and Scalability of Control Flow Analyses}
 
 The interface and pricing model exhibited by demand CFA make many useful applications practical.
 @citet{horwitz1995demand} identify several ways this practicality is realized:
 First, one can restrict analysis to a program's critical path or only where certain features are used.
-Second, one can analyze more or more often, and interleave analysis with other tools.
+Second, one can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
 
@@ -167,14 +168,18 @@ For example:
 \item Privacy analyses investigate where personal information can flow.
 \item Developers question where unexpected values originate and propagate through the program.
 \end{itemize}
-In particular none of these questions care about the really complicated control flow in library \emph{x-obscured-flow} used in one place at the beginning of the program and not relevant their analysis.
+For example, none of these questions care about complicated control flow in library \emph{flow-obscurer} used at the beginning of the program. Instead a demand analysis partitions 
+the state space into only the relevant parts of the program they are analyzing.
 
-In particular we argue that demand CFA is what we call a \emph{demand scalable analysis}. We characterized such analyses as \begin{enumerate*} \item being able to
-answer important questions about a program in constant time or effort, and \item being robust to increase in program size \end{enumerate*}. In particular
-\emph{demand scalable analyses} are focused on the use cases and information gleaned from the analysis using timeouts or early stopping criteria regardless of the underlying computational complexity. This stands in 
-stark contrast to the usual methodology for evaluating the scalability of control flow analyses.
+We postulate that demand CFA is what we term a \emph{demand-scalable} analysis. We characterized such analyses as \begin{enumerate*} \item being able to
+answer important questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
+\emph{Demand-scalable} analyses are focused on the use cases and information gleaned from the analysis regardless of the underlying computational complexity.
+\emph{Demand-scalable} analyses instead opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
+This stands in stark contrast to the usual methodology for evaluating the scalability of (exhaustive) control flow analyses. 
+Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses to integrate in modern
+compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other demand based tools each of which could benefit from additional semantic information.
 
-% Needed context sensitivity
+\subsection{Towards Context Sensitivity}
 
 Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019demand} which is context-\emph{insensitive}.
 (We offer some intuition about Demand 0CFA's operation in \S~\ref{sec:intuition} and review it in \S~\ref{sec:demand-0cfa}.)
@@ -507,17 +512,17 @@ Demand 0CFA arrives at this judgment by the @clause-label{Call} rule which uses 
 In demand 0CFA, this relation is only a thin wrapper over @|0cfa-expr-name|, but it becomes more involved in context-sensitive demand CFA.
 We include it here for consistency.
 
-A judgement @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that value of the expression @(e) is applied at @(app (e 0) (e 1)).
+A judgement @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the value of the expression @(e) is applied at @(app (e 0) (e 1)).
 Demand 0CFA arrives at such a judgement by considering the type of the syntactic context to which the value flows.
 The @clause-label{Rator} rule captures the intuition that, if @(lam (var 'x) (e)) flows to ope\emph{rator} position @(e 0) of @(app (e 0) (e 1)), it is applied by @(app (e 0) (e 1)).
 The @clause-label{Body} rule captures the intuition that if a value flows to the body of a $\lambda$ term, then it flows to each of its callers as well.
-The @clause-label{Rand} rule captures the intuition that a value in ope\emph{rand} position is bound by the parameter of each operator value and hence to each reference to a parameter in the operator's body.
+The @clause-label{Rand} rule captures the intuition that a value in ope\emph{rand} position is bound by the formal parameter of each operator value and hence to each reference to the formal parameter in the operator's body.
 If the operator @(e "_f") evaluates to @(lam (var 'x) (e)), then the value of @(e "_a") flows to each reference to @(var 'x) in @(e).
 
 The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(e) with each reference to @(var 'x) in @(e).
 @clause-label{Find-Ref} finds @(e) itself if @(e) is a reference to @(var 'x).
 @clause-label{Find-Rator} and @clause-label{Find-Rand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the ope\emph{rator} @(e 0) and ope\emph{rand} @(e 1), respectively.
-@clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it doesn't' find shadowed references.
+@clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it doesn't find shadowed references.
 
 \begin{figure}
 \[
@@ -545,7 +550,7 @@ such CFAs do not evaluate the reference @(ref (var 'x)) as it occurs in @(lam (v
 
 Demand 0CFA, however, considers reachability not for the sake of control but for data.
 In this example, the caller of @(lam (var 'y) (ref (var 'x))) is not needed for evaluation of @(ref (var 'x)), so demand 0CFA remains oblivious to the fact that @(lam (var 'y) (ref (var 'x))) is never called.
-If, however, the reference @(ref (var 'x)) were replaced with @(ref (var 'y)) so that the program was @(app (lam (var 'x) (lam (var 'y) (ref (var 'x)))) (lam (var 'z) (ref (var 'z)))),
+If, however, the reference @(ref (var 'x)) were replaced with @(ref (var 'y)) so that the program was @(app (lam (var 'x) (lam (var 'y) (ref (var 'y)))) (lam (var 'z) (ref (var 'z)))),
 evaluation of @(ref (var 'y)) would depend on the caller of @(lam (var 'y) (ref (var 'y))).
 Unable to find a caller in this case, demand 0CFA would report that @(ref (var 'y)) obtains no value.
 
@@ -566,28 +571,28 @@ In order to introduce context sensitivity to demand 0CFA, we extend @|0cfa-eval-
 (Like Demand 0CFA, our context-sensitive demand CFA will not materialize the store in the semantics, but it can be recovered if desired.)
 
 However, demand CFA differs from exhaustive CFA in that the precise environment in which an expression is evaluated or traced may not be completely determined.
-That is, the context in which each environment variable is bound may not be known or known fully.
+That is, the context in which each environment variable is bound may not be fully known.
 For instance,
 users typically
-want control-flow information about an expression which sound with respect to all its evaluations
+want control-flow information about an expression which is sound with respect to all its evaluations
 and
 so indicate in queries by leaving the environment completely indeterminate.
 In this case, demand CFA should instantiate the environment (only) as necessary to distinguish evaluations in different contexts.
-Demand CFA thus requires a choice of context, context representation, and environment representation that support its ability to do so.
+Demand CFA thus requires a choice of context, context representation, and environment representation which support its ability to do so.
 In this section, we examine each of these choices in turn.
 
 \subsection{Choosing the context}
 
 To formulate context-sensitive demand CFA in the most general setting possible, we will avoid sensitivities to properties not present in our semantics, such as types.
-In fact, if we wish to maintain our focus on an untyped $\lambda$ calculus, the most straightforward choice is call-site sensitivity.
+Since we focus on an untyped $\lambda$ calculus, the most straightforward choice is call-site sensitivity.
 
 The canonical call-site sensitivity is that of $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA} which sensitizes each binding to the last $k$ call sites encountered in evaluation.
-However, this form of call-site sensitivity appears to work against the parsimonious nature of demand CFA.
+However, this form of call-site sensitivity works against the parsimonious nature of demand CFA.
 To make this concrete, consider that, in the fragment \texttt{(begin (f x) (g y))}, 
-the binding of \texttt{g}'s parameter will in general depend on the particular calls made during the evaluation of \texttt{(f x)}.
-If the value of \texttt{(f x)} is not otherwise demanded, this dependence provokes demand analysis solely to discover more of the context or requires that the portion of the context contributed by \texttt{(f x)} be left indeterminate, thereby sacrificing precision.
+the binding of \texttt{g}'s parameter under a last $k$ call-site sensitivity will depend on the particular calls made during the evaluation of \texttt{(f x)}.
+If the value of \texttt{(f x)} is not otherwise demanded, this dependence either provokes demand analysis to discover more of the context or requires that the portion of the context contributed by \texttt{(f x)} be left indeterminate, thereby sacrificing precision.
 
-A more fitting call-site sensitivity would allow demand CFA to discover more of the context through its natural course of operation.
+A more fitting call-site sensitivity would allow demand CFA to discover more of the context through its course of operation.
 A natural fit, it turns out, is $m$-CFA's call-site sensitivity which models the top-$m$ stack frames.
 
 \subsubsection{$m$-CFA's context abstraction}
@@ -595,7 +600,7 @@ A natural fit, it turns out, is $m$-CFA's call-site sensitivity which models the
 The $m$-CFA hierarchy@~cite{dvanhorn:Might2010Resolving} is the result of an investigation into the polynomial character of $k$-CFA in an object-oriented setting versus its exponential character in a functional setting.
 The crucial discovery of that investigation was that OO-oriented $k$-CFA induces flat environments whereas functional-oriented $k$-CFA induces nested environments.
 Specifically, OO-oriented $k$-CFA re-binds object (closure) variables in the allocation context which collapses the exponential environment space to a polynomial size.
-From this insight they derived $m$-CFA, which simulates the OO binding discipline even when analyzing functional programs;
+From this insight they derive $m$-CFA, which simulates the OO binding discipline even when analyzing functional programs;
 that is, when applied, $m$-CFA binds a closure's arguments and rebinds its environment's bindings all in the binding context of the application.
 Under this policy, within a given environment, all bindings are in the same context and, consequently, the analysis can represent that environment simply as that binding context.
 
@@ -1274,7 +1279,7 @@ where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
-These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side..
+These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
 \section{Implementation}
 \label{sec:implementation}
@@ -1342,7 +1347,7 @@ One of the features of the ADI approach to analysis construction is that the ana
 Demand $m$-CFA exhibits pushdown precision with respect to two different semantics.
 First, it is pushdown precise with respect to the demand semantics given in \S~\ref{sec:demand-mcfa}, defined as big-step relations, by virtue of its implementation using the ADI technique.
 Second, it is pushdown precise with respect the the direct semantics as well.
-The reason here as a result of the insight of @citet{local:p4f}: a continuation address which consists of a target (function body) expression and its environment is distinct enough to perfectly correspond calls and returns (but not needlessly distinct to increase analysis complexity).
+The reason here is a result of the insight of @citet{local:p4f}: a continuation address which consists of a target (function body) expression and its environment is distinct enough to perfectly correspond calls and returns (but not needlessly distinct to increase analysis complexity).
 In Demand $m$-CFA, the @|mcfa-call-name| relation serves as a kind of continuation store relating a target body and its environment to caller configurations.
 Because the @|mcfa-call-name| relation is used to access caller configurations both to access arguments and return results (via tracing), it fulfills each call and return aspect of control flow.
 
@@ -1353,20 +1358,36 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
 conditional expressions; \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
 definition contexts in which a sequence of definitions and expressions can be mixed in a mutually-recursive scope; and
-a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, as it is common in
-functional languages.
+a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, as the feature is common in
+functional languages, and is a particularly simple and elegant extension to the formalism. In fact, the representation of closures and
+constructors are isomorphic due to the fact that they both have introduction and elimination forms with positional parameters / fields and arguments.
+Constructors mainly differ in the fact that the body is opaque to the analysis, and the call to the constructor is the essential piece holding the information until it
+reaches an elimination form. Pattern matching is a little more complex, however, it too alternates between @|mcfa-expr-name| and @|mcfa-eval-name| modes finding introduction forms for the
+scrutinee and evaluating the appropriate clause based on the discriminant. We reuse support for constructors and matching to desugar \texttt{if} statements and \texttt{cond} statements.
 
-To evaluate Demand $m$-CFA we need to reflect on the differences imposed by Demand $m$-CFA's pricing model.
+For the benchmarks we used common R6RS benchmarks, as well as a larger example \texttt{tic-tac-toe} which 
+computes the minimax algorithm for an AI to play \texttt{tic-tac-toe}, and extensively uses matching, custom datatypes and higher-order behavior.
+
+We evaluate Demand $m$-CFA with respect to the following questions:
+\begin{enumerate}
+\item Is the implementation cost of Demand $m$-CFA comparable to a corresponding big-step exhaustive analysis?
+\item Is Demand $m$-CFA \emph{demand-scalable}?
+\item How does the precision compare to an exhaustive $m$-CFA?
+\end{enumerate}
+
+To answer (1) we discuss our observations about implementing both in the same ADI style framework, including the difference in lines of code for the core algorithms.
+For (2) we consider whether Demand $m$-CFA gives answers about evaluation flow sets with a cutoff of 5ms from $m$=0 up to $m$=4, for a variety of program sizes.
+Finally to answer (3) we determine what percentage of singleton flow sets as compared to the corresponding exhaustive analysis we obtain within our budget of 5ms per query.
 
 \subsection{Implementation Costs}
-In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather at implementation time. If any primitive is not supported or
+In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather prior to implementation. If any primitive is not supported or
 any source code is not available (i.e. external libraries), the developer must make a hard choice. They must approximate the behavior 
 or throw away the results of the analysis. Depending on the language features and escape hatches available, 
 it is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, maintaining and evolving the
-analyses for them becomes a burden.
+corresponding analyses becomes both a burden and a source of bugs.
 
 In contrast Demand $m$-CFA is formulated so that the analysis of each language feature is specified independently as much as possible.
-Due to this design we theorize that the implementation of an analysis will work transparently across language versions
+Due to this design the implementation of an analysis should work transparently across language versions
 as long as \begin{enumerate*} \item the semantics of each implemented feature does not change, 
 \item the feature's semantics does not depend on other features' semantics which have changed, and 
 \item the abstraction does not need to change \end{enumerate*}.
@@ -1374,32 +1395,38 @@ as long as \begin{enumerate*} \item the semantics of each implemented feature do
 For example, we did not implement the \texttt{set!} form of R6RS Scheme which mutates the binding of a given variable, and we did not implement primitives with side effects. 
 This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
-Because the use of mutation in functional languages such as Scheme, ML, and OCaml is relatively rare, we expect that relatively few queries encounter mutation.
+Because the use of mutation is relatively rare in functional languages such as Scheme, ML, and OCaml, we expect that relatively few queries encounter mutation.
 
-Additionally we theorize that the analysis will be robust to new primitives due to the fact that old queries which don't depend on the primitive never encounter the primitive,
-and will thus be able to return the same results as it did prior to the introduction of the new primitive — even if new code that uses the primitive is introduced outside the relevant control flow.
-As such, our analysis could easily be adapted to create an incremental higher-order analysis, and keep track of dependencies and analysis results, even across language updates!
+Additionally the analysis is robust to the addition of new primitives into a language due to the fact that old queries never encounter the primitive 
+--- even if new code that uses the primitive is introduced outside the relevant control flow.
+As such, our analysis could easily be adapted to create an incremental higher-order analysis, keep track of dependencies and analysis results, 
+and provide semantic information even across language updates!
 
-Concretely, in terms of lines of code needed, our implementation suggests that a demand analysis involves about the same order of magnitude of engineering effort as $m$-CFA (~660 lines of code versus ~430).
-However, where our implementation $m$-CFA fails to give any results for programs with unsupported features or unimplemented primitives, our implementation of Demand $m$-CFA gives correct 
-answers for a subset of the queries.
+Concretely, in terms of lines of code needed, our implementation suggests that a demand analysis involves 
+about the same order of magnitude of engineering effort as $m$-CFA (${\sim}$660 lines of code versus ${\sim}$430).
+However, for programs with unsupported features or unimplemented primitives, our implementation $m$-CFA fails to give any results 
+but our implementation of Demand $m$-CFA gives correct answers for a subset of the queries.
 
-\subsection{Scalability}
-Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
-we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@~cite{dvanhorn:VanHorn-Mairson:ICFP08}. 
-$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@~cite{dvanhorn:Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
-In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
-the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
-These were all omitted from the results to determine how Demand $m$-CFA would perform in contexts where compiler heuristics would not already trivially understand the control flow.
-}
+As such we feel confident in stating that the answer to the first question is: Yes, Demand $m$-CFA has a comparable implementation effort to an exhaustive analysis,
+and in particular when considering the number of primitives and language features that modern languages afford.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{mcfa.pdf}
-\caption{$m$-CFA Scalability}
+\caption{The scalability of $m$-CFA in practice on simple benchmarks with size of the program (in parethesis) and as we increase $m$}
 \label{fig:mcfa-scalability}
 \end{figure}
 
-Demand $m$-CFA has inherent overhead compared to a monolithic $m$-CFA analysis. These include:
+\subsection{Scalability}
+Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
+we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$@~cite{dvanhorn:Neilson:1999}, and $k$-CFA is proven to be exponential@~cite{dvanhorn:VanHorn-Mairson:ICFP08}. 
+$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@~cite{dvanhorn:Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in 
+Figure~\ref{fig:mcfa-scalability}
+
+In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
+the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
+These were all omitted from the results unless otherwise stated to determine how Demand $m$-CFA performs in contexts where compiler heuristics would not already trivially understand the control flow.
+
+Demand $m$-CFA has two sources of inherent overhead compared to a monolithic $m$-CFA analysis. These include:
 \begin{enumerate*}
 \item resolving trace queries in addition to evaluation queries (i.e. Doing both backwards and forwards analyses), and
 \item instantiating environments (this can induce exponential behavior related to lexical binding depth).
@@ -1408,71 +1435,69 @@ Demand $m$-CFA has inherent overhead compared to a monolithic $m$-CFA analysis. 
 These apparent disadvantages work to the benefit of Demand $m$-CFA in practice. For example,
 tracing flow using @|mcfa-expr-name|, gives backward analyses for free (in terms of implementation cost).
 Additionally indeterminate queries allow the analysis to disregard exponential combinations of environments when
-it is irrelevant to a particular query. In particular we see this in the \textsf{sat-2} benchmark, which induces 
-worst-case behavior in normal $m$-CFA.
+it is irrelevant to a particular query. In particular we have observed this behavior in the \textsf{sat-2} benchmark, which induces 
+worst-case behavior in exponential $m$-CFA, due to the exponential combination of nested environments, but where Demand $m$-CFA is able to keep the environments
+indeterminate for the majority of the queries.
 
-For Demand $m$-CFA, we must recognize that some queries require a large portion of control flow, and others require very little.
-Additionally the usage scenario of Demand $m$-CFA involves using timeouts and targeting specific flows that the compiler, security analysis, privacy analysis,
-or user in an IDE cares about.
-Thus a computational complexity analysis, or even a benchmark evaluating all queries of a program do not tell us what engineers 
-want to know prior to deciding to integrate an analysis into their language tooling.
+Neither computational complexity analysis nor a benchmark evaluating all queries of a program, tell us what engineers 
+want to know prior to deciding to integrate an demand analysis into their language tooling, since they are more worried about the cost benefit tradeoff.
+Demand $m$-CFA gives both costs and benefits at a much more granular level, and one that the compiler engeineer can control.
 Therefore to evaluate Demand $m$-CFA we measure the percent of evaluation queries that return within a specific timeout (5ms) per query, as well
 as what fraction of the singleton flows in an exponential $m$-CFA analysis (one without $m$-CFA's rebinding policy, but using the top-$m$-stack-frames context representation) can be found using that constant timeout.
+The reason we diverge from reporting exhaustive $k$-CFA or regular $m$-CFA results at this point is so that we can compare singleton flows against a monolithic analysis
+with similar environment representation --- which should return identical results. The only thing that makes Demand $m$-CFA's environments different from exponential $m$-CFA's environments is that the latter do not contain
+indeterminate environments. 
+
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{dmcfa.pdf}
-\caption{Demand $m$-CFA Scalability}
+\caption{The percent of answers that Demand $m$-CFA answers based on a 5ms timeout per query. This graph shows all queries (including trivial ones).}
 \label{fig:dmcfa-scalability}
 \end{figure}
 
-As seen in Figure~\ref{fig:dmcfa-scalability} we are able to answer in most cases a large majority of queries within the specified timeout. More importantly,
-Figure~\ref{fig:dmcfa-precision} shows that in the most cases we resolve much more than half the number of singleton value flows as the \emph{exponential} $m$-CFA hierarchy, but in constant time.
+As seen in Figure~\ref{fig:dmcfa-scalability} we are able to answer in most cases a large majority of all evaluation queries within the specified timeout. 
+When we restrict it to just non-trivial queries we get the results in Figure~\ref{fig:dmcfa-scalability-noninstant}, which shows a predictable decrease due to the fact
+that many flows are lexically obvious. However, when compared to an exhaustive analysis that might timeout or fail, any amount of non-trivial flow at constant cost is welcomed.
+It is worth noting that increasing the timeout to 15ms only marginally improves the number of returned answers. This matches intuition that
+if a query only requires a subset of the entire flow of a program, it should be quick to answer. Importantly we see that the size of the program does not seem to have
+a large effect on the tractability of the problem, neither does the context length $m$. This means that our Demand $m$-CFA analysis is indeed \emph{demand-scalable}, answering our second question.
 
+\begin{figure}
+\includegraphics[width=1\textwidth]{dmcfa-noninstant.pdf}
+\caption{The percent of non-trivial queries that Demand $m$-CFA answers using a 5ms/query timeout.}
+\label{fig:dmcfa-scalability-noninstant}
+\end{figure}
+
+
+Most importantly, Figure~\ref{fig:dmcfa-precision-cmp} shows that in the most cases we resolve much more than half the number of singleton value flows as the \emph{exponential} $m$-CFA hierarchy, but in constant time.\footnote{
+To compute the flow sets we look at the set of all configurations that had the same evaluation configuration (removing environments)
+and join the results. The context sensitivity's purpose is to remove spurious singleton sets during the analysis, but not to distinguish results. In fact, in many cases Demand $m$-CFA returns closures with indeterminate environments, and upon closer inspection
+we found that the exhaustive $m$-CFA counterpart had many singleton flow sets under different environments, showing that it had to do more work to arrive at the same conclusion. 
+}. In most cases we are able to obtain $> 60%$ of the singleton flow sets. This means that not only is our Demand $m$-CFA analysis \emph{demand-scalable}, it also produces useful results.
+It is worth noting that in a few cases we actually report more than 100% of the equivalent singleton flow sets of exponential $m$-CFA.
+Looking into the results we found that this is due to the fact that Demand $m$-CFA evaluates queries even for parts of the program that are never seen in the
+exhaustive analysis. This only happened in a few instances. Another interesting result is showing in Figure~\ref{fig:dmcfa-precision}, where we show the total number of
+singleton flow sets found. In particular we see that increasing $m$ doesn't seem to have the desired effect of increasing precision in many cases. We attribute this to the fact that
+these benchmark programs are small. However, the fact that we still get many results at that $m$ as shown in Figure~\ref{fig:dmcfa-scalability}, and only take the same constant 5ms timeout to do so shows the power of
+Demand $m$-CFA, allowing us to increase $m$ in a much more scalable manner. Of particular note is the omission of regex in Figure~\ref{fig:dmcfa-precision}, this is due to the baseline
+exhaustive analysis not completing within a generous timeout for $m=4$ causing that ratios to be ill-defined. The results are similar to the other large example programs, and Figure~\ref{fig:dmcfa-precision}
+shows that are able to in fact resolve a lot of singleton flow sets within the timeout period. Of particular note is the fact that in some cases a larger $m$
+actually shows a decrease in the number of singletons found. In an exhaustive analysis this would be a red flag, due to the fact that the precision of the results should monotonically increase
+with respect to the precision parameter in the hierarchy. However, due to the fact that more refinements and more configurations have to be evaluated
+when $m$ gets larger, some queries that used to be resolved within the 5ms timeout, timeout as $m$ gets larger.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{precision-cmp.pdf}
-\caption{Demand $m$-CFA Singleton Flow Sets}
-\label{fig:dmcfa-precision}
+\caption{Ratio of the # singleton flow sets found by Demand $m$-CFA compared to exhaustive $m$-CFA.}
+\label{fig:dmcfa-precision-cmp}
 \end{figure}
 
-In particular we see that although we don't gain many more singleton flow sets (due to the simplicity of the benchmark programs), we also don't timeout. This is
-due to the fact that Demand $m$-CFA leaves uneccesary environment information indeterminate, rather than evaluating under every possible instantiation of the environment
-like an exhaustive analysis.
 
-
-@omit{
-      \subsection{Performance}
-      To evaluate the practical performance of Demand $m$-CFA we ran all evaluation queries for a program at several different 
-      per-query timeouts (5ms). We run Demand $m$-CFA in two configurations, one reusing caches returned from previous queries and one without reuse.
-      We then report the cumulative time taken to evaluate the queries in an optimal ordering (fastest queries first).
-      Future work could explore ways to dynamically determine which queries might involve more effort in order to increase the timeout, 
-      or selectively reducing precision or ignoring queries that take a lot of effort. The time is reported on the x axis, with percent of
-      queries that have completed by that time on the y axis.
-      For exhaustive $m$-CFA all queries are reported as being available after the analysis finishes (if it does finish). We run exhaustive $m$-CFA with exponential environments
-      and with rebinding. Exhaustive exponential $m$-CFA mimics our environment structure.
-      It should be noted that the results of an evaluation query in a demanded setting include more information than the 
-      equivalent exhaustive CFA since they also includes information relevant to backwards analyses.
-
-      For the benchmarks we used R6RS benchmarks that are commonly reported for control flow analysis\tw{Cite}, as well as a 
-      larger example `tic-tac-toe` which we created to evaluate larger and more complex programs with matching and custom datatypes. 
-      It includes a lot of higher order behavior, including storing lambdas in datatypes.
-      \tw{The previous two sentences reads awkward, it can definitely be improved, but do we need more than tic-tac-toe, and should I mention
-      any R6RS programs by name, give details about their size, etc? - I want to have all of the R6RS programs in the original paper working at minimum.}
-
-      As can be seen in the results, many queries are available instantaneously, this includes the obvious \emph{$\lambda$s}, but also many
-      other simple queries involving references to parameters that are essentially constant and relevant to optimizations such as inlining, constant propagation, and specialization -
-      including $\lambda$s passed to higher order functions!
-      \tw{Thinking about this some more, it would be interesting to correlate time to completion and singleton flow sets. 
-      I bet they are highly correlated, and I wonder the percentage of singleton flow sets you can resolve effectively instantaneously (at different $m$) }.
-      Additionally the results show that caching sometimes improves, and sometimes hurts performance. Investigating the cause of this shows that
-      this is the result of previous queries discovering environment instantiations that are irrelevant to the current query. This is due to the
-      entanglement of the reachability of the two queries as they are both in the root query set for the analysis.
-
-      We also see that the majority of queries are completed quickly regardless of program size (ignoring lambdas). We hypothesize that this
-      is due to many functions in a functional language essentially setting up configuration for other functions, without being in the main
-      computation path. Breaking down queries by the number of configurations they visit we see that the number of queries that cover large
-      footprints of the programs, doesn't make up the majority of large programs, in contrast, however those few queries take a long time to analyze. 
-}
+\begin{figure}
+\includegraphics[width=1\textwidth]{precision.pdf}
+\caption{Pure # of singleton flow sets found by Demand $m$-CFA}
+\label{fig:dmcfa-precision}
+\end{figure}
 
 \subsection{Limitations and Future Work}
 The biggest threat to the validity of these results are the benchmark sizes. 
@@ -1499,6 +1524,14 @@ Beyond exploring the tradeoffs and implications of the cost model, more work is 
 \item Explore other unhandled language features
 \item Evaluate Demand $m$-CFA for practical usage in Language Servers, optimizing compilers, and other analyses.
 \end{itemize}
+
+Additionally Demand $m$-CFA makes reachability assumptions which can, in theory, decrease its precision.
+For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
+it assumes that \texttt{(f 42)} is reachable---i.e., it assumes that \texttt{(λ (g) (f 42))} is called.
+If that assumption is false, then the argument \texttt{42} does not actually contribute to the value that Demand $m$-CFA is resolving, and its inclusion is manifest imprecision.
+We believe this to be the case for several of the benchmarks, and that it can be addressed in future work.
+Determining callers prior to evaluating however, would cause the indeterminate environment to be instantiated which could counteract the
+benefit of keeping the environments as indeterminate as possible, and a more nuanced approach is desired. 
 
 \section{Related Work}
 \label{sec:related-work}
