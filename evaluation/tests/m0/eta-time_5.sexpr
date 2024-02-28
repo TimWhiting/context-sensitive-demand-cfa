@@ -2,9 +2,10 @@
   eta
   0
   5
-  13
+  23
   letrec*
-  "\"'(eval ((top) letrec* (do-something ... id) ...) (env ()))\""
+  "'(eval ((top) letrec* (do-something ... id) ...) (env ()))"
+  #f
   30
   17
   9
@@ -17,14 +18,36 @@
   9
   #f
   25/17
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
+  lambda
+  "'(eval\n  (letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
   let
-  "\"'(eval (λ (y) (-> (let (_) ...) <-)) (env (())))\""
+  "'(eval (λ (y) (-> (let (_) ...) <-)) (env (())))"
+  #f
   7
   4
   3
@@ -37,14 +60,15 @@
   2
   #f
   3/2
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
   app
-  "\"'(eval (let (... () (_ (-> (app do-something) <-)) () ...) ...) (env (())))\""
+  "'(eval (let (... () (_ (-> (app do-something) <-)) () ...) ...) (env (())))"
+  #f
   5
   4
   0
@@ -57,14 +81,36 @@
   4
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
   ref-or-constructor
-  "\"'(eval (let (_) (-> y <-)) (env (())))\""
+  "'(eval (app (-> do-something <-)) (env (())))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
+  ref-or-constructor
+  "'(eval (let (_) (-> y <-)) (env (())))"
+  #f
   6
   3
   3
@@ -77,14 +123,57 @@
   2
   #f
   4/3
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
+  lambda
+  "'(eval\n  (letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
+  number
+  "'(eval (λ () (-> 10 <-)) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
   let
-  "\"'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))\""
+  "'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))"
+  #f
   29
   16
   9
@@ -97,14 +186,15 @@
   9
   #f
   23/16
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
   app
-  "\"'(eval\n  (let (... () (_ (-> (app (app id (λ (a) ...)) (app #t)) <-)) () ...) ...)\n  (env ()))\""
+  "'(eval\n  (let (... () (_ (-> (app (app id (λ (a) ...)) (app #t)) <-)) () ...) ...)\n  (env ()))"
+  #f
   28
   15
   9
@@ -117,14 +207,15 @@
   9
   #f
   7/5
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
   app
-  "\"'(eval (app (app id (λ (a) ...)) (-> (app #t) <-)) (env ()))\""
+  "'(eval (app (app id (λ (a) ...)) (-> (app #t) <-)) (env ()))"
+  #f
   2
   2
   0
@@ -137,14 +228,36 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
+  constructor
+  "'(eval (app (-> #t <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
   app
-  "\"'(eval (app (-> (app id (λ (a) ...)) <-) (app #t)) (env ()))\""
+  "'(eval (app (-> (app id (λ (a) ...)) <-) (app #t)) (env ()))"
+  #f
   11
   7
   3
@@ -157,14 +270,36 @@
   4
   #f
   10/7
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
+  lambda
+  "'(eval (app id (-> (λ (a) ...) <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
   ref-or-constructor
-  "\"'(eval (λ (a) (-> a <-)) (env (())))\""
+  "'(eval (λ (a) (-> a <-)) (env (())))"
+  #f
   16
   7
   8
@@ -177,34 +312,15 @@
   6
   #f
   8/7
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
-  app
-  "\"'(eval (let (_) (-> (app (app id (λ (b) ...)) (app #f)) <-)) (env ()))\""
-  28
-  15
-  9
-  4
-  15
-  9
-  24
-  1
-  1
-  9
-  #f
-  7/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (app id (λ (b) ...)) (-> (app #f) <-)) (env ()))\""
+  23
+  ref-or-constructor
+  "'(eval (app (-> id <-) (λ (a) ...)) (env ()))"
+  #t
   2
   2
   0
@@ -217,14 +333,78 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
   app
-  "\"'(eval (app (-> (app id (λ (b) ...)) <-) (app #f)) (env ()))\""
+  "'(eval (let (_) (-> (app (app id (λ (b) ...)) (app #f)) <-)) (env ()))"
+  #f
+  28
+  15
+  9
+  4
+  15
+  9
+  24
+  1
+  1
+  9
+  #f
+  7/5
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
+  app
+  "'(eval (app (app id (λ (b) ...)) (-> (app #f) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
+  constructor
+  "'(eval (app (-> #f <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
+  app
+  "'(eval (app (-> (app id (λ (b) ...)) <-) (app #f)) (env ()))"
+  #f
   11
   7
   3
@@ -237,14 +417,36 @@
   4
   #f
   10/7
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   eta
   0
   5
-  13
+  23
+  lambda
+  "'(eval (app id (-> (λ (b) ...) <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  0
+  5
+  23
   ref-or-constructor
-  "\"'(eval (λ (b) (-> b <-)) (env (())))\""
+  "'(eval (λ (b) (-> b <-)) (env (())))"
+  #f
   16
   7
   8
@@ -257,15 +459,15 @@
   6
   #f
   8/7
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
+  ((0 0 0)))
+'(clean-cache
   eta
   0
   5
-  13
-  app
-  "\"'(eval (app (app id (λ (a) ...)) (-> (app #t) <-)) (env ()))\""
+  23
+  ref-or-constructor
+  "'(eval (app (-> id <-) (λ (b) ...)) (env ()))"
+  #t
   2
   2
   0
@@ -278,529 +480,4 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  let
-  "\"'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))\""
-  29
-  16
-  9
-  4
-  16
-  9
-  25
-  1
-  1
-  9
-  #f
-  23/16
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (λ (b) (-> b <-)) (env (())))\""
-  29
-  16
-  9
-  4
-  16
-  9
-  25
-  1
-  1
-  9
-  #f
-  23/16
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (-> (app id (λ (b) ...)) <-) (app #f)) (env ()))\""
-  29
-  16
-  9
-  4
-  16
-  9
-  25
-  1
-  1
-  9
-  #f
-  23/16
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval\n  (let (... () (_ (-> (app (app id (λ (a) ...)) (app #t)) <-)) () ...) ...)\n  (env ()))\""
-  31
-  18
-  9
-  4
-  18
-  9
-  27
-  1
-  1
-  9
-  #f
-  3/2
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (let (_) (-> (app (app id (λ (b) ...)) (app #f)) <-)) (env ()))\""
-  31
-  18
-  9
-  4
-  18
-  9
-  27
-  1
-  1
-  9
-  #f
-  3/2
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (let (... () (_ (-> (app do-something) <-)) () ...) ...) (env (())))\""
-  36
-  22
-  9
-  5
-  22
-  9
-  31
-  1
-  1
-  13
-  #t
-  31/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (app id (λ (b) ...)) (-> (app #f) <-)) (env ()))\""
-  36
-  22
-  9
-  5
-  22
-  9
-  31
-  1
-  1
-  13
-  #t
-  31/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (-> (app id (λ (a) ...)) <-) (app #t)) (env ()))\""
-  36
-  22
-  9
-  5
-  22
-  9
-  31
-  1
-  1
-  13
-  #f
-  31/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (λ (a) (-> a <-)) (env (())))\""
-  36
-  22
-  9
-  5
-  22
-  9
-  31
-  1
-  1
-  13
-  #f
-  31/22
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  letrec*
-  "\"'(eval ((top) letrec* (do-something ... id) ...) (env ()))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #f
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  let
-  "\"'(eval (λ (y) (-> (let (_) ...) <-)) (env (())))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #f
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (let (_) (-> y <-)) (env (())))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #f
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval\n  (let (... () (_ (-> (app (app id (λ (a) ...)) (app #t)) <-)) () ...) ...)\n  (env ()))\""
-  28
-  15
-  9
-  4
-  15
-  9
-  24
-  1
-  1
-  9
-  #f
-  7/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  letrec*
-  "\"'(eval ((top) letrec* (do-something ... id) ...) (env ()))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (λ (b) (-> b <-)) (env (())))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  let
-  "\"'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (app id (λ (a) ...)) (-> (app #t) <-)) (env ()))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #t
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (-> (app id (λ (a) ...)) <-) (app #t)) (env ()))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (-> (app id (λ (b) ...)) <-) (app #f)) (env ()))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (let (_) (-> y <-)) (env (())))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  let
-  "\"'(eval (λ (y) (-> (let (_) ...) <-)) (env (())))\""
-  32
-  19
-  9
-  4
-  19
-  9
-  28
-  1
-  1
-  9
-  #f
-  29/19
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (let (... () (_ (-> (app do-something) <-)) () ...) ...) (env (())))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #t
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (let (_) (-> (app (app id (λ (b) ...)) (app #f)) <-)) (env ()))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #f
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  app
-  "\"'(eval (app (app id (λ (b) ...)) (-> (app #f) <-)) (env ()))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #t
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  eta
-  0
-  5
-  13
-  ref-or-constructor
-  "\"'(eval (λ (a) (-> a <-)) (env (())))\""
-  37
-  23
-  9
-  5
-  23
-  9
-  32
-  1
-  1
-  13
-  #f
-  33/23
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))

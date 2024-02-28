@@ -1,2 +1,2 @@
-'(rebinding cpstak 0 5000 36 37 3 73/36 ((3 3 0) (3 3 0) (3 3 0)))
-'(exponential cpstak 0 5000 36 13 3 73/36 ((1 1 0) (1 1 0) (1 1 0)))
+'(rebinding cpstak 0 5000 23 36 37 23 3 73/36 ((9 9 0)))
+'(exponential cpstak 0 5000 23 36 13 23 3 73/36 ((3 4 0)))

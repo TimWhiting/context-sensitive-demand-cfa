@@ -2,29 +2,40 @@
   blur
   1
   5
-  23
+  43
   letrec
-  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
-  103
-  75
-  23
-  5
-  67
-  13
-  80
-  1
-  14/15
-  59
+  "'(eval ((top) letrec (id ... lp) ...) (env ()))"
   #f
-  91/75
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  #f)
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  lambda
+  "'(eval (letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   match
-  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
+  "'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))"
+  #f
   96
   71
   20
@@ -37,14 +48,15 @@
   56
   #f
   86/71
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((4 5 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
+  "'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))"
+  #f
   63
   36
   23
@@ -57,14 +69,15 @@
   36
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 4 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   ref-or-constructor
-  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
+  "'(eval (app id (-> a <-)) (env ((□? (a n)))))"
+  #f
   49
   25
   20
@@ -77,34 +90,45 @@
   25
   #t
   1
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((2 2 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  ref-or-constructor
+  "'(eval (app (-> id <-) a) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   let*
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
-  96
-  70
-  21
-  5
-  58
-  13
-  71
-  1
-  197/222
-  55
+  "'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))"
   #f
-  17/14
-  ((3/2 3/2 0) (3/2 3/2 0) (2 2 0)))
+  #f)
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
+  "'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))"
+  #f
   27
   11
   12
@@ -117,14 +141,15 @@
   11
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
+  "'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))"
+  #f
   3
   2
   0
@@ -137,14 +162,36 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
+  "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
+  #f
   12
   6
   4
@@ -157,14 +204,57 @@
   6
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
+  "'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))"
+  #f
   27
   11
   12
@@ -177,14 +267,15 @@
   11
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
+  "'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))"
+  #f
   3
   2
   0
@@ -197,14 +288,36 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
+  "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
+  #f
   12
   6
   4
@@ -217,14 +330,57 @@
   6
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
+  "'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))"
+  #f
   94
   68
   21
@@ -237,14 +393,15 @@
   55
   #f
   81/68
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((5 6 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
+  "'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))"
+  #f
   90
   64
   21
@@ -257,14 +414,15 @@
   53
   #f
   75/64
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((4 5 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
+  "'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))"
+  #f
   28
   16
   10
@@ -277,14 +435,36 @@
   12
   #f
   5/4
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((1 1 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  number
+  "'(eval (app - n (-> 1 <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   ref-or-constructor
-  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
+  "'(eval (app - (-> n <-) 1) (env ((□? (a n)))))"
+  #f
   25
   13
   10
@@ -297,14 +477,36 @@
   10
   #f
   16/13
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   ref-or-constructor
-  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
+  "'(eval (app (-> - <-) n 1) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))"
+  #f
   28
   12
   12
@@ -317,14 +519,15 @@
   12
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
+  "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
+  #f
   12
   6
   4
@@ -337,14 +540,78 @@
   6
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> lp <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) lp) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app (app blur lp) s (app - n 1))) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
+  "'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))"
+  #f
   34
   22
   10
@@ -357,14 +624,36 @@
   17
   #f
   27/22
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((1 1 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  number
+  "'(eval (app <= n (-> 1 <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   ref-or-constructor
-  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
+  "'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))"
+  #f
   25
   13
   10
@@ -377,14 +666,57 @@
   10
   #f
   16/13
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   ref-or-constructor
-  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
+  "'(eval (app (-> <= <-) n 1) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  lambda
+  "'(eval (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
+  ref-or-constructor
+  "'(eval (λ (y) (-> y <-)) (env ((□? (y)))))"
+  #f
   12
   6
   4
@@ -397,14 +729,36 @@
   5
   #f
   7/6
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  lambda
+  "'(eval (letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   ref-or-constructor
-  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
+  "'(eval (λ (x) (-> x <-)) (env ((□? (x)))))"
+  #f
   65
   37
   23
@@ -417,34 +771,45 @@
   36
   #f
   38/37
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((4 4 0)))
 '(clean-cache
   blur
   1
   5
-  23
+  43
   app
-  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
-  102
-  74
-  23
-  5
-  66
-  13
-  79
-  1
-  109/117
-  59
+  "'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))"
   #f
-  89/74
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  #f)
 '(clean-cache
   blur
   1
   5
-  23
+  43
+  number
+  "'(eval (app lp (app #f) (-> 2 <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   app
-  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
+  "'(eval (app lp (-> (app #f) <-) 2) (env ()))"
+  #f
   2
   2
   0
@@ -457,970 +822,46 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
+  ((0 0 0)))
+'(clean-cache
   blur
   1
   5
-  23
+  43
+  constructor
+  "'(eval (app (-> #f <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  blur
+  1
+  5
+  43
   ref-or-constructor
-  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
-  49
-  25
-  20
-  4
-  24
-  13
-  37
-  1
-  15/16
-  25
+  "'(eval (app (-> lp <-) (app #f) 2) (env ()))"
   #t
-  1
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
-  54
-  30
-  20
-  4
-  28
-  13
-  41
-  1
-  17/19
-  30
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
-  83
-  58
-  20
-  5
-  55
-  13
-  68
-  1
-  215/222
-  49
-  #f
-  67/58
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
-  83
-  58
-  20
-  5
-  55
-  13
-  68
-  1
-  215/222
-  49
-  #t
-  67/58
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
-  94
-  69
-  20
-  5
-  65
-  13
-  78
-  1
-  239/252
-  60
-  #t
-  26/23
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
-  95
-  70
-  20
-  5
-  65
-  13
-  78
-  1
-  79/84
-  61
-  #t
-  79/70
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
-  96
-  71
-  20
-  5
-  65
-  13
-  78
-  1
-  235/252
-  62
-  #t
-  80/71
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
-  97
-  72
-  20
-  5
-  65
-  13
-  78
-  1
-  233/252
-  62
-  #f
-  41/36
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
-  98
-  73
-  20
-  5
-  65
-  13
-  78
-  1
-  11/12
-  63
-  #t
-  83/73
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
-  109
-  84
-  20
-  5
-  76
-  13
-  89
-  1
-  61/66
-  69
-  #f
-  33/28
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
-  111
-  86
-  20
-  5
-  77
-  13
-  90
-  1
-  241/264
-  71
-  #t
-  101/86
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
-  112
-  87
-  20
-  5
-  77
-  13
-  90
-  1
-  239/264
-  72
-  #t
-  34/29
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
-  113
-  88
-  20
-  5
-  77
-  13
-  90
-  1
-  79/88
-  72
-  #f
-  13/11
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
-  114
-  89
-  20
-  5
-  77
-  13
-  90
-  1
-  235/264
-  72
-  #f
-  106/89
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
-  115
-  90
-  20
-  5
-  77
-  13
-  90
-  1
-  233/264
-  73
-  #t
-  107/90
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
-  116
-  91
-  20
-  5
-  77
-  13
-  90
-  1
-  7/8
-  74
-  #t
-  108/91
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
-  117
-  92
-  20
-  5
-  77
-  13
-  90
-  1
-  229/264
-  74
-  #f
-  55/46
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  match
-  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
-  118
-  93
-  20
-  5
-  77
-  13
-  90
-  1
-  227/264
-  74
-  #f
-  112/93
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
-  119
-  94
-  20
-  5
-  77
-  13
-  90
-  1
-  41/48
-  74
-  #f
-  57/47
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
-  121
-  95
-  20
-  6
-  77
-  13
-  90
-  1
-  28/33
-  74
-  #f
-  116/95
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
-  122
-  96
-  20
-  6
-  77
-  13
-  90
-  1
-  37/44
-  74
-  #f
-  59/48
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  let*
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
-  123
-  97
-  20
-  6
-  77
-  13
-  90
-  1
-  5/6
-  74
-  #f
-  120/97
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  blur
-  1
-  5
-  23
-  letrec
-  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
-  124
-  98
-  20
-  6
-  78
-  13
-  91
-  1
-  113/135
-  74
-  #f
-  61/49
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))\""
-  3
+  2
   2
   0
+  0
+  2
+  0
+  2
   1
-  0
-  0
-  0
   1
-  0
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))\n  (env ((□? (a n)))))\""
-  96
-  70
-  21
-  5
-  57
-  13
-  70
-  1
-  65/74
-  57
-  #f
-  83/70
-  ((3/2 3/2 0) (2 2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))\""
-  97
-  71
-  21
-  5
-  57
-  13
-  70
-  1
-  193/222
-  58
-  #t
-  84/71
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  match
-  "\"'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))\""
-  104
-  78
-  21
-  5
-  63
-  13
-  76
-  1
-  191/222
-  62
-  #f
-  47/39
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))\""
-  104
-  78
-  21
-  5
-  63
-  13
-  76
-  1
-  191/222
-  62
-  #t
-  47/39
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app - (-> n <-) 1) (env ((□? (a n)))))\""
-  104
-  78
-  21
-  5
-  63
-  13
-  76
-  1
-  191/222
-  62
-  #f
-  47/39
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))\""
-  106
-  80
-  21
-  5
-  64
-  13
-  77
-  1
-  94/111
-  64
-  #t
-  6/5
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))\""
-  107
-  81
-  21
-  5
-  64
-  13
-  77
-  1
-  31/37
-  65
-  #t
-  97/81
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))\""
-  107
-  81
-  21
-  5
-  64
-  13
-  77
-  1
-  31/37
-  65
-  #f
-  97/81
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))\""
-  107
-  81
-  21
-  5
-  64
-  13
-  77
-  1
-  31/37
-  65
-  #t
-  97/81
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  let*
-  "\"'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))\""
-  108
-  82
-  21
-  5
-  64
-  13
-  77
-  1
-  92/111
-  65
-  #f
-  99/82
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))\""
-  109
-  83
-  21
-  5
-  64
-  13
-  77
-  1
-  91/111
-  65
-  #f
-  101/83
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (λ (y) (-> y <-)) (env ((□? (y)))))\""
-  112
-  86
-  21
-  5
-  66
-  13
-  79
-  1
-  31/38
-  67
-  #f
-  105/86
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app lp (-> (app #f) <-) 2) (env ()))\""
-  112
-  86
-  21
-  5
-  66
-  13
-  79
-  1
-  31/38
-  67
-  #t
-  105/86
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))\""
-  115
-  89
-  21
-  5
-  68
-  13
-  81
-  1
-  4/5
-  70
-  #t
-  108/89
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))\""
-  118
-  92
-  21
-  5
-  71
-  13
-  84
-  1
-  205/252
-  71
-  #f
-  113/92
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))\""
-  119
-  93
-  21
-  5
-  71
-  13
-  84
-  1
-  29/36
-  71
-  #f
-  115/93
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (λ (x) (-> x <-)) (env ((□? (x)))))\""
-  123
-  96
-  21
-  6
-  73
-  13
-  86
-  1
-  205/252
-  73
-  #f
-  119/96
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))\""
-  128
-  101
-  21
-  6
-  77
-  13
-  90
-  1
-  53/66
-  78
-  #t
-  124/101
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))\""
-  129
-  102
-  21
-  6
-  77
-  13
-  90
-  1
-  35/44
-  79
-  #t
-  125/102
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  ref-or-constructor
-  "\"'(eval (app id (-> a <-)) (env ((□? (a n)))))\""
-  130
-  103
-  21
-  6
-  77
-  13
-  90
-  1
-  26/33
-  80
-  #t
-  126/103
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  letrec
-  "\"'(eval ((top) letrec (id ... lp) ...) (env ()))\""
-  131
-  104
-  21
-  6
-  78
-  13
-  91
-  1
-  107/135
-  80
-  #f
-  16/13
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  blur
-  1
-  5
-  23
-  app
-  "\"'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))\""
-  131
-  104
-  21
-  6
-  78
-  13
-  91
-  1
-  107/135
-  80
-  #f
-  16/13
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))

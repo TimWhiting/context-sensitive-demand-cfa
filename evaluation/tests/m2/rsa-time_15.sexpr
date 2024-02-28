@@ -1,125 +1,326 @@
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   lettypes
-  "\"'(eval ((top) lettypes (cons) ...) (env ()))\""
+  "'(eval ((top) lettypes (cons) ...) (env ()))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   letrec*
-  "\"'(eval\n  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext d (-> n <-)) (env ()))\""
-  7
-  7
-  0
-  0
-  7
-  0
-  7
-  1
-  1
-  7
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext (-> d <-) n) (env ()))\""
-  308
-  276
-  18
-  14
-  220
-  8
-  228
-  1
-  3091/3510
-  182
+  "'(eval\n  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))"
   #f
-  97/69
-  ((27/2 27/2 0) (27/2 27/2 0) (27/2 27/2 0)))
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt (-> ciphertext <-) d n) (env ()))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))\""
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
-  ref-or-constructor
-  "\"'(eval (app encrypt plaintext e (-> n <-)) (env ()))\""
-  7
-  7
-  0
-  0
-  7
-  0
-  7
-  1
-  1
-  7
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  rsa
-  2
-  15
-  122
+  211
   app
-  "\"'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))\""
-  307
-  275
-  18
-  14
-  219
-  8
-  227
-  1
-  3061/3480
-  182
+  "'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))"
   #f
-  386/275
-  ((27/2 27/2 0) (13 13 0) (27/2 27/2 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app decrypt ciphertext d (-> n <-)) (env ()))"
+  #f
+  7
+  7
+  0
+  0
+  7
+  0
+  7
+  1
+  1
+  7
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app decrypt ciphertext (-> d <-) n) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app decrypt (-> ciphertext <-) d n) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> decrypt <-) ciphertext d n) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))\""
+  "'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app encrypt plaintext e (-> n <-)) (env ()))"
+  #f
+  7
+  7
+  0
+  0
+  7
+  0
+  7
+  1
+  1
+  7
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app encrypt plaintext (-> e <-) n) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app encrypt (-> plaintext <-) e n) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> encrypt <-) plaintext e n) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (letrec* (... d (plaintext (-> 42 <-)) ciphertext ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app private-exponent e p (-> q <-)) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app private-exponent e (-> p <-) q) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app private-exponent (-> e <-) p q) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> private-exponent <-) e p q) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (letrec* (... n (e (-> 7 <-)) d ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))"
+  #f
   6
   6
   0
@@ -132,21 +333,150 @@
   6
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  ref-or-constructor
+  "'(eval (app * p (-> q <-)) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app * (-> p <-) q) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> * <-) p q) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (letrec* (... p (q (-> 47 <-)) n ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (letrec* (... decrypt (p (-> 41 <-)) q ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))\""
+  "'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power c d (-> n <-)) (env ((□? (c d n)))))\""
+  "'(eval (app modulo-power c d (-> n <-)) (env ((□? (c d n)))))"
+  #f
   11
   8
   2
@@ -159,48 +489,84 @@
   8
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))\""
-  312
-  277
-  20
-  15
-  220
-  10
-  230
-  1
-  3091/3540
-  182
+  "'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))"
   #f
-  390/277
-  ((27/2 27/2 0) (27/2 27/2 0) (27/2 27/2 0)))
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))\""
   #f)
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  ref-or-constructor
+  "'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) c d n) (env ((□? (c d n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (... private-exponent (encrypt (-> (λ (m e n) ...) <-)) decrypt ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   match
-  "\"'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))\""
+  "'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval\n  (match\n   (app > m n)\n   (#f)\n   (_ (-> (app error \"The modulus is too small to encrypt the message.\") <-)))\n  (env ((□? (m e n)))))\""
+  "'(eval\n  (match\n   (app > m n)\n   (#f)\n   (_ (-> (app error \"The modulus is too small to encrypt the message.\") <-)))\n  (env ((□? (m e n)))))"
+  #f
   3
   2
   0
@@ -213,21 +579,66 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  string
+  "'(eval\n  (app error (-> \"The modulus is too small to encrypt the message.\" <-))\n  (env ((□? (m e n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> error <-) \"The modulus is too small to encrypt the message.\")\n  (env ((□? (m e n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))\""
+  "'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power m e (-> n <-)) (env ((□? (m e n)))))\""
+  "'(eval (app modulo-power m e (-> n <-)) (env ((□? (m e n)))))"
+  #f
   11
   8
   2
@@ -240,14 +651,15 @@
   8
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power m (-> e <-) n) (env ((□? (m e n)))))\""
+  "'(eval (app modulo-power m (-> e <-) n) (env ((□? (m e n)))))"
+  #f
   6
   3
   2
@@ -260,14 +672,15 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power (-> m <-) e n) (env ((□? (m e n)))))\""
+  "'(eval (app modulo-power (-> m <-) e n) (env ((□? (m e n)))))"
+  #f
   6
   3
   2
@@ -280,14 +693,36 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) m e n) (env ((□? (m e n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (match (-> (app > m n) <-) (#f) _) (env ((□? (m e n)))))\""
+  "'(eval (match (-> (app > m n) <-) (#f) _) (env ((□? (m e n)))))"
+  #f
   19
   16
   2
@@ -300,14 +735,15 @@
   16
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app > m (-> n <-)) (env ((□? (m e n)))))\""
+  "'(eval (app > m (-> n <-)) (env ((□? (m e n)))))"
+  #f
   11
   8
   2
@@ -320,14 +756,15 @@
   8
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app > (-> m <-) n) (env ((□? (m e n)))))\""
+  "'(eval (app > (-> m <-) n) (env ((□? (m e n)))))"
+  #f
   6
   3
   2
@@ -340,41 +777,75 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
-  match
-  "\"'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))\""
-  325
-  294
-  18
-  13
-  215
-  8
-  223
+  211
+  ref-or-constructor
+  "'(eval (app (-> > <-) m n) (env ((□? (m e n)))))"
+  #t
+  2
   1
-  2611/3390
-  201
-  #f
-  135/98
-  ((29/2 29/2 0) (29/2 29/2 0) (29/2 29/2 0)))
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
-  app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))\""
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    is-legal-public-exponent?\n    (private-exponent (-> (λ (e p q) ...) <-))\n    encrypt\n    ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
+  "'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
   42
   32
   6
@@ -387,14 +858,15 @@
   32
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -407,14 +879,15 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -427,14 +900,36 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-inverse (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app modulo-inverse (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -447,14 +942,36 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> modulo-inverse <-) e (app totient p q)) (env ((□? (e p q)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   ((#f) (-> (app error \"Not a legal public exponent for that modulus.\") <-))\n   _)\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   ((#f) (-> (app error \"Not a legal public exponent for that modulus.\") <-))\n   _)\n  (env ((□? (e p q)))))"
+  #f
   3
   2
   0
@@ -467,14 +984,57 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  string
+  "'(eval\n  (app error (-> \"Not a legal public exponent for that modulus.\" <-))\n  (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> error <-) \"Not a legal public exponent for that modulus.\")\n  (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))"
+  #f
   99
   86
   8
@@ -487,14 +1047,15 @@
   86
   #t
   1
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
+  ((8 8 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e p (-> q <-)) (env ((□? (e p q)))))\""
+  "'(eval (app is-legal-public-exponent? e p (-> q <-)) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -507,14 +1068,15 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e (-> p <-) q) (env ((□? (e p q)))))\""
+  "'(eval (app is-legal-public-exponent? e (-> p <-) q) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -527,14 +1089,15 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? (-> e <-) p q) (env ((□? (e p q)))))\""
+  "'(eval (app is-legal-public-exponent? (-> e <-) p q) (env ((□? (e p q)))))"
+  #f
   6
   3
   2
@@ -547,14 +1110,57 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> is-legal-public-exponent? <-) e p q) (env ((□? (e p q)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    modulo-power\n    (is-legal-public-exponent? (-> (λ (e p q) ...) <-))\n    private-exponent\n    ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (λ (e p q)\n    (->\n     (app\n      and\n      (app < 1 e)\n      (app < e (app totient p q))\n      (app = 1 (app gcd e (app totient p q))))\n     <-))\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (λ (e p q)\n    (->\n     (app\n      and\n      (app < 1 e)\n      (app < e (app totient p q))\n      (app = 1 (app gcd e (app totient p q))))\n     <-))\n  (env ((□? (e p q)))))"
+  #f
   93
   81
   8
@@ -567,14 +1173,15 @@
   81
   #t
   1
-  ((2 2 0) (2 2 0) (2 2 0)))
+  ((6 6 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (app < e (app totient p q))\n   (-> (app = 1 (app gcd e (app totient p q))) <-))\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (app\n   and\n   (app < 1 e)\n   (app < e (app totient p q))\n   (-> (app = 1 (app gcd e (app totient p q))) <-))\n  (env ((□? (e p q)))))"
+  #f
   60
   48
   8
@@ -587,14 +1194,15 @@
   48
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))\""
+  "'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))"
+  #f
   51
   39
   8
@@ -607,14 +1215,15 @@
   39
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
+  "'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
   52
   39
   8
@@ -627,14 +1236,15 @@
   39
   #t
   1
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -647,14 +1257,15 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -667,14 +1278,36 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app gcd (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app gcd (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -687,14 +1320,78 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> gcd <-) e (app totient p q)) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (app = (-> 1 <-) (app gcd e (app totient p q))) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> = <-) 1 (app gcd e (app totient p q))) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (-> (app < e (app totient p q)) <-)\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (app\n   and\n   (app < 1 e)\n   (-> (app < e (app totient p q)) <-)\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))"
+  #f
   51
   39
   8
@@ -707,14 +1404,15 @@
   39
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
+  "'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
   52
   39
   8
@@ -727,14 +1425,15 @@
   39
   #t
   1
-  ((3/2 3/2 0) (3/2 3/2 0) (1 1 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -747,14 +1446,15 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -767,14 +1467,36 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app < (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app < (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -787,14 +1509,36 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> < <-) e (app totient p q)) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (app\n   and\n   (-> (app < 1 e) <-)\n   (app < e (app totient p q))\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
+  "'(eval\n  (app\n   and\n   (-> (app < 1 e) <-)\n   (app < e (app totient p q))\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))"
+  #f
   21
   14
   4
@@ -807,14 +1551,15 @@
   14
   #t
   1
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app < 1 (-> e <-)) (env ((□? (e p q)))))\""
+  "'(eval (app < 1 (-> e <-)) (env ((□? (e p q)))))"
+  #f
   12
   5
   4
@@ -827,69 +1572,174 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(clean-cache
-  rsa
-  2
-  122
-  match
-  "\"'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  match
-  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))\""
-  #f)
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  55
-  40
-  9
-  6
-  30
-  5
-  35
+  211
+  number
+  "'(eval (app < (-> 1 <-) e) (env ((□? (e p q)))))"
+  #t
+  2
   1
-  954/1183
-  40
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
   #t
   1
-  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  #f)
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> < <-) 1 e) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
-  app
-  "\"'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))\""
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> and <-)\n   (app < 1 e)\n   (app < e (app totient p q))\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    square\n    (modulo-power (-> (λ (base exp n) ...) <-))\n    is-legal-public-exponent?\n    ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (match (app = exp 0) (#f) (_ (-> 1 <-))) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
   ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))\""
+  "'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
   55
   40
   9
@@ -902,49 +1752,165 @@
   40
   #t
   1
-  ((5 5 0) (5 5 0) (5 5 0)))
+  ((15 15 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))\""
+  "'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app - exp (-> 1 <-)) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   ref-or-constructor
-  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
+  "'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> - <-) exp 1) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo-power <-) base (app - exp 1) n)\n  (env ((□? (base exp n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> * <-) base (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app * base (app modulo-power base (app - exp 1) n)) n)\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
   55
   40
   9
@@ -957,28 +1923,33 @@
   40
   #t
   1
-  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+  ((14 15 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))\""
+  "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  app
+  "'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
   ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))\""
+  "'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
   54
   39
   9
@@ -991,84 +1962,336 @@
   39
   #t
   1
-  ((4 4 0) (4 4 0) (4 4 0)))
+  ((12 12 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  app
-  "\"'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app * x (-> x <-)) (env ((□? (x)))))\""
-  #f)
-'(clean-cache
-  rsa
-  2
-  122
-  ref-or-constructor
-  "\"'(eval (app * (-> x <-) x) (env ((□? (x)))))\""
+  "'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app / exp (-> 2 <-)) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> / <-) exp 2) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo-power <-) base (app / exp 2) n)\n  (env ((□? (base exp n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> square <-) (app modulo-power base (app / exp 2) n))\n  (env ((□? (base exp n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app square (app modulo-power base (app / exp 2) n)) n)\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))\""
+  "'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> odd? <-) exp) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (app = exp (-> 0 <-)) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> = <-) exp 0) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app * x (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app * (-> x <-) x) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> * <-) x x) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))"
+  #f
   100
   85
   8
@@ -1081,14 +2304,15 @@
   85
   #t
   1
-  ((7/2 7/2 0) (3 3 0) (7/2 7/2 0)))
+  ((10 10 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))\""
+  "'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))"
+  #f
   49
   34
   8
@@ -1101,14 +2325,36 @@
   34
   #t
   1
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((5 5 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app - q (-> 1 <-)) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   ref-or-constructor
-  "\"'(eval (app - (-> q <-) 1) (env ((□? (p q)))))\""
+  "'(eval (app - (-> q <-) 1) (env ((□? (p q)))))"
+  #f
   28
   13
   8
@@ -1121,14 +2367,36 @@
   13
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> - <-) q 1) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (app * (-> (app - p 1) <-) (app - q 1)) (env ((□? (p q)))))\""
+  "'(eval (app * (-> (app - p 1) <-) (app - q 1)) (env ((□? (p q)))))"
+  #f
   49
   34
   8
@@ -1141,14 +2409,36 @@
   34
   #t
   1
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((5 5 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app - p (-> 1 <-)) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   ref-or-constructor
-  "\"'(eval (app - (-> p <-) 1) (env ((□? (p q)))))\""
+  "'(eval (app - (-> p <-) 1) (env ((□? (p q)))))"
+  #f
   28
   13
   8
@@ -1161,21 +2451,87 @@
   13
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> - <-) p 1) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> * <-) (app - p 1) (app - q 1)) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (... extended-gcd (modulo-inverse (-> (λ (a n) ...) <-)) totient ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))\n  (env ((□? (a n)))))\""
+  "'(eval\n  (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))\n  (env ((□? (a n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))\""
+  "'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))"
+  #f
   48
   34
   8
@@ -1188,21 +2544,24 @@
   34
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval\n  (app modulo (-> (app car (app extended-gcd a n)) <-) n)\n  (env ((□? (a n)))))\""
+  "'(eval\n  (app modulo (-> (app car (app extended-gcd a n)) <-) n)\n  (env ((□? (a n)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))\""
+  "'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))"
+  #f
   76
   57
   11
@@ -1215,14 +2574,15 @@
   57
   #t
   61/57
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
+  ((5 5 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))\""
+  "'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))"
+  #f
   48
   34
   8
@@ -1235,14 +2595,15 @@
   34
   #t
   1
-  ((1 1 0) (1 1 0) (1 1 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app extended-gcd (-> a <-) n) (env ((□? (a n)))))\""
+  "'(eval (app extended-gcd (-> a <-) n) (env ((□? (a n)))))"
+  #f
   12
   5
   4
@@ -1255,34 +2616,108 @@
   5
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
-  match
-  "\"'(eval\n  (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-))\n  (env ((□? (a b)))))\""
-  142
-  123
-  11
-  8
-  74
-  5
-  79
+  211
+  ref-or-constructor
+  "'(eval (app (-> extended-gcd <-) a n) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
   1
-  187/252
-  92
-  #f
-  169/123
-  ((6 6 0) (6 6 0) (6 6 0)))
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> car <-) (app extended-gcd a n)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app car (app extended-gcd a n)) n)\n  (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval\n  (letrec*\n   (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)\n   ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval\n  (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-))\n  (env ((□? (a b)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))\n  (env ((□? (a b)))))\""
+  "'(eval\n  (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))\n  (env ((□? (a b)))))"
+  #f
   3
   2
   0
@@ -1295,14 +2730,78 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app cons 0 (-> 1 <-)) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  number
+  "'(eval (app cons (-> 0 <-) 1) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 0 1) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   let*
-  "\"'(eval\n  (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)\n  (env ((□? (a b)))))\""
+  "'(eval\n  (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)\n  (env ((□? (a b)))))"
+  #f
   4
   3
   0
@@ -1315,114 +2814,102 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env ((□? (a b)))))\""
-  210
-  181
-  16
-  13
-  123
-  7
-  130
-  1
-  1619/2160
-  104
+  "'(eval (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env ((□? (a b)))))"
   #f
-  272/181
-  ((23/2 23/2 0) (23/2 23/2 0) (23/2 23/2 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app cdr (-> x:y <-)) (env ((□? (a b)))))\""
-  141
-  120
-  11
-  10
-  72
-  5
-  77
-  1
-  889/1380
-  84
+  "'(eval (app cdr (-> x:y <-)) (env ((□? (a b)))))"
   #f
-  41/30
-  ((6 6 0) (6 6 0) (6 6 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
-  app
-  "\"'(eval (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env ((□? (a b)))))\""
-  210
-  181
-  16
-  13
-  123
-  7
-  130
-  1
-  1619/2160
-  104
-  #f
-  272/181
-  ((23/2 23/2 0) (23/2 23/2 0) (12 12 0)))
-'(clean-cache
-  rsa
-  2
-  15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app car (-> x:y <-)) (env ((□? (a b)))))\""
-  141
-  120
-  11
-  10
-  72
-  5
-  77
+  "'(eval (app (-> cdr <-) x:y) (env ((□? (a b)))))"
+  #t
+  3
+  2
+  0
   1
-  889/1380
-  84
-  #f
-  41/30
-  ((6 6 0) (11/2 11/2 0) (6 6 0)))
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env ((□? (a b)))))\""
-  135
-  114
-  11
-  10
-  69
-  5
-  74
-  1
-  437/675
-  84
+  "'(eval (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env ((□? (a b)))))"
   #f
-  25/19
-  ((5 5 0) (11/2 11/2 0) (11/2 11/2 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app car (-> x:y <-)) (env ((□? (a b)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> car <-) x:y) (env ((□? (a b)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))\""
+  "'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env ((□? (a b)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  app
+  "'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))"
+  #f
   93
   73
   11
@@ -1435,14 +2922,15 @@
   57
   #f
   89/73
-  ((4 4 0) (4 4 0) (4 4 0)))
+  ((12 13 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
+  "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
+  #f
   91
   71
   11
@@ -1455,14 +2943,15 @@
   56
   #f
   86/71
-  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+  ((12 13 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
+  "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
+  #f
   77
   58
   11
@@ -1475,14 +2964,36 @@
   43
   #f
   73/58
-  ((3 3 0) (3 3 0) (3 3 0)))
+  ((9 10 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))\""
+  "'(eval (app (-> modulo <-) a b) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))"
+  #f
   76
   57
   11
@@ -1495,14 +3006,36 @@
   43
   #f
   71/57
-  ((3 3 0) (5/2 5/2 0) (3 3 0)))
+  ((8 9 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app (-> extended-gcd <-) b (app modulo a b)) (env ((□? (a b)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (let* (x:y ... y)\n    (-> (app cons y (app - x (app * y (app quotient a b)))) <-))\n  (env ((□? (a b)))))\""
+  "'(eval\n  (let* (x:y ... y)\n    (-> (app cons y (app - x (app * y (app quotient a b)))) <-))\n  (env ((□? (a b)))))"
+  #f
   3
   2
   0
@@ -1515,41 +3048,33 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval\n  (app cons y (-> (app - x (app * y (app quotient a b))) <-))\n  (env ((□? (a b)))))\""
+  "'(eval\n  (app cons y (-> (app - x (app * y (app quotient a b))) <-))\n  (env ((□? (a b)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app - x (-> (app * y (app quotient a b)) <-)) (env ((□? (a b)))))\""
-  235
-  206
-  16
-  13
-  130
-  7
-  137
-  1
-  1523/2160
-  117
+  "'(eval (app - x (-> (app * y (app quotient a b)) <-)) (env ((□? (a b)))))"
   #f
-  3/2
-  ((27/2 27/2 0) (27/2 27/2 0) (27/2 27/2 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   app
-  "\"'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))\""
+  "'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))"
+  #f
   95
   76
   11
@@ -1562,14 +3087,15 @@
   53
   #f
   99/76
-  ((4 4 0) (4 4 0) (4 4 0)))
+  ((13 13 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))\""
+  "'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))"
+  #f
   91
   71
   11
@@ -1582,14 +3108,15 @@
   56
   #f
   86/71
-  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+  ((11 12 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))\""
+  "'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))"
+  #f
   77
   58
   11
@@ -1602,74 +3129,126 @@
   43
   #f
   73/58
-  ((3 3 0) (3 3 0) (3 3 0)))
+  ((9 9 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app * (-> y <-) (app quotient a b)) (env ((□? (a b)))))\""
-  214
-  185
-  16
-  13
-  124
-  7
-  131
+  "'(eval (app (-> quotient <-) a b) (env ((□? (a b)))))"
+  #t
+  2
   1
-  401/540
-  104
-  #f
-  56/37
-  ((12 12 0) (12 12 0) (12 12 0)))
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app - (-> x <-) (app * y (app quotient a b))) (env ((□? (a b)))))\""
-  214
-  185
-  16
-  13
-  124
-  7
-  131
-  1
-  401/540
-  104
+  "'(eval (app * (-> y <-) (app quotient a b)) (env ((□? (a b)))))"
   #f
-  56/37
-  ((12 12 0) (12 12 0) (12 12 0)))
+  #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval\n  (app cons (-> y <-) (app - x (app * y (app quotient a b))))\n  (env ((□? (a b)))))\""
-  214
-  185
-  16
-  13
-  124
-  7
-  131
+  "'(eval (app (-> * <-) y (app quotient a b)) (env ((□? (a b)))))"
+  #t
+  2
   1
-  401/540
-  104
-  #f
-  56/37
-  ((12 12 0) (12 12 0) (12 12 0)))
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (app - (-> x <-) (app * y (app quotient a b))) (env ((□? (a b)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> - <-) x (app * y (app quotient a b))) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app cons (-> y <-) (app - x (app * y (app quotient a b))))\n  (env ((□? (a b)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) y (app - x (app * y (app quotient a b))))\n  (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))\""
+  "'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))"
+  #f
   113
   94
   11
@@ -1682,14 +3261,36 @@
   67
   #f
   121/94
-  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
+  ((14 14 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  number
+  "'(eval (app = (app modulo a b) (-> 0 <-)) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))\""
+  "'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))"
+  #f
   95
   76
   11
@@ -1702,14 +3303,15 @@
   53
   #f
   99/76
-  ((4 4 0) (4 4 0) (4 4 0)))
+  ((12 12 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
+  "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
+  #f
   91
   71
   11
@@ -1722,14 +3324,15 @@
   56
   #f
   86/71
-  ((7/2 7/2 0) (7/2 7/2 0) (7/2 7/2 0)))
+  ((11 11 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
+  "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
+  #f
   77
   58
   11
@@ -1742,128 +3345,162 @@
   43
   #f
   73/58
-  ((3 3 0) (3 3 0) (3 3 0)))
+  ((9 10 0)))
 '(clean-cache
   rsa
   2
   15
-  122
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  207
-  177
-  16
-  14
-  121
-  7
-  128
-  1
-  181/240
-  100
-  #f
-  90/59
-  ((25/2 25/2 0) (12 12 0) (12 12 0)))
-'(clean-cache
-  rsa
-  2
-  15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  204
-  174
-  16
-  14
-  120
-  7
-  127
+  "'(eval (app (-> modulo <-) a b) (env ((□? (a b)))))"
+  #t
+  2
   1
-  137/180
-  100
-  #f
-  44/29
-  ((10 10 0) (10 10 0) (10 10 0)))
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  151
-  126
-  13
-  12
-  75
-  6
-  81
+  "'(eval (app (-> = <-) (app modulo a b) 0) (env ((□? (a b)))))"
+  #t
+  2
   1
-  452/705
-  84
-  #f
-  89/63
-  ((7 7 0) (7 7 0) (13/2 13/2 0)))
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  lambda
+  "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
+  "'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  217
-  187
-  16
-  14
-  141
-  7
-  148
-  1
-  3769/4440
-  106
+  "'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))"
   #f
-  285/187
-  ((11 11 0) (11 11 0) (11 11 0)))
-'(clean-cache
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  155
-  129
-  14
-  12
-  88
-  6
-  94
-  1
-  2293/2940
-  87
-  #f
-  182/129
-  ((13/2 13/2 0) (13/2 13/2 0) (13/2 13/2 0)))
-'(clean-cache
-  rsa
-  2
-  122
-  match
-  "\"'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))\n  (env ()))\""
   #f)
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  ref-or-constructor
+  "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  lambda
+  "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  match
+  "'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))\n  (env ()))"
+  #f
+  #f)
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   (#f)\n   (_ (-> (app error \"RSA fail!\") <-)))\n  (env ()))\""
+  "'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   (#f)\n   (_ (-> (app error \"RSA fail!\") <-)))\n  (env ()))"
+  #f
   2
   2
   0
@@ -1876,14 +3513,57 @@
   2
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
   15
-  122
+  211
+  string
+  "'(eval (app error (-> \"RSA fail!\" <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> error <-) \"RSA fail!\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   ((#f) (-> (app display \"RSA success!\") <-))\n   _)\n  (env ()))\""
+  "'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   ((#f) (-> (app display \"RSA success!\") <-))\n   _)\n  (env ()))"
+  #f
   3
   3
   0
@@ -1896,5123 +3576,136 @@
   3
   #t
   1
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
+  string
+  "'(eval (app display (-> \"RSA success!\" <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
+  ref-or-constructor
+  "'(eval (app (-> display <-) \"RSA success!\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  rsa
+  2
+  15
+  211
   app
-  "\"'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))\""
+  "'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   app
-  "\"'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))\""
+  "'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))"
+  #f
   #f)
 '(clean-cache
   rsa
   2
-  122
+  15
+  211
   ref-or-constructor
-  "\"'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))\""
+  "'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))"
+  #f
   #f)
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  217
-  187
-  16
-  14
-  141
-  7
-  148
-  1
-  3769/4440
-  106
-  #f
-  285/187
-  ((23/2 23/2 0) (23/2 23/2 0) (23/2 23/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env ((□? (a b)))))\""
-  220
-  190
-  16
-  14
-  141
-  7
-  148
-  1
-  373/444
-  108
-  #f
-  289/190
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  224
-  192
-  18
-  14
-  142
-  8
-  150
-  1
-  379/456
-  110
-  #t
-  97/64
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  225
-  193
-  18
-  14
-  142
-  8
-  150
-  1
-  379/462
-  111
-  #t
-  292/193
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))\""
-  437
-  387
-  27
-  23
-  303
-  13
-  316
-  1
-  121535/139776
-  245
-  #f
-  614/387
-  ((11 11 0) (11 11 0) (23/2 23/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? (-> e <-) p q) (env ((□? (e p q)))))\""
-  438
-  388
-  27
-  23
-  303
-  13
-  316
-  1
-  120989/139776
-  246
-  #t
-  615/388
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt (-> ciphertext <-) d n) (env ()))\""
-  522
-  467
-  29
-  26
-  379
-  14
-  393
-  1
-  35227/39312
-  320
-  #t
-  699/467
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))\""
-  688
-  633
-  29
-  26
-  520
-  14
-  534
-  1
-  829/936
-  466
-  #f
-  295/211
-  ((13 13 0) (13 13 0) (25/2 25/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))\""
-  688
-  633
-  29
-  26
-  520
-  14
-  534
-  1
-  829/936
-  466
-  #t
-  295/211
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (app < e (app totient p q))\n   (-> (app = 1 (app gcd e (app totient p q))) <-))\n  (env ((□? (e p q)))))\""
-  689
-  634
-  29
-  26
-  520
-  14
-  534
-  1
-  25621/29016
-  467
-  #t
-  443/317
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))\""
-  689
-  634
-  29
-  26
-  520
-  14
-  534
-  1
-  25621/29016
-  467
-  #f
-  443/317
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))\""
-  702
-  644
-  29
-  29
-  520
-  14
-  534
-  1
-  6337/7254
-  477
-  #t
-  32/23
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  let*
-  "\"'(eval\n  (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)\n  (env ((□? (a b)))))\""
-  705
-  647
-  29
-  29
-  520
-  14
-  534
-  1
-  126311/145080
-  480
-  #t
-  902/647
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (let* (x:y ... y)\n    (-> (app cons y (app - x (app * y (app quotient a b)))) <-))\n  (env ((□? (a b)))))\""
-  708
-  650
-  29
-  29
-  520
-  14
-  534
-  1
-  125921/145080
-  483
-  #t
-  909/650
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))\""
-  709
-  651
-  29
-  29
-  520
-  14
-  534
-  1
-  881147/1015560
-  483
-  #f
-  913/651
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))\""
-  710
-  652
-  29
-  29
-  520
-  14
-  534
-  1
-  878417/1015560
-  484
-  #t
-  457/326
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
+'(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))\""
-  711
-  653
-  29
-  29
-  520
-  14
-  534
-  1
-  9657127/11171160
-  485
+  "'(eval (app = (-> plaintext <-) decrypted-ciphertext) (env ()))"
   #t
-  915/653
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
   2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app cons (-> y <-) (app - x (app * y (app quotient a b))))\n  (env ((□? (a b)))))\""
-  714
-  656
-  29
-  29
-  520
-  14
-  534
-  1
-  9627097/11171160
-  485
-  #f
-  921/656
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
   2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
-  715
-  657
-  29
-  29
-  520
-  14
-  534
-  1
-  1202261/1396395
-  485
-  #f
-  923/657
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app encrypt plaintext e (-> n <-)) (env ()))\""
-  715
-  657
-  29
-  29
-  520
-  14
-  534
-  1
-  1202261/1396395
-  485
-  #t
-  923/657
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
   2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * (-> y <-) (app quotient a b)) (env ((□? (a b)))))\""
-  716
-  658
-  29
-  29
-  520
-  14
-  534
-  1
-  9603073/11171160
-  485
-  #f
-  925/658
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
   2
-  15
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))\""
-  755
-  696
-  29
-  30
-  557
-  14
-  571
   1
-  824864/955955
-  509
-  #f
-  977/696
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-inverse (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  755
-  696
-  29
-  30
-  557
-  14
-  571
   1
-  824864/955955
-  509
-  #t
-  977/696
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
   2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app gcd (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  756
-  697
-  29
-  30
-  557
-  14
-  571
-  1
-  1644723/1911910
-  510
   #t
-  978/697
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))\""
-  767
-  708
-  29
-  30
-  561
-  14
-  575
   1
-  14750917/17207190
-  516
-  #f
-  250/177
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  0
+  ((0 0 0)))
+'(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app modulo-power (-> m <-) e n) (env ((□? (m e n)))))\""
-  767
-  708
-  29
-  30
-  561
-  14
-  575
-  1
-  14750917/17207190
-  516
+  "'(eval (app (-> = <-) plaintext decrypted-ciphertext) (env ()))"
   #t
-  250/177
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app car (-> x:y <-)) (env ((□? (a b)))))\""
-  767
-  708
-  29
-  30
-  561
-  14
-  575
-  1
-  14750917/17207190
-  516
-  #f
-  250/177
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  814
-  755
-  29
-  30
-  602
-  14
-  616
   1
-  9802433/11471460
-  555
-  #t
-  1051/755
-  ((3 3 0) (3 3 0) (3 3 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))\""
-  814
-  755
-  29
-  30
-  602
-  14
-  616
   1
-  9802433/11471460
-  555
-  #t
-  1051/755
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))\""
-  815
-  756
-  29
-  30
-  602
-  14
-  616
-  1
-  4893709/5735730
-  555
-  #f
-  39/28
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))\""
-  819
-  760
-  29
-  30
-  602
-  14
-  616
   1
-  4875691/5735730
-  558
-  #f
-  529/380
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  822
-  763
-  29
-  30
-  602
-  14
-  616
   1
-  2430338/2867865
-  558
-  #f
-  152/109
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))\""
-  829
-  770
-  29
-  30
-  602
-  14
-  616
   1
-  4821637/5735730
-  565
-  #t
-  153/110
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
-  830
-  771
-  29
-  30
-  602
-  14
-  616
   1
-  2409317/2867865
-  565
-  #f
-  1073/771
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * (-> (app - p 1) <-) (app - q 1)) (env ((□? (p q)))))\""
-  837
-  778
-  29
-  30
-  602
-  14
-  616
   1
-  955919/1147146
-  572
   #t
-  540/389
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))\""
-  868
-  809
-  29
-  30
-  623
-  14
-  637
   1
-  73187/88242
-  603
-  #t
-  1111/809
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  0
+  ((0 0 0)))
+'(clean-cache
   rsa
   2
   15
-  122
+  211
   ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  868
-  809
-  29
-  30
-  623
-  14
-  637
-  1
-  73187/88242
-  603
-  #t
-  1111/809
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   ((#f) (-> (app display \"RSA success!\") <-))\n   _)\n  (env ()))\""
-  871
-  812
-  29
-  30
-  626
-  14
-  640
-  1
-  74573/89628
-  606
+  "'(eval (app (-> not <-) (app = plaintext decrypted-ciphertext)) (env ()))"
   #t
-  557/406
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  lettypes
-  "\"'(eval ((top) lettypes (cons) ...) (env ()))\""
-  883
-  824
-  29
-  30
-  638
-  14
-  652
   1
-  80117/95172
-  612
-  #f
-  283/206
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-))\n  (env ((□? (a b)))))\""
-  886
-  827
-  29
-  30
-  638
-  14
-  652
   1
-  799553/951720
-  614
-  #f
-  1139/827
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))\""
-  886
-  827
-  29
-  30
-  638
-  14
-  652
-  1
-  799553/951720
-  614
-  #f
-  1139/827
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (-> (app < 1 e) <-)\n   (app < e (app totient p q))\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
-  887
-  828
-  29
-  30
-  638
-  14
-  652
   1
-  797243/951720
-  615
-  #t
-  95/69
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
   0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env ((□? (a b)))))\""
-  890
-  831
-  29
-  30
-  638
-  14
-  652
   1
-  19856/23793
-  617
-  #f
-  1144/831
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  890
-  831
-  29
-  30
-  638
-  14
-  652
   1
-  19856/23793
-  617
-  #t
-  1144/831
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app - x (-> (app * y (app quotient a b)) <-)) (env ((□? (a b)))))\""
-  897
-  838
-  29
-  30
-  638
-  14
-  652
   1
-  394117/475860
-  620
-  #f
-  1155/838
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (-> (app < e (app totient p q)) <-)\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
-  898
-  839
-  29
-  30
-  638
-  14
-  652
   1
-  196481/237930
-  621
   #t
-  1156/839
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))\""
-  898
-  839
-  29
-  30
-  638
-  14
-  652
-  1
-  196481/237930
-  621
-  #f
-  1156/839
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))\""
-  899
-  840
-  29
-  30
-  638
-  14
-  652
-  1
-  1276714/1546545
-  621
-  #f
-  29/21
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  909
-  850
-  29
-  30
-  638
-  14
-  652
-  1
-  97798/118965
-  629
-  #f
-  586/425
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  912
-  852
-  29
-  31
-  638
-  14
-  652
-  1
-  32471/39655
-  629
-  #f
-  589/426
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  912
-  852
-  29
-  31
-  638
-  14
-  652
   1
-  32471/39655
-  629
-  #t
-  589/426
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env ((□? (a b)))))\""
-  912
-  852
-  29
-  31
-  638
-  14
-  652
-  1
-  32471/39655
-  629
-  #f
-  589/426
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))\""
-  913
-  853
-  29
-  31
-  638
-  14
-  652
-  1
-  259383/317240
-  629
-  #f
-  1180/853
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  914
-  854
-  29
-  31
-  638
-  14
-  652
-  1
-  3370879/4124120
-  630
-  #t
-  1181/854
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))\""
-  914
-  854
-  29
-  31
-  638
-  14
-  652
-  1
-  3370879/4124120
-  630
-  #t
-  1181/854
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))\""
-  918
-  858
-  29
-  31
-  638
-  14
-  652
-  1
-  480737/589160
-  634
-  #t
-  395/286
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> q <-) 1) (env ((□? (p q)))))\""
-  918
-  858
-  29
-  31
-  638
-  14
-  652
-  1
-  480737/589160
-  634
-  #t
-  395/286
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))\""
-  918
-  858
-  29
-  31
-  638
-  14
-  652
-  1
-  480737/589160
-  634
-  #t
-  395/286
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power c d (-> n <-)) (env ((□? (c d n)))))\""
-  918
-  858
-  29
-  31
-  638
-  14
-  652
-  1
-  480737/589160
-  634
-  #t
-  395/286
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))\n  (env ((□? (a n)))))\""
-  922
-  862
-  29
-  31
-  638
-  14
-  652
-  1
-  1427911/1767480
-  636
-  #f
-  1191/862
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
-  923
-  863
-  29
-  31
-  638
-  14
-  652
-  1
-  178328/220935
-  636
-  #f
-  1193/863
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> p <-) 1) (env ((□? (p q)))))\""
-  924
-  864
-  29
-  31
-  638
-  14
-  652
-  1
-  712883/883740
-  637
-  #t
-  199/144
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))\""
-  933
-  873
-  29
-  31
-  638
-  14
-  652
-  1
-  141931/176748
-  641
-  #f
-  134/97
-  ((3 3 0) (3 3 0) (3 3 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))\""
-  937
-  877
-  29
-  31
-  638
-  14
-  652
-  1
-  1415449/1767480
-  644
-  #f
-  1211/877
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app < (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  938
-  878
-  29
-  31
-  638
-  14
-  652
-  1
-  1411159/1767480
-  645
-  #t
-  606/439
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  939
-  879
-  29
-  31
-  638
-  14
-  652
-  1
-  469433/589160
-  645
-  #f
-  1214/879
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app < 1 (-> e <-)) (env ((□? (e p q)))))\""
-  940
-  880
-  29
-  31
-  638
-  14
-  652
-  1
-  468003/589160
-  646
-  #t
-  243/176
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))\""
-  940
-  880
-  29
-  31
-  638
-  14
-  652
-  1
-  468003/589160
-  646
-  #t
-  243/176
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))\""
-  941
-  881
-  29
-  31
-  638
-  14
-  652
-  1
-  466573/589160
-  647
-  #t
-  1216/881
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))\""
-  951
-  891
-  29
-  31
-  638
-  14
-  652
-  1
-  3251051/4124120
-  654
-  #f
-  1231/891
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  951
-  891
-  29
-  31
-  638
-  14
-  652
-  1
-  3251051/4124120
-  654
-  #f
-  1231/891
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e (-> p <-) q) (env ((□? (e p q)))))\""
-  952
-  892
-  29
-  31
-  638
-  14
-  652
-  1
-  3241041/4124120
-  655
-  #t
-  308/223
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  952
-  892
-  29
-  31
-  638
-  14
-  652
-  1
-  3241041/4124120
-  655
-  #t
-  308/223
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))\""
-  952
-  892
-  29
-  31
-  638
-  14
-  652
-  1
-  3241041/4124120
-  655
-  #f
-  308/223
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))\""
-  959
-  899
-  29
-  31
-  638
-  14
-  652
-  1
-  3228033/4124120
-  658
-  #f
-  1241/899
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app > m (-> n <-)) (env ((□? (m e n)))))\""
-  960
-  900
-  29
-  31
-  638
-  14
-  652
-  1
-  3218023/4124120
-  659
-  #t
-  69/50
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (λ (e p q)\n    (->\n     (app\n      and\n      (app < 1 e)\n      (app < e (app totient p q))\n      (app = 1 (app gcd e (app totient p q))))\n     <-))\n  (env ((□? (e p q)))))\""
-  961
-  901
-  29
-  31
-  638
-  14
-  652
-  1
-  3208013/4124120
-  660
-  #t
-  1243/901
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   (#f)\n   (_ (-> (app error \"RSA fail!\") <-)))\n  (env ()))\""
-  961
-  901
-  29
-  31
-  638
-  14
-  652
-  1
-  3208013/4124120
-  660
-  #t
-  1243/901
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))\""
-  961
-  901
-  29
-  31
-  638
-  14
-  652
-  1
-  3208013/4124120
-  660
-  #f
-  1243/901
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  962
-  902
-  29
-  31
-  638
-  14
-  652
-  1
-  3206913/4124120
-  661
-  #t
-  622/451
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app > m n)\n   (#f)\n   (_ (-> (app error \"The modulus is too small to encrypt the message.\") <-)))\n  (env ((□? (m e n)))))\""
-  964
-  904
-  29
-  31
-  639
-  14
-  653
-  1
-  3226933/4164160
-  663
-  #t
-  623/452
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> x <-) (app * y (app quotient a b))) (env ((□? (a b)))))\""
-  967
-  907
-  29
-  31
-  639
-  14
-  653
-  1
-  3216923/4164160
-  663
-  #f
-  1252/907
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  letrec*
-  "\"'(eval\n  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))\""
-  967
-  907
-  29
-  31
-  639
-  14
-  653
-  1
-  3216923/4164160
-  663
-  #f
-  1252/907
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))\""
-  968
-  908
-  29
-  31
-  639
-  14
-  653
-  1
-  3206913/4164160
-  663
-  #f
-  627/454
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power m (-> e <-) n) (env ((□? (m e n)))))\""
-  968
-  908
-  29
-  31
-  639
-  14
-  653
-  1
-  3206913/4164160
-  663
-  #t
-  627/454
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))\""
-  969
-  909
-  29
-  31
-  639
-  14
-  653
-  1
-  246601/320320
-  664
-  #t
-  1255/909
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))\n  (env ()))\""
-  969
-  909
-  29
-  31
-  639
-  14
-  653
-  1
-  246601/320320
-  664
-  #f
-  1255/909
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))\""
-  973
-  913
-  29
-  31
-  639
-  14
-  653
-  1
-  246161/320320
-  667
-  #f
-  1260/913
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  974
-  914
-  29
-  31
-  639
-  14
-  653
-  1
-  245391/320320
-  668
-  #t
-  1261/914
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext d (-> n <-)) (env ()))\""
-  974
-  914
-  29
-  31
-  639
-  14
-  653
-  1
-  245391/320320
-  668
-  #t
-  1261/914
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))\""
-  979
-  918
-  29
-  32
-  639
-  14
-  653
-  1
-  244159/320320
-  672
-  #t
-  1265/918
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd (-> a <-) n) (env ((□? (a n)))))\""
-  979
-  918
-  29
-  32
-  639
-  14
-  653
-  1
-  244159/320320
-  672
-  #t
-  1265/918
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))\""
-  980
-  919
-  29
-  32
-  639
-  14
-  653
-  1
-  243389/320320
-  673
-  #t
-  1266/919
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  981
-  920
-  29
-  32
-  639
-  14
-  653
-  1
-  18663/24640
-  674
-  #t
-  1267/920
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app > (-> m <-) n) (env ((□? (m e n)))))\""
-  982
-  921
-  29
-  32
-  639
-  14
-  653
-  1
-  241849/320320
-  675
-  #t
-  1268/921
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))\""
-  982
-  921
-  29
-  32
-  639
-  14
-  653
-  1
-  241849/320320
-  675
-  #f
-  1268/921
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))\""
-  982
-  921
-  29
-  32
-  639
-  14
-  653
-  1
-  241849/320320
-  675
-  #f
-  1268/921
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))\""
-  983
-  922
-  29
-  32
-  639
-  14
-  653
-  1
-  448991/594880
-  675
-  #f
-  636/461
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))\""
-  983
-  922
-  29
-  32
-  639
-  14
-  653
-  1
-  448991/594880
-  675
-  #f
-  636/461
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  984
-  923
-  29
-  32
-  639
-  14
-  653
-  1
-  3141837/4164160
-  676
-  #t
-  1273/923
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x:y <-)) (env ((□? (a b)))))\""
-  985
-  924
-  29
-  32
-  639
-  14
-  653
-  1
-  627967/832832
-  676
-  #f
-  1277/924
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))\""
-  985
-  924
-  29
-  32
-  639
-  14
-  653
-  1
-  627967/832832
-  676
-  #t
-  1277/924
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))\""
-  986
-  925
-  29
-  32
-  639
-  14
-  653
-  1
-  625965/832832
-  677
-  #t
-  1278/925
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext (-> d <-) n) (env ()))\""
-  986
-  925
-  29
-  32
-  639
-  14
-  653
-  1
-  625965/832832
-  677
-  #f
-  1278/925
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * (-> x <-) x) (env ((□? (x)))))\""
-  986
-  925
-  29
-  32
-  639
-  14
-  653
-  1
-  625965/832832
-  677
-  #t
-  1278/925
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))\""
-  993
-  932
-  29
-  32
-  639
-  14
-  653
-  1
-  621961/832832
-  681
-  #f
-  322/233
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))\""
-  994
-  933
-  29
-  32
-  639
-  14
-  653
-  1
-  619959/832832
-  681
-  #f
-  430/311
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power m e (-> n <-)) (env ((□? (m e n)))))\""
-  994
-  933
-  29
-  32
-  639
-  14
-  653
-  1
-  619959/832832
-  681
-  #t
-  430/311
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app car (app extended-gcd a n)) <-) n)\n  (env ((□? (a n)))))\""
-  996
-  935
-  29
-  32
-  639
-  14
-  653
-  1
-  1851869/2498496
-  682
-  #f
-  1293/935
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app cons y (-> (app - x (app * y (app quotient a b))) <-))\n  (env ((□? (a b)))))\""
-  1003
-  942
-  29
-  32
-  639
-  14
-  653
-  1
-  2297569/3123120
-  684
-  #f
-  435/314
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))\n  (env ((□? (a b)))))\""
-  1007
-  946
-  29
-  32
-  640
-  14
-  654
-  1
-  4578121/6246240
-  688
-  #t
-  1313/946
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))\""
-  1007
-  946
-  29
-  32
-  640
-  14
-  654
-  1
-  4578121/6246240
-  688
-  #f
-  1313/946
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e p (-> q <-)) (env ((□? (e p q)))))\""
-  1008
-  947
-  29
-  32
-  640
-  14
-  654
-  1
-  2281553/3123120
-  689
-  #t
-  1314/947
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))\""
-  1009
-  948
-  29
-  32
-  640
-  14
-  654
-  1
-  4548091/6246240
-  689
-  #f
-  329/237
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * x (-> x <-)) (env ((□? (x)))))\""
-  1009
-  948
-  29
-  32
-  640
-  14
-  654
-  1
-  4548091/6246240
-  689
-  #t
-  329/237
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  1010
-  949
-  29
-  32
-  640
-  14
-  654
-  1
-  1133269/1561560
-  690
-  #t
-  1317/949
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  1011
-  950
-  29
-  32
-  640
-  14
-  654
-  1
-  4518061/6246240
-  691
-  #t
-  659/475
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  1011
-  950
-  29
-  32
-  640
-  14
-  654
-  1
-  4518061/6246240
-  691
-  #f
-  659/475
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))\""
-  1012
-  951
-  29
-  32
-  640
-  14
-  654
-  1
-  2251523/3123120
-  692
-  #t
-  1319/951
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
-  1013
-  952
-  29
-  32
-  640
-  14
-  654
-  1
-  4500043/6246240
-  692
-  #f
-  1321/952
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   ((#f) (-> (app error \"Not a legal public exponent for that modulus.\") <-))\n   _)\n  (env ((□? (e p q)))))\""
-  1015
-  954
-  29
-  32
-  641
-  14
-  655
-  1
-  4530073/6306300
-  694
-  #t
-  147/106
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  0
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app > m n) <-) (#f) _) (env ((□? (m e n)))))\""
-  1016
-  955
-  29
-  32
-  641
-  14
-  655
-  1
-  2257529/3153150
-  695
-  #t
-  1324/955
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))\""
-  155
-  129
-  14
-  12
-  88
-  6
-  94
-  1
-  2293/2940
-  87
-  #f
-  182/129
-  ((13/2 13/2 0) (13/2 13/2 0) (7 7 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  let*
-  "\"'(eval\n  (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)\n  (env ((□? (a b)))))\""
-  158
-  132
-  14
-  12
-  88
-  6
-  94
-  1
-  113/147
-  90
-  #t
-  47/33
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app < (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  162
-  134
-  16
-  12
-  89
-  7
-  96
-  1
-  116/153
-  92
-  #t
-  95/67
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power (-> m <-) e n) (env ((□? (m e n)))))\""
-  168
-  137
-  18
-  13
-  91
-  9
-  100
-  1
-  61/81
-  95
-  #t
-  193/137
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  122
-  letrec*
-  "\"'(eval\n  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> q <-) 1) (env ((□? (p q)))))\""
-  28
-  13
-  8
-  7
-  6
-  4
-  10
-  1
-  11/21
-  13
-  #t
-  1
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power c d (-> n <-)) (env ((□? (c d n)))))\""
-  38
-  20
-  10
-  8
-  12
-  6
-  18
-  1
-  29/42
-  20
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))\""
-  #f)
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  6
-  3
-  2
-  1
-  2
-  2
-  4
-  1
-  2/3
-  3
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  9
-  6
-  2
-  1
-  4
-  2
-  6
-  1
-  2/3
-  6
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app > (-> m <-) n) (env ((□? (m e n)))))\""
-  15
-  9
-  4
-  2
-  6
-  4
-  10
-  1
-  2/3
-  9
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   ((#f) (-> (app display \"RSA success!\") <-))\n   _)\n  (env ()))\""
-  18
-  12
-  4
-  2
-  9
-  4
-  13
-  1
-  3/4
-  12
-  #t
-  1
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app car (app extended-gcd a n)) <-) n)\n  (env ((□? (a n)))))\""
-  265
-  235
-  18
-  12
-  163
-  9
-  172
-  1
-  1901/2460
-  137
-  #f
-  357/235
-  ((14 14 0) (27/2 27/2 0) (14 14 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power m e (-> n <-)) (env ((□? (m e n)))))\""
-  271
-  241
-  18
-  12
-  168
-  9
-  177
-  1
-  2051/2640
-  143
-  #t
-  363/241
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  275
-  243
-  20
-  12
-  169
-  10
-  179
-  1
-  2081/2700
-  145
-  #t
-  365/243
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   ((#f) (-> (app error \"Not a legal public exponent for that modulus.\") <-))\n   _)\n  (env ((□? (e p q)))))\""
-  277
-  245
-  20
-  12
-  170
-  10
-  180
-  1
-  2111/2760
-  147
-  #t
-  367/245
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))\""
-  282
-  248
-  20
-  14
-  170
-  10
-  180
-  1
-  1043/1380
-  147
-  #f
-  377/248
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))\""
-  284
-  250
-  20
-  14
-  170
-  10
-  180
-  1
-  2071/2760
-  147
-  #f
-  381/250
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))\""
-  292
-  257
-  20
-  15
-  176
-  10
-  186
-  1
-  559/735
-  151
-  #f
-  391/257
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env ((□? (a b)))))\""
-  294
-  259
-  20
-  15
-  176
-  10
-  186
-  1
-  2227/2940
-  152
-  #f
-  394/259
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))\""
-  543
-  493
-  27
-  23
-  365
-  13
-  378
-  1
-  68483/84630
-  306
-  #t
-  798/493
-  ((27/2 27/2 0) (27/2 27/2 0) (14 14 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * x (-> x <-)) (env ((□? (x)))))\""
-  610
-  557
-  29
-  24
-  425
-  14
-  439
-  1
-  1046831/1294020
-  350
-  #t
-  882/557
-  ((3 3 0) (3 3 0) (5/2 5/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app cdr (-> x:y <-)) (env ((□? (a b)))))\""
-  610
-  557
-  29
-  24
-  425
-  14
-  439
-  1
-  1046831/1294020
-  350
-  #f
-  882/557
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app < 1 (-> e <-)) (env ((□? (e p q)))))\""
-  611
-  558
-  29
-  24
-  425
-  14
-  439
-  1
-  260684/323505
-  351
-  #t
-  883/558
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  611
-  558
-  29
-  24
-  425
-  14
-  439
-  1
-  260684/323505
-  351
-  #t
-  883/558
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))\""
-  673
-  618
-  29
-  26
-  477
-  14
-  491
-  1
-  14090581/16846830
-  405
-  #f
-  315/206
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))\""
-  686
-  628
-  29
-  29
-  477
-  14
-  491
-  1
-  27865847/33693660
-  415
-  #t
-  955/628
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))\""
-  687
-  629
-  29
-  29
-  477
-  14
-  491
-  1
-  27847829/33693660
-  415
-  #f
-  957/629
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))\""
-  701
-  642
-  29
-  30
-  490
-  14
-  504
-  1
-  3215759/3863860
-  421
-  #f
-  977/642
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  702
-  643
-  29
-  30
-  490
-  14
-  504
-  1
-  3205749/3863860
-  422
-  #t
-  978/643
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e (-> p <-) q) (env ((□? (e p q)))))\""
-  703
-  644
-  29
-  30
-  490
-  14
-  504
-  1
-  3195739/3863860
-  423
-  #t
-  979/644
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))\""
-  704
-  645
-  29
-  30
-  490
-  14
-  504
-  1
-  798184/965965
-  423
-  #f
-  327/215
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext d (-> n <-)) (env ()))\""
-  704
-  645
-  29
-  30
-  490
-  14
-  504
-  1
-  798184/965965
-  423
-  #t
-  327/215
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app encrypt plaintext e (-> n <-)) (env ()))\""
-  704
-  645
-  29
-  30
-  490
-  14
-  504
-  1
-  798184/965965
-  423
-  #t
-  327/215
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-inverse (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  705
-  646
-  29
-  30
-  490
-  14
-  504
-  1
-  1591363/1931930
-  424
-  #t
-  491/323
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  706
-  647
-  29
-  30
-  490
-  14
-  504
-  1
-  793179/965965
-  425
-  #t
-  983/647
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-))\n  (env ((□? (a b)))))\""
-  707
-  648
-  29
-  30
-  490
-  14
-  504
-  1
-  1585357/1931930
-  425
-  #f
-  989/648
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))\""
-  712
-  651
-  29
-  32
-  490
-  14
-  504
-  1
-  1581353/1931930
-  425
-  #f
-  143/93
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))\n  (env ((□? (a n)))))\""
-  713
-  652
-  29
-  32
-  490
-  14
-  504
-  1
-  788174/965965
-  425
-  #f
-  1003/652
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt (-> ciphertext <-) d n) (env ()))\""
-  713
-  652
-  29
-  32
-  490
-  14
-  504
-  1
-  788174/965965
-  425
-  #t
-  1003/652
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> p <-) 1) (env ((□? (p q)))))\""
-  714
-  653
-  29
-  32
-  490
-  14
-  504
-  1
-  3147691/3863860
-  426
-  #t
-  1004/653
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  742
-  681
-  29
-  32
-  510
-  14
-  524
-  1
-  3176291/3903900
-  454
-  #t
-  344/227
-  ((9/2 9/2 0) (9/2 9/2 0) (9/2 9/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))\""
-  743
-  682
-  29
-  32
-  510
-  14
-  524
-  1
-  1058397/1301300
-  454
-  #f
-  518/341
-  ((3/2 3/2 0) (3/2 3/2 0) (3/2 3/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  768
-  707
-  29
-  32
-  531
-  14
-  545
-  1
-  3166567/3903900
-  479
-  #t
-  1061/707
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
-  769
-  708
-  29
-  32
-  531
-  14
-  545
-  1
-  210971/260260
-  479
-  #f
-  1063/708
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app > m (-> n <-)) (env ((□? (m e n)))))\""
-  770
-  709
-  29
-  32
-  531
-  14
-  545
-  1
-  630911/780780
-  480
-  #t
-  1064/709
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))\""
-  770
-  709
-  29
-  32
-  531
-  14
-  545
-  1
-  630911/780780
-  480
-  #t
-  1064/709
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))\""
-  777
-  716
-  29
-  32
-  531
-  14
-  545
-  1
-  1042843/1301300
-  487
-  #t
-  1071/716
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (-> (app < 1 e) <-)\n   (app < e (app totient p q))\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
-  778
-  717
-  29
-  32
-  531
-  14
-  545
-  1
-  3118519/3903900
-  488
-  #t
-  1072/717
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))\""
-  778
-  717
-  29
-  32
-  531
-  14
-  545
-  1
-  3118519/3903900
-  488
-  #f
-  1072/717
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))\""
-  779
-  718
-  29
-  32
-  531
-  14
-  545
-  1
-  3108509/3903900
-  488
-  #f
-  537/359
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  780
-  719
-  29
-  32
-  531
-  14
-  545
-  1
-  1032833/1301300
-  489
-  #t
-  1075/719
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))\""
-  781
-  720
-  29
-  32
-  531
-  14
-  545
-  1
-  3088489/3903900
-  490
-  #t
-  269/180
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))\""
-  782
-  721
-  29
-  32
-  531
-  14
-  545
-  1
-  3078479/3903900
-  490
-  #f
-  154/103
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))\""
-  811
-  750
-  29
-  32
-  551
-  14
-  565
-  1
-  9301217/11831820
-  519
-  #t
-  369/250
-  ((5 5 0) (5 5 0) (5 5 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))\""
-  811
-  750
-  29
-  32
-  551
-  14
-  565
-  1
-  9301217/11831820
-  519
-  #f
-  369/250
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  812
-  751
-  29
-  32
-  551
-  14
-  565
-  1
-  9281197/11831820
-  520
-  #t
-  1108/751
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app - x (-> (app * y (app quotient a b)) <-)) (env ((□? (a b)))))\""
-  816
-  755
-  29
-  32
-  551
-  14
-  565
-  1
-  9245161/11831820
-  521
-  #f
-  223/151
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))\""
-  816
-  755
-  29
-  32
-  551
-  14
-  565
-  1
-  9245161/11831820
-  521
-  #f
-  223/151
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))\""
-  817
-  756
-  29
-  32
-  551
-  14
-  565
-  1
-  9239701/11831820
-  521
-  #f
-  373/252
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))\""
-  817
-  756
-  29
-  32
-  551
-  14
-  565
-  1
-  9239701/11831820
-  521
-  #t
-  373/252
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))\""
-  817
-  756
-  29
-  32
-  551
-  14
-  565
-  1
-  9239701/11831820
-  521
-  #t
-  373/252
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (-> (app < e (app totient p q)) <-)\n   (app = 1 (app gcd e (app totient p q))))\n  (env ((□? (e p q)))))\""
-  818
-  757
-  29
-  32
-  551
-  14
-  565
-  1
-  9209671/11831820
-  522
-  #t
-  1120/757
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))\""
-  825
-  764
-  29
-  32
-  551
-  14
-  565
-  1
-  9180811/11831820
-  525
-  #f
-  1135/764
-  ((1 1 0) (1 1 0) (1 1 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   (#f)\n   (_ (-> (app error \"RSA fail!\") <-)))\n  (env ()))\""
-  827
-  766
-  29
-  32
-  553
-  14
-  567
-  1
-  9300931/11951940
-  527
-  #t
-  1137/766
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app > m n) <-) (#f) _) (env ((□? (m e n)))))\""
-  828
-  767
-  29
-  32
-  553
-  14
-  567
-  1
-  9270901/11951940
-  528
-  #t
-  1138/767
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))\""
-  832
-  771
-  29
-  32
-  553
-  14
-  567
-  1
-  9240871/11951940
-  529
-  #f
-  1145/771
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))\""
-  833
-  772
-  29
-  32
-  553
-  14
-  567
-  1
-  1846973/2390388
-  529
-  #f
-  1147/772
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))\""
-  833
-  772
-  29
-  32
-  553
-  14
-  567
-  1
-  1846973/2390388
-  529
-  #f
-  1147/772
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))\""
-  840
-  779
-  29
-  32
-  553
-  14
-  567
-  1
-  1841023/2390388
-  533
-  #f
-  61/41
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app > m n)\n   (#f)\n   (_ (-> (app error \"The modulus is too small to encrypt the message.\") <-)))\n  (env ((□? (m e n)))))\""
-  842
-  781
-  29
-  32
-  554
-  14
-  568
-  1
-  1853035/2414412
-  535
-  #t
-  1161/781
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
-  843
-  782
-  29
-  32
-  554
-  14
-  568
-  1
-  9259169/12072060
-  535
-  #f
-  1163/782
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))\""
-  843
-  782
-  29
-  32
-  554
-  14
-  568
-  1
-  9259169/12072060
-  535
-  #t
-  1163/782
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  lettypes
-  "\"'(eval ((top) lettypes (cons) ...) (env ()))\""
-  852
-  791
-  29
-  32
-  563
-  14
-  577
-  1
-  9799709/12612600
-  539
-  #f
-  1177/791
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))\""
-  889
-  828
-  29
-  32
-  590
-  14
-  604
-  1
-  3267193/4204200
-  576
-  #t
-  607/414
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app cons (-> y <-) (app - x (app * y (app quotient a b))))\n  (env ((□? (a b)))))\""
-  891
-  830
-  29
-  32
-  590
-  14
-  604
-  1
-  3261187/4204200
-  576
-  #f
-  609/415
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))\""
-  891
-  830
-  29
-  32
-  590
-  14
-  604
-  1
-  3261187/4204200
-  576
-  #t
-  609/415
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env ((□? (a b)))))\""
-  891
-  830
-  29
-  32
-  590
-  14
-  604
-  1
-  3261187/4204200
-  576
-  #f
-  609/415
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))\""
-  892
-  831
-  29
-  32
-  590
-  14
-  604
-  1
-  217279/280280
-  576
-  #f
-  1220/831
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))\""
-  893
-  832
-  29
-  32
-  590
-  14
-  604
-  1
-  129967/168168
-  577
-  #t
-  1221/832
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))\""
-  927
-  866
-  29
-  32
-  614
-  14
-  628
-  1
-  1943873/2522520
-  611
-  #t
-  1255/866
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))\""
-  928
-  867
-  29
-  32
-  614
-  14
-  628
-  1
-  1943213/2522520
-  611
-  #f
-  1259/867
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))\""
-  928
-  867
-  29
-  32
-  614
-  14
-  628
-  1
-  1943213/2522520
-  611
-  #f
-  1259/867
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app\n   and\n   (app < 1 e)\n   (app < e (app totient p q))\n   (-> (app = 1 (app gcd e (app totient p q))) <-))\n  (env ((□? (e p q)))))\""
-  929
-  868
-  29
-  32
-  614
-  14
-  628
-  1
-  1937207/2522520
-  612
-  #t
-  45/31
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app cons y (-> (app - x (app * y (app quotient a b))) <-))\n  (env ((□? (a b)))))\""
-  933
-  872
-  29
-  32
-  614
-  14
-  628
-  1
-  4826501/6306300
-  613
-  #f
-  1267/872
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env ((□? (a b)))))\""
-  935
-  874
-  29
-  32
-  614
-  14
-  628
-  1
-  9637987/12612600
-  614
-  #f
-  635/437
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))\""
-  936
-  875
-  29
-  32
-  614
-  14
-  628
-  1
-  385039/504504
-  615
-  #t
-  1271/875
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))\""
-  936
-  875
-  29
-  32
-  614
-  14
-  628
-  1
-  385039/504504
-  615
-  #f
-  1271/875
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))\""
-  936
-  875
-  29
-  32
-  614
-  14
-  628
-  1
-  385039/504504
-  615
-  #f
-  1271/875
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))\""
-  937
-  876
-  29
-  32
-  614
-  14
-  628
-  1
-  1919189/2522520
-  616
-  #t
-  106/73
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * (-> x <-) x) (env ((□? (x)))))\""
-  938
-  877
-  29
-  32
-  614
-  14
-  628
-  1
-  9583933/12612600
-  617
-  #t
-  1273/877
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (let* (x:y ... y)\n    (-> (app cons y (app - x (app * y (app quotient a b)))) <-))\n  (env ((□? (a b)))))\""
-  940
-  879
-  29
-  32
-  614
-  14
-  628
-  1
-  1913183/2522520
-  619
-  #t
-  1279/879
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app * (-> (app - p 1) <-) (app - q 1)) (env ((□? (p q)))))\""
-  947
-  886
-  29
-  32
-  614
-  14
-  628
-  1
-  4748423/6306300
-  626
-  #t
-  643/443
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))\""
-  947
-  886
-  29
-  32
-  614
-  14
-  628
-  1
-  4748423/6306300
-  626
-  #t
-  643/443
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #t
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #f
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #t
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #f
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))\n  (env ()))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #f
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app extended-gcd (-> a <-) n) (env ((□? (a n)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #t
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #f
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))\""
-  948
-  887
-  29
-  32
-  614
-  14
-  628
-  1
-  1183352/1576575
-  627
-  #t
-  1287/887
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app modulo-power m (-> e <-) n) (env ((□? (m e n)))))\""
-  949
-  888
-  29
-  32
-  614
-  14
-  628
-  1
-  4718393/6306300
-  628
-  #t
-  161/111
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))\""
-  951
-  890
-  29
-  32
-  614
-  14
-  628
-  1
-  9421771/12612600
-  628
-  #f
-  646/445
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))\""
-  951
-  890
-  29
-  32
-  614
-  14
-  628
-  1
-  9421771/12612600
-  628
-  #t
-  646/445
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))\""
-  955
-  894
-  29
-  32
-  614
-  14
-  628
-  1
-  9404611/12612600
-  632
-  #t
-  216/149
-  ((1/2 1/2 0) (1/2 1/2 0) (1/2 1/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))\""
-  956
-  895
-  29
-  32
-  614
-  14
-  628
-  1
-  9374581/12612600
-  633
-  #t
-  1297/895
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? e p (-> q <-)) (env ((□? (e p q)))))\""
-  957
-  896
-  29
-  32
-  614
-  14
-  628
-  1
-  9344551/12612600
-  634
-  #t
-  649/448
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app car (-> x:y <-)) (env ((□? (a b)))))\""
-  957
-  896
-  29
-  32
-  614
-  14
-  628
-  1
-  9344551/12612600
-  634
-  #f
-  649/448
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))\""
-  958
-  897
-  29
-  32
-  614
-  14
-  628
-  1
-  1867709/2522520
-  634
-  #f
-  100/69
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app is-legal-public-exponent? (-> e <-) p q) (env ((□? (e p q)))))\""
-  959
-  898
-  29
-  32
-  614
-  14
-  628
-  1
-  1861703/2522520
-  635
-  #t
-  1301/898
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app decrypt ciphertext (-> d <-) n) (env ()))\""
-  959
-  898
-  29
-  32
-  614
-  14
-  628
-  1
-  1861703/2522520
-  635
-  #f
-  1301/898
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))\""
-  960
-  899
-  29
-  32
-  614
-  14
-  628
-  1
-  1855697/2522520
-  636
-  #t
-  42/29
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))\n  (env ((□? (a b)))))\""
-  964
-  903
-  29
-  32
-  615
-  14
-  629
-  1
-  9244451/12612600
-  640
-  #t
-  1310/903
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app - (-> x <-) (app * y (app quotient a b))) (env ((□? (a b)))))\""
-  966
-  905
-  29
-  32
-  615
-  14
-  629
-  1
-  9232439/12612600
-  640
-  #f
-  1314/905
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app gcd (-> e <-) (app totient p q)) (env ((□? (e p q)))))\""
-  967
-  906
-  29
-  32
-  615
-  14
-  629
-  1
-  9202409/12612600
-  641
-  #t
-  1315/906
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))\""
-  968
-  907
-  29
-  32
-  615
-  14
-  629
-  1
-  9196403/12612600
-  641
-  #f
-  1317/907
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))\""
-  1002
-  941
-  29
-  32
-  639
-  14
-  653
-  1
-  1311179/1801800
-  675
-  #t
-  1351/941
-  ((5/2 5/2 0) (5/2 5/2 0) (5/2 5/2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app * (-> y <-) (app quotient a b)) (env ((□? (a b)))))\""
-  1003
-  942
-  29
-  32
-  639
-  14
-  653
-  1
-  1310321/1801800
-  675
-  #f
-  451/314
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  ref-or-constructor
-  "\"'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))\""
-  1003
-  942
-  29
-  32
-  639
-  14
-  653
-  1
-  1310321/1801800
-  675
-  #t
-  451/314
-  ((0 0 0) (0 0 0) (0 0 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  match
-  "\"'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))\""
-  1010
-  949
-  29
-  32
-  639
-  14
-  653
-  1
-  207827/286650
-  677
-  #f
-  1363/949
-  ((2 2 0) (2 2 0) (2 2 0)))
-'(shuffled-cache
-  1
-  rsa
-  2
-  15
-  122
-  app
-  "\"'(eval\n  (λ (e p q)\n    (->\n     (app\n      and\n      (app < 1 e)\n      (app < e (app totient p q))\n      (app = 1 (app gcd e (app totient p q))))\n     <-))\n  (env ((□? (e p q)))))\""
-  1011
-  950
-  29
-  32
-  639
-  14
-  653
-  1
-  414289/573300
-  678
-  #t
-  682/475
-  ((0 0 0) (0 0 0) (0 0 0)))
+  ((0 0 0)))

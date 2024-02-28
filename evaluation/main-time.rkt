@@ -25,20 +25,31 @@
     [_
      (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
      (define eval-results-x (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
+     (define eval-subqueries-instant (filter (lambda (q) (match q [(meval Ce p) (is-instant-query (list Ce p))] [_ #f])) (hash-keys result-hash)))
+     (define eval-results-instant-x (filter (lambda (q) (match q [(cons (meval Ce p) _) (is-instant-query (list Ce p))] [_ #f])) (hash->list result-hash)))
      (define eval-results-hash (hash))
+     (define eval-instant-results-hash (hash))
      (for ([result eval-results-x])
        (match-let ([(cons (meval Ce p) res) result])
          (set! eval-results-hash (hash-update eval-results-hash Ce (λ (oldres) (join oldres res)) (from-value res)))
          )
        )
+     (for ([result eval-results-instant-x])
+       (match-let ([(cons (meval Ce p) res) result])
+         (set! eval-instant-results-hash (hash-update eval-instant-results-hash Ce (λ (oldres) (join oldres res)) (from-value res)))
+         )
+       )
      (define eval-results (hash->list eval-results-hash))
+     (define eval-instant-results (hash->list eval-instant-results-hash))
      (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
      (define num-eval-subqueries (length eval-subqueries))
+     (define num-instant-eval-subqueries (length eval-subqueries-instant))
      (define num-store-values (length store-keys))
 
      (define singletons (count is-singleton-val eval-results))
+     (define singletons-instant (count is-singleton-val eval-instant-results))
      (define avg-precision (/ (apply + (map result-size-val eval-results)) (length eval-results)))
-     (pretty-print `(,kind ,name ,m ,(timeout) ,num-eval-subqueries ,num-store-values ,singletons ,avg-precision ,timed-result) out-time)
+     (pretty-print `(,kind ,name ,m ,(timeout) ,num-instant-eval-subqueries ,num-eval-subqueries ,num-store-values ,singletons-instant ,singletons ,avg-precision ,timed-result) out-time)
      ]
     )
   result-hash
@@ -62,6 +73,7 @@
   (define query (eval Ce p))
   (define query-kind (expr-kind (cdr Ce)))
   (define hash-result (hash))
+  (define is-instant (is-instant-query (list Ce p)))
   (define time-result
     (run/timeoutn
      name
@@ -78,9 +90,9 @@
   (match (andmap (lambda (x) x) time-result)
     [#f
      (if (equal? shufflen -1)
-         (pretty-print `(clean-cache ,name ,m ,num-queries ,query-kind ,(query->string query) #f) out-time)
+         (pretty-print `(clean-cache ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
          ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
-         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,num-queries ,query-kind ,(query->string query) #f) out-time)
+         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
 
          )]
     [_
@@ -109,13 +121,13 @@
      (define avg-precision (/ (apply + (map result-size eval-results)) (length eval-results)))
      (define num-fully-determined-subqueries (+ num-eval-determined num-expr-determined))
      (if (equal? shufflen -1)
-         (pretty-print `(clean-cache ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query)
+         (pretty-print `(clean-cache ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant
                                      ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                                      ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                                      ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,(is-singleton (cons '_ result)) ,avg-precision
                                      ,time-result) out-time)
          ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
-         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query)
+         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant
                                         ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                                         ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                                         ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,(is-singleton (cons '_ result)) ,avg-precision
@@ -197,9 +209,8 @@
             (pretty-print `(current-m: ,(current-m)))
             (pretty-print `(basic-cost ,basic-cost))
             (pretty-print `(basic-cost-per-query ,(exact->inexact (/ basic-cost num-queries))))
-            (pretty-print `(basic-acc-cost ,basic-acc-cost))
-            (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost  (* num-shuffles num-queries)))))
-
+            ; (pretty-print `(basic-acc-cost ,basic-acc-cost))
+            ; (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost (* num-shuffles num-queries)))))
             )
           )
         )

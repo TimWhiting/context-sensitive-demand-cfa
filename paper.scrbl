@@ -38,9 +38,9 @@ By decoupling and decomposing control flows, demand control-flow analysis (CFA) 
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
 At present, however, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand m-CFA in contrast to the scalability of $m$-CFA. 
-We find that Demand m-CFA resolves many non-trivial control flows in constant time regardless of program size. 
-In particular we show that in the case of singleton flow sets, Demand m-CFA resolves a similar number of singletons as exponential $m$-CFA, but in constant time.
+We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA. 
+We find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size. 
+In particular we show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singletons as exponential $m$-CFA, but in constant time.
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -1332,7 +1332,7 @@ These were all omitted from the results to determine how Demand $m$-CFA would pe
 \label{fig:mcfa-scalability}
 \end{figure}
 
-Demand $m$-CFA has inherent overhead compared to a monolithic m-CFA analysis. These include:
+Demand $m$-CFA has inherent overhead compared to a monolithic $m$-CFA analysis. These include:
 \begin{enumerate*}
 \item resolving trace queries in addition to evaluation queries (i.e. Doing both backwards and forwards analyses), and
 \item instantiating environments (this can induce exponential behavior related to lexical binding depth).

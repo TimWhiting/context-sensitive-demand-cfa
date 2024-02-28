@@ -112,7 +112,7 @@
   )
 
 (define (query->string q)
-  (string-append "\"" (pretty-format (simple-key q)) "\"")
+  (pretty-format (simple-key q))
   )
 
 (define (queries hm)
