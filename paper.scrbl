@@ -22,6 +22,7 @@
 \acmJournal{PACMPL}
 \acmVolume{ICFP}
 \acmYear{2024}
+\acmArticleType{Research}
 \citestyle{acmauthoryear}
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
@@ -50,9 +51,71 @@ In particular we show that in the case of singleton flow sets, Demand $m$-CFA re
 \def\labelitemii{\(\ast\)}
 \def\labelitemiii{\(\cdot\)}
 
-\maketitle
 
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10011007.10010940.10010941.10010942.10010943</concept_id>
+       <concept_desc>Software and its engineering~Interpreters</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10010940.10010992.10010998.10011000</concept_id>
+       <concept_desc>Software and its engineering~Automated static analysis</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011008.10011009.10011012</concept_id>
+       <concept_desc>Software and its engineering~Functional languages</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011008.10011024.10011027</concept_id>
+       <concept_desc>Software and its engineering~Control structures</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10003752.10003753.10010622</concept_id>
+       <concept_desc>Theory of computation~Abstract machines</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011041.10011047</concept_id>
+       <concept_desc>Software and its engineering~Source code generation</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10003752.10010124.10010138.10010143</concept_id>
+       <concept_desc>Theory of computation~Program analysis</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10003752.10010124.10010138.10010139</concept_id>
+       <concept_desc>Theory of computation~Invariants</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10003752.10010124.10010125.10010126</concept_id>
+       <concept_desc>Theory of computation~Control primitives</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~Interpreters}
+\ccsdesc[500]{Software and its engineering~Automated static analysis}
+\ccsdesc[500]{Software and its engineering~Functional languages}
+\ccsdesc[500]{Software and its engineering~Control structures}
+\ccsdesc[500]{Software and its engineering~Source code generation}
+\ccsdesc[500]{Theory of computation~Abstract machines}
+\ccsdesc[500]{Theory of computation~Program analysis}
+\ccsdesc[500]{Theory of computation~Invariants}
+\ccsdesc[500]{Theory of computation~Control primitives}
 \section{Getting into the Flow}
+
+\keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
+
+\maketitle
 
 Conventional control-flow analysis is tactless---unthinking and inconsiderate.
 
@@ -89,7 +152,7 @@ Moreover, because its segmentation of flows is explicit, it need analyze each se
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
 
 Most use cases for control flow analyses do not need a full accounting of every variable in the program. 
-For example: 
+For example:
 \begin{itemize}
 \item inlining and constant propagation care about variables where a single value flows to, 
 \item security analysis desires to know where particular values from unsanitized input sources can go, 
@@ -1268,7 +1331,7 @@ if the key is present in the map, then the results it locates are sound with res
 \subsection{Pushdown Precision}
 
 An important property of an analyzer is whether its search over the control-flow graph respects CFL reachability.
-In the CFA literature, such analyses are often described as ``pushdown'' since they construct a pushdown model of control flow (e.g. @citet{local:p4f}).
+In the CFA literature, such analyses are often described as ``pushdown'' since they construct a pushdown model of control flow (e.g. @citep{local:p4f}).
 One of the features of the ADI approach to analysis construction is that the analyzer's search is disciplined by the continuation of the defining language, which induces a pushdown model naturally.
 
 Demand $m$-CFA exhibits pushdown precision with respect to two different semantics.
@@ -1319,8 +1382,8 @@ answers for a subset of the queries.
 
 \subsection{Scalability}
 Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
-we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@citet{dvanhorn:VanHorn-Mairson:ICFP08}. 
-$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@citet{Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
+we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@citep{dvanhorn:VanHorn-Mairson:ICFP08}. 
+$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@citep{Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
 In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
 the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
 These were all omitted from the results to determine how Demand $m$-CFA would perform in contexts where compiler heuristics would not already trivially understand the control flow.

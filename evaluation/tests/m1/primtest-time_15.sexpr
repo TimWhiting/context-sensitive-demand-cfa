@@ -99,7 +99,7 @@
   10
   #f
   12/11
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -171,7 +171,7 @@
   10
   #f
   9/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -261,7 +261,19 @@
   app
   "'(eval\n  (app\n   and\n   (app not (app is-trivial-composite? n))\n   (-> (app is-fermat-prime? n iterations) <-))\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  261
+  243
+  12
+  6
+  222
+  5
+  227
+  1
+  1117/1200
+  114
+  #f
+  124/81
+  ((8 8 0)))
 '(clean-cache
   primtest
   1
@@ -303,7 +315,7 @@
   10
   #f
   9/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -333,7 +345,19 @@
   app
   "'(eval\n  (app\n   and\n   (-> (app not (app is-trivial-composite? n)) <-)\n   (app is-fermat-prime? n iterations))\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  101
+  94
+  5
+  2
+  86
+  3
+  89
+  1
+  227/237
+  56
+  #f
+  66/47
+  ((8 8 0)))
 '(clean-cache
   primtest
   1
@@ -342,7 +366,19 @@
   app
   "'(eval\n  (app not (-> (app is-trivial-composite? n) <-))\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  95
+  88
+  5
+  2
+  82
+  3
+  85
+  1
+  223/231
+  53
+  #f
+  123/88
+  ((8 8 0)))
 '(clean-cache
   primtest
   1
@@ -363,7 +399,7 @@
   10
   #f
   9/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -456,7 +492,19 @@
   app
   "'(eval\n  (λ (n iterations)\n    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  257
+  239
+  12
+  6
+  219
+  5
+  224
+  1
+  1103/1176
+  112
+  #f
+  366/239
+  ((8 8 0)))
 '(clean-cache
   primtest
   1
@@ -465,7 +513,19 @@
   let*
   "'(eval\n  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  262
+  244
+  12
+  6
+  213
+  5
+  218
+  1
+  353/392
+  112
+  #f
+  94/61
+  ((9 9 0)))
 '(clean-cache
   primtest
   1
@@ -483,10 +543,10 @@
   41
   1
   5/7
-  26
+  29
   #f
-  41/27
-  ((5 5 0)))
+  79/54
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -504,10 +564,10 @@
   37
   1
   41/57
-  23
+  26
   #f
-  73/48
-  ((5 5 0)))
+  35/24
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -546,10 +606,10 @@
   35
   1
   13/18
-  23
+  26
   #f
-  67/45
-  ((4 5 0)))
+  64/45
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -567,10 +627,10 @@
   31
   1
   35/48
-  20
+  23
   #f
-  58/39
-  ((4 4 0)))
+  55/39
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -588,9 +648,9 @@
   0
   1
   0
-  2
-  #f
-  4/3
+  3
+  #t
+  1
   ((0 0 0)))
 '(clean-cache
   primtest
@@ -654,7 +714,7 @@
   13
   #f
   3/2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -675,7 +735,7 @@
   10
   #f
   3/2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -747,7 +807,19 @@
   match
   "'(eval\n  (let* (byte-size ... a)\n    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  260
+  242
+  12
+  6
+  212
+  5
+  217
+  1
+  1063/1176
+  112
+  #f
+  186/121
+  ((9 9 0)))
 '(clean-cache
   primtest
   1
@@ -756,7 +828,19 @@
   app
   "'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  240
+  222
+  12
+  6
+  204
+  5
+  209
+  1
+  1111/1176
+  102
+  #f
+  57/37
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -777,7 +861,7 @@
   15
   #f
   23/19
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -819,7 +903,7 @@
   13
   #f
   21/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -861,7 +945,7 @@
   10
   #f
   28/19
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -933,7 +1017,19 @@
   app
   "'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  219
+  202
+  12
+  5
+  177
+  5
+  182
+  1
+  89/100
+  86
+  #f
+  159/101
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -963,7 +1059,19 @@
   app
   "'(eval\n  (app = (-> (app modulo-power a (app - n 1) n) <-) 1)\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  210
+  193
+  12
+  5
+  171
+  5
+  176
+  1
+  259/288
+  80
+  #f
+  306/193
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -984,7 +1092,7 @@
   10
   #f
   3/2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1005,7 +1113,7 @@
   16
   #f
   42/29
-  ((3 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1047,7 +1155,7 @@
   10
   #f
   3/2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1086,10 +1194,10 @@
   43
   1
   47/66
-  26
+  29
   #f
-  88/57
-  ((6 6 0)))
+  85/57
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -1152,7 +1260,7 @@
   20
   #f
   16/13
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1194,7 +1302,7 @@
   13
   #f
   21/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1287,7 +1395,7 @@
   18
   #f
   40/29
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1329,7 +1437,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1371,7 +1479,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1434,7 +1542,7 @@
   18
   #f
   40/29
-  ((2 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1476,7 +1584,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1518,7 +1626,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1581,7 +1689,7 @@
   18
   #f
   40/29
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1623,7 +1731,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1665,7 +1773,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1728,7 +1836,7 @@
   18
   #f
   40/29
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1770,7 +1878,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1812,7 +1920,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1875,7 +1983,7 @@
   18
   #f
   40/29
-  ((2 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -1917,7 +2025,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -1959,7 +2067,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2022,7 +2130,7 @@
   18
   #f
   40/29
-  ((2 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -2064,7 +2172,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2106,7 +2214,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2169,7 +2277,7 @@
   18
   #f
   40/29
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -2211,7 +2319,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2253,7 +2361,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2316,7 +2424,7 @@
   18
   #f
   40/29
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -2358,7 +2466,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2400,7 +2508,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2463,7 +2571,7 @@
   18
   #f
   40/29
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -2505,7 +2613,7 @@
   14
   #f
   32/23
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2547,7 +2655,7 @@
   10
   #f
   24/17
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   1
@@ -2640,7 +2748,19 @@
   match
   "'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  206
+  189
+  12
+  5
+  168
+  5
+  173
+  1
+  51/56
+  78
+  #f
+  100/63
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -2670,7 +2790,19 @@
   match
   "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  199
+  182
+  12
+  5
+  162
+  5
+  167
+  1
+  32/35
+  73
+  #f
+  291/182
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -2679,7 +2811,19 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  199
+  182
+  12
+  5
+  153
+  5
+  158
+  1
+  733/840
+  74
+  #f
+  145/91
+  ((7 7 0)))
 '(clean-cache
   primtest
   1
@@ -2700,7 +2844,7 @@
   10
   #f
   5/3
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2709,7 +2853,19 @@
   app
   "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  193
+  176
+  12
+  5
+  150
+  5
+  155
+  1
+  53/60
+  72
+  #f
+  35/22
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -2718,7 +2874,19 @@
   app
   "'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  186
+  169
+  12
+  5
+  147
+  5
+  152
+  1
+  127/140
+  70
+  #f
+  268/169
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -2739,7 +2907,7 @@
   10
   #f
   5/3
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2760,7 +2928,7 @@
   30
   #f
   3/2
-  ((8 8 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2802,7 +2970,7 @@
   28
   #f
   86/57
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2841,10 +3009,10 @@
   52
   1
   107/144
-  26
+  29
   #f
-  108/67
-  ((8 9 0)))
+  105/67
+  ((3 3 0)))
 '(clean-cache
   primtest
   1
@@ -2883,10 +3051,10 @@
   52
   1
   217/300
-  26
+  29
   #f
-  108/67
-  ((8 8 0)))
+  105/67
+  ((3 3 0)))
 '(clean-cache
   primtest
   1
@@ -2937,7 +3105,19 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  191
+  174
+  12
+  5
+  150
+  5
+  155
+  1
+  9/10
+  73
+  #f
+  275/174
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -2958,7 +3138,7 @@
   10
   #f
   5/3
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -2967,7 +3147,19 @@
   app
   "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  185
+  168
+  12
+  5
+  147
+  5
+  152
+  1
+  51/56
+  71
+  #f
+  265/168
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -2976,7 +3168,19 @@
   app
   "'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  182
+  165
+  12
+  5
+  146
+  5
+  151
+  1
+  193/210
+  69
+  #f
+  87/55
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -2997,7 +3201,7 @@
   10
   #f
   48/29
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   1
@@ -3018,7 +3222,7 @@
   30
   #f
   88/59
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3060,7 +3264,7 @@
   28
   #f
   86/57
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3099,10 +3303,10 @@
   52
   1
   217/288
-  26
+  29
   #f
-  53/33
-  ((8 8 0)))
+  103/66
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3186,7 +3390,7 @@
   32
   #f
   98/65
-  ((8 8 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3207,7 +3411,7 @@
   28
   #f
   86/57
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3249,7 +3453,7 @@
   36
   #f
   34/23
-  ((8 8 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3291,7 +3495,7 @@
   28
   #f
   86/57
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   primtest
   1
@@ -3342,7 +3546,19 @@
   app
   "'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  187
+  169
+  12
+  6
+  146
+  5
+  151
+  1
+  187/210
+  70
+  #f
+  268/169
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -3351,7 +3567,19 @@
   ref-or-constructor
   "'(eval (app * x (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  184
+  166
+  12
+  6
+  146
+  5
+  151
+  1
+  383/420
+  69
+  #f
+  263/166
+  ((6 6 0)))
 '(clean-cache
   primtest
   1
@@ -3360,7 +3588,19 @@
   ref-or-constructor
   "'(eval (app * (-> x <-) x) (env ((□? (x)))))"
   #f
-  #f)
+  184
+  166
+  12
+  6
+  146
+  5
+  151
+  1
+  383/420
+  69
+  #f
+  263/166
+  ((6 6 0)))
 '(clean-cache
   primtest
   1

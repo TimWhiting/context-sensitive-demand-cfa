@@ -213,7 +213,19 @@
   app
   "'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  48
+  30
+  11
+  7
+  24
+  3
+  27
+  1
+  53/60
+  14
+  #f
+  5/3
+  ((3 3 0)))
 '(clean-cache
   regex
   2
@@ -234,7 +246,7 @@
   23
   #f
   28/25
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   regex
   2
@@ -273,7 +285,19 @@
   app
   "'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  74
+  43
+  20
+  11
+  37
+  4
+  41
+  1
+  39/44
+  31
+  #f
+  59/43
+  ((4 4 0)))
 '(clean-cache
   regex
   2
@@ -294,7 +318,7 @@
   23
   #f
   28/25
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   regex
   2
@@ -396,7 +420,7 @@
   23
   #f
   28/25
-  ((3 4 0)))
+  ((1 1 0)))
 '(clean-cache
   regex
   2
@@ -5232,7 +5256,19 @@
   match
   "'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))"
   #f
-  #f)
+  68
+  47
+  13
+  8
+  37
+  4
+  41
+  1
+  223/264
+  40
+  #f
+  59/47
+  ((4 4 0)))
 '(clean-cache
   regex
   2
@@ -5337,7 +5373,7 @@
   26
   #f
   34/29
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   regex
   2

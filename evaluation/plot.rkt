@@ -155,18 +155,18 @@
     )
   )
 
-(define all-programs (sort '(eta ack blur loop2-1 kcfa-3 sat-1 sat-2 sat-3 regex cpstak map flatten primtest rsa deriv) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (sort '(eta blur loop2-1 kcfa-3 sat-1 sat-3 regex map flatten primtest rsa deriv) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
-    (for ([m (range 3)])
+    (for ([m (range 5)])
       (for ([program all-programs])
         (for ([t timeouts])
           (set! results (append (read-file (format "tests/m~a/~a-time_~a.sexpr" m program t)) results))
           )
         )
       )
-    (for ([m (range 3)])
+    (for ([m (range 5)])
       (for ([program all-programs])
         (set! results (append (read-file (format "tests/m~a/exhaustive_~a-time.sexpr" m program)) results))
         )
@@ -175,7 +175,7 @@
     )
   )
 
-(let* ([ms (list 0 1 2)]
+(let* ([ms (list 0 1 2 3 4)]
        [expm-res (filter (filter-kind 'exponential) all-results)]
        [rebind-res (filter (filter-kind 'rebinding) all-results)]
        [basic-res (filter (filter-kind 'clean-cache) all-results)]
@@ -226,13 +226,13 @@
      (map
       (λ (m h)
         (discrete-histogram
-         (map (λ (p) (list (format "~a (~a)" p (get-program-size p)) (avg-time-res (car (find-prog p (hash-ref h "mcfa-r")))))) programs)
+         (map (λ (p) (list (format "~a (~a)" p (get-program-size p)) (avg-time-res (car (find-prog p (hash-ref h "mcfa-r")))))) '(map flatten primtest deriv regex))
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Program Size"
      #:y-label "Time (ms)"
@@ -247,14 +247,14 @@
         (discrete-histogram
          (map (λ (p)
                 (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "program: ~a" p) num-demand))
+                (list (format "~a" p) num-demand))
               programs)
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Program"
      #:y-label "# Singletons"
@@ -269,14 +269,14 @@
         (discrete-histogram
          (map (λ (p)
                 (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "program: ~a" p) num-demand))
+                (list (format "~a" p) num-demand))
               programs)
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Program"
      #:y-label "# Singletons"
@@ -293,18 +293,18 @@
          (map (λ (p)
                 (define num-mcfa ((num-singletons #f) (car (find-prog p (hash-ref h "mcfa-e")))))
                 (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "program: ~a" p)
+                (list (format "~a" p)
                       (/
                        (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
                        (max 1 num-mcfa)
                        )))
               programs)
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Program"
      #:y-label "# Singletons Demand / # Singletons Exhaustive"
@@ -319,18 +319,18 @@
          (map (λ (p)
                 (define num-mcfa ((num-singletons #t) (car (find-prog p (hash-ref h "mcfa-e")))))
                 (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "program: ~a" p)
+                (list (format "~a" p)
                       (/
                        (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
                        (max 1 num-mcfa)
                        )))
               programs)
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Program"
      #:y-label "# Singletons Demand / # Singletons Exhaustive"
@@ -353,14 +353,14 @@
                               ; (pretty-print (count is-result results))
                               ; (pretty-print (length results))
                               (list `(,t ,p) (/ (* 100 (count is-result results)) (length results))))
-                            timeouts)) programs)
+                            (list 5))) programs)
                 )
          #:label (format "m=~a" m)
-         #:skip 3.5
+         #:skip 5.5
          #:x-min m
          #:color m
          ))
-      (range 3) hashes
+      (range 5) hashes
       )
      #:x-label "Timeouts (ms)"
      #:y-label "% Answers"
@@ -383,7 +383,7 @@
     ;      #:x-min m
     ;      #:color m
     ;      ))
-    ;   (range 3) hashes
+    ;   (range 5) hashes
     ;   )
     ;  #:x-label "Program"
     ;  #:y-label "# Singletons Demand"
@@ -409,7 +409,7 @@
     ;      #:x-min m
     ;      #:color m
     ;      ))
-    ;   (range 3) hashes
+    ;   (range 5) hashes
     ;   )
     ;  #:x-label "Program"
     ;  #:y-label "# Singletons Demand / # Singletons Exhaustive"
@@ -434,7 +434,7 @@
     ;      #:x-min m
     ;      #:color m
     ;      ))
-    ;   (range 3) hashes
+    ;   (range 5) hashes
     ;   )
     ;  #:x-label "Timeouts (ms)"
     ;  #:y-label "% Answers"
@@ -507,7 +507,7 @@
     ;           ) programs)
     ;    )
     ;  hashes
-    ;  (range 3)
+    ;  (range 5)
     ;  )
     ; )
     )

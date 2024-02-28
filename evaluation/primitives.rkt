@@ -208,7 +208,7 @@
   )
 
 (define (do-div p C a1 a2)
-  (do-num-op a1 a2 /)
+  (do-num-op-check a1 a2 / check-non-zero)
   )
 
 (define (do-sub p C a1 a2)
@@ -216,7 +216,7 @@
   )
 
 (define (do-modulo p C a1 a2)
-  (do-num-op a1 a2 modulo)
+  (do-num-op-check a1 a2 modulo check-non-zero)
   )
 
 (define (do-gcd p C a1 a2)
@@ -224,7 +224,11 @@
   )
 
 (define (do-quotient p C a1 a2)
-  (do-num-op a1 a2 quotient)
+  (do-num-op-check a1 a2 quotient check-non-zero)
+  )
+
+(define (check-non-zero x y)
+  (if (equal? y 0) #f #t)
   )
 
 (define (do-ceiling p C a1)
@@ -244,11 +248,40 @@
   (match a1
     [(product/lattice (literal (list x (bottom) (bottom))))
      (apply each (list
-                  (if (singleton? x) (if (eq? x 1) (lit (litnum 0)) topnum) ⊥)
-                  (if (or (top? x))
+                  (if (singleton? x) (if (eq? x 1)
+                                         (lit (litnum 0))
+                                         (if (eq? x 0)
+                                             ⊥ ; Exception
+                                             (lit (litnum (log (singleton-x x))))
+                                             )
+                                         ) ⊥)
+                  (if (top? x)
                       (lit (literal (list (top) (bottom) (bottom))))
                       ⊥
                       )))
+     ]
+    [_ ⊥])
+  )
+
+
+(define (do-num-op-check a1 a2 op check)
+  (match a1
+    [(product/lattice (literal (list n1 (bottom) (bottom))))
+     (match a2
+       [(product/lattice (literal (list n2 (bottom) (bottom))))
+        (apply each (list
+                     (if (and (singleton? n1) (singleton? n2))
+                         (if (check (singleton-x n1) (singleton-x n2))
+                             (lit (litnum (op (singleton-x n1) (singleton-x n2))))
+                             topnum
+                             )
+                         ⊥)
+                     (if (or (top? n1) (top? n2)) topnum ⊥)
+                     )
+               )
+        ]
+       [_ ⊥]
+       )
      ]
     [_ ⊥])
   )

@@ -6,7 +6,19 @@
   lettypes
   "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  60
+  10
+  70
+  1
+  1
+  41
+  #f
+  9/5
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -15,7 +27,19 @@
   letrec*
   "'(eval (lettypes cons ... nil (letrec* (car ... my-map) ...)) (env ()))"
   #f
-  #f)
+  73
+  59
+  10
+  4
+  59
+  10
+  69
+  1
+  1
+  41
+  #f
+  106/59
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -45,7 +69,19 @@
   let
   "'(eval (λ (f l) (-> (let (_) ...) <-)) (env (())))"
   #f
-  #f)
+  67
+  54
+  10
+  3
+  54
+  10
+  64
+  1
+  1
+  39
+  #f
+  49/27
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -96,7 +132,19 @@
   letrec
   "'(eval (let (_) (-> (letrec (lp) ...) <-)) (env (())))"
   #f
-  #f)
+  66
+  53
+  10
+  3
+  53
+  10
+  63
+  1
+  1
+  39
+  #f
+  96/53
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -126,7 +174,19 @@
   match
   "'(eval (λ (lst) (-> (match (app not (app pair? lst)) ...) <-)) (env (() ())))"
   #f
-  #f)
+  61
+  49
+  10
+  2
+  49
+  10
+  59
+  1
+  1
+  37
+  #f
+  90/49
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -198,7 +258,19 @@
   app
   "'(eval\n  (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))\n  (env (() ())))"
   #f
-  #f)
+  65
+  52
+  10
+  3
+  52
+  10
+  62
+  1
+  1
+  39
+  #f
+  47/26
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -219,7 +291,7 @@
   24
   #f
   11/6
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -240,7 +312,7 @@
   24
   #f
   11/6
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -291,7 +363,19 @@
   app
   "'(eval\n  (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))\n  (env (() ())))"
   #f
-  #f)
+  90
+  61
+  22
+  7
+  61
+  22
+  83
+  1
+  1
+  39
+  #f
+  112/61
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -300,7 +384,19 @@
   app
   "'(eval (app (app id f) (-> (app car lst) <-)) (env (() ())))"
   #f
-  #f)
+  49
+  37
+  10
+  2
+  37
+  10
+  47
+  1
+  1
+  26
+  #f
+  77/37
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -321,7 +417,7 @@
   24
   #f
   2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -363,7 +459,7 @@
   6
   #f
   3/2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -384,7 +480,7 @@
   5
   #f
   3/2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -435,7 +531,19 @@
   app
   "'(eval (match (-> (app not (app pair? lst)) <-) (#f) _) (env (() ())))"
   #f
-  #f)
+  56
+  44
+  10
+  2
+  44
+  10
+  54
+  1
+  1
+  33
+  #f
+  21/11
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -456,7 +564,7 @@
   30
   #f
   79/40
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -477,7 +585,7 @@
   24
   #f
   2
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -528,7 +636,19 @@
   app
   "'(eval (letrec (lp) (-> (app lp l) <-)) (env (())))"
   #f
-  #f)
+  65
+  52
+  10
+  3
+  52
+  10
+  62
+  1
+  1
+  39
+  #f
+  47/26
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -612,7 +732,7 @@
   5
   #f
   3/2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -675,7 +795,7 @@
   5
   #f
   3/2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -768,7 +888,19 @@
   match
   "'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env (())))"
   #f
-  #f)
+  48
+  37
+  10
+  1
+  37
+  10
+  47
+  1
+  1
+  28
+  #f
+  75/37
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -873,7 +1005,7 @@
   24
   #f
   69/32
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -915,7 +1047,7 @@
   24
   #f
   11/6
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -936,7 +1068,7 @@
   24
   #f
   11/6
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -957,7 +1089,7 @@
   24
   #f
   11/6
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -987,7 +1119,19 @@
   match
   "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env (())))"
   #f
-  #f)
+  45
+  34
+  10
+  1
+  34
+  10
+  44
+  1
+  1
+  24
+  #f
+  73/34
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1008,7 +1152,7 @@
   24
   #f
   71/33
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1029,7 +1173,7 @@
   24
   #f
   69/32
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1038,7 +1182,19 @@
   let
   "'(eval (letrec* (car ... my-map) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  72
+  58
+  10
+  4
+  58
+  10
+  68
+  1
+  1
+  41
+  #f
+  52/29
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1047,7 +1203,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_\n         (->\n          (app\n           my-map\n           (app id (λ (a) ...))\n           (app cons 1 (app cons 2 (app cons 3 (app nil)))))\n          <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
   #f
-  #f)
+  71
+  57
+  10
+  4
+  57
+  10
+  67
+  1
+  1
+  41
+  #f
+  34/19
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1299,7 +1467,7 @@
   5
   #f
   3/2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -1329,7 +1497,19 @@
   app
   "'(eval (λ (a) (-> (app + 1 a) <-)) (env (())))"
   #f
-  #f)
+  72
+  47
+  21
+  4
+  47
+  21
+  68
+  1
+  1
+  34
+  #f
+  89/47
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1338,7 +1518,19 @@
   ref-or-constructor
   "'(eval (app + 1 (-> a <-)) (env (())))"
   #f
-  #f)
+  69
+  44
+  21
+  4
+  44
+  21
+  65
+  1
+  1
+  32
+  #f
+  85/44
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1431,7 +1623,19 @@
   app
   "'(eval\n  (let (_)\n    (->\n     (app\n      my-map\n      (app id (λ (b) ...))\n      (app cons 7 (app cons 8 (app cons 9 (app nil)))))\n     <-))\n  (env ()))"
   #f
-  #f)
+  71
+  57
+  10
+  4
+  57
+  10
+  67
+  1
+  1
+  41
+  #f
+  34/19
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1713,7 +1917,19 @@
   app
   "'(eval (λ (b) (-> (app + 1 b) <-)) (env (())))"
   #f
-  #f)
+  72
+  47
+  21
+  4
+  47
+  21
+  68
+  1
+  1
+  34
+  #f
+  89/47
+  ((2 2 0)))
 '(clean-cache
   map
   0
@@ -1722,7 +1938,19 @@
   ref-or-constructor
   "'(eval (app + 1 (-> b <-)) (env (())))"
   #f
-  #f)
+  69
+  44
+  21
+  4
+  44
+  21
+  65
+  1
+  1
+  32
+  #f
+  85/44
+  ((2 2 0)))
 '(clean-cache
   map
   0

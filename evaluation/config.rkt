@@ -6,7 +6,7 @@
 (define time-trials 1)
 
 ; the timeout per query (ms)
-(define full-timeout 5000)
+(define full-timeout 100000)
 
 (define timeout (make-parameter 10))
 

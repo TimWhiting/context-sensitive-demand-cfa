@@ -1,0 +1,1707 @@
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lettypes
+  "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  letrec*
+  "'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval\n  (letrec* (... append (flatten (-> (λ (x) ...) <-)) () ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app cdr (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cdr <-) x) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> flatten <-) (app cdr x)) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app car (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> car <-) x) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> flatten <-) (app car x)) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> append <-) (app flatten (app car x)) (app flatten (app cdr x)))\n  (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) x (app nil)) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app null? (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> null? <-) x) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app pair? (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> pair? <-) x) (env ((□? (x)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval\n  (letrec* (... null? (append (-> (λ (x y) ...) <-)) flatten ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app cdr (-> x <-)) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cdr <-) x) (env ((□? (x y)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> append <-) (app cdr x) y) (env ((□? (x y)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app car (-> x <-)) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> car <-) x) (env ((□? (x y)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) (app car x) (app append (app cdr x) y))\n  (env ((□? (x y)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app null? (-> x <-)) (env ((□? (x y)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> null? <-) x) (env ((□? (x y)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval\n  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) append ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (null?-v)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (null?-v)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval\n  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (pair?-v)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (pair?-v)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  lambda
+  "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  match
+  "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))"
+  #f
+  #f)
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons 5 (-> (app nil) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  number
+  "'(eval (app cons (-> 5 <-) (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 5 (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  number
+  "'(eval (app cons (-> 4 <-) (app cons 5 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 4 (app cons 5 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  number
+  "'(eval (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil)))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 3 (app cons 4 (app cons 5 (app nil)))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  app
+  "'(eval (app cons 2 (-> (app nil) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  number
+  "'(eval (app cons (-> 2 <-) (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 2 (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  number
+  "'(eval (app cons (-> 1 <-) (app cons 2 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 1 (app cons 2 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons 1 (app cons 2 (app nil)))\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  4
+  5
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> flatten <-)\n   (app\n    cons\n    (app cons 1 (app cons 2 (app nil)))\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))))\n  (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))

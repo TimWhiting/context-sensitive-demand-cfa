@@ -72,7 +72,19 @@
   app
   "'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  76
+  62
+  10
+  4
+  59
+  4
+  63
+  1
+  185/188
+  44
+  #f
+  81/31
+  ((4 4 0)))
 '(clean-cache
   flatten
   1
@@ -81,7 +93,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  187/188
+  43
+  #f
+  13/5
+  ((3 3 0)))
 '(clean-cache
   flatten
   1
@@ -141,7 +165,19 @@
   app
   "'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  76
+  62
+  10
+  4
+  59
+  4
+  63
+  1
+  185/188
+  44
+  #f
+  163/62
+  ((4 4 0)))
 '(clean-cache
   flatten
   1
@@ -150,7 +186,19 @@
   ref-or-constructor
   "'(eval (app car (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  187/188
+  43
+  #f
+  13/5
+  ((3 3 0)))
 '(clean-cache
   flatten
   1
@@ -231,7 +279,19 @@
   ref-or-constructor
   "'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  ((3 3 0)))
 '(clean-cache
   flatten
   1
@@ -303,7 +363,19 @@
   ref-or-constructor
   "'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  ((4 4 0)))
 '(clean-cache
   flatten
   1
@@ -342,7 +414,19 @@
   ref-or-constructor
   "'(eval (app null? (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  ((3 3 0)))
 '(clean-cache
   flatten
   1
@@ -381,7 +465,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  74
+  60
+  10
+  4
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  ((4 4 0)))
 '(clean-cache
   flatten
   1
@@ -885,7 +981,19 @@
   ref-or-constructor
   "'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))"
   #f
-  #f)
+  81
+  64
+  12
+  5
+  62
+  5
+  67
+  1
+  191/196
+  44
+  #f
+  45/16
+  ((4 4 0)))
 '(clean-cache
   flatten
   1

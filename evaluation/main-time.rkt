@@ -94,6 +94,13 @@
          (pretty-print `(shuffled-cache ,shufflen ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
 
          )]
+    [`(#f ,err)
+     (if (equal? shufflen -1)
+         (pretty-print `(clean-cache ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
+         ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
+         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,(timeout) ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
+
+         )]
     [_
      (define result (hash-ref hash-result query))
      (define num-entries (hash-num-keys hash-result))
@@ -141,12 +148,12 @@
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
-  (define do-run-demand #t)
+  (define do-run-demand #f)
   (define do-run-exhaustive #t)
   (define all-programs '(ack blur cpstak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
   (define programs all-programs); '(blur eta kcfa-2 loop2-1))
   (if do-run-exhaustive
-      (for ([m (in-range 0 3)])
+      (for ([m (in-range 0 5)])
         (let ([rebind-cost 0]
               [expm-cost 0])
           (current-m m)
@@ -173,7 +180,7 @@
       )
   (if do-run-demand
       (for ([t timeouts])
-        (for ([m (in-range 0 3)])
+        (for ([m (in-range 0 5)])
           (let ([basic-cost 0]
                 [basic-acc-cost 0]
                 [num-queries 0])

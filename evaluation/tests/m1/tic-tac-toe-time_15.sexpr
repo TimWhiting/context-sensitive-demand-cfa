@@ -1038,7 +1038,7 @@
   6
   #f
   9/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1059,7 +1059,7 @@
   6
   #f
   9/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1173,7 +1173,7 @@
   11
   #f
   13/12
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1281,7 +1281,7 @@
   11
   #f
   13/12
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1302,7 +1302,7 @@
   32
   #f
   87/44
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1389,7 +1389,7 @@
   11
   #f
   13/12
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1521,7 +1521,7 @@
   11
   #f
   13/12
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1542,7 +1542,7 @@
   30
   #f
   83/42
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1893,7 +1893,7 @@
   18
   #f
   27/13
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -1914,7 +1914,7 @@
   18
   #f
   27/13
-  ((4 5 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2037,7 +2037,7 @@
   30
   #f
   83/42
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2100,7 +2100,7 @@
   18
   #f
   20/9
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2253,7 +2253,7 @@
   18
   #f
   13/11
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2274,7 +2274,7 @@
   6
   #f
   8/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2316,7 +2316,7 @@
   6
   #f
   8/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2337,7 +2337,7 @@
   24
   #f
   26/25
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2658,7 +2658,7 @@
   30
   #f
   39/34
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -2679,7 +2679,7 @@
   9
   #f
   23/16
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -3036,7 +3036,7 @@
   9
   #f
   7/5
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -3057,7 +3057,7 @@
   18
   #f
   7/5
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -3243,7 +3243,7 @@
   9
   #f
   23/16
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -3405,7 +3405,7 @@
   30
   #f
   39/34
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -3663,7 +3663,7 @@
   18
   #f
   44/31
-  ((6 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -4020,7 +4020,7 @@
   18
   #f
   7/5
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -4041,7 +4041,7 @@
   9
   #f
   7/5
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -4227,7 +4227,7 @@
   18
   #f
   44/31
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5223,7 +5223,7 @@
   50
   #t
   65/63
-  ((11 11 0)))
+  ((4 4 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5304,7 +5304,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5325,7 +5325,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5469,7 +5469,7 @@
   14
   #f
   13/9
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5508,7 +5508,7 @@
   20
   #f
   7/5
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5529,7 +5529,7 @@
   4
   #f
   10/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5550,7 +5550,7 @@
   4
   #f
   4/3
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -5601,7 +5601,7 @@
   14
   #f
   13/9
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6468,7 +6468,7 @@
   22
   #f
   16/13
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6489,7 +6489,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6531,7 +6531,7 @@
   14
   #t
   8/7
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6693,7 +6693,19 @@
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord rc (app i⁻¹ rc)) (-> m <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
-  #f)
+  131
+  89
+  22
+  20
+  21
+  7
+  28
+  1
+  67/324
+  52
+  #f
+  155/89
+  ((7 7 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6735,7 +6747,7 @@
   31
   #f
   53/39
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6756,7 +6768,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6798,7 +6810,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6840,7 +6852,7 @@
   14
   #t
   8/7
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6951,7 +6963,19 @@
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord rc rc) (-> m <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
-  #f)
+  131
+  89
+  22
+  20
+  21
+  7
+  28
+  1
+  67/324
+  52
+  #f
+  155/89
+  ((8 8 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -6993,7 +7017,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7014,7 +7038,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7056,7 +7080,7 @@
   14
   #t
   8/7
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7218,7 +7242,19 @@
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord r c) (-> m <-))\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
-  #f)
+  132
+  89
+  22
+  21
+  21
+  7
+  28
+  1
+  67/324
+  52
+  #f
+  155/89
+  ((7 7 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7260,7 +7296,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7281,7 +7317,7 @@
   22
   #f
   16/13
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7323,7 +7359,7 @@
   14
   #t
   8/7
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7506,7 +7542,19 @@
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord r c) (-> m <-))\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
-  #f)
+  132
+  89
+  22
+  21
+  21
+  7
+  28
+  1
+  67/324
+  52
+  #f
+  155/89
+  ((8 8 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7548,7 +7596,7 @@
   22
   #f
   16/13
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7569,7 +7617,7 @@
   22
   #f
   16/13
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7611,7 +7659,7 @@
   14
   #t
   8/7
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7764,7 +7812,7 @@
   26
   #f
   19/15
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7785,7 +7833,7 @@
   12
   #f
   12/7
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7836,7 +7884,7 @@
   32
   #f
   47/37
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7857,7 +7905,7 @@
   12
   #f
   2
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -7941,7 +7989,7 @@
   26
   #f
   19/15
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8010,7 +8058,7 @@
   14
   #f
   13/9
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8031,7 +8079,7 @@
   4
   #f
   4/3
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8082,7 +8130,7 @@
   20
   #f
   7/5
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8103,7 +8151,7 @@
   4
   #f
   10/7
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8187,7 +8235,7 @@
   14
   #f
   13/9
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8229,7 +8277,7 @@
   31
   #f
   53/39
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8376,7 +8424,7 @@
   22
   #f
   19/14
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8433,7 +8481,19 @@
   ref-or-constructor
   "'(eval (app equal? (-> m <-) m*) (env ((□? (b co m)))))"
   #f
-  #f)
+  176
+  105
+  27
+  44
+  21
+  8
+  29
+  1
+  67/348
+  52
+  #f
+  187/105
+  ((11 11 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8526,7 +8586,7 @@
   8
   #f
   4/3
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8547,7 +8607,7 @@
   30
   #t
   4/3
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8595,7 +8655,19 @@
   ref-or-constructor
   "'(eval (app (-> bo <-) co) (env ((□? (co bo)))))"
   #f
-  #f)
+  136
+  68
+  42
+  26
+  21
+  18
+  39
+  1
+  17/48
+  56
+  #f
+  87/68
+  ((7 7 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8676,7 +8748,19 @@
   ref-or-constructor
   "'(eval (app marked (-> ma <-)) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
-  #f)
+  131
+  89
+  22
+  20
+  21
+  7
+  28
+  1
+  67/324
+  52
+  #f
+  155/89
+  ((7 7 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8727,7 +8811,7 @@
   48
   #f
   13/11
-  ((13 14 0)))
+  ((5 5 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -8910,7 +8994,7 @@
   15
   #f
   23/19
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   1
@@ -9015,7 +9099,7 @@
   9
   #f
   13/11
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   tic-tac-toe
   1

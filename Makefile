@@ -1,7 +1,7 @@
 all: paper.pdf
 
-paper.pdf: paper.tex paper.bib
-paper.pdf: comprehensive-ci.pdf
+paper.pdf: paper.tex paper.bib paper.bbl
+paper.pdf:
 	pdflatex --interaction=nonstopmode paper.tex && \
 	bibtex paper && \
 	pdflatex --interaction=nonstopmode paper.tex && \

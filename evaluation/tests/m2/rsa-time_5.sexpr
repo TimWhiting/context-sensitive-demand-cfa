@@ -858,7 +858,7 @@
   32
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1035,7 +1035,19 @@
   app
   "'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))"
   #f
-  #f)
+  99
+  86
+  8
+  5
+  56
+  4
+  60
+  1
+  193/282
+  86
+  #t
+  1
+  ((2 2 0)))
 '(clean-cache
   rsa
   2
@@ -1149,7 +1161,19 @@
   app
   "'(eval\n  (λ (e p q)\n    (->\n     (app\n      and\n      (app < 1 e)\n      (app < e (app totient p q))\n      (app = 1 (app gcd e (app totient p q))))\n     <-))\n  (env ((□? (e p q)))))"
   #f
-  #f)
+  93
+  81
+  8
+  4
+  53
+  4
+  57
+  1
+  191/264
+  81
+  #t
+  1
+  ((2 2 0)))
 '(clean-cache
   rsa
   2
@@ -1170,7 +1194,7 @@
   48
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1191,7 +1215,7 @@
   39
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1212,7 +1236,7 @@
   39
   #t
   1
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1233,7 +1257,7 @@
   5
   #t
   1
-  ((0 1 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
@@ -1380,7 +1404,7 @@
   39
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1401,7 +1425,7 @@
   39
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -1527,7 +1551,7 @@
   14
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   2
@@ -1689,7 +1713,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  55
+  40
+  9
+  6
+  30
+  5
+  35
+  1
+  954/1183
+  40
+  #t
+  1
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -1716,7 +1752,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  55
+  40
+  9
+  6
+  30
+  5
+  35
+  1
+  73/84
+  40
+  #t
+  1
+  ((5 5 0)))
 '(clean-cache
   rsa
   2
@@ -1875,7 +1923,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  55
+  40
+  9
+  6
+  30
+  5
+  35
+  1
+  954/1183
+  40
+  #t
+  1
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -1902,7 +1962,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  54
+  39
+  9
+  6
+  30
+  5
+  35
+  1
+  159/182
+  39
+  #t
+  1
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -2232,7 +2304,19 @@
   app
   "'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))"
   #f
-  #f)
+  100
+  85
+  8
+  7
+  39
+  4
+  43
+  1
+  479/924
+  85
+  #t
+  1
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
@@ -2241,7 +2325,19 @@
   app
   "'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))"
   #f
-  #f)
+  49
+  34
+  8
+  7
+  15
+  4
+  19
+  1
+  52/105
+  34
+  #t
+  1
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2283,7 +2379,7 @@
   13
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2325,7 +2421,7 @@
   34
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2367,7 +2463,7 @@
   13
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2460,7 +2556,7 @@
   34
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2478,7 +2574,19 @@
   app
   "'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))"
   #f
-  #f)
+  76
+  57
+  11
+  8
+  37
+  5
+  42
+  1
+  3/4
+  57
+  #t
+  61/57
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2499,7 +2607,7 @@
   34
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   2
@@ -2814,7 +2922,19 @@
   app
   "'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))"
   #f
-  #f)
+  93
+  73
+  11
+  9
+  39
+  5
+  44
+  1
+  53/87
+  57
+  #f
+  89/73
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -2823,7 +2943,19 @@
   ref-or-constructor
   "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
   #f
-  #f)
+  91
+  71
+  11
+  9
+  39
+  5
+  44
+  1
+  268/435
+  56
+  #f
+  86/71
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
@@ -2832,7 +2964,19 @@
   ref-or-constructor
   "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
   #f
-  #f)
+  77
+  58
+  11
+  8
+  39
+  5
+  44
+  1
+  731/870
+  43
+  #f
+  73/58
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
@@ -2862,7 +3006,19 @@
   ref-or-constructor
   "'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))"
   #f
-  #f)
+  76
+  57
+  11
+  8
+  39
+  5
+  44
+  1
+  367/435
+  43
+  #f
+  71/57
+  ((2 2 0)))
 '(clean-cache
   rsa
   2
@@ -2931,7 +3087,19 @@
   app
   "'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))"
   #f
-  #f)
+  95
+  76
+  11
+  8
+  48
+  5
+  53
+  1
+  779/990
+  53
+  #f
+  99/76
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -2940,7 +3108,19 @@
   ref-or-constructor
   "'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))"
   #f
-  #f)
+  91
+  71
+  11
+  9
+  39
+  5
+  44
+  1
+  539/900
+  56
+  #f
+  86/71
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
@@ -2949,7 +3129,19 @@
   ref-or-constructor
   "'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))"
   #f
-  #f)
+  77
+  58
+  11
+  8
+  39
+  5
+  44
+  1
+  367/450
+  43
+  #f
+  73/58
+  ((3 3 0)))
 '(clean-cache
   rsa
   2
@@ -3069,7 +3261,19 @@
   app
   "'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))"
   #f
-  #f)
+  113
+  94
+  11
+  8
+  57
+  5
+  62
+  1
+  103/135
+  67
+  #f
+  121/94
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -3099,7 +3303,19 @@
   app
   "'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))"
   #f
-  #f)
+  95
+  76
+  11
+  8
+  48
+  5
+  53
+  1
+  779/990
+  53
+  #f
+  99/76
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -3108,7 +3324,19 @@
   ref-or-constructor
   "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
   #f
-  #f)
+  91
+  71
+  11
+  9
+  39
+  5
+  44
+  1
+  539/900
+  56
+  #f
+  86/71
+  ((4 4 0)))
 '(clean-cache
   rsa
   2
@@ -3117,7 +3345,19 @@
   ref-or-constructor
   "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
   #f
-  #f)
+  77
+  58
+  11
+  8
+  39
+  5
+  44
+  1
+  367/450
+  43
+  #f
+  73/58
+  ((3 3 0)))
 '(clean-cache
   rsa
   2

@@ -6,7 +6,19 @@
   letrec*
   "'(eval ((top) letrec* (cpstak) ...) (env ()))"
   #f
-  #f)
+  82
+  61
+  14
+  7
+  61
+  14
+  75
+  1
+  1
+  28
+  #f
+  98/61
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -36,7 +48,19 @@
   letrec*
   "'(eval (λ (x y z) (-> (letrec* (tak) ...) <-)) (env (())))"
   #f
-  #f)
+  77
+  57
+  14
+  6
+  57
+  14
+  71
+  1
+  1
+  26
+  #f
+  92/57
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -66,7 +90,19 @@
   match
   "'(eval (λ (x y z k) (-> (match (app not (app < y x)) ...) <-)) (env (() ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -75,7 +111,19 @@
   app
   "'(eval (match (app not (app < y x)) (#f) (_ (-> (app k z) <-))) (env (() ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -84,7 +132,19 @@
   ref-or-constructor
   "'(eval (app k (-> z <-)) (env (() ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -105,7 +165,7 @@
   4
   #f
   2
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   cpstak
   0
@@ -114,7 +174,19 @@
   app
   "'(eval\n  (match\n   (app not (app < y x))\n   ((#f) (-> (app tak (app - x 1) y z (λ (v1) ...)) <-))\n   _)\n  (env (() ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -144,7 +216,19 @@
   app
   "'(eval\n  (λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-))\n  (env (() () ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -174,7 +258,19 @@
   app
   "'(eval\n  (λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-))\n  (env (() () () ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -204,7 +300,19 @@
   app
   "'(eval (λ (v3) (-> (app tak v1 v2 v3 k) <-)) (env (() () () () ())))"
   #f
-  #f)
+  75
+  55
+  14
+  6
+  55
+  14
+  69
+  1
+  1
+  26
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -225,7 +333,7 @@
   4
   #f
   8/5
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   cpstak
   0
@@ -234,7 +342,19 @@
   ref-or-constructor
   "'(eval (app tak v1 v2 (-> v3 <-) k) (env (() () () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -243,7 +363,19 @@
   ref-or-constructor
   "'(eval (app tak v1 (-> v2 <-) v3 k) (env (() () () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -252,7 +384,19 @@
   ref-or-constructor
   "'(eval (app tak (-> v1 <-) v2 v3 k) (env (() () () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -282,7 +426,19 @@
   ref-or-constructor
   "'(eval (app tak (app - z 1) x (-> y <-) (λ (v3) ...)) (env (() () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -291,7 +447,19 @@
   ref-or-constructor
   "'(eval (app tak (app - z 1) (-> x <-) y (λ (v3) ...)) (env (() () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -300,7 +468,19 @@
   app
   "'(eval (app tak (-> (app - z 1) <-) x y (λ (v3) ...)) (env (() () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -330,7 +510,19 @@
   ref-or-constructor
   "'(eval (app - (-> z <-) 1) (env (() () () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -381,7 +573,19 @@
   ref-or-constructor
   "'(eval (app tak (app - y 1) z (-> x <-) (λ (v2) ...)) (env (() () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -390,7 +594,19 @@
   ref-or-constructor
   "'(eval (app tak (app - y 1) (-> z <-) x (λ (v2) ...)) (env (() () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -399,7 +615,19 @@
   app
   "'(eval (app tak (-> (app - y 1) <-) z x (λ (v2) ...)) (env (() () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -429,7 +657,19 @@
   ref-or-constructor
   "'(eval (app - (-> y <-) 1) (env (() () ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -480,7 +720,19 @@
   ref-or-constructor
   "'(eval (app tak (app - x 1) y (-> z <-) (λ (v1) ...)) (env (() ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -489,7 +741,19 @@
   ref-or-constructor
   "'(eval (app tak (app - x 1) (-> y <-) z (λ (v1) ...)) (env (() ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -498,7 +762,19 @@
   app
   "'(eval (app tak (-> (app - x 1) <-) y z (λ (v1) ...)) (env (() ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -528,7 +804,19 @@
   ref-or-constructor
   "'(eval (app - (-> x <-) 1) (env (() ())))"
   #f
-  #f)
+  47
+  33
+  13
+  1
+  33
+  13
+  46
+  1
+  1
+  17
+  #f
+  49/33
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -579,7 +867,19 @@
   app
   "'(eval (match (-> (app not (app < y x)) <-) (#f) _) (env (() ())))"
   #f
-  #f)
+  55
+  41
+  13
+  1
+  41
+  13
+  54
+  1
+  1
+  21
+  #f
+  61/41
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -588,7 +888,19 @@
   app
   "'(eval (app not (-> (app < y x) <-)) (env (() ())))"
   #f
-  #f)
+  51
+  37
+  13
+  1
+  37
+  13
+  50
+  1
+  1
+  18
+  #f
+  56/37
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -597,7 +909,19 @@
   ref-or-constructor
   "'(eval (app < y (-> x <-)) (env (() ())))"
   #f
-  #f)
+  48
+  34
+  13
+  1
+  34
+  13
+  47
+  1
+  1
+  17
+  #f
+  3/2
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -606,7 +930,19 @@
   ref-or-constructor
   "'(eval (app < (-> y <-) x) (env (() ())))"
   #f
-  #f)
+  48
+  34
+  13
+  1
+  34
+  13
+  47
+  1
+  1
+  17
+  #f
+  3/2
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -657,7 +993,19 @@
   app
   "'(eval (letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)) (env (())))"
   #f
-  #f)
+  76
+  56
+  14
+  6
+  56
+  14
+  70
+  1
+  1
+  26
+  #f
+  45/28
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0
@@ -687,7 +1035,19 @@
   ref-or-constructor
   "'(eval (λ (a) (-> a <-)) (env (() ())))"
   #f
-  #f)
+  50
+  35
+  14
+  1
+  35
+  14
+  49
+  1
+  1
+  18
+  #f
+  52/35
+  ((2 2 0)))
 '(clean-cache
   cpstak
   0
@@ -780,7 +1140,19 @@
   app
   "'(eval (letrec* (cpstak) (-> (app cpstak 32 15 8) <-)) (env ()))"
   #f
-  #f)
+  81
+  60
+  14
+  7
+  60
+  14
+  74
+  1
+  1
+  28
+  #f
+  8/5
+  ((3 3 0)))
 '(clean-cache
   cpstak
   0

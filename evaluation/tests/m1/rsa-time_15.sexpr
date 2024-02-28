@@ -6,7 +6,19 @@
   lettypes
   "'(eval ((top) lettypes (cons) ...) (env ()))"
   #f
-  #f)
+  446
+  399
+  29
+  18
+  369
+  14
+  383
+  1
+  1947/2060
+  261
+  #f
+  179/133
+  ((14 14 0)))
 '(clean-cache
   rsa
   1
@@ -15,7 +27,19 @@
   letrec*
   "'(eval\n  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))"
   #f
-  #f)
+  445
+  398
+  29
+  18
+  368
+  14
+  382
+  1
+  1937/2050
+  261
+  #f
+  535/398
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -24,7 +48,19 @@
   app
   "'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))"
   #f
-  #f)
+  431
+  384
+  29
+  18
+  354
+  14
+  368
+  1
+  1797/1910
+  252
+  #f
+  43/32
+  ((14 14 0)))
 '(clean-cache
   rsa
   1
@@ -54,7 +90,19 @@
   ref-or-constructor
   "'(eval (app decrypt ciphertext (-> d <-) n) (env ()))"
   #f
-  #f)
+  219
+  190
+  18
+  11
+  175
+  8
+  183
+  1
+  17/18
+  139
+  #f
+  241/190
+  ((6 6 0)))
 '(clean-cache
   rsa
   1
@@ -63,7 +111,19 @@
   ref-or-constructor
   "'(eval (app decrypt (-> ciphertext <-) d n) (env ()))"
   #f
-  #f)
+  402
+  356
+  29
+  17
+  326
+  14
+  340
+  1
+  1747/1860
+  238
+  #f
+  237/178
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -93,7 +153,19 @@
   app
   "'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))"
   #f
-  #f)
+  402
+  356
+  29
+  17
+  326
+  14
+  340
+  1
+  1747/1860
+  238
+  #f
+  237/178
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -207,7 +279,19 @@
   app
   "'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))"
   #f
-  #f)
+  218
+  189
+  18
+  11
+  174
+  8
+  182
+  1
+  219/232
+  139
+  #f
+  239/189
+  ((6 6 0)))
 '(clean-cache
   rsa
   1
@@ -468,7 +552,19 @@
   app
   "'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))"
   #f
-  #f)
+  428
+  382
+  29
+  17
+  350
+  14
+  364
+  1
+  219/235
+  251
+  #f
+  513/382
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -498,7 +594,19 @@
   ref-or-constructor
   "'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))"
   #f
-  #f)
+  223
+  191
+  20
+  12
+  175
+  10
+  185
+  1
+  221/236
+  139
+  #f
+  243/191
+  ((6 6 0)))
 '(clean-cache
   rsa
   1
@@ -507,7 +615,19 @@
   ref-or-constructor
   "'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))"
   #f
-  #f)
+  400
+  354
+  29
+  17
+  326
+  14
+  340
+  1
+  1757/1860
+  237
+  #f
+  157/118
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -558,7 +678,19 @@
   match
   "'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))"
   #f
-  #f)
+  405
+  359
+  29
+  17
+  326
+  14
+  340
+  1
+  433/465
+  239
+  #f
+  479/359
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -630,7 +762,19 @@
   app
   "'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))"
   #f
-  #f)
+  404
+  358
+  29
+  17
+  326
+  14
+  340
+  1
+  579/620
+  239
+  #f
+  477/358
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -828,7 +972,19 @@
   match
   "'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))"
   #f
-  #f)
+  217
+  189
+  18
+  10
+  170
+  8
+  178
+  1
+  104/113
+  139
+  #f
+  239/189
+  ((6 6 0)))
 '(clean-cache
   rsa
   1
@@ -849,7 +1005,7 @@
   85
   #f
   181/133
-  ((13 13 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -870,7 +1026,7 @@
   22
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1059,7 +1215,7 @@
   63
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1185,7 +1341,7 @@
   64
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1206,7 +1362,7 @@
   39
   #t
   1
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1227,7 +1383,7 @@
   33
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1248,7 +1404,7 @@
   26
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1416,7 +1572,7 @@
   33
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1437,7 +1593,7 @@
   26
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1563,7 +1719,7 @@
   11
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -1677,7 +1833,19 @@
   match
   "'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  425
+  379
+  29
+  17
+  348
+  14
+  362
+  1
+  436/465
+  249
+  #f
+  509/379
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -1707,7 +1875,19 @@
   match
   "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  422
+  376
+  29
+  17
+  346
+  14
+  360
+  1
+  291/310
+  247
+  #f
+  505/376
+  ((14 14 0)))
 '(clean-cache
   rsa
   1
@@ -1716,7 +1896,19 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  410
+  364
+  29
+  17
+  333
+  14
+  347
+  1
+  1163/1240
+  242
+  #f
+  243/182
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -1737,7 +1929,7 @@
   22
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1746,7 +1938,19 @@
   app
   "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  404
+  358
+  29
+  17
+  330
+  14
+  344
+  1
+  1167/1240
+  238
+  #f
+  239/179
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -1755,7 +1959,19 @@
   app
   "'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  405
+  359
+  29
+  17
+  327
+  14
+  341
+  1
+  697/744
+  240
+  #f
+  478/359
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -1776,7 +1992,7 @@
   22
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1785,7 +2001,19 @@
   app
   "'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  273
+  232
+  27
+  14
+  210
+  13
+  223
+  1
+  239/256
+  164
+  #f
+  75/58
+  ((8 8 0)))
 '(clean-cache
   rsa
   1
@@ -1815,7 +2043,19 @@
   ref-or-constructor
   "'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))"
   #f
-  #f)
+  270
+  229
+  27
+  14
+  210
+  13
+  223
+  1
+  1201/1280
+  162
+  #f
+  296/229
+  ((7 7 0)))
 '(clean-cache
   rsa
   1
@@ -1845,7 +2085,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  397
+  351
+  29
+  17
+  326
+  14
+  340
+  1
+  1757/1860
+  235
+  #f
+  467/351
+  ((11 11 0)))
 '(clean-cache
   rsa
   1
@@ -1875,7 +2127,19 @@
   ref-or-constructor
   "'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  397
+  351
+  29
+  17
+  326
+  14
+  340
+  1
+  1171/1240
+  235
+  #f
+  467/351
+  ((11 11 0)))
 '(clean-cache
   rsa
   1
@@ -1926,7 +2190,19 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  414
+  368
+  29
+  17
+  334
+  14
+  348
+  1
+  5213/5580
+  247
+  #f
+  489/368
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -1947,7 +2223,7 @@
   22
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1956,7 +2232,19 @@
   app
   "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  405
+  359
+  29
+  17
+  328
+  14
+  342
+  1
+  5231/5580
+  241
+  #f
+  477/359
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -1965,7 +2253,19 @@
   app
   "'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  401
+  355
+  29
+  17
+  326
+  14
+  340
+  1
+  583/620
+  238
+  #f
+  472/355
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -1986,7 +2286,7 @@
   21
   #t
   1
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -1995,7 +2295,19 @@
   app
   "'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  272
+  231
+  27
+  14
+  210
+  13
+  223
+  1
+  1197/1280
+  164
+  #f
+  298/231
+  ((7 7 0)))
 '(clean-cache
   rsa
   1
@@ -2025,7 +2337,19 @@
   ref-or-constructor
   "'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))"
   #f
-  #f)
+  270
+  229
+  27
+  14
+  210
+  13
+  223
+  1
+  1201/1280
+  162
+  #f
+  296/229
+  ((7 7 0)))
 '(clean-cache
   rsa
   1
@@ -2055,7 +2379,19 @@
   ref-or-constructor
   "'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))"
   #f
-  #f)
+  396
+  350
+  29
+  17
+  326
+  14
+  340
+  1
+  1759/1860
+  235
+  #f
+  93/70
+  ((11 11 0)))
 '(clean-cache
   rsa
   1
@@ -2127,7 +2463,19 @@
   app
   "'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))"
   #f
-  #f)
+  280
+  239
+  27
+  14
+  218
+  13
+  231
+  1
+  1219/1310
+  168
+  #f
+  310/239
+  ((8 8 0)))
 '(clean-cache
   rsa
   1
@@ -2136,7 +2484,19 @@
   ref-or-constructor
   "'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))"
   #f
-  #f)
+  270
+  229
+  27
+  14
+  210
+  13
+  223
+  1
+  401/430
+  162
+  #f
+  296/229
+  ((7 7 0)))
 '(clean-cache
   rsa
   1
@@ -2166,7 +2526,19 @@
   app
   "'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))"
   #f
-  #f)
+  285
+  244
+  27
+  14
+  222
+  13
+  235
+  1
+  409/440
+  173
+  #f
+  315/244
+  ((8 8 0)))
 '(clean-cache
   rsa
   1
@@ -2196,7 +2568,19 @@
   ref-or-constructor
   "'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))"
   #f
-  #f)
+  270
+  229
+  27
+  14
+  210
+  13
+  223
+  1
+  401/430
+  162
+  #f
+  296/229
+  ((7 7 0)))
 '(clean-cache
   rsa
   1
@@ -2247,7 +2631,19 @@
   app
   "'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  406
+  359
+  29
+  18
+  326
+  14
+  340
+  1
+  1729/1860
+  239
+  #f
+  479/359
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -2256,7 +2652,19 @@
   ref-or-constructor
   "'(eval (app * x (-> x <-)) (env ((□? (x)))))"
   #f
-  #f)
+  403
+  356
+  29
+  18
+  326
+  14
+  340
+  1
+  436/465
+  238
+  #f
+  237/178
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -2265,7 +2673,19 @@
   ref-or-constructor
   "'(eval (app * (-> x <-) x) (env ((□? (x)))))"
   #f
-  #f)
+  403
+  356
+  29
+  18
+  326
+  14
+  340
+  1
+  436/465
+  238
+  #f
+  237/178
+  ((12 12 0)))
 '(clean-cache
   rsa
   1
@@ -2328,7 +2748,7 @@
   54
   #t
   1
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -2349,7 +2769,7 @@
   23
   #t
   1
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -2391,7 +2811,7 @@
   11
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -2433,7 +2853,7 @@
   23
   #t
   1
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -2475,7 +2895,7 @@
   11
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -2559,7 +2979,7 @@
   85
   #f
   181/133
-  ((13 13 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -2580,7 +3000,7 @@
   24
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -2601,7 +3021,7 @@
   81
   #f
   173/127
-  ((12 13 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -2622,7 +3042,7 @@
   43
   #t
   1
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -2643,7 +3063,7 @@
   24
   #t
   1
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   rsa
   1
@@ -2769,7 +3189,7 @@
   58
   #f
   92/73
-  ((6 7 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -2895,7 +3315,7 @@
   57
   #f
   43/31
-  ((9 10 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -2916,7 +3336,7 @@
   46
   #f
   76/61
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -2958,7 +3378,7 @@
   57
   #f
   43/31
-  ((9 9 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -2979,7 +3399,7 @@
   46
   #f
   76/61
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -3021,7 +3441,7 @@
   46
   #f
   35/29
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3042,7 +3462,7 @@
   35
   #f
   51/43
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3063,7 +3483,7 @@
   37
   #f
   51/44
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3084,7 +3504,7 @@
   34
   #f
   48/41
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3126,7 +3546,7 @@
   37
   #f
   49/43
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3189,7 +3609,7 @@
   65
   #f
   153/109
-  ((11 11 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -3210,7 +3630,7 @@
   63
   #f
   145/104
-  ((11 11 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -3231,7 +3651,7 @@
   39
   #f
   61/50
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3252,7 +3672,7 @@
   37
   #f
   51/44
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3273,7 +3693,7 @@
   34
   #f
   48/41
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3315,7 +3735,7 @@
   57
   #f
   7/5
-  ((9 9 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -3357,7 +3777,7 @@
   57
   #f
   7/5
-  ((9 9 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -3399,7 +3819,7 @@
   57
   #f
   7/5
-  ((9 9 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -3441,7 +3861,7 @@
   46
   #f
   72/59
-  ((5 5 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -3483,7 +3903,7 @@
   39
   #f
   61/50
-  ((5 5 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3504,7 +3924,7 @@
   37
   #f
   51/44
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3525,7 +3945,7 @@
   34
   #f
   48/41
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   rsa
   1
@@ -3609,7 +4029,7 @@
   55
   #f
   131/93
-  ((10 11 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -3630,7 +4050,7 @@
   55
   #f
   129/92
-  ((10 10 0)))
+  ((3 3 0)))
 '(clean-cache
   rsa
   1
@@ -3651,7 +4071,7 @@
   46
   #f
   41/32
-  ((6 6 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -3693,7 +4113,7 @@
   79
   #f
   29/21
-  ((14 14 0)))
+  ((5 5 0)))
 '(clean-cache
   rsa
   1
@@ -3714,7 +4134,7 @@
   72
   #f
   153/112
-  ((12 12 0)))
+  ((4 4 0)))
 '(clean-cache
   rsa
   1
@@ -3735,7 +4155,7 @@
   61
   #f
   98/79
-  ((7 7 0)))
+  ((2 2 0)))
 '(clean-cache
   rsa
   1
@@ -3744,7 +4164,19 @@
   match
   "'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))\n  (env ()))"
   #f
-  #f)
+  444
+  397
+  29
+  18
+  367
+  14
+  381
+  1
+  1927/2040
+  261
+  #f
+  533/397
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -3879,7 +4311,19 @@
   app
   "'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))"
   #f
-  #f)
+  438
+  391
+  29
+  18
+  361
+  14
+  375
+  1
+  1867/1980
+  256
+  #f
+  526/391
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -3888,7 +4332,19 @@
   app
   "'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))"
   #f
-  #f)
+  435
+  388
+  29
+  18
+  358
+  14
+  372
+  1
+  1837/1950
+  254
+  #f
+  261/194
+  ((13 13 0)))
 '(clean-cache
   rsa
   1
@@ -3897,7 +4353,19 @@
   ref-or-constructor
   "'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))"
   #f
-  #f)
+  432
+  385
+  29
+  18
+  355
+  14
+  369
+  1
+  1807/1920
+  252
+  #f
+  74/55
+  ((13 13 0)))
 '(clean-cache
   rsa
   1

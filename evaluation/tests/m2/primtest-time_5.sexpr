@@ -99,7 +99,7 @@
   13
   #f
   15/14
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -120,7 +120,7 @@
   6
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -171,7 +171,7 @@
   13
   #f
   23/18
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -201,7 +201,7 @@
   6
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -222,7 +222,7 @@
   6
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -282,7 +282,7 @@
   6
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -303,7 +303,7 @@
   13
   #f
   23/18
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -363,7 +363,7 @@
   13
   #f
   23/18
-  ((2 2 0)))
+  ((0 0 0)))
 '(clean-cache
   primtest
   2
@@ -483,7 +483,19 @@
   ref-or-constructor
   "'(eval (app random (-> byte-size <-)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  107
+  97
+  6
+  4
+  61
+  3
+  64
+  1
+  262/399
+  53
+  #f
+  141/97
+  ((5 5 0)))
 '(clean-cache
   primtest
   2
@@ -513,7 +525,19 @@
   app
   "'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))\n         a\n         ...)\n    ...)\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  100
+  90
+  6
+  4
+  57
+  3
+  60
+  1
+  125/189
+  53
+  #f
+  127/90
+  ((4 4 0)))
 '(clean-cache
   primtest
   2
@@ -522,7 +546,19 @@
   app
   "'(eval\n  (app ceiling (-> (app / (app log n) (app log 2)) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  86
+  76
+  6
+  4
+  49
+  3
+  52
+  1
+  113/168
+  46
+  #f
+  53/38
+  ((4 4 0)))
 '(clean-cache
   primtest
   2
@@ -540,9 +576,9 @@
   0
   1
   0
-  2
-  #f
-  4/3
+  3
+  #t
+  1
   ((0 0 0)))
 '(clean-cache
   primtest
@@ -594,7 +630,19 @@
   app
   "'(eval (app / (-> (app log n) <-) (app log 2)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  53
+  43
+  6
+  4
+  29
+  3
+  32
+  1
+  54/77
+  20
+  #f
+  66/43
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -603,7 +651,19 @@
   ref-or-constructor
   "'(eval (app log (-> n <-)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  39
+  29
+  6
+  4
+  21
+  3
+  24
+  1
+  46/63
+  13
+  #f
+  45/29
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -693,7 +753,19 @@
   app
   "'(eval\n  (app is-fermat-prime? n (-> (app - iterations 1) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  47
+  37
+  6
+  4
+  24
+  3
+  27
+  1
+  169/224
+  29
+  #f
+  45/37
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -723,7 +795,19 @@
   ref-or-constructor
   "'(eval (app - (-> iterations <-) 1) (env ((□? (n iterations)))))"
   #f
-  #f)
+  45
+  35
+  6
+  4
+  24
+  3
+  27
+  1
+  523/672
+  27
+  #f
+  43/35
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -753,7 +837,19 @@
   ref-or-constructor
   "'(eval\n  (app is-fermat-prime? (-> n <-) (app - iterations 1))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  38
+  28
+  6
+  4
+  21
+  3
+  24
+  1
+  23/28
+  13
+  #f
+  43/28
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -864,7 +960,19 @@
   ref-or-constructor
   "'(eval (app modulo-power a (app - n 1) (-> n <-)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  39
+  29
+  6
+  4
+  21
+  3
+  24
+  1
+  46/63
+  13
+  #f
+  45/29
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -873,7 +981,19 @@
   app
   "'(eval (app modulo-power a (-> (app - n 1) <-) n) (env ((□? (n iterations)))))"
   #f
-  #f)
+  60
+  50
+  6
+  4
+  33
+  3
+  36
+  1
+  29/42
+  27
+  #f
+  73/50
+  ((3 3 0)))
 '(clean-cache
   primtest
   2
@@ -903,7 +1023,19 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (n iterations)))))"
   #f
-  #f)
+  39
+  29
+  6
+  4
+  21
+  3
+  24
+  1
+  46/63
+  13
+  #f
+  45/29
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -984,7 +1116,19 @@
   app
   "'(eval\n  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  66
+  56
+  6
+  4
+  36
+  3
+  39
+  1
+  75/112
+  44
+  #f
+  17/14
+  ((3 3 0)))
 '(clean-cache
   primtest
   2
@@ -1014,7 +1158,19 @@
   ref-or-constructor
   "'(eval (app <= (-> iterations <-) 0) (env ((□? (n iterations)))))"
   #f
-  #f)
+  45
+  35
+  6
+  4
+  24
+  3
+  27
+  1
+  59/84
+  27
+  #f
+  43/35
+  ((2 2 0)))
 '(clean-cache
   primtest
   2
@@ -1095,7 +1251,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (-> (app = (app modulo n 23) 0) <-))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1137,7 +1305,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1179,7 +1347,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1230,7 +1398,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (-> (app = (app modulo n 19) 0) <-)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1272,7 +1452,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1314,7 +1494,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1365,7 +1545,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (-> (app = (app modulo n 17) 0) <-)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1407,7 +1599,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1449,7 +1641,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1500,7 +1692,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (-> (app = (app modulo n 13) 0) <-)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1542,7 +1746,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1584,7 +1788,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1635,7 +1839,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1677,7 +1893,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1719,7 +1935,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1770,7 +1986,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (-> (app = (app modulo n 7) 0) <-)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1812,7 +2040,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1854,7 +2082,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1905,7 +2133,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (-> (app = (app modulo n 5) 0) <-)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1947,7 +2187,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -1989,7 +2229,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2040,7 +2280,19 @@
   app
   "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (-> (app = (app modulo n 3) 0) <-)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2082,7 +2334,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2124,7 +2376,7 @@
   13
   #f
   31/22
-  ((3 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2175,7 +2427,19 @@
   app
   "'(eval\n  (app\n   or\n   (-> (app = (app modulo n 2) 0) <-)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env ((□? (n)))))"
   #f
-  #f)
+  54
+  46
+  5
+  3
+  29
+  3
+  32
+  1
+  9/14
+  29
+  #f
+  63/46
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2217,7 +2481,7 @@
   21
   #f
   47/34
-  ((4 4 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2
@@ -2259,7 +2523,7 @@
   13
   #f
   31/22
-  ((2 3 0)))
+  ((1 1 0)))
 '(clean-cache
   primtest
   2

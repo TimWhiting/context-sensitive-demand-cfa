@@ -72,7 +72,19 @@
   app
   "'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  116
+  101
+  10
+  5
+  95
+  4
+  99
+  1
+  367/376
+  58
+  #f
+  288/101
+  ((13 13 0)))
 '(clean-cache
   flatten
   2
@@ -93,7 +105,7 @@
   63
   #f
   181/96
-  ((14 15 0)))
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -153,7 +165,19 @@
   app
   "'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))"
   #f
-  #f)
+  116
+  101
+  10
+  5
+  95
+  4
+  99
+  1
+  367/376
+  58
+  #f
+  296/101
+  ((13 13 0)))
 '(clean-cache
   flatten
   2
@@ -174,7 +198,7 @@
   63
   #f
   181/96
-  ((14 15 0)))
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -267,7 +291,7 @@
   63
   #f
   181/96
-  ((14 14 0)))
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -339,7 +363,19 @@
   ref-or-constructor
   "'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))"
   #f
-  #f)
+  110
+  96
+  10
+  4
+  95
+  4
+  99
+  1
+  47/48
+  63
+  #f
+  181/96
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -369,7 +405,19 @@
   app
   "'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))"
   #f
-  #f)
+  156
+  137
+  13
+  6
+  128
+  5
+  133
+  1
+  217/228
+  91
+  #f
+  279/137
+  ((13 13 0)))
 '(clean-cache
   flatten
   2
@@ -390,7 +438,7 @@
   63
   #f
   181/96
-  ((14 15 0)))
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -420,7 +468,19 @@
   app
   "'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))"
   #f
-  #f)
+  155
+  137
+  12
+  6
+  128
+  5
+  133
+  1
+  217/228
+  91
+  #f
+  279/137
+  ((11 11 0)))
 '(clean-cache
   flatten
   2
@@ -441,7 +501,7 @@
   63
   #f
   181/96
-  ((14 15 0)))
+  ((5 5 0)))
 '(clean-cache
   flatten
   2
@@ -852,7 +912,19 @@
   match
   "'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))"
   #f
-  #f)
+  145
+  127
+  12
+  6
+  117
+  5
+  122
+  1
+  2047/2160
+  84
+  #f
+  276/127
+  ((10 10 0)))
 '(clean-cache
   flatten
   2
@@ -945,7 +1017,19 @@
   ref-or-constructor
   "'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))"
   #f
-  #f)
+  122
+  104
+  12
+  6
+  102
+  5
+  107
+  1
+  383/392
+  66
+  #f
+  2
+  ((6 6 0)))
 '(clean-cache
   flatten
   2

@@ -1,2 +1,2 @@
-'(rebinding facehugger 2 5000 44 51 35 24 3 43/23 ((4 4 0)))
-'(exponential facehugger 2 5000 44 51 11 24 3 43/23 ((3 4 0)))
+'(rebinding facehugger 2 100000 44 51 35 24 3 43/23 ((1 1 0)))
+'(exponential facehugger 2 100000 44 51 11 24 3 43/23 ((1 1 0)))
