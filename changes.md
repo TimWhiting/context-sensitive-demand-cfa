@@ -37,8 +37,6 @@ this subexpression has free variables.
 
 General comments:
 
-Is demand 0CFA the only realization (what about Kimball's dissertation - demand environment analysis)
-
 Page 3:
 - contributions:
 - 4) empirical needs work -- what are the results and what is the significance of them

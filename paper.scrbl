@@ -37,11 +37,10 @@
 By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
 At present, however, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-This paper presents a context-sensitive demand CFA hierarchy called Demand $m$-CFA based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand m-CFA in contrast to the scalability of $m$-CFA. We find that
-Demand m-CFA resolves many non-trivial control flows in constant time regardless of program size. 
-Demand m-CFA also resolves almost all singleton flows in constant time, which
-matches intuition about such flows, and is crucial for common optimizations and analyses.
+This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
+We evaluate the scalability of Demand m-CFA in contrast to the scalability of $m$-CFA. 
+We find that Demand m-CFA resolves many non-trivial control flows in constant time regardless of program size. 
+In particular we show that in the case of singleton flow sets, Demand m-CFA resolves a similar number of singletons as exponential $m$-CFA, but in constant time.
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -89,7 +88,7 @@ Inspired by demand dataflow analysis@~cite{duesterwald1997practical}, a \emph{de
 Moreover, because its segmentation of flows is explicit, it need analyze each segment only once and can reuse the result in any flow which contains the segment.
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
 
-In particular, most use cases for control flow analyses do not need a full accounting of every variable in the program. 
+Most use cases for control flow analyses do not need a full accounting of every variable in the program. 
 For example: 
 \begin{itemize}
 \item inlining and constant propagation care about variables where a single value flows to, 
@@ -152,7 +151,7 @@ This paper makes the following contributions:
 \begin{itemize}
 \item a new formalism for Demand 0CFA which can be implemented straightforwardly using contemporary techniques@~cite{darais2017abstracting,wei2018refunctionalization} (\S~\ref{sec:demand-0cfa});
 \item Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (\S~\ref{sec:demand-mcfa-correctness});
-\item an empirical evalution of Demand 0CFA to demonstrate that it is a genuine demand CFA
+\item an empirical evaluation of Demand 0CFA to demonstrate that it is a genuine demand CFA
 \item an empirical evaluation of the scalability and precision of Demand $m$-CFA against $m$-CFA@~cite{dvanhorn:Might2010Resolving}
 \end{itemize}
 
@@ -450,7 +449,7 @@ If the operator @(e "_f") evaluates to @(lam (var 'x) (e)), then the value of @(
 The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(e) with each reference to @(var 'x) in @(e).
 @clause-label{Find-Ref} finds @(e) itself if @(e) is a reference to @(var 'x).
 @clause-label{Find-Rator} and @clause-label{Find-Rand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the ope\emph{rator} @(e 0) and ope\emph{rand} @(e 1), respectively.
-@clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it doesnt' find shadowed references.
+@clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it doesn't' find shadowed references.
 
 \begin{figure}
 \[
@@ -565,7 +564,7 @@ Thus, the analyzer's knowledge of the top-$m$ frames always increases from the t
 
 @(define (intuit-cc [ℓ #f]) (meta "\\mathit{cc}" ℓ))
 
-We devise a context represenation that captures this invariant.
+We devise a context representation that captures this invariant.
 A context @(intuit-cc "^m") representing $m$ stack frames is either
 completely indeterminate,
 a pair of a call @(cursor (app (e 0) (e 1)) (∘e)) and a context @(intuit-cc "^{m-1}") of $m-1$ frames, or
@@ -575,7 +574,7 @@ Formally, we have
 \begin{align*}
 \mathit{Context}_0 \ni @(intuit-cc "^0") &::= \square & \mathit{Context}_m \ni @(intuit-cc "^m") &::=\, ? \,|\, (@(cursor (app (e 0) (e 1)) (∘e)),@(intuit-cc "^{m-1}")) \,|\, ()
 \end{align*}
-With the context represenation chosen, we can now turn to the environment representation.
+With the context representation chosen, we can now turn to the environment representation.
 
 
 \subsection{More-Orderly Environments}
@@ -952,7 +951,7 @@ The @clause-label{Instantiate-Reachable-*} rules ensure that if a query of any k
 When an instantiation @(mcfa-instantiation (mcfa-ρ 0) (mcfa-ρ 1)) doesn't apply (so that @(mcfa-ρ) is unchanged), each rule reduces to a trivial inference.
 The counterpart @clause-label{Instantiate-*} rules, also present in Figure~\ref{fig:demand-mcfa-instantiation}, each extend one of @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| so that, if an instantiated query of that type yields a result, the original, uninstantiated query yields that same result.
 As discussed at the beginning of this section, Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Rand} rules.
-The @clause-label{App-Body-Instantiation} and @clause-label{Rand-Body-Instantation} rules capture these cases.
+The @clause-label{App-Body-Instantiation} and @clause-label{Rand-Body-Instantiation} rules capture these cases.
 
 The definition of Demand $m$-CFA in terms of an ``evaluation'' relation (which includes evaluation, trace, and caller resolution) and a reachability relation follows the full formal approach of \emph{Abstracting Definitional Interpreters} by @citet{darais2017diss}.
 From this correspondence, we can define the Demand $m$-CFA resolution of a given query as the least fixed point of these relations, effectively computable with the algorithm @citet{darais2017diss} provides.
@@ -1106,7 +1105,7 @@ C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ'' σ₂
 \end{figure}
 Most rules are unchanged from Demand $m$-CFA modulo the addition of stores.
 Instantiation in Demand Evaluation is captured by creating a mapping in the store.
-For instance, Demand $m$-CFA's @clause-label{App} rule ``discovers'' the caller of the entered call, which effects an instantation via @clause-label{App-Body-Instantiation}.
+For instance, Demand $m$-CFA's @clause-label{App} rule ``discovers'' the caller of the entered call, which effects an instantiation via @clause-label{App-Body-Instantiation}.
 In contrast, Demand Evaluation's @clause-label{App} rule allocates a fresh address $n$ using @|demand-fresh-name|, maps it to the caller in the store, and extends the environment of the body with it.
 The @|demand-fresh-name| metafunction extracts the unused address and returns a store with the next one.
 Store extension is simply lifted over the next unused address.
@@ -1320,8 +1319,8 @@ answers for a subset of the queries.
 
 \subsection{Scalability}
 Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
-we typically determine the computational complexity in terms of the program size. 0CFA has a minimum complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@citet{dvanhorn:VanHorn-Mairson:ICFP08}. $m$-CFA (with rebinding) has the advantage is that it gives context sensitivity
-at a polynomial complexity. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
+we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$, and $k$-CFA is proven to be exponential@citet{dvanhorn:VanHorn-Mairson:ICFP08}. 
+$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@citet{Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}~\footnote{
 In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
 the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
 These were all omitted from the results to determine how Demand $m$-CFA would perform in contexts where compiler heuristics would not already trivially understand the control flow.
@@ -1348,7 +1347,7 @@ exponential behavior in normal $m$-CFA.
 For Demand $m$-CFA, we must recognize that some queries require a large portion of control flow, and others require very little.
 Additionally the usage scenario of Demand $m$-CFA involves using timeouts and targeting specific flows that the compiler, security analysis, privacy analysis,
 or user in an IDE cares about.
-Thus a compuational complexity analysis, or even a benchmark evaluating all queries of a program do not tell us what engineers 
+Thus a computational complexity analysis, or even a benchmark evaluating all queries of a program do not tell us what engineers 
 want to know prior to deciding to integrate an analysis into their language tooling.
 Therefore to evaluate Demand $m$-CFA we measure the percent of evaluation queries that return within a specific timeout (5ms, 15ms, and 25ms) per query, as well
 as what fraction of the singleton flows in an exponential $m$-CFA analysis can be found using that constant timeout.
@@ -1388,7 +1387,7 @@ It includes a lot of higher order behavior, including storing lambdas in datatyp
 any R6RS programs by name, give details about their size, etc? - I want to have all of the R6RS programs in the original paper working at minimum.}
 
 As can be seen in the results, many queries are available instantaneously, this includes the obvious \emph{$\lambda$s}, but also many
-other simple queries involving references to parameters that are essentially constant and relavant to optimizations such as inlining, constant propagation, and specialization -
+other simple queries involving references to parameters that are essentially constant and relevant to optimizations such as inlining, constant propagation, and specialization -
 including $\lambda$s passed to higher order functions!
 \tw{Thinking about this some more, it would be interesting to correlate time to completion and singleton flow sets. 
 I bet they are highly correlated, and I wonder the percentage of singleton flow sets you can resolve effectively instantaneously (at different $m$) }.
@@ -1399,7 +1398,7 @@ entanglement of the reachability of the two queries as they are both in the root
 We also see that the majority of queries are completed quickly regardless of program size (ignoring lambdas). We hypothesize that this
 is due to many functions in a functional language essentially setting up configuration for other functions, without being in the main
 computation path. Breaking down queries by the number of configurations they visit we see that the number of queries that cover large
-footprints of the programs, doesn't make up the majority of large programs, in constrast, however those few queries take a long time to analyze. 
+footprints of the programs, doesn't make up the majority of large programs, in contrast, however those few queries take a long time to analyze. 
 
 \subsection{Relative Precision}
 
@@ -1414,7 +1413,7 @@ Anticipated Questions to Answer?
 \item How does caching work? ✓
 \item How does the pricing model work? ✓
 \item Is the pricing model effective? ✓
-\item What is the breakdown of queries (obviously individual lambdas will be instantateous)? ✓
+\item What is the breakdown of queries (obviously individual lambdas will be instantaneous)? ✓
 \item Is there exponential blowup? ✓
 \item What benchmarks were used and why those ones?
 \item How does it scale to program size? ✓
