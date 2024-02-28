@@ -148,14 +148,14 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((eta 13) (ack 20) (mj09 21) (kcfa-2 22) (blur 23) (facehugger 23) (loop2-1 26) (kcfa-3 31) (sat-1 34) (cpstak 36) (map 52) (sat-2 56) (flatten 59) (sat-3 59) (primtest 94) (rsa 122) (deriv 130) (regex 255) (tic-tac-toe 353)))
+(define program-size '((eta 23) (ack 40) (kcfa-2 32) (mj09 33) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (deriv 257) (regex 421) (tic-tac-toe 569)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
 
-(define all-programs (sort '(eta blur loop2-1 kcfa-3 sat-1 sat-3 regex map flatten primtest rsa deriv) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (sort '(eta blur loop2-1 sat-1 sat-3 regex map flatten primtest rsa deriv) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
@@ -201,6 +201,7 @@
   ;                                           ; The following are simple test programs for evaluating correctness, not for benchmarking
   ;                                           (apply set '(id err constr constr2 basic-letrec basic-letstar app-num let let-num multi-param structural-rec)))))
   (define programs all-programs)
+  (define programs-no-regex (filter (λ (x) (not (equal? 'regex x))) all-programs))
   (define num-programs (length programs))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-r1)) num-programs)))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-e1)) num-programs)))
@@ -246,7 +247,7 @@
       (λ (m h)
         (discrete-histogram
          (map (λ (p)
-                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
+                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
                 (list (format "~a" p) num-demand))
               programs)
          #:label (format "m=~a" m)
@@ -268,7 +269,7 @@
       (λ (m h)
         (discrete-histogram
          (map (λ (p)
-                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
+                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
                 (list (format "~a" p) num-demand))
               programs)
          #:label (format "m=~a" m)
@@ -292,13 +293,13 @@
         (discrete-histogram
          (map (λ (p)
                 (define num-mcfa ((num-singletons #f) (car (find-prog p (hash-ref h "mcfa-e")))))
-                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
+                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
                 (list (format "~a" p)
                       (/
                        (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
                        (max 1 num-mcfa)
                        )))
-              programs)
+              programs-no-regex)
          #:label (format "m=~a" m)
          #:skip 5.5
          #:x-min m
@@ -318,13 +319,13 @@
         (discrete-histogram
          (map (λ (p)
                 (define num-mcfa ((num-singletons #t) (car (find-prog p (hash-ref h "mcfa-e")))))
-                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-b"))))))
+                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
                 (list (format "~a" p)
                       (/
                        (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
                        (max 1 num-mcfa)
                        )))
-              programs)
+              programs-no-regex)
          #:label (format "m=~a" m)
          #:skip 5.5
          #:x-min m
@@ -339,7 +340,32 @@
      #:out-file (format "plots/precision-cmp-instant.~a" out)
      )
 
-
+    (plot
+     (map
+      (λ (m h)
+        (discrete-histogram
+         (map (λ (p)
+                (define num-mcfa ((num-singletons #f) (car (find-prog p (hash-ref h "mcfa-e")))))
+                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
+                (list (format "~a" p)
+                      (/
+                       (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
+                       (max 1 num-mcfa)
+                       )))
+              '(regex))
+         #:label (format "m=~a" m)
+         #:skip 5.5
+         #:x-min m
+         #:color m
+         ))
+      (range 5) hashes
+      )
+     #:x-label "Program"
+     #:y-label "# Singletons Demand / # Singletons Exhaustive"
+     #:width 1500
+     #:height 500
+     #:out-file (format "plots/precision-regex.~a" out)
+     )
 
 
     (plot
@@ -352,7 +378,7 @@
                               (define results (filter (filter-timeout t) (find-prog p (hash-ref h "dmcfa-b"))))
                               ; (pretty-print (count is-result results))
                               ; (pretty-print (length results))
-                              (list `(,t ,p) (/ (* 100 (count is-result results)) (length results))))
+                              (list p (/ (* 100 (count is-result results)) (length results))))
                             (list 5))) programs)
                 )
          #:label (format "m=~a" m)
@@ -362,7 +388,7 @@
          ))
       (range 5) hashes
       )
-     #:x-label "Timeouts (ms)"
+     #:x-label "Programs"
      #:y-label "% Answers"
      #:width 2000
      #:height 500

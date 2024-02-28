@@ -1,14 +1,14 @@
 all: paper.pdf
 
-paper.pdf: paper.tex paper.bib paper.bbl
-paper.pdf:
+paper.pdf: paper.tex paper.bib
+paper.pdf: plots
 	pdflatex --interaction=nonstopmode paper.tex && \
 	bibtex paper && \
 	pdflatex --interaction=nonstopmode paper.tex && \
 	pdflatex --interaction=nonstopmode paper.tex || \
 	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
-comprehensive-ci.pdf: evaluation/plot.rkt $(wildcard evaluation/tests/*)
+plots: evaluation/plot.rkt $(wildcard evaluation/tests/*)
 	cd evaluation && racket plot.rkt
 
 %.tex: %.scrbl base.rkt bib.rkt

@@ -1,14 +1,61 @@
 TODO: 
 Work on Paper!!!
-- [ ] Generate results for more r6rs programs
-- [ ] Fix mcfa returning bottom on `ormap`? in `tic-tac-toe` - maybe find the issue while doing the above
-- [ ] Include error bars in the plots (for mcfa for the trials, and for demand-mcfa for the trials? and for across programs)
-- [ ] Work on precision results (i.e. %singletons)
-- [ ] Remove discussion of lightweight
-- [ ] Move discussion of DDPA
 - [ ] Rewrite Thesis
-- [ ] For precision, we should really compare an increase from 0-CFA instead of comparing to m-CFA.
-- [ ] Update implementation code sample to use regular m-CFA instead of lightweight formulation
+
+
+
+
+Questions? 
+\begin{enumerate}
+\item Should we do variable timeouts based on 'complexity' of query? 
+  For example lambda queries are constant time always. Is there any insights on what makes a query 'complex'?
+\end{enumerate}
+
+Anticipated Questions to Answer?
+\begin{enumerate}
+\item How does caching work? ✓
+\item How does the pricing model work? ✓
+\item Is the pricing model effective? ✓
+\item What is the breakdown of queries (obviously individual lambdas will be instantaneous)? ✓
+\item Is there exponential blowup? ✓
+\item What benchmarks were used and why those ones?
+\item How does it scale to program size? ✓
+\item How is precision compared to exhaustive? ✓
+\end{enumerate}
+
+Desired Takeaways
+\begin{enumerate}
+\item The pricing model allows you to choose what price you are willing to pay for any particular type of flow information ✓
+\item Reusing caches discovers instantiated environments - which can cause exponential blowup (same as regular exponential m-cfa). ✓
+\item Many non-trivial queries can be answered quickly without fully-determined environments (i.e. what percentage of queries are not refined further?) ✓
+\end{enumerate}
+
+Plots
+\begin{enumerate}
+\item x - cumulative time, y % queries answered (sort by time to completion), lines $m$-CFA, Demand at various timeouts and cached / non-cached
+\item Another one with larger $m$ (3 / 4)
+\item One plot (simple + more complex example), same plot axes as above, but with dots colored in type of query, shows simple and complex examples have similar proportion of queries answered fast?
+\tw{Should I color code points by kind of query?, and do points? How to represent all the points essentially on top of each other at the beginning}
+\item Another one with larger $m$ (3 / 4)?
+\item Selective increase in precision based on whether the result is singleton flow set yet (up to timeout), start m=0?
+\end{enumerate}
+
+Needed Data
+\begin{enumerate}
+\item For t timeout what y% of queries are answered prior to cumulative time X - sorted cumulative time
+\item For every eval query Ce rho, how many refined queries are made & what percent are fully refined?
+\item Number of eval queries for each program (proxy measure of program size)
+\item Number of results in the cache & number of refinements in the cache for each query 
+\item Classification for each query - app, lambda, etc...
+\item Number of eval / expr / refine in the cache - per query?
+\item Benchmarks for all original programs "ack", "blur", "cpstak", "deriv", "eta",
+ "facehugger", "flatten", "kcfa-2/3" "loop2-1" "map" "mj09", "primtest", "regex", "rsa", "sat-1/3" "tak"
+\item Thorough analysis of sat-1/sat-2?
+\item Larger timeouts / larger $m$?
+\end{enumerate}
+
+
+
 
 Lower Priority / Future Work:
 - [ ] Create tests for each path in the demand / mcfa code?

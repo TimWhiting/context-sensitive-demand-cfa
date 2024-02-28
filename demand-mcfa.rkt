@@ -3,6 +3,7 @@
          "base.rkt"
          "syntax.rkt")
 
+(define get-refines-name "\\texttt{get-refines}")
 (define eval-name (ensuremath "\\Downarrow^{m}_{\\mathit{eval}}"))
 (define call-name (ensuremath "\\Downarrow^{m}_{\\mathit{call}}"))
 (define expr-name (ensuremath "\\Rightarrow^{m}_{\\mathit{expr}}"))
