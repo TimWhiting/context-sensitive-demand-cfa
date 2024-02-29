@@ -33,11 +33,11 @@
 \begin{abstract}
 By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
-At present, however, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
+At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size. 
-In particular we show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singletons as an \emph{exponential} formulation of $m$-CFA, but in constant time. Moreover
-we show that increasing the context sensitivity parameter $m$ to much larger values than typically explored in the literature---due to scalability issues---only has a small impact on the number of queries that we can resolve.
+We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which we term \emph{demand-scalable}.
+We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singletons as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
+Moreover we show that increasing the context sensitivity parameter $m$ to much larger values than typically explored in the literature---due to scalability issues---only has a small impact on the number of queries that we can resolve.
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -159,19 +159,18 @@ Second, one can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
 
-The first point may in fact seem like it works against practicality, since only a small portion of information of a program will be gleaned.
+The first point may in fact seem like it works against practicality, since only a small portion of information of a program will be learned.
 However we appeal to the reader's intuition that many use cases for control flow analyses do not need a full accounting of every variable in the program. 
 For example:
-\begin{itemize}
-\item Inlining and constant propagation care about variables where a single value flows to.
-\item Security analyses determine where particular values from unsanitized input sources flow.
-\item Privacy analyses investigate where personal information can flow.
-\item Developers question where unexpected values originate and propagate through the program.
-\end{itemize}
+\begin{enumerate*}
+\item Inlining and constant propagation care about variables where a single value flows to,
+\item security analyses determine where particular values from unsanitized input sources flow,
+\item developers question where unexpected values originate and propagate through the program.
+\end{enumerate*}
 For example, none of these questions care about complicated control flow in library \emph{flow-obscurer} used at the beginning of the program. Instead a demand analysis partitions 
 the state space into only the relevant parts of the program for the query in question.
 
-We postulate that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
+We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
 answer important questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
 \emph{Demand-scalable} analyses are focused on the use cases and information gleaned from the analysis regardless of the underlying computational complexity.
 \emph{Demand-scalable} analyses instead opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
@@ -204,21 +203,6 @@ Although Demand $m$-CFA requires a fair amount of technical machinery to formula
 To illustrate its directness, we reproduce and discuss the core of Demand $m$-CFA's implementation in \S~\ref{sec:implementation}.
 One virtue of using the ADI approach is that it endows the implemented analyzer with ``pushdown precision'' with respect to the reference semantics---which, for our analyzer, are the demand semantics.
 However, as we discuss in \S~\ref{sec:implementation}, Demand $m$-CFA satisfies the \emph{Pushdown for Free} criteria@~cite{local:p4f} which ensures that it has pushdown precision with respect to the direct semantics as well.
-
-@omit{
-      The concept of context-sensitive demand-driven CFA is also found in
-      Demand-Driven Program Analysis (DDPA)@~cite{palmer2016higher},
-      a higher-order program analysis which provides a dataflow ``lookup'' facility.
-      However, DDPA's lookup facility depends on a global control-flow graph which it must bootstrap before it can resolve general dataflow queries;
-      consequently, it is not suitable for the same applications of demand analysis as we have described it.
-
-      Additionally context-sensitivity in a truly demand-driven CFA was more recently investigated in Lifting On-Demand Analysis To Higher-Order Languages@citet{schoepe2023lifting}.
-      This however, requires forward and backward demand-driven analyses to already be formulated for the language in question, and lambda environments are decoupled from
-      the sensitivity of the underlying analyses. 
-
-      In contrast with their approach, we give a unified formulation that directly addresses the higher order nature of lambdas and their environments,
-      and results in a simple and straightforward analysis.
-}
 
 %\subsection{Contributions}
 
@@ -1357,15 +1341,14 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 \section{Evaluation}
 \label{sec:evaluation}
 
-We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including
-conditional expressions; \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
+We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
 definition contexts in which a sequence of definitions and expressions can be mixed in a mutually-recursive scope; and
-a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, as the feature is common in
-functional languages, and is a particularly simple and elegant extension to the formalism. In fact, the representation of closures and
-constructors are isomorphic due to the fact that they both have introduction and elimination forms with positional parameters / fields and arguments.
-Constructors mainly differ in the fact that the body is opaque to the analysis, and the call to the constructor is the essential piece holding the information until it
-reaches an elimination form. Pattern matching is a little more complex, however, it too alternates between @|mcfa-expr-name| and @|mcfa-eval-name| modes finding introduction forms for the
-scrutinee and evaluating the appropriate clause based on the discriminant. We reuse support for constructors and matching to desugar \texttt{if} statements and \texttt{cond} statements.
+a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, which is a particularly elegant extension to the formalism. 
+In fact, the representation of closures and constructors are isomorphic due to the fact that they both have introduction forms which can be represented as a syntactic context (i.e. lambda, or application of the constructor) paired with an environment.
+Constructors mainly differ in the fact that the elimination form does not transfer control to a body. Instead constructors are eliminated with match statements. Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| modes
+discovering introduction forms (binding configurations of the constructors) that flow to the
+scrutinee and evaluating the appropriate clause based on the discriminant. 
+We reuse support for constructors and matching to desugar \texttt{if} statements and \texttt{cond} statements.
 
 For the benchmarks we used common R6RS benchmarks, as well as a larger example \texttt{tic-tac-toe} which 
 computes the minimax algorithm for an AI to play \texttt{tic-tac-toe}, and extensively uses matching, custom datatypes and higher-order behavior.
@@ -1382,31 +1365,27 @@ For (2) we consider whether Demand $m$-CFA gives answers about evaluation flow s
 Finally to answer (3) we determine what percentage of singleton flow sets as compared to the corresponding exhaustive analysis we obtain within our budget of 5ms per query.
 
 \subsection{Implementation Costs}
-In an exhaustive CFA the developer chooses an abstraction, an analysis technique, and the type of information to gather prior to implementation. If any primitive is not supported or
+In an exhaustive CFA the developer chooses an abstraction and an analysis technique prior to implementation. If any primitive is not supported or
 any source code is not available (i.e. external libraries), the developer must make a hard choice. They must approximate the behavior 
-or throw away the results of the analysis. Depending on the language features and escape hatches available, 
-it is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, maintaining and evolving the
+or throw away the results of the analysis. It is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, maintaining and evolving the
 corresponding analyses becomes both a burden and a source of bugs.
 
-In contrast Demand $m$-CFA is formulated so that the analysis of each language feature is specified independently as much as possible.
+In contrast Demand $m$-CFA is formulated such that the analysis of each language feature is specified independently as much as possible.
 Due to this design the implementation of an analysis should work transparently across language versions
-as long as \begin{enumerate*} \item the semantics of each implemented feature does not change, 
-\item the feature's semantics does not depend on other features' semantics which have changed, and 
-\item the abstraction does not need to change \end{enumerate*}.
+as long as \begin{enumerate*} \item the semantics of each implemented feature, and dependant does not change, and \item the abstraction does not need to change \end{enumerate*}.
 
 For example, we did not implement the \texttt{set!} form of R6RS Scheme which mutates the binding of a given variable, and we did not implement primitives with side effects. 
 This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
 Because the use of mutation is relatively rare in functional languages such as Scheme, ML, and OCaml, we expect that relatively few queries encounter mutation.
 
-Additionally the analysis is robust to the addition of new primitives into a language due to the fact that old queries never encounter the primitive 
---- even if new code that uses the primitive is introduced outside the relevant control flow.
+Additionally the analysis is robust to the addition of new primitives into a language due to the fact that old queries never encounter the primitive.
 As such, our analysis could easily be adapted to create an incremental higher-order analysis, keep track of dependencies and analysis results, 
-and provide semantic information even across language updates!
+and provide semantic information even across language or code updates!
 
 Concretely, in terms of lines of code needed, our implementation suggests that a demand analysis involves 
 about the same order of magnitude of engineering effort as $m$-CFA (${\sim}$660 lines of code versus ${\sim}$430).
-However, for programs with unsupported features or unimplemented primitives, our implementation $m$-CFA fails to give any results 
+However, for programs with unsupported features or unimplemented primitives, our implementation of $m$-CFA fails to give any results 
 but our implementation of Demand $m$-CFA gives correct answers for a subset of the queries.
 
 As such we feel confident in stating that the answer to the first question is: Yes, Demand $m$-CFA has a comparable implementation effort to an exhaustive analysis,
@@ -1422,7 +1401,7 @@ and in particular when considering the number of primitives and language feature
 Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
 we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$@~cite{dvanhorn:Neilson:1999}, and $k$-CFA is proven to be exponential@~cite{dvanhorn:VanHorn-Mairson:ICFP08}. 
 $m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@~cite{dvanhorn:Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in 
-Figure~\ref{fig:mcfa-scalability}
+Figure~\ref{fig:mcfa-scalability}.
 
 In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
 the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
@@ -1502,12 +1481,9 @@ when $m$ gets larger, some queries that used to be resolved within the 5ms timeo
 The biggest threat to the validity of these results are the benchmark sizes. 
 We intend on scaling up Demand $m$-CFA to handle a full language and larger benchmarks in the future to assuage these concerns.
 In the meantime we appeal to the intuition of the reader about singleton flow sets. 
-The very nature of singleton flow sets means that they do not comingle much with other differentiated flow sets. 
-Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets that flow from different call sites 
-but merge for a short time. 
-However, if higher order functions are stored in recursive datatypes with arbitrary depth, any methodology of call-site sensitivity
-will lose precision.
-In fact, in these cases Demand $m$-CFA has the upper hand, since it can scale to larger $m$ using a constant timeout.
+The very nature of singleton flow sets means that they do not become highly entangled with other differentiated flows. 
+Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets which originate from different call sites 
+but merge for a short time. As such, and with supporting evidence from our larger benchmarks we believe our results to be scalable to much larger programs.
 
 Future work should investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model. This includes:
 \begin{enumerate*}
@@ -1529,6 +1505,15 @@ If that assumption is false, then the argument \texttt{42} does not actually con
 We believe this to be the case for several of the benchmarks, and that it can be addressed in future work.
 Determining callers prior to evaluating however, would cause the indeterminate environment to be instantiated which could counteract the
 benefit of keeping the environments as indeterminate as possible, and a more nuanced approach is desired. 
+
+The techniques we applied to achieve context-sensitive demand CFA may also be effective at realizing selective context sensitivity@~cite{li2020principled} in a functional setting.
+This would empower both compilers and user to be able to specify what aspects of the results should be preserved by analysis, allowing the analyzer to approximate other aspects where profitable.
+
+Some aspects of programs, such as the use of dynamic features, inherently limit the information that can be obtained statically.
+When analyzing such programs, defensive analysis@~cite{smaragdakis2018defensive} provides both a result and an indicator of whether that result is sound for every execution environment.
+Demand CFA is already defensive in a sense:
+query resolution fails when the analyzer encounters an unsupported language feature.
+However, integrating defensive analysis would require it to be more principled about its reachability assumptions and the status of its results.
 
 \section{Related Work}
 \label{sec:related-work}
@@ -1598,16 +1583,8 @@ This paper presented one strategy for achieving context-sensitive demand CFA, ba
 This strategy leads to the Demand $m$-CFA hierarchy which exhibits pushdown precision
 (1) with respect to the demand semantics, by virtue of using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation approach, and
 (2) with respect to the direct semantics, by virtue of using the continuation address identified in \emph{Pushdown for Free}@~cite{local:p4f}.
-This leads to the Demand $m$-CFA hierarchy, which, for many singleton flow sets, offers the precision of context sensitivity at a constant price.
-
-The techniques we used to achieve context-sensitive demand CFA may also be effective at realizing selective context sensitivity@~cite{li2020principled} in a functional setting.
-It might also be possible to combine demand CFA with selective context sensitivity such that the user can specify what aspects of the results should be preserved by analysis, allowing the analyzer to approximate other aspects where profitable.
-
-Some aspects of programs, such as the use of dynamic features, inherently limit the information that can be obtained statically.
-When analyzing such programs, defensive analysis@~cite{smaragdakis2018defensive} provides both a result and an indicator of whether that result is sound for every execution environment.
-Demand CFA is already defensive in a sense:
-query resolution fails when the analyzer encounters an unsupported language feature.
-However, integrating defensive analysis would require it to be more principled about its reachability assumptions and the status of its results.
+This leads to the Demand $m$-CFA hierarchy, which, for many singleton flow sets, offers the precision of context sensitivity at a constant price, regardless of program size, which we claim makes 
+Demand $m$-CFA a \emph{demand-scalable} analysis.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{paper}
