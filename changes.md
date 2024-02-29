@@ -8,6 +8,7 @@ Changes if need to resubmit:
 - [ ] Talk about implementation in Koka
 - [ ] Talk about & benchmark where m-CFA gains precision (k-cfa benchmarks do not make sense, whereas eta is a particularly simple example that shows that we do in fact gain precision)
 - [ ] Highlight those simple cases where we obviously do gain precision, figure out why even regular exponential $m$-CFA doesn't gain precision for other programs
+- [ ] Potentially check for reachability in terms of recursive application of expr.
 
 Questions? 
 \begin{enumerate}
