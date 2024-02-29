@@ -1384,7 +1384,7 @@ about the same order of magnitude of engineering effort as $m$-CFA (${\sim}$660 
 However, for programs with unsupported features or unimplemented primitives, our implementation of $m$-CFA fails to give any results 
 but our implementation of Demand $m$-CFA gives correct answers for a subset of the queries.
 
-As such we feel confident in stating that the answer to the first question is: Yes, Demand $m$-CFA has a comparable implementation effort to an exhaustive analysis,
+This answers the first question that Demand $m$-CFA requires a comparable implementation effort to an exhaustive analysis,
 and in particular when considering the number of primitives and language features that modern languages afford.
 
 \begin{figure}
@@ -1403,7 +1403,7 @@ In our results we measure the size of the program as the number of non-trivial s
 the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
 These were all omitted from the results unless otherwise stated to determine how Demand $m$-CFA performs in contexts where compiler heuristics would not already trivially understand the control flow.
 
-Demand $m$-CFA has two sources of inherent overhead compared to a monolithic $m$-CFA analysis. These include:
+Demand $m$-CFA has two sources of inherent overhead compared to a monolithic analysis. These are:
 \begin{enumerate*}
 \item resolving trace queries in addition to evaluation queries, and
 \item instantiating environments.
