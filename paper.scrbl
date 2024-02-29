@@ -37,7 +37,7 @@ At present, the only realization of demand CFA is demand 0CFA, which is context-
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
 We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which we term \emph{demand-scalable}.
 We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singletons as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
-Moreover we show that increasing the context sensitivity parameter $m$ to much larger values than typically explored in the literature---due to scalability issues---only has a small impact on the number of queries that we can resolve.
+% Moreover we show that increasing the context sensitivity parameter $m$ to much larger values than typically explored in the literature---due to scalability issues---only has a small impact on the number of queries that we can resolve.
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -117,7 +117,8 @@ Moreover we show that increasing the context sensitivity parameter $m$ to much l
 Conventional control-flow analysis is tactless---unthinking and inconsiderate.
 
 To illustrate, consider the program fragment on the right which defines the recursive \texttt{fold} function.
-As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments
+As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments 
+to \texttt{fold} itself. The values of \texttt{f} and \texttt{g} flow in parallel
 \begin{wrapfigure}[6]{r}{0.65\textwidth}
 \vspace{-1em}
 \begin{verbatim}
@@ -128,8 +129,7 @@ As this function iterates, it evolves the index \texttt{n} using the function \t
   (fold sub1 h 42 1))
 \end{verbatim}
 \end{wrapfigure}
-to \texttt{fold} itself.
-The values of \texttt{f} and \texttt{g} flow in parallel within the fold itself, each
+within the fold itself, each
 (1)~being bound in the initial call,
 (2)~flowing to its corresponding parameter, and
 (3)~being called directly once per iteration.
@@ -159,24 +159,22 @@ Second, one can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
 
-The first point may in fact seem like it works against practicality, since only a small portion of information of a program will be learned.
-However we appeal to the reader's intuition that many use cases for control flow analyses do not need a full accounting of every variable in the program. 
+The first point may seem counterintuitive since only a small portion of information of a program will be learned for each query.
+We appeal to the reader's intuition to recognize that many use cases for control flow analysis do not need a full accounting of every variable in the program. 
 For example:
 \begin{enumerate*}
 \item Inlining and constant propagation care about variables where a single value flows to,
 \item security analyses determine where particular values from unsanitized input sources flow,
 \item developers question where unexpected values originate and propagate through the program.
 \end{enumerate*}
-For example, none of these questions care about complicated control flow in library \emph{flow-obscurer} used at the beginning of the program. Instead a demand analysis partitions 
+For example, none of these questions care about complicated control flow at the beginning of the program if it is irrelevant to their query. Instead a demand analysis partitions 
 the state space into only the relevant parts of the program for the query in question.
 
 We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
-answer important questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
-\emph{Demand-scalable} analyses are focused on the use cases and information gleaned from the analysis regardless of the underlying computational complexity.
-\emph{Demand-scalable} analyses instead opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
-This stands in stark contrast to the usual methodology for evaluating the scalability of (exhaustive) control flow analyses. 
+answer relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
+\emph{Demand-scalable} analyses are focused on the information gleaned from the analysis regardless of the underlying computational complexity, and opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
 Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses to integrate in modern
-compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other demand based tools each of which could benefit from additional semantic information.
+compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other tools each of which could benefit from additional semantic information.
 
 \subsection{Towards Context Sensitivity}
 
@@ -213,7 +211,6 @@ This paper makes the following contributions:
 \item an empirical evaluation of Demand 0CFA to demonstrate that it is a genuine demand CFA
 \item an empirical evaluation of the scalability and precision of Demand $m$-CFA against $m$-CFA@~cite{dvanhorn:Might2010Resolving}
 \end{itemize}
-
 
 \section{Demand CFA, Intuitively}
 \label{sec:intuition}
@@ -1286,7 +1283,7 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
                            (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
                               (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
             [\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                              (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+                           (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
                               (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})))]))))
 
 (define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
@@ -1305,19 +1302,19 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
    (>>= (get-refines \ensuremath{\rho}) 
         (λ (\ensuremath{\rho})
             (>>= (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})
-            (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
-                  (let ([\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})]))
-                  (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
-                      (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
-                      (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
-                  ))))))
+                 (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
+                    (let ([\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})]))
+                      (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
+                          (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
+                          (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
+                        ))))))
     
 \end{alltt}
 \caption{The core of Demand $m$-CFA's implementation using the \textit{ADI} approach}
 \label{fig:implementation}
 \end{figure}
-Because the @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| relations are mutually recursive, their implementations \texttt{eval}, \texttt{expr}, and \texttt{call} are mutually recursive so each receives references for each with which to make recursive calls.
-Additionally refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which will run the compuation under every refinement of \ensuremath{\mathit{\rho}} including the trivial refinement of \ensuremath{\mathit{\rho}} itself.
+Because the @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| relations are mutually recursive, their implementations \texttt{eval}, \texttt{expr}, and \texttt{call} are mutually recursive and each receives references to the others with which to make recursive calls.
+Additionally refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which runs computation under every refinement of \ensuremath{\mathit{\rho}} including the trivial refinement of \ensuremath{\mathit{\rho}} itself.
 
 The result of the analysis is a map with four types of keys, one corresponding to evaluation queries through \texttt{eval}, one to trace queries through \texttt{expr}, one to uses of \texttt{call} (which does not correspond directly to a type of query), and one to refinements discovered for each \ensuremath{\mathit{\rho}} encountered in the analysis.
 Keys locate the results of the query;
@@ -1350,18 +1347,18 @@ discovering introduction forms (binding configurations of the constructors) that
 scrutinee and evaluating the appropriate clause based on the discriminant. 
 We reuse support for constructors and matching to desugar \texttt{if} statements and \texttt{cond} statements.
 
-For the benchmarks we used common R6RS benchmarks, as well as a larger example \texttt{tic-tac-toe} which 
+We included in our benchmarks common R6RS benchmarks, as well as a larger example \texttt{tic-tac-toe} which 
 computes the minimax algorithm for an AI to play \texttt{tic-tac-toe}, and extensively uses matching, custom datatypes and higher-order behavior.
 
 We evaluate Demand $m$-CFA with respect to the following questions:
 \begin{enumerate}
-\item Is the implementation cost of Demand $m$-CFA comparable to a corresponding big-step exhaustive analysis?
+\item Is the implementation cost of Demand $m$-CFA comparable to an exhaustive analysis?
 \item Is Demand $m$-CFA \emph{demand-scalable}?
 \item How does the precision compare to an exhaustive $m$-CFA?
 \end{enumerate}
 
 To answer (1) we discuss our observations about implementing both in the same ADI style framework, including the difference in lines of code for the core algorithms.
-For (2) we consider whether Demand $m$-CFA gives answers about evaluation flow sets with a cutoff of 5ms from $m$=0 up to $m$=4, for a variety of program sizes.
+For (2) we consider Demand $m$-CFA what fractions of evaluation queries with a cutoff of 5ms from $m$=0 up to $m$=4 return an answer for a variety of program sizes.
 Finally to answer (3) we determine what percentage of singleton flow sets as compared to the corresponding exhaustive analysis we obtain within our budget of 5ms per query.
 
 \subsection{Implementation Costs}
@@ -1478,25 +1475,12 @@ when $m$ gets larger, some queries that used to be resolved within the 5ms timeo
 \end{figure}
 
 \subsection{Limitations and Future Work}
-The biggest threat to the validity of these results are the benchmark sizes. 
-We intend on scaling up Demand $m$-CFA to handle a full language and larger benchmarks in the future to assuage these concerns.
+The biggest limitation of these results is with respect to the benchmark sizes. 
+We intend on scaling up Demand $m$-CFA to handle a full language and larger benchmarks to assuage these concerns.
 In the meantime we appeal to the intuition of the reader about singleton flow sets. 
-The very nature of singleton flow sets means that they do not become highly entangled with other differentiated flows. 
-Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets which originate from different call sites 
-but merge for a short time. As such, and with supporting evidence from our larger benchmarks we believe our results to be scalable to much larger programs.
-
-Future work should investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model. This includes:
-\begin{enumerate*}
-\item exploring other criteria for terminating queries early, including based on specific properties desired by an analysis
-\item beginning with $m=0$, rerun queries with higher $m$ only as needed, with some stopping criteria.
-\end{enumerate*}
-
-Beyond exploring the tradeoffs and implications of the cost model, more work is needed to:
-\begin{enumerate*}
-\item develop theories for handling higher order control flow such as exceptions, asynchrony and general algebraic effects or continuations,
-\item develop approaches to handle mutable variables and general state and other common language features, and
-\item evaluate Demand $m$-CFA for practical usage in language servers, optimizing compilers, and other analyses.
-\end{enumerate*}
+The very nature of singleton flow sets mean they do not become highly entangled with other differentiated flows. 
+Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets which originate from different call sites.
+As such, and with supporting evidence from our larger benchmarks we believe our results to be scalable to much larger programs.
 
 Additionally Demand $m$-CFA makes reachability assumptions which can, in theory, decrease its precision.
 For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
@@ -1506,14 +1490,24 @@ We believe this to be the case for several of the benchmarks, and that it can be
 Determining callers prior to evaluating however, would cause the indeterminate environment to be instantiated which could counteract the
 benefit of keeping the environments as indeterminate as possible, and a more nuanced approach is desired. 
 
-The techniques we applied to achieve context-sensitive demand CFA may also be effective at realizing selective context sensitivity@~cite{li2020principled} in a functional setting.
-This would empower both compilers and user to be able to specify what aspects of the results should be preserved by analysis, allowing the analyzer to approximate other aspects where profitable.
-
 Some aspects of programs, such as the use of dynamic features, inherently limit the information that can be obtained statically.
 When analyzing such programs, defensive analysis@~cite{smaragdakis2018defensive} provides both a result and an indicator of whether that result is sound for every execution environment.
 Demand CFA is already defensive in a sense:
 query resolution fails when the analyzer encounters an unsupported language feature.
 However, integrating defensive analysis would require it to be more principled about its reachability assumptions and the status of its results.
+
+Future work should investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model. This includes:
+\begin{enumerate*}
+\item exploring other criteria for terminating queries early, including based on specific properties desired by an analysis
+\item beginning with $m=0$, rerun queries with higher $m$ only as needed, with some stopping criteria.
+\end{enumerate*}
+
+Beyond exploring the tradeoffs and implications of the cost model, future work is also needed to:
+\begin{enumerate*}
+\item develop theories for common language features such as mutation and higher order control flow such as exceptions and continuations,
+\item evaluate Demand $m$-CFA for practical usage in language servers, optimizing compilers, and other analyses, and
+\item consider how selective context sensitivity@~cite{li2020principled} could be realized given the indeterminate environments of our approach.
+\end{enumerate*}
 
 \section{Related Work}
 \label{sec:related-work}
