@@ -215,8 +215,9 @@
   ; (pretty-print (map avg-time-res dmcfa-b1))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-b1)) num-programs)))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-a1)) (* num-shuffles num-programs))))
-  (define plot-height 250)
-  (define plot-width 1000)
+  (define plot-height 130)
+  (define plot-width 600)
+  (plot-legend-font-size 10)
 
   (for ([out (list "pdf" "png")])
     (plot
