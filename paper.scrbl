@@ -1313,9 +1313,9 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
 \label{fig:implementation}
 \end{figure}
 Because the @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| relations are mutually recursive, their implementations \texttt{eval}, \texttt{expr}, and \texttt{call} are mutually recursive and each receives references to the others with which to make recursive calls.
-Additionally refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which runs computation under every refinement of \ensuremath{\mathit{\rho}} including the trivial refinement of \ensuremath{\mathit{\rho}} itself.
+Refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which runs computation under every refinement of \ensuremath{\mathit{\rho}} including the identity refinement.
 
-The result of the analysis is a map with four types of keys, one corresponding to evaluation queries through \texttt{eval}, one to trace queries through \texttt{expr}, one to uses of \texttt{call} (which does not correspond directly to a type of query), and one to refinements discovered for each \ensuremath{\mathit{\rho}} encountered in the analysis.
+The result of the analysis is a map with four types of keys, one corresponding to evaluation queries through \texttt{eval}, one to trace queries through \texttt{expr}, one to uses of \texttt{call}, and one to refinements for each \ensuremath{\mathit{\rho}} encountered in the analysis.
 Keys locate the results of the query;
 if the key is present in the map, then the results it locates are sound with respect to the query.
 
@@ -1341,7 +1341,7 @@ We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber
 definition contexts in which a sequence of definitions and expressions can be mixed in a mutually-recursive scope; and
 a few dozen primitives. We also implemented support for algebraic datatypes and matching on those datatypes, which is a particularly elegant extension to the formalism. 
 In fact, the representation of closures and constructors are isomorphic due to the fact that they both have introduction forms which can be represented as a syntactic context (i.e. lambda, or application of the constructor) paired with an environment.
-Constructors mainly differ in the fact that the elimination form does not transfer control to a body. Instead constructors are eliminated with match statements. Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| modes
+Constructors differ in the fact that they are eliminated with match statements. Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| modes
 discovering introduction forms (binding configurations of the constructors) that flow to the
 scrutinee and evaluating the appropriate clause based on the discriminant. 
 We reuse support for constructors and matching to desugar \texttt{if} statements and \texttt{cond} statements.
@@ -1375,7 +1375,7 @@ This omission does \emph{not} mean that demand CFA fails on programs that uses \
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
 Because the use of mutation is relatively rare in functional languages such as Scheme, ML, and OCaml, we expect that relatively few queries encounter mutation.
 
-Additionally the analysis is robust to the addition of new primitives into a language due to the fact that old queries never encounter the primitive.
+Additionally the analysis is robust to the addition of new primitives due to the fact that old queries are resolve without them.
 As such, our analysis could easily be adapted to create an incremental higher-order analysis, keep track of dependencies and analysis results, 
 and provide semantic information even across language or code updates!
 
@@ -1430,7 +1430,7 @@ Before deciding to integrate an analysis into their language tooling engineers w
 It seems that Demand $m$-CFA can give both costs and benefits at a much more granular level which that the compiler engineer can control, but how does that work in practice?
 To answer this we measure the percent of evaluation queries that return within a specific timeout (5ms) per query, as well
 as what fraction of the singleton flows in an exponential $m$-CFA analysis (without rebinding) can be found using that constant timeout.
-We choose exponential $m$-CFA for this comparison to be able to compare singleton flows against a monolithic analysis
+We choose exponential $m$-CFA to be able to compare singleton flows against a monolithic analysis
 with similar environment representation --- which should return similar if not identical results. 
 The only thing that makes Demand $m$-CFA's environments different from exponential $m$-CFA's environments is that the latter do not contain
 indeterminate environments.
@@ -1483,17 +1483,17 @@ The very nature of singleton flows mean they do not become highly entangled with
 Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets which originate from different call sites.
 With supporting evidence from the larger benchmarks we believe scale to larger programs in general.
 
-Additionally Demand $m$-CFA makes reachability assumptions which can, in theory, decrease its precision.
+Additionally Demand $m$-CFA makes reachability assumptions which can, decrease its precision.
 For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
 it assumes that \texttt{(f 42)} is reachable---i.e., it assumes that \texttt{(λ (g) (f 42))} is called.
 If that assumption is false, then the argument \texttt{42} does not actually contribute to the value that Demand $m$-CFA is resolving, and its inclusion is manifest imprecision.
 We believe this to be the case for several of the benchmarks. Determining callers prior to evaluating would cause the indeterminate environment to be instantiated which could counteract the
-benefit of keeping the environments as indeterminate as possible, and a more nuanced approach is desired and left to future work. 
+benefit of keeping the environments mostly indeterminate, and a more nuanced approach is left to future work. 
 
 Some aspects of programs, such as the use of dynamic features, inherently limit the information that can be obtained statically.
-When analyzing such programs, defensive analysis@~cite{smaragdakis2018defensive} provides both a result and an indicator of whether that result is sound for every execution environment.
+Defensive analysis@~cite{smaragdakis2018defensive} provides both a result and an indicator of whether that result is sound for every execution environment.
 Demand CFA is already defensive in a sense:
-query resolution fails when the analyzer encounters an unsupported language feature.
+query resolution fails when it encounters an unsupported language feature.
 However, integrating defensive analysis would require it to be more principled about its reachability assumptions and the status of its results.
 
 Future work should investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model. This includes:
