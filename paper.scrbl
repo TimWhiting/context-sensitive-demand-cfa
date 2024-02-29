@@ -1428,38 +1428,21 @@ worst-case behavior in exponential $m$-CFA, due to the exponential combination o
 indeterminate for the majority of the queries.
 
 Neither computational complexity analysis nor a benchmark evaluating all queries of a program, tell us what engineers 
-want to know prior to deciding to integrate an demand analysis into their language tooling, since they are more worried about the cost benefit tradeoff.
-Demand $m$-CFA gives both costs and benefits at a much more granular level, and one that the compiler engeineer can control.
-Therefore to evaluate Demand $m$-CFA we measure the percent of evaluation queries that return within a specific timeout (5ms) per query, as well
+want to know before deciding to integrate an analysis into their language tooling --- the cost benefit tradeoff.
+It seems that Demand $m$-CFA can give both costs and benefits at a much more granular level which that the compiler engineer can control, but how does that work out in practice?
+To answer this question we measure the percent of evaluation queries that return within a specific timeout (5ms) per query, as well
 as what fraction of the singleton flows in an exponential $m$-CFA analysis (one without $m$-CFA's rebinding policy, but using the top-$m$-stack-frames context representation) can be found using that constant timeout.
-The reason we diverge from reporting exhaustive $k$-CFA or regular $m$-CFA results at this point is so that we can compare singleton flows against a monolithic analysis
-with similar environment representation --- which should return identical results. The only thing that makes Demand $m$-CFA's environments different from exponential $m$-CFA's environments is that the latter do not contain
-indeterminate environments. 
+We choose exponential $m$-CFA for this comparison to be able to compare singleton flows against a monolithic analysis
+with similar environment representation --- which should return similar if not identical results. 
+The only thing that makes Demand $m$-CFA's environments different from exponential $m$-CFA's environments is that the latter do not contain
+indeterminate environments.
 
-
-As seen in Figure~\ref{fig:dmcfa-scalability} we are able to answer in most cases a large majority of all evaluation queries within the specified timeout. 
-When we restrict it to just non-trivial queries we get the results in Figure~\ref{fig:dmcfa-scalability-noninstant}, which shows a predictable decrease due to the fact
-that many flows are lexically obvious. However, when compared to an exhaustive analysis that might timeout or fail, any amount of non-trivial flow at constant cost is welcomed.
+As seen in Figure~\ref{fig:dmcfa-scalability}, in most cases we answer a large majority of all evaluation queries within the specified timeout. 
+When we restrict it to non-trivial queries we get the results in Figure~\ref{fig:dmcfa-scalability-noninstant}, which shows a predictable decrease due to the fact
+that many flows are lexically obvious (lambdas, constants, etc). However, when compared to an exhaustive analysis which might timeout or fail, any amount of non-trivial flow at constant cost is welcomed.
 It is worth noting that increasing the timeout to 15ms only marginally improves the number of returned answers. This matches intuition that
-if a query only requires a subset of the entire flow of a program, it should be quick to answer. Importantly we see that the size of the program does not seem to have
-a large effect on the tractability of the problem, neither does the context length $m$. This means that our Demand $m$-CFA analysis is indeed \emph{demand-scalable}, answering our second question.
-
-Most importantly, Figure~\ref{fig:dmcfa-precision-cmp} shows that in the most cases we resolve much more than half the number of singleton value flows as the \emph{exponential} $m$-CFA hierarchy, but in constant time.\footnote{
-To compute the flow sets we look at the set of all configurations that had the same evaluation configuration (removing environments)
-and join the results. The context sensitivity's purpose is to remove spurious singleton sets during the analysis, but not to distinguish results. In fact, in many cases Demand $m$-CFA returns closures with indeterminate environments, and upon closer inspection
-we found that the exhaustive $m$-CFA counterpart had many singleton flow sets under different environments, showing that it had to do more work to arrive at the same conclusion. 
-}. In most cases we are able to obtain $> 60%$ of the singleton flow sets. This means that not only is our Demand $m$-CFA analysis \emph{demand-scalable}, it also produces useful results.
-It is worth noting that in a few cases we actually report more than 100% of the equivalent singleton flow sets of exponential $m$-CFA.
-Looking into the results we found that this is due to the fact that Demand $m$-CFA evaluates queries even for parts of the program that are never seen in the
-exhaustive analysis. This only happened in a few instances. Another interesting result is showing in Figure~\ref{fig:dmcfa-precision}, where we show the total number of
-singleton flow sets found. In particular we see that increasing $m$ does not seem to have the desired effect of increasing precision in many cases. We attribute this to the fact that
-these benchmark programs are small. However, the fact that we still get many results at that $m$ as shown in Figure~\ref{fig:dmcfa-scalability}, and only take the same constant 5ms timeout to do so shows the power of
-Demand $m$-CFA, allowing us to increase $m$ in a much more scalable manner. Of particular note is the omission of regex in Figure~\ref{fig:dmcfa-precision}, this is due to the baseline
-exhaustive analysis not completing within a generous timeout for $m=4$ causing that ratios to be ill-defined. The results are similar to the other large example programs, and Figure~\ref{fig:dmcfa-precision}
-shows that are able to in fact resolve a lot of singleton flow sets within the timeout period. Of particular note is the fact that in some cases a larger $m$
-actually shows a decrease in the number of singletons found. In an exhaustive analysis this would be a red flag, due to the fact that the precision of the results should monotonically increase
-with respect to the precision parameter in the hierarchy. However, due to the fact that more refinements and more configurations have to be evaluated
-when $m$ gets larger, some queries that used to be resolved within the 5ms timeout, timeout as $m$ gets larger.
+if a query only requires a subset of the entire flow of a program, it should be really quick to answer. Importantly we see that the size of the program does not seem to have
+a large effect on the tractability of the problem, neither does $m$. This means that our Demand $m$-CFA analysis is indeed \emph{demand-scalable}, answering our second question.
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{precision-cmp.pdf}
@@ -1474,11 +1457,29 @@ when $m$ gets larger, some queries that used to be resolved within the 5ms timeo
 \label{fig:dmcfa-precision}
 \end{figure}
 
+Most importantly, Figure~\ref{fig:dmcfa-precision-cmp} shows that in the most cases we resolve much more than half the number of singleton value flows as the \emph{exponential} $m$-CFA hierarchy, but in constant time.\footnote{
+To compute the flow sets we look at the set of all configurations that had the same evaluation configuration (removing environments)
+and join the results. The context sensitivity's purpose is to remove spurious singleton sets during the analysis, but not to distinguish results. In fact, in many cases Demand $m$-CFA returns closures with indeterminate environments, and upon closer inspection
+we found that the exhaustive $m$-CFA counterpart had many singleton flow sets under different environments, showing that it had to do more work to arrive at the same conclusion. 
+}. In most cases we are able to obtain $> 60\%$ of the singleton flow sets. This means that not only is our Demand $m$-CFA analysis \emph{demand-scalable}, it also produces useful results.
+It is worth noting that in a few cases we actually report more than $100\%$ of the equivalent singleton flow sets of exponential $m$-CFA.
+Looking into the results we found that this is due to the fact that in a few instances Demand $m$-CFA evaluates queries even for parts of the program that are never seen in the
+exhaustive analysis. 
+
+In Figure~\ref{fig:dmcfa-precision}, we show the total number of singleton flow sets found, however, we see that increasing $m$ does not seem to have the desired effect of increasing precision in many cases. 
+We attribute this partially to the fact that these benchmark programs are small. The fact that we still get many results with high $m$, and still complete within the 5ms timeout shows the power of
+Demand $m$-CFA, to allow increasing and experimenting with high $m$ in a much more scalable manner. Of particular note is the omission of regex in Figure~\ref{fig:dmcfa-precision}, this is due to the baseline
+exhaustive analysis not completing within a generous timeout of $100$ seconds for $m=4$ causing that ratio to be ill-defined. The results are similar to the other large example programs, and Figure~\ref{fig:dmcfa-precision}
+shows that we resolve a many singleton flows within the timeout period. Of particular note is the fact that in some cases a larger $m$
+actually shows a decrease in the number of singletons found. In an exhaustive analysis this would be a red flag, due to the fact that the precision of the results should monotonically increase
+with respect to $m$. However, due to the fact that more configurations have to be evaluated
+when $m$ gets larger, some queries that used to be resolved within the 5ms timeout timeout as $m$ gets larger. So this behavior is expected, and it is remarkable that we don't lose more singletons to timeouts.  
+
 \subsection{Limitations and Future Work}
 The biggest limitation of these results is with respect to the benchmark sizes. 
 We intend on scaling up Demand $m$-CFA to handle a full language and larger benchmarks to assuage these concerns.
 In the meantime we appeal to the intuition of the reader about singleton flow sets. 
-The very nature of singleton flow sets mean they do not become highly entangled with other differentiated flows. 
+The very nature of singleton flows mean they do not become highly entangled with other differentiated flows. 
 Call-site sensitivity (such as the $m$-CFA abstraction) can help tease apart distinguished flow sets which originate from different call sites.
 As such, and with supporting evidence from our larger benchmarks we believe our results to be scalable to much larger programs.
 
