@@ -16,8 +16,6 @@
 \graphicspath{
     {evaluation/plots}
 }
-\newcommand{\TODO}[1]{{\color{red}#1}}
-\newcommand{\tw}[1]{{\color{red}#1}}
 
 \acmJournal{PACMPL}
 \acmVolume{ICFP}
@@ -35,9 +33,8 @@ By decoupling and decomposing control flows, demand control-flow analysis (CFA) 
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which we term \emph{demand-scalable}.
-We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singletons as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
-% Moreover we show that increasing the context sensitivity parameter $m$ to much larger values than typically explored in the literature---due to scalability issues---only has a small impact on the number of queries that we can resolve.
+We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which we call \emph{demand-scalability}.
+We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -79,11 +76,6 @@ We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a 
        <concept_significance>500</concept_significance>
    </concept>
    <concept>
-       <concept_id>10011007.10011006.10011041.10011047</concept_id>
-       <concept_desc>Software and its engineering~Source code generation</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
        <concept_id>10003752.10010124.10010138.10010143</concept_id>
        <concept_desc>Theory of computation~Program analysis</concept_desc>
        <concept_significance>500</concept_significance>
@@ -93,11 +85,6 @@ We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a 
        <concept_desc>Theory of computation~Invariants</concept_desc>
        <concept_significance>500</concept_significance>
    </concept>
-   <concept>
-       <concept_id>10003752.10010124.10010125.10010126</concept_id>
-       <concept_desc>Theory of computation~Control primitives</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
  </ccs2012>
 \end{CCSXML}
 
@@ -105,11 +92,9 @@ We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a 
 \ccsdesc[500]{Software and its engineering~Automated static analysis}
 \ccsdesc[500]{Software and its engineering~Functional languages}
 \ccsdesc[500]{Software and its engineering~Control structures}
-\ccsdesc[500]{Software and its engineering~Source code generation}
 \ccsdesc[500]{Theory of computation~Abstract machines}
 \ccsdesc[500]{Theory of computation~Program analysis}
 \ccsdesc[500]{Theory of computation~Invariants}
-\ccsdesc[500]{Theory of computation~Control primitives}
 \section{Getting into the Flow}
 
 \keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
@@ -144,8 +129,8 @@ Yet conventional control-flow analysis (CFA) is \emph{exhaustive}, insistent on 
 In the account it produces, the segmentation of individual flows and independence of distinct flows are completely implicit.
 To obtain \texttt{f}'s value with a conventional CFA, the user must be willing to pay for \texttt{g}'s---and any other values incidental to it---as well.
 
-Inspired by demand dataflow analysis@~cite{duesterwald1997practical}, a \emph{demand} CFA does not determine every segment to every flow 
-but only those segments which contribute to the values of compiler or user-specified program points.
+Inspired by demand dataflow analysis@~cite{duesterwald1997practical}, a \emph{demand} CFA does not determine every segment of every flow 
+but only those segments which contribute to the values of specified program points.
 Moreover, because its segmentation of flows is explicit, it only need analyze each segment once and can reuse the result in any flow which contains the segment.
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
 
@@ -159,16 +144,18 @@ Second, one can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
 
+@omit{
 The first point may seem counterintuitive since only a small portion of information of a program will be learned for each query.
 We appeal to the reader's intuition to recognize that many use cases for control flow analysis do not need a full accounting of every variable in the program. 
 For example:
 \begin{enumerate*}
-\item Inlining and constant propagation care about variables where a single value flows to,
+\item Inlining and constant propagation only care about variables where a single value flows to,
 \item security analyses determine where particular values from unsanitized input sources flow,
 \item developers question where unexpected values originate and propagate through the program.
 \end{enumerate*}
-For example, none of these questions care about complicated control flow at the beginning of the program if it is irrelevant to their query. Instead a demand analysis partitions 
+None of these questions care about complicated control flow at the beginning of the program if it is irrelevant to their query. Instead a demand analysis partitions 
 the state space into only the relevant parts of the program for the query in question.
+}
 
 We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
 answer relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
@@ -208,7 +195,7 @@ This paper makes the following contributions:
 \begin{itemize}
 \item a new formalism for Demand 0CFA which can be implemented straightforwardly using contemporary techniques@~cite{darais2017abstracting,wei2018refunctionalization} (\S~\ref{sec:demand-0cfa});
 \item Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (\S~\ref{sec:demand-mcfa-correctness});
-\item an empirical evaluation of the scalability and precision of Demand $m$-CFA against $m$-CFA@~cite{dvanhorn:Might2010Resolving} (\S~\ref{sec:evaluation});
+\item an empirical evaluation of the scalability and precision of Demand $m$-CFA(\S~\ref{sec:evaluation});
 \end{itemize}
 
 \section{Demand CFA, Intuitively}
@@ -234,8 +221,6 @@ which is written in an applicative functional language with Lisp syntax.
 
 \subsection{Without Context Sensitivity}
 
-As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\textbf{in}sensitive embodiment of demand CFA, resolves queries.
-
 \begin{wrapfigure}{l}{0.35\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \\
@@ -254,20 +239,22 @@ $q_8$ & @evq{35} \\
       & $\Rightarrow$ $35$
 \end{tabular}
 \end{wrapfigure}
+As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\emph{in}sensitive embodiment of demand CFA, resolves queries.
 
 Suppose that a user submits an evaluation query $q_0$ on the expression \texttt{(f 35)}.
 Since \texttt{(f 35)} is a function application, demand 0CFA issues a subquery $q_1$ to evaluate the operator \texttt{f}.
 For each procedure value of \texttt{f}, demand 0CFA will issue a subquery to determine the value of its body as the value of $q_0$.
+
 (To the left is a trace of the queries that follow $q_0$.
     Indented queries denote subqueries whose results are used to continue resolution of the superquery.
     A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
     A query often issues multiple queries in tail position, as this example demonstrates.)
 The operator \texttt{f} is a reference, so demand 0CFA walks the syntax to find where \texttt{f} is bound.
-Upon finding it bound by a \texttt{let} expression, demand 0CFA issues a subquery $q_2$ to evaluate its bound expression \texttt{(λ (x) x)}.
-The expression \texttt{(λ (x) x)} is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
+Upon finding it bound by a \texttt{let} expression, demand 0CFA issues a subquery $q_2$ to evaluate its bound expression \texttt{(λ~(x)~x)}.
+The expression \texttt{(λ~(x)~x)} is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
 Once $q_1$ receives it, demand 0CFA issues a subquery $q_3$ for the evaluation of its body.
 Its body \texttt{x} is a reference, so demand 0CFA walks the syntax to discover that it is $\lambda$-bound and therefore that its value is the value of the argument at the application of \texttt{(λ (x) x)}.
-That this call to \texttt{(λ (x) x)} originated at \texttt{(f 35)} is contextual information, to which demand 0CFA is insensitive.
+That this call to \texttt{(λ~(x)~x)} originated at \texttt{(f 35)} is contextual information, to which demand 0CFA is insensitive.
 Consequently, demand 0CFA issues a trace query $q_4$ to find all the application sites of \texttt{(λ (x) x)}.
 Because it is an expression bound to \texttt{f}, demand 0CFA issues a subqueries $q_5$ and $q_6$ to find the use sites of both references to $f$.
 Each of these subqueries resolves immediately since each of the references is in operator position and their results are propagated to $q_4$.
@@ -392,12 +379,25 @@ We typically leave the context unspecified, referring to, e.g., a reference to @
 The immediate syntactic context of an expression is often relevant, however, and we make it explicit by a double composition @(cursor (cursor (e) (∘e 1)) (∘e 0)).
 For example, we use @(cursor (ref (var 'x)) (rat (ref (var 'x)) (∘e))) to focus on the expression @(ref (var 'x)) in the operator context @(app □ (ref (var 'x))) in the context @(meta "C" #f).
 
-
 \section{Demand 0CFA}
 \label{sec:demand-0cfa}
-
+\begin{figure}
+\[
+@|0cfa-bind-name| : \mathit{Var} \times \mathit{Exp} \rightarrow \mathit{Exp}
+\]
+@(align (list (list (0cfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e 1) (ran (e 0) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
+              (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))))
+                    (list "=" (0cfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)))
+                          "\\text{ where } " (≠  (var 'y) (var 'x))))
+              (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))))
+                    (list "=" (cursor (e) (bod (var 'x) (∘e)))))))
+\caption{The @|0cfa-bind-name| metafunction}
+\label{fig:0cfa-bind}
+\end{figure}
 @(require (prefix-in 0cfa- "demand-0cfa.rkt"))
-
 Demand 0CFA has two modes of operation, \emph{evaluation} and \emph{tracing}, which users access by submitting evaluation or trace queries, respectively.
 A query, in addition to its type, designates a program expression over which the query should be resolved.
 An evaluation query resolves the values to which the designated expression may evaluate and a trace query resolves the sites which may apply the value of the designated expression.
@@ -406,10 +406,6 @@ These modes are essentially dual and reflect the dual perspective of exhaustive 
 (2) the @(app (e 0) (e 1)) at which a given @(lam (var 'x) (e)) may be applied. % [find citation].
 However, in contrast to exhaustive CFA, demand 0CFA is designed to resolve evaluation queries over arbitrary program expressions.
 (It is also able to resolve trace queries over arbitrary program expressions, but exhaustive CFAs have no counterpart to this functionality.)
-
-The evaluation and trace modes of operation are effected by the big-step relations @|0cfa-eval-name| and @|0cfa-expr-name|, respectively, which are defined mutually inductively.
-These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cfa-find-name|.
-Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
 Lam
@@ -441,12 +437,17 @@ C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
 ——
 C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 
+}
+\caption{Demand 0CFA relations}
+\label{fig:demand-0cfa}
+\end{figure}
 
+\begin{figure}
+@mathpar[0cfa-parse-judgement]{
 Call
 C[λx.e] ⇒ C'[(e₀ e₁)] 
 ———
 C[λx.[e]] ⇐ C'[(e₀ e₁)] 
-
 
 Find-Ref
 ——
@@ -468,10 +469,12 @@ x ≠ y  x C[λy.[e]] F Cx[x]
 x C[λy.e] F Cx[x]
 
 }
-\caption{Demand 0CFA relations}
-\label{fig:demand-0cfa}
+\caption{Demand 0CFA Call and Find Relations}
+\label{fig:demand-0cfa-find}
 \end{figure}
-
+The evaluation and trace modes of operation are effected by the big-step relations @|0cfa-eval-name| and @|0cfa-expr-name|, respectively, which are defined mutually inductively.
+These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cfa-find-name|.
+Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 
 The judgement @(0cfa-eval (cursor (e) (∘e)) (cursor (lam (var 'x) (e "_v")) (∘e "_v"))) denotes that the expression @(e) (residing in syntactic context @((∘e) #f)) evaluates to (a closure over) @(lam (var 'x) (e "_v")).
 (In a context-insensitive analysis, we may represent a closure by the $\lambda$ term itself.) 
@@ -505,23 +508,6 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
 @clause-label{Find-Ref} finds @(e) itself if @(e) is a reference to @(var 'x).
 @clause-label{Find-Rator} and @clause-label{Find-Rand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the ope\emph{rator} @(e 0) and ope\emph{rand} @(e 1), respectively.
 @clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it does not find shadowed references.
-
-\begin{figure}
-\[
-@|0cfa-bind-name| : \mathit{Var} \times \mathit{Exp} \rightarrow \mathit{Exp}
-\]
-@(align (list (list (0cfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e 1) (ran (e 0) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
-              (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))))
-                    (list "=" (0cfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)))
-                          "\\text{ where } " (≠  (var 'y) (var 'x))))
-              (list (0cfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))))
-                    (list "=" (cursor (e) (bod (var 'x) (∘e)))))))
-\caption{The @|0cfa-bind-name| metafunction}
-\label{fig:0cfa-bind}
-\end{figure}
 
 \subsection{Reachability}
 \label{sec:reachability}
@@ -751,15 +737,28 @@ In other words, with such an abstraction, the environment uniquely determines th
 
 With our context identified as well as its and the environment's representation, we are ready to define Demand $m$-CFA.
 
-
 \section{Demand $m$-CFA}
 \label{sec:demand-mcfa}
 
 @(require (rename-in (prefix-in mcfa- "demand-mcfa.rkt")))
 
-Demand $m$-CFA augments Demand 0CFA with environments and environment-instantiation mechanisms which together provide context sensitivity.
-The addition of environments pervades @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-find-name| which are otherwise identical to their Demand 0CFA counterparts;
-these enriched relations are presented in Figure~\ref{fig:mcfa-resolution}.
+\begin{figure}
+\[
+@|mcfa-bind-name| : \mathit{Var} \times \mathit{Exp} \times \mathit{Env} \rightarrow \mathit{Exp} \times \mathit{Env}
+\]
+@(align (list (list (mcfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))) (mcfa-ρ))
+                    (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
+              (list (mcfa-bind (var 'x) (cursor (e 1) (ran (e 0) (∘e))) (mcfa-ρ))
+                    (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
+              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))) (:: (mcfa-cc) (mcfa-ρ)))
+                    (list "=" (mcfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)) (mcfa-ρ))
+                          "\\text{ where } " (≠  (var 'y) (var 'x))))
+              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ)) 
+                    (list "=" (pair (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ))))))
+\caption{The @|mcfa-bind-name| metafunction}
+\label{fig:mcfa-bind}
+\end{figure}
+
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Lam
@@ -816,6 +815,12 @@ x C[λy.e] ρ F Cx[x] ρ-x
 \caption{Demand $m$-CFA Resolution}
 \label{fig:mcfa-resolution}
 \end{figure}
+
+Demand $m$-CFA augments Demand 0CFA with environments and environment-instantiation mechanisms which together provide context sensitivity.
+The addition of environments pervades @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-find-name| which are otherwise identical to their Demand 0CFA counterparts;
+these enriched relations are presented in Figure~\ref{fig:mcfa-resolution}.
+
+
 When a call is entered, which occurs in the @clause-label{App} and @clause-label{Rand} rules, a new environment is synthesized using the @|mcfa-time-succ-name| metafunction which determines the binding context of the call as 
 \[
 @(mcfa-time-succ (cursor (app (e 0) (e 1)) (∘e)) (:: (mcfa-cc) (mcfa-ρ))) = \lfloor @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc)) \rfloor_m
@@ -826,22 +831,7 @@ where $\lfloor\cdot\rfloor_{m}$ is defined
 \end{align*}
 The @|mcfa-bind-name| metafunction, which locates the binding configuration of a variable reference, is lifted to accommodate environments as well;
 its definition is presented in Figure~\ref{fig:mcfa-bind}.
-\begin{figure}
-\[
-@|mcfa-bind-name| : \mathit{Var} \times \mathit{Exp} \times \mathit{Env} \rightarrow \mathit{Exp} \times \mathit{Env}
-\]
-@(align (list (list (mcfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))) (mcfa-ρ))
-                    (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
-              (list (mcfa-bind (var 'x) (cursor (e 1) (ran (e 0) (∘e))) (mcfa-ρ))
-                    (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
-              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'y) (∘e))) (:: (mcfa-cc) (mcfa-ρ)))
-                    (list "=" (mcfa-bind (var 'x) (cursor (lam (var 'y) (e)) (∘e)) (mcfa-ρ))
-                          "\\text{ where } " (≠  (var 'y) (var 'x))))
-              (list (mcfa-bind (var 'x) (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ)) 
-                    (list "=" (pair (cursor (e) (bod (var 'x) (∘e))) (mcfa-ρ))))))
-\caption{The @|mcfa-bind-name| metafunction}
-\label{fig:mcfa-bind}
-\end{figure}
+
 However, the @|mcfa-call-name| relation changes substantially.
 
 The particular changes to the @|mcfa-call-name| require us to make the reachability relation @|mcfa-reach-name| explicit.
@@ -851,6 +841,7 @@ the judgment @(mcfa-reach "q" "q'") captures that, if query $q$ is reachable in 
 \mathit{Query} \ni q ::= \mathsf{eval}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{expr}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{call}(@(cursor (e) (∘e)),@(mcfa-ρ))
 \]
 Figure~\ref{fig:demand-mcfa-reachability} presents a formal definition of @|mcfa-reach-name|.
+
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Reflexivity
@@ -911,16 +902,7 @@ q ⇑ ex C'[(e₀ e₁)] ρ'
 \caption{Demand $m$-CFA Reachability}
 \label{fig:demand-mcfa-reachability}
 \end{figure}
-The @clause-label{Reflexivity} rule ensures that the top-level query is considered reachable.
-The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish reachability corresponding to the @clause-label{Ref} rule of @|mcfa-eval-name|:
-@clause-label{Ref-Caller} makes the caller query reachable and, if it succeeds, @clause-label{Ref-Argument} makes the ensuing evaluation query reachable.
-@clause-label{App-Operator} and @clause-label{App-Body} do the same for the @clause-label{App} rule of @|mcfa-eval-name|, making, respectively, the operator evaluation query reachable and, if it yields a value, the body evaluation query reachable.
-@clause-label{Rand-Operator} makes the evaluation query of the @clause-label{Rand} rule reachable and @clause-label{Rand-Body} makes the trace query of any references in the operator body reachable.
-@clause-label{Body-Caller-Find} makes the caller query of @clause-label{Body} reachable;
-if a caller is found, @clause-label{Body-Caller-Trace} makes the trace query of that caller reachable.
-Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosing $\lambda$ of a caller query is reachable.
 
-Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Known-Call
@@ -937,6 +919,18 @@ ctx₀::ρ R ctx₁::ρ
 \caption{Demand $m$-CFA Call Discovery}
 \label{fig:mcfa-call-reachability}
 \end{figure}
+
+The @clause-label{Reflexivity} rule ensures that the top-level query is considered reachable.
+The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish reachability corresponding to the @clause-label{Ref} rule of @|mcfa-eval-name|:
+@clause-label{Ref-Caller} makes the caller query reachable and, if it succeeds, @clause-label{Ref-Argument} makes the ensuing evaluation query reachable.
+@clause-label{App-Operator} and @clause-label{App-Body} do the same for the @clause-label{App} rule of @|mcfa-eval-name|, making, respectively, the operator evaluation query reachable and, if it yields a value, the body evaluation query reachable.
+@clause-label{Rand-Operator} makes the evaluation query of the @clause-label{Rand} rule reachable and @clause-label{Rand-Body} makes the trace query of any references in the operator body reachable.
+@clause-label{Body-Caller-Find} makes the caller query of @clause-label{Body} reachable;
+if a caller is found, @clause-label{Body-Caller-Trace} makes the trace query of that caller reachable.
+Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosing $\lambda$ of a caller query is reachable.
+
+Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
+
 Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in terms of reachability.
 The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the caller query's binding context refines the discovered binding context of the call,
 the resultant caller of the trace query is also a result of the caller query.
