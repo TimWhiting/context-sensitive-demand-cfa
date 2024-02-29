@@ -33,7 +33,7 @@ By decoupling and decomposing control flows, demand control-flow analysis (CFA) 
 Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which we call \emph{demand-scalability}.
+We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which make it what we term a \emph{demand-scalable} analysis.
 We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
 \end{abstract}
 
@@ -161,7 +161,7 @@ We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We c
 answer relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
 \emph{Demand-scalable} analyses are focused on the information gleaned from the analysis regardless of the underlying computational complexity, and opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
 Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses to integrate in modern
-compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other tools each of which could benefit from additional semantic information.
+compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other tools, which can each benefit from additional semantic information.
 
 \subsection{Towards Context Sensitivity}
 
@@ -261,7 +261,6 @@ Each of these subqueries resolves immediately since each of the references is in
 For each result, $q_3$ issues a subquery---$q_7$ and $q_8$---to evaluate the arguments, each of which is a numeric literal, whose value is immediately known.
 Each query propagates its results to $q_3$ which propagates them to $q_0$ which returns them to the user.
 Thus, demand 0CFA concludes that \texttt{(f 35)} may evaluate to $42$ or $35$.
-
 \subsection{With Context Sensitivity}
 
 We'll now look at how Demand $m$-CFA, a context-sensitive demand CFA, resolves queries.
@@ -437,13 +436,7 @@ C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)]
 ——
 C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
 
-}
-\caption{Demand 0CFA relations}
-\label{fig:demand-0cfa}
-\end{figure}
 
-\begin{figure}
-@mathpar[0cfa-parse-judgement]{
 Call
 C[λx.e] ⇒ C'[(e₀ e₁)] 
 ———
@@ -469,8 +462,8 @@ x ≠ y  x C[λy.[e]] F Cx[x]
 x C[λy.e] F Cx[x]
 
 }
-\caption{Demand 0CFA Call and Find Relations}
-\label{fig:demand-0cfa-find}
+\caption{Demand 0CFA Relations}
+\label{fig:demand-0cfa}
 \end{figure}
 The evaluation and trace modes of operation are effected by the big-step relations @|0cfa-eval-name| and @|0cfa-expr-name|, respectively, which are defined mutually inductively.
 These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cfa-find-name|.
