@@ -928,7 +928,7 @@ Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in 
 The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the caller query's binding context refines the discovered binding context of the call,
 the resultant caller of the trace query is also a result of the caller query.
 The call is \emph{known} because the caller query has the context of the call already in its environment.
-If @(≠ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
+If @(⊏ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
 In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
 Formally, the refinement relation $\sqsubset$ as the least relation satisfying
 \begin{align*}
@@ -1292,7 +1292,9 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
                     (let ([\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})]))
                       (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
                           (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
-                          (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
+                          (if (eq-refines \ensuremath{\mathit{ctx}\sb{1}} \ensuremath{\mathit{ctx}\sb{0}}))
+                              (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
+                              fail
                         ))))))
     
 \end{alltt}
