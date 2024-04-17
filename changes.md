@@ -10,6 +10,37 @@ Changes if need to resubmit:
 - [ ] Highlight those simple cases where we obviously do gain precision, figure out why even regular exponential $m$-CFA doesn't gain precision for other programs
 - [ ] Potentially check for reachability in terms of recursive application of expr.
 
+
+
+Larger changes:
+
+Section 11 will need updating
+
+Focus on Introduction Elimination forms instead maybe, (can we formalize it this way, and provide the specialization to lambda calculus and ADTs separately?)
+
+Consider adding the environment information in Lightweight Demand-mCFA as a non-memoized piece, but use the original Demand-mCFA when that information is unavailable. 
+
+Pushdown precision section can be cut down some
+
+Consider putting the demand evaluation section in an appendix / separate technical report if we need the space
+
+Timestamp section (is it necessary?)
+
+Code examples need to be adjusted - reflowed?
+
+Maybe add implementation considerations section - could relegate details to a technical report but should mention
+- Datatype representation and handling
+- Top level bindings / separate compilation
+- Preprocessing with checking if a function is actually ever called (to not run eval if it is dead code) 
+
+Section 6. are we missing a p^ on succm definition
+Just before in the definitions, are we really limiting to m prior to appending p'?
+
+
+
+
+
+
 Questions? 
 \begin{enumerate}
 - [ ] Should we do variable timeouts based on 'complexity' of query? 
