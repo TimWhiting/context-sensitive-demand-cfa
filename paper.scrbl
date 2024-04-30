@@ -143,7 +143,6 @@ First, one can restrict analysis to a program's critical path or only where cert
 Second, one can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
-
 @omit{
 The first point may seem counterintuitive since only a small portion of information of a program will be learned for each query.
 We appeal to the reader's intuition to recognize that many use cases for control flow analysis do not need a full accounting of every variable in the program. 
@@ -156,7 +155,6 @@ For example:
 None of these questions care about complicated control flow at the beginning of the program if it is irrelevant to their query. Instead a demand analysis partitions 
 the state space into only the relevant parts of the program for the query in question.
 }
-
 We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
 answer relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
 \emph{Demand-scalable} analyses are focused on the information gleaned from the analysis regardless of the underlying computational complexity, and opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
@@ -244,11 +242,10 @@ As many readers are likely unfamiliar with demand CFA, we'll first look at how d
 Suppose that a user submits an evaluation query $q_0$ on the expression \texttt{(f 35)}.
 Since \texttt{(f 35)} is a function application, demand 0CFA issues a subquery $q_1$ to evaluate the operator \texttt{f}.
 For each procedure value of \texttt{f}, demand 0CFA will issue a subquery to determine the value of its body as the value of $q_0$.
-
-(To the left is a trace of the queries that follow $q_0$.
-    Indented queries denote subqueries whose results are used to continue resolution of the superquery.
-    A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
-    A query often issues multiple queries in tail position, as this example demonstrates.)
+To the left is a trace of the queries that follow $q_0$.
+Indented queries denote subqueries whose results are used to continue resolution of the superquery.
+A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
+A query often issues multiple queries in tail position, as this example demonstrates.
 The operator \texttt{f} is a reference, so demand 0CFA walks the syntax to find where \texttt{f} is bound.
 Upon finding it bound by a \texttt{let} expression, demand 0CFA issues a subquery $q_2$ to evaluate its bound expression \texttt{(λ~(x)~x)}.
 The expression \texttt{(λ~(x)~x)} is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
@@ -341,7 +338,7 @@ $q_7$ & @evq{35} \textsf{in} $\langle\rangle$ \\
 Once issued, resolution of \texttt{x}'s evaluation again depends on a caller query $q_0'$.
 However, because the parameter \texttt{x}'s context is unknown, rather than filtering out callers, the caller query will cause $?$ to be instantiated with a context derived from each caller.
 As before, Demand $m$-CFA dispatches a trace query $q_1$ which then traces occurrences of \texttt{f} via $q_2$ and $q_3$.
-locates the call sites \texttt{(f 42)} \textsf{in} $\langle\rangle$ and \texttt{(f 35)} \textsf{in} $\langle\rangle$
+This query locates the call sites \texttt{(f 42)} \textsf{in} $\langle\rangle$ and \texttt{(f 35)} \textsf{in} $\langle\rangle$
 Once $q_2$ delivers the result \texttt{(f 42)} \textsf{in} $\langle\rangle$ to $q_1$ and then $q_0'$, Demand $m$-CFA \emph{instantiates} $q_0$ with this newly-discovered caller to form $q_4$, whose result is $q_0$'s also.
 After creating $q_3$, it continues with its resolution by issuing $q_4$ to evaluate the argument \texttt{42} \textsf{in} $\langle\rangle$.
 Its result of $42$ propagates from $q_4$ to $q_3$ to $q_0$;
@@ -426,7 +423,7 @@ Rator
 ——
 C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
 
-Bod
+Body
 C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)] 
 ——
 C[λx.[e]] ⇒ C''[(e₂ e₃)] 
@@ -780,7 +777,7 @@ C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ
 ——
 C[(e₀ [e₁])] ρ ⇒ C''[(e₂ e₃)] ρ''
 
-Bod
+Body
 C[λx.[e]] ρ ⇐ C'[(e₀ e₁)] ρ'  C'[(e₀ e₁)] ρ' ⇒ C''[(e₂ e₃)] ρ''
 ——
 C[λx.[e]] ρ ⇒ C''[(e₂ e₃)] ρ''
@@ -1105,7 +1102,7 @@ C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x 
 ——
 C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
 
-Bod
+Body
 C[λx.[e]] ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ e₁)] ρ' σ₁ ⇒ C''[(e₂ e₃)] ρ'' σ₂
 ——
 C[λx.[e]] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₂
@@ -1263,39 +1260,39 @@ For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-conc
   (>>= (get-refines \ensuremath{\rho}) 
        (λ (\ensuremath{\rho})
             (match \ensuremath{C[e']}
-            [\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})]
-            [\ensuremath{C[x]} (let ([(\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho})]) 
+            (\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho}))
+            (\ensuremath{C[x]} (let (((\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho}))) 
                         (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
                            (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
-                              (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}}))))]
-            [\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+                              (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}})))))
+            (\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
                            (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                              (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})))]))))
+                              (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}}))))))))
 
 (define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
   (>>= (get-refines \ensuremath{\rho}) 
        (λ (\ensuremath{\rho})
             (match \ensuremath{C'[e]}
-            [\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho})]
-            [\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+            (\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho}))
+            (\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
                               (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
                                  (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})
-                                    expr)))]     
-            [\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr)]
-            [\ensuremath{[e]} fail]))))
+                                    expr))))    
+            (\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr))
+            (\ensuremath{[e]} fail)))))
 
 (define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}\sb{0}::\rho})
    (>>= (get-refines \ensuremath{\rho}) 
         (λ (\ensuremath{\rho})
             (>>= (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})
                  (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
-                    (let ([\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})]))
+                    (let ((\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})))
                       (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
                           (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
                           (if (eq-refines \ensuremath{\mathit{ctx}\sb{1}} \ensuremath{\mathit{ctx}\sb{0}}))
                               (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
                               fail
-                        ))))))
+                        )))))))
     
 \end{alltt}
 \caption{The core of Demand $m$-CFA's implementation using the \textit{ADI} approach}
