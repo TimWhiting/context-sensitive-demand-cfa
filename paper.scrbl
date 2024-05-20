@@ -1235,53 +1235,56 @@ These theorems are proved by induction on the derivations, corresponding instant
 We have implemented Demand $m$-CFA using the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}.
 Using this approach, one defines a definitional interpreter of their evaluator in
 a monadic and open recursive style (so that the analyzer can intercept recursive calls to the evaluator).
-For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-concise implementation of the core components of Demand $m$-CFA over the unary $\lambda$ calculus using this approach.
-\begin{figure}
-\begin{alltt}
-(define ((eval eval expr call) \ensuremath{C[e']} \ensuremath{\rho})
-  (>>= (get-refines \ensuremath{\rho}) 
-       (λ (\ensuremath{\rho})
-            (match \ensuremath{C[e']}
-            (\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho}))
-            (\ensuremath{C[x]} (let (((\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho}))) 
-                        (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
-                           (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
-                              (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}})))))
-            (\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
-                           (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                              (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}}))))))))
 
-(define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
-  (>>= (get-refines \ensuremath{\rho}) 
-       (λ (\ensuremath{\rho})
-            (match \ensuremath{C'[e]}
-            (\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho}))
-            (\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+@omit{
+      For illustration, Figure~\ref{fig:implementation} presents the gratifyingly-concise implementation of the core components of Demand $m$-CFA over the unary $\lambda$ calculus using this approach.
+      \begin{figure}
+      \begin{alltt}
+      (define ((eval eval expr call) \ensuremath{C[e']} \ensuremath{\rho})
+      (>>= (get-refines \ensuremath{\rho}) 
+            (λ (\ensuremath{\rho})
+                  (match \ensuremath{C[e']}
+                  (\ensuremath{C[\lambda\!\!\!\ x.e]} (unit \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho}))
+                  (\ensuremath{C[x]} (let (((\ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}}) (bind \ensuremath{x} \ensuremath{C[x]} \ensuremath{\rho}))) 
+                              (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e\sb{x}]]} \ensuremath{\rho\sb{x}})
+                              (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{\mathit{call}}})
+                                    (eval \ensuremath{C[(e\sb{0}\,[e\sb{1}])]} \ensuremath{\rho\sb{\mathit{call}}})))))
+                  (\ensuremath{C[(e\sb{0}\,e\sb{1})]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
                               (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
-                                 (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})
-                                    expr))))    
-            (\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr))
-            (\ensuremath{[e]} fail)))))
+                                    (eval \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}}))))))))
 
-(define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}\sb{0}::\rho})
-   (>>= (get-refines \ensuremath{\rho}) 
-        (λ (\ensuremath{\rho})
-            (>>= (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})
-                 (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
-                    (let ((\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})))
-                      (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
-                          (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
-                          (if (eq-refines \ensuremath{\mathit{ctx}\sb{1}} \ensuremath{\mathit{ctx}\sb{0}}))
-                              (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
-                              fail
-                        )))))))
-    
-\end{alltt}
-\caption{The core of Demand $m$-CFA's implementation using the \textit{ADI} approach}
-\label{fig:implementation}
-\end{figure}
-Because the @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| relations are mutually recursive, their implementations \texttt{eval}, \texttt{expr}, and \texttt{call} are mutually recursive and each receives references to the others with which to make recursive calls.
-Refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which runs computation under every refinement of \ensuremath{\mathit{\rho}} including the identity refinement.
+      (define ((expr eval expr call) \ensuremath{C'[e]} \ensuremath{\rho})
+      (>>= (get-refines \ensuremath{\rho}) 
+            (λ (\ensuremath{\rho})
+                  (match \ensuremath{C'[e]}
+                  (\ensuremath{C[([e\sb{0}]\,e\sb{1})]} (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho}))
+                  (\ensuremath{C[(e\sb{0}\,[e\sb{1}])]} (>>= (eval \ensuremath{C[([e\sb{0}]\,e\sb{1})]} \ensuremath{\rho})
+                                    (λ (\ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.e]} \ensuremath{\rho\sb{\lambda}})
+                                    (>>= (find \ensuremath{x} \ensuremath{C\sb{\lambda}[\lambda\!\!\!\ x.[e]]} (succ m \ensuremath{(C[(e\sb{0}\,e\sb{1})],\rho)})::\ensuremath{\rho\sb{\lambda}})
+                                          expr))))    
+                  (\ensuremath{C[\lambda\!\!\!\ x.[e]]} (>>= (call \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\rho}) expr))
+                  (\ensuremath{[e]} fail)))))
+
+      (define ((call eval expr call) \ensuremath{C[\lambda\!\!\!\ x.[e]]} \ensuremath{\mathit{ctx}\sb{0}::\rho})
+      (>>= (get-refines \ensuremath{\rho}) 
+            (λ (\ensuremath{\rho})
+                  (>>= (expr \ensuremath{C[\lambda\!\!\!\ x.e]} \ensuremath{\rho})
+                  (λ (\ensuremath{C[(e\sb{0}\,e\sb{1})]} \rho\sb{call})
+                        (let ((\ensuremath{ctx\sb{1}} (succ m \ensuremath{C[(e\sb{0}\,e\sb{1})]})))
+                        (if (eq-refines \ensuremath{\mathit{ctx}\sb{0}} \ensuremath{\mathit{ctx}\sb{1}}) 
+                              (unit \ensuremath{C[(e\sb{0}\,e\sb{1})]} \ensuremath{\rho\sb{call}})
+                              (if (eq-refines \ensuremath{\mathit{ctx}\sb{1}} \ensuremath{\mathit{ctx}\sb{0}}))
+                                    (add-refine \ensuremath{\mathit{ctx}\sb{0}::\rho} \ensuremath{\mathit{ctx}\sb{1}::\rho})
+                                    fail
+                              )))))))
+      
+      \end{alltt}
+      \caption{The core of Demand $m$-CFA's implementation using the \textit{ADI} approach}
+      \label{fig:implementation}
+      \end{figure}
+      Because the @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| relations are mutually recursive, their implementations \texttt{eval}, \texttt{expr}, and \texttt{call} are mutually recursive and each receives references to the others with which to make recursive calls.
+      Refinements are added to monadic state with continuations registered for each call to @|mcfa-get-refines-name|, which runs computation under every refinement of \ensuremath{\mathit{\rho}} including the identity refinement.
+}
 
 The result of the analysis is a map with four types of keys, one corresponding to evaluation queries through \texttt{eval}, one to trace queries through \texttt{expr}, one to uses of \texttt{call}, and one to refinements for each \ensuremath{\mathit{\rho}} encountered in the analysis.
 Keys locate the results of the query;
