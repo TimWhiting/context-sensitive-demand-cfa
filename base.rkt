@@ -43,6 +43,7 @@
 (define □ (ensuremath "\\square "))
 
 (define (⊆ X Y) (ensuremath X "\\subseteq " Y))
+(define (s⊏ X Y) (ensuremath X "\\sqsubset " Y))
 (define (∪ X Y) (ensuremath X "\\cup " Y))
 (define (= X Y) (ensuremath X "=" Y))
 (define (≠ X Y) (ensuremath X "\\ne " Y))

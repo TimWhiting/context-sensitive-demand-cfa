@@ -2,7 +2,7 @@ all: paper.pdf
 
 paper.pdf: paper.tex paper.bib
 paper.pdf: # plots
-	pdflatex --interaction=nonstopmode paper.tex && \
+	pdflatex --interaction=nonstopmode paper.tex || \
 	bibtex paper && \
 	pdflatex --interaction=nonstopmode paper.tex && \
 	pdflatex --interaction=nonstopmode paper.tex || \

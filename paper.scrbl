@@ -7,6 +7,7 @@
 \documentclass[10pt,acmsmall,timestamp,screen,anonymous,review]{acmart}
 
 \usepackage{mathpartir}
+\usepackage{natbib}
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.8}
 \usepackage{textgreek}
@@ -30,7 +31,7 @@
 
 \begin{abstract}
 By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
-Thus, it presents a much more flexible interface and pricing model to CFA, making many useful applications practical.
+Thus, it presents a much more flexible interface and pricing model for CFA, making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
 We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which make it what we term a \emph{demand-scalable} analysis.
@@ -156,10 +157,10 @@ None of these questions care about complicated control flow at the beginning of 
 the state space into only the relevant parts of the program for the query in question.
 }
 We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
-answer relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
+answer many relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
 \emph{Demand-scalable} analyses are focused on the information gleaned from the analysis regardless of the underlying computational complexity, and opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
-Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses to integrate in modern
-compiler architectures which typically involve incremental recompilation, language servers, linters, debuggers and other tools, which can each benefit from additional semantic information.
+Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses for integration in modern
+compilers which typically involve incremental recompilation, language servers, linters, debuggers and other tools, which can each benefit from additional semantic information.
 
 \subsection{Towards Context Sensitivity}
 
@@ -480,7 +481,7 @@ The @clause-label{Ref} rule captures the intuition that a reference to a paramet
 % @(e 1) evaluates to @(lam (var 'y) (e "_v")), then
 % the reference to @(var 'x) evaluates to @(lam (var 'y) (e "_v")) as well.
 The @|0cfa-bind-name| metafunction determines the binding configuration of @(var 'x) by walking outward on the syntax tree until it encounters @(var 'x)'s binder.
-Figure~\ref{fig:0cfa-bind} presents its definition.
+Figure~\ref{fig:0cfa-bind} presents its definition, and we note the absence of a rule for the case where @(var 'x) is unbound, since we define programs as closed expressions.
 
 A judgement @(0cfa-call (cursor (e) (bod (var 'x) (∘e))) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the application @(app (e 0) (e 1)) applies @(lam (var 'x) (e)), thereby binding @(var 'x).
 Demand 0CFA arrives at this judgment by the @clause-label{Call} rule which uses the @|0cfa-expr-name| relation to determine it.
@@ -625,35 +626,16 @@ $[
 \mathtt{w} \mapsto @(meta "c" 3)
 ]$
 for some contours @(meta "c" 0), @(meta "c" 1), @(meta "c" 2), and @(meta "c" 3).
-$m$-CFA uses a similar representation, though its interpretation differs.
+$m$-CFA uses a similar representation, though it's contours represent the top-$m$ stack frames.
 
-While this representation captures the structure necessary for $k$-CFA (or $m$-CFA), it does not capture all the structure present when environments are constructed and extended.
-For example, some of the structure not captured is that variables bound in the same evaluation step (e.g., multiple parameters in the function call) always have the same binding context.
-In our example, we will always have @(= (meta "c" 0) (meta "c" 1)).
-In general, we can partition environment variables according to the evaluation step which bound them.
-In our example, this partition is $\{ \{ \mathtt{x}, \mathtt{y} \}, \{ \mathtt{z} \}, \{ \mathtt{w} \} \}$.
-When an environment is extended with a binding for a variable in a constituent set of that partition, it is extended with bindings for all variables in that set.
-
-But there is even more structure to environments.
-In a lexically-scoped language, there is only one order in which the environment is extended with variable bindings.
-In our example, the environment at the reference \texttt{x} is always extended first with bindings for \texttt{x} and \texttt{y}, then with a binding for \texttt{z}, and finally with a binding for \texttt{w}.
-
-This allows us to refactor the environment to $(\mathit{Var} \rightarrow \mathbb{N}) \times \mathit{Context}^{*}$,
-a pair of a finite map and a sequence where the map associates variables to the index of their binding contexts in the sequence.
-In our example, this representation of the environment is
-$(
- [
-  \texttt{x} \mapsto 2,
-  \texttt{y} \mapsto 2,
-  \texttt{z} \mapsto 1,
-  \texttt{w} \mapsto 0
-  ],
- \langle @(meta "c" 3), @(meta "c" 2), @(meta "c" 0) \rangle
- )$.
-
-Finally, again due to lexical-scoping, the index of a variable's binding context is in fact its de Bruijn index, which is statically determined by the program syntax.
-Hence, the map component is unnecessary and we can model environments as a sequence $\mathit{Context}^{*}$.
-This representation discards none of the environment structure of $k$-CFA and captures more of the structure inherent in evaluation.
+While this representation captures the structure necessary for $k$-CFA (or $m$-CFA), we observe that due to lexical-scoping 
+we can use a variable's de Bruijn index, which is statically determined by the program syntax,
+and model environments as a sequence $\mathit{Context}^{*}$, splitting the environment by the context associated with each lexical set of variables.
+For instance, we model the environment at the reference \texttt{x} as $[c1, c2, c3]$ 
+where $c1$ represents the m-stack frames that led to calling the outermost $\lambda$, 
+$c2$ the m-stack frames for the middle $\lambda$, and `c3` the m-stack frames for the innermost $\lambda$.
+This representation discards none of the environment structure of $k$-CFA and captures more of the structure inherent in evaluation, 
+although the selection of contours differs in the same way as $m$-CFA.
 
 Given this environment representation, we make one final tweak to the definition of contexts:
 we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, which is unique even if the program is not alphatized.}
@@ -925,7 +907,7 @@ Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in 
 The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the caller query's binding context refines the discovered binding context of the call,
 the resultant caller of the trace query is also a result of the caller query.
 The call is \emph{known} because the caller query has the context of the call already in its environment.
-If @(⊏ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
+If @(s⊏ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
 In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
 Formally, the refinement relation $\sqsubset$ as the least relation satisfying
 \begin{align*}
