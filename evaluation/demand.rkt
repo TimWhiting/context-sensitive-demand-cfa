@@ -7,7 +7,7 @@
 (require racket/match
          racket/list)
 
-; environment refinement
+; environment refinement (contexts are determined or not determined, but refinements only are defined for environments)
 (define-key (refine ρ) fail)
 
 ; The first is a refinement of the second parameter
@@ -19,23 +19,25 @@
 (define (get-refines* kind ρ)
   ; (pretty-print `(get-refines ,ρ))
   (match (env-list ρ)
-    [(list) (unit ρ)]
+    [(list) (unit ρ)] ; A top level environment is not refineable
     [(cons _ _) (do-get-refines* ρ)]))
 
 (define (do-get-refines* ρ)
-  (match (split-env ρ)
+  (match (split-env ρ) ; Split into the closest lexical calling context and rest of environment (exponential nested)
     [(cons c ρ′)
-     (⊔ (if (cc-determined? c) ; won't have any refinements at this scope
-            (unit ρ)
+     (⊔ (if (cc-determined? c) ;; First check for refinements to this full context
+            (unit ρ) ; won't have any refinements for this calling context
             (>>= (node-exists/powerset (refine ρ))
-                 (λ (yes) (if yes (refine ρ) (each (unit ρ) (refine ρ))))
+                 (λ (yes) (if yes (refine ρ) ; If a refinement exists for the whole environment, yield those refinements,
+                              ; otherwise yield the unrefined environment and other refinements
+                              (each (unit ρ) (refine ρ))))
                  ))
-        (>>= (do-get-refines* ρ′)
-             (λ (ρ′)
-               (match ρ′
-                 [(menv ccs) (unit (menv (cons (callc c) ccs)))]
-                 ))))]
-    [(menv '()) ⊥]
+        ; (>>= (do-get-refines* ρ′) ;; Second, find refinements of the tail of this environment
+        ;      (λ (ρ′)
+        ;        (match ρ′ ; For each refinement of the tail, yield that tail with the current context as head
+        ;          [(menv ccs) (unit (menv (cons (callc c) ccs)))]
+        ;          )))
+        )]
     ))
 
 (define ((find x) Ce ρ)

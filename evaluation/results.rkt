@@ -2,7 +2,6 @@
 (require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
 (require "m-cfa.rkt")
 (require racket/pretty racket/match racket/set racket/string racket/list)
-(provide (all-defined-out))
 
 (define (sort-by-key l)
   (sort l (lambda (x y) (string<? (car x) (car y))))
@@ -149,3 +148,5 @@
      ]
     )
   )
+
+(provide (all-defined-out))
