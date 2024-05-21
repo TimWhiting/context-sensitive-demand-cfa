@@ -14,7 +14,7 @@
              (if (string-suffix? (path->string file) ".rkt")
                  (with-handlers
                      ([exn:fail? (lambda (e)
-                                   ;  (pretty-print (format "In ~a: got error ~a" file e))
+                                   (pretty-print (format "In ~a: got error ~a" file e))
                                    (list))])
                    (list `(example,(dynamic-require file 'example-name) ,(dynamic-require file 'example-expr))))
                  (list))))
@@ -46,8 +46,7 @@
 (define constructor-examples '(constr prim-match))
 (define r6rs '(ack blur cpstak kcfa-2 kcfa-3 sat-1 sat-2 sat-3))
 
-; Fails to parse: regex, fail to run church
-(define untested '(deriv rsa eta church facehugger flatten loop2-1 map mj09 primtest rsa std regex scratch game)); ?check kcfa-2
+(define untested '(church std scratch game)); ?check kcfa-2
 
 (define successful-examples
   (filter (lambda (x)

@@ -1,0 +1,573 @@
+'(clean-cache
+  tak
+  4
+  5
+  41
+  letrec*
+  "'(eval ((top) letrec* (tak) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  lambda
+  "'(eval (letrec* (... () (tak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  match
+  "'(eval\n  (λ (x y z) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (match (app not (app < y x)) (#f) (_ (-> z <-))) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval\n  (match\n   (app not (app < y x))\n   ((#f)\n    (->\n     (app\n      tak\n      (app tak (app - x 1) y z)\n      (app tak (app - y 1) z x)\n      (app tak (app - z 1) x y))\n     <-))\n   _)\n  (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (app tak (app - x 1) y z)\n   (app tak (app - y 1) z x)\n   (-> (app tak (app - z 1) x y) <-))\n  (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - z 1) x (-> y <-)) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - z 1) (-> x <-) y) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (app tak (-> (app - z 1) <-) x y) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app - z (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app - (-> z <-) 1) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) z 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - z 1) x y) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (app tak (app - x 1) y z)\n   (-> (app tak (app - y 1) z x) <-)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - y 1) z (-> x <-)) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - y 1) (-> z <-) x) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (app tak (-> (app - y 1) <-) z x) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app - y (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app - (-> y <-) 1) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) y 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - y 1) z x) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (-> (app tak (app - x 1) y z) <-)\n   (app tak (app - y 1) z x)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - x 1) y (-> z <-)) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - x 1) (-> y <-) z) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (app tak (-> (app - x 1) <-) y z) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app - x (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app - (-> x <-) 1) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) x 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - x 1) y z) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> tak <-)\n   (app tak (app - x 1) y z)\n   (app tak (app - y 1) z x)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (match (-> (app not (app < y x)) <-) (#f) _) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app < y (-> x <-)) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app < (-> y <-) x) (env ((□? (x y z)))))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> < <-) y x) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app < y x)) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  app
+  "'(eval (letrec* (tak) (-> (app tak 32 15 8) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app tak 32 15 (-> 8 <-)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app tak 32 (-> 15 <-) 8) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  number
+  "'(eval (app tak (-> 32 <-) 15 8) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tak
+  4
+  5
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) 32 15 8) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))

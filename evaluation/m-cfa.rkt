@@ -342,7 +342,13 @@
        [(cons C `',x)
         (unit #f)
         ]
-       [_ (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))]
+       [Ce
+        (if (equal? pattern `(#t)); Truthy
+            (unit #t); if Ce is a constructor it would be caught earlier
+            (if (equal? pattern `(#f)) ; Falsey
+                (unit #f) ; if Ce is a constructor it would be caught earlier
+                (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+                ))]
        )
      ]
     [`',x

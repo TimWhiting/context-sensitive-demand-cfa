@@ -155,14 +155,16 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((eta 23) (ack 40) (kcfa-2 32) (mj09 33) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (deriv 257) (regex 421) (tic-tac-toe 569)))
+(define program-size '((eta 23) (ack 40) (kcfa-2 32) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (deriv 257) (regex 421) (tic-tac-toe 569)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
 
-(define all-programs (sort '(eta blur loop2-1 sat-1 sat-2 regex map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
+(define all-programs (map car program-size))
+
+; (define all-programs (sort '(eta blur loop2-1 sat-1 sat-2 regex map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 (define all-results
   (let ([results (list)])
@@ -215,11 +217,14 @@
   ; (pretty-print (map avg-time-res dmcfa-b1))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-b1)) num-programs)))
   ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-a1)) (* num-shuffles num-programs))))
-  (define plot-height 130)
-  (define plot-width 600)
+  ; (define plot-height 130)
+  ; (define plot-width 600)
+  (define plot-height 900)
+  (define plot-width 1800)
   (plot-legend-font-size 10)
 
   (for ([out (list "pdf" "png")])
+
     (plot
      (map
       (λ (m h)
@@ -240,8 +245,7 @@
      #:out-file (format "plots/mcfa.~a" out)
      )
 
-
-
+    ; (parameterize ([plot-y-transform log-transform])
     (plot
      (map
       (λ (m h)
@@ -268,6 +272,7 @@
      #:height plot-height
      #:out-file (format "plots/dmcfa-noninstant.~a" out)
      )
+    ; )
 
     (plot
      (map
@@ -296,6 +301,7 @@
      #:out-file (format "plots/dmcfa.~a" out)
      )
 
+
     (plot
      (map
       (λ (m h)
@@ -318,6 +324,7 @@
      #:out-file (format "plots/precision-instant.~a" out)
      )
 
+
     (plot
      (map
       (λ (m h)
@@ -339,7 +346,6 @@
      #:height plot-height
      #:out-file (format "plots/precision.~a" out)
      )
-
 
     (plot
      (map
@@ -393,6 +399,7 @@
      #:height plot-height
      #:out-file (format "plots/precision-cmp-instant.~a" out)
      )
+
 
     (plot
      (map

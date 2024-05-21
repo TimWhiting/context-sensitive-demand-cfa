@@ -257,6 +257,10 @@
     [`(lambda (,@args) ,@es) `(λ (,@(remove-types args)) ,(translate-top-defs es))]
     [`(local ,defs ,@es) (translate-top-defs-expr (translate-top-defs es) defs)]
     [`(letrec ,defs ,@es) `(letrec ,(map translate-def defs) ,(translate-top-defs es))]
+    [`(let ,(and loop (? symbol? loop)) ,defs ,@es)
+     (pretty-print `(,loop ,(map car defs) ,(map cadr defs) ,(translate-top-defs es)))
+     (pretty-print `(letrec (,loop (λ ,(map car defs) ,(translate-top-defs es))) (app ,loop ,@(map cadr defs))))
+     `(letrec ((,loop (λ ,(map car defs) ,(translate-top-defs es)))) (app ,loop ,@(map cadr defs)))]
     [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(translate-top-defs es))]
     [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(translate-top-defs es))]
     [`(if ,c ,t ,f) `(match ,(translate c) [(#f) ,(translate f)] [_ ,(translate t)] )]
@@ -265,6 +269,7 @@
     [`(type-case ,tp ,c ,@mchs)
      ;  (pretty-print `(translate-type-case ,@mchs))
      `(match ,(translate c) ,@(map unwrap-match mchs))]
+    [`(case ,sc ,@branches) `(match ,(translate sc) ,@(map unwrap-case branches))]
     [`(define (,id ,@args) : ,returntype ,@exprs) `(define ,id (λ (,@(remove-types args)) ,(translate-top-defs exprs)))]
     [`(define (,id ,@args) ,@exprs)
      ;  (pretty-print `(translate-define ,exprs))
@@ -288,6 +293,16 @@
   (match l
     ['() `(app nil)]
     [(cons x xs) `(app cons ,(translate `',x) ,(to-list xs))]
+    [x
+     ;  (pretty-print `(quoting ,x as ',x))
+     `',x]
+    )
+  )
+
+(define (expand-datum l)
+  (match l
+    ['() `(nil)]
+    [`(,x ,@xs) `(cons ,(expand-datum x) ,@(map expand-datum xs))]
     [x
      ;  (pretty-print `(quoting ,x as ',x))
      `',x]
@@ -328,3 +343,9 @@
         [(#f) ,(unwrap-cond xs)]
         [_ ,(translate-top-defs es)]
         )]))
+
+(define (unwrap-case branch)
+  (match branch
+    [`(,datum ,@bd) `(,(expand-datum datum) ,(translate-top-defs bd))]
+    )
+  )

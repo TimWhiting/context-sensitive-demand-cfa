@@ -1,6 +1,6 @@
 #lang racket/base
-(require (rename-in "table-monad/main.rkt" [void fail]))
-(require "config.rkt" "envs.rkt" "syntax.rkt" "utils.rkt")
+(require (rename-in "table-monad/main.rkt"))
+(require "config.rkt" "envs.rkt" "syntax.rkt")
 (require racket/match racket/list racket/pretty)
 (provide (all-defined-out))
 ; syntax traversal
@@ -30,20 +30,21 @@
       (error 'unknown-primitive (format "unknown primitive ~a" x))
       ))
 
-
+; Checks to tsee if a query is syntatically obvious (able to be resolved via simple compiler heuristics)
 (define (is-instant-query q)
   (match-let ([(list (cons C e) p) q])
     (or (is-instant-query-kind (expr-kind e))
         (and (symbol? e)
+             ; Check if this is a reference to a binding that itself is an instant query kind
              (match-let ([(list Ce p i) ((bind-e e) (cons C e) p)])
                (if (equal? i -1)
                    #t ; Constructors are instant
-                   (match Ce ; Bindings that are lambdas are pretty syntactically obvious
+                   (match Ce ; Other bindings that are instant queries
                      [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
                       (is-instant-query-kind (expr-kind (cdr (car (go-bin i (out-e Ce p))))))]
                      [(cons `(let-bod ,_ ,_ ,_) _)
                       (is-instant-query-kind (expr-kind (cdr (car (go-bin i (out-e Ce p))))))]
-                     [_ #f]; All other are non-trivial as far as syntactically obvious
+                     [_ #f]; All other are non-trivial as far as being syntactically obvious
                      );
                    ))
              )
@@ -63,16 +64,12 @@
      (check-known-primitive? x)
      (unit x ρ -1)] ; Primitives
     [(cons `(lettypes-bod ,binds ,C) e₁)
-     ;  (pretty-print (map car binds))
-     ;  (pretty-print x)
-     ;  (pretty-print (member x (map car binds)))
      (if (member x (map car binds))
          (unit x ρ -1)
          (search-out)
          )
      ]
     [(cons `(bin ,let-kind ,y ,_ ,before ,after ,_) _)
-     ;  (pretty-print `(bin ,y ,x))
      (define defs
        (match let-kind
          ; Only the prior definitions are bound for let*

@@ -84,10 +84,7 @@
   )
 
 (define (is-instant-query-kind k)
-  (if (member k '(lambda number char string quoted constructor))
-      #t
-      #f
-      )
+  (member k '(lambda number char string quoted constructor))
   )
 
 (define (show-simple-expr e)

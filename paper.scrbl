@@ -1332,23 +1332,22 @@ For (2) we consider Demand $m$-CFA what fractions of evaluation queries with a c
 Finally to answer (3) we determine what percentage of singleton flow sets as compared to the corresponding exhaustive analysis we obtain within our budget of 5ms per query.
 
 \subsection{Implementation Costs}
-In an exhaustive CFA the developer chooses an abstraction and an analysis technique prior to implementation. If any primitive is not supported or
-any source code is not available (i.e. external libraries), the developer must make a hard choice. They must approximate the behavior 
-or throw away the results of the analysis. It is hard to guarantee the soundness of such an analysis. As languages evolve and add new features and primitives, maintaining and evolving the
-corresponding analyses becomes both a burden and a source of bugs.
+In an exhaustive CFA the developer chooses an abstraction and an analysis technique prior to implementation. 
+If any primitive is not supported or any source code is not available (i.e. external libraries), the developer must make a hard choice. 
+They must approximate the behavior or throw away the results of the analysis. 
+It is hard to guarantee the soundness of such an analysis. 
+As languages evolve and add new features and primitives, maintaining and evolving the corresponding analyses becomes both a burden and a source of bugs.
 
 In contrast Demand $m$-CFA is formulated such that the analysis of each language feature is specified independently as much as possible.
-Due to this design the implementation of an analysis should work transparently across language versions
-as long as \begin{enumerate*} \item the semantics of each implemented feature, and dependant does not change, and \item the abstraction does not need to change \end{enumerate*}.
+Due to this design the implementation of an analysis should work transparently across language versions as long as 
+\begin{enumerate*} \item the semantics of each implemented feature and its dependencies does not change, and 
+\item the abstraction does not need to change \end{enumerate*}.
 
 For example, we did not implement the \texttt{set!} form of R6RS Scheme which mutates the binding of a given variable, and we did not implement primitives with side effects. 
 This omission does \emph{not} mean that demand CFA fails on programs that uses \texttt{set!}.
 Rather, it means that demand CFA fails on \emph{queries} whose resolution depends on a \texttt{set!}'d variable; other queries resolve without issue.
 Because the use of mutation is relatively rare in functional languages such as Scheme, ML, and OCaml, we expect that relatively few queries encounter mutation.
 
-Additionally the analysis is robust to the addition of new primitives due to the fact that old queries are resolve without them.
-As such, our analysis could easily be adapted to create an incremental higher-order analysis, keep track of dependencies and analysis results, 
-and provide semantic information even across language or code updates!
 
 Concretely, in terms of lines of code needed, our implementation suggests that a demand analysis involves 
 about the same order of magnitude of engineering effort as $m$-CFA (${\sim}$660 lines of code versus ${\sim}$430).
@@ -1366,12 +1365,14 @@ and in particular when considering the number of primitives and language feature
 
 \subsection{Scalability}
 Monolithic analyses such as $m$-CFA require doing an abstract interpretation over the full program. Therefore to discuss scalability of such analyses 
-we typically determine the computational complexity in terms of the program size. 0CFA has a complexity of $O(n^3)$@~cite{dvanhorn:Neilson:1999}, and $k$-CFA is proven to be exponential@~cite{dvanhorn:VanHorn-Mairson:ICFP08}. 
-$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@~cite{dvanhorn:Might2010Resolving}. However, even with small programs it quickly becomes expensive as shown in 
-Figure~\ref{fig:mcfa-scalability}.
+we typically determine the computational complexity in terms of the program size. 
+0CFA has a complexity of $O(n^3)$@~cite{dvanhorn:Neilson:1999}, and $k$-CFA is proven to be exponential@~cite{dvanhorn:VanHorn-Mairson:ICFP08}. 
+$m$-CFA (with rebinding) has the advantage is that it gives context sensitivity at a polynomial complexity@~cite{dvanhorn:Might2010Resolving}. 
+However, even with small programs it quickly becomes expensive as shown in Figure~\ref{fig:mcfa-scalability}.
 
-In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, which is closely related to the size of
-the abstract syntax tree of the program. Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
+In our results we measure the size of the program as the number of non-trivial syntactic contexts that we could run an evaluation query for, 
+which is closely related to the size of the abstract syntax tree of the program. 
+Trivial queries include lambdas, constants, and references to let bindings that are themselves trivial. 
 These were all omitted from the results unless otherwise stated to determine how Demand $m$-CFA performs in contexts where compiler heuristics would not already trivially understand the control flow.
 
 Demand $m$-CFA has two sources of inherent overhead compared to a monolithic analysis. These are:
