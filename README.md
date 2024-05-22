@@ -2,6 +2,7 @@
 TODO: We should do a graph of all queries with x axis being time, 
 y being percent resolved by that time, and another dimension of singletons
 TODO: Should we look at just reference eval queries?
+TODO: Also the current graphs might look better side by side with line graphs.
 
 - Supports a subset of R6RS (no set!)
 - Supports a subset of Plait (#lang racket/plait)
