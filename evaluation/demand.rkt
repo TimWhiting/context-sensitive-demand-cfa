@@ -488,7 +488,7 @@
   )
 
 (define ((eval-clausecon parent parentρ clauses i) ce ρ)
-  (assert (is-constructor ce) (format "~a is not a constructor" ce))
+  (assert (is-constructor ce) (format "~a is not a constructor" (show-simple-ctx ce)))
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-matches (car clause) ce ρ)

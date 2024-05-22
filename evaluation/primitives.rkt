@@ -33,14 +33,24 @@
     ['display `(prim display ,do-display)]
     ['number->string `(prim number->string ,do-number-string)]
     ['string-append `(prim string-append ,do-string-append)]
+    ['string-length `(prim string-length ,do-string-length)]
     ['boolean? `(prim boolean? ,do-boolean?)]
     ['integer? `(prim integer? ,do-integer?)]
+    ['list? `(prim list? ,do-list?)]
     ['void  `(prim void ,do-void)]
     [_ #f]
     )
   )
 
 ; Primitive constructors can be top env / contexts
+(define (voidcon C p)
+  (match (analysis-kind)
+    ['exponential (clos `((top) app void) (top-env))]
+    ['rebinding (clos `((top) app void) (top-env))]
+    ['basic (clos `((top) app void) (top-env))]
+    )
+  )
+
 (define (truecon C p)
   (match (analysis-kind)
     ['exponential (clos (cons `(top) #t) (top-env))]
@@ -109,28 +119,31 @@
 
 
 (define (do-number-string p C a1)
+  (pretty-print a1)
   (match a1
     [(product/lattice (literal (list i1 c1 s1)))
      (match i1
        [(bottom) (void)]
-       [_ (lit (abstring))]
+       [_ topstr]
        )
      ]
     [_ (void)])
   )
 
 ; TODO: Refinement make sure all args are string
-(define (do-string-append p C . args)
-  (lit (abstring))
-  )
+(define (do-string-append p C . args) topstr)
+
+(define (do-string-length p C s) topnum)
 
 (define (do-not p C a1)
   (if (is-truthy a1) (false C p) (true C p)))
 
 (define (do-boolean? p C a1)
+  (pretty-print a1)
   (if (is-bool a1) (true C p) (false C p)))
 
 (define (do-integer? p C a1)
+  (pretty-print a1)
   (if (is-int a1) (true C p) (false C p)))
 
 (define (do-or p C . args)
@@ -176,6 +189,15 @@
 (define (do-symbol? p C a1)
   (match a1
     [(product/set (list (cons C `',x) p))
+     (true C p) ]
+    [_ (false C p)])
+  )
+
+(define (do-list? p C a1)
+  (match a1
+    [(product/set (list (list C 'con _) p))
+     (true C p) ]
+    [(product/set (list (list C 'nil) p))
      (true C p) ]
     [_ (false C p)])
   )
@@ -393,9 +415,9 @@
     [#t (true C p)]
     ))
 
-(define (do-newline p C) (clos `((top) app void) p))
-(define (do-display p C . args) (clos `((top) app void) p))
-(define (do-void p C) (clos `((top) app void) p))
+(define (do-newline p C) (voidcon C p))
+(define (do-display p C . args) (voidcon C p))
+(define (do-void p C) (voidcon C p))
 (define (do-random p C . args)
   (match args
     [(list b t) (error 'unsupported-primitive-random-2-args "")]

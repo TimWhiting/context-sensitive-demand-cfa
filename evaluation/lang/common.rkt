@@ -90,6 +90,14 @@
                     )
                   )
                )
+         (list 'length
+               `(λ (length-l)
+                  (match length-l
+                    [(cons length-c length-d) (app + 1 (app length length-d))]
+                    [(nil) 0]
+                    )
+                  )
+               )
          (list 'pair?
                `(λ (pair?-v)
                   (match pair?-v

@@ -17,8 +17,8 @@
 ;;  $ interp this-file.scm < program.scm > out.c
 ;;  $ gcc -o out out.c
 
-;; (It's useful to compare this compiler to the 
-;; Scheme-to-Java compiler that started from the 
+;; (It's useful to compare this compiler to the
+;; Scheme-to-Java compiler that started from the
 ;; same codebase.)
 
 ;; The compiler handles Core Scheme and some extras.
@@ -35,15 +35,15 @@
 
 ;;    =[desugar]=>
 
-;; Core Scheme 
+;; Core Scheme
 
 ;;    =[mutable variable elimination]=>
 
-;; Intermediate Scheme (1) 
+;; Intermediate Scheme (1)
 
 ;;    =[closure conversion]=>
 
-;; Intermediate Scheme (2) 
+;; Intermediate Scheme (2)
 
 ;;    =[code emission]=>
 
@@ -61,7 +61,7 @@
 ;;        |  (<exp> <exp> ...)
 
 ;; <const> ::= <int>
-;;          |  #f 
+;;          |  #f
 
 ;; Syntactic sugar:
 
@@ -92,26 +92,26 @@
 (define (caddr p) (car (cdr (cdr p))))
 (define (cadddr p) (car (cdr (cdr (cdr p)))))
 
-(define (map f lst) 
+(define (map f lst)
   (if (pair? lst)
       (cons (f (car lst))
             (map f (cdr lst)))
       '()))
 
 
-(define (for-each f lst) 
+(define (for-each f lst)
   (begin
     (if (pair? lst)
         (cons (f (car lst))
               (map f (cdr lst)))
         '())
     (void)))
-  
+
 
 (define (append lst1 lst2)
   (if (not (pair? lst1))
       lst2
-      (cons (car lst1) 
+      (cons (car lst1)
             (append (cdr lst1) lst2))))
 
 (define (string->list s)
@@ -125,12 +125,12 @@
 
 (define (apply f l)
   (let ((len (length l)))
-  (cond
-    ((= len 0) (f))
-    ((= len 1) (f (car l)))
-    ((= len 2) (f (car l) (cadr l)))
-    ((= len 3) (f (car l) (cadr l) (caddr l)))
-    ((= len 4) (f (car l) (cadr l) (caddr l) (cadddr l))))))
+    (cond
+      ((= len 0) (f))
+      ((= len 1) (f (car l)))
+      ((= len 2) (f (car l) (cadr l)))
+      ((= len 3) (f (car l) (cadr l) (caddr l)))
+      ((= len 4) (f (car l) (cadr l) (caddr l) (cadddr l))))))
 
 (define (assv x f)
   (if (pair? f)
@@ -149,7 +149,7 @@
 
 
 ; void : -> void
-(define (void) (if #f #t))
+; (define (void) (if #f #t))
 
 ; tagged-list? : symbol value -> boolean
 (define (tagged-list? tag l)
@@ -174,7 +174,7 @@
 (define gensym (lambda (name)
                  (begin
                    (set! gensym-count (+ gensym-count 1))
-                   (string->symbol (string-append 
+                   (string->symbol (string-append
                                     (if (symbol? name)
                                         (symbol->string name)
                                         name)
@@ -210,7 +210,7 @@
       (if (eq? (car S) sym)
           (cdr S)
           (cons (car S) (remove sym (cdr S))))))
-          
+
 ; union : sorted-set[symbol] sorted-set[symbol] -> sorted-set[symbol]
 (define (union set1 set2)
   ; NOTE: This should be implemented as merge for efficiency.
@@ -345,7 +345,7 @@
 ; app->args : app-exp -> list[exp]
 (define (app->args exp)
   (cdr exp))
-  
+
 ; prim? : exp -> boolean
 (define (prim? exp)
   (or (eq? exp '+)
@@ -355,7 +355,7 @@
       (eq? exp 'display)))
 
 ; begin? : exp -> boolean
-(define (begin? exp) 
+(define (begin? exp)
   (tagged-list? 'begin exp))
 
 ; begin->exps : begin-exp -> list[exp]
@@ -375,19 +375,19 @@
   (caddr exp))
 
 ; closure? : exp -> boolean
-(define (closure? exp) 
+(define (closure? exp)
   (tagged-list? 'closure exp))
 
 ; closure->lam : closure-exp -> exp
-(define (closure->lam exp) 
+(define (closure->lam exp)
   (cadr exp))
 
 ; closure->env : closure-exp -> exp
-(define (closure->env exp) 
+(define (closure->env exp)
   (caddr exp))
 
 ; env-make? : exp -> boolean
-(define (env-make? exp) 
+(define (env-make? exp)
   (tagged-list? 'env-make exp))
 
 ; env-make->id : env-make-exp -> env-id
@@ -397,7 +397,7 @@
 ; env-make->fields : env-make-exp -> list[symbol]
 (define (env-make->fields exp)
   (map car (cddr exp)))
-  
+
 ; env-make->values : env-make-exp -> list[exp]
 (define (env-make->values exp)
   (map cadr (cddr exp)))
@@ -409,14 +409,14 @@
 ; env-get->id : env-get-exp -> env-id
 (define (env-get->id exp)
   (cadr exp))
-  
+
 ; env-get->field : env-get-exp -> symbol
 (define (env-get->field exp)
   (caddr exp))
 
 ; env-get->env : env-get-exp -> exp
 (define (env-get->env exp)
-  (cadddr exp)) 
+  (cadddr exp))
 
 ; set-cell!? : set-cell!-exp -> boolean
 (define (set-cell!? exp)
@@ -459,34 +459,34 @@
 
 ; substitute : alist[var,exp] exp -> exp
 (define (substitute env exp)
-  
+
   (define (substitute-with env)
     (lambda (exp)
       (substitute env exp)))
 
   (cond
-    ; Core forms:    
+    ; Core forms:
     ((null? env)        exp)
     ((const? exp)       exp)
     ((prim? exp)        exp)
     ((ref? exp)         (substitute-var env exp))
     ((lambda? exp)      `(lambda ,(lambda->formals exp)
-                           ,(substitute (assq-remove-keys env (lambda->formals exp)) 
+                           ,(substitute (assq-remove-keys env (lambda->formals exp))
                                         (lambda->exp exp))))
     ((set!? exp)        `(set! ,(substitute-var env (set!->var exp))
                                ,(substitute env (set!->exp exp))))
     ((if? exp)          `(if ,(substitute env (if->condition exp))
                              ,(substitute env (if->then exp))
                              ,(substitute env (if->else exp))))
-    
+
     ; Sugar:
     ((let? exp)         `(let ,(azip (let->bound-vars exp)
                                      (map (substitute-with env) (let->args exp)))
                            ,(substitute (assq-remove-keys env (let->bound-vars exp))
                                         (let->exp exp))))
     ((letrec? exp)      (let ((new-env (assq-remove-keys env (letrec->bound-vars exp))))
-                          `(letrec ,(azip (letrec->bound-vars exp) 
-                                          (map (substitute-with new-env) 
+                          `(letrec ,(azip (letrec->bound-vars exp)
+                                          (map (substitute-with new-env)
                                                (letrec->args exp)))
                              ,(substitute new-env (letrec->exp exp)))))
     ((begin? exp)       (cons 'begin (map (substitute-with env) (begin->exps exp))))
@@ -496,17 +496,17 @@
     ((cell-get? exp)    `(cell-get ,(substitute env (cell-get->cell exp))))
     ((set-cell!? exp)   `(set-cell! ,(substitute env (set-cell!->cell exp))
                                     ,(substitute env (set-cell!->value exp))))
-    
+
     ; IR (2):
     ((closure? exp)     `(closure ,(closure->lam exp) ,(closure->env exp)))
-    ((env-make? exp)    `(env-make ,(env-make->id exp) 
+    ((env-make? exp)    `(env-make ,(env-make->id exp)
                                    ,@(azip (env-make->fields exp)
                                            (map (substitute-with env)
                                                 (env-make->values exp)))))
     ((env-get? exp)     `(env-get ,(env-get->id exp)
                                   ,(env-get->field exp)
                                   ,(substitute env (env-get->env exp))))
-    
+
     ; Application:
     ((app? exp)         (map (substitute-with env) exp))
     (else               (error "unhandled expression type in substitution: " exp))))
@@ -528,11 +528,11 @@
 (define (letrec=>lets+sets exp)
   (if (letrec? exp)
       (let* ((bindings  (letrec->bindings exp))
-             (namings   (map (lambda (b) (cons (car b) 
-                                               (cons #f '()))) 
+             (namings   (map (lambda (b) (cons (car b)
+                                               (cons #f '())))
                              bindings))
              (names     (letrec->bound-vars exp))
-             (sets      (map (lambda (binding) 
+             (sets      (map (lambda (binding)
                                (cons 'set! binding))
                              bindings))
              (args      (letrec->args exp)))
@@ -544,13 +544,13 @@
   (define (singlet? l)
     (and (list? l)
          (= (length l) 1)))
-  
+
   (define (dummy-bind exps)
     (cond
       ((singlet? exps)  (car exps))
-      
+
       ((pair? exps)     `(let (($_ ,(car exps)))
-                          ,(dummy-bind (cdr exps))))))
+                           ,(dummy-bind (cdr exps))))))
   (dummy-bind (begin->exps exp)))
 
 ; desugar : exp -> exp
@@ -566,19 +566,19 @@
     ((if? exp)         `(if ,(if->condition exp)
                             ,(if->then exp)
                             ,(if->else exp)))
-    
+
     ; Sugar:
     ((let? exp)        (desugar (let=>lambda exp)))
     ((letrec? exp)     (desugar (letrec=>lets+sets exp)))
     ((begin? exp)      (desugar (begin=>let exp)))
-    
+
     ; IR (1):
     ((cell? exp)       `(cell ,(desugar (cell->value exp))))
     ((cell-get? exp)   `(cell-get ,(desugar (cell-get->cell exp))))
-    ((set-cell!? exp)  `(set-cell! ,(desugar (set-cell!->cell exp)) 
+    ((set-cell!? exp)  `(set-cell! ,(desugar (set-cell!->cell exp))
                                    ,(desugar (set-cell!->value exp))))
-    
-    ; IR (2): 
+
+    ; IR (2):
     ((closure? exp)    `(closure ,(desugar (closure->lam exp))
                                  ,(desugar (closure->env exp))))
     ((env-make? exp)   `(env-make ,(env-make->id exp)
@@ -587,11 +587,11 @@
     ((env-get? exp)    `(env-get ,(env-get->id exp)
                                  ,(env-get->field exp)
                                  ,(env-get->env exp)))
-    
+
     ; Applications:
-    ((app? exp)        (map desugar exp))    
+    ((app? exp)        (map desugar exp))
     (else              (error "unknown exp: " exp))))
-    
+
 
 
 
@@ -603,7 +603,7 @@
   (cond
     ; Core forms:
     ((const? exp)    '())
-    ((prim? exp)     '())    
+    ((prim? exp)     '())
     ((ref? exp)      (cons exp '()))
     ((lambda? exp)   (difference (free-vars (lambda->exp exp))
                                  (lambda->formals exp)))
@@ -612,7 +612,7 @@
                                    (free-vars (if->else exp)))))
     ((set!? exp)     (union (cons (set!->var exp) '())
                             (free-vars (set!->exp exp))))
-    
+
     ; Sugar:
     ((let? exp)      (free-vars (let=>lambda exp)))
     ((begin? exp)    (reduce union (map free-vars (begin->exps exp)) '()))
@@ -622,7 +622,7 @@
     ((cell? exp)      (free-vars (cell->value exp)))
     ((set-cell!? exp) (union (free-vars (set-cell!->cell exp))
                              (free-vars (set-cell!->value exp))))
-    
+
     ; IR (2):
     ((closure? exp)   (union (free-vars (closure->lam exp))
                              (free-vars (closure->env exp))))
@@ -642,14 +642,14 @@
 ;; Mutables variables analysis and elimination happens
 ;; on a desugared Intermediate Language (1).
 
-;; Mutable variable analysis turns mutable variables 
+;; Mutable variable analysis turns mutable variables
 ;; into heap-allocated cells:
 
 ;; For any mutable variable mvar:
 
-;; (lambda (... mvar ...) body) 
+;; (lambda (... mvar ...) body)
 ;;           =>
-;; (lambda (... $v ...) 
+;; (lambda (... $v ...)
 ;;  (let ((mvar (cell $v)))
 ;;   body))
 
@@ -676,7 +676,7 @@
 
 ; analyze-mutable-variables : exp -> void
 (define (analyze-mutable-variables exp)
-  (cond 
+  (cond
     ; Core forms:
     ((const? exp)    (void))
     ((prim? exp)     (void))
@@ -687,7 +687,7 @@
                        (analyze-mutable-variables (if->condition exp))
                        (analyze-mutable-variables (if->then exp))
                        (analyze-mutable-variables (if->else exp))))
-    
+
     ; Sugar:
     ((let? exp)      (begin
                        (map analyze-mutable-variables (map cadr (let->bindings exp)))
@@ -698,9 +698,9 @@
     ((begin? exp)    (begin
                        (map analyze-mutable-variables (begin->exps exp))
                        (void)))
-    
+
     ; Application:
-    ((app? exp)      (begin 
+    ((app? exp)      (begin
                        (map analyze-mutable-variables exp)
                        (void)))
     (else            (error "unknown expression type: " exp))))
@@ -708,7 +708,7 @@
 
 ; wrap-mutables : exp -> exp
 (define (wrap-mutables exp)
-  
+
   (define (wrap-mutable-formals formals body-exp)
     (if (not (pair? formals))
         body-exp
@@ -716,7 +716,7 @@
             `(let ((,(car formals) (cell ,(car formals))))
                ,(wrap-mutable-formals (cdr formals) body-exp))
             (wrap-mutable-formals (cdr formals) body-exp))))
-  
+
   (cond
     ; Core forms:
     ((const? exp)    exp)
@@ -731,11 +731,11 @@
     ((if? exp)       `(if ,(wrap-mutables (if->condition exp))
                           ,(wrap-mutables (if->then exp))
                           ,(wrap-mutables (if->else exp))))
-    
+
     ; Application:
     ((app? exp)      (map wrap-mutables exp))
     (else            (error "unknown expression type: " exp))))
-                        
+
 
 
 ;; Name-mangling.
@@ -771,7 +771,7 @@
 
 ;;  (lambda (v1 ... vn) body)
 ;;             =>
-;;  (closure (lambda ($env v1 ... vn) 
+;;  (closure (lambda ($env v1 ... vn)
 ;;                   {xi => (env-get $id xi $env)}body)
 ;;           (env-make $id (x1 x1) ... (xn xn)))
 
@@ -810,10 +810,10 @@
                                 (fv    (difference (free-vars body) (lambda->formals exp)))
                                 (id    (allocate-environment fv))
                                 (sub  (map (lambda (v)
-                                             (cons v 
+                                             (cons v
                                                    (cons
-                                                    `(env-get ,id 
-                                                              ,v 
+                                                    `(env-get ,id
+                                                              ,v
                                                               ,$env)
                                                     '())))
                                            fv)))
@@ -825,18 +825,18 @@
                               ,(closure-convert (if->else exp))))
     ((set!? exp)         `(set! ,(set!->var exp)
                                 ,(closure-convert (set!->exp exp))))
-    
+
     ; IR (1):
-    
+
     ((cell? exp)         `(cell ,(closure-convert (cell->value exp))))
     ((cell-get? exp)     `(cell-get ,(closure-convert (cell-get->cell exp))))
     ((set-cell!? exp)    `(set-cell! ,(closure-convert (set-cell!->cell exp))
                                      ,(closure-convert (set-cell!->value exp))))
-    
+
     ; Applications:
     ((app? exp)          (map closure-convert exp))
     (else                (error "unhandled exp: " exp))))
-    
+
 
 
 
@@ -848,14 +848,14 @@
          (append-preamble (lambda (s)
                             (set! preamble (string-append preamble "  " s "\n"))))
          (body (c-compile-exp exp append-preamble)))
-    (string-append 
+    (string-append
      "int main (int argc, char* argv[]) {\n"
-     preamble 
-     "  __sum         = MakePrimitive(__prim_sum) ;\n" 
-     "  __product     = MakePrimitive(__prim_product) ;\n" 
-     "  __difference  = MakePrimitive(__prim_difference) ;\n" 
-     "  __display     = MakePrimitive(__prim_display) ;\n" 
-     "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"      
+     preamble
+     "  __sum         = MakePrimitive(__prim_sum) ;\n"
+     "  __product     = MakePrimitive(__prim_product) ;\n"
+     "  __difference  = MakePrimitive(__prim_difference) ;\n"
+     "  __display     = MakePrimitive(__prim_display) ;\n"
+     "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
      "  " body " ;\n"
      "  return 0;\n"
      " }\n")))
@@ -874,20 +874,20 @@
     ((cell? exp)        (c-compile-cell exp append-preamble))
     ((cell-get? exp)    (c-compile-cell-get exp append-preamble))
     ((set-cell!? exp)   (c-compile-set-cell! exp append-preamble))
-    
+
     ; IR (2):
     ((closure? exp)     (c-compile-closure exp append-preamble))
     ((env-make? exp)    (c-compile-env-make exp append-preamble))
     ((env-get? exp)     (c-compile-env-get exp append-preamble))
-    
-    ; Application:      
+
+    ; Application:
     ((app? exp)         (c-compile-app exp append-preamble))
     (else               (error "unknown exp in c-compile-exp: " exp))))
 
 ; c-compile-const : const-exp -> string
 (define (c-compile-const exp)
   (cond
-    ((integer? exp) (string-append 
+    ((integer? exp) (string-append
                      "MakeInt(" (number->string exp) ")"))
     ((boolean? exp) (string-append
                      "MakeBoolean(" (if exp "1" "0") ")"))
@@ -906,7 +906,7 @@
 ; c-compile-ref : ref-exp -> string
 (define (c-compile-ref exp)
   (mangle exp))
-  
+
 ; c-compile-args : list[exp] (string -> void) -> string
 (define (c-compile-args args append-preamble)
   (if (not (pair? args))
@@ -920,20 +920,20 @@
 ; c-compile-app : app-exp (string -> void) -> string
 (define (c-compile-app exp append-preamble)
   (let (($tmp (mangle (gensym 'tmp))))
-    
+
     (append-preamble (string-append
                       "Value " $tmp " ; "))
-    
+
     (let* ((args     (app->args exp))
            (fun      (app->fun exp)))
       (string-append
-       "("  $tmp " = " (c-compile-exp fun append-preamble) 
+       "("  $tmp " = " (c-compile-exp fun append-preamble)
        ","
        $tmp ".clo.lam("
        "MakeEnv(" $tmp ".clo.env)"
        (if (null? args) "" ",")
        (c-compile-args args append-preamble) "))"))))
-  
+
 ; c-compile-if : if-exp -> string
 (define (c-compile-if exp append-preamble)
   (string-append
@@ -941,7 +941,7 @@
    "(" (c-compile-exp (if->then exp) append-preamble)      ") : "
    "(" (c-compile-exp (if->else exp) append-preamble)      ")"))
 
-; c-compile-set-cell! : set-cell!-exp (string -> void) -> string 
+; c-compile-set-cell! : set-cell!-exp (string -> void) -> string
 (define (c-compile-set-cell! exp append-preamble)
   (string-append
    "(*"
@@ -949,7 +949,7 @@
    (c-compile-exp (set-cell!->value exp) append-preamble)
    ")"))
 
-; c-compile-cell-get : cell-get-exp (string -> void) -> string 
+; c-compile-cell-get : cell-get-exp (string -> void) -> string
 (define (c-compile-cell-get exp append-preamble)
   (string-append
    "(*("
@@ -966,7 +966,7 @@
 (define (c-compile-env-make exp append-preamble)
   (string-append
    "MakeEnv(__alloc_env" (number->string (env-make->id exp))
-   "(" 
+   "("
    (c-compile-args (env-make->values exp) append-preamble)
    "))"))
 
@@ -974,8 +974,8 @@
 (define (c-compile-env-get exp append-preamble)
   (string-append
    "((struct __env_"
-   (number->string (env-get->id exp)) "*)" 
-   (c-compile-exp (env-get->env exp) append-preamble) ".env.env)->" 
+   (number->string (env-get->id exp)) "*)"
+   (c-compile-exp (env-get->env exp) append-preamble) ".env.env)->"
    (mangle (env-get->field exp))))
 
 
@@ -983,11 +983,11 @@
 
 ;; Lambda compilation.
 
-;; Lambdas get compiled into procedures that, 
+;; Lambdas get compiled into procedures that,
 ;; once given a C name, produce a C function
 ;; definition with that name.
 
-;; These procedures are stored up an eventually 
+;; These procedures are stored up an eventually
 ;; emitted.
 
 ; type lambda-id = natural
@@ -1044,33 +1044,33 @@
                        preamble
                        "  return " body " ;\n"
                        "}\n")))))
-  
+
 ; c-compile-env-struct : list[symbol] -> string
 (define (c-compile-env-struct env)
   (let* ((id     (car env))
          (fields (cdr env))
          (sid    (number->string id))
          (tyname (string-append "struct __env_" sid)))
-    (string-append 
-     "struct __env_" (number->string id) " {\n" 
+    (string-append
+     "struct __env_" (number->string id) " {\n"
      (apply string-append (map (lambda (f)
                                  (string-append
                                   " Value "
-                                  (mangle f) 
+                                  (mangle f)
                                   " ; \n"))
                                fields))
      "} ;\n\n"
-     tyname "*" " __alloc_env" sid 
+     tyname "*" " __alloc_env" sid
      "(" (c-compile-formals fields) ")" "{\n"
      "  " tyname "*" " t = malloc(sizeof(" tyname "))" ";\n"
-     (apply string-append 
+     (apply string-append
             (map (lambda (f)
                    (string-append "  t->" (mangle f) " = " (mangle f) ";\n"))
                  fields))
      "  return t;\n"
      "}\n\n"
      )))
-    
+
 
 
 
@@ -1078,12 +1078,12 @@
 (define (emit line)
   (display line)
   (newline))
-  
+
 ; c-compile-and-emit : (string -> A) exp -> void
 (define (c-compile-and-emit emit input-program)
 
   (define compiled-program "")
-  
+
   (set! input-program (desugar input-program))
 
   (analyze-mutable-variables input-program)
@@ -1095,9 +1095,9 @@
   (emit "#include <stdlib.h>")
   (emit "#include <stdio.h>")
   (emit "#include \"scheme.h\"")
-  
+
   (emit "")
-  
+
   ; Create storage for primitives:
   (emit "
 Value __sum ;
@@ -1106,8 +1106,8 @@ Value __product ;
 Value __display ;
 Value __numEqual ;
 ")
-  
-  (for-each 
+
+  (for-each
    (lambda (env)
      (emit (c-compile-env-struct env)))
    environments)
@@ -1115,47 +1115,47 @@ Value __numEqual ;
   (set! compiled-program  (c-compile-program input-program))
 
   ;; Emit primitive procedures:
-  (emit 
+  (emit
    "Value __prim_sum(Value e, Value a, Value b) {
   return MakeInt(a.z.value + b.z.value) ;
 }")
-  
-  (emit 
+
+  (emit
    "Value __prim_product(Value e, Value a, Value b) {
   return MakeInt(a.z.value * b.z.value) ;
 }")
-  
-  (emit 
+
+  (emit
    "Value __prim_difference(Value e, Value a, Value b) {
   return MakeInt(a.z.value - b.z.value) ;
 }")
-  
+
   (emit
    "Value __prim_display(Value e, Value v) {
   printf(\"%i\\n\",v.z.value) ;
   return v ;
 }")
-  
+
   (emit
    "Value __prim_numEqual(Value e, Value a, Value b) {
   return MakeBoolean(a.z.value == b.z.value) ;
 }")
-  
+
   ;; Emit lambdas:
   ; Print the prototypes:
   (for-each
    (lambda (l)
      (emit (string-append "Value __lambda_" (number->string (car l)) "() ;")))
    lambdas)
-  
+
   (emit "")
-  
+
   ; Print the definitions:
   (for-each
    (lambda (l)
      (emit ((cadr l) (string-append "__lambda_" (number->string (car l))))))
    lambdas)
-  
+
   (emit compiled-program))
 
 
