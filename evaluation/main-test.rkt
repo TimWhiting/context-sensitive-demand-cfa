@@ -89,7 +89,7 @@
       (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
       ; Missing primitives or takes longer
       (define benchmark-2 '(meta-circ regex-derivative regex loop2 scheme-to-c scheme2java))
-      (for ([example (get-examples '(regex) all-benchmarks)])
+      (for ([example (get-examples '(scheme-to-c) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
