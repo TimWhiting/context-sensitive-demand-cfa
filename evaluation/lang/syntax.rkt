@@ -26,6 +26,8 @@
      (foldl set-union (set)
             (cons (free-vars f)
                   (map free-vars args)))]
+    [`(λ ,(? symbol? xs) ,bod)
+     (set-subtract (free-vars bod) (set xs))]
     [`(λ ,xs ,bod)
      (set-subtract (free-vars bod) (apply set xs))]
     [`(match ,scruitinee ,@ms)

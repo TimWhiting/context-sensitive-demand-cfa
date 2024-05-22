@@ -1,4 +1,6 @@
 # Artifact for Demand m-CFA
+TODO: We should do a graph of all queries with x axis being time, 
+y being percent resolved by that time, and another dimension of singletons
 
 - Supports a subset of R6RS
 - Supports a subset of Plait (#lang racket/plait)

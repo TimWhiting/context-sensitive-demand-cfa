@@ -82,7 +82,14 @@
       (define all-examples '(ack blur cpstak deriv eta facehugger flatten
                                  kcfa-2 kcfa-3 loop2-1 map mj09 primtest
                                  regex rsa sat-1 sat-2 sat-3 tak sat-small))
-      (for ([example (get-examples '(fermat indirect-hol kcfa-worst-case-1 eta) all-benchmarks)])
+      (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
+      (define kcfas-large '(kcfa-worst-case-16 kcfa-worst-case-20 kcfa-worst-case-32))
+      (define kcfas-mega '(kcfa-worst-case-40 kcfa-worst-case-64 kcfa-worst-case-80 kcfa-worst-case-128 kcfa-worst-case-160 kcfa-worst-case-256))
+      (define benchmarks '(map-pattern rsa sat-brute simple-id solovay-strassen indirect-hol fermat))
+      (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
+      ; Missing primitives or takes longer
+      (define benchmark-2 '(meta-circ regex-derivative regex loop2 scheme-to-c scheme2java))
+      (for ([example (get-examples '(regex) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
@@ -94,6 +101,7 @@
           (pretty-displayn 0 "")
           ; (show-envs #t)
           ; (trace 1)
+
           (define rebindhash (run-rebind name exp m))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
           (define expmhash (run-expm name exp m))

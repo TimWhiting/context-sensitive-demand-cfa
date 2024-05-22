@@ -28,7 +28,7 @@
 
 (define (to-begin exprs)
   (match exprs
-    ['() '()]
+    ['() `(app void)]
     [(list e) e]
     [(cons e es) `(let ((_ ,e)) ,(to-begin es))]
     )
@@ -105,7 +105,7 @@
                   )
                )
          )
-        (list `(cons car cdr) `(nil)))
+        (list `(cons car cdr) `(nil) `(error r)))
   )
 
 (define (get-tps tps)
@@ -264,6 +264,7 @@
     [`(let ,defs ,@es) `(let ,(map translate-def defs) ,(translate-top-defs es))]
     [`(let* ,defs ,@es) `(let* ,(map translate-def defs) ,(translate-top-defs es))]
     [`(if ,c ,t ,f) `(match ,(translate c) [(#f) ,(translate f)] [_ ,(translate t)] )]
+    [`(if ,c ,t) `(match ,(translate c) [(#f) (app void)] [_ ,(translate t)] )]
     [`(cond ,@mchs) (unwrap-cond mchs)]
     [`(match ,c ,@mchs) `(match ,(translate c) ,@(map unwrap-match mchs))]
     [`(type-case ,tp ,c ,@mchs)
@@ -313,6 +314,7 @@
   (match args
     [(cons a as) (cons (remove-type a) (remove-types as))]
     ['() '()]
+    [x x]
     ))
 
 (define (remove-type a)
@@ -331,7 +333,7 @@
 
 (define (unwrap-cond mchs)
   (match mchs
-    ['() `(app error)]
+    ['() `(app error "no-match")]
     [(list `(else ,@es)) (translate-top-defs es)]
     [(cons `(,c) xs)
      `(match ,(translate c)

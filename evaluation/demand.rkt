@@ -32,12 +32,13 @@
                               ; otherwise yield the unrefined environment and other refinements
                               (each (unit ρ) (refine ρ))))
                  ))
-        ; (>>= (do-get-refines* ρ′) ;; Second, find refinements of the tail of this environment
-        ;      (λ (ρ′)
-        ;        (match ρ′ ; For each refinement of the tail, yield that tail with the current context as head
-        ;          [(menv ccs) (unit (menv (cons (callc c) ccs)))]
-        ;          )))
+        (>>= (do-get-refines* ρ′) ;; Second, find refinements of the tail of this environment
+             (λ (ρ′)
+               (match ρ′ ; For each refinement of the tail, yield that tail with the current context as head
+                 [(menv ccs) (unit (menv (cons (callc c) ccs)))]
+                 )))
         )]
+    [(menv '()) ⊥]
     ))
 
 (define ((find x) Ce ρ)
@@ -134,6 +135,7 @@
     ['< `(prim < ,do-lt)] ; Numbers work with the regular data model
     ['> `(prim > ,do-gt)] ; Numbers work with the regular data model
     ['odd? `(prim odd? ,do-odd)] ; Numbers work with the regular data model
+    ['even? `(prim even? ,do-even)] ; Numbers work with the regular data model
     ['newline `(prim newline ,do-newline)]
     ['display `(prim display ,do-display)]
     ['void `(prim void ,do-void)]

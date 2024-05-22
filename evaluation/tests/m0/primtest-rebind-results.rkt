@@ -62,7 +62,7 @@
   (env ()))
 clos/con:
 	'((prim and) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -79,7 +79,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((prim or) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -90,7 +90,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -101,7 +101,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -119,7 +119,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -137,7 +137,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -155,7 +155,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -173,7 +173,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -191,7 +191,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -209,7 +209,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -227,7 +227,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -245,7 +245,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -263,52 +263,52 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> modulo <-) (app * base (app modulo-power base (app - exp 1) n)) n)
   (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> modulo <-) (app square (app modulo-power base (app / exp 2) n)) n)
   (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> or <-) (app <= iterations 0) (let* (byte-size ... a) ...))
   (env ()))
 clos/con:
 	'((prim or) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))
@@ -316,7 +316,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))
@@ -324,7 +324,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (n)
@@ -338,7 +338,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
      <-))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (let* (...
@@ -349,13 +349,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
     ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (let* (byte-size ... a)
@@ -364,7 +364,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -384,7 +384,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -404,7 +404,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -424,7 +424,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -444,7 +444,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -452,7 +452,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    ...)
   (env ()))
 clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
+literals: '(10 ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -460,7 +460,7 @@ literals: '(10 ⊥ ⊥ ⊥)
    (-> (app generate-fermat-prime byte-size iterations) <-))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
@@ -468,7 +468,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -484,7 +484,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -496,7 +496,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    (_ (-> n <-)))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
@@ -508,7 +508,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
    _)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
@@ -519,7 +519,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -529,7 +529,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -541,7 +541,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
      <-)))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
@@ -553,7 +553,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
    _)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)
@@ -561,13 +561,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (λ (n iterations)
@@ -576,7 +576,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (n)
@@ -597,116 +597,116 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) letrec* (square ... byte-size) ...) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env ()))
 clos/con:
 	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) base (app modulo-power base (app - exp 1) n)) (env ()))
 clos/con:
 	'((prim *) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) x x) (env ()))
 clos/con:
 	'((prim *) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) exp 1) (env ()))
 clos/con:
 	'((prim -) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) iterations 1) (env ()))
 clos/con:
 	'((prim -) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) n 1) (env ()))
 clos/con:
 	'((prim -) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> / <-) (app log n) (app log 2)) (env ()))
 clos/con:
 	'((prim /) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> / <-) exp 2) (env ()))
 clos/con:
 	'((prim /) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> <= <-) iterations 0) (env ()))
 clos/con:
 	'((prim <=) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 11) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 13) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 17) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 19) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 2) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 23) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 3) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 5) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo n 7) 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo-power a (app - n 1) n) 1) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) exp 0) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> ceiling <-) (app / (app log n) (app log 2))) (env ()))
 clos/con:
 	'((prim ceiling) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> generate-fermat-prime <-) byte-size iterations) (env ()))
 clos/con:
@@ -718,7 +718,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> generate-fermat-prime <-) byte-size iterations) (env ()))
 clos/con:
@@ -730,7 +730,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> is-fermat-prime? <-) n (app - iterations 1)) (env ()))
 clos/con:
@@ -742,7 +742,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> is-fermat-prime? <-) n iterations) (env ()))
 clos/con:
@@ -754,7 +754,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> is-trivial-composite? <-) n) (env ()))
 clos/con:
@@ -766,62 +766,62 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> log <-) 2) (env ()))
 clos/con:
 	'((prim log) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> log <-) n) (env ()))
 clos/con:
 	'((prim log) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 11) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 13) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 17) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 19) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 2) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 23) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 3) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 5) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) n 7) (env ()))
 clos/con:
 	'((prim modulo) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) a (app - n 1) n) (env ()))
 clos/con:
@@ -833,7 +833,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app - exp 1) n) (env ()))
 clos/con:
@@ -845,7 +845,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app / exp 2) n) (env ()))
 clos/con:
@@ -857,464 +857,424 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> not <-) (app is-trivial-composite? n)) (env ()))
 clos/con:
 	'((prim not) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> odd? <-) exp) (env ()))
 clos/con:
 	'((prim odd?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> random <-) byte-size) (env ()))
 clos/con:
 	'((prim random) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> random <-) byte-size) (env ()))
 clos/con:
 	'((prim random) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> square <-) (app modulo-power base (app / exp 2) n)) (env ()))
 clos/con:
 	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * (-> x <-) x) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * x (-> x <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - (-> exp <-) 1) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - (-> iterations <-) 1) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - (-> n <-) 1) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - exp (-> 1 <-)) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - iterations (-> 1 <-)) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - n (-> 1 <-)) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app / (-> (app log n) <-) (app log 2)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app / (-> exp <-) 2) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app / (app log n) (-> (app log 2) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(0.6931471805599453 ⊥ ⊥)
 
 '(query: (app / exp (-> 2 <-)) (env ()))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥ ⊥)
+literals: '(2 ⊥ ⊥)
 
 '(query: (app <= (-> iterations <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app <= iterations (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 11) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 13) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 17) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 19) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 2) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 23) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 3) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 5) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo n 7) <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> exp <-) 0) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (app modulo n 11) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 13) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 17) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 19) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 2) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 23) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 3) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 5) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo n 7) (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = (app modulo-power a (app - n 1) n) (-> 1 <-)) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app = exp (-> 0 <-)) (env ()))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app generate-fermat-prime (-> byte-size <-) iterations) (env ()))
 clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
+literals: '(15 ⊥ ⊥)
 
 '(query: (app generate-fermat-prime (-> byte-size <-) iterations) (env ()))
 clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
+literals: '(15 ⊥ ⊥)
 
 '(query: (app generate-fermat-prime byte-size (-> iterations <-)) (env ()))
 clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
+literals: '(10 ⊥ ⊥)
 
 '(query: (app generate-fermat-prime byte-size (-> iterations <-)) (env ()))
 clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
+literals: '(10 ⊥ ⊥)
 
 '(query: (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app is-fermat-prime? (-> n <-) iterations) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app is-fermat-prime? n (-> iterations <-)) (env ()))
 clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
+literals: '(10 ⊥ ⊥)
 
 '(query: (app is-trivial-composite? (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app log (-> 2 <-)) (env ()))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥ ⊥)
+literals: '(2 ⊥ ⊥)
 
 '(query: (app log (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 11) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 13) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 17) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 19) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 2) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 23) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 3) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 5) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> n <-) 7) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo n (-> 11 <-)) (env ()))
 clos/con: ⊥
-literals: '(11 ⊥ ⊥ ⊥)
+literals: '(11 ⊥ ⊥)
 
 '(query: (app modulo n (-> 13 <-)) (env ()))
 clos/con: ⊥
-literals: '(13 ⊥ ⊥ ⊥)
+literals: '(13 ⊥ ⊥)
 
 '(query: (app modulo n (-> 17 <-)) (env ()))
 clos/con: ⊥
-literals: '(17 ⊥ ⊥ ⊥)
+literals: '(17 ⊥ ⊥)
 
 '(query: (app modulo n (-> 19 <-)) (env ()))
 clos/con: ⊥
-literals: '(19 ⊥ ⊥ ⊥)
+literals: '(19 ⊥ ⊥)
 
 '(query: (app modulo n (-> 2 <-)) (env ()))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥ ⊥)
+literals: '(2 ⊥ ⊥)
 
 '(query: (app modulo n (-> 23 <-)) (env ()))
 clos/con: ⊥
-literals: '(23 ⊥ ⊥ ⊥)
+literals: '(23 ⊥ ⊥)
 
 '(query: (app modulo n (-> 3 <-)) (env ()))
 clos/con: ⊥
-literals: '(3 ⊥ ⊥ ⊥)
+literals: '(3 ⊥ ⊥)
 
 '(query: (app modulo n (-> 5 <-)) (env ()))
 clos/con: ⊥
-literals: '(5 ⊥ ⊥ ⊥)
+literals: '(5 ⊥ ⊥)
 
 '(query: (app modulo n (-> 7 <-)) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app modulo-power (-> a <-) (app - n 1) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power (-> base <-) (app - exp 1) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power (-> base <-) (app / exp 2) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power a (-> (app - n 1) <-) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power a (app - n 1) (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (-> (app - exp 1) <-) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (-> (app / exp 2) <-) n) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (app - exp 1) (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (app / exp 2) (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app not (-> (app is-trivial-composite? n) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app odd? (-> exp <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app random (-> byte-size <-)) (env ()))
 clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
+literals: '(15 ⊥ ⊥)
 
 '(query: (app random (-> byte-size <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (letrec* (... iterations (byte-size (-> 15 <-)) () ...) ...) (env ()))
 clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
+literals: '(15 ⊥ ⊥)
 
 '(query: (match (-> (app = exp 0) <-) (#f) _) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app odd? exp) <-) (#f) _) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (app = exp 0) (#f) (_ (-> 1 <-))) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (x) (-> (app * x x) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
-  a
-  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  byte-size
-  (let* (...
-         ()
-         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))
-         a
-         ...)
-    ...)
-  (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  byte-size
-  (letrec* (... iterations (byte-size (-> 15 <-)) () ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
-
-'(store:
-  generate-fermat-prime
+  *
   (letrec*
    (...
-    is-fermat-prime?
-    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-    iterations
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
     ...)
    ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (...
-    is-fermat-prime?
-    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-    iterations
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  generate-fermat-prime
-  (λ (byte-size iterations) (-> (let (n) ...) <-))
+  *
+  (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (...
-    is-fermat-prime?
-    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
-    iterations
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+	'((λ (x) (-> (app * x x) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  is-fermat-prime?
+  -
   (letrec*
    (...
     is-trivial-composite?
@@ -1324,38 +1284,28 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  is-fermat-prime?
-  (λ (byte-size iterations) (-> (let (n) ...) <-))
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  is-fermat-prime?
-  (λ (n iterations)
+	'((λ (n iterations)
     (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  -
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
 clos/con:
-	'((letrec*
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  /
+  (letrec*
    (...
     is-trivial-composite?
     (is-fermat-prime? (-> (λ (n iterations) ...) <-))
@@ -1363,10 +1313,60 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  is-trivial-composite?
+  /
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  <=
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  =
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  =
   (letrec*
    (...
     modulo-power
@@ -1376,118 +1376,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (...
-    modulo-power
-    (is-trivial-composite? (-> (λ (n) ...) <-))
-    is-fermat-prime?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  is-trivial-composite?
-  (λ (byte-size iterations) (-> (let (n) ...) <-))
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    modulo-power
-    (is-trivial-composite? (-> (λ (n) ...) <-))
-    is-fermat-prime?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  iterations
-  (letrec*
-   (... generate-fermat-prime (iterations (-> 10 <-)) byte-size ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
-
-'(store:
-  iterations
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  modulo-power
-  (letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  modulo-power
-  (λ (base exp n) (-> (match (app = exp 0) ...) <-))
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  modulo-power
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store:
-  n
-  (let (... () (n (-> (app random byte-size) <-)) () ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  n
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  n
-  (λ (n)
+	'((λ (n)
     (->
      (app
       or
@@ -1502,44 +1391,567 @@ literals: '(⊤ ⊥ ⊥ ⊥)
       (app = (app modulo n 23) 0))
      <-))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  =
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  a
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  and
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  base
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  byte-size
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥)
+
+'(store:
+  byte-size
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  ceiling
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  exp
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  generate-fermat-prime
+  ((top) letrec* (square ... byte-size) ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  generate-fermat-prime
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-fermat-prime?
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-fermat-prime?
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-trivial-composite?
+  ((top) letrec* (square ... byte-size) ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-trivial-composite?
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  iterations
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥)
+
+'(store:
+  iterations
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  log
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  modulo
+  (letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n)
+    (->
+     (app
+      or
+      (app = (app modulo n 2) 0)
+      (app = (app modulo n 3) 0)
+      (app = (app modulo n 5) 0)
+      (app = (app modulo n 7) 0)
+      (app = (app modulo n 11) 0)
+      (app = (app modulo n 13) 0)
+      (app = (app modulo n 17) 0)
+      (app = (app modulo n 19) 0)
+      (app = (app modulo n 23) 0))
+     <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  modulo
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  modulo-power
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  modulo-power
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  n
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  n
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  n
+  (letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  n
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  not
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  odd?
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  or
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  or
+  (letrec*
+   (...
+    modulo-power
+    (is-trivial-composite? (-> (λ (n) ...) <-))
+    is-fermat-prime?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n)
+    (->
+     (app
+      or
+      (app = (app modulo n 2) 0)
+      (app = (app modulo n 3) 0)
+      (app = (app modulo n 5) 0)
+      (app = (app modulo n 7) 0)
+      (app = (app modulo n 11) 0)
+      (app = (app modulo n 13) 0)
+      (app = (app modulo n 17) 0)
+      (app = (app modulo n 19) 0)
+      (app = (app modulo n 23) 0))
+     <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  random
+  (letrec*
+   (...
+    is-fermat-prime?
+    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))
+    iterations
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  random
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((λ (n iterations)
+    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   square
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  x
   (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store: byte-size ((top) letrec* (square ... byte-size) ...) (env ()))
+clos/con: ⊥
+literals: '(15 ⊥ ⊥)
+
+'(store: is-fermat-prime? ((top) letrec* (square ... byte-size) ...) (env ()))
+clos/con:
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: iterations ((top) letrec* (square ... byte-size) ...) (env ()))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥)
+
+'(store: modulo-power ((top) letrec* (square ... byte-size) ...) (env ()))
+clos/con:
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: square ((top) letrec* (square ... byte-size) ...) (env ()))
 clos/con:
 	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: base (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store: byte-size (λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(15 ⊥ ⊥ ⊥)
-
-'(store: exp (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
-
-'(store: iterations (λ (byte-size iterations) (-> (let (n) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥ ⊥)
-
-'(store: n (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store: square (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env ()))
-clos/con:
-	'((letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: x (λ (x) (-> (app * x x) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)

@@ -8,220 +8,220 @@
 
 '(query: ((top) letrec* (id ... g) ...) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match (app <= n 1) (#f) (_ (-> 1 <-))) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query:
   (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * n (-> (app g (app - n 1)) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app g (-> (app - n 1) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - n (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - (-> n <-) 1) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> - <-) n 1) (env (())))
 clos/con:
 	'((prim -) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> g <-) (app - n 1)) (env (())))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app * (-> n <-) (app g (app - n 1))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> * <-) n (app g (app - n 1))) (env (())))
 clos/con:
 	'((prim *) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app <= n 1) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app <= n (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app <= (-> n <-) 1) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> <= <-) n 1) (env (())))
 clos/con:
 	'((prim <=) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
 clos/con:
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (n) (-> (match (app <= n 1) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match (app <= n 1) (#f) (_ (-> 1 <-))) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query:
   (match (app <= n 1) ((#f) (-> (app * n (app f (app - n 1))) <-)) _)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * n (-> (app f (app - n 1)) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app f (-> (app - n 1) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - n (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - (-> n <-) 1) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> - <-) n 1) (env (())))
 clos/con:
 	'((prim -) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> f <-) (app - n 1)) (env (())))
 clos/con:
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app * (-> n <-) (app f (app - n 1))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> * <-) n (app f (app - n 1))) (env (())))
 clos/con:
 	'((prim *) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app <= n 1) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app <= n (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app <= (-> n <-) 1) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> <= <-) n 1) (env (())))
 clos/con:
 	'((prim <=) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))
 clos/con:
 	'((letrec* (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (x) (-> x <-)) (env (())))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (id ... g) (-> (app + (app (app id f) 3) (app (app id g) 4)) <-))
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app + (app (app id f) 3) (-> (app (app id g) 4) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (app id g) (-> 4 <-)) (env ()))
 clos/con: ⊥
-literals: '(4 ⊥ ⊥ ⊥)
+literals: '(4 ⊥ ⊥)
 
 '(query: (app (-> (app id g) <-) 4) (env ()))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> g <-)) (env ()))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> id <-) g) (env ()))
 clos/con:
 	'((letrec* (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app + (-> (app (app id f) 3) <-) (app (app id g) 4)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (app id f) (-> 3 <-)) (env ()))
 clos/con: ⊥
-literals: '(3 ⊥ ⊥ ⊥)
+literals: '(3 ⊥ ⊥)
 
 '(query: (app (-> (app id f) <-) 3) (env ()))
 clos/con:
 	'((letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> f <-)) (env ()))
 clos/con:
 	'((letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> id <-) f) (env ()))
 clos/con:
 	'((letrec* (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> + <-) (app (app id f) 3) (app (app id g) 4)) (env ()))
 clos/con:
 	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)

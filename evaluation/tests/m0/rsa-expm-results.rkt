@@ -1,6 +1,6 @@
 '(expression:
   (lettypes
-   ((cons car cdr))
+   ((cons car cdr) (error r))
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
@@ -63,10 +63,19 @@
      (plaintext 42)
      (ciphertext (app encrypt plaintext e n))
      (decrypted-ciphertext (app decrypt ciphertext d n)))
-    (match
-     (app not (app = plaintext decrypted-ciphertext))
-     ((#f) (app display "RSA success!"))
-     (_ (app error "RSA fail!"))))))
+    (let ((_ (app display "The plaintext is:            ")))
+      (let ((_ (app display plaintext)))
+        (let ((_ (app newline)))
+          (let ((_ (app display "The ciphertext is:           ")))
+            (let ((_ (app display ciphertext)))
+              (let ((_ (app newline)))
+                (let ((_ (app display "The decrypted ciphertext is: ")))
+                  (let ((_ (app display decrypted-ciphertext)))
+                    (let ((_ (app newline)))
+                      (match
+                       (app not (app = plaintext decrypted-ciphertext))
+                       ((#f) (app void))
+                       (_ (app error "RSA fail!")))))))))))))))
 
 '(query:
   (app
@@ -77,7 +86,7 @@
   (env (())))
 clos/con:
 	'((prim and) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -88,7 +97,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -99,7 +108,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -110,43 +119,35 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> * <-) base (app modulo-power base (app - exp 1) n))
   (env (())))
 clos/con:
 	'((prim *) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) y (app - x (app * y (app quotient a b))))
   (env (())))
 clos/con:
 	'((app (-> cons <-) y (app - x (app * y (app quotient a b)))) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> error <-) "The modulus is too small to encrypt the message.")
-  (env (())))
-clos/con:
-	'((app (-> error <-) "The modulus is too small to encrypt the message.")
-  (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> modulo <-) (app * base (app modulo-power base (app - exp 1) n)) n)
   (env (())))
 clos/con:
 	'((prim modulo) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> modulo <-) (app square (app modulo-power base (app / exp 2) n)) n)
   (env (())))
 clos/con:
 	'((prim modulo) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> square <-) (app modulo-power base (app / exp 2) n))
@@ -154,75 +155,133 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app * (-> base <-) (app modulo-power base (app - exp 1) n))
   (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app * base (-> (app modulo-power base (app - exp 1) n) <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app cons (-> y <-) (app - x (app * y (app quotient a b))))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app cons y (-> (app - x (app * y (app quotient a b))) <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(query:
-  (app error (-> "The modulus is too small to encrypt the message." <-))
-  (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "The modulus is too small to encrypt the message.")
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))
   (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query:
   (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))
   (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query:
   (app square (-> (app modulo-power base (app / exp 2) n) <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (let (...
+        ()
+        (_ (-> (app display "The ciphertext is:           ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (...
+        ()
+        (_ (-> (app display "The decrypted ciphertext is: ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (...
+        ()
+        (_ (-> (app display "The plaintext is:            ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display ciphertext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display decrypted-ciphertext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display plaintext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_)
+    (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)
@@ -235,7 +294,7 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let* (x:y ... y)
@@ -247,7 +306,7 @@ clos/con:
    (let* (x:y ... y)
      (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -259,7 +318,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -279,7 +338,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -299,7 +358,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -310,16 +369,8 @@ literals: '(⊥ ⊥ ⊥ ⊥)
     ...)
    ...)
   (env ()))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -339,7 +390,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -351,7 +402,7 @@ clos/con:
    (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -363,7 +414,7 @@ clos/con:
    (... extended-gcd (modulo-inverse (-> (λ (a n) ...) <-)) totient ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -375,23 +426,7 @@ clos/con:
    (... private-exponent (encrypt (-> (λ (m e n) ...) <-)) decrypt ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (car ... decrypted-ciphertext)
-   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((con
-   error
-   (match
-    (app not (app = plaintext decrypted-ciphertext))
-    (#f)
-    (_ (-> (app error "RSA fail!") <-))))
-  (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)
@@ -399,20 +434,20 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
@@ -420,7 +455,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
@@ -428,10 +463,10 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (lettypes cons ... cons (letrec* (car ... decrypted-ciphertext) ...))
+  (letrec* (car ... decrypted-ciphertext) (-> (let (_) ...) <-))
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
@@ -442,24 +477,21 @@ clos/con:
     (#f)
     (_ (-> (app error "RSA fail!") <-))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (match
-   (app > m n)
-   (#f)
-   (_ (-> (app error "The modulus is too small to encrypt the message.") <-)))
-  (env (())))
+  (lettypes cons ... error (letrec* (car ... decrypted-ciphertext) ...))
+  (env ()))
 clos/con:
+	'(((top) app void) (env ()))
 	'((con
    error
    (match
-    (app > m n)
+    (app not (app = plaintext decrypted-ciphertext))
     (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -468,7 +500,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    (_ (-> (app modulo-inverse e (app totient p q)) <-)))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
@@ -484,17 +516,17 @@ clos/con:
     (#f)
     (_ (-> (app error "RSA fail!") <-))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
    (app not (app = plaintext decrypted-ciphertext))
-   ((#f) (-> (app display "RSA success!") <-))
+   ((#f) (-> (app void) <-))
    _)
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -506,7 +538,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
      <-)))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
@@ -518,14 +550,14 @@ literals: '(⊤ ⊥ ⊥ ⊥)
    _)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)
   (env (())))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)
@@ -533,7 +565,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))
@@ -541,7 +573,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)
@@ -552,25 +584,25 @@ clos/con:
    (let* (x:y ... y)
      (-> (app cons y (app - x (app * y (app quotient a b)))) <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (λ (e p q)
@@ -584,15 +616,15 @@ literals: '(⊤ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
-'(query: ((top) lettypes (cons) ...) (env ()))
+'(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
 	'(((top) app void) (env ()))
 	'((con
@@ -602,118 +634,143 @@ clos/con:
     (#f)
     (_ (-> (app error "RSA fail!") <-))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) (app - p 1) (app - q 1)) (env (())))
 clos/con:
 	'((prim *) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) p q) (env ()))
 clos/con:
 	'((prim *) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) x x) (env (())))
 clos/con:
 	'((prim *) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> * <-) y (app quotient a b)) (env (())))
 clos/con:
 	'((prim *) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) exp 1) (env (())))
 clos/con:
 	'((prim -) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) p 1) (env (())))
 clos/con:
 	'((prim -) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) q 1) (env (())))
 clos/con:
 	'((prim -) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> - <-) x (app * y (app quotient a b))) (env (())))
 clos/con:
 	'((prim -) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> / <-) exp 2) (env (())))
 clos/con:
 	'((prim /) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> < <-) 1 e) (env (())))
 clos/con:
 	'((prim <) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> < <-) e (app totient p q)) (env (())))
 clos/con:
 	'((prim <) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) (app modulo a b) 0) (env (())))
 clos/con:
 	'((prim =) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) 1 (app gcd e (app totient p q))) (env (())))
 clos/con:
 	'((prim =) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) exp 0) (env (())))
 clos/con:
 	'((prim =) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> = <-) plaintext decrypted-ciphertext) (env ()))
 clos/con:
 	'((prim =) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> > <-) m n) (env (())))
 clos/con:
 	'((prim >) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) (app extended-gcd a n)) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) x:y) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) x:y) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 0 1) (env (())))
 clos/con:
 	'((app (-> cons <-) 0 1) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> decrypt <-) ciphertext d n) (env ()))
 clos/con:
 	'((letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> display <-) "RSA success!") (env ()))
+'(query: (app (-> display <-) "The ciphertext is:           ") (env ()))
 clos/con:
 	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> display <-) "The decrypted ciphertext is: ") (env ()))
+clos/con:
+	'((prim display) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> display <-) "The plaintext is:            ") (env ()))
+clos/con:
+	'((prim display) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> display <-) ciphertext) (env ()))
+clos/con:
+	'((prim display) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> display <-) decrypted-ciphertext) (env ()))
+clos/con:
+	'((prim display) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> display <-) plaintext) (env ()))
+clos/con:
+	'((prim display) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> encrypt <-) plaintext e n) (env ()))
 clos/con:
@@ -721,12 +778,12 @@ clos/con:
    (... private-exponent (encrypt (-> (λ (m e n) ...) <-)) decrypt ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> error <-) "RSA fail!") (env ()))
 clos/con:
 	'((app (-> error <-) "RSA fail!") (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> extended-gcd <-) a n) (env (())))
 clos/con:
@@ -734,7 +791,7 @@ clos/con:
    (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> extended-gcd <-) b (app modulo a b)) (env (())))
 clos/con:
@@ -742,12 +799,12 @@ clos/con:
    (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> gcd <-) e (app totient p q)) (env (())))
 clos/con:
 	'((prim gcd) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> is-legal-public-exponent? <-) e p q) (env (())))
 clos/con:
@@ -759,22 +816,22 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) (app car (app extended-gcd a n)) n) (env (())))
 clos/con:
 	'((prim modulo) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) a b) (env (())))
 clos/con:
 	'((prim modulo) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo <-) a b) (env (())))
 clos/con:
 	'((prim modulo) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-inverse <-) e (app totient p q)) (env (())))
 clos/con:
@@ -782,7 +839,7 @@ clos/con:
    (... extended-gcd (modulo-inverse (-> (λ (a n) ...) <-)) totient ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app - exp 1) n) (env (())))
 clos/con:
@@ -794,7 +851,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) base (app / exp 2) n) (env (())))
 clos/con:
@@ -806,7 +863,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) c d n) (env (())))
 clos/con:
@@ -818,7 +875,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> modulo-power <-) m e n) (env (())))
 clos/con:
@@ -830,17 +887,32 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> newline <-)) (env ()))
+clos/con:
+	'((prim newline) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> newline <-)) (env ()))
+clos/con:
+	'((prim newline) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> newline <-)) (env ()))
+clos/con:
+	'((prim newline) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> not <-) (app = plaintext decrypted-ciphertext)) (env ()))
 clos/con:
 	'((prim not) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> odd? <-) exp) (env (())))
 clos/con:
 	'((prim odd?) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> private-exponent <-) e p q) (env ()))
 clos/con:
@@ -852,158 +924,163 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> quotient <-) a b) (env (())))
 clos/con:
 	'((prim quotient) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> totient <-) p q) (env (())))
 clos/con:
 	'((letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> totient <-) p q) (env (())))
 clos/con:
 	'((letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> totient <-) p q) (env (())))
 clos/con:
 	'((letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> void <-)) (env ()))
+clos/con:
+	'((prim void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app * (-> (app - p 1) <-) (app - q 1)) (env (())))
 clos/con: ⊥
-literals: '(40 ⊥ ⊥ ⊥)
+literals: '(40 ⊥ ⊥)
 
 '(query: (app * (-> p <-) q) (env ()))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app * (-> x <-) x) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * (-> y <-) (app quotient a b)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * (app - p 1) (-> (app - q 1) <-)) (env (())))
 clos/con: ⊥
-literals: '(46 ⊥ ⊥ ⊥)
+literals: '(46 ⊥ ⊥)
 
 '(query: (app * p (-> q <-)) (env ()))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app * x (-> x <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app * y (-> (app quotient a b) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - (-> exp <-) 1) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - (-> p <-) 1) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app - (-> q <-) 1) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app - (-> x <-) (app * y (app quotient a b))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app - exp (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - p (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - q (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app - x (-> (app * y (app quotient a b)) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app / (-> exp <-) 2) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app / exp (-> 2 <-)) (env (())))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥ ⊥)
+literals: '(2 ⊥ ⊥)
 
 '(query: (app < (-> 1 <-) e) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app < (-> e <-) (app totient p q)) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app < 1 (-> e <-)) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app < e (-> (app totient p q) <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (app = (-> (app modulo a b) <-) 0) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> 1 <-) (app gcd e (app totient p q))) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app = (-> exp <-) 0) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app = (-> plaintext <-) decrypted-ciphertext) (env ()))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(query: (app = (app modulo a b) (-> 0 <-)) (env (())))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = 1 (-> (app gcd e (app totient p q)) <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app = exp (-> 0 <-)) (env (())))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app = plaintext (-> decrypted-ciphertext <-)) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app > (-> m <-) n) (env (())))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(query: (app > m (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app car (-> (app extended-gcd a n) <-)) (env (())))
 clos/con:
@@ -1014,7 +1091,7 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app car (-> x:y <-)) (env (())))
 clos/con:
@@ -1025,7 +1102,7 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> x:y <-)) (env (())))
 clos/con:
@@ -1036,306 +1113,404 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 0 <-) 1) (env (())))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (app cons 0 (-> 1 <-)) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app decrypt (-> ciphertext <-) d n) (env ()))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app decrypt ciphertext (-> d <-) n) (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app decrypt ciphertext d (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
-'(query: (app display (-> "RSA success!" <-)) (env ()))
+'(query: (app display (-> "The ciphertext is:           " <-)) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "RSA success!")
+literals: '(⊥ ⊥ "The ciphertext is:           ")
+
+'(query: (app display (-> "The decrypted ciphertext is: " <-)) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ "The decrypted ciphertext is: ")
+
+'(query: (app display (-> "The plaintext is:            " <-)) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ "The plaintext is:            ")
+
+'(query: (app display (-> ciphertext <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query: (app display (-> decrypted-ciphertext <-)) (env ()))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query: (app display (-> plaintext <-)) (env ()))
+clos/con: ⊥
+literals: '(42 ⊥ ⊥)
 
 '(query: (app encrypt (-> plaintext <-) e n) (env ()))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(query: (app encrypt plaintext (-> e <-) n) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app encrypt plaintext e (-> n <-)) (env ()))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app error (-> "RSA fail!" <-)) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "RSA fail!")
+literals: '(⊥ ⊥ "RSA fail!")
 
 '(query: (app extended-gcd (-> a <-) n) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app extended-gcd (-> b <-) (app modulo a b)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app extended-gcd a (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (app extended-gcd b (-> (app modulo a b) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app gcd (-> e <-) (app totient p q)) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app gcd e (-> (app totient p q) <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (app is-legal-public-exponent? (-> e <-) p q) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app is-legal-public-exponent? e (-> p <-) q) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app is-legal-public-exponent? e p (-> q <-)) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app modulo (-> (app car (app extended-gcd a n)) <-) n) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> a <-) b) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (-> a <-) b) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo (app car (app extended-gcd a n)) (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (app modulo a (-> b <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo a (-> b <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-inverse (-> e <-) (app totient p q)) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app modulo-inverse e (-> (app totient p q) <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (app modulo-power (-> base <-) (app - exp 1) n) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power (-> base <-) (app / exp 2) n) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power (-> c <-) d n) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power (-> m <-) e n) (env (())))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(query: (app modulo-power base (-> (app - exp 1) <-) n) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (-> (app / exp 2) <-) n) (env (())))
 clos/con: ⊥
-literals: '(⊥ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power base (app - exp 1) (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app modulo-power base (app / exp 2) (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app modulo-power c (-> d <-) n) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app modulo-power c d (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app modulo-power m (-> e <-) n) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app modulo-power m e (-> n <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app odd? (-> exp <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app private-exponent (-> e <-) p q) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app private-exponent e (-> p <-) q) (env ()))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app private-exponent e p (-> q <-)) (env ()))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app quotient (-> a <-) b) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app quotient a (-> b <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app totient (-> p <-) q) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app totient (-> p <-) q) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app totient (-> p <-) q) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (app totient p (-> q <-)) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app totient p (-> q <-)) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (app totient p (-> q <-)) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
+
+'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+	'((con
+   error
+   (match
+    (app not (app = plaintext decrypted-ciphertext))
+    (#f)
+    (_ (-> (app error "RSA fail!") <-))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... d (plaintext (-> 42 <-)) ciphertext ...) ...) (env ()))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(query: (letrec* (... decrypt (p (-> 41 <-)) q ...) ...) (env ()))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(query: (letrec* (... n (e (-> 7 <-)) d ...) ...) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (letrec* (... p (q (-> 47 <-)) n ...) ...) (env ()))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(query: (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(query: (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app = exp 0) <-) (#f) _) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app > m n) <-) (#f) _) (env (())))
 clos/con:
 	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app odd? exp) <-) (#f) _) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> car-v <-) (cons car-c car-d)) (env (())))
 clos/con:
@@ -1346,7 +1521,7 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env (())))
 clos/con:
@@ -1357,19 +1532,19 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (app = exp 0) (#f) (_ (-> 1 <-))) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-)) (env (())))
 clos/con:
@@ -1380,43 +1555,35 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (c d n) (-> (app modulo-power c d n) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (car-v) (-> (match car-v ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (m e n) (-> (match (app > m n) ...) <-)) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(query: (λ (x) (-> (app * x x) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   ((ran
@@ -1438,10 +1605,19 @@ literals: '(⊤ ⊥ ⊥ ⊥)
        (bin
         letrec*
         extended-gcd
-        (match
-         (app not (app = plaintext decrypted-ciphertext))
-         ((#f) (app display "RSA success!"))
-         (_ (app error "RSA fail!")))
+        (let ((_ (app display "The plaintext is:            ")))
+          (let ((_ (app display plaintext)))
+            (let ((_ (app newline)))
+              (let ((_ (app display "The ciphertext is:           ")))
+                (let ((_ (app display ciphertext)))
+                  (let ((_ (app newline)))
+                    (let ((_ (app display "The decrypted ciphertext is: ")))
+                      (let ((_ (app display decrypted-ciphertext)))
+                        (let ((_ (app newline)))
+                          (match
+                           (app not (app = plaintext decrypted-ciphertext))
+                           ((#f) (app void))
+                           (_ (app error "RSA fail!"))))))))))))
         ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
          (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d)))))
         ((modulo-inverse
@@ -1497,13 +1673,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
          (plaintext 42)
          (ciphertext (app encrypt plaintext e n))
          (decrypted-ciphertext (app decrypt ciphertext d n)))
-        (lettypes-bod ((cons car cdr)) (top)))))))
+        (lettypes-bod ((cons car cdr) (error r)) (top)))))))
    .
    y)
   con
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   ((ran
@@ -1524,10 +1700,19 @@ literals: '(⊤ ⊥ ⊥ ⊥)
       (bin
        letrec*
        extended-gcd
-       (match
-        (app not (app = plaintext decrypted-ciphertext))
-        ((#f) (app display "RSA success!"))
-        (_ (app error "RSA fail!")))
+       (let ((_ (app display "The plaintext is:            ")))
+         (let ((_ (app display plaintext)))
+           (let ((_ (app newline)))
+             (let ((_ (app display "The ciphertext is:           ")))
+               (let ((_ (app display ciphertext)))
+                 (let ((_ (app newline)))
+                   (let ((_ (app display "The decrypted ciphertext is: ")))
+                     (let ((_ (app display decrypted-ciphertext)))
+                       (let ((_ (app newline)))
+                         (match
+                          (app not (app = plaintext decrypted-ciphertext))
+                          ((#f) (app void))
+                          (_ (app error "RSA fail!"))))))))))))
        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d)))))
        ((modulo-inverse
@@ -1581,13 +1766,13 @@ literals: '(⊤ ⊥ ⊥ ⊥)
         (plaintext 42)
         (ciphertext (app encrypt plaintext e n))
         (decrypted-ciphertext (app decrypt ciphertext d n)))
-       (lettypes-bod ((cons car cdr)) (top))))))
+       (lettypes-bod ((cons car cdr) (error r)) (top))))))
    .
    0)
   con
   (env (())))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(store:
   ((ran
@@ -1608,10 +1793,19 @@ literals: '(0 ⊥ ⊥ ⊥)
       (bin
        letrec*
        extended-gcd
-       (match
-        (app not (app = plaintext decrypted-ciphertext))
-        ((#f) (app display "RSA success!"))
-        (_ (app error "RSA fail!")))
+       (let ((_ (app display "The plaintext is:            ")))
+         (let ((_ (app display plaintext)))
+           (let ((_ (app newline)))
+             (let ((_ (app display "The ciphertext is:           ")))
+               (let ((_ (app display ciphertext)))
+                 (let ((_ (app newline)))
+                   (let ((_ (app display "The decrypted ciphertext is: ")))
+                     (let ((_ (app display decrypted-ciphertext)))
+                       (let ((_ (app newline)))
+                         (match
+                          (app not (app = plaintext decrypted-ciphertext))
+                          ((#f) (app void))
+                          (_ (app error "RSA fail!"))))))))))))
        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d)))))
        ((modulo-inverse
@@ -1665,13 +1859,13 @@ literals: '(0 ⊥ ⊥ ⊥)
         (plaintext 42)
         (ciphertext (app encrypt plaintext e n))
         (decrypted-ciphertext (app decrypt ciphertext d n)))
-       (lettypes-bod ((cons car cdr)) (top))))))
+       (lettypes-bod ((cons car cdr) (error r)) (top))))))
    .
    1)
   con
   (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(store:
   ((ran
@@ -1693,10 +1887,19 @@ literals: '(1 ⊥ ⊥ ⊥)
        (bin
         letrec*
         extended-gcd
-        (match
-         (app not (app = plaintext decrypted-ciphertext))
-         ((#f) (app display "RSA success!"))
-         (_ (app error "RSA fail!")))
+        (let ((_ (app display "The plaintext is:            ")))
+          (let ((_ (app display plaintext)))
+            (let ((_ (app newline)))
+              (let ((_ (app display "The ciphertext is:           ")))
+                (let ((_ (app display ciphertext)))
+                  (let ((_ (app newline)))
+                    (let ((_ (app display "The decrypted ciphertext is: ")))
+                      (let ((_ (app display decrypted-ciphertext)))
+                        (let ((_ (app newline)))
+                          (match
+                           (app not (app = plaintext decrypted-ciphertext))
+                           ((#f) (app void))
+                           (_ (app error "RSA fail!"))))))))))))
         ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
          (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d)))))
         ((modulo-inverse
@@ -1752,7 +1955,7 @@ literals: '(1 ⊥ ⊥ ⊥)
          (plaintext 42)
          (ciphertext (app encrypt plaintext e n))
          (decrypted-ciphertext (app decrypt ciphertext d n)))
-        (lettypes-bod ((cons car cdr)) (top)))))))
+        (lettypes-bod ((cons car cdr) (error r)) (top)))))))
    app
    -
    x
@@ -1760,90 +1963,7 @@ literals: '(1 ⊥ ⊥ ⊥)
   con
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    error
-    ()
-    ()
-    (match-clause
-     _
-     (app > m n)
-     (((#f) (app modulo-power m e n)))
-     ()
-     (bod
-      (m e n)
-      (bin
-       letrec*
-       encrypt
-       (match
-        (app not (app = plaintext decrypted-ciphertext))
-        ((#f) (app display "RSA success!"))
-        (_ (app error "RSA fail!")))
-       ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-        (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-        (extended-gcd
-         (λ (a b)
-           (match
-            (app = (app modulo a b) 0)
-            ((#f)
-             (let* ((x:y (app extended-gcd b (app modulo a b)))
-                    (x (app car x:y))
-                    (y (app cdr x:y)))
-               (app cons y (app - x (app * y (app quotient a b))))))
-            (_ (app cons 0 1)))))
-        (modulo-inverse
-         (λ (a n) (app modulo (app car (app extended-gcd a n)) n)))
-        (totient (λ (p q) (app * (app - p 1) (app - q 1))))
-        (square (λ (x) (app * x x)))
-        (modulo-power
-         (λ (base exp n)
-           (match
-            (app = exp 0)
-            ((#f)
-             (match
-              (app odd? exp)
-              ((#f)
-               (app
-                modulo
-                (app square (app modulo-power base (app / exp 2) n))
-                n))
-              (_
-               (app
-                modulo
-                (app * base (app modulo-power base (app - exp 1) n))
-                n))))
-            (_ 1))))
-        (is-legal-public-exponent?
-         (λ (e p q)
-           (app
-            and
-            (app < 1 e)
-            (app < e (app totient p q))
-            (app = 1 (app gcd e (app totient p q))))))
-        (private-exponent
-         (λ (e p q)
-           (match
-            (app is-legal-public-exponent? e p q)
-            ((#f) (app error "Not a legal public exponent for that modulus."))
-            (_ (app modulo-inverse e (app totient p q)))))))
-       ((decrypt (λ (c d n) (app modulo-power c d n)))
-        (p 41)
-        (q 47)
-        (n (app * p q))
-        (e 7)
-        (d (app private-exponent e p q))
-        (plaintext 42)
-        (ciphertext (app encrypt plaintext e n))
-        (decrypted-ciphertext (app decrypt ciphertext d n)))
-       (lettypes-bod ((cons car cdr)) (top))))))
-   .
-   "The modulus is too small to encrypt the message.")
-  con
-  (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "The modulus is too small to encrypt the message.")
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   ((ran
@@ -1853,87 +1973,182 @@ literals: '(⊥ ⊥ ⊥ "The modulus is too small to encrypt the message.")
     (match-clause
      _
      (app not (app = plaintext decrypted-ciphertext))
-     (((#f) (app display "RSA success!")))
+     (((#f) (app void)))
      ()
      (let-bod
-      letrec*
-      ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-       (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-       (extended-gcd
-        (λ (a b)
-          (match
-           (app = (app modulo a b) 0)
-           ((#f)
-            (let* ((x:y (app extended-gcd b (app modulo a b)))
-                   (x (app car x:y))
-                   (y (app cdr x:y)))
-              (app cons y (app - x (app * y (app quotient a b))))))
-           (_ (app cons 0 1)))))
-       (modulo-inverse
-        (λ (a n) (app modulo (app car (app extended-gcd a n)) n)))
-       (totient (λ (p q) (app * (app - p 1) (app - q 1))))
-       (square (λ (x) (app * x x)))
-       (modulo-power
-        (λ (base exp n)
-          (match
-           (app = exp 0)
-           ((#f)
-            (match
-             (app odd? exp)
-             ((#f)
-              (app
-               modulo
-               (app square (app modulo-power base (app / exp 2) n))
-               n))
-             (_
-              (app
-               modulo
-               (app * base (app modulo-power base (app - exp 1) n))
-               n))))
-           (_ 1))))
-       (is-legal-public-exponent?
-        (λ (e p q)
-          (app
-           and
-           (app < 1 e)
-           (app < e (app totient p q))
-           (app = 1 (app gcd e (app totient p q))))))
-       (private-exponent
-        (λ (e p q)
-          (match
-           (app is-legal-public-exponent? e p q)
-           ((#f) (app error "Not a legal public exponent for that modulus."))
-           (_ (app modulo-inverse e (app totient p q))))))
-       (encrypt
-        (λ (m e n)
-          (match
-           (app > m n)
-           ((#f) (app modulo-power m e n))
-           (_
-            (app error "The modulus is too small to encrypt the message.")))))
-       (decrypt (λ (c d n) (app modulo-power c d n)))
-       (p 41)
-       (q 47)
-       (n (app * p q))
-       (e 7)
-       (d (app private-exponent e p q))
-       (plaintext 42)
-       (ciphertext (app encrypt plaintext e n))
-       (decrypted-ciphertext (app decrypt ciphertext d n)))
-      (lettypes-bod ((cons car cdr)) (top)))))
+      let
+      ((_ (app newline)))
+      (let-bod
+       let
+       ((_ (app display decrypted-ciphertext)))
+       (let-bod
+        let
+        ((_ (app display "The decrypted ciphertext is: ")))
+        (let-bod
+         let
+         ((_ (app newline)))
+         (let-bod
+          let
+          ((_ (app display ciphertext)))
+          (let-bod
+           let
+           ((_ (app display "The ciphertext is:           ")))
+           (let-bod
+            let
+            ((_ (app newline)))
+            (let-bod
+             let
+             ((_ (app display plaintext)))
+             (let-bod
+              let
+              ((_ (app display "The plaintext is:            ")))
+              (let-bod
+               letrec*
+               ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
+                (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
+                (extended-gcd
+                 (λ (a b)
+                   (match
+                    (app = (app modulo a b) 0)
+                    ((#f)
+                     (let* ((x:y (app extended-gcd b (app modulo a b)))
+                            (x (app car x:y))
+                            (y (app cdr x:y)))
+                       (app cons y (app - x (app * y (app quotient a b))))))
+                    (_ (app cons 0 1)))))
+                (modulo-inverse
+                 (λ (a n) (app modulo (app car (app extended-gcd a n)) n)))
+                (totient (λ (p q) (app * (app - p 1) (app - q 1))))
+                (square (λ (x) (app * x x)))
+                (modulo-power
+                 (λ (base exp n)
+                   (match
+                    (app = exp 0)
+                    ((#f)
+                     (match
+                      (app odd? exp)
+                      ((#f)
+                       (app
+                        modulo
+                        (app square (app modulo-power base (app / exp 2) n))
+                        n))
+                      (_
+                       (app
+                        modulo
+                        (app * base (app modulo-power base (app - exp 1) n))
+                        n))))
+                    (_ 1))))
+                (is-legal-public-exponent?
+                 (λ (e p q)
+                   (app
+                    and
+                    (app < 1 e)
+                    (app < e (app totient p q))
+                    (app = 1 (app gcd e (app totient p q))))))
+                (private-exponent
+                 (λ (e p q)
+                   (match
+                    (app is-legal-public-exponent? e p q)
+                    ((#f)
+                     (app
+                      error
+                      "Not a legal public exponent for that modulus."))
+                    (_ (app modulo-inverse e (app totient p q))))))
+                (encrypt
+                 (λ (m e n)
+                   (match
+                    (app > m n)
+                    ((#f) (app modulo-power m e n))
+                    (_
+                     (app
+                      error
+                      "The modulus is too small to encrypt the message.")))))
+                (decrypt (λ (c d n) (app modulo-power c d n)))
+                (p 41)
+                (q 47)
+                (n (app * p q))
+                (e 7)
+                (d (app private-exponent e p q))
+                (plaintext 42)
+                (ciphertext (app encrypt plaintext e n))
+                (decrypted-ciphertext (app decrypt ciphertext d n)))
+               (lettypes-bod ((cons car cdr) (error r)) (top))))))))))))))
    .
    "RSA fail!")
   con
   (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "RSA fail!")
+literals: '(⊥ ⊥ "RSA fail!")
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app display "The ciphertext is:           ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app display "The decrypted ciphertext is: ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app display "The plaintext is:            ") <-))
+        ()
+        ...)
+    ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display ciphertext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display decrypted-ciphertext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display plaintext) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   a
   (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))
   (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(store:
   car
@@ -1941,7 +2156,7 @@ literals: '(7 ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cdr
@@ -1950,7 +2165,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   ciphertext
@@ -1962,23 +2177,15 @@ literals: '(⊥ ⊥ ⊥ ⊥)
     ...)
    ...)
   (env ()))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   d
   (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   decrypt
@@ -1986,7 +2193,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   decrypted-ciphertext
@@ -1999,7 +2206,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
    ...)
   (env ()))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store:
   e
@@ -2013,14 +2220,14 @@ literals: '(⊤ ⊥ ⊥ ⊥)
      <-))
   (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(store:
   e
   (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))
   (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(store:
   encrypt
@@ -2033,7 +2240,7 @@ clos/con:
    (... private-exponent (encrypt (-> (λ (m e n) ...) <-)) decrypt ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   extended-gcd
@@ -2046,7 +2253,7 @@ clos/con:
    (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   is-legal-public-exponent?
@@ -2067,7 +2274,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   modulo-inverse
@@ -2080,7 +2287,7 @@ clos/con:
    (... extended-gcd (modulo-inverse (-> (λ (a n) ...) <-)) totient ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   modulo-power
@@ -2101,14 +2308,14 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   n
   (λ (a n) (-> (app modulo (app car (app extended-gcd a n)) n) <-))
   (env (())))
 clos/con: ⊥
-literals: '(1840 ⊥ ⊥ ⊥)
+literals: '(1840 ⊥ ⊥)
 
 '(store:
   p
@@ -2122,21 +2329,21 @@ literals: '(1840 ⊥ ⊥ ⊥)
      <-))
   (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(store:
   p
   (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))
   (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(store:
   plaintext
   (letrec* (... d (plaintext (-> 42 <-)) ciphertext ...) ...)
   (env ()))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(store:
   private-exponent
@@ -2157,7 +2364,7 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   q
@@ -2171,14 +2378,14 @@ literals: '(⊥ ⊥ ⊥ ⊥)
      <-))
   (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(store:
   q
   (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))
   (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(store:
   square
@@ -2187,7 +2394,7 @@ literals: '(47 ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   totient
@@ -2196,7 +2403,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   x:y
@@ -2210,47 +2417,46 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
+
+'(store: _ (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: _ (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: _ (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store: a (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: b (λ (a b) (-> (match (app = (app modulo a b) 0) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: base (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(store: c (λ (c d n) (-> (app modulo-power c d n) <-)) (env (())))
-clos/con:
-	'((con
-   error
-   (match
-    (app > m n)
-    (#f)
-    (_
-     (-> (app error "The modulus is too small to encrypt the message.") <-))))
-  (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
 
 '(store: car-c (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: car-d (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: car-v (λ (car-v) (-> (match car-v ...) <-)) (env (())))
 clos/con:
@@ -2261,15 +2467,15 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: cdr-c (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: cdr-d (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: cdr-v (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
 clos/con:
@@ -2280,68 +2486,68 @@ clos/con:
   (env (())))
 	'((con cons (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: d (λ (c d n) (-> (app modulo-power c d n) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: e (letrec* (... n (e (-> 7 <-)) d ...) ...) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(store: e (λ (m e n) (-> (match (app > m n) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(store: exp (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊤ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: m (λ (m e n) (-> (match (app > m n) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(42 ⊥ ⊥ ⊥)
+literals: '(42 ⊥ ⊥)
 
 '(store: n (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(store: n (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(store: n (λ (c d n) (-> (app modulo-power c d n) <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(store: n (λ (m e n) (-> (match (app > m n) ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(1927 ⊥ ⊥ ⊥)
+literals: '(1927 ⊥ ⊥)
 
 '(store: p (letrec* (... decrypt (p (-> 41 <-)) q ...) ...) (env ()))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(store: p (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env (())))
 clos/con: ⊥
-literals: '(41 ⊥ ⊥ ⊥)
+literals: '(41 ⊥ ⊥)
 
 '(store: q (letrec* (... p (q (-> 47 <-)) n ...) ...) (env ()))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(store: q (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env (())))
 clos/con: ⊥
-literals: '(47 ⊥ ⊥ ⊥)
+literals: '(47 ⊥ ⊥)
 
 '(store: x (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: x (λ (x) (-> (app * x x) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(store: y (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)

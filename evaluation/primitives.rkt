@@ -21,6 +21,7 @@
     ['> `(prim > ,do-gt)]
     ['<= `(prim <= ,do-lte)]
     ['odd? `(prim odd? ,do-odd)] ; Numbers work with the regular data model
+    ['even? `(prim even? ,do-even)] ; Numbers work with the regular data model
     ['not `(prim not ,do-not)]
     ['or `(prim or ,do-or)]; TODO Handle in match positions
     ['and `(prim and ,do-and)]; TODO Handle in match positions
@@ -189,6 +190,21 @@
     [(product/lattice (literal (list (singleton x) (bottom) (bottom))))
      (if (integer? x)
          (if (odd? x) (true C p) (false C p))
+         (each (true C p) (false C p))
+         )
+     ]
+    [(product/lattice (literal (list (top) (bottom) (bottom))))
+     (each (true C p) (false C p))
+     ]
+    [_ ⊥]
+    ; [_ (clos (cons C 'error-odd-not-implemented) p)]
+    ))
+
+(define (do-even p C a1)
+  (match a1
+    [(product/lattice (literal (list (singleton x) (bottom) (bottom))))
+     (if (integer? x)
+         (if (even? x) (true C p) (false C p))
          (each (true C p) (false C p))
          )
      ]
