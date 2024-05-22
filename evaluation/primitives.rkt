@@ -1,7 +1,7 @@
 #lang racket/base
 (require racket/match racket/pretty racket/list)
 (require "table-monad/main.rkt" "abstract-value.rkt" "debug.rkt" "utils.rkt" "config.rkt" "envs.rkt")
-
+(require (rename-in "table-monad/main.rkt"))
 
 (define (lookup-primitive x)
   ; (pretty-print `(primitive-lookup ,x))
@@ -31,6 +31,10 @@
     ['char? `(prim char? ,do-char?)]
     ['newline `(prim newline ,do-newline)]
     ['display `(prim display ,do-display)]
+    ['number->string `(prim number->string ,do-number-string)]
+    ['string-append `(prim string-append ,do-string-append)]
+    ['boolean? `(prim boolean? ,do-boolean?)]
+    ['integer? `(prim integer? ,do-integer?)]
     ['void  `(prim void ,do-void)]
     [_ #f]
     )
@@ -102,8 +106,32 @@
     [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
 
+
+
+(define (do-number-string p C a1)
+  (match a1
+    [(product/lattice (literal (list i1 c1 s1)))
+     (match i1
+       [(bottom) (void)]
+       [_ (lit (abstring))]
+       )
+     ]
+    [_ (void)])
+  )
+
+; TODO: Refinement make sure all args are string
+(define (do-string-append p C . args)
+  (lit (abstring))
+  )
+
 (define (do-not p C a1)
   (if (is-truthy a1) (false C p) (true C p)))
+
+(define (do-boolean? p C a1)
+  (if (is-bool a1) (true C p) (false C p)))
+
+(define (do-integer? p C a1)
+  (if (is-int a1) (true C p) (false C p)))
 
 (define (do-or p C . args)
   (match args
@@ -125,6 +153,22 @@
 (define (is-falsey r)
   (match r
     [(product/set (list `(con #f) _)) #t]; Only literal #f counts as falsey in scheme
+    [_ #f]
+    )
+  )
+
+(define (is-bool r)
+  (match r
+    [(product/set (list `(con #f) _)) #t]
+    [(product/set (list `(con #t) _)) #t]
+    [_ #f]
+    )
+  )
+
+(define (is-int r)
+  (match r
+    [(product/lattice (literal (list i1 c1 s1)))
+     (if (bottom? i1) #f #t)]
     [_ #f]
     )
   )

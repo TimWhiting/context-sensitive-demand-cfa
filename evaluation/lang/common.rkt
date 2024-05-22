@@ -157,6 +157,7 @@
 (define ((translate-top-defs-internal top) ss)
   ; (pretty-print `(translate-top-defs ,ss))
   (define tops-full-defs (if top (map (translate-top #t) ss) (map (translate-top) ss)))
+  ; (pretty-print `(translate-top-defs ,tops-full-defs))
   (define tops (remove-def-types tops-full-defs))
   (define exprs (filter (lambda (d) (not (is-def d))) tops))
   (define all-defs (filter is-def tops))
@@ -165,7 +166,6 @@
   ; (define other-defs (filter (lambda (x) (not (is-lam-def x))) all-defs))
   ; (define rec-binds (map to-let-bind rec-defs))
   ; (define other-binds (map to-let-bind other-defs))
-  ; (pretty-print `(translate-top-defs ,tops-full-defs))
 
   ; (pretty-print `(translate-top-defs ,tops))
   (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)]
@@ -189,7 +189,7 @@
 
 
 (define (translate-top-defs-expr expr ss)
-  ; (pretty-print `(translate-top-defs ,ss))
+  ; (pretty-print `(translate-top-defs-expr ,ss))
   (define tops-full-defs (map (translate-top) ss))
   (define tops (remove-def-types tops-full-defs))
   (define binds (map to-let-bind (filter is-def tops)))
@@ -284,17 +284,47 @@
     [`(quote ,(? number? x)) x]
     [`(quote ,(? char? x)) x]
     [`(quote ,(? string? x)) x]
-    [`(quote ,ls) (to-list ls)]
+    [`(quote ,ls) (desugar-quote ls)]
+    [`(quasiquote ,@ls) (desugar-qq 1 ls)]
     [`(,@es)
+     ;  (pretty-print `(app ,es))
      `(app ,@(map translate es))]
     )
   )
 
-(define (to-list l)
+(define (desugar-qq n qq-exp)
+  (match qq-exp
+    [(list 'unquote exp)
+     (if (= n 1)
+         (translate exp)
+         (list 'app 'list ''unquote
+               (desugar-qq (- n 1) exp)))]
+
+    [`(quasiquote ,qq-exp)
+     `(list 'quasiquote ,(desugar-qq (+ n 1) qq-exp))]
+
+    [(cons (list 'unquote-splicing exp) rest)
+     (if (= n 1)
+         `(app append ,(translate exp) ,(desugar-qq n rest))
+         (cons (list 'unquote-splicing (desugar-qq (- n 1) exp))
+               (desugar-qq n rest)))]
+
+    [`(,qq-exp1 . ,rest)
+     `(app cons ,(desugar-qq n qq-exp1)
+           ,(desugar-qq n rest))]
+    [else
+     (desugar-quote qq-exp)])
+  )
+
+(define (desugar-quote l)
   (match l
     ['() `(app nil)]
-    [(cons x xs) `(app cons ,(translate `',x) ,(to-list xs))]
-    [x
+    [(cons x xs)
+     `(app cons ,(translate `',x) ,(desugar-quote xs))]
+    [(? string? s) s]
+    [(? number? n) n]
+    [(? boolean? b) b]
+    [(? symbol? x)
      ;  (pretty-print `(quoting ,x as ',x))
      `',x]
     )

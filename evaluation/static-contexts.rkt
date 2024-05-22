@@ -21,7 +21,7 @@
      args]))
 
 (define (is-known-primitive x)
-  (member x '(= - + * / modulo ceiling random log gcd quotient odd? even? < <= > not or and equal? eq? symbol? char? error newline display void #f #t))
+  (member x '(= - + * / modulo ceiling random log gcd quotient odd? even? number->string string-append boolean? integer? < <= > not or and equal? eq? symbol? char? error newline display void #f #t))
   )
 
 (define (check-known-primitive? x)

@@ -59,8 +59,9 @@
   (match Ce
     [(cons _ #t) ⊥]
     [(cons _ #f) ⊥]
-    [(cons C `',x) ⊥]
+    [(cons _ (? char?)) ⊥]
     [(cons _ (? string?)) ⊥]
+    [(cons C `',x) ⊥]
     [(cons _ (? symbol? y))
      (if (equal? x y)
          (unit Ce ρ)
@@ -138,6 +139,10 @@
     ['even? `(prim even? ,do-even)] ; Numbers work with the regular data model
     ['newline `(prim newline ,do-newline)]
     ['display `(prim display ,do-display)]
+    ['number->string `(prim number->string ,do-number-string)]
+    ['string-append `(prim string-append ,do-string-append)]
+    ['boolean? `(prim boolean? ,do-demandbool?)]
+    ['integer? `(prim integer? ,do-integer?)]
     ['void `(prim void ,do-void)]
     [_ #f]
     ))
@@ -150,6 +155,29 @@
            [#t (false C ρ)]
            )
          )))
+
+(define (do-demandbool? ρ C a1)
+  (>>= (is-demand-bool ρ C a1)
+       (λ (t)
+         (match t
+           [#t (false C ρ)]
+           [#f (true C ρ)]
+           )
+         )))
+
+
+(define (is-demand-bool ρ C v)
+  (match v
+    [(product/set (list Ce ρe)) ; Constructors
+     (>>=clos (>>= (rat Ce ρe) eval) ; Eval the constructor
+              (λ (Cc ρc)
+                (match Cc ; Check if it is false or true
+                  [(cons _ #f) (unit #t)]
+                  [(cons _ #t) (unit #t)]
+                  [(cons _ _) (unit #f)]
+                  )))]
+    [_ (unit #f)]; Anything else
+    ))
 
 (define (is-truthy ρ C v)
   (match v

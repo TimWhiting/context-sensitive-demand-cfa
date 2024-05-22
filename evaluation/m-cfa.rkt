@@ -216,7 +216,6 @@
                 (eval-con-clause Ce ρ clauses 0)
                 (eval-lit-clause Ce ρ clauses 0))]
       [(cons C `(app set! ,var ,_))
-       (pretty-print 'Set)
        (>>=
         ((ran 0) Ce ρ)
         (λ (varCe _)
