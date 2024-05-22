@@ -4,14 +4,12 @@
 
 (define-syntax-rule (run/parameters name m k x)
   (let ()
-
     (analysis-kind k)
     (current-m m)
     (define start (current-inexact-monotonic-milliseconds))
     (let ([res x])
       (define end (current-inexact-monotonic-milliseconds))
       (cons res (- end start)))
-
     )
   )
 

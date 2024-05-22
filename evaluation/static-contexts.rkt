@@ -227,7 +227,8 @@
     [(cons C `(app ,f ,@args))
      (define prev-args (take args i))
      (define after-args (drop args i))
-     ;  (pretty-print after-args)
+     ;  (pretty-print prev-args)
+     ;  (pretty-print (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)))
      (unit (cons `(ran ,f ,prev-args ,(cdr after-args) ,C) (car after-args)) ρ)]))
 
 (define (go-bod q) (apply bod-e q))

@@ -21,9 +21,10 @@
        (directory-list dir #:build? #t)))
 
 (define all-examples (apply append (get-all-examples "examples")))
+(define all-benchmarks (apply append (get-all-examples "benchmarks")))
 
-(define (get-example s)
-  (let loop ([l all-examples])
+(define (get-example s [examples all-examples])
+  (let loop ([l examples])
     (match l
       [(list) (error 'get-example "no example named ~a" s)]
       [(cons `(example ,name ,expr) rest)
@@ -31,12 +32,12 @@
            `(example ,name ,expr)
            (loop rest))])))
 
-(define (get-example-expr s)
-  (match (get-example s)
+(define (get-example-expr s [examples all-examples])
+  (match (get-example s examples)
     [`(example ,_ ,expr) expr]))
 
-(define (get-examples ls)
-  (map get-example ls))
+(define (get-examples ls [examples all-examples])
+  (map (lambda (x) (get-example x examples)) ls))
 
 (define syntax-basics '(basic-letrec basic-letstar constr prim-match err id let-num app-num let multi-param structural-rec))
 (define basic-num-examples '(let-num app-num))

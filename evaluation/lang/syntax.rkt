@@ -21,6 +21,7 @@
 (define (free-vars e)
   ; (pretty-print e)
   (match e
+    [`(app set! ,v ,e) (set-union (free-vars e) (set v))]
     [`(app ,f ,@args)
      (foldl set-union (set)
             (cons (free-vars f)
