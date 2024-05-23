@@ -613,9 +613,10 @@
    " ;\n"
    " }\n"
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con:
-	'((prim string-append) (env ()))
+	'((prim string-append)
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -627,7 +628,7 @@ literals: '(⊥ ⊥ ⊥)
    " ;\n"
    " }\n"
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -640,7 +641,7 @@ literals: '(⊥ ⊥ ⊤)
    " ;\n"
    " }\n"
    (-> "}\n" <-))
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "}\n")
 
@@ -653,7 +654,7 @@ literals: '(⊥ ⊥ "}\n")
    " ;\n"
    (-> " }\n" <-)
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ " }\n")
 
@@ -666,7 +667,7 @@ literals: '(⊥ ⊥ " }\n")
    (-> " ;\n" <-)
    " }\n"
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ " ;\n")
 
@@ -679,7 +680,7 @@ literals: '(⊥ ⊥ " ;\n")
    " ;\n"
    " }\n"
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ " public static void main (String[] args) {\n")
 
@@ -692,9 +693,43 @@ literals: '(⊥ ⊥ " public static void main (String[] args) {\n")
    " ;\n"
    " }\n"
    "}\n")
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "public class BOut extends RuntimeEnvironment {\n")
+
+'(query:
+  (app (-> const? <-) exp)
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con:
+	'((letrec*
+   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> const? <-) exp)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((letrec*
+   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> display <-) (app java-compile-program input-program))
@@ -704,11 +739,130 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> string-append <-) "new IntValue(" (app number->string exp) ")")
-  (env ()))
+  (app (-> integer? <-) exp)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con:
-	'((prim string-append) (env ()))
+	'((prim integer?)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> integer? <-) exp)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> integer? <-) exp)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> java-compile-const <-) exp)
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con:
+	'((letrec*
+   (...
+    java-compile-exp
+    (java-compile-const (-> (λ (exp) ...) <-))
+    java-compile-prim
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> java-compile-exp <-) exp)
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    java-compile-program
+    (java-compile-exp (-> (λ (exp) ...) <-))
+    java-compile-const
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> number->string <-) exp)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+clos/con:
+	'((prim number->string)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> string-append <-) "new IntValue(" (app number->string exp) ")")
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+clos/con:
+	'((prim string-append)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> void <-))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((prim void)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
 
 '(query:
   (app display (-> (app java-compile-program input-program) <-))
@@ -717,20 +871,69 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (app integer? (-> exp <-))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app java-compile-const (-> exp <-))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app java-compile-exp (-> exp <-))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app number->string (-> exp <-))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
   (app string-append "new IntValue(" (-> (app number->string exp) <-) ")")
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
   (app string-append "new IntValue(" (app number->string exp) (-> ")" <-))
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ")")
 
 '(query:
   (app string-append (-> "new IntValue(" <-) (app number->string exp) ")")
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "new IntValue(")
 
@@ -1503,15 +1706,73 @@ literals: '(⊥ ⊥ ⊥)
    (#f)
    (_
     (-> (app string-append "new IntValue(" (app number->string exp) ")") <-)))
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> (app void) <-)))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (exp)
@@ -1525,7 +1786,55 @@ literals: '(⊥ ⊥ ⊤)
       " }\n"
       "}\n")
      <-))
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (app integer? exp) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (app integer? exp) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -1541,56 +1850,6 @@ clos/con:
     is-mutable?
     (analyze-mutable-variables (-> (λ (exp) ...) <-))
     mangle
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> const? <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> const? <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> integer? <-) exp) (env ()))
-clos/con:
-	'((prim integer?) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> integer? <-) exp) (env ()))
-clos/con:
-	'((prim integer?) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> java-compile-const <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> java-compile-exp <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
     ...)
    ...)
   (env ()))
@@ -1613,49 +1872,11 @@ clos/con:
 	'((app (-> nil <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> number->string <-) exp) (env ()))
-clos/con:
-	'((prim number->string) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> void <-)) (env ()))
-clos/con:
-	'((prim void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app analyze-mutable-variables (-> input-program <-)) (env ()))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
-'(query: (app const? (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app java-compile-const (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app java-compile-exp (-> exp <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
 '(query: (app java-compile-program (-> input-program <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app number->string (-> exp <-)) (env ()))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1673,44 +1894,6 @@ literals: '(⊥ ⊥ ⊥)
 clos/con:
 	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env ()))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env ()))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app integer? exp) <-) (#f) _) (env ()))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> (app void) <-))) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (app integer? exp) <-)) (env ()))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(query: (λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
 
 '(store:
   analyze-mutable-variables
@@ -1736,7 +1919,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (...
@@ -1757,7 +1946,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ()))
@@ -1772,7 +1967,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ()))
@@ -1787,7 +1990,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
   (env ()))
@@ -1802,7 +2011,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (... letrec1=>Y (begin=>let (-> (λ (exp) ...) <-)) mutable-variables ...)
@@ -1819,7 +2036,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
   (env ()))
@@ -1834,7 +2057,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
   (env ()))
@@ -1849,7 +2080,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
 	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
@@ -1864,7 +2101,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
@@ -1881,7 +2124,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
@@ -1898,7 +2149,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1912,7 +2169,8 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-prim
     ...)
    ...)
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con:
 	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1926,7 +2184,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1940,7 +2206,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1953,7 +2225,8 @@ literals: '(3 ⊥ ⊥)
     java-compile-prim
     ...)
    ...)
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1966,7 +2239,15 @@ literals: '(3 ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1979,7 +2260,7 @@ literals: '(3 ⊥ ⊥)
     java-compile-exp
     ...)
    ...)
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1988,7 +2269,16 @@ literals: '(3 ⊥ ⊥)
   (letrec*
    (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
    ...)
-  (env ()))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (letrec*
+   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
+   ...)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -2001,7 +2291,13 @@ literals: '(3 ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env ()))
@@ -2016,7 +2312,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ()))
@@ -2031,7 +2333,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
@@ -2048,7 +2356,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ()))
@@ -2063,7 +2377,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ()))
@@ -2078,7 +2400,8 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-prim
     ...)
    ...)
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con:
 	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2088,7 +2411,17 @@ literals: '(⊥ ⊥ ⊥)
   (letrec*
    (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
    ...)
-  (env ()))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((λ (exp) (-> (app integer? exp) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  integer?
+  (letrec*
+   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
+   ...)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
 clos/con:
 	'((λ (exp) (-> (app integer? exp) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2102,7 +2435,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2123,7 +2464,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2144,7 +2493,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2165,7 +2522,7 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-exp
     ...)
    ...)
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con:
 	'((letrec*
    (...
@@ -2186,7 +2543,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2207,7 +2572,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2228,7 +2601,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2249,7 +2630,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2270,7 +2659,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (...
@@ -2291,7 +2688,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
@@ -2308,7 +2711,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
@@ -2325,7 +2734,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
@@ -2342,7 +2759,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
   (env ()))
@@ -2357,7 +2780,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... let->bindings (let->exp (-> (λ (exp) ...) <-)) letrec1? ...)
@@ -2374,7 +2803,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
   (env ()))
@@ -2389,7 +2826,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
   (env ()))
@@ -2404,7 +2847,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
   (env ()))
@@ -2419,7 +2870,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... letrec1? (letrec1->binding (-> (λ (exp) ...) <-)) letrec1->exp ...)
@@ -2436,7 +2893,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... letrec1->binding (letrec1->exp (-> (λ (exp) ...) <-)) lambda? ...)
@@ -2453,7 +2916,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
   (env ()))
@@ -2468,7 +2939,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
@@ -2485,7 +2962,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec*
    (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
@@ -2502,7 +2987,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...) (env ()))
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
@@ -2518,7 +3009,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (...
@@ -2539,7 +3036,8 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-prim
     ...)
    ...)
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con:
 	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2553,7 +3051,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env ()))
@@ -2568,7 +3072,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env ()))
@@ -2583,7 +3095,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2597,7 +3115,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2611,7 +3137,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
   (env ()))
@@ -2626,7 +3158,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
   (env ()))
@@ -2641,7 +3179,15 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-const
     ...)
    ...)
-  (env ()))
+  (env
+   ((app
+     string-append
+     "public class BOut extends RuntimeEnvironment {\n"
+     " public static void main (String[] args) {\n"
+     (-> (app java-compile-exp exp) <-)
+     " ;\n"
+     " }\n"
+     "}\n"))))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
   (env ()))
@@ -2656,7 +3202,8 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-prim
     ...)
    ...)
-  (env ()))
+  (env
+   ((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-))))))
 clos/con:
 	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2670,7 +3217,7 @@ literals: '(⊥ ⊥ ⊥)
     java-compile-exp
     ...)
    ...)
-  (env ()))
+  (env ((app display (-> (app java-compile-program input-program) <-)))))
 clos/con:
 	'((λ (exp)
     (->
@@ -2695,7 +3242,13 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
-  (env ()))
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)

@@ -74,6 +74,36 @@
      )
    ))
 
+(define (lookup-addr Ce x ρ)
+  ; (pretty-print `(lookup-addr ,x ,(show-simple-ctx Ce)))
+  (>>=
+   ((bind x) Ce ρ)
+   (λ (Cex px i)
+     (match (analysis-kind)
+       ['rebinding
+        (match i
+          [-1
+           (unit Ce)] ; Constructors
+          [_ (unit (get-rebindce x Ce) ρ)])] ; lookup in current ctx
+       ['exponential
+        (pretty-print `(exponential ,(show-simple-ctx Cex)))
+        (match Cex
+          [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+           (>>= (>>= (out Cex ρ) (bin i))
+                (λ (Cex p)
+                  (unit (get-rebindce x Cex) px)))]
+          [(cons `(let-bod ,_ ,_ ,_) _)
+           (>>= (>>= (out Cex ρ) (bin i))
+                (λ (Cex p)
+                  (unit (get-rebindce x Cex) px)))]
+          [_
+           (match i
+             [-1 (error 'constructor `(constructor-should-be-handled ,(show-simple-ctx Ce) ,x))] ; treat as constructor - bound in the original environment
+             [_ (unit (get-rebindce x Cex) px)])]
+          )]) ; bound ctx
+     )
+   ))
+
 (define (symbol-lookup Ce x ρ)
   (match (lookup-primitive x)
     [#f
@@ -217,25 +247,22 @@
                  (eval-lit-clause Ce ρ clauses 0))]
        [(cons C `(app set! ,var ,_))
         (>>=
-         ((ran 0) Ce ρ)
-         (λ (varCe _)
-           (>>=
-            ((ran 1) Ce ρ)
-            (λ (valCe _)
-              (>>= (meval valCe ρ)
-                   (λ (res)
-                     (pretty-print res)
-                     (>>= (extend-store varCe var ρ res)
-                          (λ (_)
-                            (clos `((top) app void) ρ))
-                          )))))))
+         ((ran 1) Ce ρ)
+         (λ (valCe _)
+           (>>= (lookup-addr Ce var ρ)
+                (λ (bindVarCe px)
+                  (>>= (meval valCe ρ)
+                       (λ (res)
+                         (pretty-print (show-simple-ctx bindVarCe))
+                         (>>= (extend-store bindVarCe var px res)
+                              (λ (_)
+                                (clos `((top) app void) ρ))
+                              )))))))
         ]
        [(cons C `(app ,f ,@args))
-        ; (pretty-print `(applying ,f))
         (>>=clos
          (>>= (rat Ce ρ) meval)
          (λ (lam lamρ)
-           ;  (pretty-print `(applying ,(show-simple-ctx lam)))
            (>>= (eval* (map
                         (λ (i) ((ran i) Ce ρ))
                         (range (length args))))
@@ -266,7 +293,7 @@
                                (>>= (bind-args (repeat 'con (length argse)) argse ρ evaled-args)
                                     (λ (_) (clos `(con ,con ,Ce) ρ)))
                                ))
-                         (error 'invalid-rator (format "~a" con))
+                         ⊥ ;(error 'invalid-rator (format "~a" con))
                          )
                      ]
                     ))))
@@ -368,7 +395,8 @@
             (unit #t); if Ce is a constructor it would be caught earlier
             (if (equal? pattern `(#f)) ; Falsey
                 (unit #f) ; if Ce is a constructor it would be caught earlier
-                (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+                ⊥
+                ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
                 ))]
        )
      ]

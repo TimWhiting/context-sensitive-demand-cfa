@@ -1,6 +1,6 @@
 '(expression:
   (lettypes
-   ((cons car cdr) (nil))
+   ((cons car cdr) (nil) (error r))
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
@@ -13,6 +13,12 @@
          ((cons map-c map-d)
           (app cons (app map-f map-c) (app map map-f map-d)))
          ((nil) (app nil)))))
+     (length
+      (λ (length-l)
+        (match
+         length-l
+         ((cons length-c length-d) (app + 1 (app length length-d)))
+         ((nil) 0))))
      (pair?
       (λ (pair?-v)
         (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
@@ -83,7 +89,7 @@
                  ((#f)
                   (match
                    (app = len 4)
-                   ((#f) (app error))
+                   ((#f) (app error "no-match"))
                    (_
                     (app
                      f
@@ -174,7 +180,7 @@
               (app cons (app car (app car amap)) xs)
               (app cons (app cadr (app car amap)) ys)))))
          (_ (app k (app nil) (app nil))))))
-     (void (λ () (app if (app #f) (app #t))))
+     (void (λ () (match (app #f) ((#f) (app void)) (_ (app #t)))))
      (define? (λ (s-exp) (app tagged-list? 'define s-exp)))
      (define-var?
       (λ (s-exp) (app and (app define? s-exp) (app symbol? (app cadr s-exp)))))
@@ -197,7 +203,7 @@
          ((#f)
           (match
            (app define-fun? s-exp)
-           ((#f) (app error))
+           ((#f) (app error "no-match"))
            (_
             (app
              cons
@@ -546,7 +552,7 @@
                  ((#f)
                   (match
                    (app app? exp)
-                   ((#f) (app error))
+                   ((#f) (app error "no-match"))
                    (_
                     (app
                      perform-apply
@@ -571,10 +577,10 @@
            ((#f) (app eval (app if->false exp) env))
            (_ (app eval (app if->true exp) env))))
          (_
-          (app
-           if
+          (match
            (app eval (app if->cond exp) env)
-           (app eval (app if->true exp) env))))))
+           ((#f) (app void))
+           (_ (app eval (app if->true exp) env)))))))
      (eval-cond (λ (exp env) (app eval (app cond->if exp) env)))
      (eval-and (λ (exp env) (app eval (app and->if exp) env)))
      (eval-or (λ (exp env) (app eval (app or->if exp) env)))

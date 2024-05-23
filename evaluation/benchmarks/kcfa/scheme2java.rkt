@@ -84,7 +84,7 @@
 
 
 ; void : -> void
-(define (void) (if #f #t))
+; (define (void) (if #f #t))
 
 ; tagged-list? : symbol value -> boolean
 (define (tagged-list? tag l)

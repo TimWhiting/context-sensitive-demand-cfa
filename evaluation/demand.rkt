@@ -143,6 +143,8 @@
     ['string-append `(prim string-append ,do-string-append)]
     ['boolean? `(prim boolean? ,do-demandbool?)]
     ['integer? `(prim integer? ,do-integer?)]
+    ['number? `(prim number? ,do-number?)]
+    ['string? `(prim string? ,do-string?)]
     ['void `(prim void ,do-void)]
     [_ #f]
     ))

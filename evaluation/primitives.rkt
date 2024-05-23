@@ -36,7 +36,10 @@
     ['string-length `(prim string-length ,do-string-length)]
     ['boolean? `(prim boolean? ,do-boolean?)]
     ['integer? `(prim integer? ,do-integer?)]
+    ['number? `(prim number? ,do-number?)]
+    ['string? `(prim string? ,do-string?)]
     ['list? `(prim list? ,do-list?)]
+    ['procedure? `(prim procedure? ,do-procedure?)]
     ['void  `(prim void ,do-void)]
     [_ #f]
     )
@@ -119,15 +122,15 @@
 
 
 (define (do-number-string p C a1)
-  (pretty-print a1)
+  ; (pretty-print a1)
   (match a1
     [(product/lattice (literal (list i1 c1 s1)))
      (match i1
-       [(bottom) (void)]
+       [(bottom) ⊥]
        [_ topstr]
        )
      ]
-    [_ (void)])
+    [_ ⊥])
   )
 
 ; TODO: Refinement make sure all args are string
@@ -139,12 +142,48 @@
   (if (is-truthy a1) (false C p) (true C p)))
 
 (define (do-boolean? p C a1)
-  (pretty-print a1)
+  ; (pretty-print a1)
   (if (is-bool a1) (true C p) (false C p)))
 
 (define (do-integer? p C a1)
-  (pretty-print a1)
-  (if (is-int a1) (true C p) (false C p)))
+  (match a1
+    [(product/lattice (literal (list i1 c1 s1)))
+     (if (bottom? i1)
+         (false C p)
+         (if (top? i1) ; A number could be either a int or some other number
+             (each (false C p) (true C p))
+             (true C p)
+             )
+         )]
+    [_ (false C p)]
+    ))
+
+(define (do-number? p C a1)
+  (match a1
+    [(product/lattice (literal (list i1 c1 s1)))
+     (if (bottom? i1)
+         (false C p)
+         (true C p)
+         )]
+    [_ (false C p)]
+    ))
+
+(define (do-string? p C a1)
+  (match a1
+    [(product/lattice (literal (list i1 c1 s1)))
+     (if (bottom? s1)
+         (false C p)
+         (true C p)
+         )]
+    [_ (false C p)]
+    ))
+
+(define (do-procedure? p C a1)
+  (match a1
+    [(product/set (list (cons C `(λ ,_ ,_)) pl)) (true C p)]; Only literal #f counts as falsey in scheme
+    [_ (false C p)]
+    )
+  )
 
 (define (do-or p C . args)
   (match args
@@ -174,14 +213,6 @@
   (match r
     [(product/set (list `(con #f) _)) #t]
     [(product/set (list `(con #t) _)) #t]
-    [_ #f]
-    )
-  )
-
-(define (is-int r)
-  (match r
-    [(product/lattice (literal (list i1 c1 s1)))
-     (if (bottom? i1) #f #t)]
     [_ #f]
     )
   )
