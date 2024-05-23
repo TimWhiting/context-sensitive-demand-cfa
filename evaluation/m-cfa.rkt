@@ -86,7 +86,7 @@
            (unit Ce)] ; Constructors
           [_ (unit (get-rebindce x Ce) ρ)])] ; lookup in current ctx
        ['exponential
-        (pretty-print `(exponential ,(show-simple-ctx Cex)))
+        ; (pretty-print `(exponential ,(show-simple-ctx Cex)))
         (match Cex
           [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
            (>>= (>>= (out Cex ρ) (bin i))
@@ -197,7 +197,9 @@
        [(cons _ #f) (falsecon Ce ρ)]
        [(cons _ (? number? x)) (lit (litnum x))]
        [(cons _ (? string? x)) (lit (litstring x))]
-       [(cons _ (? symbol? x)) (symbol-lookup Ce x ρ)]
+       [(cons _ (? symbol? x))
+        (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
+        (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `',x) (clos Ce ρ)]
        [(cons _ `(lettypes ,_ ,_))
@@ -307,6 +309,8 @@
 
 
 (define ((eval-con-clause parent parentρ clauses i) ce ρ)
+  ; (pretty-print `(eval-con-clause ,(show-simple-ctx parent) ,(show-simple-ctx ce)))
+
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-con-matches (car clause) ce ρ)
@@ -325,6 +329,7 @@
     ))
 
 (define ((eval-lit-clause parent parentρ clauses i) lit)
+  ; (pretty-print `(eval-lit-clause))
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-lit-matches (car clause) lit)

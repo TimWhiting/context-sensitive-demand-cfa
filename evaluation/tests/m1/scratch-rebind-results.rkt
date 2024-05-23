@@ -60,10 +60,73 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
+  (app (-> car <-) (app cdr (app car p)))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> car <-) p)
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> cdr <-) (app car p))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (app (-> cons <-) (app cons '- (app cons - (app nil))) (app nil))
   (env ()))
 clos/con:
 	'((app (-> cons <-) (app cons '- (app cons - (app nil))) (app nil)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app car (-> (app cdr (app car p)) <-))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app car (-> p <-))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((con
+   cons
+   (letrec*
+    (...
+     cadar
+     (initial-environment-amap
+      (->
+       (app
+        cons
+        (app cons '+ (app cons + (app nil)))
+        (app cons (app cons '- (app cons - (app nil))) (app nil)))
+       <-))
+     ()
+     ...)
+    ...))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app cdr (-> (app car p) <-))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((con
+   cons
+   (app
+    cons
+    (-> (app cons '+ (app cons + (app nil))) <-)
+    (app cons (app cons '- (app cons - (app nil))) (app nil))))
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -159,12 +222,38 @@ clos/con:
 	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: ((top) lettypes (cons ... nil) ...) (env ()))
+'(query:
+  (match (-> car-v <-) (cons car-c car-d))
+  (env ((app cdr (-> (app car p) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con
+   cons
+   (letrec*
+    (...
+     cadar
+     (initial-environment-amap
+      (->
+       (app
+        cons
+        (app cons '+ (app cons + (app nil)))
+        (app cons (app cons '- (app cons - (app nil))) (app nil)))
+       <-))
+     ()
+     ...)
+    ...))
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> (app cadar initial-environment-amap) <-) 1 1) (env ()))
+'(query:
+  (match (-> car-v <-) (cons car-c car-d))
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
+	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> cdr-v <-) (cons cdr-c cdr-d))
+  (env ((app car (-> (app cdr (app car p)) <-)))))
 clos/con:
 	'((con
    cons
@@ -173,6 +262,76 @@ clos/con:
     (-> (app cons '+ (app cons + (app nil))) <-)
     (app cons (app cons '- (app cons - (app nil))) (app nil))))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match car-v ((cons car-c car-d) (-> car-c <-)))
+  (env ((app cdr (-> (app car p) <-)))))
+clos/con:
+	'((con
+   cons
+   (app
+    cons
+    (-> (app cons '+ (app cons + (app nil))) <-)
+    (app cons (app cons '- (app cons - (app nil))) (app nil))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match car-v ((cons car-c car-d) (-> car-c <-)))
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
+	'((prim +) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-)))
+  (env ((app car (-> (app cdr (app car p)) <-)))))
+clos/con:
+	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (car-v) (-> (match car-v ...) <-))
+  (env ((app cdr (-> (app car p) <-)))))
+clos/con:
+	'((con
+   cons
+   (app
+    cons
+    (-> (app cons '+ (app cons + (app nil))) <-)
+    (app cons (app cons '- (app cons - (app nil))) (app nil))))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (car-v) (-> (match car-v ...) <-))
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
+	'((prim +) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (cdr-v) (-> (match cdr-v ...) <-))
+  (env ((app car (-> (app cdr (app car p)) <-)))))
+clos/con:
+	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (p) (-> (app car (app cdr (app car p))) <-))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((prim +) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con:
+	'(((top) app void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> (app cadar initial-environment-amap) <-) 1 1) (env ()))
+clos/con:
 	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -182,21 +341,6 @@ clos/con:
    (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> car <-) (app cdr (app car p))) (env (())))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> car <-) p) (env (())))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cdr <-) (app car p)) (env (())))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) '+ (app cons + (app nil))) (env ()))
@@ -267,43 +411,6 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app car (-> (app cdr (app car p)) <-)) (env (())))
-clos/con:
-	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app car (-> p <-)) (env (())))
-clos/con:
-	'((con
-   cons
-   (letrec*
-    (...
-     cadar
-     (initial-environment-amap
-      (->
-       (app
-        cons
-        (app cons '+ (app cons + (app nil)))
-        (app cons (app cons '- (app cons - (app nil))) (app nil)))
-       <-))
-     ()
-     ...)
-    ...))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app cdr (-> (app car p) <-)) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons '+ (app cons + (app nil))) <-)
-    (app cons (app cons '- (app cons - (app nil))) (app nil))))
-  (env ()))
-	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app cons '+ (-> (app cons + (app nil)) <-)) (env ()))
 clos/con:
 	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
@@ -356,85 +463,6 @@ literals: '(⊥ ⊥ ⊥)
 '(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> car-v <-) (cons car-c car-d)) (env (())))
-clos/con:
-	'((con
-   cons
-   (letrec*
-    (...
-     cadar
-     (initial-environment-amap
-      (->
-       (app
-        cons
-        (app cons '+ (app cons + (app nil)))
-        (app cons (app cons '- (app cons - (app nil))) (app nil)))
-       <-))
-     ()
-     ...)
-    ...))
-  (env ()))
-	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons '+ (app cons + (app nil))) <-)
-    (app cons (app cons '- (app cons - (app nil))) (app nil))))
-  (env ()))
-	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons '+ (app cons + (app nil))) <-)
-    (app cons (app cons '- (app cons - (app nil))) (app nil))))
-  (env ()))
-	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
-clos/con:
-	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (car-v) (-> (match car-v ...) <-)) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons '+ (app cons + (app nil))) <-)
-    (app cons (app cons '- (app cons - (app nil))) (app nil))))
-  (env ()))
-	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
-clos/con:
-	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (p) (-> (app car (app cdr (app car p))) <-)) (env (())))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons '+ (app cons + (app nil))) <-)
-    (app cons (app cons '- (app cons - (app nil))) (app nil))))
-  (env ()))
-	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -807,82 +835,19 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  cadar
+  car
   (letrec*
    (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
    ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  car
-  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
-  (env ()))
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  cdr
-  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  initial-environment-amap
-  (letrec*
-   (...
-    cadar
-    (initial-environment-amap
-     (->
-      (app
-       cons
-       (app cons '+ (app cons + (app nil)))
-       (app cons (app cons '- (app cons - (app nil))) (app nil)))
-      <-))
-    ()
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((con
-   cons
-   (letrec*
-    (...
-     cadar
-     (initial-environment-amap
-      (->
-       (app
-        cons
-        (app cons '+ (app cons + (app nil)))
-        (app cons (app cons '- (app cons - (app nil))) (app nil)))
-       <-))
-     ()
-     ...)
-    ...))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  x
-  (let (...
-        ()
-        (x (-> (app (app cadar initial-environment-amap) 1 1) <-))
-        ()
-        ...)
-    ...)
-  (env ()))
-clos/con: ⊥
-literals: '(2 ⊥ ⊥)
-
-'(store: car-c (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
+  car-c
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((app cdr (-> (app car p) <-)))))
 clos/con:
 	'((con
    cons
@@ -891,10 +856,20 @@ clos/con:
     (-> (app cons '+ (app cons + (app nil))) <-)
     (app cons (app cons '- (app cons - (app nil))) (app nil))))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car-c
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
 	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: car-d (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
+'(store:
+  car-d
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((app cdr (-> (app car p) <-)))))
 clos/con:
 	'((con
    cons
@@ -903,10 +878,20 @@ clos/con:
     (app cons '+ (app cons + (app nil)))
     (-> (app cons (app cons '- (app cons - (app nil))) (app nil)) <-)))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car-d
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: car-v (λ (car-v) (-> (match car-v ...) <-)) (env (())))
+'(store:
+  car-v
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((app cdr (-> (app car p) <-)))))
 clos/con:
 	'((con
    cons
@@ -924,20 +909,46 @@ clos/con:
      ...)
     ...))
   (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car-v
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ((λ (p) (-> (app car (app cdr (app car p))) <-)))))
+clos/con:
 	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: cdr-c (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
+'(store:
+  cdr
+  (letrec*
+   (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
+   ...)
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
+clos/con:
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cdr-c
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...)
+  (env ((app car (-> (app cdr (app car p)) <-)))))
 clos/con:
 	'((app cons (-> '+ <-) (app cons + (app nil))) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: cdr-d (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
+'(store:
+  cdr-d
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...)
+  (env ((app car (-> (app cdr (app car p)) <-)))))
 clos/con:
 	'((con cons (app cons '+ (-> (app cons + (app nil)) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: cdr-v (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
+'(store:
+  cdr-v
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...)
+  (env ((app car (-> (app cdr (app car p)) <-)))))
 clos/con:
 	'((con
    cons
@@ -946,10 +957,14 @@ clos/con:
     (-> (app cons '+ (app cons + (app nil))) <-)
     (app cons (app cons '- (app cons - (app nil))) (app nil))))
   (env ()))
-	'((prim +) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: p (λ (p) (-> (app car (app cdr (app car p))) <-)) (env (())))
+'(store:
+  p
+  (letrec*
+   (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
+   ...)
+  (env ((app (-> (app cadar initial-environment-amap) <-) 1 1))))
 clos/con:
 	'((con
    cons
@@ -968,3 +983,45 @@ clos/con:
     ...))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
+
+'(store: cadar ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con:
+	'((letrec*
+   (... cdr (cadar (-> (λ (p) ...) <-)) initial-environment-amap ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: car ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: cdr ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con:
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadar ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: initial-environment-amap ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con:
+	'((con
+   cons
+   (letrec*
+    (...
+     cadar
+     (initial-environment-amap
+      (->
+       (app
+        cons
+        (app cons '+ (app cons + (app nil)))
+        (app cons (app cons '- (app cons - (app nil))) (app nil)))
+       <-))
+     ()
+     ...)
+    ...))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: x ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con: ⊥
+literals: '(2 ⊥ ⊥)
