@@ -90,8 +90,8 @@
       ; Missing primitives or takes longer
       (define benchmark-2 '(meta-circ regex-derivative regex loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
-      (for ([example (get-examples '(scratch))])
-        ; (for ([example (get-examples '(meta-circ) all-benchmarks)])
+      ; (for ([example (get-examples '(scratch))])
+      (for ([example (get-examples '(meta-circ) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))

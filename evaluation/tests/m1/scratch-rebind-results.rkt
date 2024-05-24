@@ -212,14 +212,14 @@ literals: '(⊥ ⊥ ⊥)
   (letrec* (car ... initial-environment-amap) (-> (let (x) ...) <-))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (lettypes cons ... nil (letrec* (car ... initial-environment-amap) ...))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -327,7 +327,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) lettypes (cons ... nil) ...) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> (app cadar initial-environment-amap) <-) 1 1) (env ()))
@@ -457,7 +457,7 @@ literals: '(2 ⊥ ⊥)
 
 '(query: (let (x) (-> (app display x) <-)) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))

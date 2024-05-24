@@ -198,7 +198,7 @@
        [(cons _ (? number? x)) (lit (litnum x))]
        [(cons _ (? string? x)) (lit (litstring x))]
        [(cons _ (? symbol? x))
-        (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
+        ; (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
         (symbol-lookup Ce x ρ)]
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)]
        [(cons _ `',x) (clos Ce ρ)]
@@ -255,7 +255,7 @@
                 (λ (bindVarCe px)
                   (>>= (meval valCe ρ)
                        (λ (res)
-                         (pretty-print (show-simple-ctx bindVarCe))
+                         ;  (pretty-print (show-simple-ctx bindVarCe))
                          (>>= (extend-store bindVarCe var px res)
                               (λ (_)
                                 (clos `((top) app void) ρ))

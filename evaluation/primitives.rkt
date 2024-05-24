@@ -46,13 +46,7 @@
   )
 
 ; Primitive constructors can be top env / contexts
-(define (voidcon C p)
-  (match (analysis-kind)
-    ['exponential (clos `((top) app void) (top-env))]
-    ['rebinding (clos `((top) app void) (top-env))]
-    ['basic (clos `((top) app void) (top-env))]
-    )
-  )
+
 
 (define (truecon C p)
   (match (analysis-kind)
@@ -70,6 +64,21 @@
     )
   )
 
+(define (errorv C p msg) ; Singleton constructors can be top context / envs
+  (match (analysis-kind)
+    ['exponential (clos `(con error ,msg) (top-env))]
+    ['rebinding (clos `(con error ,msg) (top-env))]
+    ['basic (clos (cons `(top) `(app error ,msg)) (top-env))]
+    )
+  )
+
+(define (voidv C p) ; Singleton constructors can be top context / envs
+  (match (analysis-kind)
+    ['exponential (clos `(con void) (top-env))]
+    ['rebinding (clos `(con void) (top-env))]
+    ['basic (clos (cons `(top) `(app void)) (top-env))]
+    )
+  )
 
 (define (true C p) ; Singleton constructors can be top context / envs
   (match (analysis-kind)
@@ -105,26 +114,18 @@
     [_ #f]
     ))
 
-(define (do-equal p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
-     (match a2
-       [(product/lattice (literal (list i2 c2 s2)))
-        (define f-lit (for-lit p C))
-        (bool-result (f-lit i1 i2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C p)
-        ]
-       [_ (false C p)]
-       )
-     ]
+(define (do-equal p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+     (define f-lit (for-lit p C))
+     (bool-result (f-lit i1 i2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C p)]
     [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
 
-
-
-(define (do-number-string p C a1)
-  ; (pretty-print a1)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+(define (do-number-string p C . args)
+  ; (pretty-print args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))))
      (match i1
        [(bottom) ⊥]
        [_ topstr]
@@ -136,18 +137,18 @@
 ; TODO: Refinement make sure all args are string
 (define (do-string-append p C . args) topstr)
 
-(define (do-string-length p C s) topnum)
+(define (do-string-length p C . args) topnum)
 
-(define (do-not p C a1)
-  (if (is-truthy a1) (false C p) (true C p)))
+(define (do-not p C . args)
+  (if (is-truthy (car args)) (false C p) (true C p)))
 
-(define (do-boolean? p C a1)
-  ; (pretty-print a1)
-  (if (is-bool a1) (true C p) (false C p)))
+(define (do-boolean? p C . args)
+  ; (pretty-print args)
+  (if (is-bool (car args)) (true C p) (false C p)))
 
-(define (do-integer? p C a1)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+(define (do-integer? p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))))
      (if (bottom? i1)
          (false C p)
          (if (top? i1) ; A number could be either a int or some other number
@@ -158,9 +159,9 @@
     [_ (false C p)]
     ))
 
-(define (do-number? p C a1)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+(define (do-number? p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))))
      (if (bottom? i1)
          (false C p)
          (true C p)
@@ -168,9 +169,9 @@
     [_ (false C p)]
     ))
 
-(define (do-string? p C a1)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+(define (do-string? p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))))
      (if (bottom? s1)
          (false C p)
          (true C p)
@@ -178,9 +179,9 @@
     [_ (false C p)]
     ))
 
-(define (do-procedure? p C a1)
-  (match a1
-    [(product/set (list (cons C `(λ ,_ ,_)) pl)) (true C p)]; Only literal #f counts as falsey in scheme
+(define (do-procedure? p C . args)
+  (match args
+    [(list (product/set (list (cons C `(λ ,_ ,_)) pl))) (true C p)]
     [_ (false C p)]
     )
   )
@@ -217,136 +218,123 @@
     )
   )
 
-(define (do-symbol? p C a1)
-  (match a1
-    [(product/set (list (cons C `',x) p))
+(define (do-symbol? p C . args)
+  (match args
+    [(list (product/set (list (cons C `',x) p)))
      (true C p) ]
     [_ (false C p)])
   )
 
-(define (do-list? p C a1)
-  (match a1
-    [(product/set (list (list C 'con _) p))
+(define (do-list? p C . args)
+  (match args
+    [(list (product/set (list (list C 'con _) p)))
      (true C p) ]
-    [(product/set (list (list C 'nil) p))
+    [(list (product/set (list (list C 'nil) p)))
      (true C p) ]
     [_ (false C p)])
   )
 
-(define (do-char? p C a1)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+(define (do-char? p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))))
      (if (not (bottom? c1)) (true C p) (false C p)) ]
     [_ (false C p)])
   )
 
 
-(define (do-lte p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
-     (match a2
-       [(product/lattice (literal (list i2 c2 s2)))
-        (define f-lit (for-lit p C))
-        (bool-result (f-lit i1 i2 <=) (f-lit c1 c2 char<=?) (f-lit s1 s2 string<=?) C p)
-        ]
-       [_ (clos (cons C 'error-lte-not-implemented) p)]
-       )
+(define (do-lte p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+     (define f-lit (for-lit p C))
+     (bool-result (f-lit i1 i2 <=) (f-lit c1 c2 char<=?) (f-lit s1 s2 string<=?) C p)
      ]
-    [_ (clos (cons C 'error-lte-not-implemented) p)])
+    [_ ⊥])
   )
 
 
-(define (do-lt p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
-     (match a2
-       [(product/lattice (literal (list i2 c2 s2)))
-        (define f-lit (for-lit p C))
-        (bool-result (f-lit i1 i2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) C p)]
-       [_ (clos (cons C 'error-lt-not-implemented) p)]
-       )
-     ]
-    [_ (clos (cons C 'error-lt-not-implemented) p)])
+(define (do-lt p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1)))
+           (product/lattice (literal (list i2 c2 s2))))
+     (define f-lit (for-lit p C))
+     (bool-result (f-lit i1 i2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) C p)]
+
+    [_ ⊥])
   )
 
-(define (do-gt p C a1 a2)
-  (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
-     (match a2
-       [(product/lattice (literal (list i2 c2 s2)))
-        (define f-lit (for-lit p C))
-        (bool-result (f-lit i1 i2 >) (f-lit c1 c2 char>?) (f-lit s1 s2 string>?) C p)]
-       [_ (clos (cons C 'error-gt-not-implemented) p)]
-       )
-     ]
-    [_ (clos (cons C 'error-gt-not-implemented) p)])
+(define (do-gt p C . args)
+  (match args
+    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+     (define f-lit (for-lit p C))
+     (bool-result (f-lit i1 i2 >) (f-lit c1 c2 char>?) (f-lit s1 s2 string>?) C p)]
+    [_ ⊥])
   )
 
-(define (do-odd p C a1)
-  (match a1
-    [(product/lattice (literal (list (singleton x) (bottom) (bottom))))
+(define (do-odd p C . args)
+  (match args
+    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom)))))
      (if (integer? x)
          (if (odd? x) (true C p) (false C p))
          (each (true C p) (false C p))
          )
      ]
-    [(product/lattice (literal (list (top) (bottom) (bottom))))
+    [(list (product/lattice (literal (list (top) (bottom) (bottom)))))
      (each (true C p) (false C p))
      ]
     [_ ⊥]
     ; [_ (clos (cons C 'error-odd-not-implemented) p)]
     ))
 
-(define (do-even p C a1)
-  (match a1
-    [(product/lattice (literal (list (singleton x) (bottom) (bottom))))
+(define (do-even p C . args)
+  (match args
+    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom)))))
      (if (integer? x)
          (if (even? x) (true C p) (false C p))
          (each (true C p) (false C p))
          )
      ]
-    [(product/lattice (literal (list (top) (bottom) (bottom))))
+    [(list (product/lattice (literal (list (top) (bottom) (bottom)))))
      (each (true C p) (false C p))
      ]
     [_ ⊥]
     ; [_ (clos (cons C 'error-odd-not-implemented) p)]
     ))
 
-(define (do-add p C a1 a2)
-  (do-num-op a1 a2 +)
+(define (do-add p C . args)
+  (do-num-op args +)
   )
 
-(define (do-mult p C a1 a2)
-  (do-num-op a1 a2 *)
+(define (do-mult p C . args)
+  (do-num-op args *)
   )
 
-(define (do-div p C a1 a2)
-  (do-num-op-check a1 a2 / check-non-zero)
+(define (do-div p C . args)
+  (do-num-op-check args / check-non-zero)
   )
 
-(define (do-sub p C a1 a2)
-  (do-num-op a1 a2 -)
+(define (do-sub p C . args)
+  (do-num-op args -)
   )
 
-(define (do-modulo p C a1 a2)
-  (do-num-op-check a1 a2 modulo check-non-zero)
+(define (do-modulo p C . args)
+  (do-num-op-check args modulo check-non-zero)
   )
 
-(define (do-gcd p C a1 a2)
-  (do-num-op a1 a2 gcd)
+(define (do-gcd p C . args)
+  (do-num-op args gcd)
   )
 
-(define (do-quotient p C a1 a2)
-  (do-num-op-check a1 a2 quotient check-non-zero)
+(define (do-quotient p C . args)
+  (do-num-op-check args quotient check-non-zero)
   )
 
 (define (check-non-zero x y)
   (if (equal? y 0) #f #t)
   )
 
-(define (do-ceiling p C a1)
-  (match a1
-    [(product/lattice (literal (list x (bottom) (bottom))))
+(define (do-ceiling p C . args)
+  (match args
+    [(list (product/lattice (literal (list x (bottom) (bottom)))))
      (apply each (list
                   (if (singleton? x) (lit (litnum (ceiling x))) ⊥)
                   (if (top? x)
@@ -357,9 +345,9 @@
     [_ ⊥])
   )
 
-(define (do-log p C a1)
-  (match a1
-    [(product/lattice (literal (list x (bottom) (bottom))))
+(define (do-log p C . args)
+  (match args
+    [(list (product/lattice (literal (list x (bottom) (bottom)))))
      (apply each (list
                   (if (singleton? x) (if (eq? x 1)
                                          (lit (litnum 0))
@@ -377,45 +365,33 @@
   )
 
 
-(define (do-num-op-check a1 a2 op check)
-  (match a1
-    [(product/lattice (literal (list n1 (bottom) (bottom))))
-     (match a2
-       [(product/lattice (literal (list n2 (bottom) (bottom))))
-        (apply each (list
-                     (if (and (singleton? n1) (singleton? n2))
-                         (if (check (singleton-x n1) (singleton-x n2))
-                             (lit (litnum (op (singleton-x n1) (singleton-x n2))))
-                             topnum
-                             )
-                         ⊥)
-                     (if (or (top? n1) (top? n2)) topnum ⊥)
-                     )
-               )
-        ]
-       [_ ⊥]
-       )
+(define (do-num-op-check args op check)
+  (match args
+    [(list (product/lattice (literal (list n1 c1 s1)))
+           (product/lattice (literal (list n2 c2 s2))))
+     (apply each (list
+                  (if (and (singleton? n1) (singleton? n2))
+                      (if (check (singleton-x n1) (singleton-x n2))
+                          (lit (litnum (op (singleton-x n1) (singleton-x n2))))
+                          topnum
+                          )
+                      ⊥)
+                  (if (or (top? n1) (top? n2)) topnum ⊥)
+                  )
+            )
      ]
     [_ ⊥])
   )
 
-(define (do-num-op a1 a2 op)
-  (match a1
-    [(product/lattice (literal (list n1 (bottom) (bottom))))
-     (match a2
-       [(product/lattice (literal (list n2 (bottom) (bottom))))
-        (apply each (list
-                     (if (and (singleton? n1) (singleton? n2)) (lit (litnum (op (singleton-x n1) (singleton-x n2)))) ⊥)
-                     (if (or (top? n1) (top? n2)) topnum ⊥)
-                     )
-               )
-        ]
-       [_ ⊥]
-       )
+(define (do-num-op args op)
+  (match args
+    [(list (product/lattice (literal (list n1 c1 s1)))
+           (product/lattice (literal (list n2 c2 s2))))
+     (if (and (singleton? n1) (singleton? n2)) (lit (litnum (op (singleton-x n1) (singleton-x n2))))
+         (if (or (top? n1) (top? n2)) topnum ⊥))
      ]
     [_ ⊥])
   )
-
 
 (define ((for-lit p C) f1 f2 f)
   (match f1
@@ -446,9 +422,9 @@
     [#t (true C p)]
     ))
 
-(define (do-newline p C) (voidcon C p))
-(define (do-display p C . args) (voidcon C p))
-(define (do-void p C) (voidcon C p))
+(define (do-newline p C . args) (voidv C p))
+(define (do-display p C . args) (voidv C p))
+(define (do-void p C . args) (voidv C p))
 (define (do-random p C . args)
   (match args
     [(list b t) (error 'unsupported-primitive-random-2-args "")]
