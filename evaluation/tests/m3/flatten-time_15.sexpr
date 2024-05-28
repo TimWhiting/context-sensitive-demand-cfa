@@ -23,7 +23,7 @@
   103
   lambda
   "'(eval\n  (letrec* (... append (flatten (-> (λ (x) ...) <-)) () ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -52,7 +52,7 @@
   15
   103
   app
-  "'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))\n  (env ((□? (x)))))"
+  "'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (->\n     (app append (app flatten (app car ...)) (app flatten (app cdr ...)))\n     <-)))\n  (env ((□? (x)))))"
   #f
   #f)
 '(clean-cache
@@ -101,7 +101,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> cdr <-) x) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -122,7 +122,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> flatten <-) (app cdr x)) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -182,7 +182,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> car <-) x) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -203,7 +203,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> flatten <-) (app car x)) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -224,7 +224,7 @@
   103
   ref-or-constructor
   "'(eval\n  (app (-> append <-) (app flatten (app car x)) (app flatten (app cdr x)))\n  (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -402,7 +402,7 @@
   131
   #f
   223/168
-  ((9 9 0)))
+  ((8 8 0)))
 '(clean-cache
   flatten
   3
@@ -410,7 +410,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> null? <-) x) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -461,7 +461,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> pair? <-) x) (env ((□? (x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -482,7 +482,7 @@
   103
   lambda
   "'(eval\n  (letrec* (... null? (append (-> (λ (x y) ...) <-)) flatten ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -520,7 +520,7 @@
   15
   103
   app
-  "'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))\n   _)\n  (env ((□? (x y)))))"
+  "'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))\n   _)\n  (env ((□? (x y)))))"
   #f
   3
   2
@@ -578,7 +578,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> cdr <-) x) (env ((□? (x y)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -599,7 +599,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> append <-) (app cdr x) y) (env ((□? (x y)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -638,7 +638,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> car <-) x) (env ((□? (x y)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -698,7 +698,7 @@
   103
   ref-or-constructor
   "'(eval (app (-> null? <-) x) (env ((□? (x y)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -719,7 +719,7 @@
   103
   lambda
   "'(eval\n  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) append ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -770,7 +770,7 @@
   103
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (null?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -812,7 +812,7 @@
   103
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (null?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -842,7 +842,7 @@
   103
   lambda
   "'(eval\n  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -893,7 +893,7 @@
   103
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (pair?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -935,7 +935,7 @@
   103
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (pair?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -969,7 +969,7 @@
   142
   #f
   127/92
-  ((11 11 0)))
+  ((10 10 0)))
 '(clean-cache
   flatten
   3
@@ -977,7 +977,7 @@
   103
   lambda
   "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1025,7 +1025,7 @@
   103
   lambda
   "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1072,7 +1072,7 @@
   15
   103
   app
-  "'(eval\n  (letrec*\n   (car ... flatten)\n   (->\n    (app\n     flatten\n     (app\n      cons\n      (app cons 1 (app cons 2 (app nil)))\n      (app\n       cons\n       (app\n        cons\n        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n        (app nil))\n       (app nil))))\n    <-))\n  (env ()))"
+  "'(eval\n  (letrec*\n   (car ... flatten)\n   (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))\n  (env ()))"
   #f
   #f)
 '(clean-cache
@@ -1081,7 +1081,7 @@
   15
   103
   app
-  "'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons 2 (app nil)))\n     (app\n      cons\n      (app\n       cons\n       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n       (app nil))\n      (app nil)))\n    <-))\n  (env ()))"
+  "'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons ...))\n     (app cons (app cons ...) (app nil ...)))\n    <-))\n  (env ()))"
   #f
   2
   2
@@ -1102,7 +1102,7 @@
   15
   103
   app
-  "'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil)))\n   (->\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))\n    <-))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil ...)))\n   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-))\n  (env ()))"
   #f
   2
   2
@@ -1123,70 +1123,7 @@
   15
   103
   app
-  "'(eval\n  (app\n   cons\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (-> (app nil) <-))\n  (env ()))"
-  #f
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  flatten
-  3
-  15
-  103
-  ref-or-constructor
-  "'(eval (app (-> nil <-)) (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  flatten
-  3
-  15
-  103
-  app
-  "'(eval\n  (app\n   cons\n   (->\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    <-)\n   (app nil))\n  (env ()))"
-  #f
-  2
-  2
-  0
-  0
-  2
-  0
-  2
-  1
-  1
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  flatten
-  3
-  15
-  103
-  app
-  "'(eval\n  (app\n   cons\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (-> (app nil) <-))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil))\n   (-> (app nil) <-))\n  (env ()))"
   #f
   2
   2
@@ -1228,7 +1165,7 @@
   15
   103
   app
-  "'(eval\n  (app\n   cons\n   (->\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    <-)\n   (app nil))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)\n   (app nil))\n  (env ()))"
   #f
   2
   2
@@ -1249,7 +1186,7 @@
   15
   103
   app
-  "'(eval\n  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))\n  (env ()))"
+  "'(eval\n  (app cons (app cons (app cons 3 (app cons ...)) (app nil)) (-> (app nil) <-))\n  (env ()))"
   #f
   2
   2
@@ -1291,7 +1228,7 @@
   15
   103
   app
-  "'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))\n  (env ()))"
+  "'(eval\n  (app cons (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-) (app nil))\n  (env ()))"
   #f
   2
   2
@@ -1312,7 +1249,70 @@
   15
   103
   app
-  "'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))"
+  "'(eval\n  (app cons (app cons 3 (app cons 4 (app cons ...))) (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  3
+  15
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  3
+  15
+  103
+  app
+  "'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  3
+  15
+  103
+  app
+  "'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)) (env ()))"
   #f
   2
   2
@@ -1397,7 +1397,7 @@
   103
   number
   "'(eval (app cons (-> 5 <-) (app nil)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1439,7 +1439,7 @@
   103
   number
   "'(eval (app cons (-> 4 <-) (app cons 5 (app nil))) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1480,7 +1480,28 @@
   15
   103
   number
-  "'(eval (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil)))) (env ()))"
+  "'(eval (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil ...)))) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  flatten
+  3
+  15
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 3 (app cons 4 (app cons 5 (app nil ...)))) (env ()))"
   #t
   1
   1
@@ -1501,7 +1522,7 @@
   15
   103
   ref-or-constructor
-  "'(eval (app (-> cons <-) 3 (app cons 4 (app cons 5 (app nil)))) (env ()))"
+  "'(eval\n  (app (-> cons <-) (app cons 3 (app cons 4 (app cons ...))) (app nil))\n  (env ()))"
   #t
   1
   1
@@ -1522,7 +1543,7 @@
   15
   103
   ref-or-constructor
-  "'(eval\n  (app (-> cons <-) (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n  (env ()))"
+  "'(eval\n  (app (-> cons <-) (app cons (app cons 3 (app cons ...)) (app nil)) (app nil))\n  (env ()))"
   #t
   1
   1
@@ -1543,28 +1564,7 @@
   15
   103
   ref-or-constructor
-  "'(eval\n  (app\n   (-> cons <-)\n   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n   (app nil))\n  (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  flatten
-  3
-  15
-  103
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> cons <-)\n   (app\n    cons\n    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n    (app nil))\n   (app nil))\n  (env ()))"
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil))\n   (app nil))\n  (env ()))"
   #t
   1
   1
@@ -1585,7 +1585,7 @@
   15
   103
   app
-  "'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil))) <-)\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil ...))) <-)\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))\n  (env ()))"
   #f
   2
   2
@@ -1670,7 +1670,7 @@
   103
   number
   "'(eval (app cons (-> 2 <-) (app nil)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1712,7 +1712,7 @@
   103
   number
   "'(eval (app cons (-> 1 <-) (app cons 2 (app nil))) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1753,7 +1753,7 @@
   15
   103
   ref-or-constructor
-  "'(eval\n  (app\n   (-> cons <-)\n   (app cons 1 (app cons 2 (app nil)))\n   (app\n    cons\n    (app\n     cons\n     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n     (app nil))\n    (app nil)))\n  (env ()))"
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons 1 (app cons 2 (app nil ...)))\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))\n  (env ()))"
   #t
   1
   1
@@ -1774,8 +1774,8 @@
   15
   103
   ref-or-constructor
-  "'(eval\n  (app\n   (-> flatten <-)\n   (app\n    cons\n    (app cons 1 (app cons 2 (app nil)))\n    (app\n     cons\n     (app\n      cons\n      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))\n      (app nil))\n     (app nil))))\n  (env ()))"
-  #t
+  "'(eval\n  (app\n   (-> flatten <-)\n   (app\n    cons\n    (app cons 1 (app cons ...))\n    (app cons (app cons ...) (app nil ...))))\n  (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0

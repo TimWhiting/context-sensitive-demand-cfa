@@ -1,2 +1,2 @@
-'(rebinding flatten 0 100000 44 59 56 44 21 493/59 ((85 85 1)))
-'(exponential flatten 0 100000 44 59 43 44 21 493/59 ((60 60 0)))
+'(rebinding flatten 0 100000 44 59 43 44 21 493/59 ((84 84 1)))
+'(exponential flatten 0 100000 44 59 43 44 21 493/59 ((62 62 0)))

@@ -2,7 +2,7 @@
   regex
   2
   5
-  421
+  449
   lettypes
   "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
   #f
@@ -11,7 +11,7 @@
   regex
   2
   5
-  421
+  449
   letrec*
   "'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))"
   #f
@@ -20,10 +20,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-match (check-expect (-> (λ (check expect) ...) <-)) () ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -41,7 +41,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))"
   #f
@@ -50,7 +50,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app equal? check (-> expect <-)) (env ((□? (check expect)))))"
   #f
@@ -71,7 +71,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))"
   #f
@@ -80,7 +80,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> equal? <-) check expect) (env ((□? (check expect)))))"
   #t
@@ -101,10 +101,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (...\n    regex-derivative\n    (regex-match (-> (λ (pattern data) ...) <-))\n    check-expect\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -122,7 +122,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (λ (pattern data) (-> (match (app null? data) ...) <-))\n  (env ((□? (pattern data)))))"
   #f
@@ -131,7 +131,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))"
   #f
@@ -140,7 +140,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))"
   #f
@@ -149,7 +149,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))"
   #f
@@ -158,10 +158,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pattern) (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -179,10 +179,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-empty? <-) (app regex-empty pattern))\n  (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -200,23 +200,23 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car data))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))"
+  "'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (->\n     (app\n      regex-match\n      (app regex-derivative pattern (app car ...))\n      (app cdr data))\n     <-))\n   _)\n  (env ((□? (pattern data)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app\n   regex-match\n   (app regex-derivative pattern (app car data))\n   (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))"
   #f
-  48
+  43
   30
-  11
-  7
+  8
+  5
   24
   3
   27
@@ -225,19 +225,19 @@
   14
   #f
   5/3
-  ((3 3 0)))
+  ((2 2 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  42
+  37
   25
-  11
-  6
+  8
+  4
   24
   3
   27
@@ -246,15 +246,15 @@
   23
   #f
   28/25
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cdr <-) data) (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -272,7 +272,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app\n   regex-match\n   (-> (app regex-derivative pattern (app car data)) <-)\n   (app cdr data))\n  (env ((□? (pattern data)))))"
   #f
@@ -281,14 +281,14 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app regex-derivative pattern (-> (app car data) <-))\n  (env ((□? (pattern data)))))"
   #f
-  74
+  67
   43
-  20
-  11
+  15
+  9
   37
   4
   41
@@ -297,19 +297,19 @@
   31
   #f
   59/43
-  ((4 4 0)))
+  ((2 2 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app car (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  42
+  37
   25
-  11
-  6
+  8
+  4
   24
   3
   27
@@ -318,15 +318,15 @@
   23
   #f
   28/25
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) data) (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -344,7 +344,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative (-> pattern <-) (app car data))\n  (env ((□? (pattern data)))))"
   #f
@@ -353,10 +353,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-derivative <-) pattern (app car data))\n  (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -374,10 +374,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app\n   (-> regex-match <-)\n   (app regex-derivative pattern (app car data))\n   (app cdr data))\n  (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -395,23 +395,35 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))"
   #f
-  #f)
+  68
+  52
+  10
+  6
+  43
+  4
+  47
+  1
+  43/50
+  43
+  #f
+  5/4
+  ((2 2 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  42
+  37
   25
-  11
-  6
+  8
+  4
   24
   3
   27
@@ -420,15 +432,15 @@
   23
   #f
   28/25
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> null? <-) data) (env ((□? (pattern data)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -446,10 +458,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-empty (regex-derivative (-> (λ (re c) ...) <-)) regex-match ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -467,7 +479,7 @@
   regex
   2
   5
-  421
+  449
   let
   "'(eval (λ (re c) (-> (let (_) ...) <-)) (env ((□? (re c)))))"
   #f
@@ -476,7 +488,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))"
   #f
@@ -497,10 +509,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> debug-trace <-)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -518,7 +530,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (let (_) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re c)))))"
   #f
@@ -527,7 +539,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-empty? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))"
   #f
@@ -548,7 +560,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re c)))))"
   #f
@@ -557,7 +569,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))"
   #f
@@ -578,7 +590,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match (app regex-null? re) ((#f) (-> (match (app eq? c re) ...) <-)) _)\n  (env ((□? (re c)))))"
   #f
@@ -587,7 +599,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match (app eq? c re) (#f) (_ (-> regex-BLANK <-))) (env ((□? (re c)))))"
   #f
@@ -608,7 +620,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match (app eq? c re) ((#f) (-> (match (app regex-atom? re) ...) <-)) _)\n  (env ((□? (re c)))))"
   #f
@@ -617,7 +629,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-atom? re) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (re c)))))"
   #f
@@ -638,7 +650,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))"
   #f
@@ -647,7 +659,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
@@ -656,7 +668,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))"
   #f
@@ -665,7 +677,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
@@ -674,7 +686,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))"
   #f
@@ -683,7 +695,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
@@ -692,7 +704,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-rep re (λ (pat) ...)) ((#f) (-> regex-NULL <-)) c-x)\n  (env ((□? (re c)))))"
   #f
@@ -713,7 +725,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
@@ -722,10 +734,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (app match-rep re (-> (λ (pat) ...) <-)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -743,7 +755,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (λ (pat) (-> (app seq (app regex-derivative pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -752,7 +764,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (app regex-derivative pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -761,7 +773,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -770,10 +782,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> rep <-) pat) (env ((□? (pat)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -791,7 +803,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (-> (app regex-derivative pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -800,7 +812,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-derivative pat (-> c <-)) (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -809,7 +821,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-derivative (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))"
   #f
@@ -818,10 +830,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-derivative <-) pat c) (env ((□? (pat)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -839,10 +851,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> seq <-) (app regex-derivative pat c) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -860,7 +872,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app match-rep (-> re <-) (λ (pat) ...)) (env ((□? (re c)))))"
   #f
@@ -869,10 +881,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> match-rep <-) re (λ (pat) ...)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -890,7 +902,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
@@ -899,10 +911,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (app match-alt re (-> (λ (pat1 pat2) ...) <-)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -920,7 +932,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (λ (pat1 pat2)\n    (->\n     (app alt (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -929,7 +941,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app alt (app regex-derivative pat1 c) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -938,7 +950,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -947,7 +959,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -956,10 +968,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-derivative <-) pat2 c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -977,7 +989,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app alt (-> (app regex-derivative pat1 c) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -986,7 +998,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -995,7 +1007,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1004,10 +1016,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-derivative <-) pat1 c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1025,10 +1037,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> alt <-) (app regex-derivative pat1 c) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1046,7 +1058,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))"
   #f
@@ -1055,10 +1067,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> match-alt <-) re (λ (pat1 pat2) ...)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1076,7 +1088,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
@@ -1085,10 +1097,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (app match-seq re (-> (λ (pat1 pat2) ...) <-)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -1106,16 +1118,16 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative pat1 c) pat2)\n      (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
+  "'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app regex-derivative ...) pat2)\n      (app seq (app regex-empty ...) (app regex-derivative ...)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app\n   alt\n   (app seq (app regex-derivative pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app regex-derivative pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1124,7 +1136,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-derivative pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1133,7 +1145,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative pat2 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1142,7 +1154,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative (-> pat2 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1151,10 +1163,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-derivative <-) pat2 c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1172,7 +1184,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1181,7 +1193,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1190,10 +1202,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pat1) (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1211,10 +1223,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> seq <-) (app regex-empty pat1) (app regex-derivative pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1232,7 +1244,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app\n   alt\n   (-> (app seq (app regex-derivative pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1241,7 +1253,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app seq (app regex-derivative pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1250,7 +1262,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (-> (app regex-derivative pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1259,7 +1271,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative pat1 (-> c <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1268,7 +1280,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app regex-derivative (-> pat1 <-) c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
@@ -1277,10 +1289,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> regex-derivative <-) pat1 c)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1298,10 +1310,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> seq <-) (app regex-derivative pat1 c) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1319,10 +1331,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app\n   (-> alt <-)\n   (app seq (app regex-derivative pat1 c) pat2)\n   (app seq (app regex-empty pat1) (app regex-derivative pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1340,7 +1352,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re c)))))"
   #f
@@ -1349,10 +1361,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> match-seq <-) re (λ (pat1 pat2) ...)) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1370,7 +1382,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re c)))))"
   #f
@@ -1379,7 +1391,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-atom? (-> re <-)) (env ((□? (re c)))))"
   #f
@@ -1388,10 +1400,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-atom? <-) re) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1409,7 +1421,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app eq? c re) <-) (#f) _) (env ((□? (re c)))))"
   #f
@@ -1418,7 +1430,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app eq? c (-> re <-)) (env ((□? (re c)))))"
   #f
@@ -1427,7 +1439,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app eq? (-> c <-) re) (env ((□? (re c)))))"
   #f
@@ -1436,7 +1448,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) c re) (env ((□? (re c)))))"
   #t
@@ -1457,7 +1469,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re c)))))"
   #f
@@ -1466,7 +1478,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> re <-)) (env ((□? (re c)))))"
   #f
@@ -1475,10 +1487,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) re) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1496,7 +1508,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re c)))))"
   #f
@@ -1505,7 +1517,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty? (-> re <-)) (env ((□? (re c)))))"
   #f
@@ -1514,10 +1526,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty? <-) re) (env ((□? (re c)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1535,10 +1547,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... rep (regex-empty (-> (λ (re) ...) <-)) regex-derivative ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1556,7 +1568,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (λ (re) (-> (match (app regex-empty? re) ...) <-)) (env ((□? (re)))))"
   #f
@@ -1565,7 +1577,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (app regex-empty? re) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))"
   #f
@@ -1586,10 +1598,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -1607,7 +1619,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-empty? re)\n   ((#f) (-> (match (app regex-null? re) ...) <-))\n   _)\n  (env ((□? (re)))))"
   #f
@@ -1616,7 +1628,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (app regex-null? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))"
   #f
@@ -1637,10 +1649,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -1658,7 +1670,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-null? re)\n   ((#f) (-> (match (app regex-atom? re) ...) <-))\n   _)\n  (env ((□? (re)))))"
   #f
@@ -1667,7 +1679,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (app regex-atom? re) (#f) (_ (-> (app #f) <-)))\n  (env ((□? (re)))))"
   #f
@@ -1688,10 +1700,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -1709,7 +1721,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))"
   #f
@@ -1718,7 +1730,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))"
   #f
@@ -1727,7 +1739,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))"
   #f
@@ -1736,7 +1748,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))"
   #f
@@ -1745,7 +1757,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))"
   #f
@@ -1754,7 +1766,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (app regex-rep? re) (#f) (_ (-> (app #t) <-))) (env ((□? (re)))))"
   #f
@@ -1775,10 +1787,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -1796,7 +1808,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))"
   #f
@@ -1817,10 +1829,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -1838,7 +1850,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))"
   #f
@@ -1847,7 +1859,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-rep? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -1856,10 +1868,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-rep? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1877,7 +1889,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))"
   #f
@@ -1886,10 +1898,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (app match-alt re (-> (λ (pat1 pat2) ...) <-)) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -1907,7 +1919,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -1916,7 +1928,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -1925,7 +1937,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -1934,10 +1946,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pat2) (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1955,7 +1967,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -1964,7 +1976,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -1973,10 +1985,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pat1) (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1994,10 +2006,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> alt <-) (app regex-empty pat1) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2015,7 +2027,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app match-alt (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))"
   #f
@@ -2024,10 +2036,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> match-alt <-) re (λ (pat1 pat2) ...)) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2045,7 +2057,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))"
   #f
@@ -2054,10 +2066,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (app match-seq re (-> (λ (pat1 pat2) ...) <-)) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -2075,7 +2087,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -2084,7 +2096,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -2093,7 +2105,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -2102,10 +2114,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pat2) (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2123,7 +2135,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -2132,7 +2144,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
@@ -2141,10 +2153,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty <-) pat1) (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2162,10 +2174,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> seq <-) (app regex-empty pat1) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2183,7 +2195,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app match-seq (-> re <-) (λ (pat1 pat2) ...)) (env ((□? (re)))))"
   #f
@@ -2192,10 +2204,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> match-seq <-) re (λ (pat1 pat2) ...)) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2213,7 +2225,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-atom? re) <-) (#f) _) (env ((□? (re)))))"
   #f
@@ -2222,7 +2234,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-atom? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -2231,10 +2243,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-atom? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2252,7 +2264,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? re) <-) (#f) _) (env ((□? (re)))))"
   #f
@@ -2261,7 +2273,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -2270,10 +2282,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2291,7 +2303,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-empty? re) <-) (#f) _) (env ((□? (re)))))"
   #f
@@ -2300,7 +2312,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -2309,10 +2321,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2330,10 +2342,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... alt (rep (-> (λ (pat) ...) <-)) regex-empty ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2351,7 +2363,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (λ (pat) (-> (match (app regex-null? pat) ...) <-)) (env ((□? (pat)))))"
   #f
@@ -2360,7 +2372,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))"
   #f
@@ -2381,7 +2393,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-null? pat)\n   ((#f) (-> (match (app regex-empty? pat) ...) <-))\n   _)\n  (env ((□? (pat)))))"
   #f
@@ -2390,7 +2402,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-empty? pat) (#f) (_ (-> regex-BLANK <-)))\n  (env ((□? (pat)))))"
   #f
@@ -2411,9 +2423,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil))) <-))\n   _)\n  (env ((□? (pat)))))"
+  "'(eval\n  (match\n   (app regex-empty? pat)\n   ((#f) (-> (app cons 'rep (app cons pat (app nil ...))) <-))\n   _)\n  (env ((□? (pat)))))"
   #f
   3
   2
@@ -2432,7 +2444,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons 'rep (-> (app cons pat (app nil)) <-)) (env ((□? (pat)))))"
   #f
@@ -2453,7 +2465,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons pat (-> (app nil) <-)) (env ((□? (pat)))))"
   #f
@@ -2474,7 +2486,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ((□? (pat)))))"
   #t
@@ -2495,7 +2507,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))"
   #f
@@ -2504,7 +2516,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) pat (app nil)) (env ((□? (pat)))))"
   #t
@@ -2525,10 +2537,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (app cons (-> 'rep <-) (app cons pat (app nil))) (env ((□? (pat)))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -2546,7 +2558,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) 'rep (app cons pat (app nil))) (env ((□? (pat)))))"
   #t
@@ -2567,7 +2579,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-empty? pat) <-) (#f) _) (env ((□? (pat)))))"
   #f
@@ -2576,7 +2588,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))"
   #f
@@ -2585,10 +2597,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty? <-) pat) (env ((□? (pat)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2606,7 +2618,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? pat) <-) (#f) _) (env ((□? (pat)))))"
   #f
@@ -2615,7 +2627,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))"
   #f
@@ -2624,10 +2636,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) pat) (env ((□? (pat)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2645,10 +2657,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... seq (alt (-> (λ (pat1 pat2) ...) <-)) rep ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2666,7 +2678,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2675,7 +2687,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2684,7 +2696,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2693,7 +2705,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2702,9 +2714,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (app cons 'alt (app cons pat1 (app cons ...))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
   3
   2
@@ -2723,9 +2735,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (app cons 'alt (-> (app cons pat1 (app cons pat2 (app nil ...))) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
   3
   2
@@ -2744,7 +2756,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2765,7 +2777,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -2786,7 +2798,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ((□? (pat1 pat2)))))"
   #t
@@ -2807,7 +2819,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))"
   #f
@@ -2816,7 +2828,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) pat2 (app nil)) (env ((□? (pat1 pat2)))))"
   #t
@@ -2837,7 +2849,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -2846,7 +2858,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> cons <-) pat1 (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))"
   #t
@@ -2867,10 +2879,10 @@
   regex
   2
   5
-  421
+  449
   quoted
-  "'(eval\n  (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil))))\n  (env ((□? (pat1 pat2)))))"
-  #t
+  "'(eval\n  (app cons (-> 'alt <-) (app cons pat1 (app cons pat2 (app nil ...))))\n  (env ((□? (pat1 pat2)))))"
+  (quoted constructor)
   2
   1
   0
@@ -2888,9 +2900,9 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app (-> cons <-) 'alt (app cons pat1 (app cons pat2 (app nil))))\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (app (-> cons <-) 'alt (app cons pat1 (app cons pat2 (app nil ...))))\n  (env ((□? (pat1 pat2)))))"
   #t
   2
   1
@@ -2909,7 +2921,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -2918,7 +2930,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -2927,10 +2939,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) pat2) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2948,7 +2960,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -2957,7 +2969,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -2966,10 +2978,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) pat1) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2987,10 +2999,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... match-rep (seq (-> (λ (pat1 pat2) ...) <-)) alt ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3008,7 +3020,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (λ (pat1 pat2) (-> (match (app regex-null? pat1) ...) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3017,7 +3029,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? pat1) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3038,7 +3050,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-null? pat1)\n   ((#f) (-> (match (app regex-null? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3047,7 +3059,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-null? pat2) (#f) (_ (-> regex-NULL <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3068,7 +3080,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-null? pat2)\n   ((#f) (-> (match (app regex-empty? pat1) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3077,7 +3089,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-empty? pat1) (#f) (_ (-> pat2 <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3086,7 +3098,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval\n  (match\n   (app regex-empty? pat1)\n   ((#f) (-> (match (app regex-empty? pat2) ...) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3095,7 +3107,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (match (app regex-empty? pat2) (#f) (_ (-> pat1 <-)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3104,9 +3116,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons pat2 (app nil)))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (match\n   (app regex-empty? pat2)\n   ((#f) (-> (app cons 'seq (app cons pat1 (app cons ...))) <-))\n   _)\n  (env ((□? (pat1 pat2)))))"
   #f
   3
   2
@@ -3125,9 +3137,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil))) <-))\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (app cons 'seq (-> (app cons pat1 (app cons pat2 (app nil ...))) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
   3
   2
@@ -3146,7 +3158,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (app cons pat1 (-> (app cons pat2 (app nil)) <-))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3167,7 +3179,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons pat2 (-> (app nil) <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3188,7 +3200,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ((□? (pat1 pat2)))))"
   #t
@@ -3209,7 +3221,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cons (-> pat2 <-) (app nil)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3218,7 +3230,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) pat2 (app nil)) (env ((□? (pat1 pat2)))))"
   #t
@@ -3239,7 +3251,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app cons (-> pat1 <-) (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))"
   #f
@@ -3248,7 +3260,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval\n  (app (-> cons <-) pat1 (app cons pat2 (app nil)))\n  (env ((□? (pat1 pat2)))))"
   #t
@@ -3269,10 +3281,10 @@
   regex
   2
   5
-  421
+  449
   quoted
-  "'(eval\n  (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil))))\n  (env ((□? (pat1 pat2)))))"
-  #t
+  "'(eval\n  (app cons (-> 'seq <-) (app cons pat1 (app cons pat2 (app nil ...))))\n  (env ((□? (pat1 pat2)))))"
+  (quoted constructor)
   2
   1
   0
@@ -3290,9 +3302,9 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app (-> cons <-) 'seq (app cons pat1 (app cons pat2 (app nil))))\n  (env ((□? (pat1 pat2)))))"
+  "'(eval\n  (app (-> cons <-) 'seq (app cons pat1 (app cons pat2 (app nil ...))))\n  (env ((□? (pat1 pat2)))))"
   #t
   2
   1
@@ -3311,7 +3323,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-empty? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -3320,7 +3332,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty? (-> pat2 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3329,10 +3341,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty? <-) pat2) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3350,7 +3362,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-empty? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -3359,7 +3371,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-empty? (-> pat1 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3368,10 +3380,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-empty? <-) pat1) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3389,7 +3401,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? pat2) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -3398,7 +3410,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> pat2 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3407,10 +3419,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) pat2) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3428,7 +3440,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match (-> (app regex-null? pat1) <-) (#f) _) (env ((□? (pat1 pat2)))))"
   #f
@@ -3437,7 +3449,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-null? (-> pat1 <-)) (env ((□? (pat1 pat2)))))"
   #f
@@ -3446,10 +3458,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-null? <-) pat1) (env ((□? (pat1 pat2)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3467,10 +3479,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... match-alt (match-rep (-> (λ (re f) ...) <-)) seq ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3488,25 +3500,118 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re f) (-> (app and (app regex-rep? re) (app f (app cadr re))) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval (λ (re f) (-> (match (app regex-rep? re) ...) <-)) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app regex-rep? re) (-> (app f (app cadr re)) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app regex-rep? re)\n   (#f)\n   (_ (-> (match (app f (app cadr ...)) ...) <-)))\n  (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re)) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re)) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app f (app cadr re)) <-) (#f) _) (env ((□? (re f)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   app
   "'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))"
   #f
@@ -3515,7 +3620,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cadr (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3524,10 +3629,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cadr <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3545,7 +3650,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> f <-) (app cadr re)) (env ((□? (re f)))))"
   #f
@@ -3566,16 +3671,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app regex-rep? re) <-) (app f (app cadr re)))\n  (env ((□? (re f)))))"
+  "'(eval\n  (match (app regex-rep? re) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-rep? (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3584,10 +3731,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-rep? <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3605,31 +3752,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app regex-rep? re) (app f (app cadr re)))\n  (env ((□? (re f)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... match-seq (match-alt (-> (λ (re f) ...) <-)) match-rep ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3647,25 +3773,118 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re f)\n    (-> (app and (app regex-alt? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval (λ (re f) (-> (match (app regex-alt? re) ...) <-)) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app regex-alt? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app regex-alt? re)\n   (#f)\n   (_ (-> (match (app f (app cadr ...) (app caddr ...)) ...) <-)))\n  (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re) (app caddr re)) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re) (app caddr re)) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (-> (app f (app cadr re) (app caddr re)) <-) (#f) _)\n  (env ((□? (re f)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   app
   "'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))"
   #f
@@ -3674,7 +3893,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app caddr (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3683,10 +3902,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> caddr <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3704,7 +3923,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))"
   #f
@@ -3713,7 +3932,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cadr (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3722,10 +3941,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cadr <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3743,7 +3962,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))"
   #f
@@ -3764,16 +3983,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app regex-alt? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))"
+  "'(eval\n  (match (app regex-alt? re) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app regex-alt? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-alt? (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3782,10 +4043,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-alt? <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3803,31 +4064,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app regex-alt? re) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-atom? (match-seq (-> (λ (re f) ...) <-)) match-alt ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3845,25 +4085,118 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re f)\n    (-> (app and (app regex-seq? re) (app f (app cadr re) (app caddr re))) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval (λ (re f) (-> (match (app regex-seq? re) ...) <-)) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app regex-seq? re) (-> (app f (app cadr re) (app caddr re)) <-))\n  (env ((□? (re f)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app regex-seq? re)\n   (#f)\n   (_ (-> (match (app f (app cadr ...) (app caddr ...)) ...) <-)))\n  (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re) (app caddr re)) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app f (app cadr re) (app caddr re)) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (-> (app f (app cadr re) (app caddr re)) <-) (#f) _)\n  (env ((□? (re f)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   app
   "'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))"
   #f
@@ -3872,7 +4205,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app caddr (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3881,10 +4214,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> caddr <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3902,7 +4235,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))"
   #f
@@ -3911,7 +4244,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cadr (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3920,10 +4253,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cadr <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3941,7 +4274,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> f <-) (app cadr re) (app caddr re)) (env ((□? (re f)))))"
   #f
@@ -3962,16 +4295,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app regex-seq? re) <-) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))"
+  "'(eval\n  (match (app regex-seq? re) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re f)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re f)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app regex-seq? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app regex-seq? (-> re <-)) (env ((□? (re f)))))"
   #f
@@ -3980,10 +4355,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> regex-seq? <-) re) (env ((□? (re f)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4001,31 +4376,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app regex-seq? re) (app f (app cadr re) (app caddr re)))\n  (env ((□? (re f)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-empty? (regex-atom? (-> (λ (re) ...) <-)) match-seq ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4043,25 +4397,160 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re) (-> (app or (app char? re) (app symbol? re)) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval (λ (re) (-> (match (app char? re) ...) <-)) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
-  "'(eval (app or (app char? re) (-> (app symbol? re) <-)) (env ((□? (re)))))"
+  "'(eval (match (app char? re) (#f) (_ (-> (app #t) <-))) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  match
+  "'(eval\n  (match (app char? re) ((#f) (-> (match (app symbol? re) ...) <-)) _)\n  (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval (match (app symbol? re) (#f) (_ (-> (app #t) <-))) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (app symbol? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app symbol? re) <-) (#f) _) (env ((□? (re)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   ref-or-constructor
   "'(eval (app symbol? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4070,7 +4559,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> symbol? <-) re) (env ((□? (re)))))"
   #t
@@ -4091,16 +4580,16 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval (app or (-> (app char? re) <-) (app symbol? re)) (env ((□? (re)))))"
+  "'(eval (match (-> (app char? re) <-) (#f) _) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app char? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4109,7 +4598,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> char? <-) re) (env ((□? (re)))))"
   #t
@@ -4130,31 +4619,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval (app (-> or <-) (app char? re) (app symbol? re)) (env ((□? (re)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-null? (regex-empty? (-> (λ (re) ...) <-)) regex-atom? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4172,7 +4640,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (λ (re) (-> (app eq? re (app #t)) <-)) (env ((□? (re)))))"
   #f
@@ -4181,7 +4649,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app eq? re (-> (app #t) <-)) (env ((□? (re)))))"
   #f
@@ -4202,10 +4670,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -4223,7 +4691,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app eq? (-> re <-) (app #t)) (env ((□? (re)))))"
   #f
@@ -4232,7 +4700,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) re (app #t)) (env ((□? (re)))))"
   #t
@@ -4253,10 +4721,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-rep? (regex-null? (-> (λ (re) ...) <-)) regex-empty? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4274,7 +4742,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (λ (re) (-> (app eq? re (app #f)) <-)) (env ((□? (re)))))"
   #f
@@ -4283,7 +4751,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app eq? re (-> (app #f) <-)) (env ((□? (re)))))"
   #f
@@ -4304,10 +4772,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (re)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -4325,7 +4793,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app eq? (-> re <-) (app #f)) (env ((□? (re)))))"
   #f
@@ -4334,7 +4802,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) re (app #f)) (env ((□? (re)))))"
   #t
@@ -4355,10 +4823,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-seq? (regex-rep? (-> (λ (re) ...) <-)) regex-null? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4376,28 +4844,121 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'rep)) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval (λ (re) (-> (match (app pair? re) ...) <-)) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'rep) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app pair? re)\n   (#f)\n   (_ (-> (match (app eq? (app car ...) 'rep) ...) <-)))\n  (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'rep) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'rep) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app eq? (app car re) 'rep) <-) (#f) _) (env ((□? (re)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   quoted
   "'(eval (app eq? (app car re) (-> 'rep <-)) (env ((□? (re)))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -4415,7 +4976,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app eq? (-> (app car re) <-) 'rep) (env ((□? (re)))))"
   #f
@@ -4424,7 +4985,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app car (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4433,10 +4994,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4454,7 +5015,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) (app car re) 'rep) (env ((□? (re)))))"
   #t
@@ -4475,16 +5036,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))"
+  "'(eval (match (app pair? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app pair? re) <-) (#f) _) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app pair? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4493,10 +5096,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> pair? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4514,31 +5117,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app pair? re) (app eq? (app car re) 'rep))\n  (env ((□? (re)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-alt? (regex-seq? (-> (λ (re) ...) <-)) regex-rep? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4556,28 +5138,121 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'seq)) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval (λ (re) (-> (match (app pair? re) ...) <-)) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'seq) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app pair? re)\n   (#f)\n   (_ (-> (match (app eq? (app car ...) 'seq) ...) <-)))\n  (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'seq) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'seq) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app eq? (app car re) 'seq) <-) (#f) _) (env ((□? (re)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   quoted
   "'(eval (app eq? (app car re) (-> 'seq <-)) (env ((□? (re)))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -4595,7 +5270,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app eq? (-> (app car re) <-) 'seq) (env ((□? (re)))))"
   #f
@@ -4604,7 +5279,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app car (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4613,10 +5288,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4634,7 +5309,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) (app car re) 'seq) (env ((□? (re)))))"
   #t
@@ -4655,16 +5330,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))"
+  "'(eval (match (app pair? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app pair? re) <-) (#f) _) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app pair? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4673,10 +5390,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> pair? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4694,31 +5411,10 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app pair? re) (app eq? (app car re) 'seq))\n  (env ((□? (re)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   lambda
   "'(eval\n  (letrec*\n   (... regex-BLANK (regex-alt? (-> (λ (re) ...) <-)) regex-seq? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4736,28 +5432,121 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (re) (-> (app and (app pair? re) (app eq? (app car re) 'alt)) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval (λ (re) (-> (match (app pair? re) ...) <-)) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (app and (app pair? re) (-> (app eq? (app car re) 'alt) <-))\n  (env ((□? (re)))))"
+  449
+  match
+  "'(eval\n  (match\n   (app pair? re)\n   (#f)\n   (_ (-> (match (app eq? (app car ...) 'alt) ...) <-)))\n  (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'alt) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval\n  (match (app eq? (app car re) 'alt) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app eq? (app car re) 'alt) <-) (#f) _) (env ((□? (re)))))"
+  #f
+  #f)
+'(clean-cache
+  regex
+  2
+  5
+  449
   quoted
   "'(eval (app eq? (app car re) (-> 'alt <-)) (env ((□? (re)))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -4775,7 +5564,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app eq? (-> (app car re) <-) 'alt) (env ((□? (re)))))"
   #f
@@ -4784,7 +5573,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app car (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4793,10 +5582,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4814,7 +5603,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> eq? <-) (app car re) 'alt) (env ((□? (re)))))"
   #t
@@ -4835,16 +5624,58 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app and (-> (app pair? re) <-) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))"
+  "'(eval (match (app pair? re) ((#f) (-> (app #f) <-)) _) (env ((□? (re)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (re)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  app
+  "'(eval (match (-> (app pair? re) <-) (#f) _) (env ((□? (re)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app pair? (-> re <-)) (env ((□? (re)))))"
   #f
@@ -4853,10 +5684,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> pair? <-) re) (env ((□? (re)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4874,28 +5705,7 @@
   regex
   2
   5
-  421
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app pair? re) (app eq? (app car re) 'alt))\n  (env ((□? (re)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   app
   "'(eval\n  (letrec* (... regex-NULL (regex-BLANK (-> (app #t) <-)) regex-alt? ...) ...)\n  (env ()))"
   #f
@@ -4916,10 +5726,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ()))"
-  #t
+  (constructor)
   1
   1
   0
@@ -4937,7 +5747,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (letrec* (... caddr (regex-NULL (-> (app #f) <-)) regex-BLANK ...) ...)\n  (env ()))"
   #f
@@ -4958,10 +5768,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  #t
+  (constructor)
   1
   1
   0
@@ -4979,10 +5789,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... cadr (caddr (-> (λ (p) ...) <-)) regex-NULL ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5000,16 +5810,16 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval (λ (p) (-> (app car (app cdr (app cdr p))) <-)) (env ((□? (p)))))"
+  "'(eval (λ (p) (-> (app car (app cdr (app cdr ...))) <-)) (env ((□? (p)))))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app car (-> (app cdr (app cdr p)) <-)) (env ((□? (p)))))"
   #f
@@ -5018,7 +5828,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cdr (-> (app cdr p) <-)) (env ((□? (p)))))"
   #f
@@ -5027,7 +5837,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cdr (-> p <-)) (env ((□? (p)))))"
   #f
@@ -5036,10 +5846,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cdr <-) p) (env ((□? (p)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5057,10 +5867,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cdr <-) (app cdr p)) (env ((□? (p)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5078,10 +5888,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) (app cdr (app cdr p))) (env ((□? (p)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5099,10 +5909,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... debug-trace (cadr (-> (λ (p) ...) <-)) caddr ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5120,7 +5930,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (λ (p) (-> (app car (app cdr p)) <-)) (env ((□? (p)))))"
   #f
@@ -5129,7 +5939,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app car (-> (app cdr p) <-)) (env ((□? (p)))))"
   #f
@@ -5138,7 +5948,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app cdr (-> p <-)) (env ((□? (p)))))"
   #f
@@ -5147,10 +5957,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cdr <-) p) (env ((□? (p)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5168,10 +5978,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> car <-) (app cdr p)) (env ((□? (p)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5189,10 +5999,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... null? (debug-trace (-> (λ () ...) <-)) cadr ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5210,10 +6020,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (λ () (-> 'do-nothing <-)) (env ((□? ()))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -5231,10 +6041,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval\n  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) debug-trace ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5252,14 +6062,14 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))"
   #f
-  68
+  63
   47
-  13
-  8
+  10
+  6
   37
   4
   41
@@ -5268,12 +6078,12 @@
   40
   #f
   59/47
-  ((4 4 0)))
+  ((2 2 0)))
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))"
   #f
@@ -5294,10 +6104,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (null?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -5315,7 +6125,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))"
   #f
@@ -5336,10 +6146,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (null?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -5357,14 +6167,14 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))"
   #f
-  50
+  45
   29
-  13
-  8
+  10
+  6
   27
   4
   31
@@ -5378,10 +6188,10 @@
   regex
   2
   5
-  421
+  449
   lambda
-  "'(eval\n  (letrec* (... caddr (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)\n  (env ()))"
-  #t
+  "'(eval\n  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5399,7 +6209,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))"
   #f
@@ -5408,7 +6218,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))"
   #f
@@ -5429,10 +6239,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (pair?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -5450,7 +6260,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))"
   #f
@@ -5471,10 +6281,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (pair?-v)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -5492,7 +6302,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))"
   #f
@@ -5501,10 +6311,10 @@
   regex
   2
   5
-  421
+  449
   lambda
-  "'(eval\n  (letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
-  #t
+  "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5522,217 +6332,7 @@
   regex
   2
   5
-  421
-  app
-  "'(eval\n  (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-))\n  (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  app
-  "'(eval (app car (-> (app cdr (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  app
-  "'(eval (app cdr (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app (-> cdr <-) cadr-v) (env ((□? (cadr-v)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app (-> cdr <-) (app cdr cadr-v)) (env ((□? (cadr-v)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app (-> car <-) (app cdr (app cdr cadr-v))) (env ((□? (cadr-v)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  lambda
-  "'(eval\n  (letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...)\n  (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  app
-  "'(eval (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  app
-  "'(eval (app car (-> (app cdr cadr-v) <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app cdr (-> cadr-v <-)) (env ((□? (cadr-v)))))"
-  #f
-  #f)
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app (-> cdr <-) cadr-v) (env ((□? (cadr-v)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval (app (-> car <-) (app cdr cadr-v)) (env ((□? (cadr-v)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  lambda
-  "'(eval (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
+  449
   match
   "'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))"
   #f
@@ -5741,7 +6341,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))"
   #f
@@ -5750,7 +6350,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))"
   #f
@@ -5759,10 +6359,10 @@
   regex
   2
   5
-  421
+  449
   lambda
   "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5780,7 +6380,7 @@
   regex
   2
   5
-  421
+  449
   match
   "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))"
   #f
@@ -5789,7 +6389,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))"
   #f
@@ -5798,7 +6398,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))"
   #f
@@ -5807,18 +6407,18 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app\n     check-expect\n     (app\n      regex-match\n      (app\n       cons\n       'seq\n       (app\n        cons\n        'foo\n        (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n      (app cons 'foo (app cons 'bar (app nil))))\n     (app #f))\n    <-))\n  (env ()))"
+  "'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app check-expect (app regex-match (app cons ...) (app cons ...)) (app #f))\n    <-))\n  (env ()))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (-> (app #f) <-))\n  (env ()))"
+  "'(eval\n  (app\n   check-expect\n   (app\n    regex-match\n    (app cons 'seq (app cons ...))\n    (app cons 'foo (app cons ...)))\n   (-> (app #f) <-))\n  (env ()))"
   #f
   2
   2
@@ -5837,10 +6437,10 @@
   regex
   2
   5
-  421
+  449
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  #t
+  (constructor)
   1
   1
   0
@@ -5858,18 +6458,18 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app\n      cons\n      'seq\n      (app\n       cons\n       'foo\n       (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n     (app cons 'foo (app cons 'bar (app nil))))\n    <-)\n   (app #f))\n  (env ()))"
+  "'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app cons 'seq (app cons ...))\n     (app cons 'foo (app cons ...)))\n    <-)\n   (app #f))\n  (env ()))"
   #f
   #f)
 '(clean-cache
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   regex-match\n   (app\n    cons\n    'seq\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n   (-> (app cons 'foo (app cons 'bar (app nil))) <-))\n  (env ()))"
+  "'(eval\n  (app\n   regex-match\n   (app cons 'seq (app cons 'foo (app cons ...)))\n   (-> (app cons 'foo (app cons 'bar (app nil ...))) <-))\n  (env ()))"
   #f
   2
   2
@@ -5888,7 +6488,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons 'foo (-> (app cons 'bar (app nil)) <-)) (env ()))"
   #f
@@ -5909,7 +6509,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons 'bar (-> (app nil) <-)) (env ()))"
   #f
@@ -5930,7 +6530,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ()))"
   #t
@@ -5951,10 +6551,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (app cons (-> 'bar <-) (app nil)) (env ()))"
-  #t
+  (quoted constructor)
   1
   1
   0
@@ -5972,7 +6572,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) 'bar (app nil)) (env ()))"
   #t
@@ -5993,10 +6593,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (app cons (-> 'foo <-) (app cons 'bar (app nil))) (env ()))"
-  #t
+  (quoted constructor)
   1
   1
   0
@@ -6014,7 +6614,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) 'foo (app cons 'bar (app nil))) (env ()))"
   #t
@@ -6035,9 +6635,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   regex-match\n   (->\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    <-)\n   (app cons 'foo (app cons 'bar (app nil))))\n  (env ()))"
+  "'(eval\n  (app\n   regex-match\n   (-> (app cons 'seq (app cons 'foo (app cons ...))) <-)\n   (app cons 'foo (app cons 'bar (app nil ...))))\n  (env ()))"
   #f
   2
   2
@@ -6056,9 +6656,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   cons\n   'seq\n   (->\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n    <-))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   'seq\n   (-> (app cons 'foo (app cons (app cons ...) (app nil ...))) <-))\n  (env ()))"
   #f
   2
   2
@@ -6077,9 +6677,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app\n   cons\n   'foo\n   (-> (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)) <-))\n  (env ()))"
+  "'(eval\n  (app cons 'foo (-> (app cons (app cons 'rep (app cons ...)) (app nil)) <-))\n  (env ()))"
   #f
   2
   2
@@ -6098,9 +6698,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil))) (-> (app nil) <-))\n  (env ()))"
+  "'(eval\n  (app cons (app cons 'rep (app cons 'bar (app nil ...))) (-> (app nil) <-))\n  (env ()))"
   #f
   2
   2
@@ -6119,7 +6719,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ()))"
   #t
@@ -6140,9 +6740,9 @@
   regex
   2
   5
-  421
+  449
   app
-  "'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil))) <-) (app nil))\n  (env ()))"
+  "'(eval\n  (app cons (-> (app cons 'rep (app cons 'bar (app nil ...))) <-) (app nil))\n  (env ()))"
   #f
   2
   2
@@ -6161,7 +6761,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons 'rep (-> (app cons 'bar (app nil)) <-)) (env ()))"
   #f
@@ -6182,7 +6782,7 @@
   regex
   2
   5
-  421
+  449
   app
   "'(eval (app cons 'bar (-> (app nil) <-)) (env ()))"
   #f
@@ -6203,7 +6803,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ()))"
   #t
@@ -6224,10 +6824,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (app cons (-> 'bar <-) (app nil)) (env ()))"
-  #t
+  (quoted constructor)
   1
   1
   0
@@ -6245,7 +6845,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) 'bar (app nil)) (env ()))"
   #t
@@ -6266,10 +6866,10 @@
   regex
   2
   5
-  421
+  449
   quoted
   "'(eval (app cons (-> 'rep <-) (app cons 'bar (app nil))) (env ()))"
-  #t
+  (quoted constructor)
   1
   1
   0
@@ -6287,7 +6887,7 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
   "'(eval (app (-> cons <-) 'rep (app cons 'bar (app nil))) (env ()))"
   #t
@@ -6308,9 +6908,9 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app (-> cons <-) (app cons 'rep (app cons 'bar (app nil))) (app nil))\n  (env ()))"
+  "'(eval\n  (app (-> cons <-) (app cons 'rep (app cons 'bar (app nil ...))) (app nil))\n  (env ()))"
   #t
   1
   1
@@ -6329,10 +6929,10 @@
   regex
   2
   5
-  421
+  449
   quoted
-  "'(eval\n  (app\n   cons\n   (-> 'foo <-)\n   (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n  (env ()))"
-  #t
+  "'(eval\n  (app cons (-> 'foo <-) (app cons (app cons 'rep (app cons ...)) (app nil)))\n  (env ()))"
+  (quoted constructor)
   1
   1
   0
@@ -6350,9 +6950,9 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app\n   (-> cons <-)\n   'foo\n   (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil)))\n  (env ()))"
+  "'(eval\n  (app (-> cons <-) 'foo (app cons (app cons 'rep (app cons ...)) (app nil)))\n  (env ()))"
   #t
   1
   1
@@ -6371,9 +6971,30 @@
   regex
   2
   5
-  421
+  449
   quoted
-  "'(eval\n  (app\n   cons\n   (-> 'seq <-)\n   (app\n    cons\n    'foo\n    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (-> 'seq <-)\n   (app cons 'foo (app cons (app cons ...) (app nil ...))))\n  (env ()))"
+  (quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  regex
+  2
+  5
+  449
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   'seq\n   (app cons 'foo (app cons (app cons ...) (app nil ...))))\n  (env ()))"
   #t
   1
   1
@@ -6392,31 +7013,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app\n   (-> cons <-)\n   'seq\n   (app\n    cons\n    'foo\n    (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n  (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  regex
-  2
-  5
-  421
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> regex-match <-)\n   (app\n    cons\n    'seq\n    (app\n     cons\n     'foo\n     (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n   (app cons 'foo (app cons 'bar (app nil))))\n  (env ()))"
-  #t
+  "'(eval\n  (app\n   (-> regex-match <-)\n   (app cons 'seq (app cons 'foo (app cons ...)))\n   (app cons 'foo (app cons 'bar (app nil ...))))\n  (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -6434,10 +7034,10 @@
   regex
   2
   5
-  421
+  449
   ref-or-constructor
-  "'(eval\n  (app\n   (-> check-expect <-)\n   (app\n    regex-match\n    (app\n     cons\n     'seq\n     (app\n      cons\n      'foo\n      (app cons (app cons 'rep (app cons 'bar (app nil))) (app nil))))\n    (app cons 'foo (app cons 'bar (app nil))))\n   (app #f))\n  (env ()))"
-  #t
+  "'(eval\n  (app\n   (-> check-expect <-)\n   (app\n    regex-match\n    (app cons 'seq (app cons ...))\n    (app cons 'foo (app cons ...)))\n   (app #f))\n  (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0

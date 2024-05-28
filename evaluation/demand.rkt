@@ -115,6 +115,7 @@
 (define (lookup-demand-primitive x)
   (match x
     ['= `(prim = ,do-demand-equal)]
+    ['char=? `(prim = ,do-demand-equal)]
     ['equal? `(prim equal? ,do-demand-equal)]
     ['eq? `(prim eq? ,do-demand-equal)]
     ['symbol? `(prim symbol? ,do-symbol?)]
@@ -143,6 +144,11 @@
     ['integer? `(prim integer? ,do-integer?)]
     ['number? `(prim number? ,do-number?)]
     ['string? `(prim string? ,do-string?)]
+    ['char-numeric? `(prim char-numeric? ,do-char-numeric?)]
+    ['char-alphabetic? `(prim char-alphabetic? ,do-char-alphabetic?)]
+    ['char->integer `(prim char->integer ,do-char->integer)]
+    ['list->string `(prim list->string ,do-list-string)]
+    ['symbol->string `(prim symbol->string ,do-symbol->string)]
     ['void `(prim void ,do-void)]
     [_ #f]
     ))

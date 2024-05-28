@@ -141,7 +141,6 @@
 
          )]
     )
-
   hash-result
   )
 
@@ -151,20 +150,29 @@
   (define do-run-demand #t)
   (define do-run-exhaustive #t)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
-  (define programs '(lattice))
+  
+  (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
+  (define kcfas-large '(kcfa-worst-case-16 kcfa-worst-case-20 kcfa-worst-case-32))
+  (define kcfas-mega '(kcfa-worst-case-40 kcfa-worst-case-64 kcfa-worst-case-80 kcfa-worst-case-128 kcfa-worst-case-160 kcfa-worst-case-256))
+  (define benchmarks '(map-pattern rsa sat-brute simple-id solovay-strassen indirect-hol fermat))
+  (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
+  (define programs '(scheme2java))
   (if do-run-exhaustive
       (for ([m (in-range 0 5)])
         (let ([rebind-cost 0]
               [expm-cost 0])
           (current-m m)
-          (for ([example (get-examples programs)])
+          (for ([example (get-examples programs all-benchmarks)])
             (match-let ([`(example ,name ,exp) example])
+              (pretty-print `(mcfa ,m ,name))
               (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a-time.sexpr" m name) #:exists 'replace))
 
               (timeout full-timeout)
 
               (define rebindhash (run-rebind name exp m out-time-exhaustive))
               (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
+
+              (pretty-print `(mcfae ,m ,name))
               (define expmhash (run-expm name exp m out-time-exhaustive))
               (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
@@ -185,7 +193,7 @@
                 [basic-acc-cost 0]
                 [num-queries 0])
             (current-m m)
-            (for ([example (get-examples programs)])
+            (for ([example (get-examples programs all-benchmarks)])
               (match-let ([`(example ,name ,exp) example])
                 (define out-time (open-output-file (format "tests/m~a/~a-time_~a.sexpr" m name t) #:exists 'replace))
 

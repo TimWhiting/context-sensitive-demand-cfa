@@ -1,0 +1,2 @@
+'(rebinding solovay-strassen 1 10000 667 920 140 221 62 552/287 ((44 44 2)))
+'(exponential solovay-strassen 1 10000 667 920 103 221 62 552/287 ((40 40 1)))

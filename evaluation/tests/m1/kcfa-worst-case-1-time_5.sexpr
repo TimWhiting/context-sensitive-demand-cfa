@@ -1,0 +1,399 @@
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval ((top) app (λ (f1) ...) (λ (x1) ...)) (env ()))"
+  #f
+  28
+  15
+  7
+  6
+  15
+  7
+  22
+  1
+  1
+  15
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  lambda
+  "'(eval (app (λ (f1) ...) (-> (λ (x1) ...) <-)) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval (λ (x1) (-> (app (λ (z) ...) (λ (y1) ...)) <-)) (env ((□? (x1)))))"
+  #f
+  47
+  24
+  12
+  11
+  17
+  9
+  26
+  1
+  3/4
+  20
+  #f
+  17/12
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  lambda
+  "'(eval (app (λ (z) ...) (-> (λ (y1) ...) <-)) (env ((□? (x1)))))"
+  (lambda number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  ref-or-constructor
+  "'(eval (λ (y1) (-> y1 <-)) (env ((□? (y1)) (□? (x1)))))"
+  #f
+  29
+  12
+  9
+  8
+  9
+  7
+  16
+  1
+  19/24
+  10
+  #f
+  4/3
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  lambda
+  "'(eval (app (-> (λ (z) ...) <-) (λ (y1) ...)) (env ((□? (x1)))))"
+  (lambda number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval (λ (z) (-> (app z x1) <-)) (env ((□? (z)) (□? (x1)))))"
+  #f
+  42
+  22
+  12
+  8
+  13
+  9
+  22
+  1
+  23/33
+  19
+  #f
+  3/2
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  ref-or-constructor
+  "'(eval (app z (-> x1 <-)) (env ((□? (z)) (□? (x1)))))"
+  #f
+  12
+  6
+  3
+  3
+  5
+  3
+  8
+  1
+  5/6
+  5
+  #f
+  7/6
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  ref-or-constructor
+  "'(eval (app (-> z <-) x1) (env ((□? (z)) (□? (x1)))))"
+  #f
+  5
+  2
+  1
+  2
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  lambda
+  "'(eval (app (-> (λ (f1) ...) <-) (λ (x1) ...)) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  let
+  "'(eval (λ (f1) (-> (let (_) ...) <-)) (env ((□? (f1)))))"
+  #f
+  28
+  16
+  7
+  5
+  13
+  7
+  20
+  1
+  6/7
+  16
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval\n  (let (... () (_ (-> (app f1 (app #t)) <-)) () ...) ...)\n  (env ((□? (f1)))))"
+  #f
+  26
+  14
+  7
+  5
+  12
+  7
+  19
+  1
+  23/26
+  14
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval (app f1 (-> (app #t) <-)) (env ((□? (f1)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (f1)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  ref-or-constructor
+  "'(eval (app (-> f1 <-) (app #t)) (env ((□? (f1)))))"
+  #f
+  4
+  2
+  1
+  1
+  1
+  1
+  2
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval (let (_) (-> (app f1 (app #f)) <-)) (env ((□? (f1)))))"
+  #f
+  26
+  14
+  7
+  5
+  12
+  7
+  19
+  1
+  23/26
+  14
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  app
+  "'(eval (app f1 (-> (app #f) <-)) (env ((□? (f1)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (f1)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-1
+  1
+  5
+  19
+  ref-or-constructor
+  "'(eval (app (-> f1 <-) (app #f)) (env ((□? (f1)))))"
+  #f
+  4
+  2
+  1
+  1
+  1
+  1
+  2
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))

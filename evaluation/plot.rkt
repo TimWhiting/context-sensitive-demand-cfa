@@ -155,7 +155,7 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((eta 23) (ack 40) (kcfa-2 32) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (deriv 257) (regex 421) (tic-tac-toe 569)))
+(define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]

@@ -2,7 +2,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lettypes
   "'(eval ((top) lettypes (cons ... player) ...) (env ()))"
   #f
@@ -11,7 +11,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   letrec*
   "'(eval\n  (lettypes cons ... player (letrec* (some-v ... zero-player-game) ...))\n  (env ()))"
   #f
@@ -20,10 +20,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... one-player-game (zero-player-game (-> (λ () ...) <-)) () ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -41,18 +41,18 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) (app make-ai-action (app X)))\n      (app player (app O) (app make-ai-action (app O))))\n     <-))\n  (env ((□? ()))))"
+  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X ...) (app make-ai-action ...))\n      (app player (app O ...) (app make-ai-action ...)))\n     <-))\n  (env ((□? ()))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   play-game\n   (app player (app X) (app make-ai-action (app X)))\n   (-> (app player (app O) (app make-ai-action (app O))) <-))\n  (env ((□? ()))))"
+  "'(eval\n  (app\n   play-game\n   (app player (app X) (app make-ai-action (app X ...)))\n   (-> (app player (app O) (app make-ai-action (app O ...))) <-))\n  (env ((□? ()))))"
   #f
   3
   2
@@ -71,7 +71,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (app O) (-> (app make-ai-action (app O)) <-))\n  (env ((□? ()))))"
   #f
@@ -92,7 +92,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app make-ai-action (-> (app O) <-)) (env ((□? ()))))"
   #f
@@ -113,7 +113,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? ()))))"
   #t
@@ -134,10 +134,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> make-ai-action <-) (app O)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -155,7 +155,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (-> (app O) <-) (app make-ai-action (app O)))\n  (env ((□? ()))))"
   #f
@@ -176,7 +176,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? ()))))"
   #t
@@ -197,7 +197,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> player <-) (app O) (app make-ai-action (app O)))\n  (env ((□? ()))))"
   #t
@@ -218,9 +218,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   play-game\n   (-> (app player (app X) (app make-ai-action (app X))) <-)\n   (app player (app O) (app make-ai-action (app O))))\n  (env ((□? ()))))"
+  "'(eval\n  (app\n   play-game\n   (-> (app player (app X) (app make-ai-action (app X ...))) <-)\n   (app player (app O) (app make-ai-action (app O ...))))\n  (env ((□? ()))))"
   #f
   3
   2
@@ -239,7 +239,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (app X) (-> (app make-ai-action (app X)) <-))\n  (env ((□? ()))))"
   #f
@@ -260,7 +260,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app make-ai-action (-> (app X) <-)) (env ((□? ()))))"
   #f
@@ -281,7 +281,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> X <-)) (env ((□? ()))))"
   #t
@@ -302,10 +302,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> make-ai-action <-) (app X)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -323,7 +323,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (-> (app X) <-) (app make-ai-action (app X)))\n  (env ((□? ()))))"
   #f
@@ -344,7 +344,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> X <-)) (env ((□? ()))))"
   #t
@@ -365,7 +365,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> player <-) (app X) (app make-ai-action (app X)))\n  (env ((□? ()))))"
   #t
@@ -386,10 +386,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> play-game <-)\n   (app player (app X) (app make-ai-action (app X)))\n   (app player (app O) (app make-ai-action (app O))))\n  (env ((□? ()))))"
-  #t
+  "'(eval\n  (app\n   (-> play-game <-)\n   (app player (app X) (app make-ai-action (app X ...)))\n   (app player (app O) (app make-ai-action (app O ...))))\n  (env ((□? ()))))"
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -407,10 +407,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    two-player-game\n    (one-player-game (-> (λ () ...) <-))\n    zero-player-game\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -428,18 +428,18 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) human-action)\n      (app player (app O) (app make-ai-action (app O))))\n     <-))\n  (env ((□? ()))))"
+  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X ...) human-action)\n      (app player (app O ...) (app make-ai-action ...)))\n     <-))\n  (env ((□? ()))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   play-game\n   (app player (app X) human-action)\n   (-> (app player (app O) (app make-ai-action (app O))) <-))\n  (env ((□? ()))))"
+  "'(eval\n  (app\n   play-game\n   (app player (app X) human-action)\n   (-> (app player (app O) (app make-ai-action (app O ...))) <-))\n  (env ((□? ()))))"
   #f
   3
   2
@@ -458,7 +458,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (app O) (-> (app make-ai-action (app O)) <-))\n  (env ((□? ()))))"
   #f
@@ -479,7 +479,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app make-ai-action (-> (app O) <-)) (env ((□? ()))))"
   #f
@@ -500,7 +500,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? ()))))"
   #t
@@ -521,10 +521,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> make-ai-action <-) (app O)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -542,7 +542,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app player (-> (app O) <-) (app make-ai-action (app O)))\n  (env ((□? ()))))"
   #f
@@ -563,7 +563,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? ()))))"
   #t
@@ -584,7 +584,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> player <-) (app O) (app make-ai-action (app O)))\n  (env ((□? ()))))"
   #t
@@ -605,9 +605,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   play-game\n   (-> (app player (app X) human-action) <-)\n   (app player (app O) (app make-ai-action (app O))))\n  (env ((□? ()))))"
+  "'(eval\n  (app\n   play-game\n   (-> (app player (app X) human-action) <-)\n   (app player (app O) (app make-ai-action (app O ...))))\n  (env ((□? ()))))"
   #f
   3
   2
@@ -626,10 +626,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app player (app X) (-> human-action <-)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -647,7 +647,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app player (-> (app X) <-) human-action) (env ((□? ()))))"
   #f
@@ -668,7 +668,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> X <-)) (env ((□? ()))))"
   #t
@@ -689,7 +689,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> player <-) (app X) human-action) (env ((□? ()))))"
   #t
@@ -710,10 +710,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> play-game <-)\n   (app player (app X) human-action)\n   (app player (app O) (app make-ai-action (app O))))\n  (env ((□? ()))))"
-  #t
+  "'(eval\n  (app\n   (-> play-game <-)\n   (app player (app X) human-action)\n   (app player (app O) (app make-ai-action (app O ...))))\n  (env ((□? ()))))"
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -731,10 +731,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... play-game (two-player-game (-> (λ () ...) <-)) one-player-game ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -752,16 +752,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X) human-action)\n      (app player (app O) human-action))\n     <-))\n  (env ((□? ()))))"
+  "'(eval\n  (λ ()\n    (->\n     (app\n      play-game\n      (app player (app X ...) human-action)\n      (app player (app O ...) human-action))\n     <-))\n  (env ((□? ()))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app\n   play-game\n   (app player (app X) human-action)\n   (-> (app player (app O) human-action) <-))\n  (env ((□? ()))))"
   #f
@@ -782,10 +782,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app player (app O) (-> human-action <-)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -803,7 +803,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app player (-> (app O) <-) human-action) (env ((□? ()))))"
   #f
@@ -824,7 +824,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? ()))))"
   #t
@@ -845,7 +845,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> player <-) (app O) human-action) (env ((□? ()))))"
   #t
@@ -866,7 +866,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app\n   play-game\n   (-> (app player (app X) human-action) <-)\n   (app player (app O) human-action))\n  (env ((□? ()))))"
   #f
@@ -887,10 +887,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app player (app X) (-> human-action <-)) (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -908,7 +908,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app player (-> (app X) <-) human-action) (env ((□? ()))))"
   #f
@@ -929,7 +929,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> X <-)) (env ((□? ()))))"
   #t
@@ -950,7 +950,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> player <-) (app X) human-action) (env ((□? ()))))"
   #t
@@ -971,10 +971,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app\n   (-> play-game <-)\n   (app player (app X) human-action)\n   (app player (app O) human-action))\n  (env ((□? ()))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -992,10 +992,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    play-turn\n    (play-game (-> (λ (player-one player-two) ...) <-))\n    two-player-game\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1013,7 +1013,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (player-one player-two)\n    (-> (app play-turn empty-board player-one player-two) <-))\n  (env ((□? (player-one player-two)))))"
   #f
@@ -1022,7 +1022,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn empty-board player-one (-> player-two <-))\n  (env ((□? (player-one player-two)))))"
   #f
@@ -1043,7 +1043,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn empty-board (-> player-one <-) player-two)\n  (env ((□? (player-one player-two)))))"
   #f
@@ -1064,10 +1064,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn (-> empty-board <-) player-one player-two)\n  (env ((□? (player-one player-two)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1085,10 +1085,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> play-turn <-) empty-board player-one player-two)\n  (env ((□? (player-one player-two)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1106,10 +1106,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    draw-board!\n    (play-turn (-> (λ (bo this-play that-play) ...) <-))\n    play-game\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1127,7 +1127,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (λ (bo this-play that-play) (-> (let (_) ...) <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1136,7 +1136,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1157,7 +1157,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app draw-board! (-> bo <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1173,15 +1173,15 @@
   18
   #f
   22/19
-  ((0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> draw-board! <-) bo) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1199,7 +1199,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (let (_) (-> (match this-play ...) <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1208,7 +1208,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (match this-play ((player mark action) (-> (let (co) ...) <-)))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1217,7 +1217,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   letrec
   "'(eval\n  (let (... () (co (-> (letrec (loop) ...) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1226,10 +1226,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec (... () (loop (-> (λ () ...) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -1247,7 +1247,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (λ () (-> (let (co) ...) <-))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1256,7 +1256,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (co (-> (app action bo) <-)) () ...) ...)\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1265,7 +1265,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app action (-> bo <-)) (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1281,12 +1281,12 @@
   18
   #f
   22/19
-  ((0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> action <-) bo) (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1295,16 +1295,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
-  "'(eval\n  (let (co) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
+  "'(eval\n  (let (co) (-> (match (app blank? (app board-lookup ...)) ...) <-))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> co <-)))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1313,7 +1313,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> (app loop) <-)) _)\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1322,10 +1322,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> loop <-)) (env ((□? ()) (□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1343,7 +1343,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1352,7 +1352,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app blank? (-> (app board-lookup co bo) <-))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1361,7 +1361,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup co (-> bo <-))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1377,12 +1377,12 @@
   18
   #f
   22/19
-  ((0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup (-> co <-) bo)\n  (env ((□? ()) (□? (bo this-play that-play)))))"
   #f
@@ -1391,10 +1391,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-lookup <-) co bo)\n  (env ((□? ()) (□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1412,10 +1412,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> blank? <-) (app board-lookup co bo))\n  (env ((□? ()) (□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -1433,7 +1433,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (letrec (loop) (-> (app loop) <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1442,10 +1442,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> loop <-)) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1463,7 +1463,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval (let (co) (-> (let (bo) ...) <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1472,7 +1472,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (bo (-> (app board-mark co mark bo) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1493,7 +1493,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co mark (-> bo <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1509,12 +1509,12 @@
   18
   #f
   22/19
-  ((0 0 0)))
+  ((1 1 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co (-> mark <-) bo)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1523,7 +1523,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark (-> co <-) mark bo)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1532,10 +1532,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-mark <-) co mark bo)\n  (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1553,7 +1553,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (let (bo) (-> (match (app wins? bo mark) ...) <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1562,7 +1562,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (match (app wins? bo mark) (#f) (_ (-> (let (_) ...) <-)))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1583,7 +1583,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1604,7 +1604,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app draw-board! (-> bo <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1625,10 +1625,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> draw-board! <-) bo) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1646,7 +1646,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (let (_) (-> (app void) <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1667,7 +1667,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> void <-)) (env ((□? (bo this-play that-play)))))"
   #t
@@ -1688,7 +1688,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (match (app wins? bo mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1697,7 +1697,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (match (app full? bo) (#f) (_ (-> (let (_) ...) <-)))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1718,7 +1718,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (_ (-> (app draw-board! bo) <-)) () ...) ...)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1739,7 +1739,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app draw-board! (-> bo <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1760,10 +1760,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> draw-board! <-) bo) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1781,7 +1781,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (_) (-> (app display \"Cat's game.\\n\") <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1802,10 +1802,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   string
   "'(eval\n  (app display (-> \"Cat's game.\\n\" <-))\n  (env ((□? (bo this-play that-play)))))"
-  #t
+  (string quoted constructor)
   2
   1
   0
@@ -1823,7 +1823,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> display <-) \"Cat's game.\\n\")\n  (env ((□? (bo this-play that-play)))))"
   #t
@@ -1844,7 +1844,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   (app full? bo)\n   ((#f) (-> (app play-turn bo that-play this-play) <-))\n   _)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1853,7 +1853,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn bo that-play (-> this-play <-))\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1874,7 +1874,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn bo (-> that-play <-) this-play)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1895,7 +1895,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app play-turn (-> bo <-) that-play this-play)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1916,10 +1916,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> play-turn <-) bo that-play this-play)\n  (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1937,7 +1937,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app full? bo) <-) (#f) _)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1946,7 +1946,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app full? (-> bo <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -1967,10 +1967,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> full? <-) bo) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -1988,7 +1988,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app wins? bo mark) <-) (#f) _)\n  (env ((□? (bo this-play that-play)))))"
   #f
@@ -1997,7 +1997,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app wins? bo (-> mark <-)) (env ((□? (bo this-play that-play)))))"
   #f
@@ -2006,7 +2006,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app wins? (-> bo <-) mark) (env ((□? (bo this-play that-play)))))"
   #f
@@ -2027,10 +2027,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> wins? <-) bo mark) (env ((□? (bo this-play that-play)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -2048,31 +2048,19 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (-> this-play <-) (player mark action))\n  (env ((□? (bo this-play that-play)))))"
   #f
-  54
-  37
-  7
-  10
-  10
-  2
-  12
-  1
-  5/68
-  18
-  #f
-  102/37
-  ((4 4 0)))
+  #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... make-ai-action (draw-board! (-> (λ (bo) ...) <-)) play-turn ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2090,7 +2078,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (bo) (-> (app void) <-)) (env ((□? (bo)))))"
   #f
@@ -2111,7 +2099,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> void <-)) (env ((□? (bo)))))"
   #t
@@ -2132,10 +2120,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... human-action (make-ai-action (-> (λ (ma) ...) <-)) draw-board! ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2153,10 +2141,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (λ (ma) (-> (λ (bo) ...) <-)) (env ((□? (ma)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -2174,25 +2162,25 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ (bo)\n    (-> (app move-coord (app some-v (app maximin bo ma (app mark⁻¹ ma)))) <-))\n  (env ((□? (bo)) (□? (ma)))))"
+  "'(eval\n  (λ (bo) (-> (app move-coord (app some-v (app maximin ...))) <-))\n  (env ((□? (bo)) (□? (ma)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app move-coord (-> (app some-v (app maximin bo ma (app mark⁻¹ ma))) <-))\n  (env ((□? (bo)) (□? (ma)))))"
+  "'(eval\n  (app move-coord (-> (app some-v (app maximin bo ma (app mark⁻¹ ...))) <-))\n  (env ((□? (bo)) (□? (ma)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app some-v (-> (app maximin bo ma (app mark⁻¹ ma)) <-))\n  (env ((□? (bo)) (□? (ma)))))"
   #f
@@ -2201,7 +2189,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app maximin bo ma (-> (app mark⁻¹ ma) <-)) (env ((□? (bo)) (□? (ma)))))"
   #f
@@ -2222,7 +2210,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app mark⁻¹ (-> ma <-)) (env ((□? (bo)) (□? (ma)))))"
   #f
@@ -2243,10 +2231,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> mark⁻¹ <-) ma) (env ((□? (bo)) (□? (ma)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2264,7 +2252,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app maximin bo (-> ma <-) (app mark⁻¹ ma)) (env ((□? (bo)) (□? (ma)))))"
   #f
@@ -2285,7 +2273,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app maximin (-> bo <-) ma (app mark⁻¹ ma)) (env ((□? (bo)) (□? (ma)))))"
   #f
@@ -2301,15 +2289,15 @@
   33
   #f
   18/17
-  ((2 2 0)))
+  ((3 3 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> maximin <-) bo ma (app mark⁻¹ ma)) (env ((□? (bo)) (□? (ma)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2327,10 +2315,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> some-v <-) (app maximin bo ma (app mark⁻¹ ma)))\n  (env ((□? (bo)) (□? (ma)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2348,10 +2336,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app (-> move-coord <-) (app some-v (app maximin bo ma (app mark⁻¹ ma))))\n  (env ((□? (bo)) (□? (ma)))))"
-  #t
+  "'(eval\n  (app (-> move-coord <-) (app some-v (app maximin bo ma (app mark⁻¹ ...))))\n  (env ((□? (bo)) (□? (ma)))))"
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2369,10 +2357,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... maximin (human-action (-> (λ (bo) ...) <-)) make-ai-action ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2390,7 +2378,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (bo) (-> (app error 'human-action \"not implemented\") <-))\n  (env ((□? (bo)))))"
   #f
@@ -2411,10 +2399,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   string
   "'(eval (app error 'human-action (-> \"not implemented\" <-)) (env ((□? (bo)))))"
-  #t
+  (string quoted constructor)
   2
   1
   0
@@ -2432,10 +2420,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   quoted
   "'(eval (app error (-> 'human-action <-) \"not implemented\") (env ((□? (bo)))))"
-  #t
+  (quoted constructor)
   2
   1
   0
@@ -2453,7 +2441,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> error <-) 'human-action \"not implemented\") (env ((□? (bo)))))"
   #t
@@ -2474,10 +2462,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    minimax\n    (maximin (-> (λ (bo this-mark that-mark) ...) <-))\n    human-action\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2495,7 +2483,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (bo this-mark that-mark)\n    (-> (app fold/coord (λ (co mm) ...) (app none)) <-))\n  (env ((□? (bo this-mark that-mark)))))"
   #f
@@ -2504,7 +2492,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app fold/coord (λ (co mm) ...) (-> (app none) <-))\n  (env ((□? (bo this-mark that-mark)))))"
   #f
@@ -2525,7 +2513,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> none <-)) (env ((□? (bo this-mark that-mark)))))"
   #t
@@ -2546,10 +2534,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (app fold/coord (-> (λ (co mm) ...) <-) (app none))\n  (env ((□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -2567,16 +2555,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
-  "'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup ...)) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> (let (bo) ...) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2585,7 +2573,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (bo (-> (app board-mark co this-mark bo) <-)) () ...) ...)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2606,7 +2594,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co this-mark (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2627,7 +2615,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co (-> this-mark <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2648,7 +2636,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark (-> co <-) this-mark bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2669,10 +2657,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-mark <-) co this-mark bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -2690,18 +2678,18 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (let (bo)\n    (->\n     (app max-maybe-move mm (app move co (match (app wins? bo this-mark) ...)))\n     <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (let (bo) (-> (app max-maybe-move mm (app move co (match (...) ...))) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   max-maybe-move\n   mm\n   (-> (app move co (match (app wins? bo this-mark) ...)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app max-maybe-move mm (-> (app move co (match (app wins? ...) ...)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   4
   2
@@ -2720,7 +2708,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (app move co (-> (match (app wins? bo this-mark) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2729,7 +2717,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app wins? bo this-mark) (#f) (_ (-> (app horizon (app win) 0) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2750,10 +2738,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   number
   "'(eval\n  (app horizon (app win) (-> 0 <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -2771,7 +2759,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon (-> (app win) <-) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2792,7 +2780,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> win <-)) (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -2813,7 +2801,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon <-) (app win) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -2834,7 +2822,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (match (app wins? bo this-mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2843,7 +2831,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app full? bo) (#f) (_ (-> (app horizon (app draw) 0) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2864,10 +2852,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   number
   "'(eval\n  (app horizon (app draw) (-> 0 <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -2885,7 +2873,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon (-> (app draw) <-) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2906,7 +2894,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> draw <-)) (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -2927,7 +2915,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon <-) (app draw) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -2948,25 +2936,25 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (match\n   (app full? bo)\n   ((#f)\n    (->\n     (app\n      horizon-add1\n      (app move-horizon (app some-v (app minimax bo that-mark this-mark))))\n     <-))\n   _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (match\n   (app full? bo)\n   ((#f) (-> (app horizon-add1 (app move-horizon (app some-v ...))) <-))\n   _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   horizon-add1\n   (->\n    (app move-horizon (app some-v (app minimax bo that-mark this-mark)))\n    <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app horizon-add1 (-> (app move-horizon (app some-v (app minimax ...))) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app move-horizon (-> (app some-v (app minimax bo that-mark this-mark)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2975,7 +2963,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app some-v (-> (app minimax bo that-mark this-mark) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -2984,7 +2972,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app minimax bo that-mark (-> this-mark <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3005,7 +2993,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app minimax bo (-> that-mark <-) this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3026,7 +3014,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app minimax (-> bo <-) that-mark this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3047,10 +3035,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> minimax <-) bo that-mark this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3068,10 +3056,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> some-v <-) (app minimax bo that-mark this-mark))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3089,10 +3077,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> move-horizon <-) (app some-v (app minimax bo that-mark this-mark)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3110,10 +3098,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> horizon-add1 <-)\n   (app move-horizon (app some-v (app minimax bo that-mark this-mark))))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  "'(eval\n  (app (-> horizon-add1 <-) (app move-horizon (app some-v (app minimax ...))))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3131,7 +3119,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app full? bo) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3140,7 +3128,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app full? (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3161,10 +3149,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> full? <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3182,7 +3170,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app wins? bo this-mark) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3191,7 +3179,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app wins? bo (-> this-mark <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3212,7 +3200,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app wins? (-> bo <-) this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3233,10 +3221,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> wins? <-) bo this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3254,7 +3242,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app move (-> co <-) (match (app wins? bo this-mark) ...))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3275,7 +3263,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> move <-) co (match (app wins? bo this-mark) ...))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -3296,19 +3284,19 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   max-maybe-move\n   (-> mm <-)\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app max-maybe-move (-> mm <-) (app move co (match (app wins? ...) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> max-maybe-move <-)\n   mm\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  "'(eval\n  (app (-> max-maybe-move <-) mm (app move co (match (app wins? ...) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3326,7 +3314,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> mm <-)) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3335,7 +3323,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3344,7 +3332,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app blank? (-> (app board-lookup co bo) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3353,7 +3341,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup co (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3374,7 +3362,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup (-> co <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3395,10 +3383,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-lookup <-) co bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3416,10 +3404,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> blank? <-) (app board-lookup co bo))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3437,10 +3425,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> fold/coord <-) (λ (co mm) ...) (app none))\n  (env ((□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -3458,10 +3446,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    max-maybe-move\n    (minimax (-> (λ (bo this-mark that-mark) ...) <-))\n    maximin\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3479,7 +3467,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (bo this-mark that-mark)\n    (-> (app fold/coord (λ (co mm) ...) (app none)) <-))\n  (env ((□? (bo this-mark that-mark)))))"
   #f
@@ -3488,7 +3476,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app fold/coord (λ (co mm) ...) (-> (app none) <-))\n  (env ((□? (bo this-mark that-mark)))))"
   #f
@@ -3509,7 +3497,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> none <-)) (env ((□? (bo this-mark that-mark)))))"
   #t
@@ -3530,10 +3518,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (app fold/coord (-> (λ (co mm) ...) <-) (app none))\n  (env ((□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -3551,16 +3539,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
-  "'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup co bo)) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (λ (co mm) (-> (match (app blank? (app board-lookup ...)) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   let
   "'(eval\n  (match (app blank? (app board-lookup co bo)) (#f) (_ (-> (let (bo) ...) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3569,7 +3557,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (let (... () (bo (-> (app board-mark co this-mark bo) <-)) () ...) ...)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3590,7 +3578,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co this-mark (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3611,7 +3599,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark co (-> this-mark <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3632,7 +3620,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-mark (-> co <-) this-mark bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3653,10 +3641,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-mark <-) co this-mark bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -3674,18 +3662,18 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (let (bo)\n    (->\n     (app min-maybe-move mm (app move co (match (app wins? bo this-mark) ...)))\n     <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (let (bo) (-> (app min-maybe-move mm (app move co (match (...) ...))) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   min-maybe-move\n   mm\n   (-> (app move co (match (app wins? bo this-mark) ...)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app min-maybe-move mm (-> (app move co (match (app wins? ...) ...)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   4
   2
@@ -3704,7 +3692,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (app move co (-> (match (app wins? bo this-mark) ...) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3713,7 +3701,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app wins? bo this-mark) (#f) (_ (-> (app horizon (app lose) 0) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3734,10 +3722,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   number
   "'(eval\n  (app horizon (app lose) (-> 0 <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -3755,7 +3743,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon (-> (app lose) <-) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3776,7 +3764,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> lose <-)) (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -3797,7 +3785,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon <-) (app lose) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -3818,7 +3806,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (match (app wins? bo this-mark) ((#f) (-> (match (app full? bo) ...) <-)) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3827,7 +3815,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app full? bo) (#f) (_ (-> (app horizon (app draw) 0) <-)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3848,10 +3836,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   number
   "'(eval\n  (app horizon (app draw) (-> 0 <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -3869,7 +3857,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon (-> (app draw) <-) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3890,7 +3878,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> draw <-)) (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -3911,7 +3899,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon <-) (app draw) 0)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -3932,25 +3920,25 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (match\n   (app full? bo)\n   ((#f)\n    (->\n     (app\n      horizon-add1\n      (app move-horizon (app some-v (app maximin bo that-mark this-mark))))\n     <-))\n   _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (match\n   (app full? bo)\n   ((#f) (-> (app horizon-add1 (app move-horizon (app some-v ...))) <-))\n   _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   horizon-add1\n   (->\n    (app move-horizon (app some-v (app maximin bo that-mark this-mark)))\n    <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app horizon-add1 (-> (app move-horizon (app some-v (app maximin ...))) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app move-horizon (-> (app some-v (app maximin bo that-mark this-mark)) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3959,7 +3947,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app some-v (-> (app maximin bo that-mark this-mark) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3968,7 +3956,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app maximin bo that-mark (-> this-mark <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -3989,7 +3977,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app maximin bo (-> that-mark <-) this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4010,7 +3998,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app maximin (-> bo <-) that-mark this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4031,10 +4019,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> maximin <-) bo that-mark this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4052,10 +4040,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> some-v <-) (app maximin bo that-mark this-mark))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4073,10 +4061,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> move-horizon <-) (app some-v (app maximin bo that-mark this-mark)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4094,10 +4082,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> horizon-add1 <-)\n   (app move-horizon (app some-v (app maximin bo that-mark this-mark))))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  "'(eval\n  (app (-> horizon-add1 <-) (app move-horizon (app some-v (app maximin ...))))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4115,7 +4103,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app full? bo) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4124,7 +4112,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app full? (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4145,10 +4133,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> full? <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4166,7 +4154,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app wins? bo this-mark) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4175,7 +4163,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app wins? bo (-> this-mark <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4196,7 +4184,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app wins? (-> bo <-) this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4217,10 +4205,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> wins? <-) bo this-mark)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4238,7 +4226,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app move (-> co <-) (match (app wins? bo this-mark) ...))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4259,7 +4247,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> move <-) co (match (app wins? bo this-mark) ...))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #t
@@ -4280,19 +4268,19 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   min-maybe-move\n   (-> mm <-)\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  "'(eval\n  (app min-maybe-move (-> mm <-) (app move co (match (app wins? ...) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> min-maybe-move <-)\n   mm\n   (app move co (match (app wins? bo this-mark) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  "'(eval\n  (app (-> min-maybe-move <-) mm (app move co (match (app wins? ...) ...)))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4310,7 +4298,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (app blank? (app board-lookup co bo)) ((#f) (-> mm <-)) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4319,7 +4307,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app blank? (app board-lookup co bo)) <-) (#f) _)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4328,7 +4316,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app blank? (-> (app board-lookup co bo) <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4337,7 +4325,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup co (-> bo <-))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4358,7 +4346,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app board-lookup (-> co <-) bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
   #f
@@ -4379,10 +4367,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> board-lookup <-) co bo)\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4400,10 +4388,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> blank? <-) (app board-lookup co bo))\n  (env ((□? (co mm)) (□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -4421,10 +4409,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> fold/coord <-) (λ (co mm) ...) (app none))\n  (env ((□? (bo this-mark that-mark)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4442,10 +4430,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... min-maybe-move (max-maybe-move (-> (λ (mmo mo₁) ...) <-)) minimax ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4463,7 +4451,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (mmo mo₁) (-> (match mmo ...) <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4472,7 +4460,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match mmo (some mo₀) ((none) (-> (app some mo₁) <-)))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4493,7 +4481,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app some (-> mo₁ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4514,7 +4502,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> some <-) mo₁) (env ((□? (mmo mo₁)))))"
   #t
@@ -4535,9 +4523,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (match\n   mmo\n   ((some mo₀)\n    (->\n     (app\n      some\n      (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n     <-))\n   (none))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (match\n   mmo\n   ((some mo₀) (-> (app some (match (app horizon< ...) ...)) <-))\n   (none))\n  (env ((□? (mmo mo₁)))))"
   #f
   3
   2
@@ -4556,16 +4544,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
-  "'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...)\n    <-))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon ...) (app move-horizon ...)) ...)\n    <-))\n  (env ((□? (mmo mo₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   (#f)\n   (_ (-> mo₁ <-)))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4586,7 +4574,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   ((#f) (-> mo₀ <-))\n   _)\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4595,7 +4583,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   (-> (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) <-)\n   (#f)\n   _)\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4604,7 +4592,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon< (app move-horizon mo₀) (-> (app move-horizon mo₁) <-))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4613,7 +4601,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app move-horizon (-> mo₁ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4634,10 +4622,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> move-horizon <-) mo₁) (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4655,7 +4643,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon< (-> (app move-horizon mo₀) <-) (app move-horizon mo₁))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4664,7 +4652,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app move-horizon (-> mo₀ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4673,10 +4661,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> move-horizon <-) mo₀) (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4694,10 +4682,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon< <-) (app move-horizon mo₀) (app move-horizon mo₁))\n  (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4715,9 +4703,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> some <-)\n   (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (app\n   (-> some <-)\n   (match (app horizon< (app move-horizon ...) (app move-horizon ...)) ...))\n  (env ((□? (mmo mo₁)))))"
   #t
   2
   1
@@ -4736,7 +4724,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> mmo <-) (some mo₀) (none)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4745,10 +4733,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (...\n    fold/coord\n    (min-maybe-move (-> (λ (mmo mo₁) ...) <-))\n    max-maybe-move\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -4766,7 +4754,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (mmo mo₁) (-> (match mmo ...) <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4775,7 +4763,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match mmo (some mo₀) ((none) (-> (app some mo₁) <-)))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4796,7 +4784,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app some (-> mo₁ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4817,7 +4805,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> some <-) mo₁) (env ((□? (mmo mo₁)))))"
   #t
@@ -4838,9 +4826,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (match\n   mmo\n   ((some mo₀)\n    (->\n     (app\n      some\n      (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n     <-))\n   (none))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (match\n   mmo\n   ((some mo₀) (-> (app some (match (app horizon< ...) ...)) <-))\n   (none))\n  (env ((□? (mmo mo₁)))))"
   #f
   3
   2
@@ -4859,16 +4847,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
-  "'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...)\n    <-))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (app\n   some\n   (->\n    (match (app horizon< (app move-horizon ...) (app move-horizon ...)) ...)\n    <-))\n  (env ((□? (mmo mo₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   (#f)\n   (_ (-> mo₀ <-)))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4877,7 +4865,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match\n   (app horizon< (app move-horizon mo₀) (app move-horizon mo₁))\n   ((#f) (-> mo₁ <-))\n   _)\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4898,7 +4886,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   (-> (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) <-)\n   (#f)\n   _)\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4907,7 +4895,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon< (app move-horizon mo₀) (-> (app move-horizon mo₁) <-))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4916,7 +4904,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app move-horizon (-> mo₁ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4937,10 +4925,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> move-horizon <-) mo₁) (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4958,7 +4946,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app horizon< (-> (app move-horizon mo₀) <-) (app move-horizon mo₁))\n  (env ((□? (mmo mo₁)))))"
   #f
@@ -4967,7 +4955,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app move-horizon (-> mo₀ <-)) (env ((□? (mmo mo₁)))))"
   #f
@@ -4976,10 +4964,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> move-horizon <-) mo₀) (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -4997,10 +4985,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> horizon< <-) (app move-horizon mo₀) (app move-horizon mo₁))\n  (env ((□? (mmo mo₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5018,9 +5006,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app\n   (-> some <-)\n   (match (app horizon< (app move-horizon mo₀) (app move-horizon mo₁)) ...))\n  (env ((□? (mmo mo₁)))))"
+  "'(eval\n  (app\n   (-> some <-)\n   (match (app horizon< (app move-horizon ...) (app move-horizon ...)) ...))\n  (env ((□? (mmo mo₁)))))"
   #t
   2
   1
@@ -5039,7 +5027,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> mmo <-) (some mo₀) (none)) (env ((□? (mmo mo₁)))))"
   #f
@@ -5048,10 +5036,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... foldl (fold/coord (-> (λ (f x) ...) <-)) min-maybe-move ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5069,7 +5057,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (f x) (-> (app foldl (λ (r x) ...) x is) <-)) (env ((□? (f x)))))"
   #f
@@ -5078,7 +5066,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl (λ (r x) ...) x (-> is <-)) (env ((□? (f x)))))"
   #f
@@ -5099,7 +5087,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl (λ (r x) ...) (-> x <-) is) (env ((□? (f x)))))"
   #f
@@ -5120,10 +5108,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app foldl (-> (λ (r x) ...) <-) x is) (env ((□? (f x)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -5141,7 +5129,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (r x) (-> (app foldl (λ (c x) ...) x is) <-))\n  (env ((□? (r x)) (□? (f x)))))"
   #f
@@ -5150,7 +5138,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl (λ (c x) ...) x (-> is <-)) (env ((□? (r x)) (□? (f x)))))"
   #f
@@ -5171,7 +5159,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl (λ (c x) ...) (-> x <-) is) (env ((□? (r x)) (□? (f x)))))"
   #f
@@ -5180,10 +5168,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app foldl (-> (λ (c x) ...) <-) x is) (env ((□? (r x)) (□? (f x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -5201,7 +5189,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (c x) (-> (app f (app coord r c) x) <-))\n  (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5210,7 +5198,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app f (app coord r c) (-> x <-))\n  (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5219,7 +5207,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app f (-> (app coord r c) <-) x)\n  (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5240,7 +5228,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord r (-> c <-)) (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5261,7 +5249,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> r <-) c) (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5282,7 +5270,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) r c) (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #t
@@ -5303,7 +5291,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> f <-) (app coord r c) x)\n  (env ((□? (c x)) (□? (r x)) (□? (f x)))))"
   #f
@@ -5324,10 +5312,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> foldl <-) (λ (c x) ...) x is) (env ((□? (r x)) (□? (f x)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -5345,10 +5333,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> foldl <-) (λ (r x) ...) x is) (env ((□? (f x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5366,10 +5354,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... horizon-add1 (foldl (-> (λ (f acc l) ...) <-)) fold/coord ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5387,7 +5375,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (f acc l) (-> (match l ...) <-)) (env ((□? (f acc l)))))"
   #f
@@ -5396,7 +5384,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match l (nil) ((cons x xs) (-> (app foldl f (app f x acc) xs) <-)))\n  (env ((□? (f acc l)))))"
   #f
@@ -5405,7 +5393,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl f (app f x acc) (-> xs <-)) (env ((□? (f acc l)))))"
   #f
@@ -5426,7 +5414,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app foldl f (-> (app f x acc) <-) xs) (env ((□? (f acc l)))))"
   #f
@@ -5435,7 +5423,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app f x (-> acc <-)) (env ((□? (f acc l)))))"
   #f
@@ -5444,7 +5432,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app f (-> x <-) acc) (env ((□? (f acc l)))))"
   #f
@@ -5465,7 +5453,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> f <-) x acc) (env ((□? (f acc l)))))"
   #f
@@ -5486,7 +5474,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app foldl (-> f <-) (app f x acc) xs) (env ((□? (f acc l)))))"
   #f
@@ -5507,10 +5495,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> foldl <-) f (app f x acc) xs) (env ((□? (f acc l)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5528,7 +5516,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match l ((nil) (-> acc <-)) (cons x xs)) (env ((□? (f acc l)))))"
   #f
@@ -5537,7 +5525,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> l <-) (nil) (cons x xs)) (env ((□? (f acc l)))))"
   #f
@@ -5558,10 +5546,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... horizon< (horizon-add1 (-> (λ (h) ...) <-)) foldl ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5579,7 +5567,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (h) (-> (match h ...) <-)) (env ((□? (h)))))"
   #f
@@ -5588,7 +5576,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match h ((horizon oc sc) (-> (app horizon oc (app + sc 1)) <-)))\n  (env ((□? (h)))))"
   #f
@@ -5609,7 +5597,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app horizon oc (-> (app + sc 1) <-)) (env ((□? (h)))))"
   #f
@@ -5618,10 +5606,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   number
   "'(eval (app + sc (-> 1 <-)) (env ((□? (h)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -5639,7 +5627,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app + (-> sc <-) 1) (env ((□? (h)))))"
   #f
@@ -5648,7 +5636,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> + <-) sc 1) (env ((□? (h)))))"
   #t
@@ -5669,7 +5657,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app horizon (-> oc <-) (app + sc 1)) (env ((□? (h)))))"
   #f
@@ -5678,7 +5666,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> horizon <-) oc (app + sc 1)) (env ((□? (h)))))"
   #t
@@ -5699,7 +5687,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> h <-) (horizon oc sc)) (env ((□? (h)))))"
   #f
@@ -5708,10 +5696,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... oc< (horizon< (-> (λ (h₀ h₁) ...) <-)) horizon-add1 ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5729,7 +5717,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (h₀ h₁) (-> (match h₀ ...) <-)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5738,7 +5726,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (match h₀ ((horizon oc₀ sc₀) (-> (match h₁ ...) <-)))\n  (env ((□? (h₀ h₁)))))"
   #f
@@ -5747,34 +5735,262 @@
   tic-tac-toe
   2
   5
-  569
-  app
-  "'(eval\n  (match\n   h₁\n   ((horizon oc₁ sc₁)\n    (->\n     (app or (app oc< oc₀ oc₁) (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))\n     <-)))\n  (env ((□? (h₀ h₁)))))"
+  605
+  match
+  "'(eval\n  (match h₁ ((horizon oc₁ sc₁) (-> (match (app oc< oc₀ oc₁) ...) <-)))\n  (env ((□? (h₀ h₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (app oc< oc₀ oc₁)\n   (-> (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)) <-))\n  (env ((□? (h₀ h₁)))))"
+  "'(eval\n  (match (app oc< oc₀ oc₁) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match\n   (app oc< oc₀ oc₁)\n   ((#f) (-> (match (match (app equal? ...) ...) ...) <-))\n   _)\n  (env ((□? (h₀ h₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app and (app equal? oc₀ oc₁) (-> (app < sc₀ sc₁) <-))\n  (env ((□? (h₀ h₁)))))"
+  "'(eval\n  (match (match (app equal? oc₀ oc₁) ...) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (match (app equal? oc₀ oc₁) ...) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match (-> (match (app equal? oc₀ oc₁) ...) <-) (#f) _)\n  (env ((□? (h₀ h₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
+  match
+  "'(eval\n  (match (app equal? oc₀ oc₁) (#f) (_ (-> (match (app < sc₀ sc₁) ...) <-)))\n  (env ((□? (h₀ h₁)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (app < sc₀ sc₁) (#f) (_ (-> (app #t) <-))) (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (app < sc₀ sc₁) ((#f) (-> (app #f) <-)) _) (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app < sc₀ sc₁) <-) (#f) _) (env ((□? (h₀ h₁)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
   ref-or-constructor
   "'(eval (app < sc₀ (-> sc₁ <-)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5783,7 +5999,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app < (-> sc₀ <-) sc₁) (env ((□? (h₀ h₁)))))"
   #f
@@ -5792,7 +6008,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> < <-) sc₀ sc₁) (env ((□? (h₀ h₁)))))"
   #t
@@ -5813,16 +6029,58 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app and (-> (app equal? oc₀ oc₁) <-) (app < sc₀ sc₁))\n  (env ((□? (h₀ h₁)))))"
+  "'(eval\n  (match (app equal? oc₀ oc₁) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (h₀ h₁)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (h₀ h₁)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app equal? oc₀ oc₁) <-) (#f) _) (env ((□? (h₀ h₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? oc₀ (-> oc₁ <-)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5831,7 +6089,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? (-> oc₀ <-) oc₁) (env ((□? (h₀ h₁)))))"
   #f
@@ -5840,7 +6098,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> equal? <-) oc₀ oc₁) (env ((□? (h₀ h₁)))))"
   #t
@@ -5861,37 +6119,16 @@
   tic-tac-toe
   2
   5
-  569
-  ref-or-constructor
-  "'(eval\n  (app (-> and <-) (app equal? oc₀ oc₁) (app < sc₀ sc₁))\n  (env ((□? (h₀ h₁)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  tic-tac-toe
-  2
-  5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (-> (app oc< oc₀ oc₁) <-)\n   (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))\n  (env ((□? (h₀ h₁)))))"
+  "'(eval (match (-> (app oc< oc₀ oc₁) <-) (#f) _) (env ((□? (h₀ h₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app oc< oc₀ (-> oc₁ <-)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5900,7 +6137,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app oc< (-> oc₀ <-) oc₁) (env ((□? (h₀ h₁)))))"
   #f
@@ -5909,10 +6146,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> oc< <-) oc₀ oc₁) (env ((□? (h₀ h₁)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -5930,28 +6167,7 @@
   tic-tac-toe
   2
   5
-  569
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> or <-)\n   (app oc< oc₀ oc₁)\n   (app and (app equal? oc₀ oc₁) (app < sc₀ sc₁)))\n  (env ((□? (h₀ h₁)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  tic-tac-toe
-  2
-  5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> h₁ <-) (horizon oc₁ sc₁)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5960,7 +6176,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> h₀ <-) (horizon oc₀ sc₀)) (env ((□? (h₀ h₁)))))"
   #f
@@ -5969,10 +6185,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... full? (oc< (-> (λ (oc₀ oc₁) ...) <-)) horizon< ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -5990,7 +6206,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (oc₀ oc₁) (-> (match oc₀ ...) <-)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -5999,16 +6215,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (match\n   oc₀\n   (win)\n   (draw)\n   ((lose) (-> (app not (app equal? oc₁ (app lose))) <-)))\n  (env ((□? (oc₀ oc₁)))))"
+  "'(eval\n  (match\n   oc₀\n   (win)\n   (draw)\n   ((lose) (-> (app not (app equal? oc₁ (app lose ...))) <-)))\n  (env ((□? (oc₀ oc₁)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app not (-> (app equal? oc₁ (app lose)) <-)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6017,7 +6233,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app equal? oc₁ (-> (app lose) <-)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6038,7 +6254,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> lose <-)) (env ((□? (oc₀ oc₁)))))"
   #t
@@ -6059,7 +6275,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? (-> oc₁ <-) (app lose)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6068,7 +6284,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> equal? <-) oc₁ (app lose)) (env ((□? (oc₀ oc₁)))))"
   #t
@@ -6089,7 +6305,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> not <-) (app equal? oc₁ (app lose))) (env ((□? (oc₀ oc₁)))))"
   #t
@@ -6110,7 +6326,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match oc₀ (win) ((draw) (-> (app equal? oc₁ (app win)) <-)) (lose))\n  (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6119,7 +6335,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app equal? oc₁ (-> (app win) <-)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6140,7 +6356,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> win <-)) (env ((□? (oc₀ oc₁)))))"
   #t
@@ -6161,7 +6377,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? (-> oc₁ <-) (app win)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6170,7 +6386,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> equal? <-) oc₁ (app win)) (env ((□? (oc₀ oc₁)))))"
   #t
@@ -6191,7 +6407,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match oc₀ ((win) (-> (app #f) <-)) (draw) (lose))\n  (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6212,10 +6428,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (oc₀ oc₁)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -6233,7 +6449,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> oc₀ <-) (win) (draw) (lose)) (env ((□? (oc₀ oc₁)))))"
   #f
@@ -6242,10 +6458,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (letrec* (... wins? (full? (-> (λ (b) ...) <-)) oc< ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -6263,7 +6479,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (b) (-> (app andmap (λ (r) ...) is) <-)) (env ((□? (b)))))"
   #f
@@ -6272,7 +6488,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (r) ...) (-> is <-)) (env ((□? (b)))))"
   #f
@@ -6293,10 +6509,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (r) ...) <-) is) (env ((□? (b)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -6314,7 +6530,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (r) (-> (app andmap (λ (c) ...) is) <-)) (env ((□? (r)) (□? (b)))))"
   #f
@@ -6323,7 +6539,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (c) ...) (-> is <-)) (env ((□? (r)) (□? (b)))))"
   #f
@@ -6344,10 +6560,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (c) ...) <-) is) (env ((□? (r)) (□? (b)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -6365,16 +6581,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ (c) (-> (app marked? (app b (app coord r c))) <-))\n  (env ((□? (c)) (□? (r)) (□? (b)))))"
+  "'(eval\n  (λ (c) (-> (app marked? (app b (app coord ...))) <-))\n  (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app marked? (-> (app b (app coord r c)) <-))\n  (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
@@ -6383,7 +6599,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app b (-> (app coord r c) <-)) (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
@@ -6404,7 +6620,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord r (-> c <-)) (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
@@ -6425,7 +6641,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> r <-) c) (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
@@ -6446,7 +6662,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) r c) (env ((□? (c)) (□? (r)) (□? (b)))))"
   #t
@@ -6467,7 +6683,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> b <-) (app coord r c)) (env ((□? (c)) (□? (r)) (□? (b)))))"
   #f
@@ -6488,10 +6704,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> marked? <-) (app b (app coord r c)))\n  (env ((□? (c)) (□? (r)) (□? (b)))))"
-  #t
+  (lambda number char string quoted constructor)
   5
   2
   0
@@ -6509,10 +6725,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (c) ...) is) (env ((□? (r)) (□? (b)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -6530,10 +6746,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (r) ...) is) (env ((□? (b)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -6551,10 +6767,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... andmap (wins? (-> (λ (b m) ...) <-)) full? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -6572,25 +6788,262 @@
   tic-tac-toe
   2
   5
-  569
-  app
-  "'(eval\n  (λ (b m)\n    (->\n     (app\n      or\n      (app ormap (λ (r) ...) is)\n      (app ormap (λ (c) ...) is)\n      (app andmap (λ (rc) ...) is)\n      (app andmap (λ (rc) ...) is))\n     <-))\n  (env ((□? (b m)))))"
+  605
+  match
+  "'(eval\n  (λ (b m) (-> (match (app ormap (λ (r) ...) is) ...) <-))\n  (env ((□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (app ormap (λ (c) ...) is)\n   (app andmap (λ (rc) ...) is)\n   (-> (app andmap (λ (rc) ...) is) <-))\n  (env ((□? (b m)))))"
+  "'(eval\n  (match (app ormap (λ (r) ...) is) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (b m)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (b m)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match\n   (app ormap (λ (r) ...) is)\n   ((#f) (-> (match (app ormap (λ (c) ...) is) ...) <-))\n   _)\n  (env ((□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
+  app
+  "'(eval\n  (match (app ormap (λ (c) ...) is) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (b m)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (b m)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match\n   (app ormap (λ (c) ...) is)\n   ((#f) (-> (match (app andmap (λ (rc) ...) is) ...) <-))\n   _)\n  (env ((□? (b m)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (app andmap (λ (rc) ...) is) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (b m)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (b m)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match\n   (app andmap (λ (rc) ...) is)\n   ((#f) (-> (match (app andmap (λ (rc) ...) is) ...) <-))\n   _)\n  (env ((□? (b m)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (app andmap (λ (rc) ...) is) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (b m)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (b m)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (app andmap (λ (rc) ...) is) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (b m)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (b m)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app andmap (λ (rc) ...) is) <-) (#f) _) (env ((□? (b m)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (rc) ...) (-> is <-)) (env ((□? (b m)))))"
   #f
@@ -6611,10 +7064,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (rc) ...) <-) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -6632,16 +7085,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (λ (rc) (-> (app marked-with? b (app coord rc (app i⁻¹ rc)) m) <-))\n  (env ((□? (rc)) (□? (b m)))))"
+  "'(eval\n  (λ (rc) (-> (app marked-with? b (app coord rc (app i⁻¹ ...)) m) <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord rc (app i⁻¹ rc)) (-> m <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6650,7 +7103,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app marked-with? b (-> (app coord rc (app i⁻¹ rc)) <-) m)\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6671,7 +7124,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app coord rc (-> (app i⁻¹ rc) <-)) (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6692,7 +7145,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app i⁻¹ (-> rc <-)) (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6713,10 +7166,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> i⁻¹ <-) rc) (env ((□? (rc)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -6734,7 +7187,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> rc <-) (app i⁻¹ rc)) (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6755,7 +7208,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) rc (app i⁻¹ rc)) (env ((□? (rc)) (□? (b m)))))"
   #t
@@ -6776,7 +7229,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? (-> b <-) (app coord rc (app i⁻¹ rc)) m)\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6797,10 +7250,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> marked-with? <-) b (app coord rc (app i⁻¹ rc)) m)\n  (env ((□? (rc)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -6818,10 +7271,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (rc) ...) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -6839,16 +7292,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (app ormap (λ (c) ...) is)\n   (-> (app andmap (λ (rc) ...) is) <-)\n   (app andmap (λ (rc) ...) is))\n  (env ((□? (b m)))))"
+  "'(eval (match (-> (app andmap (λ (rc) ...) is) <-) (#f) _) (env ((□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (rc) ...) (-> is <-)) (env ((□? (b m)))))"
   #f
@@ -6869,10 +7322,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (rc) ...) <-) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -6890,7 +7343,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (rc) (-> (app marked-with? b (app coord rc rc) m) <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6899,7 +7352,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord rc rc) (-> m <-))\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6908,7 +7361,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app marked-with? b (-> (app coord rc rc) <-) m)\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6929,7 +7382,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord rc (-> rc <-)) (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6950,7 +7403,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> rc <-) rc) (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -6971,7 +7424,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) rc rc) (env ((□? (rc)) (□? (b m)))))"
   #t
@@ -6992,7 +7445,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? (-> b <-) (app coord rc rc) m)\n  (env ((□? (rc)) (□? (b m)))))"
   #f
@@ -7013,10 +7466,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> marked-with? <-) b (app coord rc rc) m)\n  (env ((□? (rc)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -7034,10 +7487,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (rc) ...) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -7055,16 +7508,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (app ormap (λ (r) ...) is)\n   (-> (app ormap (λ (c) ...) is) <-)\n   (app andmap (λ (rc) ...) is)\n   (app andmap (λ (rc) ...) is))\n  (env ((□? (b m)))))"
+  "'(eval (match (-> (app ormap (λ (c) ...) is) <-) (#f) _) (env ((□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app ormap (λ (c) ...) (-> is <-)) (env ((□? (b m)))))"
   #f
@@ -7085,10 +7538,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app ormap (-> (λ (c) ...) <-) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -7106,7 +7559,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (c) (-> (app andmap (λ (r) ...) is) <-)) (env ((□? (c)) (□? (b m)))))"
   #f
@@ -7115,7 +7568,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (r) ...) (-> is <-)) (env ((□? (c)) (□? (b m)))))"
   #f
@@ -7136,10 +7589,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (r) ...) <-) is) (env ((□? (c)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -7157,7 +7610,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (r) (-> (app marked-with? b (app coord r c) m) <-))\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7166,7 +7619,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord r c) (-> m <-))\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7175,7 +7628,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app marked-with? b (-> (app coord r c) <-) m)\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7196,7 +7649,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord r (-> c <-)) (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7217,7 +7670,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> r <-) c) (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7238,7 +7691,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) r c) (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #t
@@ -7259,7 +7712,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? (-> b <-) (app coord r c) m)\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
   #f
@@ -7280,10 +7733,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> marked-with? <-) b (app coord r c) m)\n  (env ((□? (r)) (□? (c)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   5
   2
   0
@@ -7301,10 +7754,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (r) ...) is) (env ((□? (c)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -7322,10 +7775,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> ormap <-) (λ (c) ...) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -7343,16 +7796,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app\n   or\n   (-> (app ormap (λ (r) ...) is) <-)\n   (app ormap (λ (c) ...) is)\n   (app andmap (λ (rc) ...) is)\n   (app andmap (λ (rc) ...) is))\n  (env ((□? (b m)))))"
+  "'(eval (match (-> (app ormap (λ (r) ...) is) <-) (#f) _) (env ((□? (b m)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app ormap (λ (r) ...) (-> is <-)) (env ((□? (b m)))))"
   #f
@@ -7373,10 +7826,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app ormap (-> (λ (r) ...) <-) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -7394,7 +7847,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (r) (-> (app andmap (λ (c) ...) is) <-)) (env ((□? (r)) (□? (b m)))))"
   #f
@@ -7403,7 +7856,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (λ (c) ...) (-> is <-)) (env ((□? (r)) (□? (b m)))))"
   #f
@@ -7424,10 +7877,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (app andmap (-> (λ (c) ...) <-) is) (env ((□? (r)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -7445,7 +7898,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (λ (c) (-> (app marked-with? b (app coord r c) m) <-))\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7454,7 +7907,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? b (app coord r c) (-> m <-))\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7463,7 +7916,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (app marked-with? b (-> (app coord r c) <-) m)\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7484,7 +7937,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord r (-> c <-)) (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7505,7 +7958,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app coord (-> r <-) c) (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7526,7 +7979,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> coord <-) r c) (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #t
@@ -7547,7 +8000,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app marked-with? (-> b <-) (app coord r c) m)\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
   #f
@@ -7568,10 +8021,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> marked-with? <-) b (app coord r c) m)\n  (env ((□? (c)) (□? (r)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   5
   2
   0
@@ -7589,10 +8042,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) (λ (c) ...) is) (env ((□? (r)) (□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -7610,10 +8063,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> ormap <-) (λ (r) ...) is) (env ((□? (b m)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -7631,31 +8084,10 @@
   tic-tac-toe
   2
   5
-  569
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> or <-)\n   (app ormap (λ (r) ...) is)\n   (app ormap (λ (c) ...) is)\n   (app andmap (λ (rc) ...) is)\n   (app andmap (λ (rc) ...) is))\n  (env ((□? (b m)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  tic-tac-toe
-  2
-  5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... ormap (andmap (-> (λ (f xs) ...) <-)) wins? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -7673,7 +8105,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (f xs) (-> (match xs ...) <-)) (env ((□? (f xs)))))"
   #f
@@ -7682,25 +8114,118 @@
   tic-tac-toe
   2
   5
-  569
-  app
-  "'(eval\n  (match\n   xs\n   (nil)\n   ((cons x rest-xs) (-> (app and (app f x) (app andmap f rest-xs)) <-)))\n  (env ((□? (f xs)))))"
+  605
+  match
+  "'(eval\n  (match xs (nil) ((cons x rest-xs) (-> (match (app f x) ...) <-)))\n  (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
-  app
-  "'(eval (app and (app f x) (-> (app andmap f rest-xs) <-)) (env ((□? (f xs)))))"
+  605
+  match
+  "'(eval\n  (match (app f x) (#f) (_ (-> (match (app andmap f rest-xs) ...) <-)))\n  (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
+  app
+  "'(eval\n  (match (app andmap f rest-xs) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (app andmap f rest-xs) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app andmap f rest-xs) <-) (#f) _) (env ((□? (f xs)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
   ref-or-constructor
   "'(eval (app andmap f (-> rest-xs <-)) (env ((□? (f xs)))))"
   #f
@@ -7709,7 +8234,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app andmap (-> f <-) rest-xs) (env ((□? (f xs)))))"
   #f
@@ -7725,15 +8250,15 @@
   12
   #f
   22/7
-  ((3 3 0)))
+  ((4 4 0)))
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> andmap <-) f rest-xs) (env ((□? (f xs)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -7751,16 +8276,58 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval (app and (-> (app f x) <-) (app andmap f rest-xs)) (env ((□? (f xs)))))"
+  "'(eval (match (app f x) ((#f) (-> (app #f) <-)) _) (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app f x) <-) (#f) _) (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app f (-> x <-)) (env ((□? (f xs)))))"
   #f
@@ -7769,7 +8336,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> f <-) x) (env ((□? (f xs)))))"
   #f
@@ -7790,28 +8357,7 @@
   tic-tac-toe
   2
   5
-  569
-  ref-or-constructor
-  "'(eval (app (-> and <-) (app f x) (app andmap f rest-xs)) (env ((□? (f xs)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  tic-tac-toe
-  2
-  5
-  569
+  605
   app
   "'(eval\n  (match xs ((nil) (-> (app #t) <-)) (cons x rest-xs))\n  (env ((□? (f xs)))))"
   #f
@@ -7832,10 +8378,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (f xs)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -7853,7 +8399,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> xs <-) (nil) (cons x rest-xs)) (env ((□? (f xs)))))"
   #f
@@ -7862,10 +8408,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... i⁻¹ (ormap (-> (λ (f xs) ...) <-)) andmap ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -7883,7 +8429,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (f xs) (-> (match xs ...) <-)) (env ((□? (f xs)))))"
   #f
@@ -7892,25 +8438,160 @@
   tic-tac-toe
   2
   5
-  569
-  app
-  "'(eval\n  (match\n   xs\n   (nil)\n   ((cons x rest-xs) (-> (app or (app f x) (app ormap f rest-xs)) <-)))\n  (env ((□? (f xs)))))"
+  605
+  match
+  "'(eval\n  (match xs (nil) ((cons x rest-xs) (-> (match (app f x) ...) <-)))\n  (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval (app or (app f x) (-> (app ormap f rest-xs) <-)) (env ((□? (f xs)))))"
+  "'(eval (match (app f x) (#f) (_ (-> (app #t) <-))) (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  match
+  "'(eval\n  (match (app f x) ((#f) (-> (match (app ormap f rest-xs) ...) <-)) _)\n  (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
+  app
+  "'(eval\n  (match (app ormap f rest-xs) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval\n  (match (app ormap f rest-xs) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (f xs)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (f xs)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
+  app
+  "'(eval (match (-> (app ormap f rest-xs) <-) (#f) _) (env ((□? (f xs)))))"
+  #f
+  #f)
+'(clean-cache
+  tic-tac-toe
+  2
+  5
+  605
   ref-or-constructor
   "'(eval (app ormap f (-> rest-xs <-)) (env ((□? (f xs)))))"
   #f
@@ -7931,7 +8612,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app ormap (-> f <-) rest-xs) (env ((□? (f xs)))))"
   #f
@@ -7952,10 +8633,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> ormap <-) f rest-xs) (env ((□? (f xs)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -7973,16 +8654,16 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval (app or (-> (app f x) <-) (app ormap f rest-xs)) (env ((□? (f xs)))))"
+  "'(eval (match (-> (app f x) <-) (#f) _) (env ((□? (f xs)))))"
   #f
   #f)
 '(clean-cache
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app f (-> x <-)) (env ((□? (f xs)))))"
   #f
@@ -8003,7 +8684,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> f <-) x) (env ((□? (f xs)))))"
   #f
@@ -8024,28 +8705,7 @@
   tic-tac-toe
   2
   5
-  569
-  ref-or-constructor
-  "'(eval (app (-> or <-) (app f x) (app ormap f rest-xs)) (env ((□? (f xs)))))"
-  #t
-  2
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  tic-tac-toe
-  2
-  5
-  569
+  605
   app
   "'(eval\n  (match xs ((nil) (-> (app #f) <-)) (cons x rest-xs))\n  (env ((□? (f xs)))))"
   #f
@@ -8066,10 +8726,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (f xs)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -8087,7 +8747,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> xs <-) (nil) (cons x rest-xs)) (env ((□? (f xs)))))"
   #f
@@ -8108,10 +8768,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... marked-with? (i⁻¹ (-> (λ (i) ...) <-)) ormap ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8129,7 +8789,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (i) (-> (match i ...) <-)) (env ((□? (i)))))"
   #f
@@ -8150,7 +8810,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match i (Ze) (On) ((Tw) (-> (app Ze) <-))) (env ((□? (i)))))"
   #f
@@ -8171,7 +8831,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> Ze <-)) (env ((□? (i)))))"
   #t
@@ -8192,7 +8852,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match i (Ze) ((On) (-> (app On) <-)) (Tw)) (env ((□? (i)))))"
   #f
@@ -8213,7 +8873,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> On <-)) (env ((□? (i)))))"
   #t
@@ -8234,7 +8894,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match i ((Ze) (-> (app Tw) <-)) (On) (Tw)) (env ((□? (i)))))"
   #f
@@ -8255,7 +8915,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> Tw <-)) (env ((□? (i)))))"
   #t
@@ -8276,7 +8936,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> i <-) (Ze) (On) (Tw)) (env ((□? (i)))))"
   #f
@@ -8297,10 +8957,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... board-lookup (marked-with? (-> (λ (b co m) ...) <-)) i⁻¹ ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8318,7 +8978,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (b co m) (-> (match (app b co) ...) <-)) (env ((□? (b co m)))))"
   #f
@@ -8327,7 +8987,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app b co) (blank) ((marked m*) (-> (app equal? m m*) <-)))\n  (env ((□? (b co m)))))"
   #f
@@ -8336,7 +8996,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? m (-> m* <-)) (env ((□? (b co m)))))"
   #f
@@ -8345,7 +9005,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? (-> m <-) m*) (env ((□? (b co m)))))"
   #f
@@ -8354,7 +9014,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> equal? <-) m m*) (env ((□? (b co m)))))"
   #t
@@ -8375,7 +9035,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app b co) ((blank) (-> (app #f) <-)) (marked m*))\n  (env ((□? (b co m)))))"
   #f
@@ -8396,10 +9056,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (b co m)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -8417,7 +9077,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match (-> (app b co) <-) (blank) (marked m*)) (env ((□? (b co m)))))"
   #f
@@ -8426,7 +9086,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app b (-> co <-)) (env ((□? (b co m)))))"
   #f
@@ -8447,7 +9107,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> b <-) co) (env ((□? (b co m)))))"
   #f
@@ -8468,10 +9128,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... board-mark (board-lookup (-> (λ (co bo) ...) <-)) marked-with? ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8489,7 +9149,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (co bo) (-> (app bo co) <-)) (env ((□? (co bo)))))"
   #f
@@ -8498,7 +9158,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app bo (-> co <-)) (env ((□? (co bo)))))"
   #f
@@ -8507,7 +9167,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> bo <-) co) (env ((□? (co bo)))))"
   #f
@@ -8516,10 +9176,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... empty-board (board-mark (-> (λ (co₀ ma bo) ...) <-)) board-lookup ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8537,10 +9197,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval (λ (co₀ ma bo) (-> (λ (co) ...) <-)) (env ((□? (co₀ ma bo)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -8558,7 +9218,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (λ (co) (-> (match (app equal? co₀ co) ...) <-))\n  (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8567,7 +9227,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app equal? co₀ co) (#f) (_ (-> (app marked ma) <-)))\n  (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8588,7 +9248,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app marked (-> ma <-)) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8597,7 +9257,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> marked <-) ma) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #t
@@ -8618,7 +9278,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (app equal? co₀ co) ((#f) (-> (app board-lookup co bo) <-)) _)\n  (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8627,7 +9287,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app board-lookup co (-> bo <-)) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8636,7 +9296,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app board-lookup (-> co <-) bo) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8645,10 +9305,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> board-lookup <-) co bo) (env ((□? (co)) (□? (co₀ ma bo)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -8666,7 +9326,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match (-> (app equal? co₀ co) <-) (#f) _)\n  (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8675,7 +9335,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? co₀ (-> co <-)) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8684,7 +9344,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app equal? (-> co₀ <-) co) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #f
@@ -8693,7 +9353,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> equal? <-) co₀ co) (env ((□? (co)) (□? (co₀ ma bo)))))"
   #t
@@ -8714,10 +9374,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... mark⁻¹ (empty-board (-> (λ (co) ...) <-)) board-mark ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8735,7 +9395,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (λ (co) (-> (app blank) <-)) (env ((□? (co)))))"
   #f
@@ -8756,7 +9416,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> blank <-)) (env ((□? (co)))))"
   #t
@@ -8777,10 +9437,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... is (mark⁻¹ (-> (λ (ma) ...) <-)) empty-board ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -8798,7 +9458,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (ma) (-> (match ma ...) <-)) (env ((□? (ma)))))"
   #f
@@ -8819,7 +9479,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match ma (X) ((O) (-> (app X) <-))) (env ((□? (ma)))))"
   #f
@@ -8840,7 +9500,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> X <-)) (env ((□? (ma)))))"
   #t
@@ -8861,7 +9521,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match ma ((X) (-> (app O) <-)) (O)) (env ((□? (ma)))))"
   #f
@@ -8882,7 +9542,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> O <-)) (env ((□? (ma)))))"
   #t
@@ -8903,7 +9563,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> ma <-) (X) (O)) (env ((□? (ma)))))"
   #f
@@ -8924,9 +9584,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (letrec*\n   (...\n    move-horizon\n    (is\n     (->\n      (app cons (app Ze) (app cons (app On) (app cons (app Tw) (app nil))))\n      <-))\n    mark⁻¹\n    ...)\n   ...)\n  (env ()))"
+  "'(eval\n  (letrec*\n   (...\n    move-horizon\n    (is (-> (app cons (app Ze) (app cons (app On ...) (app cons ...))) <-))\n    mark⁻¹\n    ...)\n   ...)\n  (env ()))"
   #f
   2
   2
@@ -8945,9 +9605,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app cons (app Ze) (-> (app cons (app On) (app cons (app Tw) (app nil))) <-))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (app Ze)\n   (-> (app cons (app On) (app cons (app Tw ...) (app nil ...))) <-))\n  (env ()))"
   #f
   2
   2
@@ -8966,7 +9626,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app cons (app On) (-> (app cons (app Tw) (app nil)) <-)) (env ()))"
   #f
@@ -8987,7 +9647,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app cons (app Tw) (-> (app nil) <-)) (env ()))"
   #f
@@ -9008,7 +9668,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> nil <-)) (env ()))"
   #t
@@ -9029,7 +9689,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app cons (-> (app Tw) <-) (app nil)) (env ()))"
   #f
@@ -9050,7 +9710,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> Tw <-)) (env ()))"
   #t
@@ -9071,7 +9731,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> cons <-) (app Tw) (app nil)) (env ()))"
   #t
@@ -9092,7 +9752,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (app cons (-> (app On) <-) (app cons (app Tw) (app nil))) (env ()))"
   #f
@@ -9113,7 +9773,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> On <-)) (env ()))"
   #t
@@ -9134,7 +9794,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> cons <-) (app On) (app cons (app Tw) (app nil))) (env ()))"
   #t
@@ -9155,9 +9815,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
-  "'(eval\n  (app cons (-> (app Ze) <-) (app cons (app On) (app cons (app Tw) (app nil))))\n  (env ()))"
+  "'(eval\n  (app\n   cons\n   (-> (app Ze) <-)\n   (app cons (app On) (app cons (app Tw ...) (app nil ...))))\n  (env ()))"
   #f
   2
   2
@@ -9176,7 +9836,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> Ze <-)) (env ()))"
   #t
@@ -9197,9 +9857,9 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
-  "'(eval\n  (app (-> cons <-) (app Ze) (app cons (app On) (app cons (app Tw) (app nil))))\n  (env ()))"
+  "'(eval\n  (app\n   (-> cons <-)\n   (app Ze)\n   (app cons (app On) (app cons (app Tw ...) (app nil ...))))\n  (env ()))"
   #t
   1
   1
@@ -9218,10 +9878,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... move-coord (move-horizon (-> (λ (move-horizon-v) ...) <-)) is ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -9239,7 +9899,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (λ (move-horizon-v) (-> (match move-horizon-v ...) <-))\n  (env ((□? (move-horizon-v)))))"
   #f
@@ -9248,7 +9908,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   move-horizon-v\n   (move _ move-horizon-x)\n   (_ (-> (app error \"invalid match for move-horizon\") <-)))\n  (env ((□? (move-horizon-v)))))"
   #f
@@ -9269,10 +9929,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   string
   "'(eval\n  (app error (-> \"invalid match for move-horizon\" <-))\n  (env ((□? (move-horizon-v)))))"
-  #t
+  (string quoted constructor)
   2
   1
   0
@@ -9290,7 +9950,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> error <-) \"invalid match for move-horizon\")\n  (env ((□? (move-horizon-v)))))"
   #t
@@ -9311,7 +9971,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match move-horizon-v ((move _ move-horizon-x) (-> move-horizon-x <-)) _)\n  (env ((□? (move-horizon-v)))))"
   #f
@@ -9320,7 +9980,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (-> move-horizon-v <-) (move _ move-horizon-x) _)\n  (env ((□? (move-horizon-v)))))"
   #f
@@ -9329,10 +9989,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec*\n   (... blank? (move-coord (-> (λ (move-coord-v) ...) <-)) move-horizon ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -9350,7 +10010,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval\n  (λ (move-coord-v) (-> (match move-coord-v ...) <-))\n  (env ((□? (move-coord-v)))))"
   #f
@@ -9359,7 +10019,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   move-coord-v\n   (move move-coord-x _)\n   (_ (-> (app error \"invalid match for move-coord\") <-)))\n  (env ((□? (move-coord-v)))))"
   #f
@@ -9380,10 +10040,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   string
   "'(eval\n  (app error (-> \"invalid match for move-coord\" <-))\n  (env ((□? (move-coord-v)))))"
-  #t
+  (string quoted constructor)
   2
   1
   0
@@ -9401,7 +10061,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (app (-> error <-) \"invalid match for move-coord\")\n  (env ((□? (move-coord-v)))))"
   #t
@@ -9422,7 +10082,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match move-coord-v ((move move-coord-x _) (-> move-coord-x <-)) _)\n  (env ((□? (move-coord-v)))))"
   #f
@@ -9431,7 +10091,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match (-> move-coord-v <-) (move move-coord-x _) _)\n  (env ((□? (move-coord-v)))))"
   #f
@@ -9440,10 +10100,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... marked? (blank? (-> (λ (a) ...) <-)) move-coord ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -9461,7 +10121,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (a) (-> (match a ...) <-)) (env ((□? (a)))))"
   #f
@@ -9470,7 +10130,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match a (blank) (_ (-> (app #f) <-))) (env ((□? (a)))))"
   #f
@@ -9491,10 +10151,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (a)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -9512,7 +10172,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match a ((blank) (-> (app #t) <-)) _) (env ((□? (a)))))"
   #f
@@ -9533,10 +10193,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (a)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -9554,7 +10214,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> a <-) (blank) _) (env ((□? (a)))))"
   #f
@@ -9563,10 +10223,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... some-v (marked? (-> (λ (a) ...) <-)) blank? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -9584,7 +10244,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (a) (-> (match a ...) <-)) (env ((□? (a)))))"
   #f
@@ -9593,7 +10253,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match a (marked _) (_ (-> (app #f) <-))) (env ((□? (a)))))"
   #f
@@ -9614,10 +10274,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (a)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -9635,7 +10295,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval (match a ((marked _) (-> (app #t) <-)) _) (env ((□? (a)))))"
   #f
@@ -9656,10 +10316,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (a)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -9677,7 +10337,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> a <-) (marked _) _) (env ((□? (a)))))"
   #f
@@ -9686,10 +10346,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   lambda
   "'(eval\n  (letrec* (... () (some-v (-> (λ (some-v-v) ...) <-)) marked? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -9707,7 +10367,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   match
   "'(eval (λ (some-v-v) (-> (match some-v-v ...) <-)) (env ((□? (some-v-v)))))"
   #f
@@ -9716,7 +10376,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (match\n   some-v-v\n   (some some-v-x)\n   (_ (-> (app error \"invalid match for some-v\") <-)))\n  (env ((□? (some-v-v)))))"
   #f
@@ -9737,10 +10397,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   string
   "'(eval (app error (-> \"invalid match for some-v\" <-)) (env ((□? (some-v-v)))))"
-  #t
+  (string quoted constructor)
   2
   1
   0
@@ -9758,7 +10418,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> error <-) \"invalid match for some-v\") (env ((□? (some-v-v)))))"
   #t
@@ -9779,7 +10439,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval\n  (match some-v-v ((some some-v-x) (-> some-v-x <-)) _)\n  (env ((□? (some-v-v)))))"
   #f
@@ -9788,7 +10448,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (match (-> some-v-v <-) (some some-v-x) _) (env ((□? (some-v-v)))))"
   #f
@@ -9797,7 +10457,7 @@
   tic-tac-toe
   2
   5
-  569
+  605
   app
   "'(eval\n  (letrec* (some-v ... zero-player-game) (-> (app zero-player-game) <-))\n  (env ()))"
   #f
@@ -9806,10 +10466,10 @@
   tic-tac-toe
   2
   5
-  569
+  605
   ref-or-constructor
   "'(eval (app (-> zero-player-game <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

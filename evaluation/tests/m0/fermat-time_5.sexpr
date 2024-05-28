@@ -1,0 +1,5166 @@
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  letrec*
+  "'(eval ((top) letrec* (square ... byte-size) ...) (env ()))"
+  #f
+  10
+  10
+  0
+  0
+  10
+  0
+  10
+  1
+  1
+  10
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (letrec* (... iterations (byte-size (-> 15 <-)) () ...) ...) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval\n  (letrec*\n   (... generate-fermat-prime (iterations (-> 10 <-)) byte-size ...)\n   ...)\n  (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    is-fermat-prime?\n    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))\n    iterations\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (λ (byte-size iterations) (-> (let (n) ...) <-)) (env (())))"
+  #f
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env (())))"
+  #f
+  9
+  6
+  3
+  0
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app random (-> byte-size <-)) (env (())))"
+  #f
+  7
+  4
+  3
+  0
+  4
+  3
+  7
+  1
+  1
+  4
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> random <-) byte-size) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval (let (n) (-> (match (match (app not ...) ...) ...) <-)) (env (())))"
+  #f
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   (#f)\n   (_ (-> n <-)))\n  (env (())))"
+  #f
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  5
+  #f
+  9/7
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))"
+  #f
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env (())))"
+  #f
+  6
+  3
+  3
+  0
+  3
+  3
+  6
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env (())))"
+  #f
+  6
+  3
+  3
+  0
+  3
+  3
+  6
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> generate-fermat-prime <-) byte-size iterations) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match (-> (match (app not (app is-trivial-composite? ...)) ...) <-) (#f) _)\n  (env (())))"
+  #f
+  230
+  212
+  14
+  4
+  212
+  14
+  226
+  1
+  1
+  120
+  #f
+  76/53
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app not (app is-trivial-composite? n))\n   (#f)\n   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))\n  (env (())))"
+  #f
+  124
+  109
+  12
+  3
+  109
+  12
+  121
+  1
+  1
+  57
+  #f
+  161/109
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app is-fermat-prime? n iterations) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app is-fermat-prime? n iterations) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app is-fermat-prime? n iterations) <-) (#f) _) (env (())))"
+  #f
+  119
+  104
+  12
+  3
+  104
+  12
+  116
+  1
+  1
+  53
+  #f
+  155/104
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app is-fermat-prime? n (-> iterations <-)) (env (())))"
+  #f
+  7
+  4
+  3
+  0
+  4
+  3
+  7
+  1
+  1
+  4
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app is-fermat-prime? (-> n <-) iterations) (env (())))"
+  #f
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  5
+  #f
+  9/7
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> is-fermat-prime? <-) n iterations) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app not (app is-trivial-composite? n)) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (-> (app not (app is-trivial-composite? n)) <-) (#f) _)\n  (env (())))"
+  #f
+  112
+  106
+  5
+  1
+  106
+  5
+  111
+  1
+  1
+  66
+  #f
+  73/53
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))"
+  #f
+  108
+  102
+  5
+  1
+  102
+  5
+  107
+  1
+  1
+  63
+  #f
+  47/34
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app is-trivial-composite? (-> n <-)) (env (())))"
+  #f
+  10
+  7
+  3
+  0
+  7
+  3
+  10
+  1
+  1
+  5
+  #f
+  9/7
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> is-trivial-composite? <-) n) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app is-trivial-composite? n)) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    is-trivial-composite?\n    (is-fermat-prime? (-> (λ (n iterations) ...) <-))\n    generate-fermat-prime\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval (λ (n iterations) (-> (match (app <= iterations 0) ...) <-)) (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (app <= iterations 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app <= iterations 0)\n   ((#f) (-> (match (let* (byte-size ... a) ...) ...) <-))\n   _)\n  (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (let* (byte-size ... a) ...) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (let* (byte-size ... a) ...) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let*
+  "'(eval (match (-> (let* (byte-size ... a) ...) <-) (#f) _) (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)\n  (env (())))"
+  #f
+  27
+  21
+  6
+  0
+  21
+  6
+  27
+  1
+  1
+  12
+  #f
+  10/7
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app random (-> byte-size <-)) (env (())))"
+  #f
+  25
+  19
+  6
+  0
+  19
+  6
+  25
+  1
+  1
+  11
+  #f
+  27/19
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> random <-) byte-size) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))\n         a\n         ...)\n    ...)\n  (env (())))"
+  #f
+  24
+  18
+  6
+  0
+  18
+  6
+  24
+  1
+  1
+  11
+  #f
+  25/18
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env (())))"
+  #f
+  22
+  16
+  6
+  0
+  16
+  6
+  22
+  1
+  1
+  10
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app / (app log n) (-> (app log 2) <-)) (env (())))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app log (-> 2 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> log <-) 2) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app / (-> (app log n) <-) (app log 2)) (env (())))"
+  #f
+  17
+  11
+  6
+  0
+  11
+  6
+  17
+  1
+  1
+  6
+  #f
+  16/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app log (-> n <-)) (env (())))"
+  #f
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  5
+  #f
+  13/9
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> log <-) n) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> / <-) (app log n) (app log 2)) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> ceiling <-) (app / (app log n) (app log 2))) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (let* (byte-size ... a) (-> (match (app = (app modulo-power ...) 1) ...) <-))\n  (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match\n   (app = (app modulo-power a (app - ...) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env (())))"
+  #f
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  6
+  #f
+  5/4
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app - iterations (-> 1 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app - (-> iterations <-) 1) (env (())))"
+  #f
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  6
+  #f
+  5/4
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> - <-) iterations 1) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env (())))"
+  #f
+  14
+  8
+  6
+  0
+  8
+  6
+  14
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> is-fermat-prime? <-) n (app - iterations 1)) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match\n   (app = (app modulo-power a (app - ...) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (-> (app = (app modulo-power a (app - ...) n) 1) <-) (#f) _)\n  (env (())))"
+  #f
+  89
+  75
+  12
+  2
+  75
+  12
+  87
+  1
+  1
+  34
+  #f
+  116/75
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo-power a (app - n 1) n) (-> 1 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))"
+  #f
+  86
+  72
+  12
+  2
+  72
+  12
+  84
+  1
+  1
+  32
+  #f
+  14/9
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power a (app - n 1) (-> n <-)) (env (())))"
+  #f
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  5
+  #f
+  13/9
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app modulo-power a (-> (app - n 1) <-) n) (env (())))"
+  #f
+  18
+  12
+  6
+  0
+  12
+  6
+  18
+  1
+  1
+  7
+  #f
+  17/12
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app - n (-> 1 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app - (-> n <-) 1) (env (())))"
+  #f
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  5
+  #f
+  13/9
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> - <-) n 1) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power (-> a <-) (app - n 1) n) (env (())))"
+  #f
+  28
+  22
+  6
+  0
+  22
+  6
+  28
+  1
+  1
+  12
+  #f
+  16/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) a (app - n 1) n) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo-power a (app - n 1) n) 1) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app <= iterations 0) <-) (#f) _) (env (())))"
+  #f
+  18
+  12
+  6
+  0
+  12
+  6
+  18
+  1
+  1
+  8
+  #f
+  4/3
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app <= iterations (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app <= (-> iterations <-) 0) (env (())))"
+  #f
+  15
+  9
+  6
+  0
+  9
+  6
+  15
+  1
+  1
+  6
+  #f
+  4/3
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> <= <-) iterations 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    modulo-power\n    (is-trivial-composite? (-> (λ (n) ...) <-))\n    is-fermat-prime?\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval (λ (n) (-> (match (app = (app modulo ...) 0) ...) <-)) (env (())))"
+  #f
+  104
+  99
+  5
+  0
+  99
+  5
+  104
+  1
+  1
+  61
+  #f
+  137/99
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (app = (app modulo n 2) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 2) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  94
+  89
+  5
+  0
+  89
+  5
+  94
+  1
+  1
+  55
+  #f
+  123/89
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (app = (app modulo n 3) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 3) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  84
+  79
+  5
+  0
+  79
+  5
+  84
+  1
+  1
+  49
+  #f
+  109/79
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (app = (app modulo n 5) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 5) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  74
+  69
+  5
+  0
+  69
+  5
+  74
+  1
+  1
+  43
+  #f
+  95/69
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (app = (app modulo n 7) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 7) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  64
+  59
+  5
+  0
+  59
+  5
+  64
+  1
+  1
+  37
+  #f
+  81/59
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 11) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 11) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  54
+  49
+  5
+  0
+  49
+  5
+  54
+  1
+  1
+  31
+  #f
+  67/49
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 13) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 13) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  44
+  39
+  5
+  0
+  39
+  5
+  44
+  1
+  1
+  25
+  #f
+  53/39
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 17) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 17) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  34
+  29
+  5
+  0
+  29
+  5
+  34
+  1
+  1
+  19
+  #f
+  39/29
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 19) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 19) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  24
+  19
+  5
+  0
+  19
+  5
+  24
+  1
+  1
+  13
+  #f
+  25/19
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 23) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match (app = (app modulo n 23) 0) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 23) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 23) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 23) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 23 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 23) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 23) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 23) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 19) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 19) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 19) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 19 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 19) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 19) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 19) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 17) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 17) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 17) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 17 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 17) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 17) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 17) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 13) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 13) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 13) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 13 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 13) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 13) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 13) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 11) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 11) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 11) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 11 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 11) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 11) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 11) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 7) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 7) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 7) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 7 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 7) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 7) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 7) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 5) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 5) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 5) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 5 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 5) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 5) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 5) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 3) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 3) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 3) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 3 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 3) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 3) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 3) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = (app modulo n 2) 0) <-) (#f) _) (env (())))"
+  #f
+  19
+  14
+  5
+  0
+  14
+  5
+  19
+  1
+  1
+  9
+  #f
+  19/14
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = (app modulo n 2) (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app = (-> (app modulo n 2) <-) 0) (env (())))"
+  #f
+  16
+  11
+  5
+  0
+  11
+  5
+  16
+  1
+  1
+  7
+  #f
+  15/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app modulo n (-> 2 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo (-> n <-) 2) (env (())))"
+  #f
+  13
+  8
+  5
+  0
+  8
+  5
+  13
+  1
+  1
+  5
+  #f
+  11/8
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) n 2) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo n 2) 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    square\n    (modulo-power (-> (λ (base exp n) ...) <-))\n    is-trivial-composite?\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (match (app = exp 0) (#f) (_ (-> 1 <-))) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  match
+  "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))\n  (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))\n  (env (())))"
+  #f
+  22
+  12
+  10
+  0
+  12
+  10
+  22
+  1
+  1
+  5
+  #f
+  19/12
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)\n  (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power base (app - exp 1) (-> n <-)) (env (())))"
+  #f
+  21
+  11
+  10
+  0
+  11
+  10
+  21
+  1
+  1
+  5
+  #f
+  17/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app modulo-power base (-> (app - exp 1) <-) n) (env (())))"
+  #f
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  11
+  #f
+  29/20
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app - exp (-> 1 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app - (-> exp <-) 1) (env (())))"
+  #f
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  11
+  #f
+  29/20
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> - <-) exp 1) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power (-> base <-) (app - exp 1) n) (env (())))"
+  #f
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  12
+  #f
+  3/2
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) base (app - exp 1) n) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env (())))"
+  #f
+  35
+  25
+  10
+  0
+  25
+  10
+  35
+  1
+  1
+  12
+  #f
+  38/25
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> * <-) base (app modulo-power base (app - exp 1) n)) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app * base (app modulo-power base (app - ...) n)) n)\n  (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))\n   _)\n  (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))\n  (env (())))"
+  #f
+  22
+  12
+  10
+  0
+  12
+  10
+  22
+  1
+  1
+  5
+  #f
+  19/12
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)\n  (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power base (app / exp 2) (-> n <-)) (env (())))"
+  #f
+  21
+  11
+  10
+  0
+  11
+  10
+  21
+  1
+  1
+  5
+  #f
+  17/11
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (app modulo-power base (-> (app / exp 2) <-) n) (env (())))"
+  #f
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  11
+  #f
+  29/20
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app / exp (-> 2 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app / (-> exp <-) 2) (env (())))"
+  #f
+  30
+  20
+  10
+  0
+  20
+  10
+  30
+  1
+  1
+  11
+  #f
+  29/20
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> / <-) exp 2) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app modulo-power (-> base <-) (app / exp 2) n) (env (())))"
+  #f
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  12
+  #f
+  3/2
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) base (app / exp 2) n) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> square <-) (app modulo-power base (app / exp 2) n)) (env (())))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app square (app modulo-power base (app / ...) n)) n)\n  (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app odd? exp) <-) (#f) _) (env (())))"
+  #f
+  33
+  23
+  10
+  0
+  23
+  10
+  33
+  1
+  1
+  12
+  #f
+  34/23
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app odd? (-> exp <-)) (env (())))"
+  #f
+  31
+  21
+  10
+  0
+  21
+  10
+  31
+  1
+  1
+  11
+  #f
+  31/21
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> odd? <-) exp) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (match (-> (app = exp 0) <-) (#f) _) (env (())))"
+  #f
+  34
+  24
+  10
+  0
+  24
+  10
+  34
+  1
+  1
+  13
+  #f
+  35/24
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  number
+  "'(eval (app = exp (-> 0 <-)) (env (())))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app = (-> exp <-) 0) (env (())))"
+  #f
+  31
+  21
+  10
+  0
+  21
+  10
+  31
+  1
+  1
+  11
+  #f
+  31/21
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> = <-) exp 0) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  lambda
+  "'(eval\n  (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (λ (x) (-> (app * x x) <-)) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app * x (-> x <-)) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app * (-> x <-) x) (env (())))"
+  #f
+  84
+  70
+  12
+  2
+  70
+  12
+  82
+  1
+  1
+  31
+  #f
+  109/70
+  ((1 1 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> * <-) x x) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (letrec* (square ... byte-size) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  9
+  9
+  0
+  0
+  9
+  0
+  9
+  1
+  1
+  9
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let (... () (_ (-> (app display \"Generating prime...\") <-)) () ...) ...)\n  (env ()))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  string
+  "'(eval (app display (-> \"Generating prime...\" <-)) (env ()))"
+  (string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> display <-) \"Generating prime...\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  8
+  8
+  0
+  0
+  8
+  0
+  8
+  1
+  1
+  8
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> newline <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  7
+  7
+  0
+  0
+  7
+  0
+  7
+  1
+  1
+  7
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let (...\n        ()\n        (_\n         (->\n          (app display (app generate-fermat-prime byte-size iterations))\n          <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
+  #f
+  241
+  222
+  14
+  5
+  222
+  14
+  236
+  1
+  1
+  125
+  #t
+  319/222
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (app display (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))"
+  #f
+  239
+  220
+  14
+  5
+  220
+  14
+  234
+  1
+  1
+  123
+  #f
+  317/220
+  ((3 3 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> generate-fermat-prime <-) byte-size iterations) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app (-> display <-) (app generate-fermat-prime byte-size iterations))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  6
+  6
+  0
+  0
+  6
+  0
+  6
+  1
+  1
+  6
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let (...\n        ()\n        (_\n         (-> (app display \" is prime with at least probability 1 - 1/2^\") <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  string
+  "'(eval\n  (app display (-> \" is prime with at least probability 1 - 1/2^\" <-))\n  (env ()))"
+  (string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval\n  (app (-> display <-) \" is prime with at least probability 1 - 1/2^\")\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  5
+  5
+  0
+  0
+  5
+  0
+  5
+  1
+  1
+  5
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (let (... () (_ (-> (app display iterations) <-)) () ...) ...) (env ()))"
+  #f
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app display (-> iterations <-)) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> display <-) iterations) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  4
+  4
+  0
+  0
+  4
+  0
+  4
+  1
+  1
+  4
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> newline <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  let
+  "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval\n  (let (...\n        ()\n        (_ (-> (app display \" if it is not a Carmichael number.\") <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  string
+  "'(eval (app display (-> \" if it is not a Carmichael number.\" <-)) (env ()))"
+  (string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> display <-) \" if it is not a Carmichael number.\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  app
+  "'(eval (let (_) (-> (app newline) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  fermat
+  0
+  5
+  246
+  ref-or-constructor
+  "'(eval (app (-> newline <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))

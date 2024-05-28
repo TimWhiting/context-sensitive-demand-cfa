@@ -14,7 +14,7 @@
   47
   lambda
   "'(eval (letrec* (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -56,7 +56,7 @@
   47
   number
   "'(eval (match (app <= n 1) (#f) (_ (-> 1 <-))) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -76,7 +76,7 @@
   5
   47
   app
-  "'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)\n  (env ((□? (n)))))"
+  "'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - ...))) <-)) _)\n  (env ((□? (n)))))"
   #f
   84
   73
@@ -128,7 +128,7 @@
   47
   number
   "'(eval (app - n (-> 1 <-)) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -191,7 +191,7 @@
   47
   ref-or-constructor
   "'(eval (app (-> g <-) (app - n 1)) (env ((□? (n)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -275,7 +275,7 @@
   47
   number
   "'(eval (app <= n (-> 1 <-)) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -338,7 +338,7 @@
   47
   lambda
   "'(eval (letrec* (... id (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -380,7 +380,7 @@
   47
   number
   "'(eval (match (app <= n 1) (#f) (_ (-> 1 <-))) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -400,7 +400,7 @@
   5
   47
   app
-  "'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app f (app - n 1))) <-)) _)\n  (env ((□? (n)))))"
+  "'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app f (app - ...))) <-)) _)\n  (env ((□? (n)))))"
   #f
   84
   73
@@ -452,7 +452,7 @@
   47
   number
   "'(eval (app - n (-> 1 <-)) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -515,7 +515,7 @@
   47
   ref-or-constructor
   "'(eval (app (-> f <-) (app - n 1)) (env ((□? (n)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -599,7 +599,7 @@
   47
   number
   "'(eval (app <= n (-> 1 <-)) (env ((□? (n)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -662,7 +662,7 @@
   47
   lambda
   "'(eval (letrec* (... () (id (-> (λ (x) ...) <-)) f ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -703,7 +703,7 @@
   5
   47
   app
-  "'(eval\n  (letrec* (id ... g) (-> (app + (app (app id f) 3) (app (app id g) 4)) <-))\n  (env ()))"
+  "'(eval\n  (letrec*\n   (id ... g)\n   (-> (app + (app (app id ...) 3) (app (app id ...) 4)) <-))\n  (env ()))"
   #f
   #f)
 '(clean-cache
@@ -734,7 +734,7 @@
   47
   number
   "'(eval (app (app id g) (-> 4 <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -776,7 +776,7 @@
   47
   ref-or-constructor
   "'(eval (app id (-> g <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -797,7 +797,7 @@
   47
   ref-or-constructor
   "'(eval (app (-> id <-) g) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -839,7 +839,7 @@
   47
   number
   "'(eval (app (app id f) (-> 3 <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -881,7 +881,7 @@
   47
   ref-or-constructor
   "'(eval (app id (-> f <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -902,7 +902,7 @@
   47
   ref-or-constructor
   "'(eval (app (-> id <-) f) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

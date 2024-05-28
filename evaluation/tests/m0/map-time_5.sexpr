@@ -18,7 +18,7 @@
   41
   #f
   9/5
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -39,7 +39,7 @@
   41
   #f
   106/59
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -47,7 +47,7 @@
   97
   lambda
   "'(eval (letrec* (... id (my-map (-> (λ (f l) ...) <-)) () ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -81,7 +81,7 @@
   39
   #f
   49/27
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -110,7 +110,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> debug-trace <-)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -144,7 +144,7 @@
   39
   #f
   96/53
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -152,7 +152,7 @@
   97
   lambda
   "'(eval (letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -172,7 +172,7 @@
   5
   97
   match
-  "'(eval (λ (lst) (-> (match (app not (app pair? lst)) ...) <-)) (env (() ())))"
+  "'(eval (λ (lst) (-> (match (app not (app pair? ...)) ...) <-)) (env (() ())))"
   #f
   61
   49
@@ -186,7 +186,7 @@
   37
   #f
   90/49
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -235,7 +235,7 @@
   5
   97
   app
-  "'(eval\n  (match\n   (app not (app pair? lst))\n   ((#f)\n    (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))\n   _)\n  (env (() ())))"
+  "'(eval\n  (match\n   (app not (app pair? lst))\n   ((#f)\n    (-> (app cons (app (app id ...) (app car ...)) (app lp (app cdr ...))) <-))\n   _)\n  (env (() ())))"
   #f
   2
   2
@@ -270,7 +270,7 @@
   39
   #f
   47/26
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -291,7 +291,7 @@
   24
   #f
   11/6
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -312,7 +312,7 @@
   24
   #f
   11/6
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -320,7 +320,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> cdr <-) lst) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -341,7 +341,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> lp <-) (app cdr lst)) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -396,7 +396,7 @@
   26
   #f
   77/37
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -425,7 +425,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> car <-) lst) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -488,7 +488,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> id <-) f) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -543,7 +543,7 @@
   33
   #f
   21/11
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -564,7 +564,7 @@
   30
   #f
   79/40
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -593,7 +593,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> pair? <-) lst) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -648,7 +648,7 @@
   39
   #f
   47/26
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -677,7 +677,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> lp <-) l) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -698,7 +698,7 @@
   97
   lambda
   "'(eval\n  (letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -761,7 +761,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> debug-trace <-)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -803,7 +803,7 @@
   97
   lambda
   "'(eval\n  (letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -845,7 +845,7 @@
   97
   constructor
   "'(eval (app (-> #f <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -866,7 +866,7 @@
   97
   lambda
   "'(eval\n  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -929,7 +929,7 @@
   97
   constructor
   "'(eval (app (-> #f <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -971,7 +971,7 @@
   97
   constructor
   "'(eval (app (-> #t <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -1013,7 +1013,7 @@
   97
   lambda
   "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1047,7 +1047,7 @@
   24
   #f
   11/6
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   map
   0
@@ -1097,7 +1097,7 @@
   97
   lambda
   "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1131,7 +1131,7 @@
   24
   #f
   73/34
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1194,14 +1194,14 @@
   41
   #f
   52/29
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
   5
   97
   app
-  "'(eval\n  (let (...\n        ()\n        (_\n         (->\n          (app\n           my-map\n           (app id (λ (a) ...))\n           (app cons 1 (app cons 2 (app cons 3 (app nil)))))\n          <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
+  "'(eval\n  (let (...\n        ()\n        (_\n         (-> (app my-map (app id (λ (a) ...)) (app cons 1 (app cons ...))) <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
   #f
   71
   57
@@ -1215,14 +1215,14 @@
   41
   #f
   34/19
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
   5
   97
   app
-  "'(eval\n  (app\n   my-map\n   (app id (λ (a) ...))\n   (-> (app cons 1 (app cons 2 (app cons 3 (app nil)))) <-))\n  (env ()))"
+  "'(eval\n  (app\n   my-map\n   (app id (λ (a) ...))\n   (-> (app cons 1 (app cons 2 (app cons ...))) <-))\n  (env ()))"
   #f
   2
   2
@@ -1243,7 +1243,7 @@
   5
   97
   app
-  "'(eval (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-)) (env ()))"
+  "'(eval (app cons 1 (-> (app cons 2 (app cons 3 (app nil ...))) <-)) (env ()))"
   #f
   2
   2
@@ -1328,7 +1328,7 @@
   97
   number
   "'(eval (app cons (-> 3 <-) (app nil)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1370,7 +1370,7 @@
   97
   number
   "'(eval (app cons (-> 2 <-) (app cons 3 (app nil))) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1411,8 +1411,8 @@
   5
   97
   number
-  "'(eval (app cons (-> 1 <-) (app cons 2 (app cons 3 (app nil)))) (env ()))"
-  #t
+  "'(eval (app cons (-> 1 <-) (app cons 2 (app cons 3 (app nil ...)))) (env ()))"
+  (number char string quoted constructor)
   1
   1
   0
@@ -1432,7 +1432,7 @@
   5
   97
   ref-or-constructor
-  "'(eval (app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil)))) (env ()))"
+  "'(eval (app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil ...)))) (env ()))"
   #t
   1
   1
@@ -1453,7 +1453,7 @@
   5
   97
   app
-  "'(eval\n  (app\n   my-map\n   (-> (app id (λ (a) ...)) <-)\n   (app cons 1 (app cons 2 (app cons 3 (app nil)))))\n  (env ()))"
+  "'(eval\n  (app\n   my-map\n   (-> (app id (λ (a) ...)) <-)\n   (app cons 1 (app cons 2 (app cons ...))))\n  (env ()))"
   #f
   18
   10
@@ -1475,7 +1475,7 @@
   97
   lambda
   "'(eval (app id (-> (λ (a) ...) <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1509,7 +1509,7 @@
   34
   #f
   89/47
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1530,7 +1530,7 @@
   32
   #f
   85/44
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1538,7 +1538,7 @@
   97
   number
   "'(eval (app + (-> 1 <-) a) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1580,7 +1580,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> id <-) (λ (a) ...)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -1600,8 +1600,8 @@
   5
   97
   ref-or-constructor
-  "'(eval\n  (app\n   (-> my-map <-)\n   (app id (λ (a) ...))\n   (app cons 1 (app cons 2 (app cons 3 (app nil)))))\n  (env ()))"
-  #t
+  "'(eval\n  (app\n   (-> my-map <-)\n   (app id (λ (a) ...))\n   (app cons 1 (app cons 2 (app cons ...))))\n  (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -1621,7 +1621,7 @@
   5
   97
   app
-  "'(eval\n  (let (_)\n    (->\n     (app\n      my-map\n      (app id (λ (b) ...))\n      (app cons 7 (app cons 8 (app cons 9 (app nil)))))\n     <-))\n  (env ()))"
+  "'(eval\n  (let (_)\n    (-> (app my-map (app id (λ (b) ...)) (app cons 7 (app cons ...))) <-))\n  (env ()))"
   #f
   71
   57
@@ -1635,14 +1635,14 @@
   41
   #f
   34/19
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
   5
   97
   app
-  "'(eval\n  (app\n   my-map\n   (app id (λ (b) ...))\n   (-> (app cons 7 (app cons 8 (app cons 9 (app nil)))) <-))\n  (env ()))"
+  "'(eval\n  (app\n   my-map\n   (app id (λ (b) ...))\n   (-> (app cons 7 (app cons 8 (app cons ...))) <-))\n  (env ()))"
   #f
   2
   2
@@ -1663,7 +1663,7 @@
   5
   97
   app
-  "'(eval (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))"
+  "'(eval (app cons 7 (-> (app cons 8 (app cons 9 (app nil ...))) <-)) (env ()))"
   #f
   2
   2
@@ -1748,7 +1748,7 @@
   97
   number
   "'(eval (app cons (-> 9 <-) (app nil)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1790,7 +1790,7 @@
   97
   number
   "'(eval (app cons (-> 8 <-) (app cons 9 (app nil))) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1831,8 +1831,8 @@
   5
   97
   number
-  "'(eval (app cons (-> 7 <-) (app cons 8 (app cons 9 (app nil)))) (env ()))"
-  #t
+  "'(eval (app cons (-> 7 <-) (app cons 8 (app cons 9 (app nil ...)))) (env ()))"
+  (number char string quoted constructor)
   1
   1
   0
@@ -1852,7 +1852,7 @@
   5
   97
   ref-or-constructor
-  "'(eval (app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil)))) (env ()))"
+  "'(eval (app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil ...)))) (env ()))"
   #t
   1
   1
@@ -1873,7 +1873,7 @@
   5
   97
   app
-  "'(eval\n  (app\n   my-map\n   (-> (app id (λ (b) ...)) <-)\n   (app cons 7 (app cons 8 (app cons 9 (app nil)))))\n  (env ()))"
+  "'(eval\n  (app\n   my-map\n   (-> (app id (λ (b) ...)) <-)\n   (app cons 7 (app cons 8 (app cons ...))))\n  (env ()))"
   #f
   18
   10
@@ -1895,7 +1895,7 @@
   97
   lambda
   "'(eval (app id (-> (λ (b) ...) <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1929,7 +1929,7 @@
   34
   #f
   89/47
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1950,7 +1950,7 @@
   32
   #f
   85/44
-  ((2 2 0)))
+  ((1 1 0)))
 '(clean-cache
   map
   0
@@ -1958,7 +1958,7 @@
   97
   number
   "'(eval (app + (-> 1 <-) b) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2000,7 +2000,7 @@
   97
   ref-or-constructor
   "'(eval (app (-> id <-) (λ (b) ...)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -2020,8 +2020,8 @@
   5
   97
   ref-or-constructor
-  "'(eval\n  (app\n   (-> my-map <-)\n   (app id (λ (b) ...))\n   (app cons 7 (app cons 8 (app cons 9 (app nil)))))\n  (env ()))"
-  #t
+  "'(eval\n  (app\n   (-> my-map <-)\n   (app id (λ (b) ...))\n   (app cons 7 (app cons 8 (app cons ...))))\n  (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0

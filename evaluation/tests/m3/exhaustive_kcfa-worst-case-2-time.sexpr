@@ -1,0 +1,2 @@
+'(rebinding kcfa-worst-case-2 3 10000 20 38 26 10 9 20/11 ((1 1 0)))
+'(exponential kcfa-worst-case-2 3 10000 20 48 24 10 13 18/11 ((1 1 0)))

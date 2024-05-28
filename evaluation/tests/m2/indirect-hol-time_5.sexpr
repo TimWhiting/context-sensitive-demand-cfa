@@ -1,0 +1,357 @@
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  letrec*
+  "'(eval ((top) letrec* (do-something ... id) ...) (env ()))"
+  #f
+  13
+  9
+  3
+  1
+  9
+  3
+  12
+  1
+  1
+  9
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  lambda
+  "'(eval\n  (letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  let
+  "'(eval (λ (y) (-> (let (_) ...) <-)) (env ((□? (y)))))"
+  #f
+  12
+  8
+  3
+  1
+  6
+  3
+  9
+  1
+  7/9
+  6
+  #f
+  5/4
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  app
+  "'(eval\n  (let (... () (_ (-> (app do-something) <-)) () ...) ...)\n  (env ((□? (y)))))"
+  #f
+  7
+  4
+  0
+  3
+  1
+  0
+  1
+  1
+  1/4
+  4
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  ref-or-constructor
+  "'(eval (app (-> do-something <-)) (env ((□? (y)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  ref-or-constructor
+  "'(eval (let (_) (-> y <-)) (env ((□? (y)))))"
+  #f
+  9
+  5
+  3
+  1
+  4
+  3
+  7
+  1
+  4/5
+  4
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  lambda
+  "'(eval\n  (letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  number
+  "'(eval (λ () (-> 10 <-)) (env ((□? ()))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  let
+  "'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))"
+  #f
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  8
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  app
+  "'(eval (let (... () (_ (-> (app id (app #t)) <-)) () ...) ...) (env ()))"
+  #f
+  11
+  7
+  3
+  1
+  7
+  3
+  10
+  1
+  1
+  7
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  app
+  "'(eval (app id (-> (app #t) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  constructor
+  "'(eval (app (-> #t <-)) (env ()))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  ref-or-constructor
+  "'(eval (app (-> id <-) (app #t)) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  app
+  "'(eval (let (_) (-> (app id (app #f)) <-)) (env ()))"
+  #f
+  11
+  7
+  3
+  1
+  7
+  3
+  10
+  1
+  1
+  7
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  app
+  "'(eval (app id (-> (app #f) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  constructor
+  "'(eval (app (-> #f <-)) (env ()))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  indirect-hol
+  2
+  5
+  17
+  ref-or-constructor
+  "'(eval (app (-> id <-) (app #f)) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))

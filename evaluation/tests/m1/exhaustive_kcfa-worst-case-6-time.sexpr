@@ -1,0 +1,12 @@
+'(rebinding kcfa-worst-case-6 1 10000 38 64 67 26 25 51/29 ((13 13 0)))
+'(exponential
+  kcfa-worst-case-6
+  1
+  10000
+  380
+  1144
+  700
+  26
+  29
+  132/29
+  ((487 487 6)))

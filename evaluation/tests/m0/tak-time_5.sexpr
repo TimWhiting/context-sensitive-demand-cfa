@@ -46,7 +46,7 @@
   5
   41
   match
-  "'(eval (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env (())))"
+  "'(eval (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env (())))"
   #f
   47
   40
@@ -88,7 +88,7 @@
   5
   41
   app
-  "'(eval\n  (match\n   (app not (app < y x))\n   ((#f)\n    (->\n     (app\n      tak\n      (app tak (app - x 1) y z)\n      (app tak (app - y 1) z x)\n      (app tak (app - z 1) x y))\n     <-))\n   _)\n  (env (())))"
+  "'(eval\n  (match\n   (app not (app < y x))\n   ((#f)\n    (->\n     (app\n      tak\n      (app tak (app - ...) y z)\n      (app tak (app - ...) z x)\n      (app tak (app - ...) x y))\n     <-))\n   _)\n  (env (())))"
   #f
   47
   40
@@ -354,7 +354,7 @@
   18
   #f
   31/20
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   tak
   0

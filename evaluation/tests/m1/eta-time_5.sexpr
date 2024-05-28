@@ -2,83 +2,20 @@
   eta
   1
   5
-  23
-  letrec*
-  "'(eval ((top) letrec* (do-something ... id) ...) (env ()))"
-  #f
-  22
-  12
-  7
-  3
-  12
-  7
-  19
-  1
-  1
-  12
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  lambda
-  "'(eval\n  (letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...)\n  (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
+  14
   let
-  "'(eval (λ (y) (-> (let (_) ...) <-)) (env ((□? (y)))))"
+  "'(eval ((top) let (id) ...) (env ()))"
   #f
-  10
-  6
+  13
+  9
   3
   1
-  4
+  9
   3
-  7
+  12
   1
-  2/3
-  4
-  #f
-  4/3
-  ((0 0 0)))
-'(clean-cache
-  eta
   1
-  5
-  23
-  app
-  "'(eval\n  (let (... () (_ (-> (app do-something) <-)) () ...) ...)\n  (env ((□? (y)))))"
-  #f
-  6
-  4
-  0
-  2
-  2
-  0
-  2
-  1
-  1/2
-  4
+  9
   #t
   1
   ((0 0 0)))
@@ -86,52 +23,10 @@
   eta
   1
   5
-  23
-  ref-or-constructor
-  "'(eval (app (-> do-something <-)) (env ((□? (y)))))"
-  #t
-  3
-  2
-  0
-  1
-  1
-  0
-  1
-  1
-  1/2
-  2
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  ref-or-constructor
-  "'(eval (let (_) (-> y <-)) (env ((□? (y)))))"
-  #f
-  7
-  3
-  3
-  1
-  2
-  3
-  5
-  1
-  2/3
-  2
-  #f
-  4/3
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
+  14
   lambda
-  "'(eval\n  (letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...)\n  (env ()))"
-  #t
+  "'(eval (let (... () (id (-> (λ (x) ...) <-)) () ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -149,10 +44,31 @@
   eta
   1
   5
-  23
+  14
+  let
+  "'(eval (λ (x) (-> (let (y) ...) <-)) (env ((□? (x)))))"
+  #f
+  12
+  8
+  3
+  1
+  6
+  3
+  9
+  1
+  7/9
+  6
+  #f
+  5/4
+  ((0 0 0)))
+'(clean-cache
+  eta
+  1
+  5
+  14
   number
-  "'(eval (λ () (-> 10 <-)) (env ((□? ()))))"
-  #t
+  "'(eval (let (... () (y (-> 10 <-)) () ...) ...) (env ((□? (x)))))"
+  (number char string quoted constructor)
   2
   1
   0
@@ -170,41 +86,62 @@
   eta
   1
   5
-  23
+  14
+  ref-or-constructor
+  "'(eval (let (y) (-> x <-)) (env ((□? (x)))))"
+  #f
+  9
+  5
+  3
+  1
+  4
+  3
+  7
+  1
+  4/5
+  4
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  eta
+  1
+  5
+  14
   let
-  "'(eval (letrec* (do-something ... id) (-> (let (_) ...) <-)) (env ()))"
+  "'(eval (let (id) (-> (let (z) ...) <-)) (env ()))"
   #f
-  21
+  12
+  8
+  3
+  1
+  8
+  3
+  11
+  1
+  1
+  8
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  eta
+  1
+  5
+  14
+  app
+  "'(eval (let (... () (z (-> (app id (app #t)) <-)) () ...) ...) (env ()))"
+  #f
   11
   7
   3
-  11
-  7
-  18
   1
-  1
-  11
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  app
-  "'(eval\n  (let (... () (_ (-> (app (app id (λ (a) ...)) (app #t)) <-)) () ...) ...)\n  (env ()))"
-  #f
-  20
-  10
   7
   3
   10
+  1
+  1
   7
-  17
-  1
-  1
-  10
   #t
   1
   ((0 0 0)))
@@ -212,9 +149,9 @@
   eta
   1
   5
-  23
+  14
   app
-  "'(eval (app (app id (λ (a) ...)) (-> (app #t) <-)) (env ()))"
+  "'(eval (app id (-> (app #t) <-)) (env ()))"
   #f
   2
   2
@@ -233,10 +170,10 @@
   eta
   1
   5
-  23
+  14
   constructor
   "'(eval (app (-> #t <-)) (env ()))"
-  #t
+  (constructor)
   1
   1
   0
@@ -254,73 +191,10 @@
   eta
   1
   5
-  23
-  app
-  "'(eval (app (-> (app id (λ (a) ...)) <-) (app #t)) (env ()))"
-  #f
-  10
-  6
-  3
-  1
-  6
-  3
-  9
-  1
-  1
-  6
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  lambda
-  "'(eval (app id (-> (λ (a) ...) <-)) (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  ref-or-constructor
-  "'(eval (λ (a) (-> a <-)) (env ((□? (a)))))"
-  #f
   14
-  5
-  7
-  2
-  4
-  7
-  11
-  1
-  4/5
-  5
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
   ref-or-constructor
-  "'(eval (app (-> id <-) (λ (a) ...)) (env ()))"
-  #t
+  "'(eval (app (-> id <-) (app #t)) (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -338,20 +212,20 @@
   eta
   1
   5
-  23
+  14
   app
-  "'(eval (let (_) (-> (app (app id (λ (b) ...)) (app #f)) <-)) (env ()))"
+  "'(eval (let (z) (-> (app id (app #f)) <-)) (env ()))"
   #f
-  20
-  10
+  11
+  7
+  3
+  1
   7
   3
   10
+  1
+  1
   7
-  17
-  1
-  1
-  10
   #t
   1
   ((0 0 0)))
@@ -359,9 +233,9 @@
   eta
   1
   5
-  23
+  14
   app
-  "'(eval (app (app id (λ (b) ...)) (-> (app #f) <-)) (env ()))"
+  "'(eval (app id (-> (app #f) <-)) (env ()))"
   #f
   2
   2
@@ -380,10 +254,10 @@
   eta
   1
   5
-  23
+  14
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  #t
+  (constructor)
   1
   1
   0
@@ -401,73 +275,10 @@
   eta
   1
   5
-  23
-  app
-  "'(eval (app (-> (app id (λ (b) ...)) <-) (app #f)) (env ()))"
-  #f
-  10
-  6
-  3
-  1
-  6
-  3
-  9
-  1
-  1
-  6
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  lambda
-  "'(eval (app id (-> (λ (b) ...) <-)) (env ()))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
-  ref-or-constructor
-  "'(eval (λ (b) (-> b <-)) (env ((□? (b)))))"
-  #f
   14
-  5
-  7
-  2
-  4
-  7
-  11
-  1
-  4/5
-  5
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  eta
-  1
-  5
-  23
   ref-or-constructor
-  "'(eval (app (-> id <-) (λ (b) ...)) (env ()))"
-  #t
+  "'(eval (app (-> id <-) (app #f)) (env ()))"
+  (lambda number char string quoted constructor)
   2
   2
   0

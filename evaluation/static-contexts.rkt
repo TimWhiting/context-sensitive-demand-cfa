@@ -19,7 +19,15 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
-(define primitive-set (apply set '(= - + * / modulo ceiling random string-length log gcd quotient odd? procedure? even? number? string? number->string string-append boolean? list? integer? < <= > not or and equal? eq? symbol? char? error newline display void #f #t)))
+(define primitive-set (apply set '(= - + * / < <= > modulo ceiling random log gcd quotient odd? even?
+ procedure? number? boolean? list? integer? string? char? symbol? eq? equal?
+ char-numeric? char=? char-alphabetic? char->integer 
+ list->string symbol->string number->string string-length string-append
+ not or and error newline display void #f #t
+ set!
+ string->symbol
+ string-ref
+ )))
 
 (define (is-known-primitive x)
   (set-member? primitive-set x)

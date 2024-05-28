@@ -1,0 +1,7302 @@
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval ((top) app (λ (f1) ...) (λ (x1) ...)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f1) ...) (-> (λ (x1) ...) <-)) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (λ (x1) (-> (app (λ (f2) ...) (λ (x2) ...)) <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f2) ...) (-> (λ (x2) ...) <-)) (env (())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (λ (x2) (-> (app (λ (f3) ...) (λ (x3) ...)) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f3) ...) (-> (λ (x3) ...) <-)) (env (() ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (λ (x3) (-> (app (λ (f4) ...) (λ (x4) ...)) <-)) (env (() () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f4) ...) (-> (λ (x4) ...) <-)) (env (() () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (λ (x4) (-> (app (λ (f5) ...) (λ (x5) ...)) <-)) (env (() () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f5) ...) (-> (λ (x5) ...) <-)) (env (() () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (λ (x5) (-> (app (λ (f6) ...) (λ (x6) ...)) <-)) (env (() () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f6) ...) (-> (λ (x6) ...) <-)) (env (() () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x6) (-> (app (λ (f7) ...) (λ (x7) ...)) <-))\n  (env (() () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f7) ...) (-> (λ (x7) ...) <-)) (env (() () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x7) (-> (app (λ (f8) ...) (λ (x8) ...)) <-))\n  (env (() () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f8) ...) (-> (λ (x8) ...) <-)) (env (() () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x8) (-> (app (λ (f9) ...) (λ (x9) ...)) <-))\n  (env (() () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (λ (f9) ...) (-> (λ (x9) ...) <-)) (env (() () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x9) (-> (app (λ (f10) ...) (λ (x10) ...)) <-))\n  (env (() () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f10) ...) (-> (λ (x10) ...) <-))\n  (env (() () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x10) (-> (app (λ (f11) ...) (λ (x11) ...)) <-))\n  (env (() () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f11) ...) (-> (λ (x11) ...) <-))\n  (env (() () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x11) (-> (app (λ (f12) ...) (λ (x12) ...)) <-))\n  (env (() () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f12) ...) (-> (λ (x12) ...) <-))\n  (env (() () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x12) (-> (app (λ (f13) ...) (λ (x13) ...)) <-))\n  (env (() () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f13) ...) (-> (λ (x13) ...) <-))\n  (env (() () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x13) (-> (app (λ (f14) ...) (λ (x14) ...)) <-))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f14) ...) (-> (λ (x14) ...) <-))\n  (env (() () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x14) (-> (app (λ (f15) ...) (λ (x15) ...)) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f15) ...) (-> (λ (x15) ...) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x15) (-> (app (λ (f16) ...) (λ (x16) ...)) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f16) ...) (-> (λ (x16) ...) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x16) (-> (app (λ (f17) ...) (λ (x17) ...)) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f17) ...) (-> (λ (x17) ...) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x17) (-> (app (λ (f18) ...) (λ (x18) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f18) ...) (-> (λ (x18) ...) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x18) (-> (app (λ (f19) ...) (λ (x19) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f19) ...) (-> (λ (x19) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x19) (-> (app (λ (f20) ...) (λ (x20) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f20) ...) (-> (λ (x20) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x20) (-> (app (λ (f21) ...) (λ (x21) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f21) ...) (-> (λ (x21) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x21) (-> (app (λ (f22) ...) (λ (x22) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f22) ...) (-> (λ (x22) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x22) (-> (app (λ (f23) ...) (λ (x23) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f23) ...) (-> (λ (x23) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x23) (-> (app (λ (f24) ...) (λ (x24) ...)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f24) ...) (-> (λ (x24) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x24) (-> (app (λ (f25) ...) (λ (x25) ...)) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f25) ...) (-> (λ (x25) ...) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x25) (-> (app (λ (f26) ...) (λ (x26) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f26) ...) (-> (λ (x26) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x26) (-> (app (λ (f27) ...) (λ (x27) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f27) ...) (-> (λ (x27) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x27) (-> (app (λ (f28) ...) (λ (x28) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f28) ...) (-> (λ (x28) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x28) (-> (app (λ (f29) ...) (λ (x29) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f29) ...) (-> (λ (x29) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x29) (-> (app (λ (f30) ...) (λ (x30) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f30) ...) (-> (λ (x30) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x30) (-> (app (λ (f31) ...) (λ (x31) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f31) ...) (-> (λ (x31) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x31) (-> (app (λ (f32) ...) (λ (x32) ...)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (λ (f32) ...) (-> (λ (x32) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (x32)\n    (->\n     (app\n      (λ (z) ...)\n      (λ (y1\n          y2\n          y3\n          y4\n          y5\n          y6\n          y7\n          y8\n          y9\n          y10\n          y11\n          y12\n          y13\n          y14\n          y15\n          y16\n          y17\n          y18\n          y19\n          y20\n          y21\n          y22\n          y23\n          y24\n          y25\n          y26\n          y27\n          y28\n          y29\n          y30\n          y31\n          y32)\n        ...))\n     <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app\n   (λ (z) ...)\n   (->\n    (λ (y1\n        y2\n        y3\n        y4\n        y5\n        y6\n        y7\n        y8\n        y9\n        y10\n        y11\n        y12\n        y13\n        y14\n        y15\n        y16\n        y17\n        y18\n        y19\n        y20\n        y21\n        y22\n        y23\n        y24\n        y25\n        y26\n        y27\n        y28\n        y29\n        y30\n        y31\n        y32)\n      ...)\n    <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (λ (y1\n      y2\n      y3\n      y4\n      y5\n      y6\n      y7\n      y8\n      y9\n      y10\n      y11\n      y12\n      y13\n      y14\n      y15\n      y16\n      y17\n      y18\n      y19\n      y20\n      y21\n      y22\n      y23\n      y24\n      y25\n      y26\n      y27\n      y28\n      y29\n      y30\n      y31\n      y32)\n    (-> y1 <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  15
+  8
+  5
+  2
+  8
+  5
+  13
+  1
+  1
+  6
+  #f
+  5/4
+  ((3 3 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app\n   (-> (λ (z) ...) <-)\n   (λ (y1\n       y2\n       y3\n       y4\n       y5\n       y6\n       y7\n       y8\n       y9\n       y10\n       y11\n       y12\n       y13\n       y14\n       y15\n       y16\n       y17\n       y18\n       y19\n       y20\n       y21\n       y22\n       y23\n       y24\n       y25\n       y26\n       y27\n       y28\n       y29\n       y30\n       y31\n       y32)\n     ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (λ (z)\n    (->\n     (app\n      z\n      x1\n      x2\n      x3\n      x4\n      x5\n      x6\n      x7\n      x8\n      x9\n      x10\n      x11\n      x12\n      x13\n      x14\n      x15\n      x16\n      x17\n      x18\n      x19\n      x20\n      x21\n      x22\n      x23\n      x24\n      x25\n      x26\n      x27\n      x28\n      x29\n      x30\n      x31\n      x32)\n     <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   (-> x32 <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((3 3 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   (-> x31 <-)\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((3 3 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   (-> x30 <-)\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((3 3 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   (-> x29 <-)\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((3 3 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   (-> x28 <-)\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   (-> x27 <-)\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   (-> x26 <-)\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   (-> x25 <-)\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   (-> x24 <-)\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   (-> x23 <-)\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   (-> x22 <-)\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   (-> x21 <-)\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   (-> x20 <-)\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   (-> x19 <-)\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   (-> x18 <-)\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   (-> x17 <-)\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   (-> x16 <-)\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((2 2 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   (-> x15 <-)\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   (-> x14 <-)\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   (-> x13 <-)\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   (-> x12 <-)\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   (-> x11 <-)\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   (-> x10 <-)\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   (-> x9 <-)\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   (-> x8 <-)\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   (-> x7 <-)\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   x5\n   (-> x6 <-)\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   x4\n   (-> x5 <-)\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   x3\n   (-> x4 <-)\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   x2\n   (-> x3 <-)\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   x1\n   (-> x2 <-)\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   z\n   (-> x1 <-)\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  5
+  #f
+  7/6
+  ((1 1 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> z <-)\n   x1\n   x2\n   x3\n   x4\n   x5\n   x6\n   x7\n   x8\n   x9\n   x10\n   x11\n   x12\n   x13\n   x14\n   x15\n   x16\n   x17\n   x18\n   x19\n   x20\n   x21\n   x22\n   x23\n   x24\n   x25\n   x26\n   x27\n   x28\n   x29\n   x30\n   x31\n   x32)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f32) ...) <-) (λ (x32) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f32) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f32 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f32 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f32 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f32 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f32 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f32 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f31) ...) <-) (λ (x31) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f31) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f31 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f31 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f31 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f31 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f31 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f31 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f30) ...) <-) (λ (x30) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f30) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f30 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f30 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f30 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f30 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f30 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f30 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f29) ...) <-) (λ (x29) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f29) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f29 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f29 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f29 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f29 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f29 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f29 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f28) ...) <-) (λ (x28) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f28) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f28 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f28 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f28 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f28 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f28 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f28 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f27) ...) <-) (λ (x27) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f27) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f27 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f27 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f27 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f27 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f27 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f27 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f26) ...) <-) (λ (x26) ...))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f26) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f26 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f26 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f26 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f26 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f26 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f26 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f25) ...) <-) (λ (x25) ...))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f25) (-> (let (_) ...) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f25 (app #t)) <-)) () ...) ...)\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f25 (-> (app #t) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f25 <-) (app #t))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f25 (app #f)) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f25 (-> (app #f) <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f25 <-) (app #f))\n  (env\n   (()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ()\n    ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f24) ...) <-) (λ (x24) ...))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f24) (-> (let (_) ...) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f24 (app #t)) <-)) () ...) ...)\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f24 (-> (app #t) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f24 <-) (app #t))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f24 (app #f)) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f24 (-> (app #f) <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f24 <-) (app #f))\n  (env\n   (() () () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f23) ...) <-) (λ (x23) ...))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f23) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f23 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f23 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f23 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f23 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f23 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f23 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f22) ...) <-) (λ (x22) ...))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f22) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f22 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f22 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f22 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f22 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f22 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f22 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f21) ...) <-) (λ (x21) ...))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f21) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f21 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f21 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f21 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f21 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f21 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f21 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f20) ...) <-) (λ (x20) ...))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f20) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f20 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f20 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f20 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f20 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f20 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f20 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f19) ...) <-) (λ (x19) ...))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f19) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f19 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f19 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f19 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f19 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f19 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f19 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f18) ...) <-) (λ (x18) ...))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f18) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f18 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f18 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f18 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f18 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f18 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f18 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f17) ...) <-) (λ (x17) ...))\n  (env (() () () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f17) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f17 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f17 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f17 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f17 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f17 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f17 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f16) ...) <-) (λ (x16) ...))\n  (env (() () () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f16) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f16 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f16 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #t <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f16 <-) (app #t))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f16 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f16 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval\n  (app (-> #f <-))\n  (env (() () () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f16 <-) (app #f))\n  (env (() () () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f15) ...) <-) (λ (x15) ...))\n  (env (() () () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f15) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f15 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f15 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f15 <-) (app #t))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f15 (app #f)) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f15 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f15 <-) (app #f))\n  (env (() () () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f14) ...) <-) (λ (x14) ...))\n  (env (() () () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f14) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f14 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f14 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f14 <-) (app #t))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f14 (app #f)) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f14 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f14 <-) (app #f))\n  (env (() () () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f13) ...) <-) (λ (x13) ...))\n  (env (() () () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f13) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f13 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f13 (-> (app #t) <-))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f13 <-) (app #t))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f13 (app #f)) <-))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (app f13 (-> (app #f) <-))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval\n  (app (-> f13 <-) (app #f))\n  (env (() () () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f12) ...) <-) (λ (x12) ...))\n  (env (() () () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f12) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f12 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f12 (-> (app #t) <-)) (env (() () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f12 <-) (app #t)) (env (() () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f12 (app #f)) <-))\n  (env (() () () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f12 (-> (app #f) <-)) (env (() () () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f12 <-) (app #f)) (env (() () () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f11) ...) <-) (λ (x11) ...))\n  (env (() () () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval\n  (λ (f11) (-> (let (_) ...) <-))\n  (env (() () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f11 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f11 (-> (app #t) <-)) (env (() () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f11 <-) (app #t)) (env (() () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f11 (app #f)) <-))\n  (env (() () () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f11 (-> (app #f) <-)) (env (() () () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f11 <-) (app #f)) (env (() () () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval\n  (app (-> (λ (f10) ...) <-) (λ (x10) ...))\n  (env (() () () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f10) (-> (let (_) ...) <-)) (env (() () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f10 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f10 (-> (app #t) <-)) (env (() () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f10 <-) (app #t)) (env (() () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (_) (-> (app f10 (app #f)) <-))\n  (env (() () () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f10 (-> (app #f) <-)) (env (() () () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f10 <-) (app #f)) (env (() () () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f9) ...) <-) (λ (x9) ...)) (env (() () () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f9) (-> (let (_) ...) <-)) (env (() () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f9 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f9 (-> (app #t) <-)) (env (() () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f9 <-) (app #t)) (env (() () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f9 (app #f)) <-)) (env (() () () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f9 (-> (app #f) <-)) (env (() () () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f9 <-) (app #f)) (env (() () () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f8) ...) <-) (λ (x8) ...)) (env (() () () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f8) (-> (let (_) ...) <-)) (env (() () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f8 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f8 (-> (app #t) <-)) (env (() () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f8 <-) (app #t)) (env (() () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f8 (app #f)) <-)) (env (() () () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f8 (-> (app #f) <-)) (env (() () () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f8 <-) (app #f)) (env (() () () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f7) ...) <-) (λ (x7) ...)) (env (() () () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f7) (-> (let (_) ...) <-)) (env (() () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f7 (app #t)) <-)) () ...) ...)\n  (env (() () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f7 (-> (app #t) <-)) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f7 <-) (app #t)) (env (() () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f7 (app #f)) <-)) (env (() () () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f7 (-> (app #f) <-)) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f7 <-) (app #f)) (env (() () () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f6) ...) <-) (λ (x6) ...)) (env (() () () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f6) (-> (let (_) ...) <-)) (env (() () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f6 (app #t)) <-)) () ...) ...)\n  (env (() () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f6 (-> (app #t) <-)) (env (() () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f6 <-) (app #t)) (env (() () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f6 (app #f)) <-)) (env (() () () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f6 (-> (app #f) <-)) (env (() () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f6 <-) (app #f)) (env (() () () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f5) ...) <-) (λ (x5) ...)) (env (() () () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f5) (-> (let (_) ...) <-)) (env (() () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f5 (app #t)) <-)) () ...) ...)\n  (env (() () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f5 (-> (app #t) <-)) (env (() () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f5 <-) (app #t)) (env (() () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f5 (app #f)) <-)) (env (() () () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f5 (-> (app #f) <-)) (env (() () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f5 <-) (app #f)) (env (() () () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f4) ...) <-) (λ (x4) ...)) (env (() () ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f4) (-> (let (_) ...) <-)) (env (() () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f4 (app #t)) <-)) () ...) ...)\n  (env (() () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f4 (-> (app #t) <-)) (env (() () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f4 <-) (app #t)) (env (() () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f4 (app #f)) <-)) (env (() () () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f4 (-> (app #f) <-)) (env (() () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f4 <-) (app #f)) (env (() () () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f3) ...) <-) (λ (x3) ...)) (env (() ())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f3) (-> (let (_) ...) <-)) (env (() () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval\n  (let (... () (_ (-> (app f3 (app #t)) <-)) () ...) ...)\n  (env (() () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f3 (-> (app #t) <-)) (env (() () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f3 <-) (app #t)) (env (() () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f3 (app #f)) <-)) (env (() () ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f3 (-> (app #f) <-)) (env (() () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f3 <-) (app #f)) (env (() () ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f2) ...) <-) (λ (x2) ...)) (env (())))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f2) (-> (let (_) ...) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (... () (_ (-> (app f2 (app #t)) <-)) () ...) ...) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f2 (-> (app #t) <-)) (env (() ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (() ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f2 <-) (app #t)) (env (() ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f2 (app #f)) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f2 (-> (app #f) <-)) (env (() ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (() ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f2 <-) (app #f)) (env (() ())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  lambda
+  "'(eval (app (-> (λ (f1) ...) <-) (λ (x1) ...)) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  let
+  "'(eval (λ (f1) (-> (let (_) ...) <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (... () (_ (-> (app f1 (app #t)) <-)) () ...) ...) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f1 (-> (app #t) <-)) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f1 <-) (app #t)) (env (())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (let (_) (-> (app f1 (app #f)) <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  app
+  "'(eval (app f1 (-> (app #f) <-)) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  kcfa-worst-case-32
+  0
+  5
+  422
+  ref-or-constructor
+  "'(eval (app (-> f1 <-) (app #f)) (env (())))"
+  #f
+  3
+  2
+  1
+  0
+  2
+  1
+  3
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))

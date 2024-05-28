@@ -14,7 +14,7 @@
   45
   lambda
   "'(eval (letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -62,7 +62,7 @@
   45
   lambda
   "'(eval\n  (letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...)\n  (env ((□? (i x)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -131,7 +131,7 @@
   45
   number
   "'(eval (app - i (-> 1 <-)) (env ((□? (j f y)) (□? (i x)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -194,7 +194,7 @@
   45
   ref-or-constructor
   "'(eval (app (-> lp1 <-) (app - i 1) y) (env ((□? (j f y)) (□? (i x)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -305,7 +305,7 @@
   45
   number
   "'(eval (app - j (-> 1 <-)) (env ((□? (j f y)) (□? (i x)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -368,7 +368,7 @@
   45
   ref-or-constructor
   "'(eval\n  (app (-> lp2 <-) (app - j 1) f (app f y))\n  (env ((□? (j f y)) (□? (i x)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -411,7 +411,7 @@
   21
   #f
   55/38
-  ((3 3 0)))
+  ((4 4 0)))
 '(clean-cache
   loop2-1
   4
@@ -419,7 +419,7 @@
   45
   number
   "'(eval (app = (-> 0 <-) j) (env ((□? (j f y)) (□? (i x)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -479,7 +479,7 @@
   45
   lambda
   "'(eval (app lp2 10 (-> (λ (n) ...) <-) x) (env ((□? (i x)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -560,7 +560,7 @@
   45
   number
   "'(eval (app lp2 (-> 10 <-) (λ (n) ...) x) (env ((□? (i x)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -581,7 +581,7 @@
   45
   ref-or-constructor
   "'(eval (app (-> lp2 <-) 10 (λ (n) ...) x) (env ((□? (i x)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -644,7 +644,7 @@
   45
   number
   "'(eval (app = (-> 0 <-) i) (env ((□? (i x)))))"
-  #t
+  (number char string quoted constructor)
   2
   1
   0
@@ -695,7 +695,7 @@
   45
   number
   "'(eval (app lp1 10 (-> 0 <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -716,7 +716,7 @@
   45
   number
   "'(eval (app lp1 (-> 10 <-) 0) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -737,7 +737,7 @@
   45
   ref-or-constructor
   "'(eval (app (-> lp1 <-) 10 0) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

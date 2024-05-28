@@ -10,6 +10,7 @@
     ['ceiling `(prim ceiling ,do-ceiling)]
     ['log `(prim log ,do-log)]
     ['= `(prim = ,do-equal)]
+    ['char=? `(prim = ,do-equal)]
     ['- `(prim - ,do-sub)]
     ['+ `(prim + ,do-add)]
     ['* `(prim * ,do-mult)]
@@ -38,6 +39,11 @@
     ['string? `(prim string? ,do-string?)]
     ['list? `(prim list? ,do-list?)]
     ['procedure? `(prim procedure? ,do-procedure?)]
+    ['char-numeric? `(prim char-numeric? ,do-char-numeric?)]
+    ['char-alphabetic? `(prim char-alphabetic? ,do-char-alphabetic?)]
+    ['char->integer `(prim char->integer ,do-char->integer)]
+    ['symbol->string `(prim symbol->string ,do-symbol->string)]
+    ['list->string `(prim list->string ,do-list-string)]
     ['void  `(prim void ,do-void)]
     [_ #f]
     )
@@ -132,6 +138,15 @@
     [_ ⊥])
   )
 
+
+(define (do-list-string p C . args)
+  topstr)
+
+
+(define (do-symbol->string p C . args)
+  topstr)
+
+
 ; TODO: Refinement make sure all args are string
 (define (do-string-append p C . args) topstr)
 
@@ -224,6 +239,42 @@
      (if (not (bottom? c1)) (true C p) (false C p)) ]
     [_ (false C p)])
   )
+
+(define (do-char-numeric? p C . args)
+  (match args
+     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+      (if (char-numeric? c) (true C p) (false C p))
+      ]
+      [(list (product/lattice (literal (list (top) c1 s1))))
+      (each (true C p) (false C p))
+      ]
+     [_ (false C p)]
+  )
+)
+
+(define (do-char-alphabetic? p C . args)
+  (match args
+     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+      (if (char-alphabetic? c) (true C p) (false C p))
+      ]
+      [(list (product/lattice (literal (list (top) c1 s1))))
+      (each (true C p) (false C p))
+      ]
+     [_ (false C p)]
+  )
+)
+
+(define (do-char->integer p C . args)
+  (match args
+     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+      (lit (litnum (char->integer c)))
+      ]
+      [(list (product/lattice (literal (list (top) c1 s1))))
+        topnum
+      ]
+     [_ (false C p)]
+  )
+)
 
 
 (define (do-lte p C . args)

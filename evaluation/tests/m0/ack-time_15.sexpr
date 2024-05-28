@@ -26,7 +26,7 @@
   40
   lambda
   "'(eval (letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -89,7 +89,7 @@
   40
   number
   "'(eval (app + n (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -194,7 +194,7 @@
   40
   number
   "'(eval (app ack (app - m 1) (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -236,7 +236,7 @@
   40
   number
   "'(eval (app - m (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -299,7 +299,7 @@
   40
   ref-or-constructor
   "'(eval (app (-> ack <-) (app - m 1) 1) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -319,7 +319,7 @@
   15
   40
   app
-  "'(eval\n  (match\n   (app = n 0)\n   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))\n   _)\n  (env (())))"
+  "'(eval\n  (match\n   (app = n 0)\n   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))\n   _)\n  (env (())))"
   #f
   43
   37
@@ -383,7 +383,7 @@
   40
   number
   "'(eval (app - n (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -467,7 +467,7 @@
   40
   ref-or-constructor
   "'(eval (app (-> ack <-) m (app - n 1)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -509,7 +509,7 @@
   40
   number
   "'(eval (app - m (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -572,7 +572,7 @@
   40
   ref-or-constructor
   "'(eval (app (-> ack <-) (app - m 1) (app ack m (app - n 1))) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -614,7 +614,7 @@
   40
   number
   "'(eval (app = n (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -698,7 +698,7 @@
   40
   number
   "'(eval (app = m (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -782,7 +782,7 @@
   40
   number
   "'(eval (app ack 3 (-> 12 <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -803,7 +803,7 @@
   40
   number
   "'(eval (app ack (-> 3 <-) 12) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -824,7 +824,7 @@
   40
   ref-or-constructor
   "'(eval (app (-> ack <-) 3 12) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

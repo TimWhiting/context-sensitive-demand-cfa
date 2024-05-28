@@ -14,7 +14,7 @@
   59
   lambda
   "'(eval (letrec* (... () (cpstak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -44,7 +44,7 @@
   59
   lambda
   "'(eval\n  (letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...)\n  (env ((□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -64,7 +64,7 @@
   15
   59
   match
-  "'(eval\n  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))"
+  "'(eval\n  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))"
   #f
   #f)
 '(clean-cache
@@ -122,7 +122,7 @@
   59
   lambda
   "'(eval\n  (app tak (app - x 1) y z (-> (λ (v1) ...) <-))\n  (env ((□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -152,7 +152,7 @@
   59
   lambda
   "'(eval\n  (app tak (app - y 1) z x (-> (λ (v2) ...) <-))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   1
   0
@@ -182,7 +182,7 @@
   59
   lambda
   "'(eval\n  (app tak (app - z 1) x y (-> (λ (v3) ...) <-))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   5
   1
   0
@@ -225,7 +225,7 @@
   23
   #f
   91/25
-  ((8 8 0)))
+  ((7 7 0)))
 '(clean-cache
   cpstak
   1
@@ -260,7 +260,7 @@
   59
   ref-or-constructor
   "'(eval\n  (app (-> tak <-) v1 v2 v3 k)\n  (env ((□? (v3)) (□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   7
   2
   0
@@ -308,7 +308,7 @@
   59
   number
   "'(eval\n  (app - z (-> 1 <-))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (number char string quoted constructor)
   5
   1
   0
@@ -359,7 +359,7 @@
   59
   ref-or-constructor
   "'(eval\n  (app (-> tak <-) (app - z 1) x y (λ (v3) ...))\n  (env ((□? (v2)) (□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   6
   2
   0
@@ -407,7 +407,7 @@
   59
   number
   "'(eval (app - y (-> 1 <-)) (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (number char string quoted constructor)
   4
   1
   0
@@ -458,7 +458,7 @@
   59
   ref-or-constructor
   "'(eval\n  (app (-> tak <-) (app - y 1) z x (λ (v2) ...))\n  (env ((□? (v1)) (□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   5
   2
   0
@@ -506,7 +506,7 @@
   59
   number
   "'(eval (app - x (-> 1 <-)) (env ((□? (x y z k)) (□? (x y z)))))"
-  #t
+  (number char string quoted constructor)
   3
   1
   0
@@ -557,7 +557,7 @@
   59
   ref-or-constructor
   "'(eval\n  (app (-> tak <-) (app - x 1) y z (λ (v1) ...))\n  (env ((□? (x y z k)) (□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   2
   0
@@ -665,7 +665,7 @@
   59
   lambda
   "'(eval (app tak x y z (-> (λ (a) ...) <-)) (env ((□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -758,7 +758,7 @@
   59
   ref-or-constructor
   "'(eval (app (-> tak <-) x y z (λ (a) ...)) (env ((□? (x y z)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   2
   0
@@ -788,7 +788,7 @@
   59
   number
   "'(eval (app cpstak 32 15 (-> 8 <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -809,7 +809,7 @@
   59
   number
   "'(eval (app cpstak 32 (-> 15 <-) 8) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -830,7 +830,7 @@
   59
   number
   "'(eval (app cpstak (-> 32 <-) 15 8) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -851,7 +851,7 @@
   59
   ref-or-constructor
   "'(eval (app (-> cpstak <-) 32 15 8) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

@@ -26,7 +26,7 @@
   45
   lambda
   "'(eval (app (λ (f1) ...) (-> (λ (x1) ...) <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -68,7 +68,7 @@
   45
   lambda
   "'(eval (app (λ (f2) ...) (-> (λ (x2) ...) <-)) (env ((□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -110,7 +110,7 @@
   45
   lambda
   "'(eval (app (λ (f3) ...) (-> (λ (x3) ...) <-)) (env ((□? (x2)) (□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -152,7 +152,7 @@
   45
   lambda
   "'(eval\n  (app (λ (z) ...) (-> (λ (y1 y2 y3) ...) <-))\n  (env ((□? (x3)) (□? (x2)) (□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   1
   0
@@ -194,7 +194,7 @@
   45
   lambda
   "'(eval\n  (app (-> (λ (z) ...) <-) (λ (y1 y2 y3) ...))\n  (env ((□? (x3)) (□? (x2)) (□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   4
   1
   0
@@ -320,7 +320,7 @@
   45
   lambda
   "'(eval (app (-> (λ (f3) ...) <-) (λ (x3) ...)) (env ((□? (x2)) (□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   3
   1
   0
@@ -354,7 +354,7 @@
   50
   #f
   90/61
-  ((6 6 0)))
+  ((7 7 0)))
 '(clean-cache
   kcfa-3
   2
@@ -404,7 +404,7 @@
   45
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (f3)) (□? (x2)) (□? (x1)))))"
-  #t
+  (constructor)
   4
   1
   0
@@ -488,7 +488,7 @@
   45
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (f3)) (□? (x2)) (□? (x1)))))"
-  #t
+  (constructor)
   4
   1
   0
@@ -530,7 +530,7 @@
   45
   lambda
   "'(eval (app (-> (λ (f2) ...) <-) (λ (x2) ...)) (env ((□? (x1)))))"
-  #t
+  (lambda number char string quoted constructor)
   2
   1
   0
@@ -564,7 +564,7 @@
   84
   #f
   52/35
-  ((14 14 0)))
+  ((15 15 0)))
 '(clean-cache
   kcfa-3
   2
@@ -585,7 +585,7 @@
   78
   #f
   142/93
-  ((13 13 0)))
+  ((14 14 0)))
 '(clean-cache
   kcfa-3
   2
@@ -614,7 +614,7 @@
   45
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (f2)) (□? (x1)))))"
-  #t
+  (constructor)
   3
   1
   0
@@ -669,7 +669,7 @@
   78
   #f
   142/93
-  ((13 13 0)))
+  ((14 14 0)))
 '(clean-cache
   kcfa-3
   2
@@ -698,7 +698,7 @@
   45
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (f2)) (□? (x1)))))"
-  #t
+  (constructor)
   3
   1
   0
@@ -740,7 +740,7 @@
   45
   lambda
   "'(eval (app (-> (λ (f1) ...) <-) (λ (x1) ...)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -774,7 +774,7 @@
   47
   #t
   56/47
-  ((2 2 0)))
+  ((3 3 0)))
 '(clean-cache
   kcfa-3
   2
@@ -795,7 +795,7 @@
   45
   #t
   6/5
-  ((2 2 0)))
+  ((3 3 0)))
 '(clean-cache
   kcfa-3
   2
@@ -824,7 +824,7 @@
   45
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (f1)))))"
-  #t
+  (constructor)
   2
   1
   0
@@ -908,7 +908,7 @@
   45
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (f1)))))"
-  #t
+  (constructor)
   2
   1
   0

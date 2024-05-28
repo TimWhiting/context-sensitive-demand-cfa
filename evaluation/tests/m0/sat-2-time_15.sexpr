@@ -2,31 +2,31 @@
   sat-2
   0
   15
-  96
+  159
   letrec*
   "'(eval ((top) letrec* (phi ... sat-solve-7) ...) (env ()))"
   #f
-  138
-  95
+  201
+  158
   25
   18
-  95
+  158
   25
-  120
+  183
   1
   1
-  51
+  101
   #f
-  149/95
-  ((14 14 0)))
+  225/158
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval\n  (letrec* (... try (sat-solve-7 (-> (λ (p) ...) <-)) () ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -44,31 +44,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (p) (-> (app try (λ (n1) ...)) <-)) (env (())))"
   #f
-  135
-  93
+  198
+  156
   25
   17
-  93
+  156
   25
-  118
+  181
   1
   1
-  51
+  101
   #f
-  145/93
-  ((14 14 0)))
+  17/12
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n1) ...) <-)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -86,31 +86,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env (() ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n2) ...) <-)) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -128,31 +128,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n2) (-> (app try (λ (n3) ...)) <-)) (env (() () ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n3) ...) <-)) (env (() () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -170,31 +170,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n3) (-> (app try (λ (n4) ...)) <-)) (env (() () () ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n4) ...) <-)) (env (() () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -212,31 +212,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n4) (-> (app try (λ (n5) ...)) <-)) (env (() () () () ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((12 12 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n5) ...) <-)) (env (() () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -254,31 +254,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n5) (-> (app try (λ (n6) ...)) <-)) (env (() () () () () ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n6) ...) <-)) (env (() () () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -296,31 +296,31 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (λ (n6) (-> (app try (λ (n7) ...)) <-)) (env (() () () () () () ())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (app try (-> (λ (n7) ...) <-)) (env (() () () () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -338,30 +338,30 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (λ (n7)\n    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))\n  (env (() () () () () () () ())))"
+  "'(eval\n  (λ (n7) (-> (app (app (app (...) ...) n6) n7) <-))\n  (env (() () () () () () () ())))"
   #f
-  96
-  70
+  153
+  127
   17
   9
-  70
+  127
   17
-  87
+  144
   1
   1
-  40
+  85
   #f
-  10/7
-  ((13 13 0)))
+  169/127
+  ((10 10 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval\n  (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) (-> n7 <-))\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (app (app (app (...) ...) n5) n6) (-> n7 <-))\n  (env (() () () () () () () ())))"
   #f
   11
   7
@@ -380,9 +380,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app (-> (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) <-) n7)\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (-> (app (app (app (...) ...) n5) n6) <-) n7)\n  (env (() () () () () () () ())))"
   #f
   23
   15
@@ -401,9 +401,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval\n  (app (app (app (app (app (app p n1) n2) n3) n4) n5) (-> n6 <-))\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (app (app (app (...) ...) n4) n5) (-> n6 <-))\n  (env (() () () () () () () ())))"
   #f
   11
   7
@@ -422,9 +422,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app (-> (app (app (app (app (app p n1) n2) n3) n4) n5) <-) n6)\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (-> (app (app (app (...) ...) n4) n5) <-) n6)\n  (env (() () () () () () () ())))"
   #f
   20
   13
@@ -438,14 +438,14 @@
   13
   #t
   1
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval\n  (app (app (app (app (app p n1) n2) n3) n4) (-> n5 <-))\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (app (app (app (...) ...) n3) n4) (-> n5 <-))\n  (env (() () () () () () () ())))"
   #f
   11
   7
@@ -464,9 +464,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app (-> (app (app (app (app p n1) n2) n3) n4) <-) n5)\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (-> (app (app (app (...) ...) n3) n4) <-) n5)\n  (env (() () () () () () () ())))"
   #f
   17
   11
@@ -485,9 +485,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval\n  (app (app (app (app p n1) n2) n3) (-> n4 <-))\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (app (app (app p ...) n2) n3) (-> n4 <-))\n  (env (() () () () () () () ())))"
   #f
   11
   7
@@ -506,9 +506,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app (-> (app (app (app p n1) n2) n3) <-) n4)\n  (env (() () () () () () () ())))"
+  "'(eval\n  (app (-> (app (app (app p ...) n2) n3) <-) n4)\n  (env (() () () () () () () ())))"
   #f
   14
   9
@@ -527,7 +527,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (app (app p n1) n2) (-> n3 <-)) (env (() () () () () () () ())))"
   #f
@@ -548,7 +548,7 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (app (-> (app (app p n1) n2) <-) n3) (env (() () () () () () () ())))"
   #f
@@ -569,7 +569,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (app p n1) (-> n2 <-)) (env (() () () () () () () ())))"
   #f
@@ -590,7 +590,7 @@
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (app (-> (app p n1) <-) n2) (env (() () () () () () () ())))"
   #f
@@ -611,7 +611,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app p (-> n1 <-)) (env (() () () () () () () ())))"
   #f
@@ -632,7 +632,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> p <-) n1) (env (() () () () () () () ())))"
   #f
@@ -653,10 +653,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n7) ...)) (env (() () () () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -674,10 +674,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n6) ...)) (env (() () () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -695,10 +695,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n5) ...)) (env (() () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -716,10 +716,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n4) ...)) (env (() () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -737,10 +737,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n3) ...)) (env (() () ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -758,10 +758,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n2) ...)) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -779,10 +779,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> try <-) (λ (n1) ...)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -800,10 +800,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval\n  (letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-7 ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -821,49 +821,196 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-)) (env (())))"
+  159
+  match
+  "'(eval (λ (f) (-> (match (app f (app #t ...)) ...) <-)) (env (())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env (())))"
+  "'(eval (match (app f (app #t)) (#f) (_ (-> (app #t) <-))) (env (())))"
   #f
-  134
-  92
-  25
-  17
-  92
-  25
-  117
+  2
+  2
+  0
+  0
+  2
+  0
+  2
   1
   1
-  51
-  #f
-  143/92
-  ((14 14 0)))
+  2
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (app f (app #t)) ((#f) (-> (match (app f (app #f ...)) ...) <-)) _)\n  (env (())))"
+  #f
+  197
+  155
+  25
+  17
+  155
+  25
+  180
+  1
+  1
+  101
+  #f
+  219/155
+  ((12 12 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match (app f (app #f)) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match (app f (app #f)) ((#f) (-> (app #f) <-)) _) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match (-> (app f (app #f)) <-) (#f) _) (env (())))"
+  #f
+  197
+  155
+  25
+  17
+  155
+  25
+  180
+  1
+  1
+  101
+  #f
+  219/155
+  ((11 11 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
   app
   "'(eval (app f (-> (app #f) <-)) (env (())))"
   #f
@@ -884,10 +1031,10 @@
   sat-2
   0
   15
-  96
+  159
   constructor
   "'(eval (app (-> #f <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -905,7 +1052,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> f <-) (app #f)) (env (())))"
   #f
@@ -926,28 +1073,28 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval (app or (-> (app f (app #t)) <-) (app f (app #f))) (env (())))"
+  "'(eval (match (-> (app f (app #t)) <-) (#f) _) (env (())))"
   #f
-  134
-  92
+  197
+  155
   25
   17
-  92
+  155
   25
-  117
+  180
   1
   1
-  51
+  101
   #f
-  143/92
-  ((14 14 0)))
+  219/155
+  ((11 11 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   app
   "'(eval (app f (-> (app #t) <-)) (env (())))"
   #f
@@ -968,10 +1115,10 @@
   sat-2
   0
   15
-  96
+  159
   constructor
   "'(eval (app (-> #t <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -989,7 +1136,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> f <-) (app #t)) (env (())))"
   #f
@@ -1010,31 +1157,10 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) (app f (app #t)) (app f (app #f))) (env (())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  sat-2
-  0
-  15
-  96
+  159
   lambda
   "'(eval (letrec* (... () (phi (-> (λ (x1) ...) <-)) try ...) ...) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1052,10 +1178,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x1) (-> (λ (x2) ...) <-)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1073,10 +1199,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x2) (-> (λ (x3) ...) <-)) (env (() ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1094,10 +1220,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x3) (-> (λ (x4) ...) <-)) (env (() () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1115,10 +1241,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x4) (-> (λ (x5) ...) <-)) (env (() () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1136,10 +1262,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x5) (-> (λ (x6) ...) <-)) (env (() () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1157,10 +1283,10 @@
   sat-2
   0
   15
-  96
+  159
   lambda
   "'(eval (λ (x6) (-> (λ (x7) ...) <-)) (env (() () () () () ())))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1178,51 +1304,387 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (λ (x7)\n    (->\n     (app\n      and\n      (app or x1 x2)\n      (app or x1 (app not x2) (app not x3))\n      (app or x3 x4)\n      (app or (app not x4) x1)\n      (app or (app not x2) (app not x3))\n      (app or x4 x2))\n     <-))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval\n  (λ (x7) (-> (match (match x1 ...) ...) <-))\n  (env (() () () () () () ())))"
   #f
-  71
-  54
+  128
+  111
   15
   2
-  54
+  111
   15
-  69
+  126
   1
   1
-  25
+  70
   #f
-  83/54
-  ((11 11 0)))
+  152/111
+  ((8 8 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (-> (app or x4 x2) <-))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval\n  (match (match x1 ...) (#f) (_ (-> (match (match x1 ...) ...) <-)))\n  (env (() () () () () () ())))"
   #f
+  115
+  98
+  15
+  2
+  98
+  15
+  113
+  1
+  1
+  62
+  #f
+  67/49
+  ((7 7 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (match x1 ...) (#f) (_ (-> (match (match x3 ...) ...) <-)))\n  (env (() () () () () () ())))"
+  #f
+  94
+  77
+  15
+  2
+  77
+  15
+  92
+  1
+  1
+  50
+  #f
+  104/77
+  ((6 6 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (match x3 ...) (#f) (_ (-> (match (match (app not ...) ...) ...) <-)))\n  (env (() () () () () () ())))"
+  #f
+  81
+  64
+  15
+  2
+  64
+  15
+  79
+  1
+  1
+  42
+  #f
+  43/32
+  ((5 5 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match\n   (match (app not x4) ...)\n   (#f)\n   (_ (-> (match (match (app not ...) ...) ...) <-)))\n  (env (() () () () () () ())))"
+  #f
+  63
+  47
+  14
+  2
+  47
+  14
+  61
+  1
+  1
   32
-  17
+  #f
+  62/47
+  ((3 3 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (match (app not x2) ...) (#f) (_ (-> (match (match x4 ...) ...) <-)))\n  (env (() () () () () () ())))"
+  #f
+  41
+  26
   13
   2
-  17
+  26
   13
-  30
+  39
   1
   1
-  12
+  19
   #f
-  22/17
+  33/26
+  ((2 2 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (match x4 ...) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (match x4 ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval (match (-> (match x4 ...) <-) (#f) _) (env (() () () () () () ())))"
+  #f
+  36
+  21
+  13
+  2
+  21
+  13
+  34
+  1
+  1
+  15
+  #f
+  9/7
   ((1 1 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
+  app
+  "'(eval (match x4 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval (match x4 ((#f) (-> (match x2 ...) <-)) _) (env (() () () () () () ())))"
+  #f
+  25
+  15
+  8
+  2
+  15
+  8
+  23
+  1
+  1
+  12
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x2 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x2 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
   ref-or-constructor
-  "'(eval (app or x4 (-> x2 <-)) (env (() () () () () () ())))"
+  "'(eval (match (-> x2 <-) (#f) _) (env (() () () () () () ())))"
   #f
   20
   10
@@ -1241,9 +1703,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval (app or (-> x4 <-) x2) (env (() () () () () () ())))"
+  "'(eval (match (-> x4 <-) (#f) _) (env (() () () () () () ())))"
   #f
   24
   10
@@ -1262,10 +1724,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) x4 x2) (env (() () () () () () ())))"
+  159
+  app
+  "'(eval\n  (match (match (app not x2) ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
   #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
   1
   1
   0
@@ -1283,30 +1766,177 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (-> (app or (app not x2) (app not x3)) <-)\n   (app or x4 x2))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval\n  (match (-> (match (app not x2) ...) <-) (#f) _)\n  (env (() () () () () () ())))"
   #f
-  34
-  21
+  40
+  27
   11
   2
-  21
+  27
   11
-  32
+  38
   1
   1
-  14
+  19
   #f
-  4/3
+  35/27
   ((1 1 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval (app or (app not x2) (-> (app not x3) <-)) (env (() () () () () () ())))"
+  "'(eval\n  (match (app not x2) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  31
+  19
+  10
+  2
+  19
+  10
+  29
+  1
+  1
+  15
+  #f
+  23/19
+  ((1 1 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (app not x3) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (app not x3) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match (-> (app not x3) <-) (#f) _) (env (() () () () () () ())))"
   #f
   26
   14
@@ -1325,7 +1955,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app not (-> x3 <-)) (env (() () () () () () ())))"
   #f
@@ -1346,7 +1976,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> not <-) x3) (env (() () () () () () ())))"
   #t
@@ -1367,9 +1997,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval (app or (-> (app not x2) <-) (app not x3)) (env (() () () () () () ())))"
+  "'(eval (match (-> (app not x2) <-) (#f) _) (env (() () () () () () ())))"
   #f
   24
   14
@@ -1388,7 +2018,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app not (-> x2 <-)) (env (() () () () () () ())))"
   #f
@@ -1409,7 +2039,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> not <-) x2) (env (() () () () () () ())))"
   #t
@@ -1430,10 +2060,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) (app not x2) (app not x3)) (env (() () () () () () ())))"
+  159
+  app
+  "'(eval\n  (match (match (app not x4) ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
   #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
   1
   1
   0
@@ -1451,30 +2102,177 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (-> (app or (app not x4) x1) <-)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval\n  (match (-> (match (app not x4) ...) <-) (#f) _)\n  (env (() () () () () () ())))"
   #f
-  34
-  19
+  40
+  25
   13
   2
-  19
+  25
   13
-  32
+  38
   1
   1
-  13
+  18
   #f
-  25/19
+  32/25
   ((1 1 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
+  app
+  "'(eval\n  (match (app not x4) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (app not x4) ((#f) (-> (match x1 ...) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  23
+  15
+  6
+  2
+  15
+  6
+  21
+  1
+  1
+  12
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x1 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
   ref-or-constructor
-  "'(eval (app or (app not x4) (-> x1 <-)) (env (() () () () () () ())))"
+  "'(eval (match (-> x1 <-) (#f) _) (env (() () () () () () ())))"
   #f
   18
   10
@@ -1493,9 +2291,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval (app or (-> (app not x4) <-) x1) (env (() () () () () () ())))"
+  "'(eval (match (-> (app not x4) <-) (#f) _) (env (() () () () () () ())))"
   #f
   28
   14
@@ -1509,12 +2307,12 @@
   11
   #f
   17/14
-  ((1 1 0)))
+  ((0 0 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app not (-> x4 <-)) (env (() () () () () () ())))"
   #f
@@ -1535,7 +2333,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> not <-) x4) (env (() () () () () () ())))"
   #t
@@ -1556,10 +2354,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) (app not x4) x1) (env (() () () () () () ())))"
+  159
+  app
+  "'(eval\n  (match (match x3 ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
   #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
   1
   1
   0
@@ -1577,30 +2396,177 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (-> (app or x3 x4) <-)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval (match (-> (match x3 ...) <-) (#f) _) (env (() () () () () () ())))"
   #f
-  32
-  17
+  36
+  21
   13
   2
-  17
+  21
   13
-  30
+  34
   1
   1
-  12
+  15
   #f
-  22/17
+  9/7
   ((1 1 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
+  app
+  "'(eval (match x3 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval (match x3 ((#f) (-> (match x4 ...) <-)) _) (env (() () () () () () ())))"
+  #f
+  29
+  15
+  12
+  2
+  15
+  12
+  27
+  1
+  1
+  12
+  #f
+  6/5
+  ((1 1 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x4 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x4 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
   ref-or-constructor
-  "'(eval (app or x3 (-> x4 <-)) (env (() () () () () () ())))"
+  "'(eval (match (-> x4 <-) (#f) _) (env (() () () () () () ())))"
   #f
   24
   10
@@ -1619,9 +2585,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval (app or (-> x3 <-) x4) (env (() () () () () () ())))"
+  "'(eval (match (-> x3 <-) (#f) _) (env (() () () () () () ())))"
   #f
   22
   10
@@ -1640,10 +2606,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) x3 x4) (env (() () () () () () ())))"
+  159
+  app
+  "'(eval\n  (match (match x1 ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
   #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
   1
   1
   0
@@ -1661,30 +2648,240 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (app or x1 x2)\n   (-> (app or x1 (app not x2) (app not x3)) <-)\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval (match (-> (match x1 ...) <-) (#f) _) (env (() () () () () () ())))"
   #f
-  38
-  24
+  47
+  33
   12
   2
-  24
+  33
   12
-  36
+  45
   1
   1
-  15
+  22
   #f
-  11/8
+  4/3
   ((2 2 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app or x1 (app not x2) (-> (app not x3) <-))\n  (env (() () () () () () ())))"
+  "'(eval (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match x1 ((#f) (-> (match (app not x2) ...) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  40
+  27
+  11
+  2
+  27
+  11
+  38
+  1
+  1
+  19
+  #f
+  35/27
+  ((2 2 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (app not x2) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval\n  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  31
+  19
+  10
+  2
+  19
+  10
+  29
+  1
+  1
+  15
+  #f
+  23/19
+  ((1 1 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (app not x3) (#f) (_ (-> (app #t) <-)))\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval\n  (match (app not x3) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match (-> (app not x3) <-) (#f) _) (env (() () () () () () ())))"
   #f
   26
   14
@@ -1703,7 +2900,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app not (-> x3 <-)) (env (() () () () () () ())))"
   #f
@@ -1724,7 +2921,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> not <-) x3) (env (() () () () () () ())))"
   #t
@@ -1745,9 +2942,9 @@
   sat-2
   0
   15
-  96
+  159
   app
-  "'(eval\n  (app or x1 (-> (app not x2) <-) (app not x3))\n  (env (() () () () () () ())))"
+  "'(eval (match (-> (app not x2) <-) (#f) _) (env (() () () () () () ())))"
   #f
   24
   14
@@ -1766,7 +2963,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app not (-> x2 <-)) (env (() () () () () () ())))"
   #f
@@ -1787,7 +2984,7 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> not <-) x2) (env (() () () () () () ())))"
   #t
@@ -1808,9 +3005,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval\n  (app or (-> x1 <-) (app not x2) (app not x3))\n  (env (() () () () () () ())))"
+  "'(eval (match (-> x1 <-) (#f) _) (env (() () () () () () ())))"
   #f
   18
   10
@@ -1829,10 +3026,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval\n  (app (-> or <-) x1 (app not x2) (app not x3))\n  (env (() () () () () () ())))"
+  159
+  app
+  "'(eval\n  (match (match x1 ...) ((#f) (-> (app #f) <-)) _)\n  (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
   #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
   1
   1
   0
@@ -1850,30 +3068,177 @@
   sat-2
   0
   15
-  96
-  app
-  "'(eval\n  (app\n   and\n   (-> (app or x1 x2) <-)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env (() () () () () () ())))"
+  159
+  match
+  "'(eval (match (-> (match x1 ...) <-) (#f) _) (env (() () () () () () ())))"
   #f
-  28
-  17
+  32
+  21
   9
   2
-  17
+  21
   9
-  26
+  30
   1
   1
-  12
+  15
   #f
-  22/17
+  9/7
   ((1 1 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
+  app
+  "'(eval (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  match
+  "'(eval (match x1 ((#f) (-> (match x2 ...) <-)) _) (env (() () () () () () ())))"
+  #f
+  25
+  15
+  8
+  2
+  15
+  8
+  23
+  1
+  1
+  12
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x2 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #t <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  app
+  "'(eval (match x2 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
+  constructor
+  "'(eval (app (-> #f <-)) (env (() () () () () () ())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  sat-2
+  0
+  15
+  159
   ref-or-constructor
-  "'(eval (app or x1 (-> x2 <-)) (env (() () () () () () ())))"
+  "'(eval (match (-> x2 <-) (#f) _) (env (() () () () () () ())))"
   #f
   20
   10
@@ -1892,9 +3257,9 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
-  "'(eval (app or (-> x1 <-) x2) (env (() () () () () () ())))"
+  "'(eval (match (-> x1 <-) (#f) _) (env (() () () () () () ())))"
   #f
   18
   10
@@ -1913,73 +3278,31 @@
   sat-2
   0
   15
-  96
-  ref-or-constructor
-  "'(eval (app (-> or <-) x1 x2) (env (() () () () () () ())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  sat-2
-  0
-  15
-  96
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> and <-)\n   (app or x1 x2)\n   (app or x1 (app not x2) (app not x3))\n   (app or x3 x4)\n   (app or (app not x4) x1)\n   (app or (app not x2) (app not x3))\n   (app or x4 x2))\n  (env (() () () () () () ())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  sat-2
-  0
-  15
-  96
+  159
   app
   "'(eval (letrec* (phi ... sat-solve-7) (-> (app sat-solve-7 phi) <-)) (env ()))"
   #f
-  137
-  94
+  200
+  157
   25
   18
-  94
+  157
   25
-  119
+  182
   1
   1
-  51
+  101
   #f
-  147/94
-  ((14 14 0)))
+  223/157
+  ((12 12 0)))
 '(clean-cache
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app sat-solve-7 (-> phi <-)) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -1997,10 +3320,10 @@
   sat-2
   0
   15
-  96
+  159
   ref-or-constructor
   "'(eval (app (-> sat-solve-7 <-) phi) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

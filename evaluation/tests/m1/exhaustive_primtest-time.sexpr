@@ -1,2 +1,2 @@
-'(rebinding primtest 1 100000 138 178 92 86 6 91/47 ((13 13 0)))
-'(exponential primtest 1 100000 138 178 32 86 6 91/47 ((11 11 0)))
+'(rebinding primtest 1 10000 154 211 48 99 22 109/60 ((6 6 0)))
+'(exponential primtest 1 10000 154 211 32 99 22 109/60 ((5 5 0)))

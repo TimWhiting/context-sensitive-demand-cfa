@@ -2,19 +2,31 @@
   primtest
   0
   5
-  180
+  219
   letrec*
   "'(eval ((top) letrec* (square ... byte-size) ...) (env ()))"
   #f
-  #f)
+  240
+  221
+  14
+  5
+  221
+  14
+  235
+  1
+  1
+  123
+  #f
+  319/221
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (letrec* (... iterations (byte-size (-> 15 <-)) () ...) ...) (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -32,10 +44,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval\n  (letrec*\n   (... generate-fermat-prime (iterations (-> 10 <-)) byte-size ...)\n   ...)\n  (env ()))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -53,10 +65,10 @@
   primtest
   0
   5
-  180
+  219
   lambda
   "'(eval\n  (letrec*\n   (...\n    is-fermat-prime?\n    (generate-fermat-prime (-> (λ (byte-size iterations) ...) <-))\n    iterations\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -74,16 +86,28 @@
   primtest
   0
   5
-  180
+  219
   let
   "'(eval (λ (byte-size iterations) (-> (let (n) ...) <-)) (env (())))"
   #f
-  #f)
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (let (... () (n (-> (app random byte-size) <-)) () ...) ...) (env (())))"
   #f
@@ -104,7 +128,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app random (-> byte-size <-)) (env (())))"
   #f
@@ -125,7 +149,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> random <-) byte-size) (env (())))"
   #t
@@ -146,18 +170,30 @@
   primtest
   0
   5
-  180
+  219
   match
-  "'(eval\n  (let (n)\n    (->\n     (match\n      (app\n       and\n       (app not (app is-trivial-composite? n))\n       (app is-fermat-prime? n iterations))\n      ...)\n     <-))\n  (env (())))"
+  "'(eval (let (n) (-> (match (match (app not ...) ...) ...) <-)) (env (())))"
   #f
-  #f)
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
-  "'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   (#f)\n   (_ (-> n <-)))\n  (env (())))"
+  "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   (#f)\n   (_ (-> n <-)))\n  (env (())))"
   #f
   10
   7
@@ -176,16 +212,28 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match\n   (app\n    and\n    (app not (app is-trivial-composite? n))\n    (app is-fermat-prime? n iterations))\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))"
+  "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env (())))"
   #f
-  #f)
+  237
+  218
+  14
+  5
+  218
+  14
+  232
+  1
+  1
+  122
+  #f
+  157/109
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env (())))"
   #f
@@ -206,7 +254,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env (())))"
   #f
@@ -227,10 +275,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> generate-fermat-prime <-) byte-size iterations) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -248,37 +296,154 @@
   primtest
   0
   5
-  180
-  app
-  "'(eval\n  (match\n   (->\n    (app\n     and\n     (app not (app is-trivial-composite? n))\n     (app is-fermat-prime? n iterations))\n    <-)\n   (#f)\n   _)\n  (env (())))"
+  219
+  match
+  "'(eval\n  (match (-> (match (app not (app is-trivial-composite? ...)) ...) <-) (#f) _)\n  (env (())))"
   #f
-  #f)
+  230
+  212
+  14
+  4
+  212
+  14
+  226
+  1
+  1
+  120
+  #f
+  76/53
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
-  app
-  "'(eval\n  (app\n   and\n   (app not (app is-trivial-composite? n))\n   (-> (app is-fermat-prime? n iterations) <-))\n  (env (())))"
+  219
+  match
+  "'(eval\n  (match\n   (app not (app is-trivial-composite? n))\n   (#f)\n   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))\n  (env (())))"
   #f
-  115
-  100
+  124
+  109
   12
   3
-  100
+  109
   12
-  112
+  121
   1
   1
-  50
+  57
   #f
-  3/2
+  161/109
   ((2 2 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
+  app
+  "'(eval\n  (match (app is-fermat-prime? n iterations) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app is-fermat-prime? n iterations) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval (match (-> (app is-fermat-prime? n iterations) <-) (#f) _) (env (())))"
+  #f
+  119
+  104
+  12
+  3
+  104
+  12
+  116
+  1
+  1
+  53
+  #f
+  155/104
+  ((2 2 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
   ref-or-constructor
   "'(eval (app is-fermat-prime? n (-> iterations <-)) (env (())))"
   #f
@@ -299,7 +464,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app is-fermat-prime? (-> n <-) iterations) (env (())))"
   #f
@@ -320,10 +485,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> is-fermat-prime? <-) n iterations) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -341,25 +506,91 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   and\n   (-> (app not (app is-trivial-composite? n)) <-)\n   (app is-fermat-prime? n iterations))\n  (env (())))"
+  "'(eval\n  (match (app not (app is-trivial-composite? n)) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
   #f
-  #f)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (-> (app not (app is-trivial-composite? n)) <-) (#f) _)\n  (env (())))"
+  #f
+  112
+  106
+  5
+  1
+  106
+  5
+  111
+  1
+  1
+  66
+  #f
+  73/53
+  ((1 1 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
   app
   "'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))"
   #f
-  #f)
+  108
+  102
+  5
+  1
+  102
+  5
+  107
+  1
+  1
+  63
+  #f
+  47/34
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app is-trivial-composite? (-> n <-)) (env (())))"
   #f
@@ -380,10 +611,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> is-trivial-composite? <-) n) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -401,7 +632,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> not <-) (app is-trivial-composite? n)) (env (())))"
   #t
@@ -422,31 +653,10 @@
   primtest
   0
   5
-  180
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> and <-)\n   (app not (app is-trivial-composite? n))\n   (app is-fermat-prime? n iterations))\n  (env (())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  primtest
-  0
-  5
-  180
+  219
   lambda
   "'(eval\n  (letrec*\n   (...\n    is-trivial-composite?\n    (is-fermat-prime? (-> (λ (n iterations) ...) <-))\n    generate-fermat-prime\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -464,49 +674,196 @@
   primtest
   0
   5
-  180
+  219
+  match
+  "'(eval (λ (n iterations) (-> (match (app <= iterations 0) ...) <-)) (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
   app
-  "'(eval\n  (λ (n iterations)\n    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))\n  (env (())))"
+  "'(eval (match (app <= iterations 0) (#f) (_ (-> (app #t) <-))) (env (())))"
   #f
-  113
-  98
-  12
-  3
-  98
-  12
-  110
+  2
+  2
+  0
+  0
+  2
+  0
+  2
   1
   1
-  49
-  #f
-  3/2
-  ((2 2 0)))
+  2
+  #t
+  1
+  ((0 0 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app <= iterations 0)\n   ((#f) (-> (match (let* (byte-size ... a) ...) ...) <-))\n   _)\n  (env (())))"
+  #f
+  117
+  102
+  12
+  3
+  102
+  12
+  114
+  1
+  1
+  52
+  #f
+  76/51
+  ((1 1 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (let* (byte-size ... a) ...) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (let* (byte-size ... a) ...) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
   let*
-  "'(eval\n  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))\n  (env (())))"
+  "'(eval (match (-> (let* (byte-size ... a) ...) <-) (#f) _) (env (())))"
   #f
-  113
-  98
+  117
+  102
   12
   3
-  98
+  102
   12
-  110
+  114
   1
   1
-  49
+  52
   #f
-  3/2
-  ((2 2 0)))
+  76/51
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   app
   "'(eval\n  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)\n  (env (())))"
   #f
@@ -527,7 +884,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app random (-> byte-size <-)) (env (())))"
   #f
@@ -548,7 +905,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> random <-) byte-size) (env (())))"
   #t
@@ -569,9 +926,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))\n         a\n         ...)\n    ...)\n  (env (())))"
+  "'(eval\n  (let* (...\n         ()\n         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))\n         a\n         ...)\n    ...)\n  (env (())))"
   #f
   24
   18
@@ -590,7 +947,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app ceiling (-> (app / (app log n) (app log 2)) <-)) (env (())))"
   #f
@@ -611,7 +968,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app / (app log n) (-> (app log 2) <-)) (env (())))"
   #f
@@ -632,10 +989,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app log (-> 2 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -653,7 +1010,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> log <-) 2) (env (())))"
   #t
@@ -674,7 +1031,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app / (-> (app log n) <-) (app log 2)) (env (())))"
   #f
@@ -695,7 +1052,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app log (-> n <-)) (env (())))"
   #f
@@ -716,7 +1073,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> log <-) n) (env (())))"
   #t
@@ -737,7 +1094,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> / <-) (app log n) (app log 2)) (env (())))"
   #t
@@ -758,7 +1115,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> ceiling <-) (app / (app log n) (app log 2))) (env (())))"
   #t
@@ -779,49 +1136,49 @@
   primtest
   0
   5
-  180
+  219
   match
-  "'(eval\n  (let* (byte-size ... a)\n    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))\n  (env (())))"
+  "'(eval\n  (let* (byte-size ... a) (-> (match (app = (app modulo-power ...) 1) ...) <-))\n  (env (())))"
   #f
-  113
-  98
+  117
+  102
   12
   3
-  98
+  102
   12
-  110
+  114
   1
   1
-  49
+  52
   #f
-  3/2
-  ((2 2 0)))
+  76/51
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))"
+  "'(eval\n  (match\n   (app = (app modulo-power a (app - ...) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))"
   #f
-  113
-  98
+  117
+  102
   12
   3
-  98
+  102
   12
-  110
+  114
   1
   1
-  49
+  52
   #f
-  3/2
-  ((2 2 0)))
+  76/51
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app is-fermat-prime? n (-> (app - iterations 1) <-)) (env (())))"
   #f
@@ -842,10 +1199,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app - iterations (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -863,7 +1220,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app - (-> iterations <-) 1) (env (())))"
   #f
@@ -884,7 +1241,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> - <-) iterations 1) (env (())))"
   #t
@@ -905,7 +1262,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app is-fermat-prime? (-> n <-) (app - iterations 1)) (env (())))"
   #f
@@ -926,10 +1283,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> is-fermat-prime? <-) n (app - iterations 1)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -947,9 +1304,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match\n   (app = (app modulo-power a (app - n 1) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))"
+  "'(eval\n  (match\n   (app = (app modulo-power a (app - ...) n) 1)\n   ((#f) (-> (app #f) <-))\n   _)\n  (env (())))"
   #f
   2
   2
@@ -968,10 +1325,10 @@
   primtest
   0
   5
-  180
+  219
   constructor
   "'(eval (app (-> #f <-)) (env (())))"
-  #t
+  (constructor)
   1
   1
   0
@@ -989,9 +1346,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)\n  (env (())))"
+  "'(eval\n  (match (-> (app = (app modulo-power a (app - ...) n) 1) <-) (#f) _)\n  (env (())))"
   #f
   89
   75
@@ -1010,10 +1367,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo-power a (app - n 1) n) (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1031,7 +1388,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))"
   #f
@@ -1052,7 +1409,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power a (app - n 1) (-> n <-)) (env (())))"
   #f
@@ -1073,7 +1430,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app modulo-power a (-> (app - n 1) <-) n) (env (())))"
   #f
@@ -1094,10 +1451,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app - n (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1115,7 +1472,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env (())))"
   #f
@@ -1136,7 +1493,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> - <-) n 1) (env (())))"
   #t
@@ -1157,7 +1514,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power (-> a <-) (app - n 1) n) (env (())))"
   #f
@@ -1178,10 +1535,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo-power <-) a (app - n 1) n) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -1199,7 +1556,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo-power a (app - n 1) n) 1) (env (())))"
   #t
@@ -1220,9 +1577,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))\n  (env (())))"
+  "'(eval (match (-> (app <= iterations 0) <-) (#f) _) (env (())))"
   #f
   18
   12
@@ -1241,10 +1598,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app <= iterations (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1262,7 +1619,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app <= (-> iterations <-) 0) (env (())))"
   #f
@@ -1283,7 +1640,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> <= <-) iterations 0) (env (())))"
   #t
@@ -1304,31 +1661,10 @@
   primtest
   0
   5
-  180
-  ref-or-constructor
-  "'(eval\n  (app (-> or <-) (app <= iterations 0) (let* (byte-size ... a) ...))\n  (env (())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  primtest
-  0
-  5
-  180
+  219
   lambda
   "'(eval\n  (letrec*\n   (...\n    modulo-power\n    (is-trivial-composite? (-> (λ (n) ...) <-))\n    is-fermat-prime?\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -1346,18 +1682,618 @@
   primtest
   0
   5
-  180
-  app
-  "'(eval\n  (λ (n)\n    (->\n     (app\n      or\n      (app = (app modulo n 2) 0)\n      (app = (app modulo n 3) 0)\n      (app = (app modulo n 5) 0)\n      (app = (app modulo n 7) 0)\n      (app = (app modulo n 11) 0)\n      (app = (app modulo n 13) 0)\n      (app = (app modulo n 17) 0)\n      (app = (app modulo n 19) 0)\n      (app = (app modulo n 23) 0))\n     <-))\n  (env (())))"
+  219
+  match
+  "'(eval (λ (n) (-> (match (app = (app modulo ...) 0) ...) <-)) (env (())))"
   #f
-  #f)
+  104
+  99
+  5
+  0
+  99
+  5
+  104
+  1
+  1
+  61
+  #f
+  137/99
+  ((1 1 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (-> (app = (app modulo n 23) 0) <-))\n  (env (())))"
+  "'(eval (match (app = (app modulo n 2) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 2) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  94
+  89
+  5
+  0
+  89
+  5
+  94
+  1
+  1
+  55
+  #f
+  123/89
+  ((1 1 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval (match (app = (app modulo n 3) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 3) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  84
+  79
+  5
+  0
+  79
+  5
+  84
+  1
+  1
+  49
+  #f
+  109/79
+  ((1 1 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval (match (app = (app modulo n 5) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 5) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  74
+  69
+  5
+  0
+  69
+  5
+  74
+  1
+  1
+  43
+  #f
+  95/69
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval (match (app = (app modulo n 7) 0) (#f) (_ (-> (app #t) <-))) (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 7) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  64
+  59
+  5
+  0
+  59
+  5
+  64
+  1
+  1
+  37
+  #f
+  81/59
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 11) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 11) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  54
+  49
+  5
+  0
+  49
+  5
+  54
+  1
+  1
+  31
+  #f
+  67/49
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 13) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 13) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  44
+  39
+  5
+  0
+  39
+  5
+  44
+  1
+  1
+  25
+  #f
+  53/39
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 17) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 17) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  34
+  29
+  5
+  0
+  29
+  5
+  34
+  1
+  1
+  19
+  #f
+  39/29
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 19) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  match
+  "'(eval\n  (match\n   (app = (app modulo n 19) 0)\n   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))\n   _)\n  (env (())))"
+  #f
+  24
+  19
+  5
+  0
+  19
+  5
+  24
+  1
+  1
+  13
+  #f
+  25/19
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 23) 0) (#f) (_ (-> (app #t) <-)))\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #t <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval\n  (match (app = (app modulo n 23) 0) ((#f) (-> (app #f) <-)) _)\n  (env (())))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  constructor
+  "'(eval (app (-> #f <-)) (env (())))"
+  (constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  primtest
+  0
+  5
+  219
+  app
+  "'(eval (match (-> (app = (app modulo n 23) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -1376,10 +2312,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 23) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1397,7 +2333,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 23) <-) 0) (env (())))"
   #f
@@ -1418,10 +2354,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 23 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1439,7 +2375,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 23) (env (())))"
   #f
@@ -1460,7 +2396,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 23) (env (())))"
   #t
@@ -1481,7 +2417,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 23) 0) (env (())))"
   #t
@@ -1502,9 +2438,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (-> (app = (app modulo n 19) 0) <-)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 19) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -1523,10 +2459,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 19) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1544,7 +2480,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 19) <-) 0) (env (())))"
   #f
@@ -1565,10 +2501,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 19 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1586,7 +2522,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 19) (env (())))"
   #f
@@ -1607,7 +2543,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 19) (env (())))"
   #t
@@ -1628,7 +2564,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 19) 0) (env (())))"
   #t
@@ -1649,9 +2585,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (-> (app = (app modulo n 17) 0) <-)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 17) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -1670,10 +2606,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 17) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1691,7 +2627,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 17) <-) 0) (env (())))"
   #f
@@ -1712,10 +2648,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 17 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1733,7 +2669,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 17) (env (())))"
   #f
@@ -1754,7 +2690,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 17) (env (())))"
   #t
@@ -1775,7 +2711,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 17) 0) (env (())))"
   #t
@@ -1796,9 +2732,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (-> (app = (app modulo n 13) 0) <-)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 13) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -1817,10 +2753,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 13) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1838,7 +2774,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 13) <-) 0) (env (())))"
   #f
@@ -1859,10 +2795,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 13 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1880,7 +2816,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 13) (env (())))"
   #f
@@ -1901,7 +2837,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 13) (env (())))"
   #t
@@ -1922,7 +2858,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 13) 0) (env (())))"
   #t
@@ -1943,9 +2879,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (-> (app = (app modulo n 11) 0) <-)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 11) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -1964,10 +2900,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 11) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -1985,7 +2921,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 11) <-) 0) (env (())))"
   #f
@@ -2006,10 +2942,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 11 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2027,7 +2963,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 11) (env (())))"
   #f
@@ -2048,7 +2984,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 11) (env (())))"
   #t
@@ -2069,7 +3005,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 11) 0) (env (())))"
   #t
@@ -2090,9 +3026,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (-> (app = (app modulo n 7) 0) <-)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 7) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -2111,10 +3047,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 7) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2132,7 +3068,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 7) <-) 0) (env (())))"
   #f
@@ -2153,10 +3089,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 7 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2174,7 +3110,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 7) (env (())))"
   #f
@@ -2195,7 +3131,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 7) (env (())))"
   #t
@@ -2216,7 +3152,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 7) 0) (env (())))"
   #t
@@ -2237,9 +3173,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (-> (app = (app modulo n 5) 0) <-)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 5) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -2258,10 +3194,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 5) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2279,7 +3215,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 5) <-) 0) (env (())))"
   #f
@@ -2300,10 +3236,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 5 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2321,7 +3257,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 5) (env (())))"
   #f
@@ -2342,7 +3278,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 5) (env (())))"
   #t
@@ -2363,7 +3299,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 5) 0) (env (())))"
   #t
@@ -2384,9 +3320,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (app = (app modulo n 2) 0)\n   (-> (app = (app modulo n 3) 0) <-)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 3) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -2405,10 +3341,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 3) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2426,7 +3362,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 3) <-) 0) (env (())))"
   #f
@@ -2447,10 +3383,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 3 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2468,7 +3404,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 3) (env (())))"
   #f
@@ -2489,7 +3425,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 3) (env (())))"
   #t
@@ -2510,7 +3446,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 3) 0) (env (())))"
   #t
@@ -2531,9 +3467,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app\n   or\n   (-> (app = (app modulo n 2) 0) <-)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
+  "'(eval (match (-> (app = (app modulo n 2) 0) <-) (#f) _) (env (())))"
   #f
   19
   14
@@ -2552,10 +3488,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = (app modulo n 2) (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2573,7 +3509,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app = (-> (app modulo n 2) <-) 0) (env (())))"
   #f
@@ -2594,10 +3530,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app modulo n (-> 2 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2615,7 +3551,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo (-> n <-) 2) (env (())))"
   #f
@@ -2636,7 +3572,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo <-) n 2) (env (())))"
   #t
@@ -2657,7 +3593,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) (app modulo n 2) 0) (env (())))"
   #t
@@ -2678,31 +3614,10 @@
   primtest
   0
   5
-  180
-  ref-or-constructor
-  "'(eval\n  (app\n   (-> or <-)\n   (app = (app modulo n 2) 0)\n   (app = (app modulo n 3) 0)\n   (app = (app modulo n 5) 0)\n   (app = (app modulo n 7) 0)\n   (app = (app modulo n 11) 0)\n   (app = (app modulo n 13) 0)\n   (app = (app modulo n 17) 0)\n   (app = (app modulo n 19) 0)\n   (app = (app modulo n 23) 0))\n  (env (())))"
-  #t
-  1
-  1
-  0
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  #t
-  1
-  ((0 0 0)))
-'(clean-cache
-  primtest
-  0
-  5
-  180
+  219
   lambda
   "'(eval\n  (letrec*\n   (...\n    square\n    (modulo-power (-> (λ (base exp n) ...) <-))\n    is-trivial-composite?\n    ...)\n   ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -2720,7 +3635,7 @@
   primtest
   0
   5
-  180
+  219
   match
   "'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))"
   #f
@@ -2741,10 +3656,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (match (app = exp 0) (#f) (_ (-> 1 <-))) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2762,7 +3677,7 @@
   primtest
   0
   5
-  180
+  219
   match
   "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))"
   #f
@@ -2783,9 +3698,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_\n    (->\n     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)\n     <-)))\n  (env (())))"
+  "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))\n  (env (())))"
   #f
   84
   70
@@ -2804,9 +3719,9 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
-  "'(eval\n  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))\n  (env (())))"
+  "'(eval\n  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))\n  (env (())))"
   #f
   22
   12
@@ -2825,9 +3740,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)\n  (env (())))"
+  "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)\n  (env (())))"
   #f
   84
   70
@@ -2846,7 +3761,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))"
   #f
@@ -2867,7 +3782,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power base (app - exp 1) (-> n <-)) (env (())))"
   #f
@@ -2888,7 +3803,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app modulo-power base (-> (app - exp 1) <-) n) (env (())))"
   #f
@@ -2909,10 +3824,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app - exp (-> 1 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -2930,7 +3845,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app - (-> exp <-) 1) (env (())))"
   #f
@@ -2951,7 +3866,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> - <-) exp 1) (env (())))"
   #t
@@ -2972,7 +3887,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power (-> base <-) (app - exp 1) n) (env (())))"
   #f
@@ -2993,10 +3908,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo-power <-) base (app - exp 1) n) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -3014,7 +3929,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app * (-> base <-) (app modulo-power base (app - exp 1) n)) (env (())))"
   #f
@@ -3035,7 +3950,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> * <-) base (app modulo-power base (app - exp 1) n)) (env (())))"
   #t
@@ -3056,9 +3971,9 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
-  "'(eval\n  (app (-> modulo <-) (app * base (app modulo-power base (app - exp 1) n)) n)\n  (env (())))"
+  "'(eval\n  (app (-> modulo <-) (app * base (app modulo-power base (app - ...) n)) n)\n  (env (())))"
   #t
   1
   1
@@ -3077,9 +3992,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (match\n   (app odd? exp)\n   ((#f)\n    (->\n     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)\n     <-))\n   _)\n  (env (())))"
+  "'(eval\n  (match\n   (app odd? exp)\n   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))\n   _)\n  (env (())))"
   #f
   84
   70
@@ -3098,9 +4013,9 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
-  "'(eval\n  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))\n  (env (())))"
+  "'(eval\n  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))\n  (env (())))"
   #f
   22
   12
@@ -3119,9 +4034,9 @@
   primtest
   0
   5
-  180
+  219
   app
-  "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)\n  (env (())))"
+  "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)\n  (env (())))"
   #f
   84
   70
@@ -3140,7 +4055,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))"
   #f
@@ -3161,7 +4076,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power base (app / exp 2) (-> n <-)) (env (())))"
   #f
@@ -3182,7 +4097,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (app modulo-power base (-> (app / exp 2) <-) n) (env (())))"
   #f
@@ -3203,10 +4118,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app / exp (-> 2 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -3224,7 +4139,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app / (-> exp <-) 2) (env (())))"
   #f
@@ -3245,7 +4160,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> / <-) exp 2) (env (())))"
   #t
@@ -3266,7 +4181,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app modulo-power (-> base <-) (app / exp 2) n) (env (())))"
   #f
@@ -3287,10 +4202,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> modulo-power <-) base (app / exp 2) n) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -3308,10 +4223,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> square <-) (app modulo-power base (app / exp 2) n)) (env (())))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0
@@ -3329,9 +4244,9 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
-  "'(eval\n  (app (-> modulo <-) (app square (app modulo-power base (app / exp 2) n)) n)\n  (env (())))"
+  "'(eval\n  (app (-> modulo <-) (app square (app modulo-power base (app / ...) n)) n)\n  (env (())))"
   #t
   1
   1
@@ -3350,7 +4265,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (match (-> (app odd? exp) <-) (#f) _) (env (())))"
   #f
@@ -3371,7 +4286,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app odd? (-> exp <-)) (env (())))"
   #f
@@ -3392,7 +4307,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> odd? <-) exp) (env (())))"
   #t
@@ -3413,7 +4328,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (match (-> (app = exp 0) <-) (#f) _) (env (())))"
   #f
@@ -3434,10 +4349,10 @@
   primtest
   0
   5
-  180
+  219
   number
   "'(eval (app = exp (-> 0 <-)) (env (())))"
-  #t
+  (number char string quoted constructor)
   1
   1
   0
@@ -3455,7 +4370,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app = (-> exp <-) 0) (env (())))"
   #f
@@ -3476,7 +4391,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> = <-) exp 0) (env (())))"
   #t
@@ -3497,10 +4412,10 @@
   primtest
   0
   5
-  180
+  219
   lambda
   "'(eval\n  (letrec* (... () (square (-> (λ (x) ...) <-)) modulo-power ...) ...)\n  (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   1
   1
   0
@@ -3518,7 +4433,7 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval (λ (x) (-> (app * x x) <-)) (env (())))"
   #f
@@ -3539,7 +4454,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app * x (-> x <-)) (env (())))"
   #f
@@ -3560,7 +4475,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app * (-> x <-) x) (env (())))"
   #f
@@ -3581,7 +4496,7 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> * <-) x x) (env (())))"
   #t
@@ -3602,19 +4517,31 @@
   primtest
   0
   5
-  180
+  219
   app
   "'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))"
   #f
-  #f)
+  239
+  220
+  14
+  5
+  220
+  14
+  234
+  1
+  1
+  123
+  #f
+  317/220
+  ((3 3 0)))
 '(clean-cache
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app generate-fermat-prime byte-size (-> iterations <-)) (env ()))"
-  #t
+  (number char string quoted constructor)
   2
   2
   0
@@ -3632,10 +4559,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app generate-fermat-prime (-> byte-size <-) iterations) (env ()))"
-  #t
+  (number char string quoted constructor)
   2
   2
   0
@@ -3653,10 +4580,10 @@
   primtest
   0
   5
-  180
+  219
   ref-or-constructor
   "'(eval (app (-> generate-fermat-prime <-) byte-size iterations) (env ()))"
-  #t
+  (lambda number char string quoted constructor)
   2
   2
   0

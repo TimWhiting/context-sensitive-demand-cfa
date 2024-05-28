@@ -1,0 +1,2 @@
+'(rebinding sat-brute 1 10000 70 115 37 43 29 115/67 ((5 5 0)))
+'(exponential sat-brute 1 10000 86 207 50 43 29 131/67 ((8 8 0)))

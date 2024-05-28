@@ -1,0 +1,996 @@
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  let
+  "'(eval ((top) let (id) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  lambda
+  "'(eval (let (... () (id (-> (λ (x) ...) <-)) () ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (λ (x) (-> x <-)) (env ((□? (x)))))"
+  #f
+  9
+  5
+  3
+  1
+  4
+  3
+  7
+  1
+  4/5
+  4
+  #f
+  6/5
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  letrec
+  "'(eval (let (id) (-> (letrec (f ... g) ...) <-)) (env ()))"
+  #f
+  183
+  160
+  13
+  10
+  136
+  11
+  147
+  1
+  305/329
+  90
+  #f
+  23/16
+  ((5 5 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  lambda
+  "'(eval (letrec (... f (g (-> (λ (n) ...) <-)) () ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  match
+  "'(eval (λ (n) (-> (match (app <= n 1) ...) <-)) (env ((□? (n)))))"
+  #f
+  78
+  67
+  8
+  3
+  60
+  7
+  67
+  1
+  69/76
+  47
+  #f
+  87/67
+  ((1 1 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (match (app <= n 1) (#f) (_ (-> 1 <-))) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval\n  (match (app <= n 1) ((#f) (-> (app * n (app g (app - ...))) <-)) _)\n  (env ((□? (n)))))"
+  #f
+  70
+  59
+  8
+  3
+  55
+  7
+  62
+  1
+  363/380
+  41
+  #f
+  77/59
+  ((1 1 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app * n (-> (app g (app - n 1)) <-)) (env ((□? (n)))))"
+  #f
+  103
+  90
+  8
+  5
+  54
+  7
+  61
+  1
+  47/70
+  47
+  #f
+  133/90
+  ((4 4 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app g (-> (app - n 1) <-)) (env ((□? (n)))))"
+  #f
+  33
+  23
+  8
+  2
+  19
+  7
+  26
+  1
+  31/35
+  19
+  #f
+  27/23
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app - n (-> 1 <-)) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app - (-> n <-) 1) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  34/35
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> - <-) n 1) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> g <-) (app - n 1)) (env ((□? (n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app * (-> n <-) (app g (app - n 1))) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  7/8
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> * <-) n (app g (app - n 1))) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (n)))))"
+  #f
+  45
+  35
+  8
+  2
+  31
+  7
+  38
+  1
+  47/55
+  30
+  #f
+  8/7
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app <= n (-> 1 <-)) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app <= (-> n <-) 1) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  7/8
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> <= <-) n 1) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  lambda
+  "'(eval (letrec (... () (f (-> (λ (n) ...) <-)) g ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  match
+  "'(eval (λ (n) (-> (match (app <= n 0) ...) <-)) (env ((□? (n)))))"
+  #f
+  78
+  67
+  8
+  3
+  60
+  7
+  67
+  1
+  69/76
+  47
+  #f
+  87/67
+  ((1 1 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (match (app <= n 0) (#f) (_ (-> 1 <-))) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval\n  (match (app <= n 0) ((#f) (-> (app * n (app f (app - ...))) <-)) _)\n  (env ((□? (n)))))"
+  #f
+  70
+  59
+  8
+  3
+  55
+  7
+  62
+  1
+  363/380
+  41
+  #f
+  77/59
+  ((1 1 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app * n (-> (app f (app - n 1)) <-)) (env ((□? (n)))))"
+  #f
+  103
+  90
+  8
+  5
+  54
+  7
+  61
+  1
+  47/70
+  47
+  #f
+  133/90
+  ((4 4 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app f (-> (app - n 1) <-)) (env ((□? (n)))))"
+  #f
+  33
+  23
+  8
+  2
+  19
+  7
+  26
+  1
+  31/35
+  19
+  #f
+  27/23
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app - n (-> 1 <-)) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app - (-> n <-) 1) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  34/35
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> - <-) n 1) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> f <-) (app - n 1)) (env ((□? (n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app * (-> n <-) (app f (app - n 1))) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  7/8
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> * <-) n (app f (app - n 1))) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (match (-> (app <= n 0) <-) (#f) _) (env ((□? (n)))))"
+  #f
+  45
+  35
+  8
+  2
+  31
+  7
+  38
+  1
+  47/55
+  30
+  #f
+  8/7
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app <= n (-> 0 <-)) (env ((□? (n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app <= (-> n <-) 0) (env ((□? (n)))))"
+  #f
+  30
+  20
+  8
+  2
+  19
+  7
+  26
+  1
+  7/8
+  17
+  #f
+  23/20
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> <= <-) n 0) (env ((□? (n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval\n  (letrec (f ... g) (-> (app + (app (app id ...) 3) (app (app id ...) 4)) <-))\n  (env ()))"
+  #f
+  182
+  159
+  13
+  10
+  135
+  11
+  146
+  1
+  149/161
+  90
+  #f
+  76/53
+  ((4 4 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app + (app (app id f) 3) (-> (app (app id g) 4) <-)) (env ()))"
+  #f
+  93
+  79
+  8
+  6
+  67
+  7
+  74
+  1
+  149/161
+  45
+  #f
+  113/79
+  ((2 2 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app (app id g) (-> 4 <-)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app (-> (app id g) <-) 4) (env ()))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  6
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app id (-> g <-)) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> id <-) g) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app + (-> (app (app id f) 3) <-) (app (app id g) 4)) (env ()))"
+  #f
+  93
+  79
+  8
+  6
+  67
+  7
+  74
+  1
+  149/161
+  45
+  #f
+  113/79
+  ((2 2 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  number
+  "'(eval (app (app id f) (-> 3 <-)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  app
+  "'(eval (app (-> (app id f) <-) 3) (env ()))"
+  #f
+  10
+  6
+  3
+  1
+  6
+  3
+  9
+  1
+  1
+  6
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app id (-> f <-)) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> id <-) f) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  ((0 0 0)))
+'(clean-cache
+  initial-example
+  3
+  5
+  48
+  ref-or-constructor
+  "'(eval (app (-> + <-) (app (app id f) 3) (app (app id g) 4)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  ((0 0 0)))
