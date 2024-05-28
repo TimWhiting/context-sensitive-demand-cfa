@@ -24,7 +24,7 @@ clos/con: ⊥
 literals: '(1 ⊥ ⊥)
 
 '(query:
-  (match (app <= n 1) ((#f) (-> (app * n (app g (app - n 1))) <-)) _)
+  (match (app <= n 1) ((#f) (-> (app * n (app g (app - ...))) <-)) _)
   (env ((□? (n)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -97,7 +97,7 @@ clos/con: ⊥
 literals: '(1 ⊥ ⊥)
 
 '(query:
-  (match (app <= n 1) ((#f) (-> (app * n (app f (app - n 1))) <-)) _)
+  (match (app <= n 1) ((#f) (-> (app * n (app f (app - ...))) <-)) _)
   (env ((□? (n)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -168,7 +168,9 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (letrec* (id ... g) (-> (app + (app (app id f) 3) (app (app id g) 4)) <-))
+  (letrec*
+   (id ... g)
+   (-> (app + (app (app id ...) 3) (app (app id ...) 4)) <-))
   (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

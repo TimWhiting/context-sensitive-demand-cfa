@@ -50,9 +50,9 @@ literals: '(⊤ ⊥ ⊥)
     (->
      (app
       tak
-      (app tak (app - x 1) y z)
-      (app tak (app - y 1) z x)
-      (app tak (app - z 1) x y))
+      (app tak (app - ...) y z)
+      (app tak (app - ...) z x)
+      (app tak (app - ...) x y))
      <-))
    _)
   (env ()))
@@ -139,7 +139,7 @@ literals: '(⊥ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(query: (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env ()))
+'(query: (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -151,14 +151,14 @@ clos/con:
 	'((letrec* (... () (tak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: x (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env ()))
+'(store: x (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: y (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env ()))
+'(store: y (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: z (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env ()))
+'(store: z (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

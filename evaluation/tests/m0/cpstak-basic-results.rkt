@@ -52,7 +52,7 @@ clos/con:
 	'((letrec* (... () (tak (-> (λ (x y z k) ...) <-)) () ...) ...) (env (())))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (λ (x y z k) (-> (match (app not (app < y x)) ...) <-)) (env (() ())))
+'(query: (λ (x y z k) (-> (match (app not (app < ...)) ...) <-)) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 

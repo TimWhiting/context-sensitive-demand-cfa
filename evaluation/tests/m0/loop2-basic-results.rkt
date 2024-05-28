@@ -27,3 +27,47 @@
                        (app lp2 10 (λ (n) (app + n i)) x))))
                   (_ x)))))))
        (app lp1 10 0)))))
+
+'(query: ((top) lettypes (cons ... nil) ...) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (lettypes cons ... nil (let (lp1) ...)) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (lp1 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'((let (... () (lp1 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app cons 'unspecified (-> (app nil) <-)) (env ()))
+clos/con:
+	'(((top) app nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> nil <-)) (env ()))
+clos/con:
+	'((app (-> nil <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app cons (-> 'unspecified <-) (app nil)) (env ()))
+clos/con:
+	'((app cons (-> 'unspecified <-) (app nil)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (app (-> cons <-) 'unspecified (app nil)) (env ()))
+clos/con:
+	'((app (-> cons <-) 'unspecified (app nil)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (let (lp1) (-> (let (a) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...)
+  (env ()))

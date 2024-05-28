@@ -919,3 +919,5 @@
        (app cons (app cons 'x (app nil)) (app cons 'x (app nil))))
       (app cons 10 (app nil)))
      (app initial-environment)))))
+
+'(query: ((top) lettypes (cons ... error) ...) (env ()))

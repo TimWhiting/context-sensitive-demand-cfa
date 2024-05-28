@@ -189,7 +189,7 @@ literals: '(⊤ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(query: (λ (x y z k) (-> (match (app not (app < y x)) ...) <-)) (env (() ())))
+'(query: (λ (x y z k) (-> (match (app not (app < ...)) ...) <-)) (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -207,7 +207,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env (() ())))
 clos/con:
 	'((app tak (app - x 1) y z (-> (λ (v1) ...) <-)) (env (() ())))
@@ -240,21 +240,21 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env (() ())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

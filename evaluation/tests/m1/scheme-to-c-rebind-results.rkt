@@ -4,15 +4,6 @@
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-     (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
-     (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
-     (map
-      (λ (map-f map-l)
-        (match
-         map-l
-         ((cons map-c map-d)
-          (app cons (app map-f map-c) (app map map-f map-d)))
-         ((nil) (app nil)))))
      (length
       (λ (length-l)
         (match
@@ -109,7 +100,11 @@
            ((#f) (app assv x (app cdr f)))
            (_ (app car f)))))))
      (tagged-list?
-      (λ (tag l) (app and (app pair? l) (app eq? tag (app car l)))))
+      (λ (tag l)
+        (match
+         (app pair? l)
+         ((#f) (app #f))
+         (_ (match (app eq? tag (app car l)) ((#f) (app #f)) (_ (app #t)))))))
      (char->natural
       (λ (c)
         (let ((i (app char->integer c)))
@@ -188,7 +183,10 @@
      (azip
       (λ (list1 list2)
         (match
-         (app and (app pair? list1) (app pair? list2))
+         (match
+          (app pair? list1)
+          ((#f) (app #f))
+          (_ (match (app pair? list2) ((#f) (app #f)) (_ (app #t)))))
          ((#f) (app nil))
          (_
           (app
@@ -216,7 +214,12 @@
            (app assq-remove-key env (app car keys))
            (app cdr keys)))
          (_ env))))
-     (const? (λ (exp) (app or (app integer? exp) (app boolean? exp))))
+     (const?
+      (λ (exp)
+        (match
+         (app integer? exp)
+         ((#f) (match (app boolean? exp) ((#f) (app #f)) (_ (app #t))))
+         (_ (app #t)))))
      (ref? (λ (exp) (app symbol? exp)))
      (let? (λ (exp) (app tagged-list? 'let exp)))
      (let->bindings (λ (exp) (app cadr exp)))
@@ -240,13 +243,23 @@
      (app->args (λ (exp) (app cdr exp)))
      (prim?
       (λ (exp)
-        (app
-         or
+        (match
          (app eq? exp '+)
-         (app eq? exp '-)
-         (app eq? exp '*)
-         (app eq? exp '=)
-         (app eq? exp 'display))))
+         ((#f)
+          (match
+           (app eq? exp '-)
+           ((#f)
+            (match
+             (app eq? exp '*)
+             ((#f)
+              (match
+               (app eq? exp '=)
+               ((#f)
+                (match (app eq? exp 'display) ((#f) (app #f)) (_ (app #t))))
+               (_ (app #t))))
+             (_ (app #t))))
+           (_ (app #t))))
+         (_ (app #t)))))
      (begin? (λ (exp) (app tagged-list? 'begin exp)))
      (begin->exps (λ (exp) (app cdr exp)))
      (set!? (λ (exp) (app tagged-list? 'set! exp)))
@@ -607,7 +620,16 @@
      (begin=>let
       (λ (exp)
         (letrec*
-         ((singlet? (λ (l) (app and (app list? l) (app = (app length l) 1))))
+         ((singlet?
+           (λ (l)
+             (match
+              (app list? l)
+              ((#f) (app #f))
+              (_
+               (match
+                (app = (app length l) 1)
+                ((#f) (app #f))
+                (_ (app #t)))))))
           (dummy-bind
            (λ (exps)
              (match
@@ -1132,13 +1154,21 @@
               (app null? chars)
               ((#f)
                (match
-                (app
-                 or
-                 (app
-                  and
+                (match
+                 (match
                   (app char-alphabetic? (app car chars))
-                  (app not (app char=? (app car chars) #\_)))
-                 (app char-numeric? (app car chars)))
+                  ((#f) (app #f))
+                  (_
+                   (match
+                    (app not (app char=? (app car chars) #\_))
+                    ((#f) (app #f))
+                    (_ (app #t)))))
+                 ((#f)
+                  (match
+                   (app char-numeric? (app car chars))
+                   ((#f) (app #f))
+                   (_ (app #t))))
+                 (_ (app #t)))
                 ((#f)
                  (app
                   cons
@@ -1860,125 +1890,6 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
-   (-> string-append <-)
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con:
-	'((prim string-append)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   emit
-   (->
-    "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-
-'(query:
-  (app
-   emit
-   (->
-    "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-
-'(query:
-  (app
-   emit
-   (->
-    "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-
-'(query:
-  (app
-   emit
-   (->
-    "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-
-'(query:
-  (app
-   emit
-   (->
-    "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-
-'(query:
-  (app
-   emit
-   (->
-    "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n"
-    <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥
-  ⊥
-  "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-
-'(query:
-  (app
    set!
    input-program
    (-> (app desugar (app wrap-mutables input-program)) <-))
@@ -1988,29 +1899,6 @@ literals: '(⊥
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   (-> preamble <-)
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
 
 '(query:
   (app
@@ -2034,677 +1922,6 @@ literals: '(⊥ ⊥ "")
      (-> (app c-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   (-> " }\n" <-))
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ " }\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   (-> "  return 0;\n" <-)
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  return 0;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   (-> " ;\n" <-)
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ " ;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   (-> "  " <-)
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  ")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   (-> "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n" <-)
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   (-> "  __display     = MakePrimitive(__prim_display) ;\n" <-)
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  __display     = MakePrimitive(__prim_display) ;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   (-> "  __difference  = MakePrimitive(__prim_difference) ;\n" <-)
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  __difference  = MakePrimitive(__prim_difference) ;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   (-> "  __product     = MakePrimitive(__prim_product) ;\n" <-)
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  __product     = MakePrimitive(__prim_product) ;\n")
-
-'(query:
-  (app
-   string-append
-   "int main (int argc, char* argv[]) {\n"
-   preamble
-   (-> "  __sum         = MakePrimitive(__prim_sum) ;\n" <-)
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "  __sum         = MakePrimitive(__prim_sum) ;\n")
-
-'(query:
-  (app
-   string-append
-   (-> "int main (int argc, char* argv[]) {\n" <-)
-   preamble
-   "  __sum         = MakePrimitive(__prim_sum) ;\n"
-   "  __product     = MakePrimitive(__prim_product) ;\n"
-   "  __difference  = MakePrimitive(__prim_difference) ;\n"
-   "  __display     = MakePrimitive(__prim_display) ;\n"
-   "  __numEqual    = MakePrimitive(__prim_numEqual) ;\n"
-   "  "
-   body
-   " ;\n"
-   "  return 0;\n"
-   " }\n")
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "int main (int argc, char* argv[]) {\n")
-
-'(query:
-  (app (-> analyze-mutable-variables <-) input-program)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> boolean? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim boolean?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> boolean? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim boolean?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> boolean? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim boolean?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> boolean? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim boolean?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> boolean? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim boolean?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> c-compile-const <-) exp)
-  (env
-   ((let* (...
-           append-preamble
-           (body (-> (app c-compile-exp exp append-preamble) <-))
-           ()
-           ...)
-      ...))))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> c-compile-exp <-) exp append-preamble)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> c-compile-program <-) input-program)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> closure-convert <-) input-program)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env
-   ((let* (...
-           append-preamble
-           (body (-> (app c-compile-exp exp append-preamble) <-))
-           ()
-           ...)
-      ...))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> const? <-) exp)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> desugar <-) (app wrap-mutables input-program))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> desugar <-) input-program)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-clos/con:
-	'((prim display)
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((prim display) (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((prim display) (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> display <-) line)
-  (env ((let (_) (-> (app emit compiled-program) <-)))))
-clos/con:
-	'((prim display) (env ((let (_) (-> (app emit compiled-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> emit <-) "")
@@ -2809,528 +2026,11 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> for-each <-) (λ (env) ...) environments)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> for-each <-) (λ (l) ...) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> for-each <-) (λ (l) ...) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim integer?) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> integer? <-) exp)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((prim integer?)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-clos/con:
-	'((prim newline)
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((prim newline) (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((prim newline) (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> newline <-))
-  (env ((let (_) (-> (app emit compiled-program) <-)))))
-clos/con:
-	'((prim newline) (env ((let (_) (-> (app emit compiled-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> number->string <-) exp)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((prim number->string)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> or <-) (app integer? exp) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim or) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> or <-) (app integer? exp) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim or) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> or <-) (app integer? exp) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim or) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> or <-) (app integer? exp) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim or) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> or <-) (app integer? exp) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((prim or) (env ((match (-> (app const? exp) <-) (#f) _))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> string-append <-) "MakeInt(" (app number->string exp) ")")
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((prim string-append)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> void <-))
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((prim void)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> void <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((prim void)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> void <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((prim void)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> void <-))
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((prim void)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> wrap-mutables <-) input-program)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app analyze-mutable-variables (-> input-program <-))
   (env
    ((letrec*
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app boolean? (-> exp <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app boolean? (-> exp <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app boolean? (-> exp <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app boolean? (-> exp <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app boolean? (-> exp <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -3355,22 +2055,6 @@ literals: '(3 ⊥ ⊥)
      (-> (app c-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
-
-'(query:
-  (app c-compile-exp exp (-> append-preamble <-))
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con:
-	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app c-compile-program (-> input-program <-))
@@ -3611,103 +2295,7 @@ literals: '(⊥ ⊥ "")
   (app display (-> line <-))
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (app emit (-> "" <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (app emit (-> "" <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (app emit (-> "#include <stdio.h>" <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "#include <stdio.h>")
-
-'(query:
-  (app emit (-> "#include <stdlib.h>" <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "#include <stdlib.h>")
-
-'(query:
-  (app emit (-> "#include \"scheme.h\"" <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "#include \"scheme.h\"")
-
-'(query:
-  (app emit (-> compiled-program <-))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (app for-each (-> (λ (env) ...) <-) environments)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((app for-each (-> (λ (env) ...) <-) environments)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app for-each (-> (λ (l) ...) <-) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((app for-each (-> (λ (l) ...) <-) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app for-each (-> (λ (l) ...) <-) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((app for-each (-> (λ (l) ...) <-) lambdas)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊤)
 
 '(query:
   (app for-each (λ (env) ...) (-> environments <-))
@@ -3782,76 +2370,6 @@ clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(query:
-  (app or (-> (app integer? exp) <-) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app integer? exp) <-) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app integer? exp) <-) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app integer? exp) <-) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app integer? exp) <-) (app boolean? exp))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app integer? exp) (-> (app boolean? exp) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app integer? exp) (-> (app boolean? exp) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app integer? exp) (-> (app boolean? exp) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app integer? exp) (-> (app boolean? exp) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app integer? exp) (-> (app boolean? exp) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app pair? (-> lst <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
@@ -3910,18 +2428,6 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
-  (app string-append "MakeInt(" (app number->string exp) (-> ")" <-))
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con: ⊥
-literals: '(⊥ ⊥ ")")
-
-'(query:
-  (app string-append (-> "MakeInt(" <-) (app number->string exp) ")")
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "MakeInt(")
-
-'(query:
   (app wrap-mutables (-> input-program <-))
   (env
    ((letrec*
@@ -3947,7 +2453,7 @@ literals: '(3 ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -3967,7 +2473,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -3987,7 +2493,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4007,7 +2513,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4027,7 +2533,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4047,7 +2553,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4068,11 +2574,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4090,11 +2592,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4110,11 +2608,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4129,7 +2623,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4144,11 +2638,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4166,7 +2656,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4184,7 +2674,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4202,7 +2692,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4220,7 +2710,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4238,7 +2728,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4256,7 +2746,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4264,7 +2754,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4272,7 +2762,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4280,28 +2770,28 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4311,7 +2801,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4321,7 +2811,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4331,7 +2821,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4341,7 +2831,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4351,7 +2841,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4362,7 +2852,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4372,7 +2862,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4382,7 +2872,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4417,7 +2907,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4435,7 +2925,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4453,7 +2943,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4471,7 +2961,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4489,7 +2979,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4507,7 +2997,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4525,7 +3015,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4533,7 +3023,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4541,7 +3031,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4549,28 +3039,28 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (_) (-> (app newline) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (_) (-> (app newline) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (_) (-> (app newline) <-))
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4579,7 +3069,7 @@ literals: '(⊥ ⊥ ⊥)
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4587,7 +3077,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4595,7 +3085,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4605,7 +3095,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4615,7 +3105,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4625,7 +3115,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4635,7 +3125,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4645,7 +3135,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4655,7 +3145,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4665,7 +3155,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4675,7 +3165,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4685,7 +3175,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4695,7 +3185,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4705,7 +3195,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4715,7 +3205,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4725,7 +3215,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4735,7 +3225,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4745,7 +3235,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4755,7 +3245,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4765,7 +3255,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4775,7 +3265,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4792,32 +3282,6 @@ literals: '(⊥ ⊥ ⊥)
      (-> (app c-compile-program input-program) <-)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
-
-'(query:
-  (let* (... () (preamble (-> "" <-)) append-preamble ...) ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-clos/con:
-	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let* (preamble ... body)
@@ -4848,626 +3312,6 @@ literals: '(⊥ ⊥ ⊤)
 '(query:
   (letrec*
    (...
-    allocate-environment
-    (get-environment (-> (λ (id) ...) <-))
-    closure-convert
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    allocate-environment
-    (get-environment (-> (λ (id) ...) <-))
-    closure-convert
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    allocate-lambda
-    (get-lambda (-> (λ (id) ...) <-))
-    c-compile-closure
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    allocate-lambda
-    (get-lambda (-> (λ (id) ...) <-))
-    c-compile-closure
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    assq-remove-key
-    (assq-remove-keys (-> (λ (env keys) ...) <-))
-    const?
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    assq-remove-key
-    (assq-remove-keys (-> (λ (env keys) ...) <-))
-    const?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-app
-    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
-    c-compile-set-cell!
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-app
-    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
-    c-compile-set-cell!
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-args
-    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
-    c-compile-if
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-args
-    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
-    c-compile-if
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-cell
-    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-get
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-cell
-    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-get
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-cell-get
-    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-make
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-cell-get
-    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-make
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-closure
-    (c-compile-formals (-> (λ (formals) ...) <-))
-    c-compile-lambda
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-closure
-    (c-compile-formals (-> (λ (formals) ...) <-))
-    c-compile-lambda
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-env-make
-    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
-    num-lambdas
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-make
-    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
-    num-lambdas
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-formals
-    (c-compile-lambda (-> (λ (exp) ...) <-))
-    c-compile-env-struct
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-formals
-    (c-compile-lambda (-> (λ (exp) ...) <-))
-    c-compile-env-struct
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-if
-    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell-get
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-if
-    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell-get
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-prim
-    (c-compile-ref (-> (λ (exp) ...) <-))
-    c-compile-args
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-prim
-    (c-compile-ref (-> (λ (exp) ...) <-))
-    c-compile-args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-ref
-    (c-compile-args (-> (λ (args append-preamble) ...) <-))
-    c-compile-app
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-ref
-    (c-compile-args (-> (λ (args append-preamble) ...) <-))
-    c-compile-app
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    c-compile-set-cell!
-    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-set-cell!
-    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    cell-get->cell
-    (substitute-var (-> (λ (env var) ...) <-))
-    substitute
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    cell-get->cell
-    (substitute-var (-> (λ (env var) ...) <-))
-    substitute
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    char->natural
-    (integer->char-list (-> (λ (n) ...) <-))
-    gensym-count
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    char->natural
-    (integer->char-list (-> (λ (n) ...) <-))
-    gensym-count
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    env-make->id
-    (env-make->fields (-> (λ (exp) ...) <-))
-    env-make->values
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    env-make->id
-    (env-make->fields (-> (λ (exp) ...) <-))
-    env-make->values
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    environments
-    (allocate-environment (-> (λ (fields) ...) <-))
-    get-environment
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    environments
-    (allocate-environment (-> (λ (fields) ...) <-))
-    get-environment
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    get-lambda
-    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
-    c-compile-formals
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    get-lambda
-    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
-    c-compile-formals
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    letrec->bindings
-    (letrec->exp (-> (λ (exp) ...) <-))
-    letrec->bound-vars
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    letrec->bindings
-    (letrec->exp (-> (λ (exp) ...) <-))
-    letrec->bound-vars
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    letrec->exp
-    (letrec->bound-vars (-> (λ (exp) ...) <-))
-    letrec->args
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    letrec->exp
-    (letrec->bound-vars (-> (λ (exp) ...) <-))
-    letrec->args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
-    analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
-    analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
     num-environments
     (environments (-> (app nil) <-))
     allocate-environment
@@ -5476,282 +3320,6 @@ literals: '(⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    set-cell!?
-    (set-cell!->cell (-> (λ (exp) ...) <-))
-    set-cell!->value
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    set-cell!?
-    (set-cell!->cell (-> (λ (exp) ...) <-))
-    set-cell!->value
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... () (wrap-mutable-formals (-> (λ (formals body-exp) ...) <-)) () ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((letrec*
-   (... () (wrap-mutable-formals (-> (λ (formals body-exp) ...) <-)) () ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... assq (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... assq (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... azip (assq-remove-key (-> (λ (env key) ...) <-)) assq-remove-keys ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... azip (assq-remove-key (-> (λ (env key) ...) <-)) assq-remove-keys ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... c-compile-and-emit (the-benchmark-program (-> 3 <-)) () ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
-   ...)
-  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -5765,162 +3333,6 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... lambdas (allocate-lambda (-> (λ (lam) ...) <-)) get-lambda ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... lambdas (allocate-lambda (-> (λ (lam) ...) <-)) get-lambda ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->bound-vars (let->args (-> (λ (exp) ...) <-)) letrec? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->bound-vars (let->args (-> (λ (exp) ...) <-)) letrec? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->exp (let->bound-vars (-> (λ (exp) ...) <-)) let->args ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->exp (let->bound-vars (-> (λ (exp) ...) <-)) let->args ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec->bound-vars (letrec->args (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec->bound-vars (letrec->args (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
    (... num-lambdas (lambdas (-> (app nil) <-)) allocate-lambda ...)
    ...)
   (env ()))
@@ -5930,464 +3342,11 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec*
-   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
    (car ... the-benchmark-program)
    (-> (app c-compile-and-emit emit the-benchmark-program) <-))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... () (compiled-program (-> "" <-)) () ...) ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(query:
-  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... append (string->list (-> (λ (s) ...) <-)) apply ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... append (string->list (-> (λ (s) ...) <-)) apply ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... apply (assv (-> (λ (x f) ...) <-)) assq ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... apply (assv (-> (λ (x f) ...) <-)) assq ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... assv (assq (-> (λ (x f) ...) <-)) tagged-list? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... assv (assq (-> (λ (x f) ...) <-)) tagged-list? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... c-compile-env-get (num-lambdas (-> 0 <-)) lambdas ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadr (cddr (-> (λ (p) ...) <-)) caadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadr (cddr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cddr (caadr (-> (λ (p) ...) <-)) caddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cddr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... difference (reduce (-> (λ (f lst init) ...) <-)) azip ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... difference (reduce (-> (λ (f lst init) ...) <-)) azip ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... gensym (member (-> (λ (sym S) ...) <-)) symbol<? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... gensym (member (-> (λ (sym S) ...) <-)) symbol<? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... insert (remove (-> (λ (sym S) ...) <-)) union ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... insert (remove (-> (λ (sym S) ...) <-)) union ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... integer->char-list (gensym-count (-> 0 <-)) gensym ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... mangle (num-environments (-> 0 <-)) environments ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... member (symbol<? (-> (λ (sym1 sym2) ...) <-)) insert ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... member (symbol<? (-> (λ (sym1 sym2) ...) <-)) insert ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... remove (union (-> (λ (set1 set2) ...) <-)) difference ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... remove (union (-> (λ (set1 set2) ...) <-)) difference ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... string->list (apply (-> (λ (f l) ...) <-)) assv ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... string->list (apply (-> (λ (f l) ...) <-)) assv ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... symbol<? (insert (-> (λ (sym S) ...) <-)) remove ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... symbol<? (insert (-> (λ (sym S) ...) <-)) remove ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
-  (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6397,7 +3356,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6410,7 +3369,7 @@ literals: '(3 ⊥ ⊥)
   (lettypes cons ... error (letrec* (car ... the-benchmark-program) ...))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6482,6 +3441,41 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (-> (app integer? exp) <-) (#f) _)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
   (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
 clos/con:
 	'((con #t) (env ()))
@@ -6541,7 +3535,7 @@ literals: '(⊥ ⊥ ⊤)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6571,6 +3565,41 @@ literals: '(3 ⊥ ⊥)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app pair? lst) ((#f) (-> (app nil) <-)) _)
@@ -6611,7 +3640,7 @@ literals: '(⊥ ⊥ ⊥)
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6625,41 +3654,6 @@ literals: '(⊥ ⊥ ⊥)
       ...))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
-
-'(query:
-  (λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-))
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (exp) (-> (let* (preamble ... body) ...) <-))
@@ -6697,7 +3691,7 @@ literals: '(3 ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6714,6 +3708,41 @@ literals: '(3 ⊥ ⊥)
 
 '(query:
   (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
   (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
@@ -6724,7 +3753,7 @@ literals: '(⊥ ⊥ ⊤)
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6732,7 +3761,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6740,7 +3769,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6758,7 +3787,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6776,7 +3805,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6794,7 +3823,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6812,7 +3841,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6830,7 +3859,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6848,7 +3877,7 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6856,7 +3885,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6864,7 +3893,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6872,28 +3901,28 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (line) (-> (let (_) ...) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (line) (-> (let (_) ...) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (line) (-> (let (_) ...) <-))
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -6905,71 +3934,228 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #f <-)) (env ((match (-> (app pair? lst) <-) (#f) _))))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> c-compile-and-emit <-) emit the-benchmark-program) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app c-compile-and-emit (-> emit <-) the-benchmark-program) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app c-compile-and-emit emit (-> the-benchmark-program <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+          <-))
+        ()
+        ...)
     ...)
-   ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           emit
+           "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app
+           set!
+           input-program
+           (app desugar (app wrap-mutables input-program)))
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (->
+          (app set! compiled-program (app c-compile-program input-program))
+          <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_
+         (-> (app set! input-program (app closure-convert input-program)) <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app analyze-mutable-variables input-program) <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app set! input-program (app desugar input-program)) <-))
+        ()
+        ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -6983,18 +4169,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -7008,18 +4188,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -7033,18 +4207,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -7058,18 +4226,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -7083,18 +4245,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (...
           ()
@@ -7108,121 +4264,152 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
   (env
    ((letrec*
      (car ... the-benchmark-program)
      (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
 clos/con:
-	'(((top) app void)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
@@ -7232,7 +4419,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -7241,7 +4428,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   _
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -7252,9 +4439,9 @@ literals: '(⊥ ⊥ ⊥)
   allocate-environment
   (letrec*
    (...
+    environments
+    (allocate-environment (-> (λ (fields) ...) <-))
     get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
     ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
@@ -7270,9 +4457,55 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  analyze-mutable-variables
-  ((top) lettypes (cons ... error) ...)
+  allocate-environment
+  (letrec*
+   (...
+    environments
+    (allocate-environment (-> (λ (fields) ...) <-))
+    get-environment
+    ...)
+   ...)
   (env ()))
+clos/con:
+	'((letrec*
+   (...
+    environments
+    (allocate-environment (-> (λ (fields) ...) <-))
+    get-environment
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  allocate-lambda
+  (letrec*
+   (... lambdas (allocate-lambda (-> (λ (lam) ...) <-)) get-lambda ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... lambdas (allocate-lambda (-> (λ (lam) ...) <-)) get-lambda ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  analyze-mutable-variables
+  (letrec*
+   (...
+    is-mutable?
+    (analyze-mutable-variables (-> (λ (exp) ...) <-))
+    wrap-mutables
+    ...)
+   ...)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
 clos/con:
 	'((letrec*
    (...
@@ -7288,9 +4521,9 @@ literals: '(⊥ ⊥ ⊥)
   analyze-mutable-variables
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    is-mutable?
+    (analyze-mutable-variables (-> (λ (exp) ...) <-))
+    wrap-mutables
     ...)
    ...)
   (env
@@ -7317,13 +4550,7 @@ literals: '(⊥ ⊥ ⊥)
     wrap-mutables
     ...)
    ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
+  (env ()))
 clos/con:
 	'((letrec*
    (...
@@ -7336,14 +4563,69 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  app->args
+  (letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  app->fun
+  (letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   app?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  app?
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  app?
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env
+   ((let* (...
+           append-preamble
+           (body (-> (app c-compile-exp exp append-preamble) <-))
+           ()
+           ...)
+      ...))))
+clos/con:
+	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  app?
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
@@ -7352,34 +4634,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   app?
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env
-   ((let* (...
-           append-preamble
-           (body (-> (app c-compile-exp exp append-preamble) <-))
-           ()
-           ...)
-      ...))))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  app?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
@@ -7388,41 +4643,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   app?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  app?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  app?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
@@ -7430,25 +4651,19 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  append
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+  app?
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+  (env ()))
 clos/con:
-	'((letrec*
-   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
-   ...)
+	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   append
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
   (env
    ((app
      set!
@@ -7463,8 +4678,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   append
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  append
+  (letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  append
+  (letrec*
+   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
@@ -7474,13 +4717,24 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   append-preamble
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
+  (let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
+  (env
+   ((app
+     set!
+     compiled-program
+     (-> (app c-compile-program input-program) <-)))))
+clos/con:
+	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
+  (env
+   ((app
+     set!
+     compiled-program
+     (-> (app c-compile-program input-program) <-)))))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  append-preamble
+  (λ (exp append-preamble) (-> (match (app const? exp) ...) <-))
   (env
    ((let* (...
            append-preamble
@@ -7498,48 +4752,70 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  append-preamble
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
+  apply
+  (letrec* (... string->list (apply (-> (λ (f l) ...) <-)) assv ...) ...)
+  (env ()))
 clos/con:
-	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
+	'((letrec* (... string->list (apply (-> (λ (f l) ...) <-)) assv ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  azip
+  assq
+  (letrec* (... assv (assq (-> (λ (x f) ...) <-)) tagged-list? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... assv (assq (-> (λ (x f) ...) <-)) tagged-list? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  assq-remove-key
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... azip (assq-remove-key (-> (λ (env key) ...) <-)) assq-remove-keys ...)
    ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+  (env ()))
 clos/con:
 	'((letrec*
-   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   (... azip (assq-remove-key (-> (λ (env key) ...) <-)) assq-remove-keys ...)
    ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  assq-remove-keys
+  (letrec*
+   (...
+    assq-remove-key
+    (assq-remove-keys (-> (λ (env keys) ...) <-))
+    const?
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    assq-remove-key
+    (assq-remove-keys (-> (λ (env keys) ...) <-))
+    const?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  assv
+  (letrec* (... apply (assv (-> (λ (x f) ...) <-)) assq ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... apply (assv (-> (λ (x f) ...) <-)) assq ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   azip
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
   (env
    ((app
      set!
@@ -7554,8 +4830,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   azip
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  azip
+  (letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  azip
+  (letrec*
+   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
@@ -7565,13 +4869,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   begin->exps
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
   (env
    ((let (...
           ()
@@ -7585,8 +4883,19 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  begin->exps
+  (letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   begin=>let
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
+   ...)
   (env
    ((app
      set!
@@ -7601,7 +4910,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   begin=>let
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -7611,14 +4922,34 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  begin?
+  begin=>let
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
    ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  begin?
+  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  begin?
+  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
   (env
    ((let (...
           ()
@@ -7633,20 +4964,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   begin?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  begin?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
@@ -7654,14 +4972,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  begin?
+  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   body
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
+  (let* (...
+         append-preamble
+         (body (-> (app c-compile-exp exp append-preamble) <-))
+         ()
+         ...)
     ...)
-   ...)
   (env
    ((app
      set!
@@ -7671,66 +4997,33 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(store:
-  boolean?
+  c-compile-and-emit
   (letrec*
    (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
+    emit
+    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
+    the-benchmark-program
     ...)
    ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
+  (env ()))
 clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  boolean?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  boolean?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  boolean?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  boolean?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  boolean?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
+	'((letrec*
+   (...
+    emit
+    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
+    the-benchmark-program
+    ...)
+   ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   c-compile-app
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-args
+    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
+    c-compile-if
     ...)
    ...)
   (env
@@ -7752,12 +5045,54 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-app
+  (letrec*
+   (...
+    c-compile-args
+    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
+    c-compile-if
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-args
+    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
+    c-compile-if
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-args
+  (letrec*
+   (...
+    c-compile-ref
+    (c-compile-args (-> (λ (args append-preamble) ...) <-))
+    c-compile-app
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-ref
+    (c-compile-args (-> (λ (args append-preamble) ...) <-))
+    c-compile-app
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-cell
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-cell-get
+    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-make
     ...)
    ...)
   (env
@@ -7779,12 +5114,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-cell
+  (letrec*
+   (...
+    c-compile-cell-get
+    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-make
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-cell-get
+    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-make
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-cell-get
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-set-cell!
+    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell
     ...)
    ...)
   (env
@@ -7806,12 +5162,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-cell-get
+  (letrec*
+   (...
+    c-compile-set-cell!
+    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-set-cell!
+    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-closure
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    get-lambda
+    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
+    c-compile-formals
     ...)
    ...)
   (env
@@ -7833,12 +5210,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-closure
+  (letrec*
+   (...
+    get-lambda
+    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
+    c-compile-formals
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    get-lambda
+    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
+    c-compile-formals
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-const
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-exp
+    (c-compile-const (-> (λ (exp) ...) <-))
+    c-compile-prim
     ...)
    ...)
   (env
@@ -7860,12 +5258,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-const
+  (letrec*
+   (...
+    c-compile-exp
+    (c-compile-const (-> (λ (exp) ...) <-))
+    c-compile-prim
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-exp
+    (c-compile-const (-> (λ (exp) ...) <-))
+    c-compile-prim
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-env-get
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-env-make
+    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
+    num-lambdas
     ...)
    ...)
   (env
@@ -7887,12 +5306,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-env-get
+  (letrec*
+   (...
+    c-compile-env-make
+    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
+    num-lambdas
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-make
+    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
+    num-lambdas
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-env-make
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-cell
+    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-get
     ...)
    ...)
   (env
@@ -7914,13 +5354,30 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  c-compile-env-struct
+  c-compile-env-make
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    c-compile-cell
+    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-get
     ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-cell
+    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
+    c-compile-env-get
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-env-struct
+  (letrec*
+   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
    ...)
   (env
    ((letrec*
@@ -7934,12 +5391,25 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-env-struct
+  (letrec*
+   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-exp
   (letrec*
    (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
+    c-compile-program
+    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
+    c-compile-const
     ...)
    ...)
   (env
@@ -7959,12 +5429,54 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  c-compile-if
+  c-compile-exp
   (letrec*
    (...
     c-compile-program
     (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
     c-compile-const
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-program
+    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
+    c-compile-const
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-formals
+  (letrec*
+   (...
+    c-compile-closure
+    (c-compile-formals (-> (λ (formals) ...) <-))
+    c-compile-lambda
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-closure
+    (c-compile-formals (-> (λ (formals) ...) <-))
+    c-compile-lambda
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-if
+  (letrec*
+   (...
+    c-compile-app
+    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
+    c-compile-set-cell!
     ...)
    ...)
   (env
@@ -7986,13 +5498,51 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  c-compile-prim
+  c-compile-if
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-app
+    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
+    c-compile-set-cell!
     ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-app
+    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
+    c-compile-set-cell!
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-lambda
+  (letrec*
+   (...
+    c-compile-formals
+    (c-compile-lambda (-> (λ (exp) ...) <-))
+    c-compile-env-struct
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-formals
+    (c-compile-lambda (-> (λ (exp) ...) <-))
+    c-compile-env-struct
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  c-compile-prim
+  (letrec*
+   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
    ...)
   (env
    ((let* (...
@@ -8009,12 +5559,25 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-prim
+  (letrec*
+   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-program
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    closure-convert
+    (c-compile-program (-> (λ (exp) ...) <-))
+    c-compile-exp
     ...)
    ...)
   (env
@@ -8033,12 +5596,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-program
+  (letrec*
+   (...
+    closure-convert
+    (c-compile-program (-> (λ (exp) ...) <-))
+    c-compile-exp
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    closure-convert
+    (c-compile-program (-> (λ (exp) ...) <-))
+    c-compile-exp
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-ref
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-prim
+    (c-compile-ref (-> (λ (exp) ...) <-))
+    c-compile-args
     ...)
    ...)
   (env
@@ -8060,12 +5644,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  c-compile-ref
+  (letrec*
+   (...
+    c-compile-prim
+    (c-compile-ref (-> (λ (exp) ...) <-))
+    c-compile-args
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-prim
+    (c-compile-ref (-> (λ (exp) ...) <-))
+    c-compile-args
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   c-compile-set-cell!
   (letrec*
    (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
+    c-compile-if
+    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell-get
     ...)
    ...)
   (env
@@ -8087,32 +5692,53 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  cadr
+  c-compile-set-cell!
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    c-compile-if
+    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell-get
     ...)
    ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+  (env ()))
 clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
+	'((letrec*
+   (...
+    c-compile-if
+    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
+    c-compile-cell-get
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  caadr
+  (letrec* (... cddr (caadr (-> (λ (p) ...) <-)) caddr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... cddr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cadddr
+  (letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  caddr
+  (letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cadr
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...)
   (env
    ((let (...
           ()
@@ -8121,33 +5747,59 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
+	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cadr
+  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cadr
+  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...)
+  (env ()))
+clos/con:
 	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   car
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env
+   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+      ...))))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   car
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env
+   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env
+   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
   (env
    ((letrec*
      (car ... the-benchmark-program)
@@ -8158,92 +5810,75 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   car
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  car
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  car
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cdr
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
   (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  car
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cddr
+  (letrec* (... cadr (cddr (-> (λ (p) ...) <-)) caadr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... cadr (cddr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cdr
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
 clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cdr
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cdr
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  cell->value
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+  cdr
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
-	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cdr
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
   (env ()))
+clos/con:
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell->value
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
   (env
    ((app
      set!
@@ -8256,8 +5891,26 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell->value
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell->value
+  (letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell->value
+  (letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
   (env ()))
@@ -8266,23 +5919,8 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   cell-get->cell
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cell-get->cell
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env
    ((app
      set!
@@ -8297,8 +5935,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell-get->cell
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell-get->cell
+  (letrec*
+   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell-get->cell
+  (letrec*
+   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
@@ -8309,11 +5975,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   cell-get?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell-get?
+  (letrec*
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
    ...)
   (env
    ((let* (...
@@ -8332,11 +6011,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   cell-get?
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
@@ -8348,12 +6023,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell-get?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
+   ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
    (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
@@ -8363,8 +6036,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell-get?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+  (letrec*
+   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
@@ -8375,11 +6050,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   cell?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cell?
+  (letrec*
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
    ...)
   (env
    ((let* (...
@@ -8398,11 +6086,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   cell?
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
@@ -8414,12 +6098,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
+   ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
    (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
@@ -8429,8 +6111,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cell?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+  (letrec*
+   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
@@ -8439,8 +6123,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  char->natural
+  (letrec*
+   (...
+    tagged-list?
+    (char->natural (-> (λ (c) ...) <-))
+    integer->char-list
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    tagged-list?
+    (char->natural (-> (λ (c) ...) <-))
+    integer->char-list
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   closure->env
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
+   ...)
   (env
    ((app
      set!
@@ -8455,7 +6162,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   closure->env
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -8465,8 +6174,23 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  closure->env
+  (letrec*
+   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   closure->lam
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
+   ...)
   (env
    ((app
      set!
@@ -8481,8 +6205,23 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   closure->lam
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  closure->lam
+  (letrec*
+   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
@@ -8494,9 +6233,9 @@ literals: '(⊥ ⊥ ⊥)
   closure-convert
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    get-environment
+    (closure-convert (-> (λ (exp) ...) <-))
+    c-compile-program
     ...)
    ...)
   (env
@@ -8524,6 +6263,27 @@ literals: '(⊥ ⊥ ⊥)
     ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    get-environment
+    (closure-convert (-> (λ (exp) ...) <-))
+    c-compile-program
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  closure-convert
+  (letrec*
+   (...
+    get-environment
+    (closure-convert (-> (λ (exp) ...) <-))
+    c-compile-program
+    ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (...
@@ -8538,11 +6298,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   closure?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  closure?
+  (letrec*
+   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
    ...)
   (env
    ((let* (...
@@ -8560,12 +6333,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   closure?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
+   ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
    (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
@@ -8575,8 +6346,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   closure?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+  (letrec*
+   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
@@ -8586,7 +6359,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   compiled-program
-  (app set! (-> compiled-program <-) (app c-compile-program input-program))
+  (letrec* (... () (compiled-program (-> "" <-)) () ...) ...)
   (env
    ((letrec*
      (car ... the-benchmark-program)
@@ -8595,157 +6368,21 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(store:
-  compiled-program
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(⊥ ⊥ "")
-
-'(store:
-  cons
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  const?
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env
    ((app
      set!
      input-program
      (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  cons
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  const?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
 	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   const?
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env
-   ((let* (...
-           append-preamble
-           (body (-> (app c-compile-exp exp append-preamble) <-))
-           ()
-           ...)
-      ...))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  const?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  const?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env
    ((let (...
           ()
@@ -8760,12 +6397,14 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   const?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+   ((let* (...
+           append-preamble
+           (body (-> (app c-compile-exp exp append-preamble) <-))
+           ()
+           ...)
+      ...))))
 clos/con:
 	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env ()))
@@ -8773,7 +6412,25 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   const?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  const?
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  const?
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
@@ -8781,20 +6438,11 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  desugar
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+  const?
+  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
+  (env ()))
 clos/con:
-	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -8814,7 +6462,28 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   desugar
   (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  desugar
+  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  desugar
+  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env ()))
@@ -8822,13 +6491,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   difference
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
+  (letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
@@ -8836,251 +6499,38 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
+  difference
+  (letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
+  (env ()))
 clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  display
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (_) (-> (app emit compiled-program) <-)))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
+	'((letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   emit
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
     ...)
    ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  emit
+  (λ (emit input-program) (-> (letrec* (compiled-program) ...) <-))
   (env
    ((letrec*
      (car ... the-benchmark-program)
@@ -9098,7 +6548,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-get->env
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
+   ...)
   (env
    ((app
      set!
@@ -9113,7 +6565,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-get->env
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -9123,8 +6577,23 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  env-get->env
+  (letrec*
+   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   env-get->field
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
+   ...)
   (env
    ((app
      set!
@@ -9139,7 +6608,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-get->field
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -9149,8 +6620,23 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  env-get->field
+  (letrec*
+   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   env-get->id
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
+   ...)
   (env
    ((app
      set!
@@ -9165,8 +6651,23 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-get->id
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  env-get->id
+  (letrec*
+   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
@@ -9177,11 +6678,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   env-get?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  env-get?
+  (letrec*
+   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
    ...)
   (env
    ((let* (...
@@ -9199,22 +6713,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-get?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec*
+  (letrec*
    (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  env-get?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -9224,8 +6725,27 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  env-get?
+  (letrec*
+   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   env-make->fields
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (...
+    env-make->id
+    (env-make->fields (-> (λ (exp) ...) <-))
+    env-make->values
+    ...)
+   ...)
   (env
    ((app
      set!
@@ -9244,7 +6764,13 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-make->fields
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (...
+    env-make->id
+    (env-make->fields (-> (λ (exp) ...) <-))
+    env-make->values
+    ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -9258,8 +6784,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  env-make->fields
+  (letrec*
+   (...
+    env-make->id
+    (env-make->fields (-> (λ (exp) ...) <-))
+    env-make->values
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    env-make->id
+    (env-make->fields (-> (λ (exp) ...) <-))
+    env-make->values
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   env-make->id
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
+   ...)
   (env
    ((app
      set!
@@ -9274,7 +6823,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-make->id
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -9284,8 +6835,23 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  env-make->id
+  (letrec*
+   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   env-make->values
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
+   ...)
   (env
    ((app
      set!
@@ -9300,8 +6866,23 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-make->values
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  env-make->values
+  (letrec*
+   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
@@ -9312,11 +6893,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   env-make?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  env-make?
+  (letrec*
+   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
    ...)
   (env
    ((let* (...
@@ -9334,12 +6928,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-make?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
+   ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
    (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
@@ -9349,8 +6941,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   env-make?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+  (letrec*
+   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
@@ -9362,9 +6956,9 @@ literals: '(⊥ ⊥ ⊥)
   environments
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    num-environments
+    (environments (-> (app nil) <-))
+    allocate-environment
     ...)
    ...)
   (env
@@ -9376,142 +6970,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  error
+  environments
   (letrec*
    (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
+    num-environments
+    (environments (-> (app nil) <-))
+    allocate-environment
     ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (env ()))
 clos/con:
-	'((λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env
-   ((let* (...
-           append-preamble
-           (body (-> (app c-compile-exp exp append-preamble) <-))
-           ()
-           ...)
-      ...))))
-clos/con:
-	'((λ (exp append-preamble) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
+	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   exp
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
+  (λ (exp append-preamble) (-> (match (app const? exp) ...) <-))
   (env
    ((let* (...
            append-preamble
@@ -9524,13 +6998,7 @@ literals: '(3 ⊥ ⊥)
 
 '(store:
   exp
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
+  (λ (exp) (-> (let* (preamble ... body) ...) <-))
   (env
    ((app
      set!
@@ -9541,26 +7009,25 @@ literals: '(3 ⊥ ⊥)
 
 '(store:
   exp
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+  (λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-))
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(store:
   exp
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
   (env
    ((let (...
           ()
@@ -9573,60 +7040,63 @@ literals: '(3 ⊥ ⊥)
 
 '(store:
   exp
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(store:
   exp
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (λ (exp) (-> (match (app const? exp) ...) <-))
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (-> (app const? exp) <-) (#f) _))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
   f
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
@@ -9640,7 +7110,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   f
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -9653,7 +7123,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   f
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -9666,13 +7136,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   for-each
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
+  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
   (env
    ((letrec*
      (car ... the-benchmark-program)
@@ -9683,13 +7147,18 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  for-each
+  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   free-vars
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
@@ -9700,14 +7169,21 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  gensym
+  free-vars
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
    ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  gensym
+  (letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
@@ -9715,15 +7191,71 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  if->condition
+  gensym
+  (letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  gensym-count
+  (letrec* (... integer->char-list (gensym-count (-> 0 <-)) gensym ...) ...)
+  (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥)
+
+'(store:
+  get-environment
   (letrec*
    (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
+    allocate-environment
+    (get-environment (-> (λ (id) ...) <-))
+    closure-convert
     ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    allocate-environment
+    (get-environment (-> (λ (id) ...) <-))
+    closure-convert
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  get-lambda
+  (letrec*
+   (...
+    allocate-lambda
+    (get-lambda (-> (λ (id) ...) <-))
+    c-compile-closure
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    allocate-lambda
+    (get-lambda (-> (λ (id) ...) <-))
+    c-compile-closure
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->condition
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env ()))
@@ -9731,28 +7263,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->condition
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  if->condition
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env
    ((let (...
           ()
@@ -9767,12 +7278,8 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->condition
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env ()))
@@ -9780,7 +7287,16 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->condition
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->condition
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
@@ -9788,15 +7304,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  if->condition
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   if->else
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ()))
@@ -9804,28 +7327,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->else
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  if->else
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env
    ((let (...
           ()
@@ -9840,12 +7342,8 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->else
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ()))
@@ -9853,8 +7351,26 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->else
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->else
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->else
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ()))
@@ -9863,13 +7379,13 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   if->then
   (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec*
    (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
@@ -9880,28 +7396,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   if->then
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  if->then
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
    ...)
   (env
    ((let (...
@@ -9919,12 +7414,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->then
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec*
    (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
@@ -9934,8 +7427,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->then
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->then
+  (letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if->then
+  (letrec*
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
@@ -9945,14 +7466,12 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ()))
@@ -9960,13 +7479,22 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if?
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if?
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env
    ((let* (...
            append-preamble
@@ -9981,13 +7509,16 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  if?
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
@@ -9996,41 +7527,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  if?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  if?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
@@ -10038,11 +7535,17 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  if?
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   input-program
-  (app
-   set!
-   (-> input-program <-)
-   (app desugar (app wrap-mutables input-program)))
+  (λ (emit input-program) (-> (letrec* (compiled-program) ...) <-))
   (env
    ((letrec*
      (car ... the-benchmark-program)
@@ -10051,102 +7554,42 @@ clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(store:
-  input-program
-  (app set! (-> input-program <-) (app closure-convert input-program))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
+  insert
+  (letrec* (... symbol<? (insert (-> (λ (sym S) ...) <-)) remove ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... symbol<? (insert (-> (λ (sym S) ...) <-)) remove ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  input-program
-  (app set! (-> input-program <-) (app desugar input-program))
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  input-program
+  integer->char-list
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
+    char->natural
+    (integer->char-list (-> (λ (n) ...) <-))
+    gensym-count
     ...)
    ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec*
+  (env ()))
+clos/con:
+	'((letrec*
    (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
+    char->natural
+    (integer->char-list (-> (λ (n) ...) <-))
+    gensym-count
     ...)
    ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   is-mutable?
   (letrec*
    (...
+    mark-mutable
+    (is-mutable? (-> (λ (symbol) ...) <-))
     analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
     ...)
    ...)
   (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
@@ -10162,15 +7605,36 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  lambda->exp
+  is-mutable?
   (letrec*
    (...
+    mark-mutable
+    (is-mutable? (-> (λ (symbol) ...) <-))
     analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
     ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    mark-mutable
+    (is-mutable? (-> (λ (symbol) ...) <-))
+    analyze-mutable-variables
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->exp
+  (letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec*
    (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
@@ -10181,28 +7645,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambda->exp
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  lambda->exp
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
    ...)
   (env
    ((let (...
@@ -10220,12 +7663,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lambda->exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec*
    (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
@@ -10235,8 +7676,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lambda->exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->exp
+  (letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->exp
+  (letrec*
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
@@ -10247,40 +7716,8 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambda->formals
   (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((letrec*
    (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  lambda->formals
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  lambda->formals
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env
    ((app
      set!
@@ -10295,8 +7732,49 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lambda->formals
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->formals
+  (letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->formals
+  (letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda->formals
+  (letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
@@ -10307,13 +7785,13 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambda?
   (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec*
    (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
@@ -10324,28 +7802,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambda?
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  lambda?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
    ...)
   (env
    ((let (...
@@ -10363,12 +7820,10 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lambda?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec*
    (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
@@ -10378,8 +7833,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lambda?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda?
+  (letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lambda?
+  (letrec*
+   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
@@ -10390,11 +7873,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambdas
   (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
+   (... num-lambdas (lambdas (-> (app nil) <-)) allocate-lambda ...)
    ...)
   (env
    ((letrec*
@@ -10405,14 +7884,40 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  let->bindings
+  lambdas
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... num-lambdas (lambdas (-> (app nil) <-)) allocate-lambda ...)
    ...)
+  (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  length
+  (letrec* (... cdr (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... cdr (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  let->args
+  (letrec*
+   (... let->bound-vars (let->args (-> (λ (exp) ...) <-)) letrec? ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... let->bound-vars (let->args (-> (λ (exp) ...) <-)) letrec? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  let->bindings
+  (letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
   (env
    ((let (...
           ()
@@ -10426,13 +7931,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  let->bindings
+  (letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  let->bound-vars
+  (letrec*
+   (... let->exp (let->bound-vars (-> (λ (exp) ...) <-)) let->args ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... let->exp (let->bound-vars (-> (λ (exp) ...) <-)) let->args ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   let->exp
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
    ...)
   (env
    ((let (...
@@ -10449,8 +7972,23 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  let->exp
+  (letrec*
+   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   let=>lambda
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
+   ...)
   (env
    ((app
      set!
@@ -10465,7 +8003,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   let=>lambda
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -10475,14 +8015,34 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  let?
+  let=>lambda
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
    ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  let?
+  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  let?
+  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
   (env
    ((let (...
           ()
@@ -10497,20 +8057,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   let?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  let?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
@@ -10518,13 +8065,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  let?
+  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  letrec->args
+  (letrec*
+   (... letrec->bound-vars (letrec->args (-> (λ (exp) ...) <-)) lambda? ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... letrec->bound-vars (letrec->args (-> (λ (exp) ...) <-)) lambda? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   letrec->bindings
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
    ...)
   (env
    ((let (...
@@ -10541,12 +8106,46 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  letrec->bindings
+  (letrec*
+   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  letrec->bound-vars
+  (letrec*
+   (...
+    letrec->exp
+    (letrec->bound-vars (-> (λ (exp) ...) <-))
+    letrec->args
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    letrec->exp
+    (letrec->bound-vars (-> (λ (exp) ...) <-))
+    letrec->args
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   letrec->exp
   (letrec*
    (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
+    letrec->bindings
+    (letrec->exp (-> (λ (exp) ...) <-))
+    letrec->bound-vars
     ...)
    ...)
   (env
@@ -10568,8 +8167,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  letrec->exp
+  (letrec*
+   (...
+    letrec->bindings
+    (letrec->exp (-> (λ (exp) ...) <-))
+    letrec->bound-vars
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    letrec->bindings
+    (letrec->exp (-> (λ (exp) ...) <-))
+    letrec->bound-vars
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   letrec=>lets+sets
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
+   ...)
   (env
    ((app
      set!
@@ -10584,8 +8206,23 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   letrec=>lets+sets
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  letrec=>lets+sets
+  (letrec*
+   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
@@ -10596,11 +8233,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   letrec?
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
+   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  letrec?
+  (letrec*
+   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
    ...)
   (env
    ((let (...
@@ -10618,22 +8268,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   letrec?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec*
+  (letrec*
    (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  letrec?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -10643,14 +8280,21 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  line
+  letrec?
   (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
+   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
    ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10670,13 +8314,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10696,13 +8334,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10722,13 +8354,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10748,13 +8374,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10774,13 +8394,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (...
           ()
@@ -10800,13 +8414,7 @@ literals: '(⊥
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
 clos/con: ⊥
@@ -10814,13 +8422,7 @@ literals: '(⊥ ⊥ "#include <stdio.h>")
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
 clos/con: ⊥
@@ -10828,13 +8430,7 @@ literals: '(⊥ ⊥ "#include <stdlib.h>")
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
 clos/con: ⊥
@@ -10842,46 +8438,28 @@ literals: '(⊥ ⊥ "#include \"scheme.h\"")
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "")
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "")
 
 '(store:
   line
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
+  (λ (line) (-> (let (_) ...) <-))
   (env ((let (_) (-> (app emit compiled-program) <-)))))
 clos/con: ⊥
-literals: '(⊥ ⊥ "")
+literals: '(⊥ ⊥ ⊤)
 
 '(store:
   lst
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
@@ -10891,7 +8469,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lst
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -10900,7 +8478,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   lst
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (λ (f lst) (-> (let (_) ...) <-))
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -10908,48 +8486,34 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  map
+  mangle
   (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
    ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
+clos/con:
+	'((letrec*
+   (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   map
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   map
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env
    ((let (...
           ()
@@ -10960,70 +8524,72 @@ literals: '(⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   map
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  map
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  map
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   map
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   map
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  map
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  map
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  map
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  map
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -11031,9 +8597,9 @@ literals: '(⊥ ⊥ ⊥)
   mark-mutable
   (letrec*
    (...
+    mutable-variables
+    (mark-mutable (-> (λ (symbol) ...) <-))
     is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
     ...)
    ...)
   (env
@@ -11055,421 +8621,71 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  newline
+  mark-mutable
   (letrec*
    (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
+    mutable-variables
+    (mark-mutable (-> (λ (symbol) ...) <-))
+    is-mutable?
     ...)
    ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
+  (env ()))
 clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
+	'((letrec*
    (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
+    mutable-variables
+    (mark-mutable (-> (λ (symbol) ...) <-))
+    is-mutable?
     ...)
    ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_
-           (->
-            (app
-             emit
-             "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-            <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env
-   ((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (... () (_ (-> (app emit "") <-)) () ...) ...))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  newline
-  (letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ((let (_) (-> (app emit compiled-program) <-)))))
-clos/con:
-	'((λ (line) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  nil
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
-clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  not
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  number->string
-  (letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  number->string
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((λ (emit input-program) (-> (letrec* (compiled-program) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  or
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  or
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  or
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  or
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  or
-  (letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ((match (-> (app const? exp) <-) (#f) _))))
-clos/con:
-	'((λ (exp) (-> (app or (app integer? exp) (app boolean? exp)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  pair?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  member
+  (letrec* (... gensym (member (-> (λ (sym S) ...) <-)) symbol<? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... gensym (member (-> (λ (sym S) ...) <-)) symbol<? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  mutable-variables
+  (letrec*
+   (... free-vars (mutable-variables (-> (app nil) <-)) mark-mutable ...)
+   ...)
+  (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  null?
+  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  num-environments
+  (letrec* (... mangle (num-environments (-> 0 <-)) environments ...) ...)
+  (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥)
+
+'(store:
+  num-lambdas
+  (letrec* (... c-compile-env-get (num-lambdas (-> 0 <-)) lambdas ...) ...)
+  (env ()))
+clos/con: ⊥
+literals: '(0 ⊥ ⊥)
+
+'(store:
   pair?
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
       ...))))
@@ -11480,7 +8696,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   pair?
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
 clos/con:
@@ -11490,9 +8706,27 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   pair?
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env
    ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
+clos/con:
+	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  pair?
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  pair?
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env ()))
@@ -11500,7 +8734,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   pair?-v
-  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (λ (pair?-v) (-> (match pair?-v ...) <-))
   (env ((match (-> (app pair? lst) <-) (#f) _))))
 clos/con:
 	'((con nil) (env ()))
@@ -11508,13 +8742,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   preamble
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
+  (let* (... () (preamble (-> "" <-)) append-preamble ...) ...)
   (env
    ((app
      set!
@@ -11525,14 +8753,12 @@ literals: '(⊥ ⊥ "")
 
 '(store:
   prim?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env ()))
@@ -11540,13 +8766,22 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   prim?
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env
+   ((let (...
+          ()
+          (_ (-> (app analyze-mutable-variables input-program) <-))
+          ()
+          ...)
+      ...))))
+clos/con:
+	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  prim?
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env
    ((let* (...
            append-preamble
@@ -11561,13 +8796,16 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   prim?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  prim?
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
@@ -11576,13 +8814,46 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   prim?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  prim?
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  reduce
+  (letrec* (... difference (reduce (-> (λ (f lst init) ...) <-)) azip ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... difference (reduce (-> (λ (f lst init) ...) <-)) azip ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  ref?
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  ref?
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
   (env
    ((let (...
           ()
@@ -11591,55 +8862,12 @@ literals: '(⊥ ⊥ ⊥)
           ...)
       ...))))
 clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  prim?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  prim?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ((app set! input-program (-> (app desugar input-program) <-)))))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ref?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
-clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   ref?
-  (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
   (env
    ((let* (...
            append-preamble
@@ -11653,13 +8881,15 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   ref?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  ref?
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
@@ -11667,77 +8897,32 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   ref?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ref?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ref?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  set!->exp
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  ref?
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
+  (env ()))
 clos/con:
-	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  remove
+  (letrec* (... insert (remove (-> (λ (sym S) ...) <-)) union ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... insert (remove (-> (λ (sym S) ...) <-)) union ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!->exp
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!->exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
   (env
    ((app
      set!
@@ -11750,7 +8935,25 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!->exp
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+clos/con:
+	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set!->exp
+  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set!->exp
+  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
@@ -11758,15 +8961,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  set!->exp
+  (letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   set!->var
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
   (env ()))
@@ -11774,28 +8984,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!->var
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!->var
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
   (env
    ((let (...
           ()
@@ -11810,12 +8999,8 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!->var
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
   (env ()))
@@ -11823,7 +9008,16 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!->var
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set!->var
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
@@ -11831,15 +9025,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  set!->var
+  (letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   set!?
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
   (env ()))
@@ -11847,28 +9048,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!?
-  (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
-    ...)
-   ...)
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
   (env
    ((let (...
           ()
@@ -11883,12 +9063,8 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
   (env ()))
@@ -11896,8 +9072,26 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set!?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set!?
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set!?
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
   (env ()))
@@ -11906,27 +9100,12 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   set-cell!->cell
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (...
     set-cell!?
     (set-cell!->cell (-> (λ (exp) ...) <-))
     set-cell!->value
     ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set-cell!->cell
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env
    ((app
      set!
@@ -11945,8 +9124,56 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set-cell!->cell
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (...
+    set-cell!?
+    (set-cell!->cell (-> (λ (exp) ...) <-))
+    set-cell!->value
+    ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    set-cell!?
+    (set-cell!->cell (-> (λ (exp) ...) <-))
+    set-cell!->value
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set-cell!->cell
+  (letrec*
+   (...
+    set-cell!?
+    (set-cell!->cell (-> (λ (exp) ...) <-))
+    set-cell!->value
+    ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    set-cell!?
+    (set-cell!->cell (-> (λ (exp) ...) <-))
+    set-cell!->value
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set-cell!->cell
+  (letrec*
+   (...
+    set-cell!?
+    (set-cell!->cell (-> (λ (exp) ...) <-))
+    set-cell!->value
+    ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (...
@@ -11961,23 +9188,8 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   set-cell!->value
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
-clos/con:
-	'((letrec*
    (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set-cell!->value
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env
    ((app
      set!
@@ -11992,8 +9204,36 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set-cell!->value
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
+  (letrec*
+   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
+   ...)
+  (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set-cell!->value
+  (letrec*
+   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
+   ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
+clos/con:
+	'((letrec*
+   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set-cell!->value
+  (letrec*
+   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
@@ -12004,11 +9244,24 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   set-cell!?
   (letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
+   ...)
+  (env
+   ((app
+     set!
+     input-program
+     (-> (app desugar (app wrap-mutables input-program)) <-)))))
+clos/con:
+	'((letrec*
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  set-cell!?
+  (letrec*
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
    ...)
   (env
    ((let* (...
@@ -12027,11 +9280,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   set-cell!?
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
@@ -12043,22 +9292,9 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   set-cell!?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env
-   ((app
-     set!
-     input-program
-     (-> (app desugar (app wrap-mutables input-program)) <-)))))
-clos/con:
-	'((letrec*
+  (letrec*
    (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
    ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set-cell!?
-  (letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
   (env ((app set! input-program (-> (app desugar input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -12068,62 +9304,31 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  string-append
+  set-cell!?
   (letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
    ...)
-  (env ((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-))))))
+  (env ()))
 clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
+	'((letrec*
+   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
+   ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  string-append
-  (letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env
-   ((app
-     set!
-     compiled-program
-     (-> (app c-compile-program input-program) <-)))))
+  string->list
+  (letrec* (... append (string->list (-> (λ (s) ...) <-)) apply ...) ...)
+  (env ()))
 clos/con:
-	'((λ (exp) (-> (let* (preamble ... body) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  string-append
-  (letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((λ (emit input-program) (-> (letrec* (compiled-program) ...) <-)) (env ()))
+	'((letrec* (... append (string->list (-> (λ (s) ...) <-)) apply ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   substitute
   (letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
+   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
    ...)
   (env ((app set! input-program (-> (app closure-convert input-program) <-)))))
 clos/con:
@@ -12134,61 +9339,83 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  void
+  substitute
+  (letrec*
+   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  substitute-var
   (letrec*
    (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    wrap-mutables
+    cell-get->cell
+    (substitute-var (-> (λ (env var) ...) <-))
+    substitute
     ...)
    ...)
-  (env
-   ((let (...
-          ()
-          (_ (-> (app analyze-mutable-variables input-program) <-))
-          ()
-          ...)
-      ...))))
+  (env ()))
 clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
+	'((letrec*
+   (...
+    cell-get->cell
+    (substitute-var (-> (λ (env var) ...) <-))
+    substitute
+    ...)
+   ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  void
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
-      ...))))
+  symbol<?
+  (letrec* (... member (symbol<? (-> (λ (sym1 sym2) ...) <-)) insert ...) ...)
+  (env ()))
 clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
+	'((letrec* (... member (symbol<? (-> (λ (sym1 sym2) ...) <-)) insert ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  void
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
+  tagged-list?
+  (letrec*
+   (... assq (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
+   ...)
+  (env ()))
 clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
+	'((letrec*
+   (... assq (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
+   ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  void
-  (letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env
-   ((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...))))
+  the-benchmark-program
+  (letrec*
+   (... c-compile-and-emit (the-benchmark-program (-> 3 <-)) () ...)
+   ...)
+  (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  union
+  (letrec* (... remove (union (-> (λ (set1 set2) ...) <-)) difference ...) ...)
+  (env ()))
 clos/con:
-	'((λ (f lst) (-> (let (_) ...) <-)) (env ()))
+	'((letrec* (... remove (union (-> (λ (set1 set2) ...) <-)) difference ...) ...)
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   wrap-mutable-formals
   (letrec*
-   (...
-    analyze-mutable-variables
-    (wrap-mutables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... () (wrap-mutable-formals (-> (λ (formals body-exp) ...) <-)) () ...)
    ...)
   (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
@@ -12207,6 +9434,30 @@ literals: '(⊥ ⊥ ⊥)
     mangle
     ...)
    ...)
+  (env
+   ((letrec*
+     (car ... the-benchmark-program)
+     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    analyze-mutable-variables
+    (wrap-mutables (-> (λ (exp) ...) <-))
+    mangle
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  wrap-mutables
+  (letrec*
+   (...
+    analyze-mutable-variables
+    (wrap-mutables (-> (λ (exp) ...) <-))
+    mangle
+    ...)
+   ...)
   (env ((app desugar (-> (app wrap-mutables input-program) <-)))))
 clos/con:
 	'((letrec*
@@ -12223,981 +9474,12 @@ literals: '(⊥ ⊥ ⊥)
   wrap-mutables
   (letrec*
    (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env
-   ((letrec*
-     (car ... the-benchmark-program)
-     (-> (app c-compile-and-emit emit the-benchmark-program) <-)))))
-clos/con:
-	'((letrec*
-   (...
     analyze-mutable-variables
     (wrap-mutables (-> (λ (exp) ...) <-))
     mangle
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: allocate-environment ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    environments
-    (allocate-environment (-> (λ (fields) ...) <-))
-    get-environment
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: allocate-lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... lambdas (allocate-lambda (-> (λ (lam) ...) <-)) get-lambda ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app->args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app->fun ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: append ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... for-each (append (-> (λ (lst1 lst2) ...) <-)) string->list ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: apply ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... string->list (apply (-> (λ (f l) ...) <-)) assv ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: assq ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... assv (assq (-> (λ (x f) ...) <-)) tagged-list? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: assq-remove-key ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... azip (assq-remove-key (-> (λ (env key) ...) <-)) assq-remove-keys ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: assq-remove-keys ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    assq-remove-key
-    (assq-remove-keys (-> (λ (env keys) ...) <-))
-    const?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: assv ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... apply (assv (-> (λ (x f) ...) <-)) assq ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: azip ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... reduce (azip (-> (λ (list1 list2) ...) <-)) assq-remove-key ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin->exps ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin=>let ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec=>lets+sets (begin=>let (-> (λ (exp) ...) <-)) desugar ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-and-emit ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    emit
-    (c-compile-and-emit (-> (λ (emit input-program) ...) <-))
-    the-benchmark-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-app ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-args
-    (c-compile-app (-> (λ (exp append-preamble) ...) <-))
-    c-compile-if
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-ref
-    (c-compile-args (-> (λ (args append-preamble) ...) <-))
-    c-compile-app
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-cell ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-cell-get
-    (c-compile-cell (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-make
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-cell-get ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-set-cell!
-    (c-compile-cell-get (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-closure ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    get-lambda
-    (c-compile-closure (-> (λ (exp append-preamble) ...) <-))
-    c-compile-formals
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-const ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-exp
-    (c-compile-const (-> (λ (exp) ...) <-))
-    c-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-env-get ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-make
-    (c-compile-env-get (-> (λ (exp append-preamble) ...) <-))
-    num-lambdas
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-env-make ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-cell
-    (c-compile-env-make (-> (λ (exp append-preamble) ...) <-))
-    c-compile-env-get
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-env-struct ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... c-compile-lambda (c-compile-env-struct (-> (λ (env) ...) <-)) emit ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-program
-    (c-compile-exp (-> (λ (exp append-preamble) ...) <-))
-    c-compile-const
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-formals ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-closure
-    (c-compile-formals (-> (λ (formals) ...) <-))
-    c-compile-lambda
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-if ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-app
-    (c-compile-if (-> (λ (exp append-preamble) ...) <-))
-    c-compile-set-cell!
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-formals
-    (c-compile-lambda (-> (λ (exp) ...) <-))
-    c-compile-env-struct
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-prim ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... c-compile-const (c-compile-prim (-> (λ (p) ...) <-)) c-compile-ref ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-program ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    closure-convert
-    (c-compile-program (-> (λ (exp) ...) <-))
-    c-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-ref ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-prim
-    (c-compile-ref (-> (λ (exp) ...) <-))
-    c-compile-args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: c-compile-set-cell! ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-if
-    (c-compile-set-cell! (-> (λ (exp append-preamble) ...) <-))
-    c-compile-cell-get
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: caadr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cddr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cadddr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: caddr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
-	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cadr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) cddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: car ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cddr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cadr (cddr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cdr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cell->value ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cell? (cell->value (-> (λ (exp) ...) <-)) cell-get? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cell-get->cell ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... cell-get? (cell-get->cell (-> (λ (exp) ...) <-)) substitute-var ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cell-get? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... cell->value (cell-get? (-> (λ (exp) ...) <-)) cell-get->cell ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cell? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... set-cell!->value (cell? (-> (λ (exp) ...) <-)) cell->value ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: char->natural ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: closure->env ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... closure->lam (closure->env (-> (λ (exp) ...) <-)) env-make? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: closure->lam ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... closure? (closure->lam (-> (λ (exp) ...) <-)) closure->env ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: closure-convert ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    get-environment
-    (closure-convert (-> (λ (exp) ...) <-))
-    c-compile-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: closure? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... set!->exp (closure? (-> (λ (exp) ...) <-)) closure->lam ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: const? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... assq-remove-keys (const? (-> (λ (exp) ...) <-)) ref? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: desugar ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... begin=>let (desugar (-> (λ (exp) ...) <-)) free-vars ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: difference ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... union (difference (-> (λ (set1 set2) ...) <-)) reduce ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: emit ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-get->env ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->field (env-get->env (-> (λ (exp) ...) <-)) set-cell!? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-get->field ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->id (env-get->field (-> (λ (exp) ...) <-)) env-get->env ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-get->id ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-get? (env-get->id (-> (λ (exp) ...) <-)) env-get->field ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-get? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-make->values (env-get? (-> (λ (exp) ...) <-)) env-get->id ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-make->fields ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    env-make->id
-    (env-make->fields (-> (λ (exp) ...) <-))
-    env-make->values
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-make->id ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-make? (env-make->id (-> (λ (exp) ...) <-)) env-make->fields ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-make->values ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-make->fields (env-make->values (-> (λ (exp) ...) <-)) env-get? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: env-make? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... closure->env (env-make? (-> (λ (exp) ...) <-)) env-make->id ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: environments ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: for-each ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... map (for-each (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: free-vars ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... desugar (free-vars (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: gensym ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... gensym-count (gensym (-> (λ (name) ...) <-)) member ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: gensym-count ((top) lettypes (cons ... error) ...) (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(store: get-environment ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    allocate-environment
-    (get-environment (-> (λ (id) ...) <-))
-    closure-convert
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: get-lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    allocate-lambda
-    (get-lambda (-> (λ (id) ...) <-))
-    c-compile-closure
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->condition ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->else ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->then ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: insert ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... symbol<? (insert (-> (λ (sym S) ...) <-)) remove ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: integer->char-list ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    char->natural
-    (integer->char-list (-> (λ (n) ...) <-))
-    gensym-count
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: is-mutable? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
-    analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda->formals ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec->args (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambdas ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: length ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->bound-vars (let->args (-> (λ (exp) ...) <-)) letrec? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->bindings ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->bound-vars ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->exp (let->bound-vars (-> (λ (exp) ...) <-)) let->args ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) let->bound-vars ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let=>lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... substitute (let=>lambda (-> (λ (exp) ...) <-)) letrec=>lets+sets ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec->args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec->bound-vars (letrec->args (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec->bindings ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec? (letrec->bindings (-> (λ (exp) ...) <-)) letrec->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec->bound-vars ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    letrec->exp
-    (letrec->bound-vars (-> (λ (exp) ...) <-))
-    letrec->args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    letrec->bindings
-    (letrec->exp (-> (λ (exp) ...) <-))
-    letrec->bound-vars
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec=>lets+sets ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let=>lambda (letrec=>lets+sets (-> (λ (exp) ...) <-)) begin=>let ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->args (letrec? (-> (λ (exp) ...) <-)) letrec->bindings ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: mangle ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: map ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) for-each ...) ...)
-  (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: mark-mutable ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: member ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... gensym (member (-> (λ (sym S) ...) <-)) symbol<? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: mutable-variables ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: null? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: num-environments ((top) lettypes (cons ... error) ...) (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(store: num-lambdas ((top) lettypes (cons ... error) ...) (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(store: pair? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: prim? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: reduce ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... difference (reduce (-> (λ (f lst init) ...) <-)) azip ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: ref? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: remove ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... insert (remove (-> (λ (sym S) ...) <-)) union ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set!->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... set!->var (set!->exp (-> (λ (exp) ...) <-)) closure? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set!->var ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... set!? (set!->var (-> (λ (exp) ...) <-)) set!->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set!? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!->var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set-cell!->cell ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    set-cell!?
-    (set-cell!->cell (-> (λ (exp) ...) <-))
-    set-cell!->value
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set-cell!->value ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... set-cell!->cell (set-cell!->value (-> (λ (exp) ...) <-)) cell? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: set-cell!? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... env-get->env (set-cell!? (-> (λ (exp) ...) <-)) set-cell!->cell ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: string->list ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... append (string->list (-> (λ (s) ...) <-)) apply ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: substitute ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... substitute-var (substitute (-> (λ (env exp) ...) <-)) let=>lambda ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: substitute-var ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    cell-get->cell
-    (substitute-var (-> (λ (env var) ...) <-))
-    substitute
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: symbol<? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... member (symbol<? (-> (λ (sym1 sym2) ...) <-)) insert ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: tagged-list? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... assq (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: the-benchmark-program ((top) lettypes (cons ... error) ...) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: union ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... remove (union (-> (λ (set1 set2) ...) <-)) difference ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: wrap-mutables ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
 	'((letrec*
    (...

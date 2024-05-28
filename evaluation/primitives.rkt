@@ -23,8 +23,6 @@
     ['odd? `(prim odd? ,do-odd)] ; Numbers work with the regular data model
     ['even? `(prim even? ,do-even)] ; Numbers work with the regular data model
     ['not `(prim not ,do-not)]
-    ['or `(prim or ,do-or)]; TODO Handle in match positions
-    ['and `(prim and ,do-and)]; TODO Handle in match positions
     ['equal? `(prim equal? ,do-equal)]
     ['eq? `(prim eq? ,do-equal)]
     ['symbol? `(prim symbol? ,do-symbol?)]
@@ -185,20 +183,6 @@
     [_ (false C p)]
     )
   )
-
-(define (do-or p C . args)
-  (match args
-    ['() (false C p)]
-    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
-    [(cons x xs) (if (is-truthy x) (unit x) (apply do-or (cons p (cons C xs))))]
-    ))
-
-(define (do-and p C . args)
-  (match args
-    ['() (true C p)]
-    [(cons x '()) (if (is-truthy x) (unit x) (false C p))]
-    [(cons x xs) (if (is-truthy x) (apply do-and (cons p (cons C xs))) (false C p))]
-    ))
 
 (define (is-truthy r)
   (not (is-falsey r)))

@@ -37,12 +37,7 @@
 '(query:
   (app
    cons
-   (->
-    (app
-     cons
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     (app nil))
-    <-)
+   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
    (app nil))
   (env ()))
 clos/con:
@@ -50,12 +45,7 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -63,58 +53,23 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (app
    cons
-   (->
-    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-    <-)
-   (app nil))
+   (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
-    (app nil)))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
    cons
-   (-> (app cons 1 (app cons 2 (app nil))) <-)
-   (app
-    cons
-    (app
-     cons
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     (app nil))
-    (app nil)))
-  (env ()))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   cons
-   (app
-    cons
-    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-    (app nil))
+   (app cons (app cons (app cons ...) (app nil ...)) (app nil))
    (-> (app nil) <-))
   (env ()))
 clos/con:
@@ -124,42 +79,16 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (app
    cons
-   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-   (-> (app nil) <-))
-  (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   cons
-   (app cons 1 (app cons 2 (app nil)))
-   (->
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))
-    <-))
+   (app cons 1 (app cons 2 (app nil ...)))
+   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -169,14 +98,8 @@ literals: '(⊥ ⊥ ⊥)
    (->
     (app
      cons
-     (app cons 1 (app cons 2 (app nil)))
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil)))
+     (app cons 1 (app cons ...))
+     (app cons (app cons ...) (app nil ...)))
     <-))
   (env ()))
 clos/con:
@@ -187,14 +110,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -207,29 +124,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -237,17 +146,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -266,22 +176,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -289,17 +191,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -322,63 +225,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -386,10 +265,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -418,63 +298,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -482,10 +338,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -507,85 +364,45 @@ literals: '(⊤ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -593,10 +410,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -621,29 +439,21 @@ literals: '(⊤ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -651,10 +461,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -673,22 +484,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -696,10 +499,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -722,22 +526,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -745,10 +541,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -771,22 +568,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -794,10 +583,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -813,44 +603,20 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -858,10 +624,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -884,42 +651,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -935,19 +686,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -957,23 +701,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -982,14 +710,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1002,70 +724,46 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1073,10 +771,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1101,22 +800,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1124,17 +815,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1157,42 +849,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -1208,19 +884,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1230,23 +899,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -1255,14 +908,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1275,70 +922,46 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1346,10 +969,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1374,22 +998,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1397,17 +1013,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1426,67 +1043,44 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -1499,74 +1093,61 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))
+  (app cons (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-) (app nil))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil))
+  (env ()))
+clos/con:
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -1582,42 +1163,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -1633,19 +1198,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1655,23 +1213,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -1680,14 +1222,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1700,29 +1236,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1730,17 +1258,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1759,22 +1288,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -1782,17 +1303,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -1804,7 +1326,14 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))
+  (app cons (app cons (app cons 3 (app cons ...)) (app nil)) (-> (app nil) <-))
+  (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app cons (app cons 3 (app cons 4 (app cons ...))) (-> (app nil) <-))
   (env ()))
 clos/con:
 	'((con nil) (env ()))
@@ -1837,23 +1366,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1870,42 +1383,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -1921,42 +1418,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -1965,64 +1446,32 @@ literals: '(⊤ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -2038,19 +1487,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2067,19 +1509,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2089,41 +1524,18 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2140,42 +1552,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -2191,19 +1587,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2213,23 +1602,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -2238,14 +1611,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2258,70 +1625,46 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2329,10 +1672,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2357,22 +1701,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2380,17 +1716,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2413,42 +1750,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -2464,19 +1785,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2486,23 +1800,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -2511,14 +1809,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2526,36 +1818,15 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (letrec*
    (car ... flatten)
-   (->
-    (app
-     flatten
-     (app
-      cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil))))
-    <-))
+   (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -2564,21 +1835,15 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2586,10 +1851,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2601,30 +1867,14 @@ clos/con:
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
    (app null? x)
-   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+   ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
    _)
   (env
    (((match
@@ -2632,14 +1882,14 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2647,14 +1897,14 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
    (app null? x)
-   ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+   ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
    _)
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 clos/con:
@@ -2662,7 +1912,7 @@ clos/con:
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 literals: '(⊥ ⊥ ⊥)
@@ -2672,7 +1922,9 @@ literals: '(⊥ ⊥ ⊥)
    (app pair? x)
    (#f)
    (_
-    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))
+    (->
+     (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
+     <-)))
   (env
    (((app
       append
@@ -2683,22 +1935,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2706,10 +1950,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2725,7 +1970,9 @@ literals: '(⊥ ⊥ ⊥)
    (app pair? x)
    (#f)
    (_
-    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))
+    (->
+     (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
+     <-)))
   (env
    (((app
       append
@@ -2736,22 +1983,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2759,10 +1998,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2778,48 +2018,26 @@ literals: '(⊥ ⊥ ⊥)
    (app pair? x)
    (#f)
    (_
-    (-> (app append (app flatten (app car x)) (app flatten (app cdr x))) <-)))
+    (->
+     (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
+     <-)))
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -2827,10 +2045,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -2870,23 +2089,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2900,7 +2103,7 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con #f) (env ()))
@@ -2944,23 +2147,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -2974,63 +2161,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -3038,17 +2201,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3073,57 +2237,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -3132,18 +2268,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -3156,63 +2291,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -3220,17 +2331,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3255,57 +2367,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -3314,18 +2398,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -3338,57 +2421,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -3397,18 +2452,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -3421,63 +2475,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -3485,17 +2515,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3520,57 +2551,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -3579,18 +2582,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -3607,42 +2609,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -3658,19 +2644,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -3680,23 +2659,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -3705,14 +2668,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -3725,29 +2682,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -3755,10 +2704,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3777,22 +2727,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -3800,10 +2742,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3851,45 +2794,13 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -3904,42 +2815,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3961,19 +2856,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -3989,23 +2877,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -4014,37 +2886,15 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -4055,60 +2905,37 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -4121,42 +2948,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -4168,22 +2979,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4191,17 +2994,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4220,19 +3024,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -4287,60 +3084,37 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -4353,42 +3127,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -4400,22 +3158,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4423,17 +3173,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4452,19 +3203,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -4501,29 +3245,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4531,10 +3267,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4553,22 +3290,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4576,17 +3305,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4609,63 +3339,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4673,10 +3379,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4705,22 +3412,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4728,10 +3427,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4747,38 +3447,14 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -4787,21 +3463,15 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4809,10 +3479,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4824,23 +3495,7 @@ clos/con:
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -4850,16 +3505,8 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -4868,21 +3515,15 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4890,10 +3531,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -4905,23 +3547,7 @@ clos/con:
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -4935,9 +3561,10 @@ clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))
+'(query: (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)) (env ()))
 clos/con:
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))
@@ -4956,16 +3583,8 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -4974,21 +3593,15 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -4996,10 +3609,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -5011,23 +3625,7 @@ clos/con:
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -5078,60 +3676,37 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -5145,42 +3720,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -5193,22 +3752,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -5216,17 +3767,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -5246,19 +3798,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -5272,63 +3817,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -5336,17 +3857,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -5372,57 +3894,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -5431,18 +3925,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -5464,60 +3957,37 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -5531,42 +4001,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -5579,22 +4033,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -5602,17 +4048,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -5632,19 +4079,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -5658,63 +4098,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -5722,17 +4138,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -5758,57 +4175,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -5817,18 +4206,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -5837,12 +4225,7 @@ literals: '(⊤ ⊥ ⊥)
   con
   (app
    cons
-   (->
-    (app
-     cons
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     (app nil))
-    <-)
+   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
    (app nil))
   (env ()))
 clos/con:
@@ -5850,12 +4233,7 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -5864,20 +4242,16 @@ literals: '(⊥ ⊥ ⊥)
   con
   (app
    cons
-   (->
-    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-    <-)
-   (app nil))
+   (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
-    (app nil)))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -5885,39 +4259,7 @@ literals: '(⊥ ⊥ ⊥)
   con
   (app
    cons
-   (-> (app cons 1 (app cons 2 (app nil))) <-)
-   (app
-    cons
-    (app
-     cons
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     (app nil))
-    (app nil)))
-  (env ()))
-clos/con:
-	'((con
-   cons
-   (app
-    cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  con
-  (app
-   cons
-   (app
-    cons
-    (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-    (app nil))
+   (app cons (app cons (app cons ...) (app nil ...)) (app nil))
    (-> (app nil) <-))
   (env ()))
 clos/con:
@@ -5928,43 +4270,16 @@ literals: '(⊥ ⊥ ⊥)
   con
   (app
    cons
-   (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-   (-> (app nil) <-))
-  (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  con
-  (app
-   cons
-   (app cons 1 (app cons 2 (app nil)))
-   (->
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))
-    <-))
+   (app cons 1 (app cons 2 (app nil ...)))
+   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -5977,67 +4292,44 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -6051,77 +4343,72 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
   con
-  (app cons (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-) (app nil))
+  (app cons (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-) (app nil))
   (env ()))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil))
+  (env ()))
+clos/con:
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil ...))))
+  (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
 
 '(store:
   con
@@ -6136,42 +4423,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -6188,19 +4459,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -6211,23 +4475,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -6236,14 +4484,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -6257,29 +4499,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -6287,17 +4521,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -6317,22 +4552,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -6340,17 +4567,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -6363,10 +4591,27 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   con
-  (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (-> (app nil) <-))
+  (app cons (app cons (app cons 3 (app cons ...)) (app nil)) (-> (app nil) <-))
   (env ()))
 clos/con:
 	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (app cons 3 (app cons 4 (app cons ...))) (-> (app nil) <-))
+  (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-))
+  (env ()))
+clos/con:
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -6399,23 +4644,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -6446,57 +4675,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -6505,18 +4706,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -6530,63 +4730,39 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -6594,17 +4770,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -6638,42 +4815,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -6686,19 +4847,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -6712,57 +4866,29 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
-  (env ()))
-	'((con
-   cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
@@ -6771,18 +4897,17 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
+	'((con
+   cons
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
+  (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊤ ⊥ ⊥)
@@ -6796,70 +4921,46 @@ literals: '(⊤ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -6867,10 +4968,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -6896,22 +4998,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -6919,17 +5013,18 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env (((app cons (app car x) (-> (app append (app cdr x) y) <-))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -6953,42 +5048,26 @@ clos/con:
    cons
    (app
     cons
-    (->
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     <-)
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (->
-     (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-     <-)
+    (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-)
     (app nil)))
   (env ()))
 	'((con
    cons
    (app
     cons
-    (-> (app cons 1 (app cons 2 (app nil))) <-)
-    (app
-     cons
-     (app
-      cons
-      (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-      (app nil))
-     (app nil))))
+    (-> (app cons 1 (app cons 2 (app nil ...))) <-)
+    (app cons (app cons (app cons ...) (app nil ...)) (app nil))))
   (env ()))
 	'((con
    cons
-   (app
-    cons
-    (-> (app cons 3 (app cons 4 (app cons 5 (app nil)))) <-)
-    (app nil)))
+   (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil)))
   (env ()))
 literals: '(⊤ ⊥ ⊥)
 
@@ -7005,19 +5084,12 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -7028,23 +5100,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    (((letrec*
       (car ... flatten)
-      (->
-       (app
-        flatten
-        (app
-         cons
-         (app cons 1 (app cons 2 (app nil)))
-         (app
-          cons
-          (app
-           cons
-           (app
-            cons
-            (app cons 3 (app cons 4 (app cons 5 (app nil))))
-            (app nil))
-           (app nil))
-          (app nil))))
-       <-))))))
+      (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))))))
 clos/con:
 	'((con
    cons
@@ -7053,14 +5109,8 @@ clos/con:
     (->
      (app
       cons
-      (app cons 1 (app cons 2 (app nil)))
-      (app
-       cons
-       (app
-        cons
-        (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-        (app nil))
-       (app nil)))
+      (app cons 1 (app cons ...))
+      (app cons (app cons ...) (app nil ...)))
      <-)))
   (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -7074,29 +5124,21 @@ literals: '(⊥ ⊥ ⊥)
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 clos/con:
 	'((con
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -7104,10 +5146,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -7127,22 +5170,14 @@ clos/con:
    cons
    (app
     cons
-    (app cons 1 (app cons 2 (app nil)))
-    (->
-     (app
-      cons
-      (app
-       cons
-       (app cons (app cons 3 (app cons 4 (app cons 5 (app nil)))) (app nil))
-       (app nil))
-      (app nil))
-     <-)))
+    (app cons 1 (app cons 2 (app nil ...)))
+    (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)))
   (env ()))
 	'((con
    cons
    (match
     (app null? x)
-    ((#f) (-> (app cons (app car x) (app append (app cdr x) y)) <-))
+    ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))
     _))
   (env
    (((match
@@ -7150,10 +5185,11 @@ clos/con:
       (#f)
       (_
        (->
-        (app append (app flatten (app car x)) (app flatten (app cdr x)))
+        (app append (app flatten (app car ...)) (app flatten (app cdr ...)))
         <-)))))))
 	'((con cons (app cons 1 (-> (app cons 2 (app nil)) <-))) (env ()))
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
+	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)))
+  (env ()))
 	'((con cons (app cons 4 (-> (app cons 5 (app nil)) <-))) (env ()))
 	'((con cons (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _))
   (env
@@ -7172,10 +5208,6 @@ literals: '(1 ⊥ ⊥)
 clos/con: ⊥
 literals: '(2 ⊥ ⊥)
 
-'(store: con (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil)))) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
 '(store: con (app cons (-> 4 <-) (app cons 5 (app nil))) (env ()))
 clos/con: ⊥
 literals: '(4 ⊥ ⊥)
@@ -7192,11 +5224,6 @@ literals: '(⊥ ⊥ ⊥)
 '(store: con (app cons 2 (-> (app nil) <-)) (env ()))
 clos/con:
 	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: con (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-)) (env ()))
-clos/con:
-	'((con cons (app cons 3 (-> (app cons 4 (app cons 5 (app nil))) <-))) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store: con (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))

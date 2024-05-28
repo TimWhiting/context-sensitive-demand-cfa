@@ -8,15 +8,63 @@
              (λ (x5)
                (λ (x6)
                  (λ (x7)
-                   (app
-                    and
-                    (app or x1 x2)
-                    (app or x1 (app not x2) (app not x3))
-                    (app or x3 x4)
-                    (app or (app not x4) x1)
-                    (app or (app not x2) (app not x3))
-                    (app or x4 x2))))))))))
-    (try (λ (f) (app or (app f (app #t)) (app f (app #f)))))
+                   (match
+                    (match
+                     x1
+                     ((#f) (match x2 ((#f) (app #f)) (_ (app #t))))
+                     (_ (app #t)))
+                    ((#f) (app #f))
+                    (_
+                     (match
+                      (match
+                       x1
+                       ((#f)
+                        (match
+                         (app not x2)
+                         ((#f)
+                          (match (app not x3) ((#f) (app #f)) (_ (app #t))))
+                         (_ (app #t))))
+                       (_ (app #t)))
+                      ((#f) (app #f))
+                      (_
+                       (match
+                        (match
+                         x3
+                         ((#f) (match x4 ((#f) (app #f)) (_ (app #t))))
+                         (_ (app #t)))
+                        ((#f) (app #f))
+                        (_
+                         (match
+                          (match
+                           (app not x4)
+                           ((#f) (match x1 ((#f) (app #f)) (_ (app #t))))
+                           (_ (app #t)))
+                          ((#f) (app #f))
+                          (_
+                           (match
+                            (match
+                             (app not x2)
+                             ((#f)
+                              (match
+                               (app not x3)
+                               ((#f) (app #f))
+                               (_ (app #t))))
+                             (_ (app #t)))
+                            ((#f) (app #f))
+                            (_
+                             (match
+                              (match
+                               x4
+                               ((#f) (match x2 ((#f) (app #f)) (_ (app #t))))
+                               (_ (app #t)))
+                              ((#f) (app #f))
+                              (_ (app #t)))))))))))))))))))))
+    (try
+     (λ (f)
+       (match
+        (app f (app #t))
+        ((#f) (match (app f (app #f)) ((#f) (app #f)) (_ (app #t))))
+        (_ (app #t)))))
     (sat-solve-7
      (λ (p)
        (app
@@ -48,125 +96,35 @@
    (app sat-solve-7 phi)))
 
 '(query:
-  (app
-   and
-   (-> (app or x1 x2) <-)
-   (app or x1 (app not x2) (app not x3))
-   (app or x3 x4)
-   (app or (app not x4) x1)
-   (app or (app not x2) (app not x3))
-   (app or x4 x2))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app or x1 x2)
-   (-> (app or x1 (app not x2) (app not x3)) <-)
-   (app or x3 x4)
-   (app or (app not x4) x1)
-   (app or (app not x2) (app not x3))
-   (app or x4 x2))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app or x1 x2)
-   (app or x1 (app not x2) (app not x3))
-   (-> (app or x3 x4) <-)
-   (app or (app not x4) x1)
-   (app or (app not x2) (app not x3))
-   (app or x4 x2))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app or x1 x2)
-   (app or x1 (app not x2) (app not x3))
-   (app or x3 x4)
-   (-> (app or (app not x4) x1) <-)
-   (app or (app not x2) (app not x3))
-   (app or x4 x2))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app or x1 x2)
-   (app or x1 (app not x2) (app not x3))
-   (app or x3 x4)
-   (app or (app not x4) x1)
-   (-> (app or (app not x2) (app not x3)) <-)
-   (app or x4 x2))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app or x1 x2)
-   (app or x1 (app not x2) (app not x3))
-   (app or x3 x4)
-   (app or (app not x4) x1)
-   (app or (app not x2) (app not x3))
-   (-> (app or x4 x2) <-))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) <-) n7)
-  (env (() () () () () () () ())))
-clos/con:
-	'((λ (x6) (-> (λ (x7) ...) <-)) (env (() () () () () ())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> (app (app (app (app (app p n1) n2) n3) n4) n5) <-) n6)
-  (env (() () () () () () () ())))
-clos/con:
-	'((λ (x5) (-> (λ (x6) ...) <-)) (env (() () () () ())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> (app (app (app (app p n1) n2) n3) n4) <-) n5)
+  (app (-> (app (app (app (...) ...) n3) n4) <-) n5)
   (env (() () () () () () () ())))
 clos/con:
 	'((λ (x4) (-> (λ (x5) ...) <-)) (env (() () () ())))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> (app (app (app p n1) n2) n3) <-) n4)
+  (app (-> (app (app (app (...) ...) n4) n5) <-) n6)
+  (env (() () () () () () () ())))
+clos/con:
+	'((λ (x5) (-> (λ (x6) ...) <-)) (env (() () () () ())))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> (app (app (app (...) ...) n5) n6) <-) n7)
+  (env (() () () () () () () ())))
+clos/con:
+	'((λ (x6) (-> (λ (x7) ...) <-)) (env (() () () () () ())))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> (app (app (app p ...) n2) n3) <-) n4)
   (env (() () () () () () () ())))
 clos/con:
 	'((λ (x3) (-> (λ (x4) ...) <-)) (env (() () ())))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) (-> n7 <-))
+  (app (app (app (app (...) ...) n3) n4) (-> n5 <-))
   (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -174,7 +132,7 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (app (app (app (app (app p n1) n2) n3) n4) n5) (-> n6 <-))
+  (app (app (app (app (...) ...) n4) n5) (-> n6 <-))
   (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -182,7 +140,7 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (app (app (app (app p n1) n2) n3) n4) (-> n5 <-))
+  (app (app (app (app (...) ...) n5) n6) (-> n7 <-))
   (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -190,48 +148,8 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (app (app (app p n1) n2) n3) (-> n4 <-))
+  (app (app (app (app p ...) n2) n3) (-> n4 <-))
   (env (() () () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app not x2) <-) (app not x3))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> x1 <-) (app not x2) (app not x3))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app not x2) (-> (app not x3) <-))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or x1 (-> (app not x2) <-) (app not x3))
-  (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or x1 (app not x2) (-> (app not x3) <-))
-  (env (() () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -246,8 +164,228 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (λ (n7)
-    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))
+  (match
+   (match (app not x4) ...)
+   (#f)
+   (_ (-> (match (match (app not ...) ...) ...) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (match (app not x2) ...) <-) (#f) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (match (app not x4) ...) <-) (#f) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app f (app #t)) ((#f) (-> (match (app f (app #f ...)) ...) <-)) _)
+  (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x2) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x2) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x3) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x3) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x3) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x3) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x4) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not x4) ((#f) (-> (match x1 ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match (app not x2) ...) (#f) (_ (-> (match (match x4 ...) ...) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match (app not x2) ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match (app not x4) ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x1 ...) (#f) (_ (-> (match (match x1 ...) ...) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x1 ...) (#f) (_ (-> (match (match x3 ...) ...) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x1 ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x1 ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x3 ...) (#f) (_ (-> (match (match (app not ...) ...) ...) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x3 ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x4 ...) (#f) (_ (-> (app #t) <-)))
+  (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (match x4 ...) ((#f) (-> (app #f) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match x1 ((#f) (-> (match (app not x2) ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match x1 ((#f) (-> (match x2 ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match x3 ((#f) (-> (match x4 ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match x4 ((#f) (-> (match x2 ...) <-)) _)
+  (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (n7) (-> (app (app (app (...) ...) n6) n7) <-))
   (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -255,17 +393,7 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (λ (x7)
-    (->
-     (app
-      and
-      (app or x1 x2)
-      (app or x1 (app not x2) (app not x3))
-      (app or x3 x4)
-      (app or (app not x4) x1)
-      (app or (app not x2) (app not x3))
-      (app or x4 x2))
-     <-))
+  (λ (x7) (-> (match (match x1 ...) ...) <-))
   (env (() () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -367,73 +495,202 @@ clos/con:
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app or (-> (app f (app #t)) <-) (app f (app #f))) (env (())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (-> (app not x4) <-) x1) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (-> x1 <-) x2) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (-> x3 <-) x4) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (-> x4 <-) x2) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env (())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or (app not x4) (-> x1 <-)) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or x1 (-> x2 <-)) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or x3 (-> x4 <-)) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app or x4 (-> x2 <-)) (env (() () () () () () ())))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app p (-> n1 <-)) (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-)) (env (())))
+'(query: (match (-> (app f (app #f)) <-) (#f) _) (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app f (app #t)) <-) (#f) _) (env (())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not x2) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not x2) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not x3) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not x3) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (app not x4) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (match x1 ...) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (match x1 ...) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (match x3 ...) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> (match x4 ...) <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x1 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x1 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x1 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x2 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x2 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x3 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x4 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (-> x4 <-) (#f) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (app f (app #f)) (#f) (_ (-> (app #t) <-))) (env (())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (app f (app #f)) ((#f) (-> (app #f) <-)) _) (env (())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match (app f (app #t)) (#f) (_ (-> (app #t) <-))) (env (())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x1 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x1 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x2 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x2 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x2 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x2 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x3 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x4 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x4 (#f) (_ (-> (app #t) <-))) (env (() () () () () () ())))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (match x4 ((#f) (-> (app #f) <-)) _) (env (() () () () () () ())))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query: (λ (f) (-> (match (app f (app #t ...)) ...) <-)) (env (())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -482,20 +739,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  f
-  (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-))
-  (env (())))
-clos/con:
-	'((app try (-> (λ (n1) ...) <-)) (env (())))
-	'((app try (-> (λ (n2) ...) <-)) (env (() ())))
-	'((app try (-> (λ (n3) ...) <-)) (env (() () ())))
-	'((app try (-> (λ (n4) ...) <-)) (env (() () () ())))
-	'((app try (-> (λ (n5) ...) <-)) (env (() () () () ())))
-	'((app try (-> (λ (n6) ...) <-)) (env (() () () () () ())))
-	'((app try (-> (λ (n7) ...) <-)) (env (() () () () () () ())))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
   n6
   (λ (n6) (-> (app try (λ (n7) ...)) <-))
   (env (() () () () () () ())))
@@ -506,8 +749,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   n7
-  (λ (n7)
-    (-> (app (app (app (app (app (app (app p n1) n2) n3) n4) n5) n6) n7) <-))
+  (λ (n7) (-> (app (app (app (...) ...) n6) n7) <-))
   (env (() () () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
@@ -540,21 +782,22 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   x7
-  (λ (x7)
-    (->
-     (app
-      and
-      (app or x1 x2)
-      (app or x1 (app not x2) (app not x3))
-      (app or x3 x4)
-      (app or (app not x4) x1)
-      (app or (app not x2) (app not x3))
-      (app or x4 x2))
-     <-))
+  (λ (x7) (-> (match (match x1 ...) ...) <-))
   (env (() () () () () () ())))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: f (λ (f) (-> (match (app f (app #t ...)) ...) <-)) (env (())))
+clos/con:
+	'((app try (-> (λ (n1) ...) <-)) (env (())))
+	'((app try (-> (λ (n2) ...) <-)) (env (() ())))
+	'((app try (-> (λ (n3) ...) <-)) (env (() () ())))
+	'((app try (-> (λ (n4) ...) <-)) (env (() () () ())))
+	'((app try (-> (λ (n5) ...) <-)) (env (() () () () ())))
+	'((app try (-> (λ (n6) ...) <-)) (env (() () () () () ())))
+	'((app try (-> (λ (n7) ...) <-)) (env (() () () () () () ())))
 literals: '(⊥ ⊥ ⊥)
 
 '(store: n1 (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env (() ())))

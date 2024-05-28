@@ -54,7 +54,7 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env ((□? (x y z k)) (□? (x y z)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

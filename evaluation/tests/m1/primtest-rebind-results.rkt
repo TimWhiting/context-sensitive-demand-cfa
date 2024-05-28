@@ -18,267 +18,74 @@
         (_ 1))))
     (is-trivial-composite?
      (λ (n)
-       (app
-        or
+       (match
         (app = (app modulo n 2) 0)
-        (app = (app modulo n 3) 0)
-        (app = (app modulo n 5) 0)
-        (app = (app modulo n 7) 0)
-        (app = (app modulo n 11) 0)
-        (app = (app modulo n 13) 0)
-        (app = (app modulo n 17) 0)
-        (app = (app modulo n 19) 0)
-        (app = (app modulo n 23) 0))))
+        ((#f)
+         (match
+          (app = (app modulo n 3) 0)
+          ((#f)
+           (match
+            (app = (app modulo n 5) 0)
+            ((#f)
+             (match
+              (app = (app modulo n 7) 0)
+              ((#f)
+               (match
+                (app = (app modulo n 11) 0)
+                ((#f)
+                 (match
+                  (app = (app modulo n 13) 0)
+                  ((#f)
+                   (match
+                    (app = (app modulo n 17) 0)
+                    ((#f)
+                     (match
+                      (app = (app modulo n 19) 0)
+                      ((#f)
+                       (match
+                        (app = (app modulo n 23) 0)
+                        ((#f) (app #f))
+                        (_ (app #t))))
+                      (_ (app #t))))
+                    (_ (app #t))))
+                  (_ (app #t))))
+                (_ (app #t))))
+              (_ (app #t))))
+            (_ (app #t))))
+          (_ (app #t))))
+        (_ (app #t)))))
     (is-fermat-prime?
      (λ (n iterations)
-       (app
-        or
+       (match
         (app <= iterations 0)
-        (let* ((byte-size (app ceiling (app / (app log n) (app log 2))))
-               (a (app random byte-size)))
-          (match
-           (app = (app modulo-power a (app - n 1) n) 1)
-           ((#f) (app #f))
-           (_ (app is-fermat-prime? n (app - iterations 1))))))))
+        ((#f)
+         (match
+          (let* ((byte-size (app ceiling (app / (app log n) (app log 2))))
+                 (a (app random byte-size)))
+            (match
+             (app = (app modulo-power a (app - n 1) n) 1)
+             ((#f) (app #f))
+             (_ (app is-fermat-prime? n (app - iterations 1)))))
+          ((#f) (app #f))
+          (_ (app #t))))
+        (_ (app #t)))))
     (generate-fermat-prime
      (λ (byte-size iterations)
        (let ((n (app random byte-size)))
          (match
-          (app
-           and
+          (match
            (app not (app is-trivial-composite? n))
-           (app is-fermat-prime? n iterations))
+           ((#f) (app #f))
+           (_
+            (match
+             (app is-fermat-prime? n iterations)
+             ((#f) (app #f))
+             (_ (app #t)))))
           ((#f) (app generate-fermat-prime byte-size iterations))
           (_ n)))))
     (iterations 10)
     (byte-size 15))
    (app generate-fermat-prime byte-size iterations)))
-
-'(query:
-  (app
-   and
-   (-> (app not (app is-trivial-composite? n)) <-)
-   (app is-fermat-prime? n iterations))
-  (env
-   ((letrec*
-     (square ... byte-size)
-     (-> (app generate-fermat-prime byte-size iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (-> (app not (app is-trivial-composite? n)) <-)
-   (app is-fermat-prime? n iterations))
-  (env
-   ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
-     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
-     _))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app not (app is-trivial-composite? n))
-   (-> (app is-fermat-prime? n iterations) <-))
-  (env
-   ((letrec*
-     (square ... byte-size)
-     (-> (app generate-fermat-prime byte-size iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   and
-   (app not (app is-trivial-composite? n))
-   (-> (app is-fermat-prime? n iterations) <-))
-  (env
-   ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
-     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
-     _))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (-> (app = (app modulo n 2) 0) <-)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (-> (app = (app modulo n 3) 0) <-)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (-> (app = (app modulo n 5) 0) <-)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (-> (app = (app modulo n 7) 0) <-)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (-> (app = (app modulo n 11) 0) <-)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (-> (app = (app modulo n 13) 0) <-)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (-> (app = (app modulo n 17) 0) <-)
-   (app = (app modulo n 19) 0)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (-> (app = (app modulo n 19) 0) <-)
-   (app = (app modulo n 23) 0))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   or
-   (app = (app modulo n 2) 0)
-   (app = (app modulo n 3) 0)
-   (app = (app modulo n 5) 0)
-   (app = (app modulo n 7) 0)
-   (app = (app modulo n 11) 0)
-   (app = (app modulo n 13) 0)
-   (app = (app modulo n 17) 0)
-   (app = (app modulo n 19) 0)
-   (-> (app = (app modulo n 23) 0) <-))
-  (env ((app not (-> (app is-trivial-composite? n) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app * (-> base <-) (app modulo-power base (app - exp 1) n))
@@ -303,7 +110,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((app
      modulo
-     (-> (app square (app modulo-power base (app / exp 2) n)) <-)
+     (-> (app square (app modulo-power base (app / ...) n)) <-)
      n))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -331,7 +138,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((app
      modulo
-     (-> (app square (app modulo-power base (app / exp 2) n)) <-)
+     (-> (app square (app modulo-power base (app / ...) n)) <-)
      n))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -357,18 +164,24 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app - (-> iterations <-) 1)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app - (-> iterations <-) 1)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(10 ⊥ ⊥)
 
 '(query:
-  (app - (-> iterations <-) 1)
+  (app - (-> n <-) 1)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
@@ -376,31 +189,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app - (-> n <-) 1)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app - (-> n <-) 1)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app / (-> (app log n) <-) (app log 2))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -408,9 +197,15 @@ literals: '(⊤ ⊥ ⊥)
   (app / (-> (app log n) <-) (app log 2))
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app / (-> (app log n) <-) (app log 2))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -435,42 +230,34 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app / (app log n) (-> (app log 2) <-))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(0.6931471805599453 ⊥ ⊥)
 
 '(query:
   (app / (app log n) (-> (app log 2) <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(0.6931471805599453 ⊥ ⊥)
 
 '(query:
   (app <= (-> iterations <-) 0)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(query:
-  (app <= (-> iterations <-) 0)
-  (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app <= (-> iterations <-) 0)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥)
 
 '(query:
   (app = (-> (app modulo n 11) <-) 0)
@@ -529,20 +316,16 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app = (-> (app modulo-power a (app - n 1) n) <-) 1)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app = (-> (app modulo-power a (app - n 1) n) <-) 1)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -567,20 +350,16 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app ceiling (-> (app / (app log n) (app log 2)) <-))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app ceiling (-> (app / (app log n) (app log 2)) <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -597,10 +376,7 @@ literals: '(15 ⊥ ⊥)
   (app generate-fermat-prime (-> byte-size <-) iterations)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -619,10 +395,7 @@ literals: '(10 ⊥ ⊥)
   (app generate-fermat-prime byte-size (-> iterations <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -631,20 +404,16 @@ literals: '(10 ⊥ ⊥)
 '(query:
   (app is-fermat-prime? (-> n <-) (app - iterations 1))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app is-fermat-prime? (-> n <-) (app - iterations 1))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -661,10 +430,7 @@ literals: '(⊤ ⊥ ⊥)
   (app is-fermat-prime? (-> n <-) iterations)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -673,24 +439,20 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app is-fermat-prime? n (-> (app - iterations 1) <-))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app is-fermat-prime? n (-> (app - iterations 1) <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(9 ⊥ ⊥)
 
 '(query:
-  (app is-fermat-prime? n (-> (app - iterations 1) <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
   (app is-fermat-prime? n (-> iterations <-))
   (env
    ((letrec*
@@ -703,10 +465,7 @@ literals: '(10 ⊥ ⊥)
   (app is-fermat-prime? n (-> iterations <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -725,10 +484,7 @@ literals: '(⊤ ⊥ ⊥)
   (app is-trivial-composite? (-> n <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -737,55 +493,51 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app log (-> n <-))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app log (-> n <-))
-  (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)
+  (app log (-> n <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)
+  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)
   (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app * base (app modulo-power base (app - exp 1) n)) <-) n)
+  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)
+  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)
+  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)
   (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (-> (app square (app modulo-power base (app / exp 2) n)) <-) n)
+  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -845,48 +597,38 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))
+  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))
+  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))
   (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app * base (app modulo-power base (app - exp 1) n)) (-> n <-))
+  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))
+  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))
+  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))
   (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app modulo (app square (app modulo-power base (app / exp 2) n)) (-> n <-))
+  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app modulo-power (-> a <-) (app - n 1) n)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -894,9 +636,15 @@ literals: '(⊤ ⊥ ⊥)
   (app modulo-power (-> a <-) (app - n 1) n)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app modulo-power (-> a <-) (app - n 1) n)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -939,30 +687,16 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (app modulo-power a (-> (app - n 1) <-) n)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app modulo-power a (-> (app - n 1) <-) n)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app modulo-power a (app - n 1) (-> n <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -970,9 +704,15 @@ literals: '(⊤ ⊥ ⊥)
   (app modulo-power a (app - n 1) (-> n <-))
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app modulo-power a (app - n 1) (-> n <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1063,10 +803,7 @@ literals: '(⊥ ⊥ ⊥)
   (app not (-> (app is-trivial-composite? n) <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con:
@@ -1093,63 +830,6 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (-> (app <= iterations 0) <-) (let* (byte-size ... a) ...))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app or (app <= iterations 0) (-> (let* (byte-size ... a) ...) <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app random (-> byte-size <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
   (app random (-> byte-size <-))
   (env
    ((letrec*
@@ -1162,10 +842,17 @@ literals: '(15 ⊥ ⊥)
   (app random (-> byte-size <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (app random (-> byte-size <-))
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -1173,11 +860,7 @@ literals: '(15 ⊥ ⊥)
 
 '(query:
   (app random (-> byte-size <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1212,25 +895,14 @@ literals: '(⊤ ⊥ ⊥)
   (let (... () (n (-> (app random byte-size) <-)) () ...) ...)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (let (n)
-    (->
-     (match
-      (app
-       and
-       (app not (app is-trivial-composite? n))
-       (app is-fermat-prime? n iterations))
-      ...)
-     <-))
+  (let (n) (-> (match (match (app not ...) ...) ...) <-))
   (env
    ((letrec*
      (square ... byte-size)
@@ -1239,21 +911,10 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (let (n)
-    (->
-     (match
-      (app
-       and
-       (app not (app is-trivial-composite? n))
-       (app is-fermat-prime? n iterations))
-      ...)
-     <-))
+  (let (n) (-> (match (match (app not ...) ...) ...) <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -1262,40 +923,26 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (let* (...
          ()
-         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))
+         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))
          a
          ...)
     ...)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (let* (...
          ()
-         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))
+         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))
          a
          ...)
     ...)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1303,33 +950,33 @@ literals: '(⊤ ⊥ ⊥)
   (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (let* (byte-size ... a)
-    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))
+  (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (let* (byte-size ... a) (-> (match (app = (app modulo-power ...) 1) ...) <-))
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (let* (byte-size ... a)
-    (-> (match (app = (app modulo-power a (app - n 1) n) 1) ...) <-))
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (let* (byte-size ... a) (-> (match (app = (app modulo-power ...) 1) ...) <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1345,14 +992,173 @@ literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
-   (->
-    (app
-     and
-     (app not (app is-trivial-composite? n))
-     (app is-fermat-prime? n iterations))
-    <-)
-   (#f)
+   (app <= iterations 0)
+   ((#f) (-> (match (let* (byte-size ... a) ...) ...) <-))
    _)
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app <= iterations 0)
+   ((#f) (-> (match (let* (byte-size ... a) ...) ...) <-))
+   _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 11) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 13) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 17) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 19) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 2) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 3) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 5) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo n 7) 0)
+   ((#f) (-> (match (app = (app modulo ...) 0) ...) <-))
+   _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo-power a (app - ...) n) 1)
+   (#f)
+   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo-power a (app - ...) n) 1)
+   (#f)
+   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo-power a (app - ...) n) 1)
+   ((#f) (-> (app #f) <-))
+   _)
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app = (app modulo-power a (app - ...) n) 1)
+   ((#f) (-> (app #f) <-))
+   _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match
+   (app not (app is-trivial-composite? n))
+   (#f)
+   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))
   (env
    ((letrec*
      (square ... byte-size)
@@ -1364,20 +1170,12 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
-   (->
-    (app
-     and
-     (app not (app is-trivial-composite? n))
-     (app is-fermat-prime? n iterations))
-    <-)
+   (app not (app is-trivial-composite? n))
    (#f)
-   _)
+   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con:
@@ -1387,10 +1185,61 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
-   (app
-    and
-    (app not (app is-trivial-composite? n))
-    (app is-fermat-prime? n iterations))
+   (app odd? exp)
+   (#f)
+   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))
+  (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (app odd? exp)
+   (#f)
+   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))
+  (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (app odd? exp)
+   (#f)
+   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))
+  (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (app odd? exp)
+   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))
+   _)
+  (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (app odd? exp)
+   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))
+   _)
+  (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (app odd? exp)
+   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))
+   _)
+  (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match
+   (match (app not (app is-trivial-composite? ...)) ...)
    (#f)
    (_ (-> n <-)))
   (env
@@ -1402,18 +1251,12 @@ literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
-   (app
-    and
-    (app not (app is-trivial-composite? n))
-    (app is-fermat-prime? n iterations))
+   (match (app not (app is-trivial-composite? ...)) ...)
    (#f)
    (_ (-> n <-)))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -1421,10 +1264,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
-   (app
-    and
-    (app not (app is-trivial-composite? n))
-    (app is-fermat-prime? n iterations))
+   (match (app not (app is-trivial-composite? ...)) ...)
    ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
    _)
   (env
@@ -1436,46 +1276,22 @@ literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match
-   (app
-    and
-    (app not (app is-trivial-composite? n))
-    (app is-fermat-prime? n iterations))
+   (match (app not (app is-trivial-composite? ...)) ...)
    ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
    _)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (match
-   (app = (app modulo-power a (app - n 1) n) 1)
-   (#f)
-   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (match
-   (app = (app modulo-power a (app - n 1) n) 1)
-   (#f)
-   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))
+  (match (-> (app <= iterations 0) <-) (#f) _)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con:
@@ -1484,124 +1300,99 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (match
-   (app = (app modulo-power a (app - n 1) n) 1)
-   ((#f) (-> (app #f) <-))
-   _)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+  (match (-> (app <= iterations 0) <-) (#f) _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con:
 	'((con #f) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (match
-   (app = (app modulo-power a (app - n 1) n) 1)
-   ((#f) (-> (app #f) <-))
-   _)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   (#f)
-   (_
-    (->
-     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)
-     <-)))
-  (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   (#f)
-   (_
-    (->
-     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)
-     <-)))
-  (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   (#f)
-   (_
-    (->
-     (app modulo (app * base (app modulo-power base (app - exp 1) n)) n)
-     <-)))
-  (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   ((#f)
-    (->
-     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)
-     <-))
-   _)
-  (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   ((#f)
-    (->
-     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)
-     <-))
-   _)
-  (env ((app = (-> (app modulo-power a (app - n 1) n) <-) 1))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match
-   (app odd? exp)
-   ((#f)
-    (->
-     (app modulo (app square (app modulo-power base (app / exp 2) n)) n)
-     <-))
-   _)
-  (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+  (match (-> (app = (app modulo n 11) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (match (-> (app = (app modulo-power a (app - n 1) n) 1) <-) (#f) _)
+  (match (-> (app = (app modulo n 13) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 17) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 19) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 2) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 23) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 3) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 5) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo n 7) 0) <-) (#f) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo-power a (app - ...) n) 1) <-) (#f) _)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app = (app modulo-power a (app - ...) n) 1) <-) (#f) _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
@@ -1632,6 +1423,52 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
+  (match (-> (app is-fermat-prime? n iterations) <-) (#f) _)
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app is-fermat-prime? n iterations) <-) (#f) _)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app not (app is-trivial-composite? n)) <-) (#f) _)
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app not (app is-trivial-composite? n)) <-) (#f) _)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (match (-> (app odd? exp) <-) (#f) _)
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con:
@@ -1656,6 +1493,130 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
+  (match (-> (let* (byte-size ... a) ...) <-) (#f) _)
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (let* (byte-size ... a) ...) <-) (#f) _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (match (app not (app is-trivial-composite? ...)) ...) <-) (#f) _)
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (match (app not (app is-trivial-composite? ...)) ...) <-) (#f) _)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app <= iterations 0) (#f) (_ (-> (app #t) <-)))
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 11) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 13) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 17) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 19) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 2) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 23) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 23) 0) ((#f) (-> (app #f) <-)) _)
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 3) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 5) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app = (app modulo n 7) 0) (#f) (_ (-> (app #t) <-)))
+  (env ((app not (-> (app is-trivial-composite? n) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)
   (env ((app * base (-> (app modulo-power base (app - exp 1) n) <-)))))
 clos/con: ⊥
@@ -1672,6 +1633,105 @@ literals: '(⊤ ⊥ ⊥)
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
+
+'(query:
+  (match (app is-fermat-prime? n iterations) (#f) (_ (-> (app #t) <-)))
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app is-fermat-prime? n iterations) (#f) (_ (-> (app #t) <-)))
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app is-fermat-prime? n iterations) ((#f) (-> (app #f) <-)) _)
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app is-fermat-prime? n iterations) ((#f) (-> (app #f) <-)) _)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not (app is-trivial-composite? n)) ((#f) (-> (app #f) <-)) _)
+  (env
+   ((letrec*
+     (square ... byte-size)
+     (-> (app generate-fermat-prime byte-size iterations) <-)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app not (app is-trivial-composite? n)) ((#f) (-> (app #f) <-)) _)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (let* (byte-size ... a) ...) (#f) (_ (-> (app #t) <-)))
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (let* (byte-size ... a) ...) (#f) (_ (-> (app #t) <-)))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (let* (byte-size ... a) ...) ((#f) (-> (app #f) <-)) _)
+  (env
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (let* (byte-size ... a) ...) ((#f) (-> (app #f) <-)) _)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (base exp n) (-> (match (app = exp 0) ...) <-))
@@ -1704,34 +1764,17 @@ literals: '(⊤ ⊥ ⊥)
   (λ (byte-size iterations) (-> (let (n) ...) <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con:
@@ -1740,20 +1783,15 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (λ (n)
-    (->
-     (app
-      or
-      (app = (app modulo n 2) 0)
-      (app = (app modulo n 3) 0)
-      (app = (app modulo n 5) 0)
-      (app = (app modulo n 7) 0)
-      (app = (app modulo n 11) 0)
-      (app = (app modulo n 13) 0)
-      (app = (app modulo n 17) 0)
-      (app = (app modulo n 19) 0)
-      (app = (app modulo n 23) 0))
-     <-))
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((con #f) (env ()))
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (n) (-> (match (app = (app modulo ...) 0) ...) <-))
   (env ((app not (-> (app is-trivial-composite? n) <-)))))
 clos/con:
 	'((con #f) (env ()))
@@ -1765,7 +1803,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((app
      modulo
-     (-> (app square (app modulo-power base (app / exp 2) n)) <-)
+     (-> (app square (app modulo-power base (app / ...) n)) <-)
      n))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -1778,21 +1816,17 @@ literals: '(⊤ ⊥ ⊥)
   a
   (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
   a
   (let* (... byte-size (a (-> (app random byte-size) <-)) () ...) ...)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1821,15 +1855,15 @@ literals: '(⊤ ⊥ ⊥)
   byte-size
   (let* (...
          ()
-         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))
+         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))
          a
          ...)
     ...)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
+   ((match
+     (app = (app modulo-power a (app - ...) n) 1)
+     (#f)
+     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1837,15 +1871,11 @@ literals: '(⊤ ⊥ ⊥)
   byte-size
   (let* (...
          ()
-         (byte-size (-> (app ceiling (app / (app log n) (app log 2))) <-))
+         (byte-size (-> (app ceiling (app / (app log ...) (app log ...))) <-))
          a
          ...)
     ...)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
-     (#f)
-     (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -1871,10 +1901,7 @@ literals: '(15 ⊥ ⊥)
   (λ (byte-size iterations) (-> (let (n) ...) <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -1936,10 +1963,7 @@ literals: '(⊥ ⊥ ⊥)
    ...)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con:
@@ -1984,31 +2008,6 @@ literals: '(⊥ ⊥ ⊥)
     ...)
    ...)
   (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  is-fermat-prime?
-  (letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env
    ((letrec*
      (square ... byte-size)
      (-> (app generate-fermat-prime byte-size iterations) <-)))))
@@ -2034,35 +2033,7 @@ literals: '(⊥ ⊥ ⊥)
    ...)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
-     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
-     _))))
-clos/con:
-	'((letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  is-fermat-prime?
-  (letrec*
-   (...
-    is-trivial-composite?
-    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
-    generate-fermat-prime
-    ...)
-   ...)
-  (env
-   ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con:
@@ -2085,6 +2056,52 @@ literals: '(⊥ ⊥ ⊥)
     generate-fermat-prime
     ...)
    ...)
+  (env
+   ((match
+     (match (app not (app is-trivial-composite? ...)) ...)
+     ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
+     _))))
+clos/con:
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-fermat-prime?
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con:
+	'((letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  is-fermat-prime?
+  (letrec*
+   (...
+    is-trivial-composite?
+    (is-fermat-prime? (-> (λ (n iterations) ...) <-))
+    generate-fermat-prime
+    ...)
+   ...)
   (env ()))
 clos/con:
 	'((letrec*
@@ -2132,10 +2149,7 @@ literals: '(⊥ ⊥ ⊥)
    ...)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con:
@@ -2194,10 +2208,7 @@ literals: '(10 ⊥ ⊥)
   (λ (byte-size iterations) (-> (let (n) ...) <-))
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -2205,52 +2216,21 @@ literals: '(10 ⊥ ⊥)
 
 '(store:
   iterations
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(store:
-  iterations
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
-  modulo-power
-  (letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con:
-	'((letrec*
-   (...
-    square
-    (modulo-power (-> (λ (base exp n) ...) <-))
-    is-trivial-composite?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
+  iterations
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con: ⊥
+literals: '(10 ⊥ ⊥)
 
 '(store:
   modulo-power
@@ -2263,7 +2243,7 @@ literals: '(⊥ ⊥ ⊥)
    ...)
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con:
@@ -2329,6 +2309,27 @@ literals: '(⊥ ⊥ ⊥)
     ...)
    ...)
   (env ((app square (-> (app modulo-power base (app / exp 2) n) <-)))))
+clos/con:
+	'((letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  modulo-power
+  (letrec*
+   (...
+    square
+    (modulo-power (-> (λ (base exp n) ...) <-))
+    is-trivial-composite?
+    ...)
+   ...)
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
 clos/con:
 	'((letrec*
    (...
@@ -2376,10 +2377,7 @@ literals: '(⊤ ⊥ ⊥)
   (let (... () (n (-> (app random byte-size) <-)) () ...) ...)
   (env
    ((match
-     (app
-      and
-      (app not (app is-trivial-composite? n))
-      (app is-fermat-prime? n iterations))
+     (match (app not (app is-trivial-composite? ...)) ...)
      ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))
      _))))
 clos/con: ⊥
@@ -2408,23 +2406,10 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   n
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
-  (env
-   ((app
-     and
-     (app not (app is-trivial-composite? n))
-     (-> (app is-fermat-prime? n iterations) <-)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(store:
-  n
-  (λ (n iterations)
-    (-> (app or (app <= iterations 0) (let* (byte-size ... a) ...)) <-))
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
   (env
    ((match
-     (app = (app modulo-power a (app - n 1) n) 1)
+     (app = (app modulo-power a (app - ...) n) 1)
      (#f)
      (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-))))))
 clos/con: ⊥
@@ -2432,20 +2417,14 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   n
-  (λ (n)
-    (->
-     (app
-      or
-      (app = (app modulo n 2) 0)
-      (app = (app modulo n 3) 0)
-      (app = (app modulo n 5) 0)
-      (app = (app modulo n 7) 0)
-      (app = (app modulo n 11) 0)
-      (app = (app modulo n 13) 0)
-      (app = (app modulo n 17) 0)
-      (app = (app modulo n 19) 0)
-      (app = (app modulo n 23) 0))
-     <-))
+  (λ (n iterations) (-> (match (app <= iterations 0) ...) <-))
+  (env ((match (-> (app is-fermat-prime? n iterations) <-) (#f) _))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  n
+  (λ (n) (-> (match (app = (app modulo ...) 0) ...) <-))
   (env ((app not (-> (app is-trivial-composite? n) <-)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -2492,7 +2471,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((app
      modulo
-     (-> (app square (app modulo-power base (app / exp 2) n)) <-)
+     (-> (app square (app modulo-power base (app / ...) n)) <-)
      n))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

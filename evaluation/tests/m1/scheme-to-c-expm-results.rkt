@@ -1778,7 +1778,10 @@
   (app
    (-> emit <-)
    "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1794,7 +1797,10 @@ literals: '(⊥ ⊥ ⊥)
   (app
    (-> emit <-)
    "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1810,7 +1816,10 @@ literals: '(⊥ ⊥ ⊥)
   (app
    (-> emit <-)
    "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1826,7 +1835,10 @@ literals: '(⊥ ⊥ ⊥)
   (app
    (-> emit <-)
    "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1842,7 +1854,10 @@ literals: '(⊥ ⊥ ⊥)
   (app
    (-> emit <-)
    "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1858,7 +1873,10 @@ literals: '(⊥ ⊥ ⊥)
   (app
    (-> emit <-)
    "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -1875,7 +1893,10 @@ literals: '(⊥ ⊥ ⊥)
    set!
    input-program
    (-> (app desugar (app wrap-mutables input-program)) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1894,33 +1915,533 @@ literals: '(3 ⊥ ⊥)
    " ;\n"
    "  return 0;\n"
    " }\n")
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (app (-> emit <-) "")
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> emit <-) "")
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> emit <-) "#include <stdio.h>")
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> emit <-) "#include <stdlib.h>")
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> emit <-) "#include \"scheme.h\"")
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app (-> emit <-) compiled-program)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((letrec*
+   (...
+    c-compile-env-struct
+    (emit (-> (λ (line) ...) <-))
+    c-compile-and-emit
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app analyze-mutable-variables (-> input-program <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app c-compile-const (-> exp <-))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app c-compile-exp (-> exp <-) append-preamble)
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app c-compile-program (-> input-program <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app closure-convert (-> input-program <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((app
+      set!
+      input-program
+      (-> (app desugar (app wrap-mutables input-program)) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((app set! input-program (-> (app closure-convert input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env (((app set! input-program (-> (app desugar input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app desugar (-> (app wrap-mutables input-program) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app desugar (-> input-program <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include <stdio.h>")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include <stdlib.h>")
+
+'(query:
+  (app display (-> line <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include \"scheme.h\"")
+
+'(query:
+  (app display (-> line <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "")
+
+'(query:
+  (app display (-> line <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "")
+
+'(query:
+  (app display (-> line <-))
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (app for-each (λ (env) ...) (-> environments <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app for-each (λ (l) ...) (-> lambdas <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app for-each (λ (l) ...) (-> lambdas <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app number->string (-> exp <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app pair? (-> lst <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app pair? (-> lst <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (app pair? (-> lst <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (app set! compiled-program (-> (app c-compile-program input-program) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
   (app set! input-program (-> (app closure-convert input-program) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(query:
   (app set! input-program (-> (app desugar input-program) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(query:
   (app string-append "MakeInt(" (-> (app number->string exp) <-) ")")
-  (env (())))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (app wrap-mutables (-> input-program <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
 
 '(query:
   (let (...
@@ -1934,7 +2455,10 @@ literals: '(⊥ ⊥ ⊤)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1951,7 +2475,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1968,7 +2495,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -1985,7 +2515,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2002,7 +2535,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2019,7 +2555,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2037,7 +2576,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2052,7 +2594,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2065,7 +2610,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2077,7 +2625,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2089,28 +2640,214 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2118,30 +2855,430 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
 clos/con:
 	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app emit compiled-program) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app newline) <-))
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app void) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app void) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (app void) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (let (_) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -2151,7 +3288,11 @@ literals: '(⊥ ⊥ ⊥)
          ()
          ...)
     ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -2173,7 +3314,11 @@ literals: '(⊥ ⊥ ⊤)
       "  return 0;\n"
       " }\n")
      <-))
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -2218,8 +3363,18 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
+  (letrec* (compiled-program) (-> (let (_) ...) <-))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (letrec* (wrap-mutable-formals) (-> (match (app const? exp) ...) <-))
-  (env (())))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -2235,441 +3390,577 @@ literals: '(⊥ ⊥ ⊥)
    (app integer? exp)
    (#f)
    (_ (-> (app string-append "MakeInt(" (app number->string exp) ")") <-)))
-  (env (())))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((app
+      set!
+      input-program
+      (-> (app desugar (app wrap-mutables input-program)) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((app set! input-program (-> (app closure-convert input-program) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env (((app set! input-program (-> (app desugar input-program) <-))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app pair? lst) <-) (#f) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app pair? lst) <-) (#f) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app pair? lst) <-) (#f) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> pair?-v <-) (cons pair?-c pair?-d) _)
+  (env (((match (-> (app pair? lst) <-) (#f) _)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))
-  (env (())))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (match (app const? exp) (#f) (_ (-> (app void) <-)))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> exp <-)))
+  (env
+   (((app
+      set!
+      input-program
+      (-> (app desugar (app wrap-mutables input-program)) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> exp <-)))
+  (env
+   (((app set! input-program (-> (app closure-convert input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> exp <-)))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> exp <-)))
+  (env (((app set! input-program (-> (app desugar input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app integer? exp) (#f) (_ (-> (app #t) <-)))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app pair? lst) ((#f) (-> (app nil) <-)) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app pair? lst) ((#f) (-> (app nil) <-)) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (app pair? lst) ((#f) (-> (app nil) <-)) _)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))
-  (env (())))
+  (env (((match (-> (app pair? lst) <-) (#f) _)))))
 clos/con:
 	'((con #f) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (emit input-program) (-> (letrec* (compiled-program) ...) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (exp append-preamble) (-> (match (app const? exp) ...) <-))
-  (env (())))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (let* (preamble ... body) ...) <-))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app
+      set!
+      input-program
+      (-> (app desugar (app wrap-mutables input-program)) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app set! input-program (-> (app closure-convert input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env (((app set! input-program (-> (app desugar input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (pair?-v) (-> (match pair?-v ...) <-))
+  (env (((match (-> (app pair? lst) <-) (#f) _)))))
+clos/con:
+	'((con #f) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
 	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) "") (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) "") (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) "#include <stdio.h>") (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) "#include <stdlib.h>") (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) "#include \"scheme.h\"") (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> emit <-) compiled-program) (env (())))
-clos/con:
-	'((letrec*
-   (...
-    c-compile-env-struct
-    (emit (-> (λ (line) ...) <-))
-    c-compile-and-emit
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app analyze-mutable-variables (-> input-program <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app c-compile-const (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app c-compile-exp (-> exp <-) append-preamble) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app c-compile-program (-> input-program <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app closure-convert (-> input-program <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app desugar (-> (app wrap-mutables input-program) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app desugar (-> input-program <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app display (-> line <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(query: (app for-each (λ (env) ...) (-> environments <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app for-each (λ (l) ...) (-> lambdas <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app for-each (λ (l) ...) (-> lambdas <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app number->string (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app pair? (-> lst <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app wrap-mutables (-> input-program <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app display line) <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app emit "") <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app emit "") <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (app emit compiled-program) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (app newline) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (app void) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (letrec* (compiled-program) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app integer? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app integer? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app pair? lst) <-) (#f) _) (env (())))
-clos/con:
-	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> (app void) <-))) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> exp <-))) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> exp <-))) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> exp <-))) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (match (app integer? exp) (#f) (_ (-> (app #t) <-))) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (app pair? lst) ((#f) (-> (app nil) <-)) _) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (let* (preamble ... body) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(query: (λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(query: (λ (f lst) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (line) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (pair?-v) (-> (match pair?-v ...) <-)) (env (())))
-clos/con:
-	'((con #f) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -2685,7 +3976,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2703,7 +3997,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2721,7 +4018,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2739,7 +4039,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2757,7 +4060,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2775,7 +4081,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2794,7 +4103,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2810,7 +4122,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2824,7 +4139,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2837,7 +4155,10 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2850,7 +4171,198 @@ literals: '(⊥ ⊥ ⊥)
         ()
         ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app display line) <-)) () ...) ...)
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (app emit "") <-)) () ...) ...)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2858,7 +4370,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2866,7 +4381,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2874,7 +4392,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2883,7 +4404,10 @@ literals: '(⊥ ⊥ ⊥)
   _
   (let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
     ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2891,7 +4415,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2899,7 +4426,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -2907,7 +4437,29 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   _
   (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
-  (env (())))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (... () (_ (-> (match (app pair? lst) ...) <-)) () ...) ...)
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
 clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -3010,19 +4562,37 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   append-preamble
   (let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con:
 	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   append-preamble
   (λ (exp append-preamble) (-> (match (app const? exp) ...) <-))
-  (env (())))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
 clos/con:
 	'((let* (... preamble (append-preamble (-> (λ (s) ...) <-)) body ...) ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -3137,7 +4707,11 @@ literals: '(⊥ ⊥ ⊥)
          ()
          ...)
     ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -3691,7 +5265,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   compiled-program
   (letrec* (... () (compiled-program (-> "" <-)) () ...) ...)
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -3746,7 +5323,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   emit
   (λ (emit input-program) (-> (letrec* (compiled-program) ...) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con:
 	'((letrec*
    (...
@@ -3887,9 +5467,157 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   exp
   (λ (exp append-preamble) (-> (match (app const? exp) ...) <-))
-  (env (())))
+  (env
+   (((let* (...
+            append-preamble
+            (body (-> (app c-compile-exp exp append-preamble) <-))
+            ()
+            ...)
+       ...)))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (let* (preamble ... body) ...) <-))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app
+      set!
+      input-program
+      (-> (app desugar (app wrap-mutables input-program)) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app set! input-program (-> (app closure-convert input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env (((app set! input-program (-> (app desugar input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app c-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  f
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((app for-each (-> (λ (env) ...) <-) environments)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  f
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((app for-each (-> (λ (l) ...) <-) lambdas)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  f
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((app for-each (-> (λ (l) ...) <-) lambdas)
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   for-each
@@ -4014,7 +5742,10 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   input-program
   (λ (emit input-program) (-> (letrec* (compiled-program) ...) <-))
-  (env (())))
+  (env
+   (((letrec*
+      (car ... the-benchmark-program)
+      (-> (app c-compile-and-emit emit the-benchmark-program) <-))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -4292,6 +6023,202 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_difference(Value e, Value a, Value b) {\n  return MakeInt(a.z.value - b.z.value) ;\n}")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_display(Value e, Value v) {\n  printf(\"%i\\n\",v.z.value) ;\n  return v ;\n}")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_numEqual(Value e, Value a, Value b) {\n  return MakeBoolean(a.z.value == b.z.value) ;\n}")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_product(Value e, Value a, Value b) {\n  return MakeInt(a.z.value * b.z.value) ;\n}")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "Value __prim_sum(Value e, Value a, Value b) {\n  return MakeInt(a.z.value + b.z.value) ;\n}")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_
+            (->
+             (app
+              emit
+              "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+             <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥
+  ⊥
+  "\nValue __sum ;\nValue __difference ;\nValue __product ;\nValue __display ;\nValue __numEqual ;\n")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdio.h>") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include <stdio.h>")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include <stdlib.h>") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include <stdlib.h>")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app emit "#include \"scheme.h\"") <-)) () ...)
+       ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "#include \"scheme.h\"")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (... () (_ (-> (app emit "") <-)) () ...) ...)))))
+clos/con: ⊥
+literals: '(⊥ ⊥ "")
+
+'(store:
+  line
+  (λ (line) (-> (let (_) ...) <-))
+  (env (((let (_) (-> (app emit compiled-program) <-))))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(store:
+  lst
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (env) ...) environments) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lst
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  lst
+  (λ (f lst) (-> (let (_) ...) <-))
+  (env
+   (((let (... () (_ (-> (app for-each (λ (l) ...) lambdas) <-)) () ...)
+       ...)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   mangle
   (letrec*
    (... wrap-mutables (mangle (-> (λ (symbol) ...) <-)) num-environments ...)
@@ -4386,9 +6313,21 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  pair?-v
+  (λ (pair?-v) (-> (match pair?-v ...) <-))
+  (env (((match (-> (app pair? lst) <-) (#f) _)))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   preamble
   (let* (... () (preamble (-> "" <-)) append-preamble ...) ...)
-  (env (())))
+  (env
+   (((app
+      set!
+      compiled-program
+      (-> (app c-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ "")
 
@@ -4589,12 +6528,12 @@ literals: '(⊥ ⊥ ⊥)
   (letrec*
    (... () (wrap-mutable-formals (-> (λ (formals body-exp) ...) <-)) () ...)
    ...)
-  (env (())))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
 clos/con:
 	'((letrec*
    (... () (wrap-mutable-formals (-> (λ (formals body-exp) ...) <-)) () ...)
    ...)
-  (env (())))
+  (env (((app desugar (-> (app wrap-mutables input-program) <-))))))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -4616,68 +6555,4 @@ clos/con:
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: _ (let (... () (_ (-> (app display line) <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: _ (let (... () (_ (-> (app emit "") <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: _ (let (... () (_ (-> (app emit "") <-)) () ...) ...) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (let* (preamble ... body) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (letrec* (wrap-mutable-formals) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: f (λ (f lst) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((app for-each (-> (λ (env) ...) <-) environments) (env (())))
-	'((app for-each (-> (λ (l) ...) <-) lambdas) (env (())))
-	'((app for-each (-> (λ (l) ...) <-) lambdas) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: line (λ (line) (-> (let (_) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(store: lst (λ (f lst) (-> (let (_) ...) <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: pair?-v (λ (pair?-v) (-> (match pair?-v ...) <-)) (env (())))
-clos/con:
-	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)

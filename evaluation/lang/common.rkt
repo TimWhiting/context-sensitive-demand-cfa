@@ -303,6 +303,20 @@
     [`(quote ,(? string? x)) x]
     [`(quote ,ls) (desugar-quote ls)]
     [`(quasiquote ,@ls) (desugar-qq 1 ls)]
+    [`(and ,e ,@es)
+     `(match ,(translate e)
+        [(#f) (app #f)]
+        [_ ,(translate `(and ,@es))]
+        )
+     ]
+    [`(and) `(app #t)]
+    [`(or ,e ,@es)
+     `(match ,(translate e)
+        [(#f) ,(translate `(or ,@es))]
+        [_ (app #t)]
+        )
+     ]
+    [`(or) `(app #f)]
     [`(,@es)
      ;  (pretty-print `(app ,es))
      `(app ,@(map translate es))]

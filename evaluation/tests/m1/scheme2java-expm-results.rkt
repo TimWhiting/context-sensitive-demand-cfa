@@ -639,9 +639,35 @@
    " ;\n"
    " }\n"
    "}\n")
-  (env (())))
+  (env (((app display (-> (app java-compile-program input-program) <-))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app const? (-> exp <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
 
 '(query:
   (app display (-> (app java-compile-program input-program) <-))
@@ -650,8 +676,55 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (app integer? (-> exp <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app integer? (-> exp <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app java-compile-const (-> exp <-))
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app java-compile-exp (-> exp <-))
+  (env (((app display (-> (app java-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
+  (app number->string (-> exp <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(query:
   (app string-append "new IntValue(" (-> (app number->string exp) <-) ")")
-  (env (())))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -696,15 +769,73 @@ literals: '(⊥ ⊥ ⊥)
    (#f)
    (_
     (-> (app string-append "new IntValue(" (app number->string exp) ")") <-)))
-  (env (())))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app const? exp) <-) (#f) _)
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (match (-> (app integer? exp) <-) (#f) _)
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
   (match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))
-  (env (())))
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (match (app const? exp) (#f) (_ (-> (app void) <-)))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (exp)
@@ -718,7 +849,55 @@ literals: '(⊥ ⊥ ⊤)
       " }\n"
       "}\n")
      <-))
-  (env (())))
+  (env (((app display (-> (app java-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (app integer? exp) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (app integer? exp) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con:
+	'((con #t) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊤)
+
+'(query:
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(query:
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
@@ -727,76 +906,10 @@ clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app const? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app integer? (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app java-compile-const (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app java-compile-exp (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app number->string (-> exp <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
 '(query: (letrec* (car ... input-program) (-> (let (_) ...) <-)) (env ()))
 clos/con:
 	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app const? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (-> (app integer? exp) <-) (#f) _) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (match (app const? exp) (#f) (_ (-> (app void) <-))) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (app integer? exp) <-)) (env (())))
-clos/con:
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con:
-	'((con void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(⊥ ⊥ ⊤)
 
 '(store:
   Yn
@@ -1011,7 +1124,57 @@ literals: '(⊥ ⊥ ⊥)
       " }\n"
       "}\n")
      <-))
-  (env (())))
+  (env (((app display (-> (app java-compile-program input-program) <-))))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (app integer? exp) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (app integer? exp) <-))
+  (env (((match (-> (app const? exp) <-) (#f) _)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (-> (app java-compile-exp exp) <-)
+      " ;\n"
+      " }\n"
+      "}\n")))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app const? exp) ...) <-))
+  (env
+   (((let (...
+           ()
+           (_ (-> (app analyze-mutable-variables input-program) <-))
+           ()
+           ...)
+       ...)))))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  exp
+  (λ (exp) (-> (match (app integer? exp) ...) <-))
+  (env
+   (((match (app const? exp) (#f) (_ (-> (app java-compile-const exp) <-)))))))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
@@ -1618,19 +1781,3 @@ literals: '(⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... arity (xargs (-> (λ (n) ...) <-)) Yn ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (app integer? exp) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: exp (λ (exp) (-> (match (app integer? exp) ...) <-)) (env (())))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)

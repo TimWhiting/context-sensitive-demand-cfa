@@ -83,7 +83,7 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (match
    (app = n 0)
-   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
    _)
   (env (())))
 clos/con: ⊥

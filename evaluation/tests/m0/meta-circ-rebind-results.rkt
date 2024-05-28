@@ -128,20 +128,41 @@
             (app number->string gensym-count))))))
      (three-d-tagged-list?
       (λ (tag lst)
-        (app
-         and
+        (match
          (app pair? lst)
-         (app
-          or
-          (app eq? (app car lst) tag)
-          (app
-           and
-           (app procedure? (app car lst))
-           (app equal? (app (app car lst)) (app initial tag)))))))
+         ((#f) (app #f))
+         (_
+          (match
+           (match
+            (app eq? (app car lst) tag)
+            ((#f)
+             (match
+              (match
+               (app procedure? (app car lst))
+               ((#f) (app #f))
+               (_
+                (match
+                 (app equal? (app (app car lst)) (app initial tag))
+                 ((#f) (app #f))
+                 (_ (app #t)))))
+              ((#f) (app #f))
+              (_ (app #t))))
+            (_ (app #t)))
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (tagged-list?
-      (λ (tag lst) (app and (app pair? lst) (app eq? (app car lst) tag))))
+      (λ (tag lst)
+        (match
+         (app pair? lst)
+         ((#f) (app #f))
+         (_
+          (match (app eq? (app car lst) tag) ((#f) (app #f)) (_ (app #t)))))))
      (singlet?
-      (λ (list) (app and (app pair? list) (app null? (app cdr list)))))
+      (λ (list)
+        (match
+         (app pair? list)
+         ((#f) (app #f))
+         (_ (match (app null? (app cdr list)) ((#f) (app #f)) (_ (app #t)))))))
      (partition-k
       (λ (pred list k)
         (match
@@ -173,9 +194,22 @@
          (_ (app k (app nil) (app nil))))))
      (define? (λ (s-exp) (app tagged-list? 'define s-exp)))
      (define-var?
-      (λ (s-exp) (app and (app define? s-exp) (app symbol? (app cadr s-exp)))))
+      (λ (s-exp)
+        (match
+         (app define? s-exp)
+         ((#f) (app #f))
+         (_
+          (match
+           (app symbol? (app cadr s-exp))
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (define-fun?
-      (λ (s-exp) (app and (app define? s-exp) (app pair? (app cadr s-exp)))))
+      (λ (s-exp)
+        (match
+         (app define? s-exp)
+         ((#f) (app #f))
+         (_
+          (match (app pair? (app cadr s-exp)) ((#f) (app #f)) (_ (app #t)))))))
      (define->var
       (λ (s-exp)
         (match
@@ -202,7 +236,15 @@
          (_ (app caddr s-exp)))))
      (if? (λ (s-exp) (app three-d-tagged-list? 'if s-exp)))
      (if-single?
-      (λ (s-exp) (app and (app if? s-exp) (app null? (app cdddr s-exp)))))
+      (λ (s-exp)
+        (match
+         (app if? s-exp)
+         ((#f) (app #f))
+         (_
+          (match
+           (app null? (app cdddr s-exp))
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (if->cond (λ (s-exp) (app cadr s-exp)))
      (if->true (λ (s-exp) (app caddr s-exp)))
      (if->false (λ (s-exp) (app cadddr s-exp)))
@@ -210,7 +252,15 @@
      (quote->text (λ (s-exp) (app cadr s-exp)))
      (lambda? (λ (s-exp) (app three-d-tagged-list? 'lambda s-exp)))
      (lambda-multi?
-      (λ (s-exp) (app and (app lambda? s-exp) (app symbol? (app cadr s-exp)))))
+      (λ (s-exp)
+        (match
+         (app lambda? s-exp)
+         ((#f) (app #f))
+         (_
+          (match
+           (app symbol? (app cadr s-exp))
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (lambda->formals (λ (s-exp) (app cadr s-exp)))
      (lambda->body (λ (s-exp) (app cddr s-exp)))
      (lambda->body-as-exp (λ (s-exp) (app make-begin (app cddr s-exp))))
@@ -268,11 +318,18 @@
      (cond->clauses (λ (s-exp) (app cdr s-exp)))
      (arrow-clause?
       (λ (clause)
-        (app
-         and
+        (match
          (app pair? clause)
-         (app pair? (app cdr clause))
-         (app eq? (app cadr clause) '=>))))
+         ((#f) (app #f))
+         (_
+          (match
+           (app pair? (app cdr clause))
+           ((#f) (app #f))
+           (_
+            (match
+             (app eq? (app cadr clause) '=>)
+             ((#f) (app #f))
+             (_ (app #t)))))))))
      (else-clause? (λ (clause) (app three-d-tagged-list? 'else clause)))
      (cond-clause->exp
       (λ (clause)

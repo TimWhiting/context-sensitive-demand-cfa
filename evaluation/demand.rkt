@@ -119,8 +119,6 @@
     ['eq? `(prim eq? ,do-demand-equal)]
     ['symbol? `(prim symbol? ,do-symbol?)]
     ['char? `(prim char? ,do-char?)]
-    ['or `(prim or ,do-demand-or)]; TODO Handle in match positions
-    ['and `(prim and ,do-demand-and)]; TODO Handle in match positions
     ['not `(prim not ,do-demand-not)]
     ['random `(prim random ,do-random)]
     ['ceiling `(prim ceiling ,do-ceiling)]
@@ -193,42 +191,6 @@
                   [(cons _ #f) (unit #f)]
                   [(cons _ _) (unit #t)]
                   )))]))
-
-(define (do-demand-or ρ C . args)
-  (match args
-    ['() (false C ρ)]
-    [(cons a '())
-     (>>= (is-truthy ρ C a)
-          (λ (t)
-            (match t
-              [#t (unit a)]
-              [#f (false C ρ)]
-              )))]
-    [(cons a as)
-     (>>= (is-truthy ρ C a)
-          (λ (t)
-            (match t
-              [#t (unit a)]
-              [#f (apply do-demand-or (cons ρ (cons C as)))]
-              )))]))
-
-(define (do-demand-and ρ C . args)
-  (match args
-    ['() (true C ρ)]
-    [(cons a '())
-     (>>= (is-truthy ρ C a)
-          (λ (t)
-            (match t
-              [#t (unit a)]
-              [#f (false C ρ)]
-              )))]
-    [(cons a as)
-     (>>= (is-truthy ρ C a)
-          (λ (t)
-            (match t
-              [#t (apply do-demand-and (cons ρ (cons C as)))]
-              [#f (false C ρ)]
-              )))]))
 
 (define (do-demand-equal ρ C a1 a2)
   (match a1
@@ -324,7 +286,7 @@
                       (if (= (length args) 0)
                           (clos (cons `(top) `(app ,con ,@args)) (top-env))
                           (clos Ce ρ))
-                      (error 'invalid-rator (format "~a" con))
+                      ⊥ ; (error 'invalid-rator (format "~a" con))
                       )
 
                   ]
@@ -492,7 +454,6 @@
   )
 
 (define ((eval-clausecon parent parentρ clauses i) ce ρ)
-  (assert (is-constructor ce) (format "~a is not a constructor" (show-simple-ctx ce)))
   (match clauses
     [(cons clause clauses)
      (>>= (pattern-matches (car clause) ce ρ)

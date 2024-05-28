@@ -17,7 +17,7 @@
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -39,7 +39,7 @@ literals: '(1 ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -49,7 +49,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -77,7 +77,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -99,7 +99,7 @@ literals: '(1 ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -121,7 +121,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -143,7 +143,7 @@ literals: '(1 ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -171,7 +171,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -187,7 +187,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -215,7 +215,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -243,7 +243,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -269,12 +269,12 @@ literals: '(0 ⊥ ⊥)
 '(query:
   (match
    (app = n 0)
-   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
    _)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -282,7 +282,7 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (match
    (app = n 0)
-   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
    _)
   (env ((app ack (app - m 1) (-> (app ack m (app - n 1)) <-)))))
 clos/con: ⊥
@@ -291,7 +291,7 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (match
    (app = n 0)
-   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
    _)
   (env ((letrec* (ack) (-> (app ack 3 12) <-)))))
 clos/con: ⊥
@@ -300,7 +300,7 @@ literals: '(⊤ ⊥ ⊥)
 '(query:
   (match
    (app = n 0)
-   ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+   ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
    _)
   (env ((match (app = n 0) (#f) (_ (-> (app ack (app - m 1) 1) <-))))))
 clos/con: ⊥
@@ -311,7 +311,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con:
 	'((con #f) (env ()))
@@ -346,7 +346,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con:
 	'((con #f) (env ()))
@@ -380,7 +380,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -402,7 +402,7 @@ literals: '(2 ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -430,7 +430,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -446,7 +446,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -499,7 +499,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con:
 	'((letrec* (... () (ack (-> (λ (m n) ...) <-)) () ...) ...) (env ()))
@@ -543,7 +543,7 @@ literals: '(⊥ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
@@ -575,7 +575,7 @@ literals: '(⊤ ⊥ ⊥)
   (env
    ((match
      (app = n 0)
-     ((#f) (-> (app ack (app - m 1) (app ack m (app - n 1))) <-))
+     ((#f) (-> (app ack (app - m 1) (app ack m (app - ...))) <-))
      _))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

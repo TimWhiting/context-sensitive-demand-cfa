@@ -29,173 +29,6 @@
        (app lp1 10 0)))))
 
 '(query:
-  (app (-> + <-) n i)
-  (env
-   (((let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim +)
-  (env
-   (((let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> + <-) n i)
-  (env
-   (((let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim +)
-  (env
-   (((let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) i 1)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) i 1)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) j 1)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) j 1)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) j 1)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> - <-) j 1)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim -)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> = <-) 0 i)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim =) (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> = <-) 0 j)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim =)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> = <-) 0 j)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim =)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> = <-) 0 j)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim =)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> = <-) 0 j)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((prim =)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) 'unspecified (app nil))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app (-> cons <-) 'unspecified (app nil))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) 'unspecified (app nil))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app (-> cons <-) 'unspecified (app nil))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app (-> f <-) y)
   (env
    (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
@@ -342,14 +175,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> nil <-))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app (-> nil <-))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app + (-> n <-) i)
   (env
    (((let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...))
@@ -428,92 +253,6 @@ literals: '(10 ⊥ ⊥)
     ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con: ⊥
 literals: '(10 ⊥ ⊥)
-
-'(query:
-  (app - i (-> 1 <-))
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app - i (-> 1 <-))
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app - j (-> 1 <-))
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app - j (-> 1 <-))
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app - j (-> 1 <-))
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app - j (-> 1 <-))
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app = (-> 0 <-) i)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (app = (-> 0 <-) j)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (app = (-> 0 <-) j)
-  (env
-   (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (app = (-> 0 <-) j)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query:
-  (app = (-> 0 <-) j)
-  (env
-   (((let (b) (-> (app lp2 10 (λ (n) ...) x) <-)))
-    ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
 
 '(query:
   (app = 0 (-> i <-))
@@ -568,22 +307,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app cons (-> 'unspecified <-) (app nil))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app cons (-> 'unspecified <-) (app nil))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app f (-> y <-))
   (env
    (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
@@ -680,18 +403,6 @@ clos/con: ⊥
 literals: '(9 ⊥ ⊥)
 
 '(query:
-  (app lp2 (-> 10 <-) (λ (n) ...) x)
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(query:
-  (app lp2 (-> 10 <-) (λ (n) ...) x)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(query:
   (app lp2 (app - j 1) (-> f <-) $tmp$3)
   (env
    (((let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-)))
@@ -762,22 +473,6 @@ literals: '(⊤ ⊥ ⊥)
     ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app lp2 10 (-> (λ (n) ...) <-) x)
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app lp2 10 (-> (λ (n) ...) <-) x)
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app lp2 10 (-> (λ (n) ...) <-) x)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app lp2 10 (-> (λ (n) ...) <-) x)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app lp2 10 (λ (n) ...) (-> x <-))
@@ -790,22 +485,6 @@ literals: '(0 ⊥ ⊥)
   (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app set! lp2 (-> (λ (j f y) ...) <-))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app set! lp2 (-> (λ (j f y) ...) <-))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app set! lp2 (-> (λ (j f y) ...) <-))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app set! lp2 (-> (λ (j f y) ...) <-))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-))
@@ -890,7 +569,7 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...)
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -935,15 +614,14 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (b (-> (app set! lp2 (λ (j f y) ...)) <-)) () ...) ...)
   (env (((let (a) (-> (app lp1 10 0) <-))))))
 clos/con:
-	'(((top) app void) (env (((let (a) (-> (app lp1 10 0) <-))))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (b (-> (app set! lp2 (λ (j f y) ...)) <-)) () ...) ...)
   (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con:
-	'(((top) app void)
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -1220,16 +898,6 @@ literals: '(⊤ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(query: (app (-> = <-) 0 i) (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((prim =) (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 'unspecified (app nil)) (env ()))
-clos/con:
-	'((app (-> cons <-) 'unspecified (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app (-> lp1 <-) 10 0) (env ()))
 clos/con:
 	'((app set! lp1 (-> (λ (i x) ...) <-)) (env ()))
@@ -1239,20 +907,6 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> nil <-)) (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app (-> nil <-)) (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app = (-> 0 <-) i) (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
 '(query: (app = 0 (-> i <-)) (env (((let (a) (-> (app lp1 10 0) <-))))))
 clos/con: ⊥
 literals: '(10 ⊥ ⊥)
@@ -1260,24 +914,6 @@ literals: '(10 ⊥ ⊥)
 '(query: (app cons 'unspecified (-> (app nil) <-)) (env ()))
 clos/con:
 	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app cons (-> 'unspecified <-) (app nil)) (env ()))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app lp1 (-> 10 <-) 0) (env ()))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(query: (app lp1 10 (-> 0 <-)) (env ()))
-clos/con: ⊥
-literals: '(0 ⊥ ⊥)
-
-'(query: (app set! lp1 (-> (λ (i x) ...) <-)) (env ()))
-clos/con:
-	'((app set! lp1 (-> (λ (i x) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (a) (-> (app lp1 10 0) <-)) (env ()))
@@ -1334,312 +970,6 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(store:
-  ((ran
-    cons
-    ('unspecified)
-    ()
-    (bin
-     let
-     lp1
-     (let ((a
-            (app
-             set!
-             lp1
-             (λ (i x)
-               (let ((a (app = 0 i)))
-                 (match
-                  a
-                  ((#f)
-                   (let ((lp2 (app cons 'unspecified (app nil))))
-                     (let ((b
-                            (app
-                             set!
-                             lp2
-                             (λ (j f y)
-                               (let ((b (app = 0 j)))
-                                 (match
-                                  b
-                                  ((#f)
-                                   (let (($tmp$3 (app f y)))
-                                     (app lp2 (app - j 1) f $tmp$3)))
-                                  (_ (app lp1 (app - i 1) y))))))))
-                       (app lp2 10 (λ (n) (app + n i)) x))))
-                  (_ x)))))))
-       (app lp1 10 0))
-     ()
-     ()
-     (lettypes-bod ((cons car cdr) (nil)) (top))))
-   app
-   nil)
-  con
-  (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ('unspecified)
-    ()
-    (bin
-     let
-     lp2
-     (let ((b
-            (app
-             set!
-             lp2
-             (λ (j f y)
-               (let ((b (app = 0 j)))
-                 (match
-                  b
-                  ((#f)
-                   (let (($tmp$3 (app f y))) (app lp2 (app - j 1) f $tmp$3)))
-                  (_ (app lp1 (app - i 1) y))))))))
-       (app lp2 10 (λ (n) (app + n i)) x))
-     ()
-     ()
-     (match-clause
-      (#f)
-      a
-      ()
-      ((_ x))
-      (let-bod
-       let
-       ((a (app = 0 i)))
-       (bod
-        (i x)
-        (ran
-         set!
-         (lp1)
-         ()
-         (bin
-          let
-          a
-          (app lp1 10 0)
-          ()
-          ()
-          (let-bod
-           let
-           ((lp1 (app cons 'unspecified (app nil))))
-           (lettypes-bod ((cons car cdr) (nil)) (top))))))))))
-   app
-   nil)
-  con
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ('unspecified)
-    ()
-    (bin
-     let
-     lp2
-     (let ((b
-            (app
-             set!
-             lp2
-             (λ (j f y)
-               (let ((b (app = 0 j)))
-                 (match
-                  b
-                  ((#f)
-                   (let (($tmp$3 (app f y))) (app lp2 (app - j 1) f $tmp$3)))
-                  (_ (app lp1 (app - i 1) y))))))))
-       (app lp2 10 (λ (n) (app + n i)) x))
-     ()
-     ()
-     (match-clause
-      (#f)
-      a
-      ()
-      ((_ x))
-      (let-bod
-       let
-       ((a (app = 0 i)))
-       (bod
-        (i x)
-        (ran
-         set!
-         (lp1)
-         ()
-         (bin
-          let
-          a
-          (app lp1 10 0)
-          ()
-          ()
-          (let-bod
-           let
-           ((lp1 (app cons 'unspecified (app nil))))
-           (lettypes-bod ((cons car cdr) (nil)) (top))))))))))
-   app
-   nil)
-  con
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app nil))
-    (bin
-     let
-     lp1
-     (let ((a
-            (app
-             set!
-             lp1
-             (λ (i x)
-               (let ((a (app = 0 i)))
-                 (match
-                  a
-                  ((#f)
-                   (let ((lp2 (app cons 'unspecified (app nil))))
-                     (let ((b
-                            (app
-                             set!
-                             lp2
-                             (λ (j f y)
-                               (let ((b (app = 0 j)))
-                                 (match
-                                  b
-                                  ((#f)
-                                   (let (($tmp$3 (app f y)))
-                                     (app lp2 (app - j 1) f $tmp$3)))
-                                  (_ (app lp1 (app - i 1) y))))))))
-                       (app lp2 10 (λ (n) (app + n i)) x))))
-                  (_ x)))))))
-       (app lp1 10 0))
-     ()
-     ()
-     (lettypes-bod ((cons car cdr) (nil)) (top))))
-   quote
-   unspecified)
-  con
-  (env ()))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app nil))
-    (bin
-     let
-     lp2
-     (let ((b
-            (app
-             set!
-             lp2
-             (λ (j f y)
-               (let ((b (app = 0 j)))
-                 (match
-                  b
-                  ((#f)
-                   (let (($tmp$3 (app f y))) (app lp2 (app - j 1) f $tmp$3)))
-                  (_ (app lp1 (app - i 1) y))))))))
-       (app lp2 10 (λ (n) (app + n i)) x))
-     ()
-     ()
-     (match-clause
-      (#f)
-      a
-      ()
-      ((_ x))
-      (let-bod
-       let
-       ((a (app = 0 i)))
-       (bod
-        (i x)
-        (ran
-         set!
-         (lp1)
-         ()
-         (bin
-          let
-          a
-          (app lp1 10 0)
-          ()
-          ()
-          (let-bod
-           let
-           ((lp1 (app cons 'unspecified (app nil))))
-           (lettypes-bod ((cons car cdr) (nil)) (top))))))))))
-   quote
-   unspecified)
-  con
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil))
-  (env (((let (a) (-> (app lp1 10 0) <-))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app nil))
-    (bin
-     let
-     lp2
-     (let ((b
-            (app
-             set!
-             lp2
-             (λ (j f y)
-               (let ((b (app = 0 j)))
-                 (match
-                  b
-                  ((#f)
-                   (let (($tmp$3 (app f y))) (app lp2 (app - j 1) f $tmp$3)))
-                  (_ (app lp1 (app - i 1) y))))))))
-       (app lp2 10 (λ (n) (app + n i)) x))
-     ()
-     ()
-     (match-clause
-      (#f)
-      a
-      ()
-      ((_ x))
-      (let-bod
-       let
-       ((a (app = 0 i)))
-       (bod
-        (i x)
-        (ran
-         set!
-         (lp1)
-         ()
-         (bin
-          let
-          a
-          (app lp1 10 0)
-          ()
-          ()
-          (let-bod
-           let
-           ((lp1 (app cons 'unspecified (app nil))))
-           (lettypes-bod ((cons car cdr) (nil)) (top))))))))))
-   quote
-   unspecified)
-  con
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil))
-  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
   a
   (let (... () (a (-> (app = 0 i) <-)) () ...) ...)
   (env (((let (a) (-> (app lp1 10 0) <-))))))
@@ -1661,7 +991,7 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...)
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -1711,7 +1041,7 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (b (-> (app set! lp2 (λ (j f y) ...)) <-)) () ...) ...)
   (env (((let (a) (-> (app lp1 10 0) <-))))))
 clos/con:
-	'(((top) app void) (env (((let (a) (-> (app lp1 10 0) <-))))))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -1719,7 +1049,40 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (b (-> (app set! lp2 (λ (j f y) ...)) <-)) () ...) ...)
   (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con:
-	'(((top) app void)
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons 'unspecified (-> (app nil) <-))
+  (env (((let (a) (-> (app lp1 10 0) <-))))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons 'unspecified (-> (app nil) <-))
+  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> 'unspecified <-) (app nil))
+  (env (((let (a) (-> (app lp1 10 0) <-))))))
+clos/con:
+	'((app cons (-> 'unspecified <-) (app nil))
+  (env (((let (a) (-> (app lp1 10 0) <-))))))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> 'unspecified <-) (app nil))
+  (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
+clos/con:
+	'((app cons (-> 'unspecified <-) (app nil))
   (env (((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 literals: '(⊥ ⊥ ⊥)
 
@@ -1922,3 +1285,13 @@ literals: '(0 ⊥ ⊥)
     ((match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
+
+'(store: con (app cons 'unspecified (-> (app nil) <-)) (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons (-> 'unspecified <-) (app nil)) (env ()))
+clos/con:
+	'((app cons (-> 'unspecified <-) (app nil)) (env ()))
+literals: '(⊥ ⊥ ⊥)

@@ -22,7 +22,7 @@ clos/con:
 	'((letrec* (... () (tak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (λ (x y z) (-> (match (app not (app < y x)) ...) <-)) (env (())))
+'(query: (λ (x y z) (-> (match (app not (app < ...)) ...) <-)) (env (())))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
@@ -37,9 +37,9 @@ literals: '(⊤ ⊥ ⊥)
     (->
      (app
       tak
-      (app tak (app - x 1) y z)
-      (app tak (app - y 1) z x)
-      (app tak (app - z 1) x y))
+      (app tak (app - ...) y z)
+      (app tak (app - ...) z x)
+      (app tak (app - ...) x y))
      <-))
    _)
   (env (())))

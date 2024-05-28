@@ -100,10 +100,11 @@
       (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
       ; Missing primitives or takes longer
       (define benchmark-2 '(meta-circ regex-derivative regex loop2 scheme-to-c scheme2java))
+      (define requires-set '(loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
-      ; (for ([example (get-examples all-examples)])
+      (for ([example (get-examples all-examples)])
       ; (for ([example (get-examples '(blur))])
-      (for ([example (get-examples '(simple-id) all-benchmarks)])
+      ; (for ([example (get-examples '(meta-circ) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           ; (define out-keys-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-keys.txt") #:exists 'replace))
@@ -113,12 +114,12 @@
           ; (show-envs #t)
           ; (trace 1)
 
-          ; (define rebindhash (run-rebind name exp m))
-          ; (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
-          ; (define expmhash (run-expm name exp m))
-          ; (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
+          (define rebindhash (run-rebind name exp m))
+          (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
+          (define expmhash (run-expm name exp m))
+          (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
-          ; (pretty-print "Finished regular mcfa")
+          (pretty-print "Finished regular mcfa")
           (define qbs (basic-queries exp))
           (set! num-queries (+ num-queries (length qbs)))
           (define h1 (hash))

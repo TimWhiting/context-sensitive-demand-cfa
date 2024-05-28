@@ -4,14 +4,6 @@
 (require "lang/syntax.rkt")
 (provide (all-from-out "lang/syntax.rkt"))
 
-(define (is-constructor ce)
-  (match ce
-    [(cons C `(app ,con ,@args)) #t]
-    [(cons C `',x) #t]
-    [_ #f]
-    )
-  )
-
 (define (find-match-bind-loc x ms loc)
   (match ms
     [(cons m ms)
@@ -59,7 +51,7 @@
   (match Ce
     [(cons `(top) _) #f]
     [(cons `(lettypes-bod ,binds ,C) e₁)
-     (if (member c (cons 'error (map car binds)))
+     (if (member c (map car binds))
          Ce
          (search-out)
          )]
@@ -87,11 +79,20 @@
   (member k '(lambda number char string quoted constructor))
   )
 
-(define (show-simple-expr e)
+(define (show-simple-expr e [depth 0])
+  (define next-depth (+ 1 depth))
+  (define show-simple-rec (λ (e1) (show-simple-expr e1 next-depth)))
   (match e
-    [`(app ,@es) `(app ,@(map show-simple-expr es))]
+    [`(app ,e1 ,@es) 
+      (if (= depth 2)
+        `(app ,(show-simple-rec e1) ...)
+         (if (= depth 3)
+          `(...)
+          `(app ,(show-simple-rec e1) ,@(map show-simple-rec es))
+         )
+         )]
     [`(prim ,n ,p) `(prim ,n)]
-    [`(match ,e ,@mchs) `(match ,(show-simple-expr e) ...)]
+    [`(match ,e ,@mchs) `(match ,(show-simple-rec e) ...)]
     [`(λ ,y ,bod) `(λ ,y ...)]
     [`(,let-kind ,binds ,bod) `(,let-kind ,(show-simple-binds binds) ...)]
     [(? symbol? x) x]

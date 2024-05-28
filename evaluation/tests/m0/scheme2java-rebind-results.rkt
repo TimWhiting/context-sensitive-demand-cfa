@@ -4,15 +4,6 @@
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-     (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
-     (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
-     (map
-      (λ (map-f map-l)
-        (match
-         map-l
-         ((cons map-c map-d)
-          (app cons (app map-f map-c) (app map map-f map-d)))
-         ((nil) (app nil)))))
      (length
       (λ (length-l)
         (match
@@ -50,7 +41,11 @@
               (_ (app cons (app string-ref s i) (app f (app + i 1))))))))
          (app f 0))))
      (tagged-list?
-      (λ (tag l) (app and (app pair? l) (app eq? tag (app car l)))))
+      (λ (tag l)
+        (match
+         (app pair? l)
+         ((#f) (app #f))
+         (_ (match (app eq? tag (app car l)) ((#f) (app #f)) (_ (app #t)))))))
      (char->natural
       (λ (c)
         (let ((i (app char->integer c)))
@@ -63,10 +58,14 @@
      (let->exp (λ (exp) (app caddr exp)))
      (letrec1?
       (λ (exp)
-        (app
-         and
+        (match
          (app tagged-list? 'letrec exp)
-         (app = (app length (app cadr exp)) 1))))
+         ((#f) (app #f))
+         (_
+          (match
+           (app = (app length (app cadr exp)) 1)
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (letrec1->binding (λ (exp) (app caadr exp)))
      (letrec1->exp (λ (exp) (app caddr exp)))
      (lambda? (λ (exp) (app tagged-list? 'lambda exp)))
@@ -81,13 +80,23 @@
      (app->args (λ (exp) (app cdr exp)))
      (prim?
       (λ (exp)
-        (app
-         or
+        (match
          (app eq? exp '+)
-         (app eq? exp '-)
-         (app eq? exp '*)
-         (app eq? exp '=)
-         (app eq? exp 'display))))
+         ((#f)
+          (match
+           (app eq? exp '-)
+           ((#f)
+            (match
+             (app eq? exp '*)
+             ((#f)
+              (match
+               (app eq? exp '=)
+               ((#f)
+                (match (app eq? exp 'display) ((#f) (app #f)) (_ (app #t))))
+               (_ (app #t))))
+             (_ (app #t))))
+           (_ (app #t))))
+         (_ (app #t)))))
      (begin? (λ (exp) (app tagged-list? 'begin exp)))
      (begin->exps (λ (exp) (app cdr exp)))
      (set!? (λ (exp) (app tagged-list? 'set! exp)))
@@ -259,7 +268,16 @@
      (begin=>let
       (λ (exp)
         (letrec*
-         ((singlet? (λ (l) (app and (app list? l) (app = (app length l) 1))))
+         ((singlet?
+           (λ (l)
+             (match
+              (app list? l)
+              ((#f) (app #f))
+              (_
+               (match
+                (app = (app length l) 1)
+                ((#f) (app #f))
+                (_ (app #t)))))))
           (dummy-bind
            (λ (exps)
              (match
@@ -385,13 +403,21 @@
               (app null? chars)
               ((#f)
                (match
-                (app
-                 or
-                 (app
-                  and
+                (match
+                 (match
                   (app char-alphabetic? (app car chars))
-                  (app not (app char=? (app car chars) #\_)))
-                 (app char-numeric? (app car chars)))
+                  ((#f) (app #f))
+                  (_
+                   (match
+                    (app not (app char=? (app car chars) #\_))
+                    ((#f) (app #f))
+                    (_ (app #t)))))
+                 ((#f)
+                  (match
+                   (app char-numeric? (app car chars))
+                   ((#f) (app #f))
+                   (_ (app #t))))
+                 (_ (app #t)))
                 ((#f)
                  (app
                   cons
@@ -606,20 +632,6 @@
 
 '(query:
   (app
-   (-> string-append <-)
-   "public class BOut extends RuntimeEnvironment {\n"
-   " public static void main (String[] args) {\n"
-   (app java-compile-exp exp)
-   " ;\n"
-   " }\n"
-   "}\n")
-  (env ()))
-clos/con:
-	'((prim string-append) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
    string-append
    "public class BOut extends RuntimeEnvironment {\n"
    " public static void main (String[] args) {\n"
@@ -630,85 +642,6 @@ literals: '(⊥ ⊥ ⊥)
   (env ()))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
-
-'(query:
-  (app
-   string-append
-   "public class BOut extends RuntimeEnvironment {\n"
-   " public static void main (String[] args) {\n"
-   (app java-compile-exp exp)
-   " ;\n"
-   " }\n"
-   (-> "}\n" <-))
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "}\n")
-
-'(query:
-  (app
-   string-append
-   "public class BOut extends RuntimeEnvironment {\n"
-   " public static void main (String[] args) {\n"
-   (app java-compile-exp exp)
-   " ;\n"
-   (-> " }\n" <-)
-   "}\n")
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ " }\n")
-
-'(query:
-  (app
-   string-append
-   "public class BOut extends RuntimeEnvironment {\n"
-   " public static void main (String[] args) {\n"
-   (app java-compile-exp exp)
-   (-> " ;\n" <-)
-   " }\n"
-   "}\n")
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ " ;\n")
-
-'(query:
-  (app
-   string-append
-   "public class BOut extends RuntimeEnvironment {\n"
-   (-> " public static void main (String[] args) {\n" <-)
-   (app java-compile-exp exp)
-   " ;\n"
-   " }\n"
-   "}\n")
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ " public static void main (String[] args) {\n")
-
-'(query:
-  (app
-   string-append
-   (-> "public class BOut extends RuntimeEnvironment {\n" <-)
-   " public static void main (String[] args) {\n"
-   (app java-compile-exp exp)
-   " ;\n"
-   " }\n"
-   "}\n")
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "public class BOut extends RuntimeEnvironment {\n")
-
-'(query:
-  (app (-> display <-) (app java-compile-program input-program))
-  (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> string-append <-) "new IntValue(" (app number->string exp) ")")
-  (env ()))
-clos/con:
-	'((prim string-append) (env ()))
-literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app display (-> (app java-compile-program input-program) <-))
@@ -723,18 +656,6 @@ clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(query:
-  (app string-append "new IntValue(" (app number->string exp) (-> ")" <-))
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ ")")
-
-'(query:
-  (app string-append (-> "new IntValue(" <-) (app number->string exp) ")")
-  (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "new IntValue(")
-
-'(query:
   (let (...
         ()
         (_ (-> (app analyze-mutable-variables input-program) <-))
@@ -743,346 +664,14 @@ literals: '(⊥ ⊥ "new IntValue(")
     ...)
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (_) (-> (app display (app java-compile-program input-program)) <-))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    analyze-mutable-variables
-    (mangle (-> (λ (symbol) ...) <-))
-    java-compile-program
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    analyze-mutable-variables
-    (mangle (-> (λ (symbol) ...) <-))
-    java-compile-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-app
-    (java-compile-if (-> (λ (exp) ...) <-))
-    input-program
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-app
-    (java-compile-if (-> (λ (exp) ...) <-))
-    input-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-args
-    (java-compile-set! (-> (λ (exp) ...) <-))
-    java-compile-app
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-args
-    (java-compile-set! (-> (λ (exp) ...) <-))
-    java-compile-app
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-const
-    (java-compile-prim (-> (λ (p) ...) <-))
-    java-compile-ref
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-const
-    (java-compile-prim (-> (λ (p) ...) <-))
-    java-compile-ref
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-formals
-    (java-compile-lambda (-> (λ (exp) ...) <-))
-    java-compile-args
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-formals
-    (java-compile-lambda (-> (λ (exp) ...) <-))
-    java-compile-args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-lambda
-    (java-compile-args (-> (λ (args) ...) <-))
-    java-compile-set!
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-lambda
-    (java-compile-args (-> (λ (args) ...) <-))
-    java-compile-set!
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-prim
-    (java-compile-ref (-> (λ (exp) ...) <-))
-    java-compile-formals
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-prim
-    (java-compile-ref (-> (λ (exp) ...) <-))
-    java-compile-formals
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-ref
-    (java-compile-formals (-> (λ (formals) ...) <-))
-    java-compile-lambda
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-ref
-    (java-compile-formals (-> (λ (formals) ...) <-))
-    java-compile-lambda
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    java-compile-set!
-    (java-compile-app (-> (λ (exp) ...) <-))
-    java-compile-if
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-set!
-    (java-compile-app (-> (λ (exp) ...) <-))
-    java-compile-if
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
-    analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
-    analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... append (string->list (-> (λ (s) ...) <-)) tagged-list? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... append (string->list (-> (λ (s) ...) <-)) tagged-list? ...)
-   ...)
-  (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -1095,406 +684,10 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (letrec*
-   (... char->natural (integer->char-list (-> (λ (n) ...) <-)) const? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... char->natural (integer->char-list (-> (λ (n) ...) <-)) const? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) letrec1? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) letrec1? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec1->binding (letrec1->exp (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1->binding (letrec1->exp (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec1=>Y (begin=>let (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1=>Y (begin=>let (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... letrec1? (letrec1->binding (-> (λ (exp) ...) <-)) letrec1->exp ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1? (letrec1->binding (-> (λ (exp) ...) <-)) letrec1->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec*
-   (... string->list (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... string->list (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadr (caadr (-> (λ (p) ...) <-)) caddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... java-compile-if (input-program (-> 3 <-)) () ...) ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query:
-  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... let=>lambda (arity (-> (λ (lam) ...) <-)) xargs ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... let=>lambda (arity (-> (λ (lam) ...) <-)) xargs ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... map (append (-> (λ (lst1 lst2) ...) <-)) string->list ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... map (append (-> (λ (lst1 lst2) ...) <-)) string->list ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... set!-var (set!-exp (-> (λ (exp) ...) <-)) let=>lambda ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!-var (set!-exp (-> (λ (exp) ...) <-)) let=>lambda ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... xargs (Yn (-> (λ (n) ...) <-)) letrec1=>Y ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... xargs (Yn (-> (λ (n) ...) <-)) letrec1=>Y ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (lettypes cons ... error (letrec* (car ... input-program) ...))
   (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -1531,101 +724,8 @@ literals: '(⊥ ⊥ ⊤)
 
 '(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> analyze-mutable-variables <-) input-program) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> const? <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> const? <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> integer? <-) exp) (env ()))
-clos/con:
-	'((prim integer?) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> integer? <-) exp) (env ()))
-clos/con:
-	'((prim integer?) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> java-compile-const <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> java-compile-exp <-) exp) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> java-compile-program <-) input-program) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> number->string <-) exp) (env ()))
-clos/con:
-	'((prim number->string) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> void <-)) (env ()))
-clos/con:
-	'((prim void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app analyze-mutable-variables (-> input-program <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
 
 '(query: (app const? (-> exp <-)) (env ()))
 clos/con: ⊥
@@ -1651,27 +751,13 @@ literals: '(3 ⊥ ⊥)
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
-'(query: (app java-compile-program (-> input-program <-)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
 '(query: (app number->string (-> exp <-)) (env ()))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
-'(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (letrec* (... arity (xargs (-> (λ (n) ...) <-)) Yn ...) ...) (env ()))
-clos/con:
-	'((letrec* (... arity (xargs (-> (λ (n) ...) <-)) Yn ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (letrec* (car ... input-program) (-> (let (_) ...) <-)) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app const? exp) <-) (#f) _) (env ()))
@@ -1691,7 +777,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (app const? exp) (#f) (_ (-> (app void) <-))) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (exp) (-> (app integer? exp) <-)) (env ()))
@@ -1700,31 +786,37 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
+
+'(query: (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
+clos/con:
+	'((con void) (env ()))
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
 clos/con: ⊥
 literals: '(⊥ ⊥ ⊤)
 
 '(store:
-  analyze-mutable-variables
-  ((top) lettypes (cons ... error) ...)
+  Yn
+  (letrec* (... xargs (Yn (-> (λ (n) ...) <-)) letrec1=>Y ...) ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
+	'((letrec* (... xargs (Yn (-> (λ (n) ...) <-)) letrec1=>Y ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  _
+  (let (...
+        ()
+        (_ (-> (app analyze-mutable-variables input-program) <-))
+        ()
+        ...)
     ...)
-   ...)
   (env ()))
+clos/con:
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -1749,14 +841,26 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  app->args
+  (letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  app->fun
+  (letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   app?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
@@ -1764,29 +868,26 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  app?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  append
+  (letrec* (... map (append (-> (λ (lst1 lst2) ...) <-)) string->list ...) ...)
   (env ()))
 clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
+	'((letrec* (... map (append (-> (λ (lst1 lst2) ...) <-)) string->list ...) ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  arity
+  (letrec* (... let=>lambda (arity (-> (λ (lam) ...) <-)) xargs ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... let=>lambda (arity (-> (λ (lam) ...) <-)) xargs ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   begin->exps
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
@@ -1796,11 +897,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   begin=>let
   (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
+   (... letrec1=>Y (begin=>let (-> (λ (exp) ...) <-)) mutable-variables ...)
    ...)
   (env ()))
 clos/con:
@@ -1812,13 +909,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   begin?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
@@ -1826,43 +917,78 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  begin?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  caadr
+  (letrec* (... cadr (caadr (-> (λ (p) ...) <-)) caddr ...) ...)
   (env ()))
 clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
+	'((letrec* (... cadr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cadddr
+  (letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...)
   (env ()))
+clos/con:
+	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  caddr
+  (letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   cadr
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...)
   (env ()))
 clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
 	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  const?
+  car
+  (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  cdr
+  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...)
+  (env ()))
+clos/con:
+	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) length ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  char->natural
   (letrec*
    (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
+    tagged-list?
+    (char->natural (-> (λ (c) ...) <-))
+    integer->char-list
     ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    tagged-list?
+    (char->natural (-> (λ (c) ...) <-))
+    integer->char-list
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  const?
+  (letrec*
+   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
    ...)
   (env ()))
 clos/con:
@@ -1873,134 +999,25 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  const?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  error
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
   exp
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  exp
-  (letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
+  (λ (exp)
+    (->
+     (app
+      string-append
+      "public class BOut extends RuntimeEnvironment {\n"
+      " public static void main (String[] args) {\n"
+      (app java-compile-exp exp)
+      " ;\n"
+      " }\n"
+      "}\n")
+     <-))
   (env ()))
 clos/con: ⊥
 literals: '(3 ⊥ ⊥)
 
 '(store:
   if->condition
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
@@ -2009,13 +1026,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if->else
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
@@ -2025,11 +1036,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   if->then
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
    ...)
   (env ()))
 clos/con:
@@ -2041,13 +1048,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   if?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
@@ -2055,51 +1056,53 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  if?
+  input-program
+  (letrec* (... java-compile-if (input-program (-> 3 <-)) () ...) ...)
+  (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store:
+  integer->char-list
   (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
+   (... char->natural (integer->char-list (-> (λ (n) ...) <-)) const? ...)
    ...)
   (env ()))
 clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
+	'((letrec*
+   (... char->natural (integer->char-list (-> (λ (n) ...) <-)) const? ...)
+   ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  integer?
+  is-mutable?
   (letrec*
    (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
+    mark-mutable
+    (is-mutable? (-> (λ (symbol) ...) <-))
+    analyze-mutable-variables
     ...)
    ...)
   (env ()))
 clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  integer?
-  (letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
+	'((letrec*
+   (...
+    mark-mutable
+    (is-mutable? (-> (λ (symbol) ...) <-))
+    analyze-mutable-variables
+    ...)
    ...)
   (env ()))
-clos/con:
-	'((λ (exp) (-> (app integer? exp) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   java-compile-app
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-set!
+    (java-compile-app (-> (λ (exp) ...) <-))
+    java-compile-if
     ...)
    ...)
   (env ()))
@@ -2115,12 +1118,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  java-compile-args
+  (letrec*
+   (...
+    java-compile-lambda
+    (java-compile-args (-> (λ (args) ...) <-))
+    java-compile-set!
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    java-compile-lambda
+    (java-compile-args (-> (λ (args) ...) <-))
+    java-compile-set!
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   java-compile-const
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-exp
+    (java-compile-const (-> (λ (exp) ...) <-))
+    java-compile-prim
     ...)
    ...)
   (env ()))
@@ -2157,21 +1181,21 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  java-compile-exp
+  java-compile-formals
   (letrec*
    (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
+    java-compile-ref
+    (java-compile-formals (-> (λ (formals) ...) <-))
+    java-compile-lambda
     ...)
    ...)
   (env ()))
 clos/con:
 	'((letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-ref
+    (java-compile-formals (-> (λ (formals) ...) <-))
+    java-compile-lambda
     ...)
    ...)
   (env ()))
@@ -2181,9 +1205,9 @@ literals: '(⊥ ⊥ ⊥)
   java-compile-if
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-app
+    (java-compile-if (-> (λ (exp) ...) <-))
+    input-program
     ...)
    ...)
   (env ()))
@@ -2202,9 +1226,9 @@ literals: '(⊥ ⊥ ⊥)
   java-compile-lambda
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-formals
+    (java-compile-lambda (-> (λ (exp) ...) <-))
+    java-compile-args
     ...)
    ...)
   (env ()))
@@ -2223,9 +1247,9 @@ literals: '(⊥ ⊥ ⊥)
   java-compile-prim
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
     java-compile-const
+    (java-compile-prim (-> (λ (p) ...) <-))
+    java-compile-ref
     ...)
    ...)
   (env ()))
@@ -2241,12 +1265,33 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  java-compile-program
+  (letrec*
+   (...
+    mangle
+    (java-compile-program (-> (λ (exp) ...) <-))
+    java-compile-exp
+    ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (...
+    mangle
+    (java-compile-program (-> (λ (exp) ...) <-))
+    java-compile-exp
+    ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   java-compile-ref
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-prim
+    (java-compile-ref (-> (λ (exp) ...) <-))
+    java-compile-formals
     ...)
    ...)
   (env ()))
@@ -2265,9 +1310,9 @@ literals: '(⊥ ⊥ ⊥)
   java-compile-set!
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
+    java-compile-args
+    (java-compile-set! (-> (λ (exp) ...) <-))
+    java-compile-app
     ...)
    ...)
   (env ()))
@@ -2285,11 +1330,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   lambda->exp
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
    ...)
   (env ()))
 clos/con:
@@ -2300,13 +1341,22 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  lambda->formals
+  (letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
+clos/con:
+	'((letrec*
+   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
+   ...)
+  (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   lambda?
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
    ...)
   (env ()))
 clos/con:
@@ -2317,31 +1367,17 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  lambda?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  length
+  (letrec* (... cdr (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
   (env ()))
 clos/con:
-	'((letrec*
-   (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
+	'((letrec* (... cdr (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
   let->bindings
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
+  (letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
@@ -2351,11 +1387,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   let->exp
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) letrec1? ...)
    ...)
   (env ()))
 clos/con:
@@ -2367,13 +1399,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   let=>lambda
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  (letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
@@ -2382,28 +1408,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   let?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  let?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  (letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
@@ -2413,11 +1418,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   letrec1->binding
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... letrec1? (letrec1->binding (-> (λ (exp) ...) <-)) letrec1->exp ...)
    ...)
   (env ()))
 clos/con:
@@ -2430,11 +1431,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   letrec1->exp
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... letrec1->binding (letrec1->exp (-> (λ (exp) ...) <-)) lambda? ...)
    ...)
   (env ()))
 clos/con:
@@ -2446,13 +1443,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   letrec1=>Y
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
+  (letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
@@ -2462,11 +1453,7 @@ literals: '(⊥ ⊥ ⊥)
 '(store:
   letrec1?
   (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
+   (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
    ...)
   (env ()))
 clos/con:
@@ -2477,610 +1464,15 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
-  letrec1?
+  mangle
   (letrec*
    (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  map
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...) (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  mark-mutable
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mutable-variables
-    (mark-mutable (-> (λ (symbol) ...) <-))
-    is-mutable?
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  number->string
-  (letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  prim?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  prim?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ref?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ref?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!-var
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!?
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  set!?
-  (letrec*
-   (...
-    java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  string-append
-  (letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  string-append
-  (letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp)
-    (->
-     (app
-      string-append
-      "public class BOut extends RuntimeEnvironment {\n"
-      " public static void main (String[] args) {\n"
-      (app java-compile-exp exp)
-      " ;\n"
-      " }\n"
-      "}\n")
-     <-))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  void
-  (letrec*
-   (...
-    is-mutable?
-    (analyze-mutable-variables (-> (λ (exp) ...) <-))
-    mangle
-    ...)
-   ...)
-  (env ()))
-clos/con:
-	'((λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: Yn ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... xargs (Yn (-> (λ (n) ...) <-)) letrec1=>Y ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: _ ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app->args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... app->fun (app->args (-> (λ (exp) ...) <-)) prim? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app->fun ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... app? (app->fun (-> (λ (exp) ...) <-)) app->args ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: app? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if->else (app? (-> (λ (exp) ...) <-)) app->fun ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: append ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... map (append (-> (λ (lst1 lst2) ...) <-)) string->list ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: arity ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... let=>lambda (arity (-> (λ (lam) ...) <-)) xargs ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin->exps ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... begin? (begin->exps (-> (λ (exp) ...) <-)) set!? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin=>let ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1=>Y (begin=>let (-> (λ (exp) ...) <-)) mutable-variables ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: begin? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... prim? (begin? (-> (λ (exp) ...) <-)) begin->exps ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: caadr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cadr (caadr (-> (λ (p) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cadddr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... caddr (cadddr (-> (λ (p) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: caddr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... caadr (caddr (-> (λ (p) ...) <-)) cadddr ...) ...) (env ()))
-	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cadr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-	'((letrec* (... null? (cadr (-> (λ (p) ...) <-)) caadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: car ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: cdr ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: char->natural ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    tagged-list?
-    (char->natural (-> (λ (c) ...) <-))
-    integer->char-list
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: const? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... integer->char-list (const? (-> (λ (exp) ...) <-)) ref? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->condition ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if? (if->condition (-> (λ (exp) ...) <-)) if->then ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->else ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... if->then (if->else (-> (λ (exp) ...) <-)) app? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if->then ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... if->condition (if->then (-> (λ (exp) ...) <-)) if->else ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: if? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... lambda->exp (if? (-> (λ (exp) ...) <-)) if->condition ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: input-program ((top) lettypes (cons ... error) ...) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store: integer->char-list ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... char->natural (integer->char-list (-> (λ (n) ...) <-)) const? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: is-mutable? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mark-mutable
-    (is-mutable? (-> (λ (symbol) ...) <-))
     analyze-mutable-variables
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-app ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-set!
-    (java-compile-app (-> (λ (exp) ...) <-))
-    java-compile-if
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-args ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-lambda
-    (java-compile-args (-> (λ (args) ...) <-))
-    java-compile-set!
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-const ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-exp
-    (java-compile-const (-> (λ (exp) ...) <-))
-    java-compile-prim
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
+    (mangle (-> (λ (symbol) ...) <-))
     java-compile-program
-    (java-compile-exp (-> (λ (exp) ...) <-))
-    java-compile-const
     ...)
    ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-formals ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-ref
-    (java-compile-formals (-> (λ (formals) ...) <-))
-    java-compile-lambda
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-if ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-app
-    (java-compile-if (-> (λ (exp) ...) <-))
-    input-program
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-formals
-    (java-compile-lambda (-> (λ (exp) ...) <-))
-    java-compile-args
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-prim ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-const
-    (java-compile-prim (-> (λ (p) ...) <-))
-    java-compile-ref
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-program ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    mangle
-    (java-compile-program (-> (λ (exp) ...) <-))
-    java-compile-exp
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-ref ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-prim
-    (java-compile-ref (-> (λ (exp) ...) <-))
-    java-compile-formals
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: java-compile-set! ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (...
-    java-compile-args
-    (java-compile-set! (-> (λ (exp) ...) <-))
-    java-compile-app
-    ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... lambda->formals (lambda->exp (-> (λ (exp) ...) <-)) if? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda->formals ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... lambda? (lambda->formals (-> (λ (exp) ...) <-)) lambda->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: lambda? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1->exp (lambda? (-> (λ (exp) ...) <-)) lambda->formals ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: length ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... map (length (-> (λ (length-l) ...) <-)) pair? ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->bindings ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... let? (let->bindings (-> (λ (exp) ...) <-)) let->exp ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->bindings (let->exp (-> (λ (exp) ...) <-)) letrec1? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let=>lambda ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... set!-exp (let=>lambda (-> (λ (exp) ...) <-)) arity ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: let? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... ref? (let? (-> (λ (exp) ...) <-)) let->bindings ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec1->binding ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1? (letrec1->binding (-> (λ (exp) ...) <-)) letrec1->exp ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec1->exp ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... letrec1->binding (letrec1->exp (-> (λ (exp) ...) <-)) lambda? ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec1=>Y ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec* (... Yn (letrec1=>Y (-> (λ (exp) ...) <-)) begin=>let ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: letrec1? ((top) lettypes (cons ... error) ...) (env ()))
-clos/con:
-	'((letrec*
-   (... let->exp (letrec1? (-> (λ (exp) ...) <-)) letrec1->binding ...)
-   ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: mangle ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
 	'((letrec*
    (...
@@ -3092,14 +1484,24 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: map ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  map
+  (letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... cadddr (map (-> (λ (f lst) ...) <-)) append ...) ...) (env ()))
-	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) length ...) ...)
-  (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: mark-mutable ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  mark-mutable
+  (letrec*
+   (...
+    mutable-variables
+    (mark-mutable (-> (λ (symbol) ...) <-))
+    is-mutable?
+    ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (...
@@ -3111,53 +1513,84 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: mutable-variables ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  mutable-variables
+  (letrec*
+   (... begin=>let (mutable-variables (-> (app nil) <-)) mark-mutable ...)
+   ...)
+  (env ()))
 clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: null? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  null?
+  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) cadr ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: pair? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  pair?
+  (letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... length (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: prim? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  prim?
+  (letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... app->args (prim? (-> (λ (exp) ...) <-)) begin? ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: ref? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  ref?
+  (letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... const? (ref? (-> (λ (exp) ...) <-)) let? ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: set!-exp ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  set!-exp
+  (letrec* (... set!-var (set!-exp (-> (λ (exp) ...) <-)) let=>lambda ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... set!-var (set!-exp (-> (λ (exp) ...) <-)) let=>lambda ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: set!-var ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  set!-var
+  (letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... set!? (set!-var (-> (λ (exp) ...) <-)) set!-exp ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: set!? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  set!?
+  (letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... begin->exps (set!? (-> (λ (exp) ...) <-)) set!-var ...) ...)
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: string->list ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  string->list
+  (letrec*
+   (... append (string->list (-> (λ (s) ...) <-)) tagged-list? ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... append (string->list (-> (λ (s) ...) <-)) tagged-list? ...)
@@ -3165,7 +1598,12 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: tagged-list? ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  tagged-list?
+  (letrec*
+   (... string->list (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
+   ...)
+  (env ()))
 clos/con:
 	'((letrec*
    (... string->list (tagged-list? (-> (λ (tag l) ...) <-)) char->natural ...)
@@ -3173,7 +1611,26 @@ clos/con:
   (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: xargs ((top) lettypes (cons ... error) ...) (env ()))
+'(store:
+  xargs
+  (letrec* (... arity (xargs (-> (λ (n) ...) <-)) Yn ...) ...)
+  (env ()))
 clos/con:
 	'((letrec* (... arity (xargs (-> (λ (n) ...) <-)) Yn ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
+
+'(store: exp (λ (exp) (-> (app integer? exp) <-)) (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store: exp (λ (exp) (-> (match (app const? exp) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store: exp (λ (exp) (-> (match (app integer? exp) ...) <-)) (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)

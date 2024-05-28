@@ -1725,7 +1725,7 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1733,7 +1733,7 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((match
       (app not (app < y x))
@@ -1744,7 +1744,7 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1752,7 +1752,7 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1760,7 +1760,7 @@ clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
 '(query:
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v3) (-> (app tak v1 v2 v3 k) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1800,7 +1800,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1811,7 +1811,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((match
       (app not (app < y x))
@@ -1846,7 +1846,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1883,7 +1883,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -1925,7 +1925,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   k
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v3) (-> (app tak v1 v2 v3 k) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2203,7 +2203,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2212,7 +2212,7 @@ literals: '(32 ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((match
       (app not (app < y x))
@@ -2224,7 +2224,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2233,7 +2233,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2242,7 +2242,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   x
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v3) (-> (app tak v1 v2 v3 k) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2258,7 +2258,7 @@ literals: '(32 ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2267,7 +2267,7 @@ literals: '(15 ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((match
       (app not (app < y x))
@@ -2279,7 +2279,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2288,7 +2288,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2297,7 +2297,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   y
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v3) (-> (app tak v1 v2 v3 k) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2313,7 +2313,7 @@ literals: '(15 ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((letrec* (tak) (-> (app tak x y z (λ (a) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2322,7 +2322,7 @@ literals: '(8 ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((match
       (app not (app < y x))
@@ -2334,7 +2334,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v1) (-> (app tak (app - y 1) z x (λ (v2) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2343,7 +2343,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v2) (-> (app tak (app - z 1) x y (λ (v3) ...)) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))
@@ -2352,7 +2352,7 @@ literals: '(⊤ ⊥ ⊥)
 
 '(store:
   z
-  (λ (x y z k) (-> (match (app not (app < y x)) ...) <-))
+  (λ (x y z k) (-> (match (app not (app < ...)) ...) <-))
   (env
    (((λ (v3) (-> (app tak v1 v2 v3 k) <-)))
     ((letrec* (cpstak) (-> (app cpstak 32 15 8) <-))))))

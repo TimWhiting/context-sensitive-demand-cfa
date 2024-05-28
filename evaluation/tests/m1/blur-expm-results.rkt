@@ -107,7 +107,7 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (let* (r ... s) (-> (app not (app (app blur lp) s (app - n 1))) <-))
+  (let* (r ... s) (-> (app not (app (app blur ...) s (app - ...))) <-))
   (env (((letrec (id ... lp) (-> (app lp (app #f) 2) <-))))))
 clos/con:
 	'((con #t) (env ()))
