@@ -70,12 +70,13 @@
            (unit p))
          (unit p)))))
 
-(define (print-result input computation)
-  (if (trace) (pretty-print `(start ,input)) '())
+(define (print-result input computation [override #f])
+  (define show (or (trace) override))
+  (if show (pretty-print `(start ,input)) '())
   (>>=
    (computation)
    (λ (Cee ρee)
-     (if (trace)
+     (if show
          (begin
            (pretty-print `(end ,input))
            (pretty-print `(result ,(show-simple-ctx Cee) ,(show-simple-env ρee)))

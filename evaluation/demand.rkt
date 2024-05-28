@@ -248,107 +248,108 @@
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
   (>>= (get-refines* `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
        (λ (ρ)
-         (print-eval-result
-          `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-          (λ ()
-            (match Ce
-              [(cons C #t) (truecon C ρ)]
-              [(cons C #f) (falsecon C ρ)]
-              [(cons _ (? string? s)) (lit (litstring s))]
-              [(cons _ (? number? x)) (lit (litnum x))]
-              [(cons _ `',x) (clos Ce ρ)]
-              [(cons _ (? symbol? x))
-               (>>= ((bind x) Ce ρ)
-                    (λ (Cex ρ i)
-                      (match Cex
-                        [(cons `(bod ,xs ,C) e)
-                         (>>= (call C xs e ρ)
-                              (λ (Ce ρ)
-                                (if (equal? (length xs) (length (args-e Ce)))
-                                    (>>= ((ran i) Ce ρ) eval)
-                                    ⊥)))
+         ;  (print-eval-result
+         ;   `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+         ;   (λ ()
+         (match Ce
+           [(cons C #t) (truecon C ρ)]
+           [(cons C #f) (falsecon C ρ)]
+           [(cons _ (? string? s)) (lit (litstring s))]
+           [(cons _ (? number? x)) (lit (litnum x))]
+           [(cons _ `',x) (clos Ce ρ)]
+           [(cons _ (? symbol? x))
+            (>>= ((bind x) Ce ρ)
+                 (λ (Cex ρ i)
+                   ; (pretty-print `(binding ,(show-simple-ctx Cex) ,(show-simple-env ρ) ,i))
+                   (match Cex
+                     [(cons `(bod ,xs ,C) e)
+                      (>>= (call C xs e ρ)
+                           (λ (Ce ρ)
+                             (if (equal? (length xs) (length (args-e Ce)))
+                                 (>>= ((ran i) Ce ρ) eval)
+                                 ⊥)))
 
-                         ]
-                        [(cons `(let-bod ,_ ,_ ,_) _)
-                         (>>= (>>= (out Cex ρ)
-                                   (bin i))
-                              eval)
-                         ]
-                        [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
-                         (>>= (>>= (out Cex ρ)
-                                   (bin i))
-                              eval)
-                         ]
-                        [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
-                         (>>= (out Cex ρ)
-                              (λ (Ce ρ)
-                                (>>=eval (>>= (focus-match Ce ρ) eval)
-                                         (eval-match-binding m i Ce ρ)
-                                         (eval-match-binding-lit i)
-                                         )))
-                         ]
-                        [(? symbol? x)
-                         (match (lookup-demand-primitive x)
-                           [#f
-                            ; (pretty-print `(constructor? ,x))
-                            (clos Ce ρ)]
-                           [Ce (clos Ce ρ)]
-                           )]
-                        )))]
-              [(cons _ `(λ ,_ ,_))
-               (clos Ce ρ)]
-              [(cons C `(app ,f ,@args))
-               (>>=clos
-                (>>= (rat Ce ρ) eval)
-                (λ (Ce′ ρ′)
-                  ; (pretty-trace `(got closure or primitive ,Ce′))
-                  (match Ce′
-                    [`(prim ,_ ,_)
-                     (>>= (eval* (map
-                                  (λ (i) ((ran i) Ce ρ))
-                                  (range (length args))))
-                          (λ (args)
-                            (apply-primitive Ce′ C ρ args)))]
-                    [(cons _ `(λ ,y ,C))
-                     (>>= (bod-enter Ce′ Ce ρ ρ′)
-                          (λ (Ce p)
-                            (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
-                                 (λ _
-                                   (eval Ce p)))
-                            ))
-                     ]
-                    ; Constructors just return the application. We need the context to further resolve demand queries for arguments
-                    [(cons _ con)
-                     (if (or (equal? con #t) (equal? con #f) (symbol? con))
-                         (if (= (length args) 0)
-                             (clos (cons `(top) `(app ,con ,@args)) (top-env))
-                             (clos Ce ρ))
-                         (error 'invalid-rator (format "~a" con))
-                         )
+                      ]
+                     [(cons `(let-bod ,_ ,_ ,_) _)
+                      (>>= (>>= (out Cex ρ)
+                                (bin i))
+                           eval)
+                      ]
+                     [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+                      (>>= (>>= (out Cex ρ)
+                                (bin i))
+                           eval)
+                      ]
+                     [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
+                      (>>= (out Cex ρ)
+                           (λ (Ce ρ)
+                             (>>=eval (>>= (focus-match Ce ρ) eval)
+                                      (eval-match-binding m i Ce ρ)
+                                      (eval-match-binding-lit i)
+                                      )))
+                      ]
+                     [(? symbol? x)
+                      (match (lookup-demand-primitive x)
+                        [#f
+                         ; (pretty-print `(constructor? ,x))
+                         (clos Ce ρ)]
+                        [Ce (clos Ce ρ)]
+                        )]
+                     )))]
+           [(cons _ `(λ ,_ ,_))
+            (clos Ce ρ)]
+           [(cons C `(app ,f ,@args))
+            (>>=clos
+             (>>= (rat Ce ρ) eval)
+             (λ (Ce′ ρ′)
+               ; (pretty-trace `(got closure or primitive ,Ce′))
+               (match Ce′
+                 [`(prim ,_ ,_)
+                  (>>= (eval* (map
+                               (λ (i) ((ran i) Ce ρ))
+                               (range (length args))))
+                       (λ (args)
+                         (apply-primitive Ce′ C ρ args)))]
+                 [(cons _ `(λ ,y ,C))
+                  (>>= (bod-enter Ce′ Ce ρ ρ′)
+                       (λ (Ce p)
+                         (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                              (λ _
+                                (eval Ce p)))
+                         ))
+                  ]
+                 ; Constructors just return the application. We need the context to further resolve demand queries for arguments
+                 [(cons _ con)
+                  (if (or (equal? con #t) (equal? con #f) (symbol? con))
+                      (if (= (length args) 0)
+                          (clos (cons `(top) `(app ,con ,@args)) (top-env))
+                          (clos Ce ρ))
+                      (error 'invalid-rator (format "~a" con))
+                      )
 
-                     ]
-                    )
-                  ))
-               ]
-              [(cons _ `(lettypes ,_ ,_))
-               (>>= (bod Ce ρ) eval)]
-              [(cons _ `(let ,_ ,_))
-               (>>= (bod Ce ρ) eval)]
-              [(cons _ `(let* ,_ ,_))
-               (>>= (bod Ce ρ) eval)]
-              [(cons _ `(letrec ,_ ,_))
-               (>>= (bod Ce ρ) eval)]
-              [(cons _ `(letrec* ,_ ,_))
-               (>>= (bod Ce ρ) eval)]
-              [(cons _ `(match ,_ ,@clauses))
-               (>>= (focus-match Ce ρ)
-                    (λ (Cm ρm)
-                      (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
-                      ))]
-              [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
-              )
-            )
-          #t))
+                  ]
+                 )
+               ))
+            ]
+           [(cons _ `(lettypes ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(let ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(let* ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(letrec ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(letrec* ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(match ,_ ,@clauses))
+            (>>= (focus-match Ce ρ)
+                 (λ (Cm ρm)
+                   (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
+                   ))]
+           [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,e in context ,C)))]
+           )
+         )
+       ; #t))
        ))
 
 
@@ -527,7 +528,7 @@
                 [else ⊥]))))]
     )
   )
-;  ))
+;  #t ))
 
 (define-key (expr Ce ρ)
   (>>= (get-refines* `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
@@ -650,10 +651,12 @@
                                                         (expr Cee ρee))))))
                                         (range (+ 1 (length before) (length after))))]
                                   ['let* ; x could be referenced in all following bindings
-                                   (if (> 1 (length after))
+                                   ; (pretty-print `(looking-for-x ,x ,(length after) ,(+ 1 (length before)) ,(+ 1 (length before) (length after)) ,(show-simple-ctx Cex)))
+                                   (if (< 1 (length after))
                                        (map (λ (i)
                                               (>>= ((bin i) Cex ρe)
                                                    (λ (Cee ρee)
+                                                     ; (pretty-print `(looking-for-x-in ,x ,(show-simple-ctx Cee)))
                                                      (>>= ((find x) Cee ρee) expr))))
                                             (range (+ 1 (length before)) (+ 1 (length before) (length after))))
                                        '())]
@@ -662,8 +665,10 @@
                                 )
                           )))]
            [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,(show-simple-ctx Ce))))]
-           ))))
-;  ))
+           ))
+
+       ; #t))
+       ))
 
 (provide (all-defined-out)
          (all-from-out "table-monad/main.rkt"))

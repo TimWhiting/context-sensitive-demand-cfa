@@ -2,11 +2,13 @@
   (let* ((id (λ (x) x)) (a (app id (λ (aa) aa))) (b (app id (λ (bb) bb)))) a))
 
 '(query: ((top) let* (id ... b) ...) (env ()))
-clos/con: ⊥
+clos/con:
+	'((app id (-> (λ (aa) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let* (... a (b (-> (app id (λ (bb) ...)) <-)) () ...) ...) (env ()))
-clos/con: ⊥
+clos/con:
+	'((app id (-> (λ (bb) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> (λ (bb) ...) <-)) (env ()))
@@ -24,7 +26,8 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let* (... id (a (-> (app id (λ (aa) ...)) <-)) b ...) ...) (env ()))
-clos/con: ⊥
+clos/con:
+	'((app id (-> (λ (aa) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> (λ (aa) ...) <-)) (env ()))
@@ -47,9 +50,12 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (x) (-> x <-)) (env ((□? (x)))))
-clos/con: ⊥
+clos/con:
+	'((app id (-> (λ (aa) ...) <-)) (env ()))
+	'((app id (-> (λ (bb) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let* (id ... b) (-> a <-)) (env ()))
-clos/con: ⊥
+clos/con:
+	'((app id (-> (λ (aa) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
