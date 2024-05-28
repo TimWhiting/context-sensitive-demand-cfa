@@ -155,7 +155,8 @@
   (show-envs-simple #t)
   (show-envs #f)
   (define do-run-demand #t)
-  (define do-run-exhaustive #t)
+  (define do-run-exhaustive #f)
+  (define do-analysis #f)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
   
   (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
@@ -204,21 +205,30 @@
             (for ([example (get-examples programs all-benchmarks)])
               (match-let ([`(example ,name ,exp) example])
                 (define out-time (open-output-file (format "tests/m~a/~a-gas_~a.sexpr" m name gas) #:exists 'replace))
+                (define out-time-detailed (open-output-file (format "tests/m~a/~a-gas_~a_detailed.sexpr" m name gas) #:exists 'replace))
 
                 (define qbs (basic-queries exp))
                 (set! num-queries (+ num-queries (length qbs)))
-                
+                (define example-queries (length qbs))
                 (let-values 
                   ([(result ts) 
                     (run/time 
                       (for ([qs qbs])
                         (match-let ([(list cb pb) qs])
-                          (run-demand name (length qbs) 'basic m cb pb -1 (hash) gas)
+                          (let-values ([(demand-hash demand-time) (run-demand name example-queries 'basic m cb pb -1 (hash) gas)])
+                            (if do-analysis
+                              (analyze-demand-hash name example-queries 'basic m cb pb -1 demand-hash demand-time out-time-detailed gas)
+                              '()
+                            )
+                          )
                           ; (set! basic-cost (+ basic-cost (hash-num-keys hx)))
                           )
                         )
                       )])
-                  (pretty-print ts)
+                  (if (not do-analysis)
+                    (pretty-print ts out-time)
+                    (pretty-print ts)
+                  )
                 )
 
                 ; (for ([shufflen (range num-shuffles)])
