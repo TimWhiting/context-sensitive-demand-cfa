@@ -13,49 +13,30 @@
     )
   )
 
-(define-syntax-rule (run/timen name n m k info x)
-  (let* [
-         (result (make-channel))
-         (timeout-ms (* acc-trials (timeout)))
-         ;  (timeout-ms (/ timeout (max 1 (/ n 100))))
-         ;  (_ (pretty-print timeout-ms))
-         (_ (collect-garbage))
-         (_ (collect-garbage))
-         (_ (collect-garbage))
-         (alarm (alarm-evt (+ (current-inexact-monotonic-milliseconds) timeout-ms) #t))
-         (thd (thread
-               (lambda ()
-                 (analysis-kind k)
-                 (current-m m)
-                 (with-handlers ([exn:fail? (λ (err) (channel-put result `(#f ,err)))])
-                   (let ((res x))
-                     (channel-put result `(#t ,res))
-                     )
-                   )
-                 )))
-         (res (sync result alarm))
-         ]
-    (kill-thread thd)
-    (match res
-      [`(#t ,v)
-       ;  (pretty-print `(result ,v))
-       v]
-      [`(#f ,err)
-       (pretty-display (format "error in ~a! m=~a kind=~a: error ~a info=~a" name m k err info))
-       `(#f ,(format "~a" err))]
-      [_
-       (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a info=~a" name m k (current-milliseconds) info))
-       #f
-       ]
-      )))
+(define-syntax-rule (run/time x)
+  (let* ([start-time (current-inexact-monotonic-milliseconds)]
+         [res x]
+         [end-time (current-inexact-monotonic-milliseconds)]
+         [total-time (- end-time start-time)])
+  (values res total-time)
+))
 
-(define-syntax-rule (run/timeoutn name n m k info x)
-  (let ([times '()])
-    (for ([_ (in-range time-trials)])
-      (set! times (cons (run/timen name n m k info x) times))
-      )
-    times
-    ))
-
-(define-syntax-rule (run/timeout name m k info x)
-  (run/timeoutn name 1 m k info x))
+(define-syntax-rule (run/catch name m k info x)
+  (let* ([_ (analysis-kind k)]
+         [_ (current-m m)]
+         [res (with-handlers ([exn:fail? (λ (err) `(#f ,err))])
+            (let ([result x])
+              `(#t ,result)
+              ))])
+  (match res
+    [`(#t ,v)
+      ;  (pretty-print `(result ,v))
+      v]
+    [`(#f ,err)
+      (pretty-display (format "error in ~a! m=~a kind=~a: error ~a info=~a" name m k err info))
+      `(#f ,(format "~a" err))]
+    [_
+      (pretty-display (format "timeout in ~a! m=~a kind=~a: time=~a info=~a" name m k (current-milliseconds) info))
+      #f
+      ]
+    )))

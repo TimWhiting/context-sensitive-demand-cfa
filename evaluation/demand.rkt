@@ -12,6 +12,7 @@
 
 ; The first is a refinement of the second parameter
 (define (((put-refines ρ₀ ρ₁) k) s)
+  ; (pretty-print (show-simple-env ρ₀))
   ((k #f) ((node-absorb/powerset (refine ρ₁) (list ρ₀)) s)))
 
 
@@ -222,6 +223,7 @@
          (match Ce
            [(cons C #t) (truecon C ρ)]
            [(cons C #f) (falsecon C ρ)]
+           [(cons _ (? char? c)) (lit (litchar c))]
            [(cons _ (? string? s)) (lit (litstring s))]
            [(cons _ (? number? x)) (lit (litnum x))]
            [(cons _ `',x) (clos Ce ρ)]
@@ -281,10 +283,11 @@
                  [(cons _ `(λ ,y ,C))
                   (>>= (bod-enter Ce′ Ce ρ ρ′)
                        (λ (Ce p)
-                         (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
-                              (λ _
-                                (eval Ce p)))
-                         ))
+                        ;  (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                        ;       (λ _
+                                (eval Ce p))
+                                ; ))
+                                )
                   ]
                  ; Constructors just return the application. We need the context to further resolve demand queries for arguments
                  [(cons _ con)
@@ -532,11 +535,11 @@
                         [(cons C `(λ ,xs ,e)) ; It is a lambda
                          (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                               (λ (Ce ρ) ; Find where the parameter is used
-                                (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
-                                     (λ _
+                                ; (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
+                                ;      (λ _
                                        (>>= ((find (car (drop xs arg-offset))) Ce ρ)
                                             expr)))
-                                ))
+                                ; ))
                          ]
                         [(cons C (? symbol? x)) ; Constructors
                          (>>= (expr Cee ρee) ; Find the deconstruction sites

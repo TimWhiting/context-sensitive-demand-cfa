@@ -5,12 +5,7 @@
 ; number of times to time the computation (to get a statistical average / stderr)
 (define time-trials 1)
 
-; the timeout per query (ms)
-(define full-timeout 10000)
-
-(define timeout (make-parameter 10))
-
-(define timeouts (list 5 15))
+(define gases (list 700 1000))
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
 (define acc-trials 1)
