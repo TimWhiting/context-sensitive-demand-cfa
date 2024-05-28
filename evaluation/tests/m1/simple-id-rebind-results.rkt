@@ -20,31 +20,6 @@ clos/con:
 	'((app id (-> (λ (aa) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> id <-) (λ (aa) ...)) (env ()))
-clos/con:
-	'((let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> id <-) (λ (bb) ...)) (env ()))
-clos/con:
-	'((let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app id (-> (λ (aa) ...) <-)) (env ()))
-clos/con:
-	'((app id (-> (λ (aa) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app id (-> (λ (bb) ...) <-)) (env ()))
-clos/con:
-	'((app id (-> (λ (bb) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
-clos/con:
-	'((let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (let* (... a (b (-> (app id (λ (bb) ...)) <-)) () ...) ...) (env ()))
 clos/con:
 	'((app id (-> (λ (bb) ...) <-)) (env ()))
@@ -61,8 +36,24 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
+  a
+  (let* (... id (a (-> (app id (λ (aa) ...)) <-)) b ...) ...)
+  (env ()))
+clos/con:
+	'((app id (-> (λ (aa) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  b
+  (let* (... a (b (-> (app id (λ (bb) ...)) <-)) () ...) ...)
+  (env ()))
+clos/con:
+	'((app id (-> (λ (bb) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
   x
-  (let* (... () (id (-> (λ (x) ...) <-)) a ...) ...)
+  (λ (x) (-> x <-))
   (env ((let* (... a (b (-> (app id (λ (bb) ...)) <-)) () ...) ...))))
 clos/con:
 	'((app id (-> (λ (bb) ...) <-)) (env ()))
@@ -70,23 +61,13 @@ literals: '(⊥ ⊥ ⊥)
 
 '(store:
   x
-  (let* (... () (id (-> (λ (x) ...) <-)) a ...) ...)
+  (λ (x) (-> x <-))
   (env ((let* (... id (a (-> (app id (λ (aa) ...)) <-)) b ...) ...))))
 clos/con:
 	'((app id (-> (λ (aa) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: a ((top) let* (id ... b) ...) (env ()))
-clos/con:
-	'((app id (-> (λ (aa) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: b ((top) let* (id ... b) ...) (env ()))
-clos/con:
-	'((app id (-> (λ (bb) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: id ((top) let* (id ... b) ...) (env ()))
+'(store: id (let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
 clos/con:
 	'((let* (... () (id (-> (λ (x) ...) <-)) a ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)

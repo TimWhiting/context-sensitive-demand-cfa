@@ -1,8 +1,7 @@
 #lang racket/base
 (require (rename-in "table-monad/main.rkt"))
 (require "config.rkt" "envs.rkt" "syntax.rkt")
-(require racket/match racket/list racket/pretty)
-(provide (all-defined-out))
+(require racket/match racket/list racket/pretty racket/set)
 ; syntax traversal
 
 (define ((out-arg i) Ce ρ)
@@ -20,8 +19,10 @@
     [(cons _ `(app ,_ ,@args))
      args]))
 
+(define primitive-set (apply set '(= - + * / modulo ceiling random string-length log gcd quotient odd? procedure? even? number? string? number->string string-append boolean? list? integer? < <= > not or and equal? eq? symbol? char? error newline display void #f #t)))
+
 (define (is-known-primitive x)
-  (member x '(= - + * / modulo ceiling random string-length log gcd quotient odd? procedure? even? number? string? number->string string-append boolean? list? integer? < <= > not or and equal? eq? symbol? char? error newline display void #f #t))
+  (set-member? primitive-set x)
   )
 
 (define (check-known-primitive? x)
@@ -54,6 +55,16 @@
 
 (define ((bind-e x) Ce p)
   (((bind x) Ce p) (λ (Ce p i) (list Ce p i)))
+  )
+
+(define (constructors Ce p)
+  (define (out) (apply constructors (out-e Ce p)))
+  (match Ce
+    [(cons `(lettypes-bod ,binds ,C) e₁)
+     (set-union (apply set (map car binds)) (out))]
+    [(cons `(top) _) (set)]
+    [_ (out)]
+    )
   )
 
 (define ((bind x) Ce ρ)
@@ -250,6 +261,8 @@
       (alternate (- n 1) g f (f a))
       ))
 
+
+(provide (all-defined-out))
 
 (module+ main
   (require rackunit)

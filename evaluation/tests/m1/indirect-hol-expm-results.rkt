@@ -4,20 +4,6 @@
    (let ((_ (app id (app #t)))) (app id (app #f)))))
 
 '(query:
-  (app (-> do-something <-))
-  (env (((let (... () (_ (-> (app id (app #t)) <-)) () ...) ...)))))
-clos/con:
-	'((letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> do-something <-))
-  (env (((let (_) (-> (app id (app #f)) <-))))))
-clos/con:
-	'((letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (let (... () (_ (-> (app do-something) <-)) () ...) ...)
   (env (((let (... () (_ (-> (app id (app #t)) <-)) () ...) ...)))))
 clos/con: ⊥
@@ -37,26 +23,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... () (do-something (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (λ () (-> 10 <-))
-  (env (((let (... () (_ (-> (app do-something) <-)) () ...) ...)))))
-clos/con: ⊥
-literals: '(10 ⊥ ⊥)
-
-'(query:
   (λ (y) (-> (let (_) ...) <-))
   (env (((let (... () (_ (-> (app id (app #t)) <-)) () ...) ...)))))
 clos/con:
@@ -73,26 +39,6 @@ literals: '(⊥ ⊥ ⊥)
 '(query: ((top) letrec* (do-something ... id) ...) (env ()))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #f <-)) (env ()))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #t <-)) (env ()))
-clos/con:
-	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> id <-) (app #f)) (env ()))
-clos/con:
-	'((letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> id <-) (app #t)) (env ()))
-clos/con:
-	'((letrec* (... do-something (id (-> (λ (y) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> (app #f) <-)) (env ()))

@@ -11,33 +11,33 @@
 (define (cadar p) (car (cdr (car p))))
 (define (cadddr p) (car (cdr (cdr (cdr p)))))
 
-(define (map f lst) 
+(define (map f lst)
   (if (pair? lst)
       (cons (f (car lst))
             (map f (cdr lst)))
       '()))
 
 
-(define (for-each f lst) 
+(define (for-each f lst)
   (begin
     (if (pair? lst)
         (cons (f (car lst))
               (map f (cdr lst)))
         '())
     (void)))
-  
+
 
 (define (append lst1 lst2)
   (if (not (pair? lst1))
       lst2
-      (cons (car lst1) 
+      (cons (car lst1)
             (append (cdr lst1) lst2))))
 
 (define (reverse lst)
   (if (not (pair? lst))
       lst
       (append (reverse (cdr lst)) (cons (car lst) '()))))
-      
+
 
 (define (string->list s)
   (define (f i)
@@ -50,12 +50,12 @@
 
 (define (apply f l)
   (let ((len (length l)))
-  (cond
-    ((= len 0) (f))
-    ((= len 1) (f (car l)))
-    ((= len 2) (f (car l) (cadr l)))
-    ((= len 3) (f (car l) (cadr l) (caddr l)))
-    ((= len 4) (f (car l) (cadr l) (caddr l) (cadddr l))))))
+    (cond
+      ((= len 0) (f))
+      ((= len 1) (f (car l)))
+      ((= len 2) (f (car l) (cadr l)))
+      ((= len 3) (f (car l) (cadr l) (caddr l)))
+      ((= len 4) (f (car l) (cadr l) (caddr l) (cadddr l))))))
 
 
 (define (assv x f)
@@ -82,7 +82,7 @@
 (define gensym (lambda (name)
                  (begin
                    (set! gensym-count (+ gensym-count 1))
-                   (string->symbol (string-append 
+                   (string->symbol (string-append
                                     (if (symbol? name)
                                         (symbol->string name)
                                         name)
@@ -107,14 +107,14 @@
   (and (pair? list)
        (null? (cdr list))))
 
-; partition-k : 
+; partition-k :
 (define (partition-k pred list k)
   (if (not (pair? list))
       (k '() '())
       (partition-k pred (cdr list) (lambda (trues falses)
-                                    (if (pred (car list))
-                                        (k (cons (car list) trues) falses)
-                                        (k trues (cons (car list) falses)))))))
+                                     (if (pred (car list))
+                                         (k (cons (car list) trues) falses)
+                                         (k trues (cons (car list) falses)))))))
 
 (define (unzip-amap-k amap k)
   (if (not (pair? amap))
@@ -122,8 +122,6 @@
       (unzip-amap-k (cdr amap) (lambda (xs ys)
                                  (k (cons (car (car amap)) xs)
                                     (cons (cadr (car amap)) ys))))))
-
-(define (void) (if #f #t))
 
 ;; Definition types.
 (define (define? s-exp)     (tagged-list? 'define s-exp))
@@ -160,11 +158,11 @@
 (define (lambda->formals s-exp)       (cadr s-exp))
 (define (lambda->body s-exp)          (cddr s-exp))
 (define (lambda->body-as-exp s-exp)   (make-begin (cddr s-exp)))
-       
+
 ; begin
 (define (begin? s-exp)      (three-d-tagged-list? 'begin s-exp))
 (define (begin->body s-exp) (cdr s-exp))
-  
+
 (define (make-begin exps)     (cond
                                 ((singlet? exps) (car exps))
                                 (else (cons three-d-begin exps))))
@@ -201,7 +199,7 @@
 (define (or->exps s-exp) (cdr s-exp))
 
 (define (make-or exps)
-  (cond 
+  (cond
     ((null? exps)    #f)
     ((singlet? exps) (car exps))
     (else            (cons 'or exps))))
@@ -266,9 +264,9 @@
                                     (define->exp def)))
 
 ; <body> => <letrec-exp>
-(define (body->letrec decs)   (partition-k 
+(define (body->letrec decs)   (partition-k
                                define?
-                               decs 
+                               decs
                                (lambda (defs exps)
                                  (if (null? defs)
                                      (make-begin exps)
@@ -276,15 +274,15 @@
                                        (list three-d-letrec
                                              bindings
                                              (make-begin exps)))))))
-                                                         
+
 
 
 
 ; <letrec-exp> => <let&set!-exp>
 (define (letrec->lets+sets exp)
-; (display "deletrecing: ")
-; (display exp)
-; (newline)
+  ; (display "deletrecing: ")
+  ; (display exp)
+  ; (newline)
   (if (not (letrec? exp))
       exp
       (let ((bindings (map (lambda (binding)
@@ -302,7 +300,7 @@
                (append sets
                        (letrec->body exp)))))))
 
-  
+
 
 ; <cond-exp> => <if-exp>
 (define (cond->if cond-exp)
@@ -329,13 +327,13 @@
   (if (not (and? exp))
       exp
       (let ((exps (and->exps exp)))
-        (cond 
+        (cond
           ((null? exps)    #t)
           ((singlet? exps) (car exps))
           (else            (list three-d-if (car exps)
                                  (and->if (cons 'and (cdr exps)))
                                  #f))))))
-       
+
 
 
 ; <or-exp> => <if-exp>
@@ -343,14 +341,14 @@
   (if (not (or? exp))
       exp
       (let ((exps (or->exps exp)))
-        (cond 
+        (cond
           ((null? exps)    #f)
           ((singlet? exps) (car exps))
           (else            (let (($tmp (gensym "or-tmp")))
                              (list three-d-let (list (list $tmp (car exps)))
                                    (list three-d-if $tmp $tmp
                                          (or->if (cons three-d-or (cdr exps)))))))))))
-  
+
 
 
 ; <let*-exp> => <let-exp>
@@ -364,8 +362,8 @@
   (cond
     ((singlet? bindings) (cons three-d-let (cons (list (car bindings)) body)))
     ((null? bindings)    (make-begin body))
-    (else                (cons three-d-let (cons (list (car bindings)) 
-                                          (list (let*-bindings->let (cdr bindings) body)))))))
+    (else                (cons three-d-let (cons (list (car bindings))
+                                                 (list (let*-bindings->let (cdr bindings) body)))))))
 
 
 ;; <let-exp> => <app-exp>
@@ -373,11 +371,11 @@
   (if (not (let? exp))
       exp
       (unzip-amap-k (let->bindings exp) (lambda (vars exps)
-                                          (cons (cons three-d-lambda 
-                                                      (cons vars 
+                                          (cons (cons three-d-lambda
+                                                      (cons vars
                                                             (let->body exp)))
                                                 exps)))))
-                                            
+
 
 
 
@@ -389,44 +387,44 @@
   ;(newline)
   (cond
     ((symbol? exp)    (env-lookup env exp))
-    
+
     ((number? exp)    exp)
-    
+
     ((boolean? exp)   exp)
-    
+
     ((string? exp)    exp)
-    
+
     ; three-d-syntax is invoked to produce a value:
     ((procedure? exp) (exp))
-    
+
     ;((quote? exp)    (eval-quote exp env))
-    
+
     ;((if? exp)      (eval-if exp env))
-    
+
     ;((cond? exp)    (eval-cond exp env))
-    
+
     ;((or? exp)      (eval-or exp env))
-    
+
     ;((and? exp)     (eval-and exp env))
-    
+
     ;((lambda? exp)  (eval-lambda exp env))
-    
+
     ;((let? exp)     (eval (let->app exp) env))
-    
+
     ;((let*? exp)    (eval (let*->let exp) env))
-    
+
     ;((letrec? exp)  (eval (letrec->lets+sets exp) env))
-    
+
     ;((begin? exp)   (eval-begin exp env))
-    
+
     ;((set!? exp)    (eval-set! exp env))
-    
+
     ;((macro? exp)   (list 'macro (eval (macro->proc exp) env)))
-    
+
     ((app? exp)     (perform-apply (eval (app->fun exp) env) exp env))))
 
 ; eval-with : env -> exp -> value
-(define (eval-with env) 
+(define (eval-with env)
   (lambda (exp)
     (eval exp env)))
 
@@ -487,8 +485,8 @@
 ; eval-set! : set!-exp env -> value
 (define (eval-set! exp env)
   (env-set! env (set!->var exp) (eval (set!->exp exp) env)))
-            
-; eval-lambda : lambda-exp env -> value      
+
+; eval-lambda : lambda-exp env -> value
 (define (eval-lambda exp env)
   (let ((formals (lambda->formals exp)))
     (lambda args
@@ -507,7 +505,7 @@
 
 ;  type env = var bool value -> value
 
-; If the second parameter to an environment is true, 
+; If the second parameter to an environment is true,
 ; then it modifies the value of that variable.
 
 ; If the second parameter is false,
@@ -530,9 +528,9 @@
   ;DEBUG
   ;(display 'set!:)
   ;(display var)
-  ;(newline)  
+  ;(newline)
   (env var #t value))
-  
+
 ; env-extend : env var value -> env
 (define (env-extend env var value)
   (lambda (seek-var modify? value!)
@@ -567,7 +565,7 @@
         (list 'not        not)
         (list 'display    display)
         (list 'newline    newline)
-        (list 'cons       cons) 
+        (list 'cons       cons)
         (list 'car        car)
         (list 'cdr        cdr)
         (list 'cadr       cadr)
@@ -575,7 +573,7 @@
         (list 'cadar      cadar)
         (list 'cddr       cddr)
         (list 'cdddr      cdddr)
-;        (list 'list       list)
+        ;        (list 'list       list)
         (list 'null?      null?)
         (list 'pair?      pair?)
         (list 'list?      list?)
@@ -587,7 +585,7 @@
         (list '=          =)
         (list 'gensym     gensym)
         (list 'void       void)
-        
+
         (list 'quote    (list 'syntax-primitive eval-quote))
         (list 'if       (list 'syntax-primitive eval-if))
         (list 'cond     (list 'syntax-primitive eval-cond))
@@ -607,18 +605,18 @@
 ; environment : -> env
 (define (initial-environment)
   (unzip-amap-k initial-environment-amap (lambda (symbols values)
-                                           (env-extend* empty-env 
+                                           (env-extend* empty-env
                                                         symbols
                                                         values))))
 
 ; initial : symbol -> value
-(define (initial sym) 
+(define (initial sym)
   (env-lookup (initial-environment) sym))
 
 ; three-d : value -> three-d-s-exp
 (define (three-d value)
   (lambda () value))
-  
+
 ; three-d primitives:
 (define three-d-quote   (three-d (initial 'quote)))
 (define three-d-if      (three-d (initial 'if)))
@@ -640,6 +638,6 @@
       ((syntax-primitive? fun) ((syntax-primitive->eval fun) app-exp env))
       (else                    (let ((arg-values (eval* args env)))
                                  (apply fun arg-values))))))
-  
+
 
 (eval '((lambda (x) x) 10) (initial-environment))

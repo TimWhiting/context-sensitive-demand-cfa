@@ -1,5 +1,5 @@
 #lang racket/base
-(require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt")
+(require "demand.rkt" "abstract-value.rkt" "debug.rkt" "syntax.rkt" "envs.rkt" "static-contexts.rkt")
 (require "m-cfa.rkt")
 (require racket/pretty racket/match racket/set racket/string racket/list)
 
@@ -39,18 +39,20 @@
 
 
 (define (report-mcfa-hash h out)
-  (define evals (filter (lambda (x) (match x [(cons (meval _ _) _) #t] [_ #f])) (hash->list h)))
+  (define evals (filter (lambda (x) (match x [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list h)))
   (define stores (filter (lambda (x) (match x [(cons (store _) _) #t] [_ #f])) (hash->list h)))
   (define eval-new-key
     (sort-by-key
      (map (lambda (x)
             (match x [(cons (meval Ce p) v)
+
+
                       (cons (pretty-format `(query: ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
           evals)))
   (define store-new-key
     (sort-by-key
      (map (lambda (x)
-            (match x [(cons (store (list Ce x p)) v)
+            (match x [(cons (store (list x Ce p)) v)
                       (cons (pretty-format `(store: ,x ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
           stores)))
 

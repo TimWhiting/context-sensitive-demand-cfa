@@ -141,6 +141,7 @@
     [(? char? x) x]
     [(? string? x) x]
     [`(con ,nm ,@args) `(con ,nm ,@(map show-simple-ctx args))]
+    [`(top) `(top)]
     [_
      (error 'fail (pretty-format `(no-simple-context-for ,Ce)))
      ]

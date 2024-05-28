@@ -58,62 +58,71 @@
     [(cons x xs) (get-types xs)]
     ))
 
-(define (get-common-types)
-  (list (list
-         (list 'car
-               `(λ (car-v)
-                  (match car-v
-                    [(cons car-c car-d) car-c])
+(define (get-common-types already-defined)
+  (list
+   (filter (λ (item)
+             (empty?
+              (filter
+               (λ (def)
+                 (match def
+                   [`(define ,id ,_) (equal? (car item) id)]
+                   )
+                 ) already-defined)))
+           (list
+            (list 'car
+                  `(λ (car-v)
+                     (match car-v
+                       [(cons car-c car-d) car-c])
+                     )
                   )
-               )
-         (list 'cdr
-               `(λ (cdr-v)
-                  (match cdr-v
-                    [(cons cdr-c cdr-d) cdr-d])
+            (list 'cdr
+                  `(λ (cdr-v)
+                     (match cdr-v
+                       [(cons cdr-c cdr-d) cdr-d])
+                     )
                   )
-               )
-         (list 'cadr
-               `(λ (cadr-v)
-                  (app car (app cdr cadr-v))
+            (list 'cadr
+                  `(λ (cadr-v)
+                     (app car (app cdr cadr-v))
+                     )
                   )
-               )
-         (list 'caddr
-               `(λ (cadr-v)
-                  (app car (app cdr (app cdr cadr-v)))
+            (list 'caddr
+                  `(λ (cadr-v)
+                     (app car (app cdr (app cdr cadr-v)))
+                     )
                   )
-               )
-         (list 'map
-               `(λ (map-f map-l)
-                  (match map-l
-                    [(cons map-c map-d) (app cons (app map-f map-c) (app map map-f map-d))]
-                    [(nil) (app nil)]
-                    )
+            (list 'map
+                  `(λ (map-f map-l)
+                     (match map-l
+                       [(cons map-c map-d) (app cons (app map-f map-c) (app map map-f map-d))]
+                       [(nil) (app nil)]
+                       )
+                     )
                   )
-               )
-         (list 'length
-               `(λ (length-l)
-                  (match length-l
-                    [(cons length-c length-d) (app + 1 (app length length-d))]
-                    [(nil) 0]
-                    )
+            (list 'length
+                  `(λ (length-l)
+                     (match length-l
+                       [(cons length-c length-d) (app + 1 (app length length-d))]
+                       [(nil) 0]
+                       )
+                     )
                   )
-               )
-         (list 'pair?
-               `(λ (pair?-v)
-                  (match pair?-v
-                    [(cons pair?-c pair?-d) (app #t)]
-                    [_ (app #f)])
+            (list 'pair?
+                  `(λ (pair?-v)
+                     (match pair?-v
+                       [(cons pair?-c pair?-d) (app #t)]
+                       [_ (app #f)])
+                     )
                   )
-               )
-         (list 'null?
-               `(λ (null?-v)
-                  (match null?-v
-                    [(nil) (app #t)]
-                    [_ (app #f)])
+            (list 'null?
+                  `(λ (null?-v)
+                     (match null?-v
+                       [(nil) (app #t)]
+                       [_ (app #f)])
+                     )
                   )
-               )
-         )
-        (list `(cons car cdr) `(nil) `(error r)))
+            ))
+   (list `(cons car cdr) `(nil) `(error r)))
   )
 
 (define (get-tps tps)
@@ -177,7 +186,7 @@
 
   ; (pretty-print `(translate-top-defs ,tops))
   (match-let ([(list top-type-defs top-types) (get-types tops-full-defs)]
-              [(list common-type-defs common-types) (if top (get-common-types) (list '() '()) )]
+              [(list common-type-defs common-types) (if top (get-common-types all-defs) (list '() '()) )]
               )
     ; (if (empty? top-type-defs) '() (pretty-print top-type-defs))
     ; (if (empty? common-type-defs) '() (pretty-print common-type-defs))

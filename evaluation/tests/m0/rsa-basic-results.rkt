@@ -63,19 +63,10 @@
      (plaintext 42)
      (ciphertext (app encrypt plaintext e n))
      (decrypted-ciphertext (app decrypt ciphertext d n)))
-    (let ((_ (app display "The plaintext is:            ")))
-      (let ((_ (app display plaintext)))
-        (let ((_ (app newline)))
-          (let ((_ (app display "The ciphertext is:           ")))
-            (let ((_ (app display ciphertext)))
-              (let ((_ (app newline)))
-                (let ((_ (app display "The decrypted ciphertext is: ")))
-                  (let ((_ (app display decrypted-ciphertext)))
-                    (let ((_ (app newline)))
-                      (match
-                       (app not (app = plaintext decrypted-ciphertext))
-                       ((#f) (app void))
-                       (_ (app error "RSA fail!")))))))))))))))
+    (match
+     (app not (app = plaintext decrypted-ciphertext))
+     ((#f) (app display "RSA success!"))
+     (_ (app error "RSA fail!"))))))
 
 '(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
@@ -1281,241 +1272,9 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (letrec* (car ... decrypted-ciphertext) (-> (let (_) ...) <-))
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (...
-        ()
-        (_ (-> (app display "The plaintext is:            ") <-))
-        ()
-        ...)
-    ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> "The plaintext is:            " <-)) (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "The plaintext is:            ")
-
-'(query: (app (-> display <-) "The plaintext is:            ") (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (... () (_ (-> (app display plaintext) <-)) () ...) ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> plaintext <-)) (env ()))
-clos/con: ⊥
-literals: '(42 ⊥ ⊥)
-
-'(query: (app (-> display <-) plaintext) (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> newline <-)) (env ()))
-clos/con:
-	'((prim newline) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (...
-        ()
-        (_ (-> (app display "The ciphertext is:           ") <-))
-        ()
-        ...)
-    ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> "The ciphertext is:           " <-)) (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "The ciphertext is:           ")
-
-'(query: (app (-> display <-) "The ciphertext is:           ") (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (... () (_ (-> (app display ciphertext) <-)) () ...) ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> ciphertext <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query: (app (-> display <-) ciphertext) (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> newline <-)) (env ()))
-clos/con:
-	'((prim newline) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (...
-        ()
-        (_ (-> (app display "The decrypted ciphertext is: ") <-))
-        ()
-        ...)
-    ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> "The decrypted ciphertext is: " <-)) (env ()))
-clos/con: ⊥
-literals: '(⊥ ⊥ "The decrypted ciphertext is: ")
-
-'(query: (app (-> display <-) "The decrypted ciphertext is: ") (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (... () (_ (-> (app display decrypted-ciphertext) <-)) () ...) ...)
-  (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app display (-> decrypted-ciphertext <-)) (env ()))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(query: (app (-> display <-) decrypted-ciphertext) (env ()))
-clos/con:
-	'((prim display) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (_) (-> (let (_) ...) <-)) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-	'((match
-   (app not (app = plaintext decrypted-ciphertext))
-   (#f)
-   (_ (-> (app error "RSA fail!") <-)))
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (_ (-> (app newline) <-)) () ...) ...) (env ()))
-clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> newline <-)) (env ()))
-clos/con:
-	'((prim newline) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (let (_)
-    (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))
+  (letrec*
+   (car ... decrypted-ciphertext)
+   (-> (match (app not (app = plaintext decrypted-ciphertext)) ...) <-))
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
@@ -1552,16 +1311,20 @@ literals: '(⊥ ⊥ ⊥)
 '(query:
   (match
    (app not (app = plaintext decrypted-ciphertext))
-   ((#f) (-> (app void) <-))
+   ((#f) (-> (app display "RSA success!") <-))
    _)
   (env ()))
 clos/con:
 	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app (-> void <-)) (env ()))
+'(query: (app display (-> "RSA success!" <-)) (env ()))
+clos/con: ⊥
+literals: '(⊥ ⊥ "RSA success!")
+
+'(query: (app (-> display <-) "RSA success!") (env ()))
 clos/con:
-	'((prim void) (env ()))
+	'((prim display) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:

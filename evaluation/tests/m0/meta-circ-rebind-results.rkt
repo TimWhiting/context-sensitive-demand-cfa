@@ -4,15 +4,6 @@
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-     (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
-     (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
-     (map
-      (λ (map-f map-l)
-        (match
-         map-l
-         ((cons map-c map-d)
-          (app cons (app map-f map-c) (app map map-f map-d)))
-         ((nil) (app nil)))))
      (length
       (λ (length-l)
         (match
@@ -180,7 +171,6 @@
               (app cons (app car (app car amap)) xs)
               (app cons (app cadr (app car amap)) ys)))))
          (_ (app k (app nil) (app nil))))))
-     (void (λ () (match (app #f) ((#f) (app void)) (_ (app #t)))))
      (define? (λ (s-exp) (app tagged-list? 'define s-exp)))
      (define-var?
       (λ (s-exp) (app and (app define? s-exp) (app symbol? (app cadr s-exp)))))

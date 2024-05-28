@@ -10,47 +10,12 @@
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(query: (app (-> #f <-)) (env ()))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #t <-)) (env ()))
-clos/con:
-	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> f <-) (λ (x) ...)) (env (())))
-clos/con:
-	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> g <-) y) (env (())))
-clos/con:
-	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> h <-) (app #f)) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> h <-) (app #t)) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app (-> k <-) 1) (env (() ())))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env (())))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> k <-) 2) (env (() ())))
-clos/con:
-	'((app f (-> (λ (x) ...) <-)) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app f (-> (λ (x) ...) <-)) (env (())))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env (())))
 literals: '(⊥ ⊥ ⊥)
@@ -67,29 +32,6 @@ literals: '(⊥ ⊥ ⊥)
 '(query: (app h (-> (app #t) <-)) (env ()))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app k (-> 1 <-)) (env (() ())))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query: (app k (-> 2 <-)) (env (() ())))
-clos/con: ⊥
-literals: '(2 ⊥ ⊥)
-
-'(query: (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env (())))
-clos/con:
-	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env (())))
-clos/con:
-	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (... () (x (-> (app h (app #t)) <-)) y ...) ...) (env ()))

@@ -42,7 +42,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (lettypes cons ... nil (letrec* (car ... my-map) ...)) (env ()))
 clos/con:
@@ -53,12 +53,12 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... id (my-map (-> (λ (f l) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (f l) (-> (let (_) ...) <-)) (env (())))
 clos/con:
@@ -69,17 +69,17 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (... () (_ (-> (app debug-trace) <-)) () ...) ...) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> debug-trace <-)) (env (())))
 clos/con:
 	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (_) (-> (letrec (lp) ...) <-)) (env (())))
 clos/con:
@@ -90,12 +90,12 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...) (env (())))
 clos/con:
 	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (lst) (-> (match (app not (app pair? lst)) ...) <-)) (env (() ())))
 clos/con:
@@ -106,19 +106,19 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match (app not (app pair? lst)) (#f) (_ (-> (app nil) <-)))
   (env (() ())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (() ())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -134,7 +134,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))
@@ -147,7 +147,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app lp (-> (app cdr lst) <-)) (env (() ())))
 clos/con:
@@ -156,7 +156,7 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> lst <-)) (env (() ())))
 clos/con:
@@ -175,27 +175,27 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) lst) (env (() ())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> lp <-) (app cdr lst)) (env (() ())))
 clos/con:
 	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))
   (env (() ())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (app id f) (-> (app car lst) <-)) (env (() ())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> lst <-)) (env (() ())))
 clos/con:
@@ -214,30 +214,30 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) lst) (env (() ())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> (app id f) <-) (app car lst)) (env (() ())))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> f <-)) (env (() ())))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> id <-) f) (env (() ())))
 clos/con:
 	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
@@ -245,19 +245,19 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app not (app pair? lst)) <-) (#f) _) (env (() ())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app not (-> (app pair? lst) <-)) (env (() ())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app pair? (-> lst <-)) (env (() ())))
 clos/con:
@@ -276,18 +276,18 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> pair? <-) lst) (env (() ())))
 clos/con:
 	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> not <-) (app pair? lst)) (env (() ())))
 clos/con:
 	'((prim not) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec (lp) (-> (app lp l) <-)) (env (())))
 clos/con:
@@ -298,7 +298,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app lp (-> l <-)) (env (())))
 clos/con:
@@ -312,12 +312,12 @@ clos/con:
    (app id (λ (b) ...))
    (-> (app cons 7 (app cons 8 (app cons 9 (app nil)))) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> lp <-) l) (env (())))
 clos/con:
 	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
@@ -325,46 +325,46 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (xx) (-> (let (_) ...) <-)) (env (())))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (... () (_ (-> (app debug-trace) <-)) () ...) ...) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> debug-trace <-)) (env (())))
 clos/con:
 	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (_) (-> xx <-)) (env (())))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ () (-> (app #f) <-)) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env (())))
 clos/con:
 	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
@@ -372,37 +372,37 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (pair?-v) (-> (match pair?-v ...) <-)) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))
   (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env (())))
 clos/con:
 	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)
   (env (())))
 clos/con:
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #t <-)) (env (())))
 clos/con:
 	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env (())))
 clos/con:
@@ -421,14 +421,14 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
 clos/con:
@@ -437,7 +437,7 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
 clos/con:
@@ -446,7 +446,7 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env (())))
 clos/con:
@@ -465,20 +465,20 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (car-v) (-> (match car-v ...) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match (-> car-v <-) (cons car-c car-d)) (env (())))
 clos/con:
@@ -497,7 +497,7 @@ clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (letrec* (car ... my-map) (-> (let (_) ...) <-)) (env ()))
 clos/con:
@@ -508,7 +508,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (...
@@ -532,7 +532,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -546,54 +546,54 @@ clos/con:
    (app id (λ (a) ...))
    (-> (app cons 1 (app cons 2 (app cons 3 (app nil)))) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-)) (env ()))
 clos/con:
 	'((app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
 clos/con:
 	'((app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 3 (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 3 <-) (app nil)) (env ()))
 clos/con: ⊥
-literals: '(3 ⊥ ⊥ ⊥)
+literals: '(3 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 3 (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 3 (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 2 <-) (app cons 3 (app nil))) (env ()))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥ ⊥)
+literals: '(2 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 2 (app cons 3 (app nil))) (env ()))
 clos/con:
 	'((app (-> cons <-) 2 (app cons 3 (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 1 <-) (app cons 2 (app cons 3 (app nil)))) (env ()))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil)))) (env ()))
 clos/con:
 	'((app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -604,35 +604,35 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> (λ (a) ...) <-)) (env ()))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (a) (-> (app + 1 a) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app + 1 (-> a <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app + (-> 1 <-) a) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app (-> + <-) 1 a) (env (())))
 clos/con:
 	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> id <-) (λ (a) ...)) (env ()))
 clos/con:
 	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -642,7 +642,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (_)
@@ -661,7 +661,7 @@ clos/con:
     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
    _)
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -675,54 +675,54 @@ clos/con:
    (app id (λ (b) ...))
    (-> (app cons 7 (app cons 8 (app cons 9 (app nil)))) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
 clos/con:
 	'((app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
 clos/con:
 	'((app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 9 (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 9 <-) (app nil)) (env ()))
 clos/con: ⊥
-literals: '(9 ⊥ ⊥ ⊥)
+literals: '(9 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 9 (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 9 (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 8 <-) (app cons 9 (app nil))) (env ()))
 clos/con: ⊥
-literals: '(8 ⊥ ⊥ ⊥)
+literals: '(8 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 8 (app cons 9 (app nil))) (env ()))
 clos/con:
 	'((app (-> cons <-) 8 (app cons 9 (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 7 <-) (app cons 8 (app cons 9 (app nil)))) (env ()))
 clos/con: ⊥
-literals: '(7 ⊥ ⊥ ⊥)
+literals: '(7 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil)))) (env ()))
 clos/con:
 	'((app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -733,35 +733,35 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app id (-> (λ (b) ...) <-)) (env ()))
 clos/con:
 	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (b) (-> (app + 1 b) <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app + 1 (-> b <-)) (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app + (-> 1 <-) b) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (app (-> + <-) 1 b) (env (())))
 clos/con:
 	'((prim +) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> id <-) (λ (b) ...)) (env ()))
 clos/con:
 	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -771,4 +771,4 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)

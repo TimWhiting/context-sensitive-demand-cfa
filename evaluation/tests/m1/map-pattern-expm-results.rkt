@@ -37,26 +37,6 @@
 
 '(query:
   (app
-   (-> my-map <-)
-   (app id (λ (a) ...))
-   (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-  (env ()))
-clos/con:
-	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) ans1 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
-   (-> my-map <-)
-   (app id (λ (b) ...))
-   (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-  (env ()))
-clos/con:
-	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) ans1 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app
    my-map
    (-> (app id (λ (a) ...)) <-)
    (app cons 1 (app cons 2 (app cons 3 (app nil)))))
@@ -108,20 +88,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> #f <-))
-  (env (((let (... () (_ (-> (app debug-trace) <-)) () ...) ...)))))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> #f <-))
-  (env (((let (... () (_ (-> (app debug-trace) <-)) () ...) ...)))))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app (-> (app id f) <-) (app car lst))
   (env
    (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
@@ -210,1091 +176,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (app (-> + <-) 1 a)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-clos/con:
-	'((prim +)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> + <-) 1 b)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-clos/con:
-	'((prim +)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> car <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> car <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> car <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> car <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cdr <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cdr <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cdr <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cdr <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> cons <-) (app (app id f) (app car lst)) (app lp (app cdr lst)))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> debug-trace <-))
-  (env
-   (((app
-      my-map
-      (-> (app id (λ (a) ...)) <-)
-      (app cons 1 (app cons 2 (app cons 3 (app nil)))))))))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> debug-trace <-))
-  (env
-   (((app
-      my-map
-      (-> (app id (λ (b) ...)) <-)
-      (app cons 7 (app cons 8 (app cons 9 (app nil)))))))))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> debug-trace <-))
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> debug-trace <-))
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> debug-trace <-))
-  (env (((app (-> (app id f) <-) (app car lst))))))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> id <-) f)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> id <-) f)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> id <-) f)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> id <-) f)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) (app cdr lst))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) (app cdr lst))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) (app cdr lst))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) (app cdr lst))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) l)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> lp <-) l)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> nil <-))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((app (-> nil <-))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> not <-) (app pair? lst))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((prim not)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> not <-) (app pair? lst))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((prim not)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> not <-) (app pair? lst))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((prim not)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> not <-) (app pair? lst))
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((prim not)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (app (-> pair? <-) lst)
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (app (app id f) (-> (app car lst) <-))
   (env
    (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
@@ -1373,26 +254,6 @@ literals: '(⊤ ⊥ ⊥)
       ...)))))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
-
-'(query:
-  (app + (-> 1 <-) a)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query:
-  (app + (-> 1 <-) b)
-  (env
-   (((app
-      cons
-      (-> (app (app id f) (app car lst)) <-)
-      (app lp (app cdr lst)))))))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
 
 '(query:
   (app + 1 (-> a <-))
@@ -2478,74 +1339,6 @@ clos/con:
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
-  (letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((letrec (... () (lp (-> (λ (lst) ...) <-)) () ...) ...)
-  (env
-   (((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
   (letrec (lp) (-> (app lp l) <-))
   (env
    (((letrec*
@@ -2709,43 +1502,6 @@ clos/con:
        ...)
       ...)))))
 	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) debug-trace ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... id (my-map (-> (λ (f l) ...) <-)) ans1 ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... id (my-map (-> (λ (f l) ...) <-)) ans1 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... pair? (debug-trace (-> (λ () ...) <-)) id ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
@@ -3557,99 +2313,8 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) lettypes (cons ... nil) ...) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #f <-)) (env (((app not (-> (app pair? lst) <-))))))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #t <-)) (env (((app not (-> (app pair? lst) <-))))))
-clos/con:
-	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil)))) (env ()))
-clos/con:
-	'((app (-> cons <-) 1 (app cons 2 (app cons 3 (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 2 (app cons 3 (app nil))) (env ()))
-clos/con:
-	'((app (-> cons <-) 2 (app cons 3 (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 3 (app nil)) (env ()))
-clos/con:
-	'((app (-> cons <-) 3 (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil)))) (env ()))
-clos/con:
-	'((app (-> cons <-) 7 (app cons 8 (app cons 9 (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 8 (app cons 9 (app nil))) (env ()))
-clos/con:
-	'((app (-> cons <-) 8 (app cons 9 (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> cons <-) 9 (app nil)) (env ()))
-clos/con:
-	'((app (-> cons <-) 9 (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> id <-) (λ (a) ...)) (env ()))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> id <-) (λ (b) ...)) (env ()))
-clos/con:
-	'((letrec* (... debug-trace (id (-> (λ (xx) ...) <-)) my-map ...) ...)
-  (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> nil <-)) (env ()))
-clos/con:
-	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> void <-)) (env ()))
-clos/con:
-	'((prim void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app cons (-> 1 <-) (app cons 2 (app cons 3 (app nil)))) (env ()))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query: (app cons (-> 2 <-) (app cons 3 (app nil))) (env ()))
-clos/con: ⊥
-literals: '(2 ⊥ ⊥)
-
-'(query: (app cons (-> 3 <-) (app nil)) (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(query: (app cons (-> 7 <-) (app cons 8 (app cons 9 (app nil)))) (env ()))
-clos/con: ⊥
-literals: '(7 ⊥ ⊥)
-
-'(query: (app cons (-> 8 <-) (app cons 9 (app nil))) (env ()))
-clos/con: ⊥
-literals: '(8 ⊥ ⊥)
-
-'(query: (app cons (-> 9 <-) (app nil)) (env ()))
-clos/con: ⊥
-literals: '(9 ⊥ ⊥)
 
 '(query: (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-)) (env ()))
 clos/con:
@@ -3681,1295 +2346,20 @@ clos/con:
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (app id (-> (λ (a) ...) <-)) (env ()))
-clos/con:
-	'((app id (-> (λ (a) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app id (-> (λ (b) ...) <-)) (env ()))
-clos/con:
-	'((app id (-> (λ (b) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (let (_) (-> xx <-)) (env (((app (-> (app id f) <-) (app car lst))))))
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-clos/con:
-	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (letrec* (car ... ans2) (-> (app void) <-)) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (lettypes cons ... nil (letrec* (car ... ans2) ...)) (env ()))
 clos/con:
-	'(((top) app void) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ((app (app id f) (app car lst)))
-    ()
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   lp
-   (app cdr lst))
-  con
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((con
-   cons
-   (match
-    (app not (app pair? lst))
-    ((#f)
-     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
-    _))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ((app (app id f) (app car lst)))
-    ()
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   lp
-   (app cdr lst))
-  con
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((con
-   cons
-   (match
-    (app not (app pair? lst))
-    ((#f)
-     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
-    _))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ((app (app id f) (app car lst)))
-    ()
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   lp
-   (app cdr lst))
-  con
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con:
-	'((con
-   cons
-   (match
-    (app not (app pair? lst))
-    ((#f)
-     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
-    _))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ((app (app id f) (app car lst)))
-    ()
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   lp
-   (app cdr lst))
-  con
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con:
-	'((con
-   cons
-   (match
-    (app not (app pair? lst))
-    ((#f)
-     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
-    _))
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app cons 2 (app cons 3 (app nil))))
-    (ran
-     my-map
-     ((app id (λ (a) (app + 1 a))))
-     ()
-     (bin
-      letrec*
-      ans1
-      (app void)
-      ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-       (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-       (pair?
-        (λ (pair?-v)
-          (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-       (debug-trace (λ () (app #f)))
-       (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-       (my-map
-        (λ (f l)
-          (let ((_ (app debug-trace)))
-            (letrec ((lp
-                      (λ (lst)
-                        (match
-                         (app not (app pair? lst))
-                         ((#f)
-                          (app
-                           cons
-                           (app (app id f) (app car lst))
-                           (app lp (app cdr lst))))
-                         (_ (app nil))))))
-              (app lp l))))))
-      ((ans2
-        (app
-         my-map
-         (app id (λ (b) (app + 1 b)))
-         (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-      (lettypes-bod ((cons car cdr) (nil)) (top)))))
-   .
-   1)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app cons 3 (app nil)))
-    (ran
-     cons
-     (1)
-     ()
-     (ran
-      my-map
-      ((app id (λ (a) (app + 1 a))))
-      ()
-      (bin
-       letrec*
-       ans1
-       (app void)
-       ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-        (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-        (pair?
-         (λ (pair?-v)
-           (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-        (debug-trace (λ () (app #f)))
-        (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-        (my-map
-         (λ (f l)
-           (let ((_ (app debug-trace)))
-             (letrec ((lp
-                       (λ (lst)
-                         (match
-                          (app not (app pair? lst))
-                          ((#f)
-                           (app
-                            cons
-                            (app (app id f) (app car lst))
-                            (app lp (app cdr lst))))
-                          (_ (app nil))))))
-               (app lp l))))))
-       ((ans2
-         (app
-          my-map
-          (app id (λ (b) (app + 1 b)))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-       (lettypes-bod ((cons car cdr) (nil)) (top))))))
-   .
-   2)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(2 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app cons 8 (app cons 9 (app nil))))
-    (ran
-     my-map
-     ((app id (λ (b) (app + 1 b))))
-     ()
-     (bin
-      letrec*
-      ans2
-      (app void)
-      ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-       (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-       (pair?
-        (λ (pair?-v)
-          (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-       (debug-trace (λ () (app #f)))
-       (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-       (my-map
-        (λ (f l)
-          (let ((_ (app debug-trace)))
-            (letrec ((lp
-                      (λ (lst)
-                        (match
-                         (app not (app pair? lst))
-                         ((#f)
-                          (app
-                           cons
-                           (app (app id f) (app car lst))
-                           (app lp (app cdr lst))))
-                         (_ (app nil))))))
-              (app lp l)))))
-       (ans1
-        (app
-         my-map
-         (app id (λ (a) (app + 1 a)))
-         (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-      ()
-      (lettypes-bod ((cons car cdr) (nil)) (top)))))
-   .
-   7)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(7 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app cons 9 (app nil)))
-    (ran
-     cons
-     (7)
-     ()
-     (ran
-      my-map
-      ((app id (λ (b) (app + 1 b))))
-      ()
-      (bin
-       letrec*
-       ans2
-       (app void)
-       ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-        (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-        (pair?
-         (λ (pair?-v)
-           (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-        (debug-trace (λ () (app #f)))
-        (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-        (my-map
-         (λ (f l)
-           (let ((_ (app debug-trace)))
-             (letrec ((lp
-                       (λ (lst)
-                         (match
-                          (app not (app pair? lst))
-                          ((#f)
-                           (app
-                            cons
-                            (app (app id f) (app car lst))
-                            (app lp (app cdr lst))))
-                          (_ (app nil))))))
-               (app lp l)))))
-        (ans1
-         (app
-          my-map
-          (app id (λ (a) (app + 1 a)))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-       ()
-       (lettypes-bod ((cons car cdr) (nil)) (top))))))
-   .
-   8)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(8 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app lp (app cdr lst)))
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   (app id f)
-   (app car lst))
-  con
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app lp (app cdr lst)))
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   (app id f)
-   (app car lst))
-  con
-  (env
-   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app lp (app cdr lst)))
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   (app id f)
-   (app car lst))
-  con
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       ans1
-       (ans2
-        (->
-         (app
-          my-map
-          (app id (λ (b) ...))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
-         <-))
-       ()
-       ...)
-      ...)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app lp (app cdr lst)))
-    (match-clause
-     (#f)
-     (app not (app pair? lst))
-     ()
-     ((_ (app nil)))
-     (bod
-      (lst)
-      (bin
-       letrec
-       lp
-       (app lp l)
-       ()
-       ()
-       (let-bod
-        let
-        ((_ (app debug-trace)))
-        (bod
-         (f l)
-         (bin
-          letrec*
-          my-map
-          (app void)
-          ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-           (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-           (pair?
-            (λ (pair?-v)
-              (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-           (debug-trace (λ () (app #f)))
-           (id (λ (xx) (let ((_ (app debug-trace))) xx))))
-          ((ans1
-            (app
-             my-map
-             (app id (λ (a) (app + 1 a)))
-             (app cons 1 (app cons 2 (app cons 3 (app nil))))))
-           (ans2
-            (app
-             my-map
-             (app id (λ (b) (app + 1 b)))
-             (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-          (lettypes-bod ((cons car cdr) (nil)) (top)))))))))
-   app
-   (app id f)
-   (app car lst))
-  con
-  (env
-   (((letrec (lp) (-> (app lp l) <-)))
-    ((letrec*
-      (...
-       my-map
-       (ans1
-        (->
-         (app
-          my-map
-          (app id (λ (a) ...))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
-         <-))
-       ans2
-       ...)
-      ...)))))
-clos/con: ⊥
-literals: '(⊤ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app nil))
-    (ran
-     cons
-     (2)
-     ()
-     (ran
-      cons
-      (1)
-      ()
-      (ran
-       my-map
-       ((app id (λ (a) (app + 1 a))))
-       ()
-       (bin
-        letrec*
-        ans1
-        (app void)
-        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-         (pair?
-          (λ (pair?-v)
-            (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-         (debug-trace (λ () (app #f)))
-         (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-         (my-map
-          (λ (f l)
-            (let ((_ (app debug-trace)))
-              (letrec ((lp
-                        (λ (lst)
-                          (match
-                           (app not (app pair? lst))
-                           ((#f)
-                            (app
-                             cons
-                             (app (app id f) (app car lst))
-                             (app lp (app cdr lst))))
-                           (_ (app nil))))))
-                (app lp l))))))
-        ((ans2
-          (app
-           my-map
-           (app id (λ (b) (app + 1 b)))
-           (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-        (lettypes-bod ((cons car cdr) (nil)) (top)))))))
-   .
-   3)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(3 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    ()
-    ((app nil))
-    (ran
-     cons
-     (8)
-     ()
-     (ran
-      cons
-      (7)
-      ()
-      (ran
-       my-map
-       ((app id (λ (b) (app + 1 b))))
-       ()
-       (bin
-        letrec*
-        ans2
-        (app void)
-        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-         (pair?
-          (λ (pair?-v)
-            (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-         (debug-trace (λ () (app #f)))
-         (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-         (my-map
-          (λ (f l)
-            (let ((_ (app debug-trace)))
-              (letrec ((lp
-                        (λ (lst)
-                          (match
-                           (app not (app pair? lst))
-                           ((#f)
-                            (app
-                             cons
-                             (app (app id f) (app car lst))
-                             (app lp (app cdr lst))))
-                           (_ (app nil))))))
-                (app lp l)))))
-         (ans1
-          (app
-           my-map
-           (app id (λ (a) (app + 1 a)))
-           (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-        ()
-        (lettypes-bod ((cons car cdr) (nil)) (top)))))))
-   .
-   9)
-  con
-  (env ()))
-clos/con: ⊥
-literals: '(9 ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (1)
-    ()
-    (ran
-     my-map
-     ((app id (λ (a) (app + 1 a))))
-     ()
-     (bin
-      letrec*
-      ans1
-      (app void)
-      ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-       (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-       (pair?
-        (λ (pair?-v)
-          (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-       (debug-trace (λ () (app #f)))
-       (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-       (my-map
-        (λ (f l)
-          (let ((_ (app debug-trace)))
-            (letrec ((lp
-                      (λ (lst)
-                        (match
-                         (app not (app pair? lst))
-                         ((#f)
-                          (app
-                           cons
-                           (app (app id f) (app car lst))
-                           (app lp (app cdr lst))))
-                         (_ (app nil))))))
-              (app lp l))))))
-      ((ans2
-        (app
-         my-map
-         (app id (λ (b) (app + 1 b)))
-         (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-      (lettypes-bod ((cons car cdr) (nil)) (top)))))
-   app
-   cons
-   2
-   (app cons 3 (app nil)))
-  con
-  (env ()))
-clos/con:
-	'((con cons (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (2)
-    ()
-    (ran
-     cons
-     (1)
-     ()
-     (ran
-      my-map
-      ((app id (λ (a) (app + 1 a))))
-      ()
-      (bin
-       letrec*
-       ans1
-       (app void)
-       ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-        (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-        (pair?
-         (λ (pair?-v)
-           (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-        (debug-trace (λ () (app #f)))
-        (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-        (my-map
-         (λ (f l)
-           (let ((_ (app debug-trace)))
-             (letrec ((lp
-                       (λ (lst)
-                         (match
-                          (app not (app pair? lst))
-                          ((#f)
-                           (app
-                            cons
-                            (app (app id f) (app car lst))
-                            (app lp (app cdr lst))))
-                          (_ (app nil))))))
-               (app lp l))))))
-       ((ans2
-         (app
-          my-map
-          (app id (λ (b) (app + 1 b)))
-          (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-       (lettypes-bod ((cons car cdr) (nil)) (top))))))
-   app
-   cons
-   3
-   (app nil))
-  con
-  (env ()))
-clos/con:
-	'((con cons (app cons 2 (-> (app cons 3 (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (3)
-    ()
-    (ran
-     cons
-     (2)
-     ()
-     (ran
-      cons
-      (1)
-      ()
-      (ran
-       my-map
-       ((app id (λ (a) (app + 1 a))))
-       ()
-       (bin
-        letrec*
-        ans1
-        (app void)
-        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-         (pair?
-          (λ (pair?-v)
-            (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-         (debug-trace (λ () (app #f)))
-         (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-         (my-map
-          (λ (f l)
-            (let ((_ (app debug-trace)))
-              (letrec ((lp
-                        (λ (lst)
-                          (match
-                           (app not (app pair? lst))
-                           ((#f)
-                            (app
-                             cons
-                             (app (app id f) (app car lst))
-                             (app lp (app cdr lst))))
-                           (_ (app nil))))))
-                (app lp l))))))
-        ((ans2
-          (app
-           my-map
-           (app id (λ (b) (app + 1 b)))
-           (app cons 7 (app cons 8 (app cons 9 (app nil)))))))
-        (lettypes-bod ((cons car cdr) (nil)) (top)))))))
-   app
-   nil)
-  con
-  (env ()))
-clos/con:
-	'((con nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (7)
-    ()
-    (ran
-     my-map
-     ((app id (λ (b) (app + 1 b))))
-     ()
-     (bin
-      letrec*
-      ans2
-      (app void)
-      ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-       (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-       (pair?
-        (λ (pair?-v)
-          (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-       (debug-trace (λ () (app #f)))
-       (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-       (my-map
-        (λ (f l)
-          (let ((_ (app debug-trace)))
-            (letrec ((lp
-                      (λ (lst)
-                        (match
-                         (app not (app pair? lst))
-                         ((#f)
-                          (app
-                           cons
-                           (app (app id f) (app car lst))
-                           (app lp (app cdr lst))))
-                         (_ (app nil))))))
-              (app lp l)))))
-       (ans1
-        (app
-         my-map
-         (app id (λ (a) (app + 1 a)))
-         (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-      ()
-      (lettypes-bod ((cons car cdr) (nil)) (top)))))
-   app
-   cons
-   8
-   (app cons 9 (app nil)))
-  con
-  (env ()))
-clos/con:
-	'((con cons (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (8)
-    ()
-    (ran
-     cons
-     (7)
-     ()
-     (ran
-      my-map
-      ((app id (λ (b) (app + 1 b))))
-      ()
-      (bin
-       letrec*
-       ans2
-       (app void)
-       ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-        (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-        (pair?
-         (λ (pair?-v)
-           (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-        (debug-trace (λ () (app #f)))
-        (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-        (my-map
-         (λ (f l)
-           (let ((_ (app debug-trace)))
-             (letrec ((lp
-                       (λ (lst)
-                         (match
-                          (app not (app pair? lst))
-                          ((#f)
-                           (app
-                            cons
-                            (app (app id f) (app car lst))
-                            (app lp (app cdr lst))))
-                          (_ (app nil))))))
-               (app lp l)))))
-        (ans1
-         (app
-          my-map
-          (app id (λ (a) (app + 1 a)))
-          (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-       ()
-       (lettypes-bod ((cons car cdr) (nil)) (top))))))
-   app
-   cons
-   9
-   (app nil))
-  con
-  (env ()))
-clos/con:
-	'((con cons (app cons 8 (-> (app cons 9 (app nil)) <-))) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store:
-  ((ran
-    cons
-    (9)
-    ()
-    (ran
-     cons
-     (8)
-     ()
-     (ran
-      cons
-      (7)
-      ()
-      (ran
-       my-map
-       ((app id (λ (b) (app + 1 b))))
-       ()
-       (bin
-        letrec*
-        ans2
-        (app void)
-        ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
-         (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-         (pair?
-          (λ (pair?-v)
-            (match pair?-v ((cons pair?-c pair?-d) (app #t)) (_ (app #f)))))
-         (debug-trace (λ () (app #f)))
-         (id (λ (xx) (let ((_ (app debug-trace))) xx)))
-         (my-map
-          (λ (f l)
-            (let ((_ (app debug-trace)))
-              (letrec ((lp
-                        (λ (lst)
-                          (match
-                           (app not (app pair? lst))
-                           ((#f)
-                            (app
-                             cons
-                             (app (app id f) (app car lst))
-                             (app lp (app cdr lst))))
-                           (_ (app nil))))))
-                (app lp l)))))
-         (ans1
-          (app
-           my-map
-           (app id (λ (a) (app + 1 a)))
-           (app cons 1 (app cons 2 (app cons 3 (app nil)))))))
-        ()
-        (lettypes-bod ((cons car cdr) (nil)) (top)))))))
-   app
-   nil)
-  con
-  (env ()))
-clos/con:
-	'((con nil) (env ()))
+	'((con void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(store:
@@ -5255,6 +2645,266 @@ clos/con:
 	'((con cons (app cons 2 (-> (app cons 3 (app nil)) <-))) (env ()))
 	'((con cons (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-))) (env ()))
 	'((con cons (app cons 8 (-> (app cons 9 (app nil)) <-))) (env ()))
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))
+  (env
+   (((letrec (lp) (-> (app lp l) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (-> (app (app id f) (app car lst)) <-) (app lp (app cdr lst)))
+  (env
+   (((letrec (lp) (-> (app lp l) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
+clos/con: ⊥
+literals: '(⊤ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+clos/con:
+	'((con
+   cons
+   (match
+    (app not (app pair? lst))
+    ((#f)
+     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
+    _))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
+clos/con:
+	'((con
+   cons
+   (match
+    (app not (app pair? lst))
+    ((#f)
+     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
+    _))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))
+  (env
+   (((letrec (lp) (-> (app lp l) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+clos/con:
+	'((con
+   cons
+   (match
+    (app not (app pair? lst))
+    ((#f)
+     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
+    _))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       ans1
+       (ans2
+        (->
+         (app
+          my-map
+          (app id (λ (b) ...))
+          (app cons 7 (app cons 8 (app cons 9 (app nil)))))
+         <-))
+       ()
+       ...)
+      ...)))))
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store:
+  con
+  (app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-))
+  (env
+   (((letrec (lp) (-> (app lp l) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
+clos/con:
+	'((con
+   cons
+   (match
+    (app not (app pair? lst))
+    ((#f)
+     (-> (app cons (app (app id f) (app car lst)) (app lp (app cdr lst))) <-))
+    _))
+  (env
+   (((app cons (app (app id f) (app car lst)) (-> (app lp (app cdr lst)) <-)))
+    ((letrec*
+      (...
+       my-map
+       (ans1
+        (->
+         (app
+          my-map
+          (app id (λ (a) ...))
+          (app cons 1 (app cons 2 (app cons 3 (app nil)))))
+         <-))
+       ans2
+       ...)
+      ...)))))
 	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
@@ -5642,4 +3292,58 @@ literals: '(⊥ ⊥ ⊥)
 clos/con:
 	'((app id (-> (λ (a) ...) <-)) (env ()))
 	'((app id (-> (λ (b) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons (-> 1 <-) (app cons 2 (app cons 3 (app nil)))) (env ()))
+clos/con: ⊥
+literals: '(1 ⊥ ⊥)
+
+'(store: con (app cons (-> 2 <-) (app cons 3 (app nil))) (env ()))
+clos/con: ⊥
+literals: '(2 ⊥ ⊥)
+
+'(store: con (app cons (-> 3 <-) (app nil)) (env ()))
+clos/con: ⊥
+literals: '(3 ⊥ ⊥)
+
+'(store: con (app cons (-> 7 <-) (app cons 8 (app cons 9 (app nil)))) (env ()))
+clos/con: ⊥
+literals: '(7 ⊥ ⊥)
+
+'(store: con (app cons (-> 8 <-) (app cons 9 (app nil))) (env ()))
+clos/con: ⊥
+literals: '(8 ⊥ ⊥)
+
+'(store: con (app cons (-> 9 <-) (app nil)) (env ()))
+clos/con: ⊥
+literals: '(9 ⊥ ⊥)
+
+'(store: con (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-)) (env ()))
+clos/con:
+	'((con cons (app cons 1 (-> (app cons 2 (app cons 3 (app nil))) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons 2 (-> (app cons 3 (app nil)) <-)) (env ()))
+clos/con:
+	'((con cons (app cons 2 (-> (app cons 3 (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons 3 (-> (app nil) <-)) (env ()))
+clos/con:
+	'((con nil) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-)) (env ()))
+clos/con:
+	'((con cons (app cons 7 (-> (app cons 8 (app cons 9 (app nil))) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons 8 (-> (app cons 9 (app nil)) <-)) (env ()))
+clos/con:
+	'((con cons (app cons 8 (-> (app cons 9 (app nil)) <-))) (env ()))
+literals: '(⊥ ⊥ ⊥)
+
+'(store: con (app cons 9 (-> (app nil) <-)) (env ()))
+clos/con:
+	'((con nil) (env ()))
 literals: '(⊥ ⊥ ⊥)

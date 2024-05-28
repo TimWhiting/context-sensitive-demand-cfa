@@ -173,8 +173,7 @@ literals: '(⊥ ⊥ ⊥)
   (let (... () (_ (-> (app println "trying") <-)) () ...) ...)
   (env ((□? (f)))))
 clos/con:
-	'(((top) app void)
-  (env (((let (... () (_ (-> (app println "trying") <-)) () ...) ...)))))
+	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app println (-> "trying" <-)) (env ((□? (f)))))
@@ -435,16 +434,14 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (s) (-> (let (_) ...) <-)) (env ((□? (s)))))
 clos/con:
-	'(((top) app void) (env ((□? (s)))))
+	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (_ (-> (app display s) <-)) () ...) ...)
   (env ((□? (s)))))
 clos/con:
-	'(((top) app void)
-  (env (((let (... () (_ (-> (app println "trying") <-)) () ...) ...)))))
-	'(((top) app void) (env ((□? (s)))))
+	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app display (-> s <-)) (env ((□? (s)))))
@@ -458,7 +455,7 @@ literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (_) (-> (app newline) <-)) (env ((□? (s)))))
 clos/con:
-	'(((top) app void) (env ((□? (s)))))
+	'(((top) app void) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> newline <-)) (env ((□? (s)))))

@@ -1,6 +1,6 @@
 '(expression:
   (lettypes
-   ((cons car cdr) (nil))
+   ((cons car cdr) (nil) (error r))
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
@@ -108,7 +108,7 @@
          (app cons '* (app cons 'b (app cons 'x (app nil))))
          (app cons 5 (app nil))))))))))
 
-'(query: ((top) lettypes (cons ... nil) ...) (env ()))
+'(query: ((top) lettypes (cons ... error) ...) (env ()))
 clos/con:
 	'((match
    (app eq? (app car a) '*)
@@ -177,9 +177,9 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
-'(query: (lettypes cons ... nil (letrec* (car ... deriv) ...)) (env ()))
+'(query: (lettypes cons ... error (letrec* (car ... deriv) ...)) (env ()))
 clos/con:
 	'((match
    (app eq? (app car a) '*)
@@ -248,12 +248,12 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (a) (-> (match (app not (app pair? a)) ...) <-)) (env (())))
 clos/con:
@@ -324,32 +324,32 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (match (app not (app pair? a)) (#f) (_ (-> (match (app eq? a 'x) ...) <-)))
   (env (())))
 clos/con: ⊥
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match (app eq? a 'x) (#f) (_ (-> 1 <-))) (env (())))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥ ⊥)
+literals: '(1 ⊥ ⊥)
 
 '(query: (match (app eq? a 'x) ((#f) (-> 0 <-)) _) (env (())))
 clos/con: ⊥
-literals: '(0 ⊥ ⊥ ⊥)
+literals: '(0 ⊥ ⊥)
 
 '(query: (match (-> (app eq? a 'x) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? a (-> 'x <-)) (env (())))
 clos/con:
 	'((app eq? a (-> 'x <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (-> a <-) 'x) (env (())))
 clos/con:
@@ -421,12 +421,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> eq? <-) a 'x) (env (())))
 clos/con:
 	'((prim eq?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -502,7 +502,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -516,7 +516,7 @@ clos/con:
    (#f)
    (_ (-> (app cons '+ (app map deriv (app cdr a))) <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons '+ (-> (app map deriv (app cdr a)) <-)) (env (())))
 clos/con:
@@ -527,7 +527,7 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map deriv (-> (app cdr a) <-)) (env (())))
 clos/con:
@@ -586,7 +586,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> a <-)) (env (())))
 clos/con:
@@ -658,33 +658,33 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) a) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map (-> deriv <-) (app cdr a)) (env (())))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> map <-) deriv (app cdr a)) (env (())))
 clos/con:
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> '+ <-) (app map deriv (app cdr a))) (env (())))
 clos/con:
 	'((app cons (-> '+ <-) (app map deriv (app cdr a))) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) '+ (app map deriv (app cdr a))) (env (())))
 clos/con:
 	'((app (-> cons <-) '+ (app map deriv (app cdr a))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -755,7 +755,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -769,7 +769,7 @@ clos/con:
    (#f)
    (_ (-> (app cons '- (app map deriv (app cdr a))) <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons '- (-> (app map deriv (app cdr a)) <-)) (env (())))
 clos/con:
@@ -780,7 +780,7 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map deriv (-> (app cdr a) <-)) (env (())))
 clos/con:
@@ -839,7 +839,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> a <-)) (env (())))
 clos/con:
@@ -911,33 +911,33 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) a) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map (-> deriv <-) (app cdr a)) (env (())))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> map <-) deriv (app cdr a)) (env (())))
 clos/con:
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> '- <-) (app map deriv (app cdr a))) (env (())))
 clos/con:
 	'((app cons (-> '- <-) (app map deriv (app cdr a))) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) '- (app map deriv (app cdr a))) (env (())))
 clos/con:
 	'((app (-> cons <-) '- (app map deriv (app cdr a))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -1003,7 +1003,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -1035,7 +1035,7 @@ clos/con:
        (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))))
      <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1059,7 +1059,7 @@ clos/con:
      (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil)))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1077,19 +1077,19 @@ clos/con:
     (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (-> (app nil) <-))
   (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (-> (app cons '+ (app map (λ (a) ...) (app cdr a))) <-) (app nil))
@@ -1097,7 +1097,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons (-> (app cons '+ (app map (λ (a) ...) (app cdr a))) <-) (app nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons '+ (-> (app map (λ (a) ...) (app cdr a)) <-)) (env (())))
 clos/con:
@@ -1108,7 +1108,7 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map (λ (a) ...) (-> (app cdr a) <-)) (env (())))
 clos/con:
@@ -1167,7 +1167,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> a <-)) (env (())))
 clos/con:
@@ -1239,17 +1239,17 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) a) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map (-> (λ (a) ...) <-) (app cdr a)) (env (())))
 clos/con:
 	'((app map (-> (λ (a) ...) <-) (app cdr a)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (λ (a) (-> (app cons '/ (app cons (app deriv a) (app cons a (app nil)))) <-))
@@ -1257,7 +1257,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((λ (a) (-> (app cons '/ (app cons (app deriv a) (app cons a (app nil)))) <-))
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons '/ (-> (app cons (app deriv a) (app cons a (app nil))) <-))
@@ -1265,22 +1265,22 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons '/ (-> (app cons (app deriv a) (app cons a (app nil))) <-))
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (app deriv a) (-> (app cons a (app nil)) <-)) (env (() ())))
 clos/con:
 	'((app cons (app deriv a) (-> (app cons a (app nil)) <-)) (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons a (-> (app nil) <-)) (env (() ())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (() ())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> a <-) (app nil)) (env (() ())))
 clos/con:
@@ -1315,12 +1315,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cons <-) a (app nil)) (env (() ())))
 clos/con:
 	'((app (-> cons <-) a (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> (app deriv a) <-) (app cons a (app nil))) (env (() ())))
 clos/con:
@@ -1391,7 +1391,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app deriv (-> a <-)) (env (() ())))
 clos/con:
@@ -1426,17 +1426,17 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> deriv <-) a) (env (() ())))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) (app deriv a) (app cons a (app nil))) (env (() ())))
 clos/con:
 	'((app (-> cons <-) (app deriv a) (app cons a (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (-> '/ <-) (app cons (app deriv a) (app cons a (app nil))))
@@ -1444,7 +1444,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons (-> '/ <-) (app cons (app deriv a) (app cons a (app nil))))
   (env (() ())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) '/ (app cons (app deriv a) (app cons a (app nil))))
@@ -1452,23 +1452,23 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app (-> cons <-) '/ (app cons (app deriv a) (app cons a (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> map <-) (λ (a) ...) (app cdr a)) (env (())))
 clos/con:
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> '+ <-) (app map (λ (a) ...) (app cdr a))) (env (())))
 clos/con:
 	'((app cons (-> '+ <-) (app map (λ (a) ...) (app cdr a))) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) '+ (app map (λ (a) ...) (app cdr a))) (env (())))
 clos/con:
 	'((app (-> cons <-) '+ (app map (λ (a) ...) (app cdr a))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))
@@ -1476,7 +1476,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app (-> cons <-) (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1553,7 +1553,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app
@@ -1567,7 +1567,7 @@ clos/con:
    a
    (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1587,7 +1587,7 @@ clos/con:
     a
     (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1607,7 +1607,7 @@ clos/con:
     a
     (app cons (app cons '+ (app map (λ (a) ...) (app cdr a))) (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -1659,7 +1659,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -1739,7 +1739,7 @@ clos/con:
         (app nil))))
      <-)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1811,7 +1811,7 @@ clos/con:
       (app nil)))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1877,7 +1877,7 @@ clos/con:
      (app nil))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1905,12 +1905,12 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -1964,7 +1964,7 @@ clos/con:
     <-)
    (app nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2012,7 +2012,7 @@ clos/con:
       (app nil)))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2054,7 +2054,7 @@ clos/con:
      (app nil))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2070,12 +2070,12 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2105,7 +2105,7 @@ clos/con:
     <-)
    (app nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2129,7 +2129,7 @@ clos/con:
      (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil))))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2147,7 +2147,7 @@ clos/con:
     (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil)))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2161,17 +2161,17 @@ clos/con:
    (app caddr a)
    (-> (app cons (app deriv (app caddr a)) (app nil)) <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (app deriv (app caddr a)) (-> (app nil) <-)) (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> (app deriv (app caddr a)) <-) (app nil)) (env (())))
 clos/con:
@@ -2242,7 +2242,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app deriv (-> (app caddr a) <-)) (env (())))
 clos/con:
@@ -2296,7 +2296,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app caddr (-> a <-)) (env (())))
 clos/con:
@@ -2368,22 +2368,22 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> caddr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> deriv <-) (app caddr a)) (env (())))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) (app deriv (app caddr a)) (app nil)) (env (())))
 clos/con:
 	'((app (-> cons <-) (app deriv (app caddr a)) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2442,7 +2442,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app caddr (-> a <-)) (env (())))
 clos/con:
@@ -2514,12 +2514,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> caddr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2533,7 +2533,7 @@ clos/con:
    (app caddr a)
    (app cons (app deriv (app caddr a)) (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2592,7 +2592,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app caddr (-> a <-)) (env (())))
 clos/con:
@@ -2664,12 +2664,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> caddr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2683,7 +2683,7 @@ clos/con:
    (app caddr a)
    (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2703,7 +2703,7 @@ clos/con:
     (app caddr a)
     (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil)))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2723,7 +2723,7 @@ clos/con:
     (app caddr a)
     (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2749,7 +2749,7 @@ clos/con:
      (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil)))))
    (app nil))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2817,7 +2817,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app cadr (-> a <-)) (env (())))
 clos/con:
@@ -2889,12 +2889,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cadr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2926,7 +2926,7 @@ clos/con:
       (app cons (app caddr a) (app cons (app deriv (app caddr a)) (app nil)))))
     (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -2970,7 +2970,7 @@ clos/con:
         (app cons (app deriv (app caddr a)) (app nil)))))
      (app nil))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3014,7 +3014,7 @@ clos/con:
         (app cons (app deriv (app caddr a)) (app nil)))))
      (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3064,7 +3064,7 @@ clos/con:
       (app nil))))
    (app nil))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3130,7 +3130,7 @@ clos/con:
        (app nil))))
     (app nil)))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3148,7 +3148,7 @@ clos/con:
     (app cons (app deriv (app cadr a)) (app cons (app caddr a) (app nil)))
     <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3162,17 +3162,17 @@ clos/con:
    (app deriv (app cadr a))
    (-> (app cons (app caddr a) (app nil)) <-))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (app caddr a) (-> (app nil) <-)) (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> (app caddr a) <-) (app nil)) (env (())))
 clos/con:
@@ -3226,7 +3226,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app caddr (-> a <-)) (env (())))
 clos/con:
@@ -3298,17 +3298,17 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> caddr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) (app caddr a) (app nil)) (env (())))
 clos/con:
 	'((app (-> cons <-) (app caddr a) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3384,7 +3384,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app deriv (-> (app cadr a) <-)) (env (())))
 clos/con:
@@ -3438,7 +3438,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app cadr (-> a <-)) (env (())))
 clos/con:
@@ -3510,17 +3510,17 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cadr <-) a) (env (())))
 clos/con:
 	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> deriv <-) (app cadr a)) (env (())))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3534,7 +3534,7 @@ clos/con:
    (app deriv (app cadr a))
    (app cons (app caddr a) (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3548,7 +3548,7 @@ clos/con:
    (-> '/ <-)
    (app cons (app deriv (app cadr a)) (app cons (app caddr a) (app nil))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3562,7 +3562,7 @@ clos/con:
    '/
    (app cons (app deriv (app cadr a)) (app cons (app caddr a) (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3624,7 +3624,7 @@ clos/con:
        (app nil))))
     (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3692,7 +3692,7 @@ clos/con:
         (app nil))))
      (app nil))))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -3760,7 +3760,7 @@ clos/con:
         (app nil))))
      (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -3774,43 +3774,43 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app error (app #f) (-> "No derivation method available" <-))
   (env (())))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥ "No derivation method available")
+literals: '(⊥ ⊥ "No derivation method available")
 
 '(query:
   (app error (-> (app #f) <-) "No derivation method available")
   (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env (())))
 clos/con:
 	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> error <-) (app #f) "No derivation method available")
   (env (())))
 clos/con:
 	'((app (-> error <-) (app #f) "No derivation method available") (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app eq? (app car a) '/) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (app car a) (-> '/ <-)) (env (())))
 clos/con:
 	'((app eq? (app car a) (-> '/ <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (-> (app car a) <-) '/) (env (())))
 clos/con:
@@ -3864,7 +3864,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> a <-)) (env (())))
 clos/con:
@@ -3936,28 +3936,28 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> car <-) a) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> eq? <-) (app car a) '/) (env (())))
 clos/con:
 	'((prim eq?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app eq? (app car a) '*) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (app car a) (-> '* <-)) (env (())))
 clos/con:
 	'((app eq? (app car a) (-> '* <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (-> (app car a) <-) '*) (env (())))
 clos/con:
@@ -4011,7 +4011,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> a <-)) (env (())))
 clos/con:
@@ -4083,28 +4083,28 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> car <-) a) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> eq? <-) (app car a) '*) (env (())))
 clos/con:
 	'((prim eq?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app eq? (app car a) '-) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (app car a) (-> '- <-)) (env (())))
 clos/con:
 	'((app eq? (app car a) (-> '- <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (-> (app car a) <-) '-) (env (())))
 clos/con:
@@ -4158,7 +4158,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> a <-)) (env (())))
 clos/con:
@@ -4230,28 +4230,28 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> car <-) a) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> eq? <-) (app car a) '-) (env (())))
 clos/con:
 	'((prim eq?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app eq? (app car a) '+) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (app car a) (-> '+ <-)) (env (())))
 clos/con:
 	'((app eq? (app car a) (-> '+ <-)) (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app eq? (-> (app car a) <-) '+) (env (())))
 clos/con:
@@ -4305,7 +4305,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> a <-)) (env (())))
 clos/con:
@@ -4377,29 +4377,29 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> car <-) a) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> eq? <-) (app car a) '+) (env (())))
 clos/con:
 	'((prim eq?) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> (app not (app pair? a)) <-) (#f) _) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app not (-> (app pair? a) <-)) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app pair? (-> a <-)) (env (())))
 clos/con:
@@ -4471,54 +4471,54 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> pair? <-) a) (env (())))
 clos/con:
 	'((letrec* (... map (pair? (-> (λ (pair?-v) ...) <-)) deriv ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> not <-) (app pair? a)) (env (())))
 clos/con:
 	'((prim not) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... map (pair? (-> (λ (pair?-v) ...) <-)) deriv ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... map (pair? (-> (λ (pair?-v) ...) <-)) deriv ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (pair?-v) (-> (match pair?-v ...) <-)) (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))
   (env (())))
 clos/con:
 	'(((top) app #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #f <-)) (env (())))
 clos/con:
 	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)
   (env (())))
 clos/con:
 	'(((top) app #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> #t <-)) (env (())))
 clos/con:
 	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env (())))
 clos/con:
@@ -4590,7 +4590,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
@@ -4598,7 +4598,7 @@ literals: '(⊤ ⊥ ⊥ ⊥)
 clos/con:
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (map-f map-l) (-> (match map-l ...) <-)) (env (())))
 clos/con:
@@ -4609,17 +4609,17 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match map-l (cons map-c map-d) ((nil) (-> (app nil) <-))) (env (())))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env (())))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (match
@@ -4635,7 +4635,7 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (app map-f map-c) (-> (app map map-f map-d) <-)) (env (())))
 clos/con:
@@ -4646,7 +4646,7 @@ clos/con:
     (-> (app cons (app map-f map-c) (app map map-f map-d)) <-))
    (nil))
   (env (())))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map map-f (-> map-d <-)) (env (())))
 clos/con:
@@ -4684,19 +4684,19 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app map (-> map-f <-) map-d) (env (())))
 clos/con:
 	'((app map (-> (λ (a) ...) <-) (app cdr a)) (env (())))
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> map <-) map-f map-d) (env (())))
 clos/con:
 	'((letrec* (... caddr (map (-> (λ (map-f map-l) ...) <-)) pair? ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> (app map-f map-c) <-) (app map map-f map-d)) (env (())))
 clos/con:
@@ -4769,7 +4769,7 @@ clos/con:
   (env (())))
 	'((λ (a) (-> (app cons '/ (app cons (app deriv a) (app cons a (app nil)))) <-))
   (env (() ())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app map-f (-> map-c <-)) (env (())))
 clos/con:
@@ -4804,18 +4804,18 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> map-f <-) map-c) (env (())))
 clos/con:
 	'((app map (-> (λ (a) ...) <-) (app cdr a)) (env (())))
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) (app map-f map-c) (app map map-f map-d)) (env (())))
 clos/con:
 	'((app (-> cons <-) (app map-f map-c) (app map map-f map-d)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> map-l <-) (cons map-c map-d) (nil)) (env (())))
 clos/con:
@@ -4874,14 +4874,14 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... cadr (caddr (-> (λ (cadr-v) ...) <-)) map ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (cadr-v) (-> (app car (app cdr (app cdr cadr-v))) <-)) (env (())))
 clos/con:
@@ -4935,7 +4935,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> (app cdr (app cdr cadr-v)) <-)) (env (())))
 clos/con:
@@ -4994,7 +4994,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> (app cdr cadr-v) <-)) (env (())))
 clos/con:
@@ -5053,7 +5053,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> cadr-v <-)) (env (())))
 clos/con:
@@ -5125,29 +5125,29 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) cadr-v) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) (app cdr cadr-v)) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) (app cdr (app cdr cadr-v))) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... cdr (cadr (-> (λ (cadr-v) ...) <-)) caddr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (cadr-v) (-> (app car (app cdr cadr-v)) <-)) (env (())))
 clos/con:
@@ -5201,7 +5201,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app car (-> (app cdr cadr-v) <-)) (env (())))
 clos/con:
@@ -5260,7 +5260,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cdr (-> cadr-v <-)) (env (())))
 clos/con:
@@ -5332,24 +5332,24 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (app (-> cdr <-) cadr-v) (env (())))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> car <-) (app cdr cadr-v)) (env (())))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...)
   (env ()))
 clos/con:
 	'((letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) cadr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (cdr-v) (-> (match cdr-v ...) <-)) (env (())))
 clos/con:
@@ -5408,7 +5408,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env (())))
 clos/con:
@@ -5467,7 +5467,7 @@ clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env (())))
 clos/con:
@@ -5594,12 +5594,12 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
 clos/con:
 	'((letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (car-v) (-> (match car-v ...) <-)) (env (())))
 clos/con:
@@ -5653,7 +5653,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match car-v ((cons car-c car-d) (-> car-c <-))) (env (())))
 clos/con:
@@ -5707,7 +5707,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query: (match (-> car-v <-) (cons car-c car-d)) (env (())))
 clos/con:
@@ -5834,7 +5834,7 @@ clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons (-> 'x <-) (app nil)) (env ()))
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (letrec*
@@ -5925,7 +5925,7 @@ clos/con:
    ((#f) (-> (app error (app #f) "No derivation method available") <-))
    _)
   (env (())))
-literals: '(⊤ ⊥ ⊥ ⊥)
+literals: '(⊤ ⊥ ⊥)
 
 '(query:
   (app
@@ -5965,7 +5965,7 @@ clos/con:
         (app cons 5 (app nil))))))
     <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6001,7 +6001,7 @@ clos/con:
        (app cons 5 (app nil)))))
     <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6031,7 +6031,7 @@ clos/con:
       (app cons 5 (app nil))))
     <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6055,7 +6055,7 @@ clos/con:
      (app cons 5 (app nil)))
     <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6069,26 +6069,26 @@ clos/con:
    (app cons '* (app cons 'b (app cons 'x (app nil))))
    (-> (app cons 5 (app nil)) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 5 (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 5 <-) (app nil)) (env ()))
 clos/con: ⊥
-literals: '(5 ⊥ ⊥ ⊥)
+literals: '(5 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 5 (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 5 (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6102,57 +6102,57 @@ clos/con:
    (-> (app cons '* (app cons 'b (app cons 'x (app nil)))) <-)
    (app cons 5 (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons '* (-> (app cons 'b (app cons 'x (app nil))) <-)) (env ()))
 clos/con:
 	'((app cons '* (-> (app cons 'b (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'b (-> (app cons 'x (app nil)) <-)) (env ()))
 clos/con:
 	'((app cons 'b (-> (app cons 'x (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'x (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'x <-) (app nil)) (env ()))
 clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'x (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 'x (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'b <-) (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app cons (-> 'b <-) (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'b (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app (-> cons <-) 'b (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> '* <-) (app cons 'b (app cons 'x (app nil)))) (env ()))
 clos/con:
 	'((app cons (-> '* <-) (app cons 'b (app cons 'x (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) '* (app cons 'b (app cons 'x (app nil)))) (env ()))
 clos/con:
 	'((app (-> cons <-) '* (app cons 'b (app cons 'x (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6166,7 +6166,7 @@ clos/con:
    (app cons '* (app cons 'b (app cons 'x (app nil))))
    (app cons 5 (app nil)))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6186,7 +6186,7 @@ clos/con:
     (app cons '* (app cons 'b (app cons 'x (app nil))))
     (app cons 5 (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons '* (-> (app cons 'a (app cons 'x (app cons 'x (app nil)))) <-))
@@ -6194,57 +6194,57 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons '* (-> (app cons 'a (app cons 'x (app cons 'x (app nil)))) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'a (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
 clos/con:
 	'((app cons 'a (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'x (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'x <-) (app nil)) (env ()))
 clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'x (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 'x (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'x <-) (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app cons (-> 'x <-) (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'x (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app (-> cons <-) 'x (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'a <-) (app cons 'x (app cons 'x (app nil)))) (env ()))
 clos/con:
 	'((app cons (-> 'a <-) (app cons 'x (app cons 'x (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'a (app cons 'x (app cons 'x (app nil)))) (env ()))
 clos/con:
 	'((app (-> cons <-) 'a (app cons 'x (app cons 'x (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (-> '* <-) (app cons 'a (app cons 'x (app cons 'x (app nil)))))
@@ -6252,7 +6252,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons (-> '* <-) (app cons 'a (app cons 'x (app cons 'x (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) '* (app cons 'a (app cons 'x (app cons 'x (app nil)))))
@@ -6260,7 +6260,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app (-> cons <-) '* (app cons 'a (app cons 'x (app cons 'x (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6280,7 +6280,7 @@ clos/con:
     (app cons '* (app cons 'b (app cons 'x (app nil))))
     (app cons 5 (app nil))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6306,7 +6306,7 @@ clos/con:
      (app cons '* (app cons 'b (app cons 'x (app nil))))
      (app cons 5 (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons '* (-> (app cons 3 (app cons 'x (app cons 'x (app nil)))) <-))
@@ -6314,56 +6314,56 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons '* (-> (app cons 3 (app cons 'x (app cons 'x (app nil)))) <-))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
 clos/con:
 	'((app cons 3 (-> (app cons 'x (app cons 'x (app nil))) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
 clos/con:
 	'((app cons 'x (-> (app cons 'x (app nil)) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons 'x (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'x <-) (app nil)) (env ()))
 clos/con:
 	'((app cons (-> 'x <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'x (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 'x (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'x <-) (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app cons (-> 'x <-) (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> cons <-) 'x (app cons 'x (app nil))) (env ()))
 clos/con:
 	'((app (-> cons <-) 'x (app cons 'x (app nil))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 3 <-) (app cons 'x (app cons 'x (app nil)))) (env ()))
 clos/con: ⊥
-literals: '(3 ⊥ ⊥ ⊥)
+literals: '(3 ⊥ ⊥)
 
 '(query: (app (-> cons <-) 3 (app cons 'x (app cons 'x (app nil)))) (env ()))
 clos/con:
 	'((app (-> cons <-) 3 (app cons 'x (app cons 'x (app nil)))) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app cons (-> '* <-) (app cons 3 (app cons 'x (app cons 'x (app nil)))))
@@ -6371,7 +6371,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app cons (-> '* <-) (app cons 3 (app cons 'x (app cons 'x (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app (-> cons <-) '* (app cons 3 (app cons 'x (app cons 'x (app nil)))))
@@ -6379,7 +6379,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
 clos/con:
 	'((app (-> cons <-) '* (app cons 3 (app cons 'x (app cons 'x (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6405,7 +6405,7 @@ clos/con:
      (app cons '* (app cons 'b (app cons 'x (app nil))))
      (app cons 5 (app nil)))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6437,7 +6437,7 @@ clos/con:
       (app cons '* (app cons 'b (app cons 'x (app nil))))
       (app cons 5 (app nil))))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6469,7 +6469,7 @@ clos/con:
       (app cons '* (app cons 'b (app cons 'x (app nil))))
       (app cons 5 (app nil))))))
   (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query:
   (app
@@ -6490,4 +6490,4 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... pair? (deriv (-> (λ (a) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)

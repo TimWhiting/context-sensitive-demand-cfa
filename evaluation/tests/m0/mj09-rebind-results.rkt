@@ -10,47 +10,12 @@
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(query: (app (-> #f <-)) (env ()))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> #t <-)) (env ()))
-clos/con:
-	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> f <-) (λ (x) ...)) (env ()))
-clos/con:
-	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> g <-) y) (env ()))
-clos/con:
-	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> h <-) (app #f)) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app (-> h <-) (app #t)) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
 '(query: (app (-> k <-) 1) (env ()))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> k <-) 2) (env ()))
-clos/con:
-	'((app f (-> (λ (x) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app f (-> (λ (x) ...) <-)) (env ()))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
@@ -67,29 +32,6 @@ literals: '(⊥ ⊥ ⊥)
 '(query: (app h (-> (app #t) <-)) (env ()))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (app k (-> 1 <-)) (env ()))
-clos/con: ⊥
-literals: '(1 ⊥ ⊥)
-
-'(query: (app k (-> 2 <-)) (env ()))
-clos/con: ⊥
-literals: '(2 ⊥ ⊥)
-
-'(query: (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
-clos/con:
-	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
-clos/con:
-	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(query: (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-clos/con:
-	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
 '(query: (let (... () (x (-> (app h (app #t)) <-)) y ...) ...) (env ()))
@@ -154,54 +96,48 @@ literals: '(⊤ ⊥ ⊥)
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: b (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
+'(store: b (λ (b) (-> (let (g) ...) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: b (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
-
-'(store: f (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
+'(store: f (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: g (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
+'(store: g (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: h ((top) let (h) ...) (env ()))
+'(store: h (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: k (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ()))
+'(store: k (λ (k) (-> (match b ...) <-)) (env ()))
 clos/con:
 	'((app f (-> (λ (x) ...) <-)) (env ()))
 literals: '(⊥ ⊥ ⊥)
 
-'(store: x ((top) let (h) ...) (env ()))
+'(store: x (let (... () (x (-> (app h (app #t)) <-)) y ...) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: x (app f (-> (λ (x) ...) <-)) (env ()))
+'(store: x (λ (x) (-> x <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: y ((top) let (h) ...) (env ()))
+'(store: y (let (... () (y (-> (app f (λ (x) ...)) <-)) () ...) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: y (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))
+'(store: y (let (... x (y (-> (app h (app #f)) <-)) () ...) ...) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)
 
-'(store: z (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ()))
+'(store: z (λ (z) (-> z <-)) (env ()))
 clos/con: ⊥
 literals: '(⊤ ⊥ ⊥)

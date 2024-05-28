@@ -6,191 +6,117 @@
    (app sat-solve-2 phi)))
 
 '(query:
-  (letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query:
-  (letrec* (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...)
-  (env ()))
-clos/con:
-	'((letrec* (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query:
   (letrec* (phi ... sat-solve-2) (-> (app sat-solve-2 phi) <-))
   (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: ((top) letrec* (phi ... sat-solve-2) ...) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> #f <-)) (env ()))
-clos/con:
-	'(((top) . #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> #t <-)) (env ()))
-clos/con:
-	'(((top) . #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> f <-) (app #f)) (env ()))
 clos/con:
 	'((app try (-> (λ (n1) ...) <-)) (env ()))
 	'((app try (-> (λ (n2) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> f <-) (app #t)) (env ()))
 clos/con:
 	'((app try (-> (λ (n1) ...) <-)) (env ()))
 	'((app try (-> (λ (n2) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> not <-) x2) (env ()))
-clos/con:
-	'((prim not) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> or <-) (app f (app #t)) (app f (app #f))) (env ()))
-clos/con:
-	'((prim or) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> or <-) x1 (app not x2)) (env ()))
-clos/con:
-	'((prim or) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app (-> p <-) n1 n2) (env ()))
 clos/con:
 	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> sat-solve-2 <-) phi) (env ()))
-clos/con:
-	'((letrec* (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> try <-) (λ (n1) ...)) (env ()))
-clos/con:
-	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app (-> try <-) (λ (n2) ...)) (env ()))
-clos/con:
-	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app f (-> (app #f) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app f (-> (app #t) <-)) (env ()))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app not (-> x2 <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app or (-> (app f (app #t)) <-) (app f (app #f))) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app or (-> x1 <-) (app not x2)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app or (app f (app #t)) (-> (app f (app #f)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app or x1 (-> (app not x2) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app p (-> n1 <-) n2) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (app p n1 (-> n2 <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app sat-solve-2 (-> phi <-)) (env ()))
-clos/con:
-	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app try (-> (λ (n1) ...) <-)) (env ()))
-clos/con:
-	'((app try (-> (λ (n1) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (app try (-> (λ (n2) ...) <-)) (env ()))
-clos/con:
-	'((app try (-> (λ (n2) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(query: (letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-clos/con:
-	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (n2) (-> (app p n1 n2) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(query: (λ (x1 x2) (-> (app or x1 (app not x2)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   phi
@@ -198,7 +124,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   sat-solve-2
@@ -206,7 +132,7 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... try (sat-solve-2 (-> (λ (p) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store:
   try
@@ -214,65 +140,39 @@ literals: '(⊥ ⊥ ⊥ ⊥)
   (env ()))
 clos/con:
 	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: f (λ (f) (-> (app or (app f (app #t)) (app f (app #f))) <-)) (env ()))
 clos/con:
 	'((app try (-> (λ (n1) ...) <-)) (env ()))
 	'((app try (-> (λ (n2) ...) <-)) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: n1 (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: n1 (λ (n2) (-> (app p n1 n2) <-)) (env ()))
-clos/con:
-	'((con #f) (env ()))
-	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: n2 (λ (n2) (-> (app p n1 n2) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: p (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ()))
-clos/con:
-	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: p (λ (n2) (-> (app p n1 n2) <-)) (env ()))
-clos/con:
-	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: p (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ()))
 clos/con:
 	'((letrec* (... () (phi (-> (λ (x1 x2) ...) <-)) try ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: try (λ (n1) (-> (app try (λ (n2) ...)) <-)) (env ()))
-clos/con:
-	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
-
-'(store: try (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ()))
-clos/con:
-	'((letrec* (... phi (try (-> (λ (f) ...) <-)) sat-solve-2 ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: x1 (λ (x1 x2) (-> (app or x1 (app not x2)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
 
 '(store: x2 (λ (x1 x2) (-> (app or x1 (app not x2)) <-)) (env ()))
 clos/con:
 	'((con #f) (env ()))
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥)
