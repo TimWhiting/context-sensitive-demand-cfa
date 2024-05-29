@@ -88,8 +88,10 @@
     )
   )
 
+(define query-kinds (apply set '(lambda number char string quoted constructor)))
+
 (define (is-instant-query-kind k)
-  (member k '(lambda number char string quoted constructor))
+  (set-member? query-kinds k)
   )
 
 (define (show-simple-expr e [depth 0])

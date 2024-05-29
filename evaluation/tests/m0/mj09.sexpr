@@ -1,5 +1,0 @@
-'(demand-time-all-queries mj09 0 100 33 (5 5 0))
-'(demand-time-all-queries mj09 0 200 66 (5 5 0))
-'(demand-time-all-queries mj09 0 300 99 (5 5 0))
-'(demand-time-all-queries mj09 0 400 132 (5 5 0))
-'(demand-time-all-queries mj09 0 500 165 (5 5 0))

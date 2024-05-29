@@ -104,7 +104,7 @@
       ; Just missing meta-circ right now....
       ; (for ([example (get-examples all-examples)])
         ; (for ([example (get-examples '(blur))])
-        (for ([example (get-examples '(loop2) all-benchmarks)])
+        (for ([example (get-examples '(sat) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (pretty-displayn 0 "")

@@ -1,5 +1,0 @@
-'(demand-time-all-queries rsa 0 100 3027 (104 104 0))
-'(demand-time-all-queries rsa 0 200 3279 (179 179 1))
-'(demand-time-all-queries rsa 0 300 3531 (243 243 2))
-'(demand-time-all-queries rsa 0 400 3783 (281 281 3))
-'(demand-time-all-queries rsa 0 500 4035 (279 279 3))

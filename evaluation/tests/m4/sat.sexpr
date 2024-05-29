@@ -1,5 +1,0 @@
-'(demand-time-all-queries sat 4 100 1304 (34 34 0))
-'(demand-time-all-queries sat 4 200 1398 (58 58 0))
-'(demand-time-all-queries sat 4 300 1492 (82 83 0))
-'(demand-time-all-queries sat 4 400 1586 (109 109 0))
-'(demand-time-all-queries sat 4 500 1680 (132 132 1))

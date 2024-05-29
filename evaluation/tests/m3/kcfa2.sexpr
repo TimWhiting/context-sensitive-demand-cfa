@@ -1,5 +1,0 @@
-'(demand-time-all-queries kcfa2 3 100 272 (14 14 0))
-'(demand-time-all-queries kcfa2 3 200 309 (24 24 0))
-'(demand-time-all-queries kcfa2 3 300 346 (32 32 0))
-'(demand-time-all-queries kcfa2 3 400 383 (40 40 0))
-'(demand-time-all-queries kcfa2 3 500 420 (52 52 0))
