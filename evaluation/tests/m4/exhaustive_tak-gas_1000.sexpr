@@ -1,0 +1,12 @@
+'(rebinding
+  tak
+  4
+  1000
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")
+'(exponential
+  tak
+  4
+  1000
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")

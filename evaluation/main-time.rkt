@@ -17,12 +17,12 @@
       ([((list hash-new) cpu real gc)
         (time-apply (lambda () (run-get-hash query (hash) gas))
                     '())])
-      (match-let ([(state-gas hnew g) hash-new])
+      (match-let ([(state-gas hnew _) hash-new])
         (set! result-hash hnew)
         (list cpu real gc))
       )))
-  (match (andmap (lambda (x) x) timed-result)
-    [#f (pretty-print `(,kind ,name ,m ,gas #f) out-time)]
+  (match timed-result
+    [`(#f ,err) (pretty-print `(,kind ,name ,m ,gas #f ,err) out-time)]
     [_
      (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
      (define eval-results-x (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
@@ -84,30 +84,22 @@
                     '())])
       (match hash-new
         [(state-gas st ga)
-          (set! hash-result st)
-          (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
-        ]))))
-    (values hash-result time-result)  
+         (set! hash-result st)
+         (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
+         ]))))
+  (values hash-result time-result)
   )
 
-(define (analyze-demand-hash name num-queries kind m Ce p shufflen hash-result time-result out-time gas) 
+(define (analyze-demand-hash name num-queries kind m Ce p shufflen hash-result time-result out-time gas)
   (define query (eval Ce p))
   (define query-kind (expr-kind (cdr Ce)))
   (define is-instant (is-instant-query (list Ce p)))
-  (match (andmap (lambda (x) x) time-result)
-    [#f
-     (if (equal? shufflen -1)
-         (pretty-print `(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
-         ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
-         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
-
-         )]
+  (match time-result
     [`(#f ,err)
      (if (equal? shufflen -1)
          (pretty-print `(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
          ; Warning, the num-eval-subqueries etc, are going to be strictly increasing for the shuffled due to reuse of cache
-         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,(query->string query) ,is-instant #f) out-time)
-
+         (pretty-print `(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,(query->string query) ,is-instant #f ,err) out-time)
          )]
     [_
      (define result (hash-ref hash-result query))
@@ -155,102 +147,81 @@
   (show-envs-simple #t)
   (show-envs #f)
   (define do-run-demand #t)
-  (define do-run-exhaustive #f)
-  (define do-analysis #f)
+  (define do-run-exhaustive #t)
+  (define do-analysis #t)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
-  
+
   (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
   (define kcfas-large '(kcfa-worst-case-16 kcfa-worst-case-20 kcfa-worst-case-32))
   (define kcfas-mega '(kcfa-worst-case-40 kcfa-worst-case-64 kcfa-worst-case-80 kcfa-worst-case-128 kcfa-worst-case-160 kcfa-worst-case-256))
   (define benchmarks '(map-pattern rsa sat-brute simple-id solovay-strassen indirect-hol fermat))
   (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
-  (define programs '(scheme2java))
+  (define programs all-programs)
+  ; (define programloc all-benchmarks)
+  (define programloc all-examples)
   (if do-run-exhaustive
       (for ([gas gases])
         (for ([m (in-range 0 5)])
-          (let ([rebind-cost 0]
-                [expm-cost 0])
-            (current-m m)
-            (for ([example (get-examples programs all-benchmarks)])
-              (match-let ([`(example ,name ,exp) example])
-                (pretty-print `(mcfa ,m ,name))
-                (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a-gas_~a.sexpr" m name gas) #:exists 'replace))
+          (current-m m)
+          (for ([example (get-examples programs programloc)])
+            (match-let ([`(example ,name ,exp) example])
+              (pretty-print `(mcfa ,m ,name))
+              (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a-gas_~a.sexpr" m name gas) #:exists 'replace))
 
 
-                (define rebindhash (run-rebind name exp m out-time-exhaustive gas))
-                (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
+              (define rebindhash (run-rebind name exp m out-time-exhaustive gas))
 
-                (pretty-print `(mcfae ,m ,name))
-                (define expmhash (run-expm name exp m out-time-exhaustive gas))
-                (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
+              (pretty-print `(mcfae ,m ,name))
+              (define expmhash (run-expm name exp m out-time-exhaustive gas))
 
-                (close-output-port out-time-exhaustive)
-                ))
-
-            (pretty-print `(current-m: ,(current-m)))
-            (pretty-print `(rebind-cost ,rebind-cost))
-            (pretty-print `(expm-cost ,expm-cost))
-            )
-          )
+              (close-output-port out-time-exhaustive)
+              )))
         )
       '()
       )
   (if do-run-demand
       (for ([gas gases])
-        (for ([m (in-range 0 1)])
+        (for ([m (in-range 0 5)])
           (let ([basic-cost 0]
-                [basic-acc-cost 0]
                 [num-queries 0])
             (current-m m)
-            (for ([example (get-examples programs all-benchmarks)])
+            (for ([example (get-examples programs programloc)])
               (match-let ([`(example ,name ,exp) example])
-                (define out-time (open-output-file (format "tests/m~a/~a-gas_~a.sexpr" m name gas) #:exists 'replace))
-                (define out-time-detailed (open-output-file (format "tests/m~a/~a-gas_~a_detailed.sexpr" m name gas) #:exists 'replace))
 
+                (pretty-print `(demand-mcfa m: ,m program: ,name gas: ,gas))
                 (define qbs (basic-queries exp))
                 (set! num-queries (+ num-queries (length qbs)))
                 (define example-queries (length qbs))
-                (let-values 
-                  ([(result ts) 
-                    (run/time 
+                (if do-analysis
+                    (let ()
+                      (define out-time-detailed (open-output-file (format "tests/m~a/~a-gas_~a_detailed.sexpr" m name gas) #:exists 'replace))
                       (for ([qs qbs])
                         (match-let ([(list cb pb) qs])
                           (let-values ([(demand-hash demand-time) (run-demand name example-queries 'basic m cb pb -1 (hash) gas)])
-                            (if do-analysis
-                              (analyze-demand-hash name example-queries 'basic m cb pb -1 demand-hash demand-time out-time-detailed gas)
-                              '()
+                            (analyze-demand-hash name example-queries 'basic m cb pb -1 demand-hash demand-time out-time-detailed gas)
                             )
                           )
-                          ; (set! basic-cost (+ basic-cost (hash-num-keys hx)))
-                          )
                         )
-                      )])
-                  (if (not do-analysis)
-                    (pretty-print ts out-time)
-                    (pretty-print ts)
-                  )
+                      (close-output-port out-time-detailed)
+                      )
+                    (let ()
+                      (define out-time (open-output-file (format "tests/m~a/~a-gas_~a.sexpr" m name gas) #:exists 'replace))
+                      (let-values
+                          ([(cpu real gc)
+                            (run/time
+                             (for ([qs qbs])
+                               (match-let ([(list cb pb) qs])
+                                 (run-demand name example-queries 'basic m cb pb -1 (hash) gas)
+                                 )
+                               )
+                             )])
+                        (pretty-print `(all-queries-time ,cpu ,real ,gc))
+                        (pretty-print `(demand-time-all-queries ,name ,m ,gas ,num-queries (,cpu ,real ,gc)) out-time)
+                        (close-output-port out-time)
+                        )
+                      ))
                 )
-
-                ; (for ([shufflen (range num-shuffles)])
-                ;   (define h1 (hash))
-                ;   (for ([qs (shuffle qbs)])
-                ;     (match-let ([(list cb pb) qs])
-                ;       (set! h1 (run-demand name (length qbs) 'basic m cb pb out-time shufflen h1))
-                ;       ; (set! basic-acc-cost (+ basic-acc-cost (hash-num-keys h1)))
-                ;       )
-                ;     )
-                ;   )
-
-                (close-output-port out-time)
-                )
-              )
-            (pretty-print `(current-m: ,(current-m)))
-            (pretty-print `(basic-cost ,basic-cost))
-            (pretty-print `(basic-cost-per-query ,(exact->inexact (/ basic-cost num-queries))))
-            ; (pretty-print `(basic-acc-cost ,basic-acc-cost))
-            ; (pretty-print `(basic-acc-cost-per-query ,(exact->inexact (/ basic-acc-cost (* num-shuffles num-queries)))))
-            )
-          )
+              )))
         )
       '()
       )

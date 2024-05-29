@@ -1,0 +1,4620 @@
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lettypes
+  "'(eval ((top) lettypes (cons ... error) ...) (env ()))"
+  #f
+  438
+  402
+  29
+  7
+  372
+  14
+  386
+  1
+  1977/2090
+  264
+  #f
+  90/67
+  (46 48 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  letrec*
+  "'(eval\n  (lettypes cons ... error (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))"
+  #f
+  437
+  401
+  29
+  7
+  371
+  14
+  385
+  1
+  1967/2080
+  264
+  #f
+  538/401
+  (44 45 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))"
+  #f
+  422
+  386
+  29
+  7
+  356
+  14
+  370
+  1
+  1817/1930
+  254
+  #f
+  259/193
+  (41 42 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app decrypt ciphertext d (-> n <-)) (env ()))"
+  #f
+  7
+  7
+  0
+  0
+  7
+  0
+  7
+  1
+  1
+  7
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app decrypt ciphertext (-> d <-) n) (env ()))"
+  #f
+  214
+  192
+  18
+  4
+  177
+  8
+  185
+  1
+  225/238
+  141
+  #f
+  81/64
+  (15 16 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app decrypt (-> ciphertext <-) d n) (env ()))"
+  #f
+  394
+  358
+  29
+  7
+  328
+  14
+  342
+  1
+  1767/1880
+  240
+  #f
+  238/179
+  (38 39 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> decrypt <-) ciphertext d n) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))"
+  #f
+  394
+  358
+  29
+  7
+  328
+  14
+  342
+  1
+  1767/1880
+  240
+  #f
+  238/179
+  (36 37 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app encrypt plaintext e (-> n <-)) (env ()))"
+  #f
+  7
+  7
+  0
+  0
+  7
+  0
+  7
+  1
+  1
+  7
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app encrypt plaintext (-> e <-) n) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app encrypt (-> plaintext <-) e n) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> encrypt <-) plaintext e n) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (letrec* (... d (plaintext (-> 42 <-)) ciphertext ...) ...) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))"
+  #f
+  213
+  191
+  18
+  4
+  176
+  8
+  184
+  1
+  223/236
+  141
+  #f
+  241/191
+  (18 18 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app private-exponent e p (-> q <-)) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app private-exponent e (-> p <-) q) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app private-exponent (-> e <-) p q) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> private-exponent <-) e p q) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (letrec* (... n (e (-> 7 <-)) d ...) ...) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (letrec* (... q (n (-> (app * p q) <-)) e ...) ...) (env ()))"
+  #f
+  6
+  6
+  0
+  0
+  6
+  0
+  6
+  1
+  1
+  6
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app * p (-> q <-)) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app * (-> p <-) q) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> * <-) p q) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (letrec* (... p (q (-> 47 <-)) n ...) ...) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (letrec* (... decrypt (p (-> 41 <-)) q ...) ...) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec* (... encrypt (decrypt (-> (λ (c d n) ...) <-)) p ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (λ (c d n) (-> (app modulo-power c d n) <-)) (env ((□? (c d n)))))"
+  #f
+  420
+  384
+  29
+  7
+  352
+  14
+  366
+  1
+  443/475
+  253
+  #f
+  515/384
+  (39 40 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power c d (-> n <-)) (env ((□? (c d n)))))"
+  #f
+  11
+  8
+  2
+  1
+  7
+  2
+  9
+  1
+  7/8
+  8
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))"
+  #f
+  218
+  193
+  20
+  5
+  177
+  10
+  187
+  1
+  15/16
+  141
+  #f
+  245/193
+  (16 16 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))"
+  #f
+  392
+  356
+  29
+  7
+  328
+  14
+  342
+  1
+  1777/1880
+  239
+  #f
+  473/356
+  (36 37 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) c d n) (env ((□? (c d n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (... private-exponent (encrypt (-> (λ (m e n) ...) <-)) decrypt ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval (λ (m e n) (-> (match (app > m n) ...) <-)) (env ((□? (m e n)))))"
+  #f
+  397
+  361
+  29
+  7
+  328
+  14
+  342
+  1
+  219/235
+  241
+  #f
+  481/361
+  (40 42 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app > m n)\n   (#f)\n   (_ (-> (app error \"The modulus is too small to encrypt the message.\") <-)))\n  (env ((□? (m e n)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  string
+  "'(eval\n  (app error (-> \"The modulus is too small to encrypt the message.\" <-))\n  (env ((□? (m e n)))))"
+  (string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> error <-) \"The modulus is too small to encrypt the message.\")\n  (env ((□? (m e n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (app > m n) ((#f) (-> (app modulo-power m e n) <-)) _)\n  (env ((□? (m e n)))))"
+  #f
+  396
+  360
+  29
+  7
+  328
+  14
+  342
+  1
+  1757/1880
+  241
+  #f
+  479/360
+  (41 42 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power m e (-> n <-)) (env ((□? (m e n)))))"
+  #f
+  11
+  8
+  2
+  1
+  7
+  2
+  9
+  1
+  7/8
+  8
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power m (-> e <-) n) (env ((□? (m e n)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-power (-> m <-) e n) (env ((□? (m e n)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> modulo-power <-) m e n) (env ((□? (m e n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app > m n) <-) (#f) _) (env ((□? (m e n)))))"
+  #f
+  19
+  16
+  2
+  1
+  12
+  2
+  14
+  1
+  21/26
+  16
+  #t
+  1
+  (1 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app > m (-> n <-)) (env ((□? (m e n)))))"
+  #f
+  11
+  8
+  2
+  1
+  7
+  2
+  9
+  1
+  7/8
+  8
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app > (-> m <-) n) (env ((□? (m e n)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> > <-) m n) (env ((□? (m e n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    is-legal-public-exponent?\n    (private-exponent (-> (λ (e p q) ...) <-))\n    encrypt\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (λ (e p q) (-> (match (app is-legal-public-exponent? e p q) ...) <-))\n  (env ((□? (e p q)))))"
+  #f
+  213
+  191
+  18
+  4
+  172
+  8
+  180
+  1
+  106/115
+  141
+  #f
+  241/191
+  (15 16 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))"
+  #f
+  153
+  133
+  16
+  4
+  119
+  7
+  126
+  1
+  151/164
+  85
+  #f
+  181/133
+  (12 12 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
+  30
+  22
+  6
+  2
+  18
+  3
+  21
+  1
+  33/38
+  22
+  #t
+  1
+  (1 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo-inverse (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> modulo-inverse <-) e (app totient p q)) (env ((□? (e p q)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   ((#f) (-> (app error \"Not a legal public exponent for that modulus.\") <-))\n   _)\n  (env ((□? (e p q)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  string
+  "'(eval\n  (app error (-> \"Not a legal public exponent for that modulus.\" <-))\n  (env ((□? (e p q)))))"
+  (string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> error <-) \"Not a legal public exponent for that modulus.\")\n  (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _)\n  (env ((□? (e p q)))))"
+  #f
+  75
+  65
+  8
+  2
+  58
+  4
+  62
+  1
+  45/49
+  65
+  #t
+  1
+  (3 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app is-legal-public-exponent? e p (-> q <-)) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app is-legal-public-exponent? e (-> p <-) q) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app is-legal-public-exponent? (-> e <-) p q) (env ((□? (e p q)))))"
+  #f
+  6
+  3
+  2
+  1
+  2
+  2
+  4
+  1
+  2/3
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> is-legal-public-exponent? <-) e p q) (env ((□? (e p q)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    modulo-power\n    (is-legal-public-exponent? (-> (λ (e p q) ...) <-))\n    private-exponent\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval (λ (e p q) (-> (match (app < 1 e) ...) <-)) (env ((□? (e p q)))))"
+  #f
+  74
+  64
+  8
+  2
+  55
+  4
+  59
+  1
+  41/46
+  64
+  #t
+  1
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (match (app < 1 e) (#f) (_ (-> (match (app < e (app totient ...)) ...) <-)))\n  (env ((□? (e p q)))))"
+  #f
+  69
+  59
+  8
+  2
+  50
+  4
+  54
+  1
+  36/41
+  59
+  #t
+  1
+  (3 3 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (match\n   (app < e (app totient p q))\n   (#f)\n   (_ (-> (match (app = 1 (app gcd ...)) ...) <-)))\n  (env ((□? (e p q)))))"
+  #f
+  54
+  44
+  8
+  2
+  32
+  4
+  36
+  1
+  53/66
+  44
+  #t
+  1
+  (3 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (app = 1 (app gcd e (app totient ...))) (#f) (_ (-> (app #t) <-)))\n  (env ((□? (e p q)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (e p q)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (app = 1 (app gcd e (app totient ...))) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (e p q)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (e p q)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (-> (app = 1 (app gcd e (app totient ...))) <-) (#f) _)\n  (env ((□? (e p q)))))"
+  #f
+  49
+  39
+  8
+  2
+  29
+  4
+  33
+  1
+  49/60
+  39
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))"
+  #f
+  43
+  33
+  8
+  2
+  26
+  4
+  30
+  1
+  23/27
+  33
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
+  36
+  26
+  8
+  2
+  20
+  4
+  24
+  1
+  5/6
+  26
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app gcd (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> gcd <-) e (app totient p q)) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app = (-> 1 <-) (app gcd e (app totient p q))) (env ((□? (e p q)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> = <-) 1 (app gcd e (app totient p q))) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (app < e (app totient p q)) ((#f) (-> (app #f) <-)) _)\n  (env ((□? (e p q)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (e p q)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app < e (app totient p q)) <-) (#f) _) (env ((□? (e p q)))))"
+  #f
+  43
+  33
+  8
+  2
+  26
+  4
+  30
+  1
+  23/27
+  33
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
+  #f
+  36
+  26
+  8
+  2
+  20
+  4
+  24
+  1
+  5/6
+  26
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient p (-> q <-)) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app totient (-> p <-) q) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> totient <-) p q) (env ((□? (e p q)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app < (-> e <-) (app totient p q)) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> < <-) e (app totient p q)) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (app < 1 e) ((#f) (-> (app #f) <-)) _) (env ((□? (e p q)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (e p q)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app < 1 e) <-) (#f) _) (env ((□? (e p q)))))"
+  #f
+  17
+  11
+  4
+  2
+  6
+  3
+  9
+  1
+  4/7
+  11
+  #t
+  1
+  (1 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app < 1 (-> e <-)) (env ((□? (e p q)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (1 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app < (-> 1 <-) e) (env ((□? (e p q)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> < <-) 1 e) (env ((□? (e p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (...\n    square\n    (modulo-power (-> (λ (base exp n) ...) <-))\n    is-legal-public-exponent?\n    ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (λ (base exp n) (-> (match (app = exp 0) ...) <-))\n  (env ((□? (base exp n)))))"
+  #f
+  417
+  381
+  29
+  7
+  350
+  14
+  364
+  1
+  441/470
+  251
+  #f
+  511/381
+  (38 39 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (match (app = exp 0) (#f) (_ (-> 1 <-))) (env ((□? (base exp n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env ((□? (base exp n)))))"
+  #f
+  414
+  378
+  29
+  7
+  348
+  14
+  362
+  1
+  883/940
+  249
+  #f
+  169/126
+  (38 39 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))\n  (env ((□? (base exp n)))))"
+  #f
+  402
+  366
+  29
+  7
+  335
+  14
+  349
+  1
+  3529/3760
+  244
+  #f
+  4/3
+  (38 39 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo (app * base (app modulo-power base (app - ...) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
+  34
+  22
+  9
+  3
+  18
+  5
+  23
+  1
+  54/65
+  22
+  #t
+  1
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
+  396
+  360
+  29
+  7
+  332
+  14
+  346
+  1
+  3541/3760
+  240
+  #f
+  4/3
+  (36 37 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app * base (-> (app modulo-power base (app - exp 1) n) <-))\n  (env ((□? (base exp n)))))"
+  #f
+  397
+  361
+  29
+  7
+  329
+  14
+  343
+  1
+  15/16
+  242
+  #f
+  480/361
+  (37 38 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo-power base (app - exp 1) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
+  34
+  22
+  9
+  3
+  18
+  5
+  23
+  1
+  53/60
+  22
+  #t
+  1
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app modulo-power base (-> (app - exp 1) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
+  268
+  234
+  27
+  7
+  212
+  13
+  225
+  1
+  243/260
+  166
+  #f
+  151/117
+  (23 23 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app - exp (-> 1 <-)) (env ((□? (base exp n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app - (-> exp <-) 1) (env ((□? (base exp n)))))"
+  #f
+  265
+  231
+  27
+  7
+  212
+  13
+  225
+  1
+  1221/1300
+  164
+  #f
+  298/231
+  (21 22 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> - <-) exp 1) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo-power (-> base <-) (app - exp 1) n)\n  (env ((□? (base exp n)))))"
+  #f
+  389
+  353
+  29
+  7
+  328
+  14
+  342
+  1
+  1777/1880
+  237
+  #f
+  469/353
+  (33 34 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo-power <-) base (app - exp 1) n)\n  (env ((□? (base exp n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app * (-> base <-) (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))"
+  #f
+  389
+  353
+  29
+  7
+  328
+  14
+  342
+  1
+  3553/3760
+  237
+  #f
+  469/353
+  (34 35 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> * <-) base (app modulo-power base (app - exp 1) n))\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app * base (app modulo-power base (app - ...) n)) n)\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app odd? exp)\n   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))\n   _)\n  (env ((□? (base exp n)))))"
+  #f
+  406
+  370
+  29
+  7
+  336
+  14
+  350
+  1
+  5273/5640
+  249
+  #f
+  491/370
+  (36 37 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo (app square (app modulo-power base (app / ...) n)) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
+  34
+  22
+  9
+  3
+  18
+  5
+  23
+  1
+  54/65
+  22
+  #t
+  1
+  (4 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
+  397
+  361
+  29
+  7
+  330
+  14
+  344
+  1
+  5291/5640
+  243
+  #f
+  479/361
+  (41 42 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app square (-> (app modulo-power base (app / exp 2) n) <-))\n  (env ((□? (base exp n)))))"
+  #f
+  393
+  357
+  29
+  7
+  328
+  14
+  342
+  1
+  1769/1880
+  240
+  #f
+  158/119
+  (36 36 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo-power base (app / exp 2) (-> n <-))\n  (env ((□? (base exp n)))))"
+  #f
+  33
+  21
+  9
+  3
+  18
+  5
+  23
+  1
+  9/10
+  21
+  #t
+  1
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app modulo-power base (-> (app / exp 2) <-) n)\n  (env ((□? (base exp n)))))"
+  #f
+  267
+  233
+  27
+  7
+  212
+  13
+  225
+  1
+  1217/1300
+  166
+  #f
+  300/233
+  (23 23 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app / exp (-> 2 <-)) (env ((□? (base exp n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app / (-> exp <-) 2) (env ((□? (base exp n)))))"
+  #f
+  265
+  231
+  27
+  7
+  212
+  13
+  225
+  1
+  1221/1300
+  164
+  #f
+  298/231
+  (22 23 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> / <-) exp 2) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo-power (-> base <-) (app / exp 2) n)\n  (env ((□? (base exp n)))))"
+  #f
+  388
+  352
+  29
+  7
+  328
+  14
+  342
+  1
+  1779/1880
+  237
+  #f
+  467/352
+  (37 37 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo-power <-) base (app / exp 2) n)\n  (env ((□? (base exp n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> square <-) (app modulo-power base (app / exp 2) n))\n  (env ((□? (base exp n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app square (app modulo-power base (app / ...) n)) n)\n  (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app odd? exp) <-) (#f) _) (env ((□? (base exp n)))))"
+  #f
+  275
+  241
+  27
+  7
+  220
+  13
+  233
+  1
+  177/190
+  170
+  #f
+  312/241
+  (24 25 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app odd? (-> exp <-)) (env ((□? (base exp n)))))"
+  #f
+  265
+  231
+  27
+  7
+  212
+  13
+  225
+  1
+  1223/1310
+  164
+  #f
+  298/231
+  (29 31 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> odd? <-) exp) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app = exp 0) <-) (#f) _) (env ((□? (base exp n)))))"
+  #f
+  280
+  246
+  27
+  7
+  224
+  13
+  237
+  1
+  1247/1340
+  175
+  #f
+  317/246
+  (28 30 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app = exp (-> 0 <-)) (env ((□? (base exp n)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app = (-> exp <-) 0) (env ((□? (base exp n)))))"
+  #f
+  265
+  231
+  27
+  7
+  212
+  13
+  225
+  1
+  1223/1310
+  164
+  #f
+  298/231
+  (24 25 1))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> = <-) exp 0) (env ((□? (base exp n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec* (... totient (square (-> (λ (x) ...) <-)) modulo-power ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (λ (x) (-> (app * x x) <-)) (env ((□? (x)))))"
+  #f
+  398
+  361
+  29
+  8
+  328
+  14
+  342
+  1
+  1749/1880
+  241
+  #f
+  481/361
+  (35 35 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app * x (-> x <-)) (env ((□? (x)))))"
+  #f
+  395
+  358
+  29
+  8
+  328
+  14
+  342
+  1
+  441/470
+  240
+  #f
+  238/179
+  (35 36 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app * (-> x <-) x) (env ((□? (x)))))"
+  #f
+  395
+  358
+  29
+  8
+  328
+  14
+  342
+  1
+  441/470
+  240
+  #f
+  238/179
+  (34 35 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> * <-) x x) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec* (... modulo-inverse (totient (-> (λ (p q) ...) <-)) square ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (λ (p q) (-> (app * (app - p 1) (app - q 1)) <-)) (env ((□? (p q)))))"
+  #f
+  65
+  54
+  8
+  3
+  39
+  4
+  43
+  1
+  31/44
+  54
+  #t
+  1
+  (6 6 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app * (app - p 1) (-> (app - q 1) <-)) (env ((□? (p q)))))"
+  #f
+  34
+  23
+  8
+  3
+  15
+  4
+  19
+  1
+  5/8
+  23
+  #t
+  1
+  (3 3 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app - q (-> 1 <-)) (env ((□? (p q)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app - (-> q <-) 1) (env ((□? (p q)))))"
+  #f
+  22
+  11
+  8
+  3
+  6
+  4
+  10
+  1
+  4/7
+  11
+  #t
+  1
+  (1 1 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> - <-) q 1) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app * (-> (app - p 1) <-) (app - q 1)) (env ((□? (p q)))))"
+  #f
+  34
+  23
+  8
+  3
+  15
+  4
+  19
+  1
+  5/8
+  23
+  #t
+  1
+  (2 3 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app - p (-> 1 <-)) (env ((□? (p q)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app - (-> p <-) 1) (env ((□? (p q)))))"
+  #f
+  22
+  11
+  8
+  3
+  6
+  4
+  10
+  1
+  4/7
+  11
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> - <-) p 1) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> * <-) (app - p 1) (app - q 1)) (env ((□? (p q)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (... extended-gcd (modulo-inverse (-> (λ (a n) ...) <-)) totient ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (λ (a n) (-> (app modulo (app car (app extended-gcd ...)) n) <-))\n  (env ((□? (a n)))))"
+  #f
+  153
+  133
+  16
+  4
+  116
+  7
+  123
+  1
+  71/79
+  85
+  #f
+  181/133
+  (13 13 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))"
+  #f
+  35
+  24
+  8
+  3
+  19
+  4
+  23
+  1
+  17/20
+  24
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app modulo (-> (app car (app extended-gcd a n)) <-) n)\n  (env ((□? (a n)))))"
+  #f
+  147
+  127
+  16
+  4
+  113
+  7
+  120
+  1
+  139/152
+  81
+  #f
+  173/127
+  (12 12 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))"
+  #f
+  58
+  43
+  11
+  4
+  37
+  5
+  42
+  1
+  69/76
+  43
+  #t
+  1
+  (3 3 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))"
+  #f
+  35
+  24
+  8
+  3
+  19
+  4
+  23
+  1
+  17/20
+  24
+  #t
+  1
+  (2 2 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app extended-gcd (-> a <-) n) (env ((□? (a n)))))"
+  #f
+  11
+  5
+  4
+  2
+  3
+  3
+  6
+  1
+  5/8
+  5
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> extended-gcd <-) a n) (env ((□? (a n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> car <-) (app extended-gcd a n)) (env ((□? (a n)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> modulo <-) (app car (app extended-gcd a n)) n)\n  (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec*\n   (... cdr (extended-gcd (-> (λ (a b) ...) <-)) modulo-inverse ...)\n   ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (λ (a b) (-> (match (app = (app modulo ...) 0) ...) <-))\n  (env ((□? (a b)))))"
+  #f
+  88
+  73
+  11
+  4
+  57
+  5
+  62
+  1
+  211/252
+  58
+  #f
+  92/73
+  (7 7 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (app = (app modulo a b) 0) (#f) (_ (-> (app cons 0 1) <-)))\n  (env ((□? (a b)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app cons 0 (-> 1 <-)) (env ((□? (a b)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app cons (-> 0 <-) 1) (env ((□? (a b)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 0 1) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  let*
+  "'(eval\n  (match (app = (app modulo a b) 0) ((#f) (-> (let* (x:y ... y) ...) <-)) _)\n  (env ((□? (a b)))))"
+  #f
+  4
+  3
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (let* (... x (y (-> (app cdr x:y) <-)) () ...) ...) (env ((□? (a b)))))"
+  #f
+  113
+  93
+  16
+  4
+  82
+  7
+  89
+  1
+  15/16
+  57
+  #f
+  43/31
+  (10 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app cdr (-> x:y <-)) (env ((□? (a b)))))"
+  #f
+  76
+  61
+  11
+  4
+  52
+  5
+  57
+  1
+  125/138
+  46
+  #f
+  76/61
+  (6 6 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> cdr <-) x:y) (env ((□? (a b)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (let* (... x:y (x (-> (app car x:y) <-)) y ...) ...) (env ((□? (a b)))))"
+  #f
+  113
+  93
+  16
+  4
+  82
+  7
+  89
+  1
+  15/16
+  57
+  #f
+  43/31
+  (9 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app car (-> x:y <-)) (env ((□? (a b)))))"
+  #f
+  76
+  61
+  11
+  4
+  52
+  5
+  57
+  1
+  125/138
+  46
+  #f
+  76/61
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> car <-) x:y) (env ((□? (a b)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env ((□? (a b)))))"
+  #f
+  73
+  58
+  11
+  4
+  50
+  5
+  55
+  1
+  41/45
+  46
+  #f
+  35/29
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env ((□? (a b)))))"
+  #f
+  58
+  43
+  11
+  4
+  34
+  5
+  39
+  1
+  76/87
+  35
+  #f
+  51/43
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
+  #f
+  59
+  44
+  11
+  4
+  34
+  5
+  39
+  1
+  49/58
+  37
+  #f
+  51/44
+  (4 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
+  #f
+  56
+  41
+  11
+  4
+  34
+  5
+  39
+  1
+  26/29
+  34
+  #f
+  48/41
+  (3 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) a b) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env ((□? (a b)))))"
+  #f
+  58
+  43
+  11
+  4
+  34
+  5
+  39
+  1
+  149/174
+  37
+  #f
+  49/43
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> extended-gcd <-) b (app modulo a b)) (env ((□? (a b)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (let* (x:y ... y) (-> (app cons y (app - x (app * ...))) <-))\n  (env ((□? (a b)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (app cons y (-> (app - x (app * y (app quotient ...))) <-))\n  (env ((□? (a b)))))"
+  #f
+  129
+  109
+  16
+  4
+  94
+  7
+  101
+  1
+  397/432
+  65
+  #f
+  153/109
+  (11 12 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app - x (-> (app * y (app quotient a b)) <-)) (env ((□? (a b)))))"
+  #f
+  124
+  104
+  16
+  4
+  89
+  7
+  96
+  1
+  397/432
+  63
+  #f
+  145/104
+  (12 12 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app * y (-> (app quotient a b) <-)) (env ((□? (a b)))))"
+  #f
+  65
+  50
+  11
+  4
+  40
+  5
+  45
+  1
+  85/99
+  39
+  #f
+  61/50
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app quotient a (-> b <-)) (env ((□? (a b)))))"
+  #f
+  59
+  44
+  11
+  4
+  34
+  5
+  39
+  1
+  149/180
+  37
+  #f
+  51/44
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app quotient (-> a <-) b) (env ((□? (a b)))))"
+  #f
+  56
+  41
+  11
+  4
+  34
+  5
+  39
+  1
+  79/90
+  34
+  #f
+  48/41
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> quotient <-) a b) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app * (-> y <-) (app quotient a b)) (env ((□? (a b)))))"
+  #f
+  115
+  95
+  16
+  4
+  83
+  7
+  90
+  1
+  403/432
+  57
+  #f
+  7/5
+  (9 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> * <-) y (app quotient a b)) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app - (-> x <-) (app * y (app quotient a b))) (env ((□? (a b)))))"
+  #f
+  115
+  95
+  16
+  4
+  83
+  7
+  90
+  1
+  403/432
+  57
+  #f
+  7/5
+  (10 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> - <-) x (app * y (app quotient a b))) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app cons (-> y <-) (app - x (app * y (app quotient ...))))\n  (env ((□? (a b)))))"
+  #f
+  115
+  95
+  16
+  4
+  83
+  7
+  90
+  1
+  403/432
+  57
+  #f
+  7/5
+  (10 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) y (app - x (app * y (app quotient ...))))\n  (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env ((□? (a b)))))"
+  #f
+  74
+  59
+  11
+  4
+  46
+  5
+  51
+  1
+  91/108
+  46
+  #f
+  72/59
+  (6 6 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  number
+  "'(eval (app = (app modulo a b) (-> 0 <-)) (env ((□? (a b)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app = (-> (app modulo a b) <-) 0) (env ((□? (a b)))))"
+  #f
+  65
+  50
+  11
+  4
+  40
+  5
+  45
+  1
+  85/99
+  39
+  #f
+  61/50
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo a (-> b <-)) (env ((□? (a b)))))"
+  #f
+  59
+  44
+  11
+  4
+  34
+  5
+  39
+  1
+  149/180
+  37
+  #f
+  51/44
+  (5 5 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app modulo (-> a <-) b) (env ((□? (a b)))))"
+  #f
+  56
+  41
+  11
+  4
+  34
+  5
+  39
+  1
+  79/90
+  34
+  #f
+  48/41
+  (4 4 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> modulo <-) a b) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> = <-) (app modulo a b) 0) (env ((□? (a b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) extended-gcd ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))"
+  #f
+  114
+  93
+  16
+  5
+  81
+  7
+  88
+  1
+  401/432
+  55
+  #f
+  131/93
+  (10 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))"
+  #f
+  113
+  92
+  16
+  5
+  81
+  7
+  88
+  1
+  101/108
+  55
+  #f
+  129/92
+  (10 10 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))"
+  #f
+  82
+  64
+  13
+  5
+  54
+  6
+  60
+  1
+  127/141
+  46
+  #f
+  41/32
+  (7 7 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  lambda
+  "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))"
+  #f
+  147
+  126
+  16
+  5
+  111
+  7
+  118
+  1
+  11/12
+  79
+  #f
+  29/21
+  (15 15 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))"
+  #f
+  133
+  112
+  16
+  5
+  98
+  7
+  105
+  1
+  409/444
+  72
+  #f
+  153/112
+  (12 12 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))"
+  #f
+  98
+  79
+  14
+  5
+  67
+  6
+  73
+  1
+  130/147
+  61
+  #f
+  98/79
+  (8 8 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  match
+  "'(eval\n  (letrec*\n   (car ... decrypted-ciphertext)\n   (-> (match (app not (app = ...)) ...) <-))\n  (env ()))"
+  #f
+  436
+  400
+  29
+  7
+  370
+  14
+  384
+  1
+  1957/2070
+  264
+  #f
+  67/50
+  (39 40 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   (#f)\n   (_ (-> (app error \"RSA fail!\") <-)))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  string
+  "'(eval (app error (-> \"RSA fail!\" <-)) (env ()))"
+  (string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> error <-) \"RSA fail!\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match\n   (app not (app = plaintext decrypted-ciphertext))\n   ((#f) (-> (app display \"RSA success!\") <-))\n   _)\n  (env ()))"
+  #f
+  3
+  3
+  0
+  0
+  3
+  0
+  3
+  1
+  1
+  3
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  string
+  "'(eval (app display (-> \"RSA success!\" <-)) (env ()))"
+  (string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> display <-) \"RSA success!\") (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))"
+  #f
+  430
+  394
+  29
+  7
+  364
+  14
+  378
+  1
+  1897/2010
+  259
+  #f
+  529/394
+  (40 41 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  app
+  "'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))"
+  #f
+  426
+  390
+  29
+  7
+  360
+  14
+  374
+  1
+  1857/1970
+  256
+  #f
+  262/195
+  (39 41 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))"
+  #f
+  423
+  387
+  29
+  7
+  357
+  14
+  371
+  1
+  1827/1940
+  254
+  #f
+  520/387
+  (40 41 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app = (-> plaintext <-) decrypted-ciphertext) (env ()))"
+  (number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> = <-) plaintext decrypted-ciphertext) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  rsa
+  1
+  700
+  220
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app = plaintext decrypted-ciphertext)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))

@@ -1,0 +1,2 @@
+'(rebinding ack 0 700 20 20 3 20 0 2 (1 1 0))
+'(exponential ack 0 700 20 20 3 20 0 2 (0 1 0))

@@ -1,0 +1,861 @@
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  letrec*
+  "'(eval ((top) letrec* (tak) ...) (env ()))"
+  #f
+  813
+  803
+  6
+  4
+  720
+  2
+  722
+  1
+  121857/132440
+  318
+  #f
+  1288/803
+  (252 261 3))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  lambda
+  "'(eval (letrec* (... () (tak (-> (λ (x y z) ...) <-)) () ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  match
+  "'(eval\n  (λ (x y z) (-> (match (app not (app < ...)) ...) <-))\n  (env ((□? (x y z)))))"
+  #f
+  731
+  724
+  6
+  1
+  715
+  2
+  717
+  1
+  86857/87780
+  332
+  #f
+  279/181
+  (145 150 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (match (app not (app < y x)) (#f) (_ (-> z <-))) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  719/720
+  318
+  #f
+  1076/697
+  (124 128 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval\n  (match\n   (app not (app < y x))\n   ((#f)\n    (->\n     (app\n      tak\n      (app tak (app - ...) y z)\n      (app tak (app - ...) z x)\n      (app tak (app - ...) x y))\n     <-))\n   _)\n  (env ((□? (x y z)))))"
+  #f
+  816
+  806
+  6
+  4
+  710
+  2
+  712
+  1
+  79203/88000
+  317
+  #f
+  1295/806
+  (254 262 4))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (app tak (app - x 1) y z)\n   (app tak (app - y 1) z x)\n   (-> (app tak (app - z 1) x y) <-))\n  (env ((□? (x y z)))))"
+  #f
+  830
+  819
+  6
+  5
+  700
+  2
+  702
+  1
+  881/1000
+  304
+  #f
+  1334/819
+  (311 322 4))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - z 1) x (-> y <-)) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (124 129 1))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - z 1) (-> x <-) y) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (125 129 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (app tak (-> (app - z 1) <-) x y) (env ((□? (x y z)))))"
+  #f
+  707
+  700
+  6
+  1
+  696
+  2
+  698
+  1
+  219/220
+  320
+  #f
+  54/35
+  (126 131 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app - z (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app - (-> z <-) 1) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (127 132 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) z 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - z 1) x y) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (app tak (app - x 1) y z)\n   (-> (app tak (app - y 1) z x) <-)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  #f
+  791
+  781
+  6
+  4
+  698
+  2
+  700
+  1
+  5551/6080
+  307
+  #f
+  1255/781
+  (260 269 4))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - y 1) z (-> x <-)) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (133 139 3))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - y 1) (-> z <-) x) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (119 122 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (app tak (-> (app - y 1) <-) z x) (env ((□? (x y z)))))"
+  #f
+  707
+  700
+  6
+  1
+  696
+  2
+  698
+  1
+  219/220
+  320
+  #f
+  54/35
+  (135 140 4))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app - y (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app - (-> y <-) 1) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (146 157 1))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) y 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - y 1) z x) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval\n  (app\n   tak\n   (-> (app tak (app - x 1) y z) <-)\n   (app tak (app - y 1) z x)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  #f
+  759
+  750
+  6
+  3
+  697
+  2
+  699
+  1
+  658307/699200
+  312
+  #f
+  198/125
+  (219 237 3))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - x 1) y (-> z <-)) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (121 125 1))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app tak (app - x 1) (-> y <-) z) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (130 135 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (app tak (-> (app - x 1) <-) y z) (env ((□? (x y z)))))"
+  #f
+  707
+  700
+  6
+  1
+  696
+  2
+  698
+  1
+  219/220
+  320
+  #f
+  54/35
+  (129 137 3))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app - x (-> 1 <-)) (env ((□? (x y z)))))"
+  (number char string quoted constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app - (-> x <-) 1) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  879/880
+  318
+  #f
+  1076/697
+  (124 131 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> - <-) x 1) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) (app - x 1) y z) (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> tak <-)\n   (app tak (app - x 1) y z)\n   (app tak (app - y 1) z x)\n   (app tak (app - z 1) x y))\n  (env ((□? (x y z)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (match (-> (app not (app < y x)) <-) (#f) _) (env ((□? (x y z)))))"
+  #f
+  719
+  712
+  6
+  1
+  706
+  2
+  708
+  1
+  8739/8800
+  327
+  #f
+  1097/712
+  (155 298 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (app not (-> (app < y x) <-)) (env ((□? (x y z)))))"
+  #f
+  713
+  706
+  6
+  1
+  702
+  2
+  704
+  1
+  8759/8800
+  323
+  #f
+  1089/706
+  (150 198 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app < y (-> x <-)) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  799/800
+  318
+  #f
+  1076/697
+  (121 126 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app < (-> y <-) x) (env ((□? (x y z)))))"
+  #f
+  704
+  697
+  6
+  1
+  696
+  2
+  698
+  1
+  799/800
+  318
+  #f
+  1076/697
+  (131 135 2))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> < <-) y x) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app < y x)) (env ((□? (x y z)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  app
+  "'(eval (letrec* (tak) (-> (app tak 32 15 8) <-)) (env ()))"
+  #f
+  812
+  802
+  6
+  4
+  719
+  2
+  721
+  1
+  118777/129360
+  318
+  #f
+  643/401
+  (280 297 5))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app tak 32 15 (-> 8 <-)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app tak 32 (-> 15 <-) 8) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  number
+  "'(eval (app tak (-> 32 <-) 15 8) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  tak
+  2
+  1000
+  41
+  ref-or-constructor
+  "'(eval (app (-> tak <-) 32 15 8) (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))

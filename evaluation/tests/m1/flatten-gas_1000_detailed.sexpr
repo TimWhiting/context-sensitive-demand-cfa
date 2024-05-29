@@ -1,0 +1,2163 @@
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lettypes
+  "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
+  #f
+  206
+  186
+  18
+  2
+  180
+  7
+  187
+  1
+  1213/1236
+  100
+  #f
+  255/62
+  (112 117 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  letrec*
+  "'(eval (lettypes cons ... nil (letrec* (car ... flatten) ...)) (env ()))"
+  #f
+  205
+  185
+  18
+  2
+  179
+  7
+  186
+  1
+  1201/1224
+  100
+  #f
+  756/185
+  (110 113 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval\n  (letrec* (... append (flatten (-> (λ (x) ...) <-)) () ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (x) (-> (match (app pair? x) ...) <-)) (env ((□? (x)))))"
+  #f
+  206
+  186
+  18
+  2
+  175
+  7
+  182
+  1
+  383/396
+  100
+  #f
+  769/186
+  (113 117 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (match\n   (app pair? x)\n   (#f)\n   (_\n    (->\n     (app append (app flatten (app car ...)) (app flatten (app cdr ...)))\n     <-)))\n  (env ((□? (x)))))"
+  #f
+  195
+  175
+  18
+  2
+  166
+  7
+  173
+  1
+  1157/1188
+  96
+  #f
+  142/35
+  (110 114 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app append (app flatten (app car x)) (-> (app flatten (app cdr x)) <-))\n  (env ((□? (x)))))"
+  #f
+  193
+  173
+  18
+  2
+  165
+  7
+  172
+  1
+  1159/1188
+  94
+  #f
+  717/173
+  (113 117 1))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app flatten (-> (app cdr x) <-)) (env ((□? (x)))))"
+  #f
+  74
+  62
+  10
+  2
+  59
+  4
+  63
+  1
+  185/188
+  44
+  #f
+  81/31
+  (13 13 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app cdr (-> x <-)) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  187/188
+  43
+  #f
+  13/5
+  (11 12 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cdr <-) x) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> flatten <-) (app cdr x)) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app append (-> (app flatten (app car x)) <-) (app flatten (app cdr x)))\n  (env ((□? (x)))))"
+  #f
+  193
+  173
+  18
+  2
+  165
+  7
+  172
+  1
+  1159/1188
+  94
+  #f
+  724/173
+  (112 116 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app flatten (-> (app car x) <-)) (env ((□? (x)))))"
+  #f
+  74
+  62
+  10
+  2
+  59
+  4
+  63
+  1
+  185/188
+  44
+  #f
+  163/62
+  (12 13 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app car (-> x <-)) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  187/188
+  43
+  #f
+  13/5
+  (11 11 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> car <-) x) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> flatten <-) (app car x)) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> append <-) (app flatten (app car x)) (app flatten (app cdr x)))\n  (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval\n  (match (app pair? x) ((#f) (-> (match (app null? x) ...) <-)) _)\n  (env ((□? (x)))))"
+  #f
+  105
+  90
+  13
+  2
+  84
+  5
+  89
+  1
+  235/244
+  61
+  #f
+  247/90
+  (19 20 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (app null? x) (#f) (_ (-> x <-))) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  (12 12 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (match (app null? x) ((#f) (-> (app cons x (app nil)) <-)) _)\n  (env ((□? (x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons x (-> (app nil) <-)) (env ((□? (x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app cons (-> x <-) (app nil)) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  (12 12 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) x (app nil)) (env ((□? (x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x)))))"
+  #f
+  90
+  75
+  13
+  2
+  72
+  5
+  77
+  1
+  37/38
+  53
+  #f
+  193/75
+  (14 15 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app null? (-> x <-)) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  (11 11 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> null? <-) x) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (match (-> (app pair? x) <-) (#f) _) (env ((□? (x)))))"
+  #f
+  89
+  75
+  12
+  2
+  72
+  5
+  77
+  1
+  37/38
+  53
+  #f
+  193/75
+  (16 16 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app pair? (-> x <-)) (env ((□? (x)))))"
+  #f
+  72
+  60
+  10
+  2
+  59
+  4
+  63
+  1
+  47/48
+  43
+  #f
+  13/5
+  (12 12 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> pair? <-) x) (env ((□? (x)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval\n  (letrec* (... null? (append (-> (λ (x y) ...) <-)) flatten ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (x y) (-> (match (app null? x) ...) <-)) (env ((□? (x y)))))"
+  #f
+  197
+  177
+  18
+  2
+  165
+  7
+  172
+  1
+  26/27
+  96
+  #f
+  721/177
+  (106 109 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (app null? x) (#f) (_ (-> y <-))) (env ((□? (x y)))))"
+  #f
+  192
+  172
+  18
+  2
+  165
+  7
+  172
+  1
+  97/99
+  94
+  #f
+  693/172
+  (110 113 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (match\n   (app null? x)\n   ((#f) (-> (app cons (app car x) (app append (app cdr ...) y)) <-))\n   _)\n  (env ((□? (x y)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (app car x) (-> (app append (app cdr x) y) <-))\n  (env ((□? (x y)))))"
+  #f
+  194
+  174
+  18
+  2
+  165
+  7
+  172
+  1
+  289/297
+  95
+  #f
+  355/87
+  (106 110 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app append (app cdr x) (-> y <-)) (env ((□? (x y)))))"
+  #f
+  191
+  171
+  18
+  2
+  165
+  7
+  172
+  1
+  292/297
+  94
+  #f
+  686/171
+  (122 126 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app append (-> (app cdr x) <-) y) (env ((□? (x y)))))"
+  #f
+  193
+  173
+  18
+  2
+  165
+  7
+  172
+  1
+  290/297
+  95
+  #f
+  702/173
+  (116 122 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app cdr (-> x <-)) (env ((□? (x y)))))"
+  #f
+  192
+  172
+  18
+  2
+  165
+  7
+  172
+  1
+  97/99
+  94
+  #f
+  701/172
+  (110 113 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cdr <-) x) (env ((□? (x y)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> append <-) (app cdr x) y) (env ((□? (x y)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (-> (app car x) <-) (app append (app cdr x) y))\n  (env ((□? (x y)))))"
+  #f
+  194
+  174
+  18
+  2
+  165
+  7
+  172
+  1
+  289/297
+  95
+  #f
+  713/174
+  (109 112 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app car (-> x <-)) (env ((□? (x y)))))"
+  #f
+  192
+  172
+  18
+  2
+  165
+  7
+  172
+  1
+  97/99
+  94
+  #f
+  701/172
+  (109 112 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> car <-) x) (env ((□? (x y)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) (app car x) (app append (app cdr x) y))\n  (env ((□? (x y)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (match (-> (app null? x) <-) (#f) _) (env ((□? (x y)))))"
+  #f
+  194
+  174
+  18
+  2
+  165
+  7
+  172
+  1
+  289/297
+  95
+  #f
+  352/87
+  (107 111 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app null? (-> x <-)) (env ((□? (x y)))))"
+  #f
+  192
+  172
+  18
+  2
+  165
+  7
+  172
+  1
+  97/99
+  94
+  #f
+  701/172
+  (130 241 1))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> null? <-) x) (env ((□? (x y)))))"
+  (lambda number char string quoted constructor)
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval\n  (letrec* (... pair? (null? (-> (λ (null?-v) ...) <-)) append ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))"
+  #f
+  199
+  178
+  18
+  3
+  165
+  7
+  172
+  1
+  571/594
+  96
+  #f
+  745/178
+  (118 144 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (match null?-v (nil) (_ (-> (app #f) <-))) (env ((□? (null?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (null?-v)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (match null?-v ((nil) (-> (app #t) <-)) _) (env ((□? (null?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (null?-v)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))"
+  #f
+  196
+  175
+  18
+  3
+  165
+  7
+  172
+  1
+  577/594
+  94
+  #f
+  741/175
+  (110 113 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval\n  (letrec* (... cdr (pair? (-> (λ (pair?-v) ...) <-)) null? ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (pair?-v) (-> (match pair?-v ...) <-)) (env ((□? (pair?-v)))))"
+  #f
+  87
+  72
+  12
+  3
+  67
+  5
+  72
+  1
+  205/216
+  50
+  #f
+  25/9
+  (17 18 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (match pair?-v (cons pair?-c pair?-d) (_ (-> (app #f) <-)))\n  (env ((□? (pair?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (pair?-v)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (match pair?-v ((cons pair?-c pair?-d) (-> (app #t) <-)) _)\n  (env ((□? (pair?-v)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (pair?-v)))))"
+  (constructor)
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (-> pair?-v <-) (cons pair?-c pair?-d) _) (env ((□? (pair?-v)))))"
+  #f
+  79
+  64
+  12
+  3
+  62
+  5
+  67
+  1
+  191/196
+  44
+  #f
+  45/16
+  (13 13 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval\n  (letrec* (... car (cdr (-> (λ (cdr-v) ...) <-)) pair? ...) ...)\n  (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (cdr-v) (-> (match cdr-v ...) <-)) (env ((□? (cdr-v)))))"
+  #f
+  197
+  176
+  18
+  3
+  165
+  7
+  172
+  1
+  383/396
+  94
+  #f
+  745/176
+  (176 181 1))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match cdr-v ((cons cdr-c cdr-d) (-> cdr-d <-))) (env ((□? (cdr-v)))))"
+  #f
+  196
+  175
+  18
+  3
+  165
+  7
+  172
+  1
+  1153/1188
+  94
+  #f
+  737/175
+  (118 121 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env ((□? (cdr-v)))))"
+  #f
+  195
+  174
+  18
+  3
+  165
+  7
+  172
+  1
+  1157/1188
+  94
+  #f
+  243/58
+  (117 121 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  lambda
+  "'(eval (letrec* (... () (car (-> (λ (car-v) ...) <-)) cdr ...) ...) (env ()))"
+  (lambda number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  match
+  "'(eval (λ (car-v) (-> (match car-v ...) <-)) (env ((□? (car-v)))))"
+  #f
+  198
+  177
+  18
+  3
+  165
+  7
+  172
+  1
+  191/198
+  94
+  #f
+  763/177
+  (228 238 1))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match car-v ((cons car-c car-d) (-> car-c <-))) (env ((□? (car-v)))))"
+  #f
+  197
+  176
+  18
+  3
+  165
+  7
+  172
+  1
+  575/594
+  94
+  #f
+  47/11
+  (124 128 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (match (-> car-v <-) (cons car-c car-d)) (env ((□? (car-v)))))"
+  #f
+  196
+  175
+  18
+  3
+  165
+  7
+  172
+  1
+  577/594
+  94
+  #f
+  741/175
+  (112 115 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (letrec*\n   (car ... flatten)\n   (-> (app flatten (app cons (app cons ...) (app cons ...))) <-))\n  (env ()))"
+  #f
+  204
+  184
+  18
+  2
+  178
+  7
+  185
+  1
+  1189/1212
+  100
+  #f
+  747/184
+  (112 116 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app\n   flatten\n   (->\n    (app\n     cons\n     (app cons 1 (app cons ...))\n     (app cons (app cons ...) (app nil ...)))\n    <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (app cons 1 (app cons 2 (app nil ...)))\n   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil))\n   (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (-> (app cons (app cons (app cons ...) (app nil ...)) (app nil)) <-)\n   (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (app cons (app cons 3 (app cons ...)) (app nil)) (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (-> (app cons (app cons 3 (app cons ...)) (app nil)) <-) (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (app cons 3 (app cons 4 (app cons ...))) (-> (app nil) <-))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app cons (-> (app cons 3 (app cons 4 (app cons ...))) <-) (app nil))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons 3 (-> (app cons 4 (app cons 5 (app nil ...))) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons 4 (-> (app cons 5 (app nil)) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons 5 (-> (app nil) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  number
+  "'(eval (app cons (-> 5 <-) (app nil)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 5 (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  number
+  "'(eval (app cons (-> 4 <-) (app cons 5 (app nil))) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 4 (app cons 5 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  number
+  "'(eval (app cons (-> 3 <-) (app cons 4 (app cons 5 (app nil ...)))) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 3 (app cons 4 (app cons 5 (app nil ...)))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) (app cons 3 (app cons 4 (app cons ...))) (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app (-> cons <-) (app cons (app cons 3 (app cons ...)) (app nil)) (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil))\n   (app nil))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval\n  (app\n   cons\n   (-> (app cons 1 (app cons 2 (app nil ...))) <-)\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons 1 (-> (app cons 2 (app nil)) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  app
+  "'(eval (app cons 2 (-> (app nil) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  number
+  "'(eval (app cons (-> 2 <-) (app nil)) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 2 (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  number
+  "'(eval (app cons (-> 1 <-) (app cons 2 (app nil))) (env ()))"
+  (number char string quoted constructor)
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 1 (app cons 2 (app nil))) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> cons <-)\n   (app cons 1 (app cons 2 (app nil ...)))\n   (app cons (app cons (app cons ...) (app nil ...)) (app nil)))\n  (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  flatten
+  1
+  1000
+  103
+  ref-or-constructor
+  "'(eval\n  (app\n   (-> flatten <-)\n   (app\n    cons\n    (app cons 1 (app cons ...))\n    (app cons (app cons ...) (app nil ...))))\n  (env ()))"
+  (lambda number char string quoted constructor)
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
