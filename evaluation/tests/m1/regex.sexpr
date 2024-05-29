@@ -1,0 +1,5 @@
+'(demand-time-all-queries regex 1 100 4485 (547 547 4))
+'(demand-time-all-queries regex 1 200 4935 (973 973 12))
+'(demand-time-all-queries regex 1 300 5385 (1402 1402 21))
+'(demand-time-all-queries regex 1 400 5835 (1575 1575 23))
+'(demand-time-all-queries regex 1 500 6285 (1947 1947 27))

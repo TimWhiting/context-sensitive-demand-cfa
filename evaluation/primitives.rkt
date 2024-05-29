@@ -43,6 +43,7 @@
     ['char-alphabetic? `(prim char-alphabetic? ,do-char-alphabetic?)]
     ['char->integer `(prim char->integer ,do-char->integer)]
     ['symbol->string `(prim symbol->string ,do-symbol->string)]
+    ['string-ref `(prim string-ref ,do-string-ref)]
     ['string->symbol `(prim string->symbol ,do-string->symbol)]
     ['list->string `(prim list->string ,do-list-string)]
     ['void  `(prim void ,do-void)]
@@ -162,6 +163,17 @@
     ]
   [(list (product/lattice (literal (list n1 c1 (top) sy1))))
   topsym
+  ]
+  [_ ⊥]
+  ))
+
+(define (do-string-ref p C . args)
+  (match args
+  [(list (product/lattice (literal (list n1 c1 (singleton s1) sy1))))
+    (lit (litchar (string-ref s1)))
+    ]
+  [(list (product/lattice (literal (list n1 c1 (top) sy1))))
+  topchar
   ]
   [_ ⊥]
   ))

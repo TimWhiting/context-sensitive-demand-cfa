@@ -143,13 +143,13 @@
     (if (= g 0)
       (error 'ran-out-of-gas)
       (if (hash-has-key? s nm)
-          ((node-depend/powerset nm k) (state-gas s g))
+          ((node-depend/powerset nm k) (state-gas s (- g 1)))
           (((f nm) (id-κ/powerset nm)) (state-gas (hash-set s nm (powerset-node (list k) (set))) (- g 1)))))))
 
 (define ((memoize/lattice nm ⊥ ⊑ ⊔ k f) sgi)
   (match-let ([(state-gas s g) sgi])
     (if (hash-has-key? s nm)
-        ((node-depend/lattice nm k) (state-gas s g))
+        ((node-depend/lattice nm k) (state-gas s (- g 1)))
         (((f nm) (id-κ/lattice nm)) (state-gas (hash-set s nm (lattice-node (list k) ⊥ ⊑ ⊔)) (- g 1))))))
 
 (define ((memoize/product nm ⊥ ⊑ ⊔ k f) sgi)
@@ -158,7 +158,7 @@
     (if (= g 0)
       (error 'ran-out-of-gas)
       (if (hash-has-key? s nm)
-          ((node-depend/product nm k) (state-gas s g))
+          ((node-depend/product nm k) (state-gas s (- g 1)))
           (begin
             (let ([initial-hash (state-gas (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔)) (- g 1))])
               (((f nm) ((id-κ/product ⊥ ⊑ ⊔) nm)) initial-hash))))))

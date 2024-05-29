@@ -1,0 +1,5 @@
+'(demand-time-all-queries kcfa3 4 100 465 (18 18 0))
+'(demand-time-all-queries kcfa3 4 200 510 (37 37 0))
+'(demand-time-all-queries kcfa3 4 300 555 (55 55 0))
+'(demand-time-all-queries kcfa3 4 400 600 (77 77 0))
+'(demand-time-all-queries kcfa3 4 500 645 (89 90 1))

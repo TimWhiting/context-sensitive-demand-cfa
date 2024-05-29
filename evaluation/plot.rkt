@@ -161,8 +161,11 @@
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
+(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex scheme2java))
 
-(define all-programs (map car program-size))
+; (define all-programs (map car program-size))
+
+(define all-programs (sort reachability-bench-programs (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
 ; (define all-programs (sort '(eta blur loop2-1 sat-1 sat-2 regex map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
@@ -170,14 +173,12 @@
   (let ([results (list)])
     (for ([m (range 5)])
       (for ([program all-programs])
-        (for ([t timeouts])
-          (set! results (append (read-file (format "tests/m~a/~a-gas_~a.sexpr" m program t)) results))
-          )
+        (set! results (append (read-file (format "tests/m~a/~a.sexpr" m program)) results))
         )
       )
     (for ([m (range 5)])
       (for ([program all-programs])
-        (set! results (append (read-file (format "tests/m~a/exhaustive_~a-gas~a.sexpr" m program)) results))
+        (set! results (append (read-file (format "tests/m~a/exhaustive_~a.sexpr" m program)) results))
         )
       )
     results
@@ -205,20 +206,7 @@
           )
         ]
        )
-  ; (pretty-print rebind-res)
-  ; (define programs (set->list (set-subtract (apply set (map car mcfa-rebind-results))
-  ;                                           ; The following are simple test programs for evaluating correctness, not for benchmarking
-  ;                                           (apply set '(id err constr constr2 basic-letrec basic-letstar app-num let let-num multi-param structural-rec)))))
-  (define programs all-programs)
-  (define programs-no-regex (filter (λ (x) (not (equal? 'regex x))) all-programs))
-  (define num-programs (length programs))
-  ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-r1)) num-programs)))
-  ; (pretty-print (exact->inexact (/ (sum (map avg-time-res mcfa-e1)) num-programs)))
-  ; (pretty-print (map avg-time-res dmcfa-b1))
-  ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-b1)) num-programs)))
-  ; (pretty-print (exact->inexact (/ (sum (map avg-time-res dmcfa-a1)) (* num-shuffles num-programs))))
-  ; (define plot-height 130)
-  ; (define plot-width 600)
+  (define num-programs (length all-programs))
   (define plot-height 900)
   (define plot-width 1800)
   (plot-legend-font-size 10)
@@ -246,329 +234,6 @@
      )
 
     ; (parameterize ([plot-y-transform log-transform])
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (apply append
-                (map (λ (p)
-                       (map (λ (t)
-                              (define results (filter (filter-instant #f) (filter (filter-timeout t) (find-prog p (hash-ref h "dmcfa-b")))))
-                              ; (pretty-print (count is-result results))
-                              ; (pretty-print (length results))
-                              (list p (/ (* 100 (count is-result results)) (length results))))
-                            (list 5))) programs)
-                )
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Programs"
-     #:y-label "% Answers"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/dmcfa-noninstant.~a" out)
-     )
-    ; )
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (apply append
-                (map (λ (p)
-                       (map (λ (t)
-                              (define results (filter (filter-timeout t) (find-prog p (hash-ref h "dmcfa-b"))))
-                              ; (pretty-print (count is-result results))
-                              ; (pretty-print (length results))
-                              (list p (/ (* 100 (count is-result results)) (length results))))
-                            (list 5))) programs)
-                )
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Programs"
-     #:y-label "% Answers"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/dmcfa.~a" out)
-     )
-
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p)
-                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "~a" p) num-demand))
-              programs)
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program"
-     #:y-label "# Singletons"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/precision-instant.~a" out)
-     )
-
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p)
-                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "~a" p) num-demand))
-              programs)
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program"
-     #:y-label "# Singletons"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/precision.~a" out)
-     )
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p)
-                (define num-mcfa ((num-singletons #f) (car (find-prog p (hash-ref h "mcfa-e")))))
-                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "~a" p)
-                      (/
-                       (* 100 (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand))
-                       (max 1 num-mcfa)
-                       )))
-              programs-no-regex)
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program"
-     #:y-label "Singleton Flow Set Ratio"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/precision-cmp.~a" out)
-     )
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p)
-                (define num-mcfa ((num-singletons #t) (car (find-prog p (hash-ref h "mcfa-e")))))
-                (define num-demand (sum (map (num-singletons #t) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "~a" p)
-                      (/
-                       (* 100 (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand))
-                       (max 1 num-mcfa)
-                       )))
-              programs-no-regex)
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program"
-     #:y-label "Singleton Flow Set Ratio"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/precision-cmp-instant.~a" out)
-     )
-
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p)
-                (define num-mcfa ((num-singletons #f) (car (find-prog p (hash-ref h "mcfa-e")))))
-                (define num-demand (sum (map (num-singletons #f) (filter (filter-timeout 5) (find-prog p (hash-ref h "dmcfa-b"))))))
-                (list (format "~a" p)
-                      (/
-                       (if (equal? 0 num-mcfa) (+ 1 num-demand) num-demand)
-                       (max 1 num-mcfa)
-                       )))
-              '(regex))
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program"
-     #:y-label "# Singletons Demand / # Singletons Exhaustive"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/precision-regex.~a" out)
-     )
-
-
-    ; (plot
-    ;  (map
-    ;   (λ (m h)
-    ;     (discrete-histogram
-    ;      (map (λ (p)
-    ;             (define num-mcfa (* num-shuffles (num-singletons (car (find-prog p (hash-ref h "mcfa-e"))))))
-    ;             (define num-demand (sum (map num-singletons (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-a"))))))
-    ;             (list p num-demand))
-    ;           programs)
-    ;      #:label (format "m=~a" m)
-    ;      #:skip 3.5
-    ;      #:x-min m
-    ;      #:color m
-    ;      ))
-    ;   (range 5) hashes
-    ;   )
-    ;  #:x-label "Program"
-    ;  #:y-label "# Singletons Demand"
-    ;  #:width 1500
-    ;  #:height 500
-    ;  #:out-file (format "plots/precision-acc.~a" out)
-    ;  )
-
-    ; (plot
-    ;  (map
-    ;   (λ (m h)
-    ;     (discrete-histogram
-    ;      (map (λ (p)
-    ;             (define num-mcfa (num-singletons (car (find-prog p (hash-ref h "mcfa-e")))))
-    ;             (define num-demand (sum (map num-singletons (filter (filter-timeout 15) (find-prog p (hash-ref h "dmcfa-a"))))))
-    ;             (list p (/
-    ;                      (if (equal? 0 num-mcfa) (+ num-shuffles num-demand) num-demand)
-    ;                      (* num-shuffles (max 1 num-mcfa))
-    ;                      )))
-    ;           programs)
-    ;      #:label (format "m=~a" m)
-    ;      #:skip 3.5
-    ;      #:x-min m
-    ;      #:color m
-    ;      ))
-    ;   (range 5) hashes
-    ;   )
-    ;  #:x-label "Program"
-    ;  #:y-label "# Singletons Demand / # Singletons Exhaustive"
-    ;  #:width 1500
-    ;  #:height 500
-    ;  #:out-file (format "plots/precision-acc-cmp.~a" out)
-    ;  )
-
-    ; (plot
-    ;  (map
-    ;   (λ (m h)
-    ;     (discrete-histogram
-    ;      (apply append
-    ;             (map (λ (p)
-    ;                    (map (λ (t)
-    ;                           (define results (filter (filter-timeout t) (find-prog p (hash-ref h "dmcfa-a"))))
-    ;                           (list `(,t ,p) (/ (* 100 (count is-result results)) (length results))))
-    ;                         timeouts)) programs)
-    ;             )
-    ;      #:label (format "m=~a" m)
-    ;      #:skip 3.5
-    ;      #:x-min m
-    ;      #:color m
-    ;      ))
-    ;   (range 5) hashes
-    ;   )
-    ;  #:x-label "Timeouts (ms)"
-    ;  #:y-label "% Answers"
-    ;  #:width 2000
-    ;  #:height 500
-    ;  #:out-file (format "plots/dmcfa-cached.~a" out)
-    ;  )
-    ; )
-    ; (parameterize (
-    ;                [plot-x-transform log-transform]
-    ;                [plot-x-ticks (ticks (λ (y₀ y₁) ts)
-    ;                                     (λ (y₀ y₁ ts)
-    ;                                       (map (match-lambda
-    ;                                              [(pre-tick x _)
-    ;                                               (format "~ams" x)])
-    ;                                            ts)))]
-    ;                [plot-x-far-ticks no-ticks]
-    ;                [plot-x-label "Time"]
-    ;                [plot-y-label "% Queries Answered"]
-    ;                [plot-width 1024]
-    ;                [plot-height 512])
-    ; (map
-    ;  (lambda (h m)
-    ;    (pretty-print (hash-ref h "mcfa-r"))
-    ;    (map (lambda (prog)
-    ;           ; (pretty-display (format "Looking for program ~a" prog))
-    ;           (define pr (find-prog prog (hash-ref h "mcfa-r")))
-    ;           ; (pretty-print pr)
-    ;           (define pe (find-prog prog (hash-ref h "mcfa-e")))
-    ;           ; (pretty-print pe)
-    ;           (plot
-    ;            #:x-min 1/500
-    ;            #:x-max 500
-    ;            #:y-min 0
-    ;            #:y-max 1.1
-    ;            #:out-file (format "plots/m~a/~a.pdf" m prog)
-    ;            (cons
-    ;             (function (step-n pr (car pr))
-    ;                       1/500 500
-    ;                       #:samples 1000
-    ;                       #:style 'solid
-    ;                       #:label (format "1CFA ~a (rebinding)" prog)
-    ;                       #:color 0)
-    ;             (cons
-    ;              (function (step-n pe (car pe))
-    ;                        1/500 500
-    ;                        #:samples 1000
-    ;                        #:style 'solid
-    ;                        #:label (format "1CFA ~a (exponential)" prog)
-    ;                        #:color 1)
-    ;              (cons (function (step-n (find-prog prog (hash-ref h "dmcfa-b")) (car pe) #t)
-    ;                              1/500 500
-    ;                              #:samples 1000
-    ;                              #:style 'short-dash
-    ;                              #:label (format "d1CFA ~a" prog)
-    ;                              #:color 2)
-    ;                    (map (lambda (iter)
-    ;                           (function (step-n (find-prog-randiter prog iter (hash-ref h "dmcfa-a")) (car pe))
-    ;                                     1/500 500
-    ;                                     #:samples 1000
-    ;                                     #:style 'long-dash
-    ;                                     #:label (format "d1CFA ~a cached" prog)
-    ;                                     #:color (+ 3 iter))
-    ;                           )
-    ;                         (range num-shuffles)))
-    ;              )
-
-    ;             )
-    ;            )
-    ;           ) programs)
-    ;    )
-    ;  hashes
-    ;  (range 5)
-    ;  )
-    ; )
+   
     )
   )

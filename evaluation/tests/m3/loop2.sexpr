@@ -1,0 +1,5 @@
+'(demand-time-all-queries loop2 3 100 930 (4 4 0))
+'(demand-time-all-queries loop2 3 200 1000 (3 3 0))
+'(demand-time-all-queries loop2 3 300 1070 (3 3 0))
+'(demand-time-all-queries loop2 3 400 1140 (3 3 0))
+'(demand-time-all-queries loop2 3 500 1210 (3 3 0))

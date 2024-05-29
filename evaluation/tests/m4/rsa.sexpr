@@ -1,0 +1,5 @@
+'(demand-time-all-queries rsa 4 100 3027 (280 282 1))
+'(demand-time-all-queries rsa 4 200 3279 (421 422 3))
+'(demand-time-all-queries rsa 4 300 3531 (562 564 4))
+'(demand-time-all-queries rsa 4 400 3783 (750 754 9))
+'(demand-time-all-queries rsa 4 500 4035 (882 882 9))

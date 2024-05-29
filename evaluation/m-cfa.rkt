@@ -263,7 +263,7 @@
                              ))))))
         ]
        [(cons C `(app ,f ,@as)) ; For an application
-        (>>=clos
+        (>>=clos ; TODO: Could this result in a symbol representing a top level application?
          (>>= (rat Ce ρ) meval) ; Evaluate the operator
          (λ (lam lamρ)
            ;  (pretty-print 'before-args)

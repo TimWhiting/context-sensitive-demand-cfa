@@ -5,7 +5,7 @@
 ; number of times to time the computation (to get a statistical average / stderr)
 (define time-trials 1)
 
-(define gases (list 100 200 300 400 500 700 1000 1200))
+(define gases (list 100 200 300 400 500))
 
 ; number of times to run a query computation (to accumulate enough time to be in milliseconds hopefully?)
 (define acc-trials 1)

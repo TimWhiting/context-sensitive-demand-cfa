@@ -30,11 +30,11 @@
 
 '(query: ((top) lettypes (cons ... nil) ...) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (lettypes cons ... nil (let (lp1) ...)) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (lp1 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)
@@ -42,32 +42,41 @@ literals: '(⊥ ⊥ ⊥)
 clos/con:
 	'((let (... () (lp1 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)
   (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons 'unspecified (-> (app nil) <-)) (env ()))
 clos/con:
 	'(((top) app nil) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app (-> nil <-)) (env ()))
 clos/con:
 	'((app (-> nil <-)) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app cons (-> 'unspecified <-) (app nil)) (env ()))
-clos/con:
-	'((app cons (-> 'unspecified <-) (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
+clos/con: ⊥
+literals: '(⊥ ⊥ ⊥ unspecified)
 
 '(query: (app (-> cons <-) 'unspecified (app nil)) (env ()))
 clos/con:
 	'((app (-> cons <-) 'unspecified (app nil)) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (let (lp1) (-> (let (a) ...) <-)) (env ()))
 clos/con: ⊥
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...)
   (env ()))
+clos/con:
+	'((let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (app set! lp1 (-> (λ (i x) ...) <-)) (env ()))
+clos/con:
+	'((app set! lp1 (-> (λ (i x) ...) <-)) (env ()))
+literals: '(⊥ ⊥ ⊥ ⊥)
+
+'(query: (λ (i x) (-> (let (a) ...) <-)) (env (())))

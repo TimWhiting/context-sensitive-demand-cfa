@@ -27,6 +27,7 @@
 (define (litnum f) (literal (list (singleton f) (bottom) (bottom) (bottom))))
 (define topnum (lit (literal (list (top) (bottom) (bottom) (bottom)))))
 (define (litchar c) (literal (list (bottom) (singleton c) (bottom) (bottom))))
+(define topchar (lit (literal (list (bottom) (top) (bottom) (bottom)))))
 (define (litstring s) (literal (list (bottom) (bottom) (singleton s) (bottom))))
 (define topstr (lit (literal (list (bottom) (bottom) (top) (bottom)))))
 (define (litsym s) (literal (list (bottom) (bottom) (bottom) (singleton s))))

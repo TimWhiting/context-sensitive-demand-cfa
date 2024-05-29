@@ -1,0 +1,60 @@
+'(rebinding
+  scheme2java
+  0
+  137600
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")
+'(exponential
+  scheme2java
+  0
+  137600
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")
+'(rebinding scheme2java 0 275200 596 683 344 596 195 13573/683 (5585 5586 230))
+'(exponential
+  scheme2java
+  0
+  275200
+  596
+  683
+  344
+  596
+  195
+  13573/683
+  (4900 4900 46))
+'(rebinding scheme2java 0 412800 596 683 344 596 195 13573/683 (5662 5662 201))
+'(exponential
+  scheme2java
+  0
+  412800
+  596
+  683
+  344
+  596
+  195
+  13573/683
+  (4456 4456 70))
+'(rebinding scheme2java 0 550400 596 683 344 596 195 13573/683 (5220 5221 206))
+'(exponential
+  scheme2java
+  0
+  550400
+  596
+  683
+  344
+  596
+  195
+  13573/683
+  (4575 4575 96))
+'(rebinding scheme2java 0 688000 596 683 344 596 195 13573/683 (5516 5516 147))
+'(exponential
+  scheme2java
+  0
+  688000
+  596
+  683
+  344
+  596
+  195
+  13573/683
+  (4460 4460 90))

@@ -1,0 +1,5 @@
+'(demand-time-all-queries primtest 1 100 1899 (116 116 0))
+'(demand-time-all-queries primtest 1 200 2118 (174 174 0))
+'(demand-time-all-queries primtest 1 300 2337 (201 201 1))
+'(demand-time-all-queries primtest 1 400 2556 (241 241 1))
+'(demand-time-all-queries primtest 1 500 2775 (276 276 2))
