@@ -16,7 +16,7 @@
 
 (define (average-or-false time-res)
   (if time-res
-      (average time-res)
+      (car time-res)
       #f
       )
   )
@@ -241,8 +241,36 @@
         #:y-label "Percent Answered Queries"
         #:width plot-width
         #:height plot-height
-        #:out-file (format "plots/mcfa_~a.~a" m out)
+        #:out-file (format "plots/total-queries-answered_~a.~a" m out)
         )
+
+        (plot
+          (map (λ (i p) 
+                (pretty-print `(plot ,p ,i))
+                (lines 
+                  (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
+                  #:color i
+                  #:label (format "~a" p)
+                )
+               )
+            (range (length all-programs)) all-programs)
+          (map (λ (i p) 
+                (pretty-print `(plot ,p ,i))
+                (lines 
+                  (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
+                  #:color i
+                  #:label (format "~a" p)
+                )
+               )
+            (range (length all-programs) (* 2 (length all-programs))) all-programs)
+        #:x-label "Gas"
+        #:y-label "Percent Answered Queries"
+        #:width plot-width
+        #:height plot-height
+        #:out-file (format "plots/total-queries-answered_~a.~a" m out)
+        )
+
+
       ) 
       (range (length hashes)) hashes)
     ; (parameterize ([plot-y-transform log-transform])
