@@ -463,7 +463,7 @@
 ;; Read in an expression, compile it, and print it out:
 
 ;; Hard-coded program for static analysis benchmarking.
-(define input-program 3)
+(define input-program '((lambda (x) (let ([z (+ 3 x)]) (+ 3 x z)) 10)))
 
 (analyze-mutable-variables input-program)
 

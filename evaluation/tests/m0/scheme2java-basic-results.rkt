@@ -4,15 +4,6 @@
    (letrec*
     ((car (λ (car-v) (match car-v ((cons car-c car-d) car-c))))
      (cdr (λ (cdr-v) (match cdr-v ((cons cdr-c cdr-d) cdr-d))))
-     (cadr (λ (cadr-v) (app car (app cdr cadr-v))))
-     (caddr (λ (cadr-v) (app car (app cdr (app cdr cadr-v)))))
-     (map
-      (λ (map-f map-l)
-        (match
-         map-l
-         ((cons map-c map-d)
-          (app cons (app map-f map-c) (app map map-f map-d)))
-         ((nil) (app nil)))))
      (length
       (λ (length-l)
         (match
@@ -50,7 +41,11 @@
               (_ (app cons (app string-ref s i) (app f (app + i 1))))))))
          (app f 0))))
      (tagged-list?
-      (λ (tag l) (app and (app pair? l) (app eq? tag (app car l)))))
+      (λ (tag l)
+        (match
+         (app pair? l)
+         ((#f) (app #f))
+         (_ (match (app eq? tag (app car l)) ((#f) (app #f)) (_ (app #t)))))))
      (char->natural
       (λ (c)
         (let ((i (app char->integer c)))
@@ -63,10 +58,14 @@
      (let->exp (λ (exp) (app caddr exp)))
      (letrec1?
       (λ (exp)
-        (app
-         and
+        (match
          (app tagged-list? 'letrec exp)
-         (app = (app length (app cadr exp)) 1))))
+         ((#f) (app #f))
+         (_
+          (match
+           (app = (app length (app cadr exp)) 1)
+           ((#f) (app #f))
+           (_ (app #t)))))))
      (letrec1->binding (λ (exp) (app caadr exp)))
      (letrec1->exp (λ (exp) (app caddr exp)))
      (lambda? (λ (exp) (app tagged-list? 'lambda exp)))
@@ -81,13 +80,23 @@
      (app->args (λ (exp) (app cdr exp)))
      (prim?
       (λ (exp)
-        (app
-         or
+        (match
          (app eq? exp '+)
-         (app eq? exp '-)
-         (app eq? exp '*)
-         (app eq? exp '=)
-         (app eq? exp 'display))))
+         ((#f)
+          (match
+           (app eq? exp '-)
+           ((#f)
+            (match
+             (app eq? exp '*)
+             ((#f)
+              (match
+               (app eq? exp '=)
+               ((#f)
+                (match (app eq? exp 'display) ((#f) (app #f)) (_ (app #t))))
+               (_ (app #t))))
+             (_ (app #t))))
+           (_ (app #t))))
+         (_ (app #t)))))
      (begin? (λ (exp) (app tagged-list? 'begin exp)))
      (begin->exps (λ (exp) (app cdr exp)))
      (set!? (λ (exp) (app tagged-list? 'set! exp)))
@@ -259,7 +268,16 @@
      (begin=>let
       (λ (exp)
         (letrec*
-         ((singlet? (λ (l) (app and (app list? l) (app = (app length l) 1))))
+         ((singlet?
+           (λ (l)
+             (match
+              (app list? l)
+              ((#f) (app #f))
+              (_
+               (match
+                (app = (app length l) 1)
+                ((#f) (app #f))
+                (_ (app #t)))))))
           (dummy-bind
            (λ (exps)
              (match
@@ -385,13 +403,21 @@
               (app null? chars)
               ((#f)
                (match
-                (app
-                 or
-                 (app
-                  and
+                (match
+                 (match
                   (app char-alphabetic? (app car chars))
-                  (app not (app char=? (app car chars) #\_)))
-                 (app char-numeric? (app car chars)))
+                  ((#f) (app #f))
+                  (_
+                   (match
+                    (app not (app char=? (app car chars) #\_))
+                    ((#f) (app #f))
+                    (_ (app #t)))))
+                 ((#f)
+                  (match
+                   (app char-numeric? (app car chars))
+                   ((#f) (app #f))
+                   (_ (app #t))))
+                 (_ (app #t)))
                 ((#f)
                  (app
                   cons
@@ -600,6 +626,39 @@
          ") : ("
          (app java-compile-exp (app if->else exp))
          ")")))
-     (input-program 3))
+     (input-program
+      (app
+       cons
+       (app
+        cons
+        'lambda
+        (app
+         cons
+         (app cons 'x (app nil))
+         (app
+          cons
+          (app
+           cons
+           'let
+           (app
+            cons
+            (app
+             cons
+             (app
+              cons
+              'z
+              (app
+               cons
+               (app cons '+ (app cons 3 (app cons 'x (app nil))))
+               (app nil)))
+             (app nil))
+            (app
+             cons
+             (app cons '+ (app cons 3 (app cons 'x (app cons 'z (app nil)))))
+             (app nil))))
+          (app cons 10 (app nil)))))
+       (app nil))))
     (let ((_ (app analyze-mutable-variables input-program)))
       (app display (app java-compile-program input-program))))))
+
+'(query: ((top) lettypes (cons ... error) ...) (env ()))

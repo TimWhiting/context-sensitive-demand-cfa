@@ -54,16 +54,16 @@
 
 (define (truecon C p)
   (match (analysis-kind)
-    ['exponential (clos (cons `(top) #t) (top-env))]
-    ['rebinding (clos (cons `(top) #t) (top-env))]
+    ['exponential (clos (cons `(top) `(typedef (#t))) (top-env))]
+    ['rebinding (clos (cons `(top) `(typedef (#t))) (top-env))]
     ['basic (clos (cons `(top) #t) (top-env))]
     )
   )
 
 (define (falsecon C p)
   (match (analysis-kind)
-    ['exponential (clos (cons `(top) #f) (top-env))]
-    ['rebinding (clos (cons `(top) #f) (top-env))]
+    ['exponential (clos (cons `(top) `(typedef (#f))) (top-env))]
+    ['rebinding (clos (cons `(top) `(typedef (#f))) (top-env))]
     ['basic (clos (cons `(top) #f) (top-env))]
     )
   )

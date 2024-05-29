@@ -32,10 +32,24 @@
 ; Specifies using litbottom lit-lte and lit-union for the union of literal elements in the store
 (define product-absorb-lit (node-absorb/product litbottom lit-lte lit-union))
 
+(define (assert-right-value val)
+  (match val
+    [(product/set (list `(con ,con) _)) #t]
+    [(product/set (list `(con ,con ,(cons C `(app ,f ,@as))) _)) #t]
+    [(product/set (list (cons C `(λ ,x ,@bs)) _)) #t]
+    [(product/set (list (cons C `(typedef ,constr)) _)) #t]
+    [(product/set (list `(prim ,x ,e) _)) #t]
+    [(product/set (list `',x _)) #t]
+    [(product/set (list Ce _)) (error 'improper-value (pretty-format (show-simple-ctx Ce)))]
+    [(product/lattice n) #t]
+  )
+)
+
 ; Extends the variable `x` uniquely
 ; identified by the context `Ce` / constructor it was bound at
 ; in environment `env` with the value `val`
 (define (((extend-store x bindCe env val) k) s)
+  (assert-right-value val)
   ; (pretty-print `(extend-store ,x ,(show-simple-ctx bindCe) ,(show-simple-env env)))
   ((k #f) ((product-absorb-lit (store (list x bindCe env)) val) s))
   )
@@ -125,7 +139,9 @@
     [#f
      (match ((lookup-constructor x) Ce) ; Check if it is a constructor
        [#f (store-lookup x Ce ρ)] ; Otherwise lookup in the store / environment
-       [_ (clos Ce ρ)] ; Is constructor
+       [Ce 
+        ; (pretty-print `(constructor-found ,x ,(show-simple-ctx Ce)))
+       (clos Ce (top-env))] ; Is constructor
        )
      ]
     [Ce (clos Ce ρ)] ; Primitives return the primitive in this environment
@@ -185,15 +201,16 @@
   ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
   ;  (λ ()
      ;  (pretty-print Ce)
-     ; (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
+    ;  (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
      (match Ce
        [(cons _ #t) (truecon Ce ρ)] ; Return a true value
        [(cons _ #f) (falsecon Ce ρ)] ; Return a false value
        [(cons _ (? number? x)) (lit (litnum x))] ; Return a literal number
        [(cons _ (? string? x)) (lit (litstring x))] ; Return a literal string
+       [(cons _ (? char? x)) (lit (litchar x))] ; Return a literal string
        [(cons _ (? symbol? x)) (symbol-lookup x Ce ρ)] ; Lookup the symbol uniquely identified by it's binding context and environment
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)] ; Return a closure value
-       [(cons _ `',x) (clos Ce ρ)] ; Return a quoted value
+       [(cons _ `',x) (clos `',x (top-env))] ; Return a quoted value
        [(cons _ `(lettypes ,_ ,_)) (>>= (bod Ce ρ) meval)] ; Evaluate the body of a lettypes declaration
        [(cons _ `(let ,binds ,_))
         (define bin-ce-p (bins Ce ρ binds))
@@ -285,8 +302,8 @@
                                          (meval bodCe ρ-new)))]
                                  ))))
                           )]
-                    [(cons C con) ; For constructors
-                     ;  (pretty-print `(constructor? ,con ,(length as)))
+                    [(cons C `(typedef (,con ,@conargs))) ; For constructors
+                      ; (pretty-print `(constructor? ,con ,conargs))
                      (if (or (equal? con #t) (equal? con #f) (symbol? con)) ; Ensure the constructor is a #t #f or symbol
                          (if (= (length as) 0) ; If the constructor has no arguments
                              (clos `(con ,con) (top-env)) ; Just return the constructor in the top-env
@@ -299,6 +316,10 @@
                          ⊥ ; (error 'invalid-rator (pretty-format `(invalid-rator ,(show-simple-ctx Ce) ,(show-simple-ctx lam))))
                          )
                      ]
+                     [Ce 
+                        (pretty-print (show-simple-ctx Ce))
+                        (error 'invalid-rator)
+                      ]
                     ))))
 
          )
@@ -408,25 +429,27 @@
                                    ]))
                               ))))))
         ]
-       [(cons C `',x) ; A quoted symbol match?
-        (unit (and (eq? 0 (length subpats)) (eq? `',x con)))
-        ]
-       [Ce
-        (if (equal? pattern `(#t)); Truthy
-            (unit #t); if Ce is a constructor it would be caught earlier
-            (if (equal? pattern `(#f)) ; Falsey
-                (unit #f) ; if Ce is a constructor it would be caught earlier
-                ⊥
-                ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
-                ))]
+        [_ ⊥] ; Symbol or other non-constructors
+      ;   [(cons C `',x) ; A quoted symbol match?
+      ;   (unit (and (eq? 0 (length subpats)) (eq? `',x con)))
+      ;   ]
+      ;  [Ce
+      ;   (if (equal? pattern `(#t)); Truthy
+      ;       (unit #t); if Ce is a constructor it would be caught earlier
+      ;       (if (equal? pattern `(#f)) ; Falsey
+      ;           (unit #f) ; if Ce is a constructor it would be caught earlier
+      ;           ⊥
+      ;           ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+      ;           ))]
        )]
     [`',x
      (match Ce ; Match quoted symbols
-       [(cons C `',x1)
+       [`',x1
         (if (eq? x x1) (unit #t) (unit #f))]
        [_ (unit #f)]
        )]
     [(? symbol? x)
+    ;  (pretty-print (show-simple-ctx Ce))
      (if (eq? x '_) ; If the symbols match and x is a wildcard don't bind anything
          (unit #t)
          ; Otherwise bind the symbol x to the value wrapped back up as a closure

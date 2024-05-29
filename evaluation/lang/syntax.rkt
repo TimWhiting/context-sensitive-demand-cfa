@@ -14,6 +14,7 @@
     ['letrec #t]
     ['let* #t]
     ['letrec* #t]
+    ['lettypes #t]; Generated for type definitions, also has binding and a body
     [_ #f]
     ))
 

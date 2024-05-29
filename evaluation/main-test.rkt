@@ -20,7 +20,7 @@
         (run/parameters
          name
          m kind
-         (let ([hash-new (run-get-hash query (hash))])
+         (match-let ([(state-gas hash-new g) (run-get-hash query (hash) 5000)])
            (set! hash-result hash-new)
            )
          )])
@@ -32,7 +32,7 @@
       (for ([key (in-hash-keys hash-result)])
         ; (pretty-display `(,(from-hash key hash-result)))
         (if (is-bottom (from-hash key hash-result))
-            (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind key))
+            '(); (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind key))
             '()
             ))
       '()
@@ -63,8 +63,8 @@
         (run/parameters
          name
          m kind
-         (let
-             ([hash-new (run-get-hash query hashed)])
+         (match-let
+             ([(state-gas hash-new g) (run-get-hash query hashed 700)])
            (set! hash-result hash-new)
            (from-hash query hash-result)
            ))])
@@ -83,7 +83,7 @@
   (show-envs #f)
   ; (trace 1)
   (trace #f)
-  (for ([m (in-range 0 2)])
+  (for ([m (in-range 1 2)])
     (let ([basic-cost 0]
           [rebind-cost 0]
           [expm-cost 0]
@@ -102,9 +102,9 @@
       (define benchmark-2 '(meta-circ regex-derivative regex loop2 scheme-to-c scheme2java))
       (define requires-set '(loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
-      (for ([example (get-examples all-examples)])
+      ; (for ([example (get-examples all-examples)])
         ; (for ([example (get-examples '(blur))])
-        ; (for ([example (get-examples '(meta-circ) all-benchmarks)])
+        (for ([example (get-examples '(meta-circ) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
           (pretty-displayn 0 "")
@@ -115,24 +115,24 @@
 
           (define rebindhash (run-rebind name exp m))
           (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
-          (define expmhash (run-expm name exp m))
-          (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
+          ; (define expmhash (run-expm name exp m))
+          ; (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
-          (pretty-print "Finished regular mcfa")
-          (define qbs (basic-queries exp))
-          (set! num-queries (+ num-queries (length qbs)))
-          (define h1 (hash))
-          (pretty-display (format "running ~a, m=~a kind=basic" name m))
-          (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
-          (for ([file (list out-basic)])
-            (pretty-print `(expression: ,exp) file))
-          (for ([qs qbs])
-            (match-let ([(list cb pb) qs])
-              (pretty-tracen 0 "Running query ")
-              (define h2 (run-demand name (length qbs) 'basic m cb pb out-basic (hash) #t))
-              (set! basic-cost (+ basic-cost (hash-num-keys h2)))
-              )
-            )
+          ; (pretty-print "Finished regular mcfa")
+          ; (define qbs (basic-queries exp))
+          ; (set! num-queries (+ num-queries (length qbs)))
+          ; (define h1 (hash))
+          ; (pretty-display (format "running ~a, m=~a kind=basic" name m))
+          ; (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
+          ; (for ([file (list out-basic)])
+          ;   (pretty-print `(expression: ,exp) file))
+          ; (for ([qs qbs])
+          ;   (match-let ([(list cb pb) qs])
+          ;     (pretty-tracen 0 "Running query ")
+          ;     (define h2 (run-demand name (length qbs) 'basic m cb pb out-basic (hash) #t))
+          ;     (set! basic-cost (+ basic-cost (hash-num-keys h2)))
+          ;     )
+          ;   )
           )
         )
       (pretty-print `(current-m: ,(current-m)))

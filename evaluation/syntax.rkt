@@ -1,5 +1,5 @@
 #lang racket/base
-(require racket/set racket/match racket/pretty "utils.rkt")
+(require racket/set racket/match racket/pretty racket/list "utils.rkt")
 (provide (all-defined-out))
 (require "lang/syntax.rkt")
 (provide (all-from-out "lang/syntax.rkt"))
@@ -44,7 +44,20 @@
      (cons C `(,let-kind ,(append before (list `(,x ,e₀)) after) ,e₁))]
     [(cons `(lettypes-bod ,binds ,C) e₁)
      (cons C `(lettypes ,binds ,e₁))]
+    [(cons `(bintp ,l ,e ,before ,after ,C) `(typedef ,bind))
+      (cons C `(lettypes ,(append before (list bind) after) ,e))]
     [(cons `(top) _) (error 'out "top")]))
+
+
+(define ((bintp i) Ce)
+  (match Ce
+    [(cons C `(,l ,binds ,e₁))
+     (check-let l)
+     (define before (take binds i))
+     (define eqafter (drop binds i))
+     (define after (cdr eqafter))
+     (define bind (car eqafter))
+     (cons `(bintp ,l ,e₁ ,before ,after ,C) `(typedef ,bind))]))
 
 (define ((lookup-constructor c) Ce)
   (define (search-out) ((lookup-constructor c) (oute Ce)))
@@ -52,7 +65,7 @@
     [(cons `(top) _) #f]
     [(cons `(lettypes-bod ,binds ,C) e₁)
      (if (member c (map car binds))
-         Ce
+         ((bintp (index-of (map car binds) c)) (oute Ce))
          (search-out)
          )]
     [_ (search-out)]
@@ -100,6 +113,7 @@
     [(? char? x) x]
     [(? string? x) x]
     [`',x `',x]
+    [`(typedef ,tp) tp]
     ; ['() '()]
     [#t #t]
     [#f #f]
@@ -143,6 +157,8 @@
     [(? string? x) x]
     [`(con ,nm ,@args) `(con ,nm ,@(map show-simple-ctx args))]
     [`(top) `(top)]
+    [`',x `',x]
+    [(cons `(bintp ,l ,e ,before ,after ,C) tp) tp]
     [_
      (error 'fail (pretty-format `(no-simple-context-for ,Ce)))
      ]

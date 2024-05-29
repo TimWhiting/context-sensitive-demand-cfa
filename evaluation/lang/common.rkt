@@ -122,7 +122,7 @@
                      )
                   )
             ))
-   (list `(cons car cdr) `(nil) `(error r)))
+   (list `(cons car cdr) `(nil) `(error r) `(#t) `(#f)))
   )
 
 (define (get-tps tps)
