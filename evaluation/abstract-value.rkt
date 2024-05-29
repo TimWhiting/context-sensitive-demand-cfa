@@ -23,18 +23,21 @@
 (struct bottom flat-lattice () #:transparent)
 (struct singleton flat-lattice (x) #:transparent)
 
-(define litbottom (literal (list (bottom) (bottom) (bottom))))
-(define (litnum f) (literal (list (singleton f) (bottom) (bottom))))
-(define topnum (lit (literal (list (top) (bottom) (bottom)))))
-(define (litchar c) (literal (list (bottom) (singleton c) (bottom))))
-(define (litstring s) (literal (list (bottom) (bottom) (singleton s))))
-(define topstr (lit (literal (list (bottom) (bottom) (top)))))
+(define litbottom (literal (list (bottom) (bottom) (bottom) (bottom))))
+(define (litnum f) (literal (list (singleton f) (bottom) (bottom) (bottom))))
+(define topnum (lit (literal (list (top) (bottom) (bottom) (bottom)))))
+(define (litchar c) (literal (list (bottom) (singleton c) (bottom) (bottom))))
+(define (litstring s) (literal (list (bottom) (bottom) (singleton s) (bottom))))
+(define topstr (lit (literal (list (bottom) (bottom) (top) (bottom)))))
+(define (litsym s) (literal (list (bottom) (bottom) (bottom) (singleton s))))
+(define topsym (lit (literal (list (bottom) (bottom) (bottom) (top)))))
 
 (define (to-lit lit)
   (match lit
     [(? number? n) (litnum n)]
     [(? string? s) (litstring s)]
     [(? char? c) (litchar c)]
+    [`',x (litsym x)]
     [_ #f]
     )
   )

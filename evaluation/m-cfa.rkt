@@ -32,24 +32,11 @@
 ; Specifies using litbottom lit-lte and lit-union for the union of literal elements in the store
 (define product-absorb-lit (node-absorb/product litbottom lit-lte lit-union))
 
-(define (assert-right-value val)
-  (match val
-    [(product/set (list `(con ,con) _)) #t]
-    [(product/set (list `(con ,con ,(cons C `(app ,f ,@as))) _)) #t]
-    [(product/set (list (cons C `(λ ,x ,@bs)) _)) #t]
-    [(product/set (list (cons C `(typedef ,constr)) _)) #t]
-    [(product/set (list `(prim ,x ,e) _)) #t]
-    [(product/set (list `',x _)) #t]
-    [(product/set (list Ce _)) (error 'improper-value (pretty-format (show-simple-ctx Ce)))]
-    [(product/lattice n) #t]
-  )
-)
-
 ; Extends the variable `x` uniquely
 ; identified by the context `Ce` / constructor it was bound at
 ; in environment `env` with the value `val`
 (define (((extend-store x bindCe env val) k) s)
-  (assert-right-value val)
+  (assert-right-value-mcfa val)
   ; (pretty-print `(extend-store ,x ,(show-simple-ctx bindCe) ,(show-simple-env env)))
   ((k #f) ((product-absorb-lit (store (list x bindCe env)) val) s))
   )
@@ -144,7 +131,7 @@
        (clos Ce (top-env))] ; Is constructor
        )
      ]
-    [Ce (clos Ce ρ)] ; Primitives return the primitive in this environment
+    [Ce (clos Ce (top-env))] ; Primitives return the primitive in this environment
     ))
 
 ; Evaluates a sequence of arguments
@@ -202,7 +189,9 @@
   ;  (λ ()
      ;  (pretty-print Ce)
     ;  (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
-     (match Ce
+     (check-result 
+      assert-right-value-mcfa
+      (match Ce
        [(cons _ #t) (truecon Ce ρ)] ; Return a true value
        [(cons _ #f) (falsecon Ce ρ)] ; Return a false value
        [(cons _ (? number? x)) (lit (litnum x))] ; Return a literal number
@@ -210,7 +199,11 @@
        [(cons _ (? char? x)) (lit (litchar x))] ; Return a literal string
        [(cons _ (? symbol? x)) (symbol-lookup x Ce ρ)] ; Lookup the symbol uniquely identified by it's binding context and environment
        [(cons _ `(λ ,_ ,_)) (clos Ce ρ)] ; Return a closure value
-       [(cons _ `',x) (clos `',x (top-env))] ; Return a quoted value
+       [(cons _ `',x) 
+       (if (symbol? x) 
+           (lit (litsym x))
+           (error 'quoted-non-symbol (pretty-display `',x)))
+       ] ; Return a quoted value
        [(cons _ `(lettypes ,_ ,_)) (>>= (bod Ce ρ) meval)] ; Evaluate the body of a lettypes declaration
        [(cons _ `(let ,binds ,_))
         (define bin-ce-p (bins Ce ρ binds))
@@ -316,17 +309,21 @@
                          ⊥ ; (error 'invalid-rator (pretty-format `(invalid-rator ,(show-simple-ctx Ce) ,(show-simple-ctx lam))))
                          )
                      ]
-                     [Ce 
-                        (pretty-print (show-simple-ctx Ce))
-                        (error 'invalid-rator)
+                     [`(con ,con ,@Ce)
+                        ;(pretty-print (show-simple-ctx Ce))
+                        ⊥ ;(error 'invalid-rator)
                       ]
+                     [_
+                      (pretty-print (show-simple-ctx Ce))
+                      (error 'invalid-rator)
+                     ]
                     ))))
 
          )
         ]
        ; Otherwise throw an error
        [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
-       ))
+       )))
   ;  #t ))
 
 ; Looks up the constructor values requested in a match statement
@@ -442,12 +439,7 @@
       ;           ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
       ;           ))]
        )]
-    [`',x
-     (match Ce ; Match quoted symbols
-       [`',x1
-        (if (eq? x x1) (unit #t) (unit #f))]
-       [_ (unit #f)]
-       )]
+    [`',x (unit #f)] ; symbols are matched by literals not constructors
     [(? symbol? x)
     ;  (pretty-print (show-simple-ctx Ce))
      (if (eq? x '_) ; If the symbols match and x is a wildcard don't bind anything

@@ -25,6 +25,27 @@
       (pretty-print p)
       '()))
 
+(define (assert-right-value-mcfa val)
+  (match val
+    [(product/set (list `(con ,con) _)) #t]
+    [(product/set (list `(con ,con ,(cons C `(app ,f ,@as))) _)) #t]
+    [(product/set (list (cons C `(λ ,x ,@bs)) _)) #t]
+    [(product/set (list (cons C `(typedef ,constr)) _)) #t]
+    [(product/set (list `(prim ,x ,e) _)) #t]
+    [(product/set (list Ce _)) (error 'improper-value (pretty-format (show-simple-ctx Ce)))]
+    [(product/lattice n) #t]
+  )
+)
+
+(define (check-result f comp)
+  (>>= comp
+    (λ (res) 
+      (f res)
+      (unit res)
+    )
+  )
+)
+
 (define (print-eval-result input computation [override #f])
   (define show (or (trace) override))
   (if show (pretty-print `(start ,input)) '())

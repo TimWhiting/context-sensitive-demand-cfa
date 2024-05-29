@@ -188,7 +188,7 @@
 
 (define (is-truthy ρ C v)
   (match v
-    [(product/lattice (literal (list i1 c1 s1))) (unit #t)]
+    [(product/lattice (literal (list i1 c1 s1 sy1))) (unit #t)]
     [(product/set (list (cons C `(λ ,_ ,@_)) p)) (unit #t)]; Closures
     [(product/set (list (cons C `',x) p)) (unit #t)]; quoted symbols
     [(product/set (list Ce ρe)) ; Constructors
@@ -201,11 +201,11 @@
 
 (define (do-demand-equal ρ C a1 a2)
   (match a1
-    [(product/lattice (literal (list i1 c1 s1)))
+    [(product/lattice (literal (list i1 c1 s1 sy1)))
      (match a2
-       [(product/lattice (literal (list i2 c2 s2)))
+       [(product/lattice (literal (list i2 c2 s2 sy2)))
         (define f-lit (for-lit ρ C))
-        (bool-result (f-lit i1 i2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C ρ)
+        (bool-result (f-lit i1 i2 =) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) (f-lit sy1 sy2 eq?) C ρ)
         ]
        [_ (false C ρ)] ; Primitive != Clos/Con
        )]

@@ -43,6 +43,7 @@
     ['char-alphabetic? `(prim char-alphabetic? ,do-char-alphabetic?)]
     ['char->integer `(prim char->integer ,do-char->integer)]
     ['symbol->string `(prim symbol->string ,do-symbol->string)]
+    ['string->symbol `(prim string->symbol ,do-string->symbol)]
     ['list->string `(prim list->string ,do-list-string)]
     ['void  `(prim void ,do-void)]
     [_ #f]
@@ -120,16 +121,17 @@
 
 (define (do-equal p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))) 
+           (product/lattice (literal (list i2 c2 s2 sy2))))
      (define f-lit (for-lit p C))
-     (bool-result (f-lit i1 i2 eq?) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) C p)]
+     (bool-result (f-lit i1 i2 =) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) (f-lit sy1 sy2 eq?) C p)]
     [_ (each (true C p) (false C p))]) ; Constructors need refinement for equal? - not eq?
   )
 
 (define (do-number-string p C . args)
   ; (pretty-print args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
      (match i1
        [(bottom) ⊥]
        [_ topstr]
@@ -142,10 +144,27 @@
 (define (do-list-string p C . args)
   topstr)
 
-
 (define (do-symbol->string p C . args)
-  topstr)
+(match args
+  [(list (product/lattice (literal (list n1 c1 s1 (singleton sy1)))))
+    (lit (litstring (symbol->string sy1)))
+    ]
+  [(list (product/lattice (literal (list n1 c1 s1 (top)))))
+  topstr
+  ]
+  [_ ⊥]
+))
 
+(define (do-string->symbol p C . args)
+  (match args
+  [(list (product/lattice (literal (list n1 c1 (singleton s1) sy1))))
+    (lit (litsym (string->symbol s1)))
+    ]
+  [(list (product/lattice (literal (list n1 c1 (top) sy1))))
+  topsym
+  ]
+  [_ ⊥]
+  ))
 
 ; TODO: Refinement make sure all args are string
 (define (do-string-append p C . args) topstr)
@@ -161,7 +180,7 @@
 
 (define (do-integer? p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
      (if (bottom? i1)
          (false C p)
          (if (top? i1) ; A number could be either a int or some other number
@@ -174,7 +193,7 @@
 
 (define (do-number? p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
      (if (bottom? i1)
          (false C p)
          (true C p)
@@ -184,7 +203,7 @@
 
 (define (do-string? p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
      (if (bottom? s1)
          (false C p)
          (true C p)
@@ -219,10 +238,13 @@
 
 (define (do-symbol? p C . args)
   (match args
-    [(list (product/set (list (cons C `',x) p)))
-     (true C p) ]
-    [_ (false C p)])
-  )
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
+     (if (bottom? sy1)
+         (false C p)
+         (true C p)
+         )]
+    [_ (false C p)]
+    ))
 
 (define (do-list? p C . args)
   (match args
@@ -235,17 +257,17 @@
 
 (define (do-char? p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))))
      (if (not (bottom? c1)) (true C p) (false C p)) ]
     [_ (false C p)])
   )
 
 (define (do-char-numeric? p C . args)
   (match args
-     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+     [(list (product/lattice (literal (list n1 (singleton c) s1 sy1))))
       (if (char-numeric? c) (true C p) (false C p))
       ]
-      [(list (product/lattice (literal (list (top) c1 s1))))
+      [(list (product/lattice (literal (list n1 (top) s1 sy1))))
       (each (true C p) (false C p))
       ]
      [_ (false C p)]
@@ -254,10 +276,10 @@
 
 (define (do-char-alphabetic? p C . args)
   (match args
-     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+     [(list (product/lattice (literal (list n1 (singleton c) s1 sy1))))
       (if (char-alphabetic? c) (true C p) (false C p))
       ]
-      [(list (product/lattice (literal (list (top) c1 s1))))
+      [(list (product/lattice (literal (list n1 (top) s1 sy1))))
       (each (true C p) (false C p))
       ]
      [_ (false C p)]
@@ -266,10 +288,10 @@
 
 (define (do-char->integer p C . args)
   (match args
-     [(list (product/lattice (literal (list (singleton c) c1 s1))))
+     [(list (product/lattice (literal (list n1 (singleton c) s1 sy1))))
       (lit (litnum (char->integer c)))
       ]
-      [(list (product/lattice (literal (list (top) c1 s1))))
+      [(list (product/lattice (literal (list n1 (top) s1 sy1))))
         topnum
       ]
      [_ (false C p)]
@@ -279,9 +301,11 @@
 
 (define (do-lte p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))) 
+            (product/lattice (literal (list i2 c2 s2 sy2))))
      (define f-lit (for-lit p C))
-     (bool-result (f-lit i1 i2 <=) (f-lit c1 c2 char<=?) (f-lit s1 s2 string<=?) C p)
+     (bool-result (f-lit i1 i2 <=) (f-lit c1 c2 char<=?) (f-lit s1 s2 string<=?) 
+                (f-lit sy1 sy1 (lambda (x1 x2) (or (eq? x1 x2) (symbol<? x1 x2)))) C p)
      ]
     [_ ⊥])
   )
@@ -289,31 +313,31 @@
 
 (define (do-lt p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1)))
-           (product/lattice (literal (list i2 c2 s2))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1)))
+           (product/lattice (literal (list i2 c2 s2 sy2))))
      (define f-lit (for-lit p C))
-     (bool-result (f-lit i1 i2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) C p)]
+     (bool-result (f-lit i1 i2 <) (f-lit c1 c2 char<?) (f-lit s1 s2 string<?) (f-lit sy1 sy2 symbol<?) C p)]
 
     [_ ⊥])
   )
 
 (define (do-gt p C . args)
   (match args
-    [(list (product/lattice (literal (list i1 c1 s1))) (product/lattice (literal (list i2 c2 s2))))
+    [(list (product/lattice (literal (list i1 c1 s1 sy1))) (product/lattice (literal (list i2 c2 s2 sy2))))
      (define f-lit (for-lit p C))
-     (bool-result (f-lit i1 i2 >) (f-lit c1 c2 char>?) (f-lit s1 s2 string>?) C p)]
+     (bool-result (f-lit i1 i2 >) (f-lit c1 c2 char>?) (f-lit s1 s2 string>?) (f-lit sy2 sy1 symbol<?) C p)]
     [_ ⊥])
   )
 
 (define (do-odd p C . args)
   (match args
-    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom)))))
+    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom) (bottom)))))
      (if (integer? x)
          (if (odd? x) (true C p) (false C p))
          (each (true C p) (false C p))
          )
      ]
-    [(list (product/lattice (literal (list (top) (bottom) (bottom)))))
+    [(list (product/lattice (literal (list (top) c1 s1 sy1))))
      (each (true C p) (false C p))
      ]
     [_ ⊥]
@@ -322,13 +346,13 @@
 
 (define (do-even p C . args)
   (match args
-    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom)))))
+    [(list (product/lattice (literal (list (singleton x) (bottom) (bottom) (bottom)))))
      (if (integer? x)
          (if (even? x) (true C p) (false C p))
          (each (true C p) (false C p))
          )
      ]
-    [(list (product/lattice (literal (list (top) (bottom) (bottom)))))
+    [(list (product/lattice (literal (list (top) c1 s1 sy1))))
      (each (true C p) (false C p))
      ]
     [_ ⊥]
@@ -369,11 +393,11 @@
 
 (define (do-ceiling p C . args)
   (match args
-    [(list (product/lattice (literal (list x (bottom) (bottom)))))
+    [(list (product/lattice (literal (list x c1 s1 sy1))))
      (apply each (list
                   (if (singleton? x) (lit (litnum (ceiling x))) ⊥)
                   (if (top? x)
-                      (lit (literal (list (top) (bottom) (bottom))))
+                      topnum
                       ⊥
                       )))
      ]
@@ -382,7 +406,7 @@
 
 (define (do-log p C . args)
   (match args
-    [(list (product/lattice (literal (list x (bottom) (bottom)))))
+    [(list (product/lattice (literal (list x c1 s1 sy1))))
      (apply each (list
                   (if (singleton? x) (if (eq? x 1)
                                          (lit (litnum 0))
@@ -392,7 +416,7 @@
                                              )
                                          ) ⊥)
                   (if (top? x)
-                      (lit (literal (list (top) (bottom) (bottom))))
+                      topnum
                       ⊥
                       )))
      ]
@@ -402,8 +426,8 @@
 
 (define (do-num-op-check args op check)
   (match args
-    [(list (product/lattice (literal (list n1 c1 s1)))
-           (product/lattice (literal (list n2 c2 s2))))
+    [(list (product/lattice (literal (list n1 c1 s1 sy1)))
+           (product/lattice (literal (list n2 c2 s2 sy2))))
      (apply each (list
                   (if (and (singleton? n1) (singleton? n2))
                       (if (check (singleton-x n1) (singleton-x n2))
@@ -420,8 +444,8 @@
 
 (define (do-num-op args op)
   (match args
-    [(list (product/lattice (literal (list n1 c1 s1)))
-           (product/lattice (literal (list n2 c2 s2))))
+    [(list (product/lattice (literal (list n1 c1 s1 sy1)))
+           (product/lattice (literal (list n2 c2 s2 sy2))))
      (if (and (singleton? n1) (singleton? n2)) (lit (litnum (op (singleton-x n1) (singleton-x n2))))
          (if (or (top? n1) (top? n2)) topnum ⊥))
      ]
@@ -441,12 +465,12 @@
     [(top) 'top]
     ))
 
-(define (bool-result r1 r3 r4 C p)
-  (if (or (eq? r1 'top) (eq? r3 'top) (eq? r4 'top))
+(define (bool-result r1 r3 r4 r5 C p)
+  (if (or (eq? r1 'top) (eq? r3 'top) (eq? r4 'top) (eq? r5 'top))
       (each (true C p) (false C p))
-      (if (and (eq? r1 'bot) (eq? r3 'bot) (eq? r4 'bot))
+      (if (and (eq? r1 'bot) (eq? r3 'bot) (eq? r4 'bot) (eq? r5 'bot))
           ⊥
-          (apply each (map (to-bool C p) (list r1 r3 r4)))
+          (apply each (map (to-bool C p) (list r1 r3 r4 r5)))
           )))
 
 (define ((to-bool C p) r)
@@ -464,9 +488,9 @@
   (match args
     [(list b t) (error 'unsupported-primitive-random-2-args "")]
     [(list n)
-     (lit (literal (list (top) (bottom) (bottom))))]
+     topnum]
     [(list)
-     (lit (literal (list (top) (bottom) (bottom))))])
+     topnum])
   )
 
 
