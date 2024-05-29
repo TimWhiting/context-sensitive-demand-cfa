@@ -135,15 +135,18 @@ but only those segments which contribute to the values of specified program poin
 Moreover, because its segmentation of flows is explicit, it only need analyze each segment once and can reuse the result in any flow which contains the segment.
 In this example, a supporting demand CFA would work backwards from the reference to \texttt{f} to determine its value, and would consider only the three flow segments identified above to do so.
 
-% Practicality and scalability of Demand-CFA in general
-\subsection{Practicality and Scalability of Control Flow Analyses}
-
-The interface and pricing model exhibited by demand CFA make many useful applications practical.
+The interface and pricing model demand CFA offers make many useful applications practical.
 @citet{horwitz1995demand} identify several ways this practicality is realized:
-First, one can restrict analysis to a program's critical path or only where certain features are used.
-Second, one can analyze more often, and interleave analysis with other tools.
+\begin{enumerate}
+\item
+One can restrict analysis to a program's critical path or only where certain features are used.
+\item
+One can analyze more often, and interleave analysis with other tools.
 For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
-Finally, one can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
+\item
+One can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
+We have implemented the demand CFA we present in this paper in VSCode [XXX cite] for the Koka language [XXX cite].
+\end{enumerate}
 @omit{
 The first point may seem counterintuitive since only a small portion of information of a program will be learned for each query.
 We appeal to the reader's intuition to recognize that many use cases for control flow analysis do not need a full accounting of every variable in the program. 
@@ -156,37 +159,53 @@ For example:
 None of these questions care about complicated control flow at the beginning of the program if it is irrelevant to their query. Instead a demand analysis partitions 
 the state space into only the relevant parts of the program for the query in question.
 }
+@;{
+Demand analyses---including demand CFA---
 We claim that demand CFA is what we term a \emph{demand-scalable} analysis. We characterize such analyses as \begin{enumerate*} \item being able to
 answer many relevant questions about a program in constant time or effort, and \item being robust to increases in program size \end{enumerate*}.
 \emph{Demand-scalable} analyses are focused on the information gleaned from the analysis regardless of the underlying computational complexity, and opt for the usage of timeouts or early stopping criteria to keep the analysis practical.
 Additionally, we theorize that \emph{demand-scalable} analyses are much better suited than monolithic analyses for integration in modern
 compilers which typically involve incremental recompilation, language servers, linters, debuggers and other tools, which can each benefit from additional semantic information.
+}
 
-\subsection{Towards Context Sensitivity}
+\subsection{Adding Context Sensitivity to Demand CFA}
 
-Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019demand} which is context-\emph{insensitive}.
+Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019demand} which is contextinsensitive.
 (We offer some intuition about Demand 0CFA's operation in \S~\ref{sec:intuition} and review it in \S~\ref{sec:demand-0cfa}.)
-However, the benefits to a context-\emph{sensitive} demand CFA are clear.
-A demand CFA would enjoy increased precision and also, in some cases, a reduced workload (which we discuss at an intuitive level in \S~\ref{sec:intuition}).
-The primary difficulty is to determine control flow about an arbitrary program point, in an arbitrary context.
-Thus, the task of a context-sensitive demand CFA is not only to correctly maintain the context but to \emph{discover} the contexts in which evaluation occurs.
-To achieve this requires a compatible choice of context, context representation, and even environment representation, as we discuss in \S~\ref{sec:progression}.
+However, context sensitivity would endow demand CFA with the same benefits that it does analyses at large:
+increased precision and, in some cases, a reduced workload@~cite{dvanhorn:Might:2006:GammaCFA} (which we discuss at an intuitive level in \S~\ref{sec:intuition}).
 
-After surmounting these issues, we arrive at Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of demand CFA that exhibits context sensitivity.
+However, the demand setting presents a particular challenge to adding context sensitivity:
+unlike exhaustive analyses in which the context is fully determined at each point in analysis,
+a demand analysis is deployed on an arbitrary program point in an undetermined context.
+Thus, the task of a context-sensitive demand CFA is not only to respect the context as far as it is known, but also to determine unknown context as it is discovered relevant to analysis.
+Achieving this task requires a compatible choice of context, context representation, and even environment representation, as we discuss in \S~\ref{sec:progression}.
+
+After overcoming this challenge, we arrive at Demand $m$-CFA (\S~\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA.@;{
 At a high level, Demand $m$-CFA achieves context sensitivity by permitting indeterminate contexts, which stand for any context, and instantiating them when further information is discovered.
 It then uses instantiated contexts to filter its resolution of control flow to ensure that its view of evaluation remains consistent with respect to context.
-(We offer intuition about these operations in \S~\ref{sec:intuition} as well.)
-Demand $m$-CFA is sound with respect to a concrete albeit demand-driven semantics called \emph{demand evaluation} (\S~\ref{sec:demand-mcfa-correctness}), which is itself sound with respect to a standard call-by-value semantics.
+(We offer intuition about these operations in \S~\ref{sec:intuition} as well.)}
+Demand $m$-CFA is sound with respect to a concrete albeit demand semantics called \emph{demand evaluation} (\S~\ref{sec:demand-mcfa-correctness}), which is itself sound with respect to a standard call-by-value semantics.
 
-Demand $m$-CFA is comprehensive in the sense that it discovers all contexts to the extent necessary for evaluation.
+Demand $m$-CFA determines the context only to the extent necessary to soundly answer analysis questions, as opposed to determining the entire context.
+Not only does this allow Demand $m$-CFA to avoid analysis work, it offers information to the analysis client regarding which aspects of the context are relevant to a particular analysis question, which the client can use to formulate subsequent questions.
+
+@;{
+is comprehensive in the sense that it discovers all contexts to the extent necessary for evaluation.
 It achieves this by carefully ensuring at certain points that it proceeds only when the context is known, even if it is not strictly necessary to produce a value.
 We find this disposition toward analysis fairly effective:
 in some cases, it produces effectively-exhaustive, identically-precise results as an exhaustive analysis at the same level of context sensitivity but \emph{at a constant price}.
+}
 
-Although Demand $m$-CFA requires a fair amount of technical machinery to formulate, its implementation is very straightforward using the \emph{Abstracting Definitional Interpreters} (ADI) technique@~cite{darais2017abstracting}.
+
+@;Although Demand $m$-CFA requires a fair amount of technical machinery to formulate,
+We have implemented Demand $m$-CFA in several settings using the \emph{Abstracting Definitional Interpreters} (ADI) technique@~cite{darais2017abstracting}.
+XXX
+@;{
 To illustrate its directness, we reproduce and discuss the core of Demand $m$-CFA's implementation in \S~\ref{sec:implementation}.
 One virtue of using the ADI approach is that it endows the implemented analyzer with ``pushdown precision'' with respect to the reference semantics---which, for our analyzer, are the demand semantics.
 However, as we discuss in \S~\ref{sec:implementation}, Demand $m$-CFA satisfies the \emph{Pushdown for Free} criteria@~cite{local:p4f} which ensures that it has pushdown precision with respect to the direct semantics as well.
+}
 
 %\subsection{Contributions}
 
@@ -202,16 +221,21 @@ This paper makes the following contributions:
 
 A user interacts with demand CFA by submitting queries, which the analyzer resolves online.
 There are two types of queries:
-An \emph{evaluation} query yields the values to which a specified expression may evaluate.
-A \emph{trace} query yields the sites at which the value of a specified expression may be called.
-Some queries are trivially resolved, such as those for the value of a constructor application.
-Typically, however, the control flow within a query depends on adjacent flows, for which the analyzer issues subqueries.
+\begin{enumerate}
+\item
+An \emph{evaluation} query seeks the values to which a specified expression may evaluate.
+In essence, it is asking which values flow to a given expression.
+\item
+A \emph{trace} query seeks the sites at which the value of a specified expression may be used.
+In essence, it is asking where values flow from a given expression.
+\end{enumerate}
+To resolve all but trivial queries, the analysis issues subqueries---of one type or the other---to resolve flows on which the original query depends.
 
 We illustrate the operation of a demand CFA considering queries over the program
 \begin{verbatim}
 (let ([f (λ (x) x)]) (+ (f 42) (f 35)))
 \end{verbatim}
-which is written in an applicative functional language with Lisp syntax.
+which is written in Pure Scheme (i.e. purely-functional Scheme).
 
 @(define (evq e) (list "\\textsf{evaluate}\\," "\\texttt{" e  "}"))
 @(define (exq e) (list "\\textsf{trace}\\," "\\texttt{" e  "}"))
@@ -220,7 +244,7 @@ which is written in an applicative functional language with Lisp syntax.
 
 \subsection{Without Context Sensitivity}
 
-\begin{wrapfigure}{l}{0.35\textwidth}
+\begin{wrapfigure}{l}{0.3\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \\
 $q_1$ & \phantom{XX} @evq{f} \\
@@ -271,7 +295,7 @@ We will also see that Demand $m$-CFA does not need a timestamp to record the ``c
 @(define (caqcs e ρ) (list "\\textsf{caller}\\," "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
 @(define (rescs e ρ) (list (ensuremath "\\Rightarrow") " " "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
 
-\begin{wrapfigure}{r}{0.42\textwidth}
+\begin{wrapfigure}{r}{0.4\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \textsf{in} $\langle\rangle$\\
 $q_1$ & \phantom{XX} @evq{f} \textsf{in} $\langle\rangle$\\
@@ -349,14 +373,12 @@ The instantiation from $q_3$ proceeds similarly.
 \section{Language and Notation}
 \label{sec:notation}
 
-In order to keep otherwise-identical expressions distinct, many presentations of CFA uniquely label program sub-expressions.\footnote{Others operate over a form which itself names all intermediate results, such as CPS or $\mathcal{A}$-normal form, and identify each expression by its associated (unique) name.}
-This approach would be used, for example, to disambiguate the two references to \texttt{f} in the program in \S~\ref{sec:intuition}.
-Demand $m$-CFA extensively consults the syntactic context of each expression, which uniquely determines it, and uses it as a de facto label.
+We present Demand $m$-CFA over the unary $\lambda$ calculus.
+It is straightforward to extend it to multiple-arity functions, data structures, constants, primitives, conditionals, and recursive forms---which we have in our implementations---but this small language suffices to discuss the essential aspects of context sensitivity.
 
-The syntactic context @(meta "C" #f) of an instance of an expression @(e) within a program $\mathit{pr}$ is $\mathit{pr}$ itself with a hole @|□| in place of the selected instance of @(e).
-For example, the program @(lam (var 'x) (app (ref (var 'x)) (ref (var 'x)))) contains two references to @(var 'x),
-one with syntactic context @(lam (var 'x) (app □ (ref (var 'x))))
-and the other with @(lam (var 'x) (app (ref (var 'x)) □)).
+In order to keep otherwise-identical expressions distinct, many CFA presentations uniquely label program sub-expressions.\footnote{Others operate over a form which itself names all intermediate results, such as CPS or $\mathcal{A}$-normal form, and identify each expression by its associated (unique) name.}
+This approach would be used, for example, to disambiguate the two references to \texttt{f} in the program in \S~\ref{sec:intuition}.
+We instead use the syntactic context of each expression, which uniquely determines it, as a de-facto label, since Demand $m$-CFA consults it extensively.
 
 In the unary $\lambda$ calculus,
 expressions @(e) adhere to the grammar on the left
@@ -367,6 +389,11 @@ syntactic contexts @(meta "C" #f) adhere to the grammar on the right.
 &
 @(meta "C" #f) & ::= @(lam (var 'x) (meta "C" #f)) \,|\, @(app (meta "C" #f) (e)) \,|\, @(app (e) (meta "C" #f)) \,|\, @|□|.
 \end{align*}
+
+The syntactic context @(meta "C" #f) of an instance of an expression @(e) within a program $\mathit{pr}$ is $\mathit{pr}$ itself with a hole @|□| in place of the selected instance of @(e).
+For example, the program @(lam (var 'x) (app (ref (var 'x)) (ref (var 'x)))) contains two references to @(var 'x),
+one with syntactic context @(lam (var 'x) (app □ (ref (var 'x))))
+and the other with @(lam (var 'x) (app (ref (var 'x)) □)).
 
 The composition @(cursor (e) (∘e)) of a syntactic context @(meta "C" #f) with an expression @(e) consists of @(meta "C" #f) with @|□| replaced by @(e).
 In other words, @(cursor (e) (∘e)) denotes the program itself but with a focus on @(e).
@@ -460,11 +487,12 @@ x ≠ y  x C[λy.[e]] F Cx[x]
 x C[λy.e] F Cx[x]
 
 }
-\caption{Demand 0CFA Relations}
+\caption{Demand 0CFA evaluation and trace relations}
 \label{fig:demand-0cfa}
 \end{figure}
 The evaluation and trace modes of operation are effected by the big-step relations @|0cfa-eval-name| and @|0cfa-expr-name|, respectively, which are defined mutually inductively.
-These relations are supported by auxiliary relations @|0cfa-call-name| and @|0cfa-find-name|.
+These relations are respectively supported by the auxiliary metafunction @|0cfa-bind-name| and relation @|0cfa-find-name|, which concern variable bindings and are also dual to each other.
+Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in terms of the relation @|0cfa-call-name|, which we discuss below.
 Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 
 The judgement @(0cfa-eval (cursor (e) (∘e)) (cursor (lam (var 'x) (e "_v")) (∘e "_v"))) denotes that the expression @(e) (residing in syntactic context @((∘e) #f)) evaluates to (a closure over) @(lam (var 'x) (e "_v")).
@@ -485,8 +513,7 @@ Figure~\ref{fig:0cfa-bind} presents its definition, and we note the absence of a
 
 A judgement @(0cfa-call (cursor (e) (bod (var 'x) (∘e))) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the application @(app (e 0) (e 1)) applies @(lam (var 'x) (e)), thereby binding @(var 'x).
 Demand 0CFA arrives at this judgment by the @clause-label{Call} rule which uses the @|0cfa-expr-name| relation to determine it.
-In demand 0CFA, this relation is only a thin wrapper over @|0cfa-expr-name|, but it becomes more involved in context-sensitive demand CFA.
-We include it here for consistency.
+In demand 0CFA, this relation is only a thin wrapper over @|0cfa-expr-name|, but becomes more involved with the addition of context sensitivity.
 
 A judgement @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the value of the expression @(e) is applied at @(app (e 0) (e 1)).
 Demand 0CFA arrives at such a judgement by considering the type of the syntactic context to which the value flows.
@@ -500,6 +527,7 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
 @clause-label{Find-Rator} and @clause-label{Find-Rand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the ope\emph{rator} @(e 0) and ope\emph{rand} @(e 1), respectively.
 @clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it does not find shadowed references.
 
+@;{
 \subsection{Reachability}
 \label{sec:reachability}
 
@@ -518,6 +546,7 @@ This policy does mean that Demand 0CFA sometimes analyzes dead code as if it wer
 From a practical standpoint, this is harmless, since any conclusion about genuinely dead code is vacuously true.
 However, it is possible for Demand 0CFA to include, e.g., dead references in its trace of a value via a binding, which potentially compromises precision.
 We empirically investigate the extent to which precision is compromised in \S~\ref{sec:evaluation}.
+}
 
 \section{Adding Context Sensitivity}
 \label{sec:progression}
@@ -525,11 +554,23 @@ We empirically investigate the extent to which precision is compromised in \S~\r
 A context-\emph{insensitive} CFA is characterized by each program variable having a single entry in the store, shared by all bindings to it.
 A context-sensitive CFA considers the context in which each variable is bound and requires only bindings made in the same context to share a store entry.
 By extension, a context-sensitive CFA evaluates an expression under a particular environment, which identifies the context in which free variables within the expression are bound.
-Together, an expression and its enclosing environment constitute a \emph{configuration}.\footnote{Configurations in exhaustive CFAs include a timestamp as well. We discuss its omission from demand CFA configurations in \S~\ref{sec:whence-timestamp}.}
-In order to introduce context sensitivity to demand 0CFA, we extend @|0cfa-eval-name|, @|0cfa-expr-name|, and @|0cfa-call-name| to relate not just expressions to expressions, but configurations to configurations.
 (Like Demand 0CFA, our context-sensitive demand CFA will not materialize the store in the semantics, but it can be recovered if desired.)
 
-However, demand CFA differs from exhaustive CFA in that the precise environment in which an expression is evaluated or traced may not be completely determined.
+From this point, we must determine
+(1) the appropriate choice of context,
+(2) its representation, and
+(3) the appropriate representation of environments which record the context,
+which we do in this section.
+Once these are determined, we combine each expression and its enclosing environment to form a \emph{configuration}.\footnote{Configurations in exhaustive CFAs include a timestamp as well. We discuss its omission from demand CFA configurations in \S~\ref{sec:whence-timestamp}.}
+We can extend @|0cfa-eval-name| and @|0cfa-expr-name| trivially to relate configurations rather than mere expressions.
+
+A key constraint in the demand setting is that a client-issued query is typically issued in a completely indeterminate context.
+The expectation is that the analysis will both determine the context to the extent necessary to resolve the query (but no more) and also respect the context so that the analysis is in fact context-sensitive.
+One implication of this expecation is that queries over expressions which are evaluated in multiple contexts should produce multiple results, one for each context.
+To operate under this constraint, we extend @|0cfa-call-name| to instantiate the context and ensure that the analysis respects it.
+
+@;{
+However, unlike in exhaustive CFA, in demand CFA, differs from exhaustive CFA in that the precise environment in which an expression is evaluated or traced may not be completely determined.
 That is, the context in which each environment variable is bound may not be fully known.
 For instance,
 users typically
@@ -539,6 +580,7 @@ so indicate in queries by leaving the environment completely indeterminate.
 In this case, demand CFA should instantiate the environment (only) as necessary to distinguish evaluations in different contexts.
 Demand CFA thus requires a choice of context, context representation, and environment representation which support its ability to do so.
 In this section, we examine each of these choices in turn.
+}
 
 \subsection{Choosing the context}
 
@@ -577,7 +619,7 @@ To accommodate this binding policy, @citet{dvanhorn:Might2010Resolving} use the 
 Hence, when control reaches \texttt{(g x)} in $[m=2]$-CFA analysis, the binding context is that of \texttt{f}'s entry and \texttt{g}'s parameter is bound in the context of \texttt{(g x)} and \texttt{f}'s caller---no context is wasted.
 
 Because we're using $m$-CFA's top-$m$-stack-frames context abstraction, we call our context-sensitive demand CFA \emph{Demand $m$-CFA}.
-It is important to keep in mind, however, that we do \emph{not} adopt its re-binding policy, which is the essence of $m$-CFA.
+It is important to keep in mind, however, that we do \emph{not} adopt its re-binding policy. @;, which is the essence of $m$-CFA.
 
 \subsection{Representing the top-$m$ stack frames}
 
@@ -615,7 +657,7 @@ In a lexically-scoped language, the environment at the reference \texttt{x} in t
 (define f (λ (x y) ... (λ (z) ... (λ (w) ... x ...) ...) ...))
 \end{verbatim}
  contains bindings for \texttt{x}, \texttt{y}, \texttt{z}, and \texttt{w}.
-Exhaustive CFAs typically model this environment as a finite map from variables to contexts (i.e., the type $\mathit{Var} \rightarrow \mathit{Context}$).
+Exhaustive CFAs typically model this environment as a finite map from variables to contexts (i.e., the type $\mathit{Var} \rightarrow \mathit{Context}$).@;{
 For instance, $k$-CFA uses this model with $\mathit{Binding} = \mathit{Contour}$ where a \emph{contour} $@(meta "c" #f) \in \mathit{Contour} = \mathit{Call}^{\le k}$ is the $k$-most-recent call sites encountered during evaluation
 (and $\mathit{Call}$ is the set of call sites in the analyzed program).
 Hence, $k$-CFA models the environment at the reference \texttt{x} as
@@ -628,17 +670,20 @@ $[
 for some contours @(meta "c" 0), @(meta "c" 1), @(meta "c" 2), and @(meta "c" 3).
 $m$-CFA uses a similar representation, though it's contours represent the top-$m$ stack frames.
 
-While this representation captures the structure necessary for $k$-CFA (or $m$-CFA), we observe that due to lexical-scoping 
-we can use a variable's de Bruijn index, which is statically determined by the program syntax,
-and model environments as a sequence $\mathit{Context}^{*}$, splitting the environment by the context associated with each lexical set of variables.
+While this representation captures the structure necessary for $k$-CFA (or $m$-CFA), we observe that due to lexical-scoping}
+We instead use a variable's de Bruijn index, which is statically determined by the program syntax,
+and model environments as a sequence $\mathit{Context}^{*}$ which, for any finite program, has length bounded by the maximum lexical depth therein.
+@;, splitting the environment by the context associated with each lexical set of variables.
+@;{
 For instance, we model the environment at the reference \texttt{x} as $[c1, c2, c3]$ 
-where $c1$ represents the m-stack frames that led to calling the outermost $\lambda$, 
+where $c1$ represents the $m$-stack frames that led to calling the outermost $\lambda$, 
 $c2$ the m-stack frames for the middle $\lambda$, and `c3` the m-stack frames for the innermost $\lambda$.
 This representation discards none of the environment structure of $k$-CFA and captures more of the structure inherent in evaluation, 
 although the selection of contours differs in the same way as $m$-CFA.
+}
 
 Given this environment representation, we make one final tweak to the definition of contexts:
-we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, which is unique even if the program is not alphatized.}
+we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, which is unique even if the program is not alpha-converted.}
 This way, an environment of even completely indeterminate contexts still determines the expression it closes.
 For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ (x) ((λ (y) y) (λ (z) z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
 which is distinct from the indeterminate environment of \texttt{z}, which we represent by $\langle ?_{\mathtt{z}},?_{\mathtt{x}}\rangle$, even though they have the same shape.
@@ -704,10 +749,13 @@ In addition to introducing environments, context-sensitivity also typically intr
 For instance, classic $k$-CFA evaluates \emph{configurations}, consisting of an expression, environment, and timestamp, to results.
 
 With a top-$m$-stack-frames abstraction, the ``current context'' is simply the context of the variable(s) most recently bound in the environment.
-Lexical scope makes identifying these variables easy as does our representation of the environment as a sequence of binding contexts for the context itself.
-In other words, with such an abstraction, the environment uniquely determines the timestamp, and our configurations consisting of an expression paired with its environment can be viewed to include the timestamp as well.
+Lexical scope makes identifying these variables straightforward
+and
+our environment representation makes accessing their binding context straightforward as well.
+Thus, under such an abstraction, the environment uniquely determines the timestamp, and we can omit timestamps from configurations with no loss of information.
 
-With our context identified as well as its and the environment's representation, we are ready to define Demand $m$-CFA.
+With the context, its representation, and the environment's representation identified,
+we are now ready to define Demand $m$-CFA.
 
 \section{Demand $m$-CFA}
 \label{sec:demand-mcfa}
@@ -909,7 +957,7 @@ the resultant caller of the trace query is also a result of the caller query.
 The call is \emph{known} because the caller query has the context of the call already in its environment.
 If @(s⊏ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
 In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
-Formally, the refinement relation $\sqsubset$ as the least relation satisfying
+Formally, the refinement relation $\sqsubset$ is defined as the least relation satisfying
 \begin{align*}
 @(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) \sqsubset\; ?_{@(cursor (e) (∘e))} & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
 \end{align*}
@@ -1507,21 +1555,27 @@ We evaluate Demand $m$-CFA with respect to the following:
 \label{sec:related-work}
 
 The original inspiration for demand CFA is demand dataflow analysis@~cite{horwitz1995demand} which refers to dataflow analysis algorithms which allow selective, local, parsimonious analysis of first-order programs driven by the user.
-Demand CFA seeks algorithms with those same characteristics which operate in the presence of first-class functions.
-This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embodiment of demand CFA, with context sensitivity using the context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
+Demand CFA refers to a class of algorithms with those same characteristics which operate in the presence of first-class functions.
+This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embodiment of demand CFA, with context sensitivity using a context abstraction similar to that of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
 
-Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages@~cite{schoepe2023lifting}.
+The most-closely related work is that of @citet{schoepe2023lifting} which utilizes first-order solvers to construct call graphs on demand to effect higher-order analysis.
+Although it treats control with context sensitivity, it does not model or track the environment structure of higher-order objects.
+Our work has a similar goal---to achieve demand-driven analysis of higher-order programs---but it has sought to provide a concise analysis which models both the control and environment structure of evaluation with equal facility.
+
+@;{
+Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages.
 The approach developed meets all of our criteria above, including context sensitivity, 
 but relegates the context sensitivity to the underlying analyses, 
 and requires multiple demand-driven analyses for the language in question. 
 Our work differs in two major ways: first, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, 
 and second, it directly addresses context sensitivity of variables bound in higher order and nested lexical closure environments.
+}
 
-DDPA@~cite{palmer2016higher} is a context-sensitive, demand-driven analysis for higher-order programs so, 
-nominally, it is in precisely the same category as Demand $m$-CFA.
+DDPA@~cite{palmer2016higher} is nominally a context-sensitive, demand-driven analysis for higher-order programs.
 However, before resolving any on-demand queries, DDPA must bootstrap a global control-flow graph to support them.
 Because of this large, fixed, up-front cost, 
-DDPA does not provide the pricing model of a demand analysis and does not make the kinds of applications targeted by demand analysis practical.
+DDPA does not provide the pricing model expected of a demand analysis.
+@;and does not make the kinds of applications targeted by demand analysis practical.
 
 Several other ``demand-driven'' analyses exist for functional programs.
 @citet{midtgaard2008calculational} present a ``demand-driven 0-CFA'' derived via a calculational approach which analyzes only those parts of the program on which the program's result depends.
