@@ -16,7 +16,7 @@
 
 (define (average-or-false time-res)
   (if time-res
-      (average (map car time-res))
+      (average time-res)
       #f
       )
   )
@@ -25,29 +25,29 @@
   ; (pretty-print line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant #f) #f]
-    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) #f]
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                       ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
                       ,time-result) (average-or-false time-result)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant #f) #f]
-    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query, is-instant
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) #f]
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query, is-instant
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                    ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
                    ,time-result) (average-or-false time-result)]
     ; Regular mCFA
-    [`(,kind ,name ,m ,timeout #f) #f]
-    [`(,kind ,name ,m ,timeout ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res) (average-or-false time-res)]
+    [`(,kind ,name ,m ,gas #f) #f]
+    [`(,kind ,name ,m ,gas ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res) (average-or-false time-res)]
     ))
 
 (define ((num-singletons instant) line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant #f) 0]
-    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) 0]
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                       ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
@@ -57,8 +57,8 @@
                                          (and (not is-instant) is-precise)
                                          ) 1 0)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant #f) 0]
-    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) 0]
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
                    ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
@@ -67,8 +67,8 @@
                                          (and (not is-instant) is-precise)
                                          ) 1 0)]
     ; Regular mCFA
-    [`(,kind ,name ,m ,timeout #f) 0]
-    [`(,kind ,name ,m ,timeout ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res)
+    [`(,kind ,name ,m ,gas #f) 0]
+    [`(,kind ,name ,m ,gas ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res)
      (if instant
          instant-singletons
          singletons)
@@ -77,9 +77,9 @@
 
 (define ((filter-instant i) line)
   (match line
-    [`(shuffled-cache ,shufflen ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant ,@_) (equal? i is-instant)]
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant ,@_) (equal? i is-instant)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,timeout ,num-queries ,query-kind ,query ,is-instant ,@_) (equal? i is-instant)]
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant ,@_) (equal? i is-instant)]
     )
   )
 
@@ -97,12 +97,12 @@
     [`(,kind ,name ,m ,@_) (equal? m mexpected)]
     ))
 
-(define ((filter-timeout timeout) line)
+(define ((filter-gas gas) line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,t ,@_) (equal? timeout t)]
+    [`(shuffled-cache ,shufflen ,name ,m ,t ,@_) (equal? gas t)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,t ,@_) (equal? timeout t)]
+    [`(clean-cache ,name ,m ,t ,@_) (equal? gas t)]
     ))
 
 (define ((filter-kind mexpected) line)
@@ -122,6 +122,16 @@
     [`(,kind ,name ,@_) name]
     ))
 
+(define (gas-amount line)
+  (match line
+    [`(clean-cache ,name ,m ,gas ,@_) gas]
+  ))
+
+(define (get-points lines)
+  ; (pretty-print lines)
+  (map (lambda (g) (list g (/ (count is-result (filter (filter-gas g) lines)) (length lines)))) gases)
+)
+
 (define (step-n lines m-value [do-sort #t])
   (define avg (avg-time-res m-value))
   (define avgs (map avg-time-res lines))
@@ -131,9 +141,9 @@
   ; (pretty-print avg)
   ; (pretty-print cum)
   (lambda (normt)
-    (define t (* normt 1))
+    (define g (* normt 1))
     ; Count how many queries returned prior to t (t >= v)
-    (define res (map (lambda (v) (if (>= t v) 1 0)) cum))
+    (define res (map (lambda (v) (if (>= g v) 1 0)) cum))
     ; return the percentage of queries that returned prior to t
     (/ (sum res) (length avgs))))
 
@@ -155,13 +165,13 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
+(define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (kcfa2 37) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (kcfa3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat 94) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
-(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex scheme2java))
+(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur sat primtest rsa regex)) ; loop2 scheme2java))
 
 ; (define all-programs (map car program-size))
 
@@ -173,7 +183,9 @@
   (let ([results (list)])
     (for ([m (range 5)])
       (for ([program all-programs])
-        (set! results (append (read-file (format "tests/m~a/~a.sexpr" m program)) results))
+        (for ([gas gases])
+          (set! results (append (read-file (format "tests/m~a/~a-gas_~a_detailed.sexpr" m program gas)) results))
+          )
         )
       )
     (for ([m (range 5)])
@@ -207,33 +219,34 @@
         ]
        )
   (define num-programs (length all-programs))
-  (define plot-height 900)
-  (define plot-width 1800)
+  (define plot-height 400)
+  (define plot-width 900)
   (plot-legend-font-size 10)
-
+  ; (pretty-print all-results)
   (for ([out (list "pdf" "png")])
-
-    (plot
-     (map
-      (λ (m h)
-        (discrete-histogram
-         (map (λ (p) (list (format "~a (~a)" p (get-program-size p)) (avg-time-res (car (find-prog p (hash-ref h "mcfa-r"))))))
-              '(blur sat-2 map flatten primtest rsa deriv regex tic-tac-toe))
-         #:label (format "m=~a" m)
-         #:skip 5.5
-         #:x-min m
-         #:color m
-         ))
-      (range 5) hashes
-      )
-     #:x-label "Program Size"
-     #:y-label "Time (ms)"
-     #:width plot-width
-     #:height plot-height
-     #:out-file (format "plots/mcfa.~a" out)
-     )
-
+    (map 
+      (lambda (m h) 
+        (pretty-print `(plot ,m))
+        (plot
+          (map (λ (i p) 
+                (pretty-print `(plot ,p ,i))
+                (lines 
+                  (get-points (find-prog p (hash-ref h "dmcfa-b")))
+                  #:color i
+                  #:label (format "~a" p)
+                )
+               )
+            (range (length all-programs)) all-programs)
+        #:x-label "Gas"
+        #:y-label "Percent Answered Queries"
+        #:width plot-width
+        #:height plot-height
+        #:out-file (format "plots/mcfa_~a.~a" m out)
+        )
+      ) 
+      (range (length hashes)) hashes)
     ; (parameterize ([plot-y-transform log-transform])
-   
-    )
+  
   )
+)
+
