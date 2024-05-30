@@ -222,10 +222,10 @@
   ref-or-constructor
   "'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -282,10 +282,10 @@
   ref-or-constructor
   "'(eval (app car (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -384,10 +384,10 @@
   ref-or-constructor
   "'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -477,10 +477,10 @@
   app
   "'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))"
   #f
-  5
+  6
   4
   0
-  1
+  2
   2
   0
   2

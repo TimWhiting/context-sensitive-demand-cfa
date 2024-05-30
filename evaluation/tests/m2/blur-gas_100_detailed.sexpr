@@ -6,7 +6,19 @@
   letrec
   "'(eval ((top) letrec (id ... lp) ...) (env ()))"
   #f
-  #f)
+  33
+  19
+  9
+  5
+  18
+  3
+  21
+  1
+  35/36
+  11
+  #f
+  11/19
+  (0 0 0))
 '(clean-cache
   blur
   2
@@ -54,10 +66,10 @@
   ref-or-constructor
   "'(eval (app id (-> a <-)) (env ((□? (a n)))))"
   #f
-  63
+  66
   36
   26
-  1
+  4
   35
   19
   54
@@ -105,10 +117,10 @@
   app
   "'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))"
   #f
-  27
+  30
   11
   12
-  4
+  7
   2
   2
   4
@@ -168,10 +180,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
   #f
-  12
+  13
   6
   4
-  2
+  3
   2
   1
   3
@@ -231,10 +243,10 @@
   app
   "'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))"
   #f
-  27
+  30
   11
   12
-  4
+  7
   2
   2
   4
@@ -294,10 +306,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
   #f
-  12
+  13
   6
   4
-  2
+  3
   2
   1
   3
@@ -375,10 +387,10 @@
   app
   "'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))"
   #f
-  34
+  35
   21
   12
-  1
+  2
   17
   8
   25
@@ -417,10 +429,10 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  31
+  32
   18
   12
-  1
+  2
   17
   8
   25
@@ -459,10 +471,10 @@
   ref-or-constructor
   "'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))"
   #f
-  28
+  31
   12
   12
-  4
+  7
   2
   2
   4
@@ -480,10 +492,10 @@
   app
   "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
   #f
-  12
+  13
   6
   4
-  2
+  3
   2
   1
   3
@@ -564,10 +576,10 @@
   app
   "'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))"
   #f
-  43
+  44
   30
   12
-  1
+  2
   26
   8
   34
@@ -606,10 +618,10 @@
   ref-or-constructor
   "'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  31
+  32
   18
   12
-  1
+  2
   17
   8
   25
@@ -720,7 +732,19 @@
   app
   "'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))"
   #f
-  #f)
+  32
+  18
+  9
+  5
+  17
+  3
+  20
+  1
+  33/34
+  11
+  #f
+  11/18
+  (0 0 0))
 '(clean-cache
   blur
   2

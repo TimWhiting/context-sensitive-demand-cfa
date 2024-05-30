@@ -3309,7 +3309,19 @@
   app
   "'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))"
   #f
-  #f)
+  22
+  17
+  2
+  3
+  17
+  1
+  18
+  1
+  1
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   primtest
   2

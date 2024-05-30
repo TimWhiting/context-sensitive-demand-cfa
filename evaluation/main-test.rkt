@@ -89,7 +89,7 @@
   (show-envs #f)
   ; (trace 1)
   (trace #f)
-  (for ([m (in-range 0 1)])
+  (for ([m (in-range 1 2)])
     (let ([basic-cost 0]
           [rebind-cost 0]
           [expm-cost 0]
@@ -109,7 +109,7 @@
       (define requires-set '(loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
       ; (for ([example (get-examples all-examples)])
-      (for ([example (get-examples '(loop2) all-benchmarks)])
+      (for ([example (get-examples '(kcfa3) all-benchmarks)])
         ; (for ([example (get-examples '(sat) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])

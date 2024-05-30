@@ -6,10 +6,10 @@
   letrec
   "'(eval ((top) letrec (id ... lp) ...) (env ()))"
   #f
-  99
+  103
   75
   23
-  1
+  5
   67
   13
   80
@@ -48,10 +48,10 @@
   match
   "'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))"
   #f
-  92
+  96
   71
   20
-  1
+  5
   64
   13
   77
@@ -69,10 +69,10 @@
   app
   "'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))"
   #f
-  60
+  63
   36
   23
-  1
+  4
   29
   13
   42
@@ -90,10 +90,10 @@
   ref-or-constructor
   "'(eval (app id (-> a <-)) (env ((□? (a n)))))"
   #f
-  46
+  49
   25
   20
-  1
+  4
   24
   13
   37
@@ -132,10 +132,10 @@
   let*
   "'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))"
   #f
-  92
+  96
   70
   21
-  1
+  5
   58
   13
   71
@@ -153,10 +153,10 @@
   app
   "'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))"
   #f
-  24
+  27
   11
   12
-  1
+  4
   4
   4
   8
@@ -216,10 +216,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -279,10 +279,10 @@
   app
   "'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))"
   #f
-  24
+  27
   11
   12
-  1
+  4
   4
   4
   8
@@ -342,10 +342,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -405,10 +405,10 @@
   app
   "'(eval\n  (let* (r ... s) (-> (app not (app (app blur ...) s (app - ...))) <-))\n  (env ((□? (a n)))))"
   #f
-  90
+  94
   68
   21
-  1
+  5
   57
   13
   70
@@ -417,7 +417,7 @@
   55
   #f
   81/68
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   blur
   1
@@ -426,10 +426,10 @@
   app
   "'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))"
   #f
-  86
+  90
   64
   21
-  1
+  5
   55
   13
   68
@@ -447,10 +447,10 @@
   app
   "'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))"
   #f
-  27
+  28
   16
   10
-  1
+  2
   12
   6
   18
@@ -489,10 +489,10 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  24
+  25
   13
   10
-  1
+  2
   12
   6
   18
@@ -531,10 +531,10 @@
   ref-or-constructor
   "'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))"
   #f
-  25
+  28
   12
   12
-  1
+  4
   4
   4
   8
@@ -552,10 +552,10 @@
   app
   "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -636,10 +636,10 @@
   app
   "'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))"
   #f
-  33
+  34
   22
   10
-  1
+  2
   18
   6
   24
@@ -678,10 +678,10 @@
   ref-or-constructor
   "'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  24
+  25
   13
   10
-  1
+  2
   12
   6
   18
@@ -783,10 +783,10 @@
   ref-or-constructor
   "'(eval (λ (x) (-> x <-)) (env ((□? (x)))))"
   #f
-  62
+  65
   37
   23
-  2
+  5
   30
   13
   43
@@ -804,10 +804,10 @@
   app
   "'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))"
   #f
-  98
+  102
   74
   23
-  1
+  5
   66
   13
   79
@@ -816,7 +816,7 @@
   59
   #f
   89/74
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   blur
   1

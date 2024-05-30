@@ -165,10 +165,10 @@
   ref-or-constructor
   "'(eval (app p n1 n2 n3 (-> n4 <-)) (env (() () () () ())))"
   #f
-  10
+  11
   7
   3
-  0
+  1
   7
   3
   10
@@ -186,10 +186,10 @@
   ref-or-constructor
   "'(eval (app p n1 n2 (-> n3 <-) n4) (env (() () () () ())))"
   #f
-  10
+  11
   7
   3
-  0
+  1
   7
   3
   10
@@ -207,10 +207,10 @@
   ref-or-constructor
   "'(eval (app p n1 (-> n2 <-) n3 n4) (env (() () () () ())))"
   #f
-  10
+  11
   7
   3
-  0
+  1
   7
   3
   10
@@ -228,10 +228,10 @@
   ref-or-constructor
   "'(eval (app p (-> n1 <-) n2 n3 n4) (env (() () () () ())))"
   #f
-  10
+  11
   7
   3
-  0
+  1
   7
   3
   10
@@ -846,10 +846,10 @@
   match
   "'(eval (match x4 ((#f) (-> (match x2 ...) <-)) _) (env (())))"
   #f
-  21
+  23
   15
   6
-  0
+  2
   15
   6
   21
@@ -951,10 +951,10 @@
   ref-or-constructor
   "'(eval (match (-> x2 <-) (#f) _) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -972,10 +972,10 @@
   ref-or-constructor
   "'(eval (match (-> x4 <-) (#f) _) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -1086,10 +1086,10 @@
   match
   "'(eval\n  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)\n  (env (())))"
   #f
-  25
+  27
   19
   6
-  0
+  2
   19
   6
   25
@@ -1191,10 +1191,10 @@
   app
   "'(eval (match (-> (app not x3) <-) (#f) _) (env (())))"
   #f
-  20
+  22
   14
   6
-  0
+  2
   14
   6
   20
@@ -1212,10 +1212,10 @@
   ref-or-constructor
   "'(eval (app not (-> x3 <-)) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -1254,10 +1254,10 @@
   app
   "'(eval (match (-> (app not x2) <-) (#f) _) (env (())))"
   #f
-  20
+  22
   14
   6
-  0
+  2
   14
   6
   20
@@ -1275,10 +1275,10 @@
   ref-or-constructor
   "'(eval (app not (-> x2 <-)) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -1461,10 +1461,10 @@
   match
   "'(eval\n  (match (app not x2) ((#f) (-> (match (app not x3) ...) <-)) _)\n  (env (())))"
   #f
-  25
+  27
   19
   6
-  0
+  2
   19
   6
   25
@@ -1566,10 +1566,10 @@
   app
   "'(eval (match (-> (app not x3) <-) (#f) _) (env (())))"
   #f
-  20
+  22
   14
   6
-  0
+  2
   14
   6
   20
@@ -1587,10 +1587,10 @@
   ref-or-constructor
   "'(eval (app not (-> x3 <-)) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -1629,10 +1629,10 @@
   app
   "'(eval (match (-> (app not x2) <-) (#f) _) (env (())))"
   #f
-  20
+  22
   14
   6
-  0
+  2
   14
   6
   20
@@ -1650,10 +1650,10 @@
   ref-or-constructor
   "'(eval (app not (-> x2 <-)) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16
@@ -1692,10 +1692,10 @@
   ref-or-constructor
   "'(eval (match (-> x1 <-) (#f) _) (env (())))"
   #f
-  16
+  18
   10
   6
-  0
+  2
   10
   6
   16

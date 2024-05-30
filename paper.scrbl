@@ -929,7 +929,7 @@ q ⇑ ex C'[(e₀ e₁)] ρ'
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Known-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₀ ⊏ ctx₁
+q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₀ = ctx₁
 ——
 C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
 
@@ -955,10 +955,13 @@ Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosi
 Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
 
 Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in terms of reachability.
-The @clause-label{Known-Call} rule says that, if a caller query is reachable, the ensuing trace query of its enclosing $\lambda$ yields a caller, and the caller query's binding context refines the discovered binding context of the call,
-the resultant caller of the trace query is also a result of the caller query.
+The @clause-label{Known-Call} rule says that the resultant caller of a trace query 
+is also a result of a caller query if 
+\begin{enumerate*} \item the caller query is reachable,
+\item the ensuing trace query of its enclosing $\lambda$ yields a caller, 
+\item the discovered call and caller query's binding contexts are the same\end{enumerate*}.
 The call is \emph{known} because the caller query has the context of the call already in its environment.
-If @(s⊏ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
+If @(≠ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
 In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
 Formally, the refinement relation $\sqsubset$ is defined as the least relation satisfying
 \begin{align*}
@@ -1432,10 +1435,29 @@ When the gas runs out the analysis reports an error and bails out early.
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The percent of queries answered given different effort}
+\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis).}
 \label{fig:dmcfa-scalability}
 \end{figure}
 
+Figure~\ref{fig:dmcfa-scalability} shows the percent of queries answered for a given amount of effort allotted.
+
+As can be seen, the graphs trend upward and to the right, regardless of our choice of $m$. 
+Notable exceptions include the \texttt{loop2} \texttt{regex}, and \texttt{scheme2java} programs.
+\texttt{loop2} is small and utilizes the \texttt{set!} form to initialize a recursive function.
+In this case we are able to obtain all information that is possible to obtain near instantly.
+\texttt{scheme2java} and \texttt{regex} are both larger programs, and significantly improve when explored
+at higher $m$ which exemplifies a known phenomenon from exhaustive CFA that increasing precision can actually
+decrease the state space due to fewer spurious flows. 
+Of notable interest is that at $m=0$ an exhaustive $m$-CFA of \texttt{scheme2java}
+requires an effort (gas) of $726764$ while at $m=1$ it requires $400517$, both 
+Increasing to $m=2$ however times out after several minutes.
+In constrast Demand $m$-CFA over the $1376$ eval queries given the same amount of overall gas as
+exhaustive CFA could use $291$ gas per query at $m=1$. 
+While this doesn't get all the information as the respective exhaustive CFA 
+we see that over 60% of the information could be gained at a cost of $10$ per query (over $29x$ faster than exhaustive CFA).
+
+Additionally we can get 75% of the information at a higher context sensitivity within a cost of $100$ even though
+exhaustive CFA doesn't finish in reasonable time.
 
 
 \begin{figure}[t]
@@ -1476,8 +1498,12 @@ When the gas runs out the analysis reports an error and bails out early.
 \includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
 \end{subfigure}
 \caption{The number of interesting results returned compared to exhasutive analysis}
-\label{fig:dmcfa-scalability}
+\label{fig:dmcfa-answers}
 \end{figure}
+
+What fraction of the collected data represents highly useful data (singleton flow sets) 
+which can be used for higher order function inlining or constant propagation / evaluation?
+Figure~\ref{fig:dmcfa-answers}.
 
 
 @omit{

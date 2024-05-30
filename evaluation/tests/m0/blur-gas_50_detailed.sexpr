@@ -144,10 +144,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #f)) (env (())))"
   #f
-  13
+  14
   9
   4
-  0
+  1
   9
   4
   13
@@ -258,10 +258,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #t)) (env (())))"
   #f
-  13
+  14
   9
   4
-  0
+  1
   9
   4
   13
@@ -339,10 +339,10 @@
   app
   "'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env (())))"
   #f
-  18
+  19
   7
   11
-  0
+  1
   7
   11
   18
@@ -381,10 +381,10 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env (())))"
   #f
-  18
+  19
   7
   11
-  0
+  1
   7
   11
   18
@@ -432,10 +432,10 @@
   app
   "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env (())))"
   #f
-  13
+  14
   9
   4
-  0
+  1
   9
   4
   13
@@ -516,10 +516,10 @@
   app
   "'(eval (match (-> (app <= n 1) <-) (#f) _) (env (())))"
   #f
-  22
+  23
   11
   11
-  0
+  1
   11
   11
   22
@@ -558,10 +558,10 @@
   ref-or-constructor
   "'(eval (app <= (-> n <-) 1) (env (())))"
   #f
-  19
+  20
   8
   11
-  0
+  1
   8
   11
   19

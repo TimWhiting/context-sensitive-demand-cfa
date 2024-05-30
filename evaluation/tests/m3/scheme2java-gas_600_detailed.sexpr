@@ -6,7 +6,19 @@
   lettypes
   "'(eval ((top) lettypes (cons ... error) ...) (env ()))"
   #f
-  #f)
+  30
+  22
+  3
+  5
+  22
+  1
+  23
+  1
+  1
+  11
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -15,7 +27,19 @@
   letrec*
   "'(eval\n  (lettypes cons ... error (letrec* (car ... input-program) ...))\n  (env ()))"
   #f
-  #f)
+  29
+  21
+  3
+  5
+  21
+  1
+  22
+  1
+  1
+  11
+  #f
+  11/21
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1431,7 +1455,19 @@
   app
   "'(eval\n  (λ (exp)\n    (->\n     (app\n      string-append\n      \"(\"\n      (app java-compile-exp (app if->condition ...))\n      \").toBoolean() ? (\"\n      (app java-compile-exp (app if->then ...))\n      \") : (\"\n      (app java-compile-exp (app if->else ...))\n      \")\")\n     <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  23
+  13
+  3
+  7
+  2
+  1
+  3
+  1
+  2/13
+  7
+  #f
+  7/13
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1461,7 +1497,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"(\"\n   (app java-compile-exp (app if->condition exp))\n   \").toBoolean() ? (\"\n   (app java-compile-exp (app if->then exp))\n   \") : (\"\n   (-> (app java-compile-exp (app if->else exp)) <-)\n   \")\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1470,7 +1518,19 @@
   app
   "'(eval (app java-compile-exp (-> (app if->else exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -1551,7 +1611,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"(\"\n   (app java-compile-exp (app if->condition exp))\n   \").toBoolean() ? (\"\n   (-> (app java-compile-exp (app if->then exp)) <-)\n   \") : (\"\n   (app java-compile-exp (app if->else exp))\n   \")\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1560,7 +1632,19 @@
   app
   "'(eval (app java-compile-exp (-> (app if->then exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -1641,7 +1725,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"(\"\n   (-> (app java-compile-exp (app if->condition exp)) <-)\n   \").toBoolean() ? (\"\n   (app java-compile-exp (app if->then exp))\n   \") : (\"\n   (app java-compile-exp (app if->else exp))\n   \")\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1650,7 +1746,19 @@
   app
   "'(eval\n  (app java-compile-exp (-> (app if->condition exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -1773,7 +1881,19 @@
   let*
   "'(eval (λ (exp) (-> (let* (args ... num-args) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  21
+  28
+  29
+  3
+  2
+  5
+  1
+  1/7
+  9
+  #f
+  3/7
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1782,7 +1902,19 @@
   app
   "'(eval\n  (let* (... fun (num-args (-> (app length args) <-)) () ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  71
+  14
+  28
+  29
+  3
+  2
+  5
+  1
+  3/14
+  6
+  #f
+  3/7
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1791,7 +1923,19 @@
   ref-or-constructor
   "'(eval (app length (-> args <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  53
+  9
+  21
+  23
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1821,7 +1965,19 @@
   app
   "'(eval\n  (let* (... args (fun (-> (app app->fun exp) <-)) num-args ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -1860,7 +2016,19 @@
   app
   "'(eval\n  (let* (... () (args (-> (app app->args exp) <-)) fun ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  52
+  8
+  21
+  23
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1899,7 +2067,19 @@
   app
   "'(eval\n  (let* (args ... num-args)\n    (->\n     (app\n      string-append\n      \"((ProcValue\"\n      (app number->string num-args)\n      \")(\"\n      (app java-compile-exp fun)\n      \")).apply(\"\n      (app java-compile-args args)\n      \")\\n\")\n     <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  20
+  28
+  29
+  3
+  2
+  5
+  1
+  3/20
+  9
+  #f
+  9/20
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1929,7 +2109,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"((ProcValue\"\n   (app number->string num-args)\n   \")(\"\n   (app java-compile-exp fun)\n   \")).apply(\"\n   (-> (app java-compile-args args) <-)\n   \")\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1938,7 +2130,19 @@
   ref-or-constructor
   "'(eval (app java-compile-args (-> args <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  53
+  9
+  21
+  23
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -1989,7 +2193,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"((ProcValue\"\n   (app number->string num-args)\n   \")(\"\n   (-> (app java-compile-exp fun) <-)\n   \")).apply(\"\n   (app java-compile-args args)\n   \")\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -1998,7 +2214,19 @@
   ref-or-constructor
   "'(eval (app java-compile-exp (-> fun <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  75
+  15
+  33
+  27
+  5
+  5
+  10
+  1
+  7/24
+  10
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -2049,7 +2277,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"((ProcValue\"\n   (-> (app number->string num-args) <-)\n   \")(\"\n   (app java-compile-exp fun)\n   \")).apply(\"\n   (app java-compile-args args)\n   \")\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  17
+  28
+  29
+  3
+  2
+  5
+  1
+  3/17
+  7
+  #f
+  7/17
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2058,7 +2298,19 @@
   ref-or-constructor
   "'(eval (app number->string (-> num-args <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  72
+  15
+  28
+  29
+  3
+  2
+  5
+  1
+  1/5
+  6
+  #f
+  2/5
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2151,7 +2403,19 @@
   app
   "'(eval\n  (λ (exp)\n    (->\n     (app\n      string-append\n      \"VoidValue.Void(m_\"\n      (app mangle (app set!-var ...))\n      \".value = \"\n      (app java-compile-exp (app set!-exp ...))\n      \")\")\n     <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  28
+  18
+  2
+  8
+  4
+  1
+  5
+  1
+  2/9
+  9
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -2181,7 +2445,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"VoidValue.Void(m_\"\n   (app mangle (app set!-var exp))\n   \".value = \"\n   (-> (app java-compile-exp (app set!-exp exp)) <-)\n   \")\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -2190,7 +2466,19 @@
   app
   "'(eval (app java-compile-exp (-> (app set!-exp exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -2271,7 +2559,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"VoidValue.Void(m_\"\n   (-> (app mangle (app set!-var exp)) <-)\n   \".value = \"\n   (app java-compile-exp (app set!-exp exp))\n   \")\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  25
+  15
+  2
+  8
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -2280,7 +2580,19 @@
   app
   "'(eval (app mangle (-> (app set!-var exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -2403,7 +2715,19 @@
   match
   "'(eval\n  (λ (args) (-> (match (app not (app pair? ...)) ...) <-))\n  (env ((□? (args)))))"
   #f
-  #f)
+  154
+  83
+  36
+  35
+  27
+  3
+  30
+  1
+  733/2205
+  25
+  #f
+  25/83
+  (10 10 0))
 '(clean-cache
   scheme2java
   3
@@ -2433,7 +2757,19 @@
   app
   "'(eval\n  (match\n   (app not (app pair? args))\n   ((#f)\n    (->\n     (app\n      string-append\n      (app java-compile-exp (app car ...))\n      (match (app pair? ...) ...))\n     <-))\n   _)\n  (env ((□? (args)))))"
   #f
-  #f)
+  22
+  12
+  3
+  7
+  2
+  1
+  3
+  1
+  1/6
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -2442,7 +2778,19 @@
   match
   "'(eval\n  (app\n   string-append\n   (app java-compile-exp (app car args))\n   (-> (match (app pair? (app cdr ...)) ...) <-))\n  (env ((□? (args)))))"
   #f
-  #f)
+  167
+  93
+  36
+  38
+  31
+  3
+  34
+  1
+  733/2205
+  25
+  #f
+  25/93
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -2451,7 +2799,19 @@
   app
   "'(eval\n  (match\n   (app pair? (app cdr args))\n   (#f)\n   (_ (-> (app string-append \", \" (app java-compile-args (app cdr ...))) <-)))\n  (env ((□? (args)))))"
   #f
-  #f)
+  42
+  14
+  12
+  16
+  2
+  1
+  3
+  1
+  1/7
+  7
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2460,7 +2820,19 @@
   app
   "'(eval\n  (app string-append \", \" (-> (app java-compile-args (app cdr args)) <-))\n  (env ((□? (args)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2469,7 +2841,19 @@
   app
   "'(eval (app java-compile-args (-> (app cdr args) <-)) (env ((□? (args)))))"
   #f
-  #f)
+  94
+  40
+  24
+  30
+  12
+  2
+  14
+  1
+  37/126
+  11
+  #f
+  11/40
+  (6 6 0))
 '(clean-cache
   scheme2java
   3
@@ -2478,7 +2862,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> args <-)) (env ((□? (args)))))"
   #f
-  #f)
+  90
+  37
+  24
+  29
+  12
+  2
+  14
+  1
+  389/1260
+  10
+  #f
+  10/37
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -2592,7 +2988,19 @@
   app
   "'(eval (match (-> (app pair? (app cdr args)) <-) (#f) _) (env ((□? (args)))))"
   #f
-  #f)
+  160
+  86
+  36
+  38
+  29
+  3
+  32
+  1
+  703/2100
+  25
+  #f
+  25/86
+  (12 12 0))
 '(clean-cache
   scheme2java
   3
@@ -2601,7 +3009,19 @@
   app
   "'(eval (app pair? (-> (app cdr args) <-)) (env ((□? (args)))))"
   #f
-  #f)
+  117
+  61
+  24
+  32
+  20
+  2
+  22
+  1
+  454/1575
+  17
+  #f
+  17/61
+  (8 8 0))
 '(clean-cache
   scheme2java
   3
@@ -2610,7 +3030,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> args <-)) (env ((□? (args)))))"
   #f
-  #f)
+  90
+  37
+  24
+  29
+  12
+  2
+  14
+  1
+  394/1365
+  10
+  #f
+  10/37
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -2661,7 +3093,19 @@
   app
   "'(eval\n  (app\n   string-append\n   (-> (app java-compile-exp (app car args)) <-)\n   (match (app pair? (app cdr ...)) ...))\n  (env ((□? (args)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -2670,7 +3114,19 @@
   app
   "'(eval (app java-compile-exp (-> (app car args) <-)) (env ((□? (args)))))"
   #f
-  #f)
+  164
+  68
+  57
+  39
+  24
+  7
+  31
+  1
+  1601/4410
+  24
+  #f
+  6/17
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -2679,7 +3135,19 @@
   ref-or-constructor
   "'(eval (app car (-> args <-)) (env ((□? (args)))))"
   #f
-  #f)
+  90
+  37
+  24
+  29
+  12
+  2
+  14
+  1
+  394/1365
+  10
+  #f
+  10/37
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -2751,7 +3219,19 @@
   app
   "'(eval (match (-> (app not (app pair? args)) <-) (#f) _) (env ((□? (args)))))"
   #f
-  #f)
+  147
+  76
+  36
+  35
+  25
+  3
+  28
+  1
+  703/2100
+  25
+  #f
+  25/76
+  (10 10 0))
 '(clean-cache
   scheme2java
   3
@@ -2760,7 +3240,19 @@
   app
   "'(eval (app not (-> (app pair? args) <-)) (env ((□? (args)))))"
   #f
-  #f)
+  133
+  62
+  36
+  35
+  21
+  3
+  24
+  1
+  643/1890
+  18
+  #f
+  9/31
+  (9 9 0))
 '(clean-cache
   scheme2java
   3
@@ -2769,7 +3261,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> args <-)) (env ((□? (args)))))"
   #f
-  #f)
+  90
+  37
+  24
+  29
+  12
+  2
+  14
+  1
+  394/1365
+  10
+  #f
+  10/37
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -2841,7 +3345,19 @@
   letrec*
   "'(eval (λ (exp) (-> (letrec* (java-wrap-mutables) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  105
+  31
+  40
+  34
+  9
+  6
+  15
+  1
+  15/56
+  17
+  #f
+  17/31
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -2901,7 +3417,19 @@
   app
   "'(eval\n  (match\n   (app not (app pair? vars))\n   ((#f)\n    (->\n     (app\n      string-append\n      (match (app is-mutable? ...) ...)\n      (app java-wrap-mutables (app cdr ...)))\n     <-))\n   _)\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  47
+  18
+  12
+  17
+  4
+  1
+  5
+  1
+  2/9
+  8
+  #f
+  4/9
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2910,7 +3438,19 @@
   app
   "'(eval\n  (app\n   string-append\n   (match (app is-mutable? (app car ...)) ...)\n   (-> (app java-wrap-mutables (app cdr vars)) <-))\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  1
+  1
+  2
+  1
+  1/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2919,7 +3459,19 @@
   app
   "'(eval\n  (app java-wrap-mutables (-> (app cdr vars) <-))\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  144
+  50
+  57
+  37
+  13
+  6
+  19
+  1
+  83/210
+  20
+  #f
+  2/5
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -2928,7 +3480,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> vars <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  144
+  50
+  57
+  37
+  13
+  6
+  19
+  1
+  83/210
+  20
+  #f
+  2/5
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -2979,7 +3543,19 @@
   match
   "'(eval\n  (app\n   string-append\n   (-> (match (app is-mutable? (app car ...)) ...) <-)\n   (app java-wrap-mutables (app cdr vars)))\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  45
+  16
+  12
+  17
+  4
+  1
+  5
+  1
+  1/4
+  7
+  #f
+  7/16
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -2988,7 +3564,19 @@
   app
   "'(eval\n  (match\n   (app is-mutable? (app car vars))\n   (#f)\n   (_\n    (->\n     (app\n      string-append\n      \" final ValueCell m_\"\n      (app mangle (app car ...))\n      \" = new ValueCell(\"\n      (app mangle (app car ...))\n      \");\\n\")\n     <-)))\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  29
+  18
+  2
+  9
+  4
+  1
+  5
+  1
+  2/9
+  9
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -3018,7 +3606,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \" final ValueCell m_\"\n   (app mangle (app car vars))\n   \" = new ValueCell(\"\n   (-> (app mangle (app car vars)) <-)\n   \");\\n\")\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  26
+  15
+  2
+  9
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3027,7 +3627,19 @@
   app
   "'(eval (app mangle (-> (app car vars) <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  172
+  75
+  57
+  40
+  17
+  6
+  23
+  1
+  73/240
+  27
+  #f
+  9/25
+  (16 16 0))
 '(clean-cache
   scheme2java
   3
@@ -3036,7 +3648,19 @@
   ref-or-constructor
   "'(eval (app car (-> vars <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  145
+  51
+  57
+  37
+  13
+  6
+  19
+  1
+  83/220
+  20
+  #f
+  20/51
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -3108,7 +3732,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \" final ValueCell m_\"\n   (-> (app mangle (app car vars)) <-)\n   \" = new ValueCell(\"\n   (app mangle (app car vars))\n   \");\\n\")\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  26
+  15
+  2
+  9
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3117,7 +3753,19 @@
   app
   "'(eval (app mangle (-> (app car vars) <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  172
+  75
+  57
+  40
+  17
+  6
+  23
+  1
+  73/240
+  27
+  #f
+  9/25
+  (16 16 0))
 '(clean-cache
   scheme2java
   3
@@ -3126,7 +3774,19 @@
   ref-or-constructor
   "'(eval (app car (-> vars <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  145
+  51
+  57
+  37
+  13
+  6
+  19
+  1
+  83/220
+  20
+  #f
+  20/51
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -3240,7 +3900,19 @@
   app
   "'(eval\n  (match (-> (app is-mutable? (app car vars)) <-) (#f) _)\n  (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  44
+  15
+  12
+  17
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -3249,7 +3921,19 @@
   app
   "'(eval (app is-mutable? (-> (app car vars) <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  172
+  75
+  57
+  40
+  17
+  6
+  23
+  1
+  73/240
+  27
+  #f
+  9/25
+  (16 16 0))
 '(clean-cache
   scheme2java
   3
@@ -3258,7 +3942,19 @@
   ref-or-constructor
   "'(eval (app car (-> vars <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  145
+  51
+  57
+  37
+  13
+  6
+  19
+  1
+  83/220
+  20
+  #f
+  20/51
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -3339,7 +4035,19 @@
   app
   "'(eval (app not (-> (app pair? vars) <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  187
+  76
+  69
+  42
+  18
+  7
+  25
+  1
+  101/270
+  28
+  #f
+  7/19
+  (17 17 0))
 '(clean-cache
   scheme2java
   3
@@ -3348,7 +4056,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> vars <-)) (env ((□? (vars)) (□? (exp)))))"
   #f
-  #f)
+  145
+  51
+  57
+  37
+  13
+  6
+  19
+  1
+  83/220
+  20
+  #f
+  20/51
+  (12 12 0))
 '(clean-cache
   scheme2java
   3
@@ -3399,7 +4119,19 @@
   let*
   "'(eval\n  (letrec* (java-wrap-mutables) (-> (let* (formals ... num-args) ...) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  104
+  30
+  40
+  34
+  9
+  6
+  15
+  1
+  5/18
+  17
+  #f
+  17/30
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -3408,7 +4140,19 @@
   app
   "'(eval\n  (let* (... formals (num-args (-> (app length formals) <-)) () ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  97
+  23
+  40
+  34
+  9
+  6
+  15
+  1
+  3/8
+  14
+  #f
+  14/23
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -3417,7 +4161,19 @@
   ref-or-constructor
   "'(eval (app length (-> formals <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  18
+  33
+  27
+  8
+  5
+  13
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -3447,7 +4203,19 @@
   app
   "'(eval\n  (let* (... () (formals (-> (app lambda->formals exp) <-)) num-args ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -3486,7 +4254,19 @@
   app
   "'(eval\n  (let* (formals ... num-args)\n    (->\n     (app\n      string-append\n      \"new NullProcValue\"\n      (app number->string num-args)\n      \" () {\\n\"\n      \" public Value apply(\"\n      (app java-compile-formals formals)\n      \") {\\n\"\n      (app java-wrap-mutables formals)\n      \"\\n\"\n      \"  return \"\n      (app java-compile-exp (app lambda->exp ...))\n      \" ;\\n\"\n      \"}}\\n\")\n     <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  103
+  29
+  40
+  34
+  9
+  6
+  15
+  1
+  15/52
+  17
+  #f
+  17/29
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -3537,7 +4317,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"new NullProcValue\"\n   (app number->string num-args)\n   \" () {\\n\"\n   \" public Value apply(\"\n   (app java-compile-formals formals)\n   \") {\\n\"\n   (app java-wrap-mutables formals)\n   \"\\n\"\n   \"  return \"\n   (-> (app java-compile-exp (app lambda->exp exp)) <-)\n   \" ;\\n\"\n   \"}}\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3546,7 +4338,19 @@
   app
   "'(eval (app java-compile-exp (-> (app lambda->exp exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -3648,7 +4452,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"new NullProcValue\"\n   (app number->string num-args)\n   \" () {\\n\"\n   \" public Value apply(\"\n   (app java-compile-formals formals)\n   \") {\\n\"\n   (-> (app java-wrap-mutables formals) <-)\n   \"\\n\"\n   \"  return \"\n   (app java-compile-exp (app lambda->exp exp))\n   \" ;\\n\"\n   \"}}\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  1
+  1
+  2
+  1
+  1/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -3657,7 +4473,19 @@
   ref-or-constructor
   "'(eval (app java-wrap-mutables (-> formals <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  18
+  33
+  27
+  8
+  5
+  13
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -3708,7 +4536,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"new NullProcValue\"\n   (app number->string num-args)\n   \" () {\\n\"\n   \" public Value apply(\"\n   (-> (app java-compile-formals formals) <-)\n   \") {\\n\"\n   (app java-wrap-mutables formals)\n   \"\\n\"\n   \"  return \"\n   (app java-compile-exp (app lambda->exp exp))\n   \" ;\\n\"\n   \"}}\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3717,7 +4557,19 @@
   ref-or-constructor
   "'(eval (app java-compile-formals (-> formals <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  18
+  33
+  27
+  8
+  5
+  13
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -3789,7 +4641,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"new NullProcValue\"\n   (-> (app number->string num-args) <-)\n   \" () {\\n\"\n   \" public Value apply(\"\n   (app java-compile-formals formals)\n   \") {\\n\"\n   (app java-wrap-mutables formals)\n   \"\\n\"\n   \"  return \"\n   (app java-compile-exp (app lambda->exp exp))\n   \" ;\\n\"\n   \"}}\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  100
+  26
+  40
+  34
+  9
+  6
+  15
+  1
+  15/46
+  15
+  #f
+  15/26
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -3798,7 +4662,19 @@
   ref-or-constructor
   "'(eval (app number->string (-> num-args <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  98
+  24
+  40
+  34
+  9
+  6
+  15
+  1
+  5/14
+  14
+  #f
+  7/12
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -3891,7 +4767,19 @@
   match
   "'(eval\n  (λ (formals) (-> (match (app not (app pair? ...)) ...) <-))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  203
+  93
+  69
+  41
+  34
+  8
+  42
+  1
+  2663/6300
+  34
+  #f
+  34/93
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -3921,7 +4809,19 @@
   app
   "'(eval\n  (match\n   (app not (app pair? formals))\n   ((#f)\n    (->\n     (app\n      string-append\n      \"final Value \"\n      (app mangle (app car ...))\n      (match (app pair? ...) ...))\n     <-))\n   _)\n  (env ((□? (formals)))))"
   #f
-  #f)
+  28
+  18
+  2
+  8
+  4
+  1
+  5
+  1
+  2/9
+  9
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3930,7 +4830,19 @@
   match
   "'(eval\n  (app\n   string-append\n   \"final Value \"\n   (app mangle (app car formals))\n   (-> (match (app pair? (app cdr ...)) ...) <-))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  216
+  103
+  69
+  44
+  38
+  8
+  46
+  1
+  7919/18900
+  34
+  #f
+  34/103
+  (16 16 0))
 '(clean-cache
   scheme2java
   3
@@ -3939,7 +4851,19 @@
   app
   "'(eval\n  (match\n   (app pair? (app cdr formals))\n   (#f)\n   (_\n    (-> (app string-append \", \" (app java-compile-formals (app cdr ...))) <-)))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  42
+  14
+  12
+  16
+  2
+  1
+  3
+  1
+  1/7
+  7
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -3948,7 +4872,19 @@
   app
   "'(eval\n  (app string-append \", \" (-> (app java-compile-formals (app cdr formals)) <-))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -3957,7 +4893,19 @@
   app
   "'(eval\n  (app java-compile-formals (-> (app cdr formals) <-))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  144
+  50
+  57
+  37
+  19
+  7
+  26
+  1
+  641/1470
+  20
+  #f
+  2/5
+  (9 9 0))
 '(clean-cache
   scheme2java
   3
@@ -3966,7 +4914,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> formals <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  140
+  47
+  57
+  36
+  19
+  7
+  26
+  1
+  395/882
+  19
+  #f
+  19/47
+  (8 8 0))
 '(clean-cache
   scheme2java
   3
@@ -4080,7 +5040,19 @@
   app
   "'(eval\n  (match (-> (app pair? (app cdr formals)) <-) (#f) _)\n  (env ((□? (formals)))))"
   #f
-  #f)
+  209
+  96
+  69
+  44
+  36
+  8
+  44
+  1
+  7739/18270
+  34
+  #f
+  17/48
+  (15 15 0))
 '(clean-cache
   scheme2java
   3
@@ -4089,7 +5061,19 @@
   app
   "'(eval (app pair? (-> (app cdr formals) <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  167
+  71
+  57
+  39
+  27
+  7
+  34
+  1
+  1249/3024
+  26
+  #f
+  26/71
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -4098,7 +5082,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> formals <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  140
+  47
+  57
+  36
+  19
+  7
+  26
+  1
+  397/924
+  19
+  #f
+  19/47
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -4149,7 +5145,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"final Value \"\n   (-> (app mangle (app car formals)) <-)\n   (match (app pair? (app cdr ...)) ...))\n  (env ((□? (formals)))))"
   #f
-  #f)
+  25
+  15
+  2
+  8
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -4158,7 +5166,19 @@
   app
   "'(eval (app mangle (-> (app car formals) <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  167
+  71
+  57
+  39
+  27
+  7
+  34
+  1
+  379/1008
+  26
+  #f
+  26/71
+  (11 11 0))
 '(clean-cache
   scheme2java
   3
@@ -4167,7 +5187,19 @@
   ref-or-constructor
   "'(eval (app car (-> formals <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  140
+  47
+  57
+  36
+  19
+  7
+  26
+  1
+  397/924
+  19
+  #f
+  19/47
+  (8 8 0))
 '(clean-cache
   scheme2java
   3
@@ -4260,7 +5292,19 @@
   app
   "'(eval\n  (match (-> (app not (app pair? formals)) <-) (#f) _)\n  (env ((□? (formals)))))"
   #f
-  #f)
+  196
+  86
+  69
+  41
+  32
+  8
+  40
+  1
+  2603/6090
+  34
+  #f
+  17/43
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -4269,7 +5313,19 @@
   app
   "'(eval (app not (-> (app pair? formals) <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  182
+  72
+  69
+  41
+  28
+  8
+  36
+  1
+  2483/5670
+  27
+  #f
+  3/8
+  (12 12 0))
 '(clean-cache
   scheme2java
   3
@@ -4278,7 +5334,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> formals <-)) (env ((□? (formals)))))"
   #f
-  #f)
+  140
+  47
+  57
+  36
+  19
+  7
+  26
+  1
+  397/924
+  19
+  #f
+  19/47
+  (8 8 0))
 '(clean-cache
   scheme2java
   3
@@ -4350,7 +5418,19 @@
   match
   "'(eval (λ (exp) (-> (match (app is-mutable? exp) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  46
+  16
+  12
+  18
+  4
+  1
+  5
+  1
+  1/4
+  7
+  #f
+  7/16
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -4359,7 +5439,19 @@
   app
   "'(eval\n  (match\n   (app is-mutable? exp)\n   (#f)\n   (_ (-> (app string-append \"m_\" (app mangle exp) \".value\") <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  28
+  18
+  2
+  8
+  4
+  1
+  5
+  1
+  2/9
+  9
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -4389,7 +5481,19 @@
   app
   "'(eval\n  (app string-append \"m_\" (-> (app mangle exp) <-) \".value\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  25
+  15
+  2
+  8
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -4470,7 +5574,19 @@
   app
   "'(eval\n  (match (app is-mutable? exp) ((#f) (-> (app mangle exp) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  25
+  15
+  2
+  8
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -4509,7 +5625,19 @@
   app
   "'(eval (match (-> (app is-mutable? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  45
+  15
+  12
+  18
+  4
+  1
+  5
+  1
+  4/15
+  7
+  #f
+  7/15
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5469,7 +6597,19 @@
   app
   "'(eval\n  (match (app ref? exp) (#f) (_ (-> (app java-compile-ref exp) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  50
+  19
+  12
+  19
+  5
+  1
+  6
+  1
+  5/19
+  9
+  #f
+  9/19
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5508,7 +6648,19 @@
   match
   "'(eval\n  (match (app ref? exp) ((#f) (-> (match (app lambda? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5517,7 +6669,19 @@
   app
   "'(eval\n  (match (app lambda? exp) (#f) (_ (-> (app java-compile-lambda exp) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  35
+  16
+  7
+  12
+  2
+  1
+  3
+  1
+  1/8
+  7
+  #f
+  7/16
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5556,7 +6720,19 @@
   match
   "'(eval\n  (match (app lambda? exp) ((#f) (-> (match (app if? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5565,7 +6741,19 @@
   app
   "'(eval\n  (match (app if? exp) (#f) (_ (-> (app java-compile-if exp) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  26
+  16
+  3
+  7
+  6
+  1
+  7
+  1
+  3/8
+  9
+  #f
+  9/16
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5604,7 +6792,19 @@
   match
   "'(eval\n  (match (app if? exp) ((#f) (-> (match (app set!? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5613,7 +6813,19 @@
   app
   "'(eval\n  (match (app set!? exp) (#f) (_ (-> (app java-compile-set! exp) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  32
+  21
+  2
+  9
+  5
+  1
+  6
+  1
+  5/21
+  11
+  #f
+  11/21
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5652,7 +6864,19 @@
   match
   "'(eval\n  (match (app set!? exp) ((#f) (-> (match (app let? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5661,7 +6885,19 @@
   app
   "'(eval\n  (match\n   (app let? exp)\n   (#f)\n   (_ (-> (app java-compile-exp (app let=>lambda exp)) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5670,7 +6906,19 @@
   app
   "'(eval (app java-compile-exp (-> (app let=>lambda exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  47
+  16
+  12
+  19
+  9
+  1
+  10
+  1
+  9/16
+  8
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5730,7 +6978,19 @@
   match
   "'(eval\n  (match (app let? exp) ((#f) (-> (match (app letrec1? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  44
+  14
+  12
+  18
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5739,7 +6999,19 @@
   app
   "'(eval\n  (match\n   (app letrec1? exp)\n   (#f)\n   (_ (-> (app java-compile-exp (app letrec1=>Y exp)) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5748,7 +7020,19 @@
   app
   "'(eval (app java-compile-exp (-> (app letrec1=>Y exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  48
+  17
+  12
+  19
+  9
+  1
+  10
+  1
+  9/17
+  8
+  #f
+  8/17
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5808,7 +7092,19 @@
   match
   "'(eval\n  (match (app letrec1? exp) ((#f) (-> (match (app begin? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5817,7 +7113,19 @@
   app
   "'(eval\n  (match\n   (app begin? exp)\n   (#f)\n   (_ (-> (app java-compile-exp (app begin=>let exp)) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5826,7 +7134,19 @@
   app
   "'(eval (app java-compile-exp (-> (app begin=>let exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  22
+  7
+  14
+  4
+  1
+  5
+  1
+  2/11
+  11
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -5886,7 +7206,19 @@
   match
   "'(eval\n  (match (app begin? exp) ((#f) (-> (match (app app? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5895,7 +7227,19 @@
   app
   "'(eval\n  (match (app app? exp) (#f) (_ (-> (app java-compile-app exp) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  34
+  15
+  7
+  12
+  2
+  1
+  3
+  1
+  2/15
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -5997,7 +7341,19 @@
   app
   "'(eval (match (-> (app app? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  37
+  8
+  12
+  17
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6036,7 +7392,19 @@
   app
   "'(eval (match (-> (app begin? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6075,7 +7443,19 @@
   app
   "'(eval (match (-> (app letrec1? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6114,7 +7494,19 @@
   app
   "'(eval (match (-> (app let? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6153,7 +7545,19 @@
   app
   "'(eval (match (-> (app set!? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6192,7 +7596,19 @@
   app
   "'(eval (match (-> (app if? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6231,7 +7647,19 @@
   app
   "'(eval (match (-> (app lambda? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6408,7 +7836,19 @@
   app
   "'(eval\n  (λ (exp)\n    (->\n     (app\n      string-append\n      \"public class BOut extends RuntimeEnvironment {\\n\"\n      \" public static void main (String[] args) {\\n\"\n      (app java-compile-exp exp)\n      \" ;\\n\"\n      \" }\\n\"\n      \"}\\n\")\n     <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  24
+  14
+  3
+  7
+  2
+  1
+  3
+  1
+  1/7
+  8
+  #f
+  4/7
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6480,7 +7920,19 @@
   app
   "'(eval\n  (app\n   string-append\n   \"public class BOut extends RuntimeEnvironment {\\n\"\n   \" public static void main (String[] args) {\\n\"\n   (-> (app java-compile-exp exp) <-)\n   \" ;\\n\"\n   \" }\\n\"\n   \"}\\n\")\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  10
+  3
+  7
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6615,7 +8067,19 @@
   letrec*
   "'(eval (λ (symbol) (-> (letrec* (m) ...) <-)) (env ((□? (symbol)))))"
   #f
-  #f)
+  20
+  12
+  2
+  6
+  1
+  1
+  2
+  1
+  1/12
+  5
+  #f
+  5/12
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6726,7 +8190,19 @@
   app
   "'(eval\n  (app cons (app car chars) (-> (app m (app cdr chars)) <-))\n  (env ((□? (chars)) (□? (symbol)))))"
   #f
-  #f)
+  17
+  9
+  2
+  6
+  1
+  1
+  2
+  1
+  1/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6876,7 +8352,19 @@
   app
   "'(eval\n  (app\n   cons\n   #\\_\n   (->\n    (app\n     append\n     (app integer->char-list (app char->natural ...))\n     (app m (app cdr ...)))\n    <-))\n  (env ((□? (chars)) (□? (symbol)))))"
   #f
-  #f)
+  41
+  11
+  12
+  18
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -6885,7 +8373,19 @@
   app
   "'(eval\n  (app\n   append\n   (app integer->char-list (app char->natural (app car ...)))\n   (-> (app m (app cdr chars)) <-))\n  (env ((□? (chars)) (□? (symbol)))))"
   #f
-  #f)
+  17
+  9
+  2
+  6
+  1
+  1
+  2
+  1
+  1/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -6954,10 +8454,10 @@
   app
   "'(eval\n  (app\n   append\n   (-> (app integer->char-list (app char->natural (app car ...))) <-)\n   (app m (app cdr chars)))\n  (env ((□? (chars)) (□? (symbol)))))"
   #f
-  25
+  28
   17
   3
-  5
+  8
   2
   0
   2
@@ -7713,7 +9213,19 @@
   app
   "'(eval\n  (letrec* (m) (-> (app list->string (app m (app string->list ...))) <-))\n  (env ((□? (symbol)))))"
   #f
-  #f)
+  19
+  11
+  2
+  6
+  1
+  1
+  2
+  1
+  1/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -7722,7 +9234,19 @@
   app
   "'(eval\n  (app\n   list->string\n   (-> (app m (app string->list (app symbol->string ...))) <-))\n  (env ((□? (symbol)))))"
   #f
-  #f)
+  17
+  9
+  2
+  6
+  1
+  1
+  2
+  1
+  1/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -7731,10 +9255,10 @@
   app
   "'(eval\n  (app m (-> (app string->list (app symbol->string symbol)) <-))\n  (env ((□? (symbol)))))"
   #f
-  21
+  23
   14
   3
-  4
+  6
   1
   0
   1
@@ -8028,7 +9552,19 @@
   match
   "'(eval\n  (match (app prim? exp) ((#f) (-> (match (app lambda? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8037,7 +9573,19 @@
   app
   "'(eval\n  (match\n   (app lambda? exp)\n   (#f)\n   (_ (-> (app analyze-mutable-variables (app lambda->exp exp)) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8046,7 +9594,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app lambda->exp exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8106,7 +9666,19 @@
   match
   "'(eval\n  (match (app lambda? exp) ((#f) (-> (match (app let? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8115,7 +9687,19 @@
   let
   "'(eval\n  (match (app let? exp) (#f) (_ (-> (let (_) ...) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  11
+  3
+  6
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8124,7 +9708,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_\n         (->\n          (app\n           map\n           analyze-mutable-variables\n           (app map cadr (app let->bindings ...)))\n          <-))\n        ()\n        ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8133,7 +9729,19 @@
   app
   "'(eval\n  (app\n   map\n   analyze-mutable-variables\n   (-> (app map cadr (app let->bindings exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8142,7 +9750,19 @@
   app
   "'(eval (app map cadr (-> (app let->bindings exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8265,7 +9885,19 @@
   app
   "'(eval\n  (let (_) (-> (app analyze-mutable-variables (app let->exp exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8274,7 +9906,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app let->exp exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8334,7 +9978,19 @@
   match
   "'(eval\n  (match (app let? exp) ((#f) (-> (match (app letrec1? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  44
+  14
+  12
+  18
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8343,7 +9999,19 @@
   let
   "'(eval\n  (match (app letrec1? exp) (#f) (_ (-> (let (_) ...) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  11
+  3
+  6
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8352,7 +10020,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_\n         (->\n          (app analyze-mutable-variables (app cadr (app letrec1->binding ...)))\n          <-))\n        ()\n        ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8361,7 +10041,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app cadr (app letrec1->binding exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8370,7 +10062,19 @@
   app
   "'(eval (app cadr (-> (app letrec1->binding exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8451,7 +10155,19 @@
   app
   "'(eval\n  (let (_) (-> (app analyze-mutable-variables (app letrec1->exp exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8460,7 +10176,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app letrec1->exp exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8520,7 +10248,19 @@
   match
   "'(eval\n  (match (app letrec1? exp) ((#f) (-> (match (app set!? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8538,7 +10278,19 @@
   app
   "'(eval (app mark-mutable (-> (app set!-var exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8598,7 +10350,19 @@
   match
   "'(eval\n  (match (app set!? exp) ((#f) (-> (match (app if? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8607,7 +10371,19 @@
   let
   "'(eval (match (app if? exp) (#f) (_ (-> (let (_) ...) <-))) (env ((□? (exp)))))"
   #f
-  #f)
+  21
+  12
+  3
+  6
+  2
+  1
+  3
+  1
+  1/6
+  5
+  #f
+  5/12
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8616,7 +10392,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_ (-> (app analyze-mutable-variables (app if->condition exp)) <-))\n        ()\n        ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8625,7 +10413,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app if->condition exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8685,7 +10485,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  20
+  11
+  3
+  6
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8694,7 +10506,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_ (-> (app analyze-mutable-variables (app if->then exp)) <-))\n        ()\n        ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8703,7 +10527,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app if->then exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8763,7 +10599,19 @@
   app
   "'(eval\n  (let (_) (-> (app analyze-mutable-variables (app if->else exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8772,7 +10620,19 @@
   app
   "'(eval\n  (app analyze-mutable-variables (-> (app if->else exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -8832,7 +10692,19 @@
   match
   "'(eval\n  (match (app if? exp) ((#f) (-> (match (app begin? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8862,7 +10734,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_ (-> (app map analyze-mutable-variables (app begin->exps exp)) <-))\n        ()\n        ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -8871,7 +10755,19 @@
   app
   "'(eval\n  (app map analyze-mutable-variables (-> (app begin->exps exp) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  52
+  8
+  21
+  23
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -8994,7 +10890,19 @@
   match
   "'(eval\n  (match (app begin? exp) ((#f) (-> (match (app app? exp) ...) <-)) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -9024,7 +10932,19 @@
   app
   "'(eval\n  (let (... () (_ (-> (app map analyze-mutable-variables exp) <-)) () ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -9198,7 +11118,19 @@
   app
   "'(eval (match (-> (app app? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  37
+  8
+  12
+  17
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -9237,7 +11169,19 @@
   app
   "'(eval (match (-> (app begin? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9276,7 +11220,19 @@
   app
   "'(eval (match (-> (app if? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -9315,7 +11271,19 @@
   app
   "'(eval (match (-> (app set!? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9354,7 +11322,19 @@
   app
   "'(eval (match (-> (app letrec1? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9393,7 +11373,19 @@
   app
   "'(eval (match (-> (app let? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9432,7 +11424,19 @@
   app
   "'(eval (match (-> (app lambda? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9609,7 +11613,19 @@
   letrec*
   "'(eval (λ (symbol) (-> (letrec* (is-in?) ...) <-)) (env ((□? (symbol)))))"
   #f
-  #f)
+  40
+  12
+  12
+  16
+  1
+  1
+  2
+  1
+  1/12
+  5
+  #f
+  5/12
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9741,7 +11757,19 @@
   app
   "'(eval\n  (match\n   (app eq? (app car S) symbol)\n   ((#f) (-> (app is-in? (app cdr S)) <-))\n   _)\n  (env ((□? (S)) (□? (symbol)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  1
+  1
+  2
+  1
+  1/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -9957,7 +11985,19 @@
   app
   "'(eval\n  (letrec* (is-in?) (-> (app is-in? mutable-variables) <-))\n  (env ((□? (symbol)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  1
+  1
+  2
+  1
+  1/11
+  5
+  #f
+  5/11
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -10056,7 +12096,19 @@
   ref-or-constructor
   "'(eval (app cons (-> symbol <-) mutable-variables) (env ((□? (symbol)))))"
   #f
-  #f)
+  82
+  18
+  35
+  29
+  8
+  6
+  14
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -10167,7 +12219,19 @@
   letrec*
   "'(eval\n  (λ (exp) (-> (letrec* (singlet? ... dummy-bind) ...) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  19
+  7
+  12
+  3
+  1
+  4
+  1
+  3/19
+  9
+  #f
+  9/19
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -10197,7 +12261,19 @@
   match
   "'(eval\n  (λ (exps) (-> (match (app singlet? exps) ...) <-))\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  34
+  15
+  7
+  12
+  1
+  1
+  2
+  1
+  1/15
+  7
+  #f
+  7/15
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -10206,7 +12282,19 @@
   app
   "'(eval\n  (match (app singlet? exps) (#f) (_ (-> (app car exps) <-)))\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  167
+  71
+  57
+  39
+  14
+  6
+  20
+  1
+  179/600
+  25
+  #f
+  25/71
+  (14 14 0))
 '(clean-cache
   scheme2java
   3
@@ -10215,7 +12303,19 @@
   ref-or-constructor
   "'(eval (app car (-> exps <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  93
+  40
+  24
+  29
+  6
+  1
+  7
+  1
+  2/9
+  11
+  #f
+  11/40
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -10245,7 +12345,19 @@
   match
   "'(eval\n  (match (app singlet? exps) ((#f) (-> (match (app pair? exps) ...) <-)) _)\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  143
+  72
+  36
+  35
+  11
+  2
+  13
+  1
+  67/270
+  19
+  #f
+  19/72
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -10422,7 +12534,19 @@
   app
   "'(eval\n  (app cons (-> (app dummy-bind (app cdr exps)) <-) (app nil))\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  38
+  18
+  7
+  13
+  3
+  1
+  4
+  1
+  1/6
+  9
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -10431,7 +12555,19 @@
   app
   "'(eval (app dummy-bind (-> (app cdr exps) <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  92
+  39
+  24
+  29
+  6
+  1
+  7
+  1
+  8/33
+  11
+  #f
+  11/39
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -10440,7 +12576,19 @@
   ref-or-constructor
   "'(eval (app cdr (-> exps <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  92
+  39
+  24
+  29
+  6
+  1
+  7
+  1
+  8/33
+  11
+  #f
+  11/39
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -10659,7 +12807,19 @@
   app
   "'(eval\n  (app cons (-> (app car exps) <-) (app nil))\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  167
+  71
+  57
+  39
+  14
+  6
+  20
+  1
+  179/600
+  25
+  #f
+  25/71
+  (14 14 0))
 '(clean-cache
   scheme2java
   3
@@ -10668,7 +12828,19 @@
   ref-or-constructor
   "'(eval (app car (-> exps <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  93
+  40
+  24
+  29
+  6
+  1
+  7
+  1
+  2/9
+  11
+  #f
+  11/40
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -10929,7 +13101,19 @@
   app
   "'(eval (match (-> (app pair? exps) <-) (#f) _) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  136
+  65
+  36
+  35
+  11
+  2
+  13
+  1
+  67/255
+  19
+  #f
+  19/65
+  (12 12 0))
 '(clean-cache
   scheme2java
   3
@@ -10938,7 +13122,19 @@
   ref-or-constructor
   "'(eval (app pair? (-> exps <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  93
+  40
+  24
+  29
+  6
+  1
+  7
+  1
+  2/9
+  11
+  #f
+  11/40
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -10968,7 +13164,19 @@
   app
   "'(eval\n  (match (-> (app singlet? exps) <-) (#f) _)\n  (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  33
+  14
+  7
+  12
+  1
+  1
+  2
+  1
+  1/14
+  7
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -10977,7 +13185,19 @@
   ref-or-constructor
   "'(eval (app singlet? (-> exps <-)) (env ((□? (exps)) (□? (exp)))))"
   #f
-  #f)
+  93
+  40
+  24
+  29
+  6
+  1
+  7
+  1
+  2/9
+  11
+  #f
+  11/40
+  (7 7 0))
 '(clean-cache
   scheme2java
   3
@@ -11130,7 +13350,19 @@
   app
   "'(eval\n  (match (-> (app = (app length l) 1) <-) (#f) _)\n  (env ((□? (l)) (□? (exp)))))"
   #f
-  #f)
+  153
+  80
+  33
+  40
+  11
+  2
+  13
+  1
+  7/30
+  24
+  #f
+  3/10
+  (14 14 0))
 '(clean-cache
   scheme2java
   3
@@ -11160,7 +13392,19 @@
   app
   "'(eval (app = (-> (app length l) <-) 1) (env ((□? (l)) (□? (exp)))))"
   #f
-  #f)
+  141
+  68
+  33
+  40
+  11
+  2
+  13
+  1
+  7/27
+  18
+  #f
+  9/34
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -11169,7 +13413,19 @@
   ref-or-constructor
   "'(eval (app length (-> l <-)) (env ((□? (l)) (□? (exp)))))"
   #f
-  #f)
+  105
+  47
+  26
+  32
+  6
+  1
+  7
+  1
+  8/39
+  11
+  #f
+  11/47
+  (9 9 0))
 '(clean-cache
   scheme2java
   3
@@ -11283,7 +13539,19 @@
   ref-or-constructor
   "'(eval (app list? (-> l <-)) (env ((□? (l)) (□? (exp)))))"
   #f
-  #f)
+  105
+  47
+  26
+  32
+  6
+  1
+  7
+  1
+  8/39
+  11
+  #f
+  11/47
+  (9 9 0))
 '(clean-cache
   scheme2java
   3
@@ -11313,7 +13581,19 @@
   app
   "'(eval\n  (letrec*\n   (singlet? ... dummy-bind)\n   (-> (app dummy-bind (app begin->exps exp)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  37
+  18
+  7
+  12
+  3
+  1
+  4
+  1
+  1/6
+  9
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -11322,7 +13602,19 @@
   app
   "'(eval (app dummy-bind (-> (app begin->exps exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  51
+  8
+  21
+  22
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -11403,7 +13695,19 @@
   match
   "'(eval (λ (exp) (-> (match (app letrec1? exp) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  44
+  14
+  12
+  18
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -11433,7 +13737,19 @@
   app
   "'(eval\n  (let* (... arg (num-args (-> (app arity arg) <-)) () ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  27
+  8
+  7
+  12
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -11442,7 +13758,19 @@
   ref-or-constructor
   "'(eval (app arity (-> arg <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  15
+  33
+  26
+  5
+  5
+  10
+  1
+  7/24
+  10
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11472,7 +13800,19 @@
   app
   "'(eval\n  (let* (... name (arg (-> (app cadr binding) <-)) num-args ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  73
+  14
+  33
+  26
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11481,7 +13821,19 @@
   ref-or-constructor
   "'(eval (app cadr (-> binding <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  18
+  33
+  27
+  8
+  5
+  13
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11511,7 +13863,19 @@
   app
   "'(eval\n  (let* (... binding (name (-> (app car binding) <-)) arg ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  83
+  22
+  33
+  28
+  8
+  5
+  13
+  1
+  11/34
+  13
+  #f
+  13/22
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11520,7 +13884,19 @@
   ref-or-constructor
   "'(eval (app car (-> binding <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  78
+  18
+  33
+  27
+  8
+  5
+  13
+  1
+  13/30
+  12
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11550,7 +13926,19 @@
   app
   "'(eval\n  (let* (... () (binding (-> (app letrec1->binding exp) <-)) name ...) ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -11757,7 +14145,19 @@
   app
   "'(eval (app cons (-> (app letrec1->exp exp) <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -12153,7 +14553,19 @@
   ref-or-constructor
   "'(eval (app cons (-> arg <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  15
+  33
+  26
+  5
+  5
+  10
+  1
+  7/24
+  10
+  #f
+  2/3
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -12246,7 +14658,19 @@
   ref-or-constructor
   "'(eval (app cons (-> name <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  84
+  23
+  33
+  28
+  8
+  5
+  13
+  1
+  11/36
+  13
+  #f
+  13/23
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -12360,10 +14784,10 @@
   app
   "'(eval\n  (app\n   cons\n   (-> (app Yn num-args) <-)\n   (app cons (app cons 'lambda (app cons ...)) (app nil)))\n  (env ((□? (exp)))))"
   #f
-  7
+  8
   5
   0
-  2
+  3
   1
   0
   1
@@ -12381,7 +14805,19 @@
   ref-or-constructor
   "'(eval (app Yn (-> num-args <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  28
+  9
+  7
+  12
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -12453,7 +14889,19 @@
   ref-or-constructor
   "'(eval\n  (app\n   cons\n   (-> name <-)\n   (app cons (app cons (app Yn ...) (app cons ...)) (app nil)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  84
+  23
+  33
+  28
+  8
+  5
+  13
+  1
+  11/36
+  13
+  #f
+  13/23
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -12597,7 +15045,19 @@
   app
   "'(eval (match (-> (app letrec1? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -13224,7 +15684,19 @@
   app
   "'(eval\n  (app\n   cons\n   (app cons (app cons 'h (app cons ...)) (app cons 'F (app nil ...)))\n   (-> (app append (app xargs n) (app nil)) <-))\n  (env ((□? (n)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -13275,7 +15747,19 @@
   app
   "'(eval (app append (-> (app xargs n) <-) (app nil)) (env ((□? (n)))))"
   #f
-  #f)
+  56
+  23
+  15
+  18
+  3
+  3
+  6
+  1
+  3/17
+  9
+  #f
+  9/23
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -13284,7 +15768,19 @@
   ref-or-constructor
   "'(eval (app xargs (-> n <-)) (env ((□? (n)))))"
   #f
-  #f)
+  32
+  10
+  9
+  13
+  2
+  2
+  4
+  1
+  1/5
+  4
+  #f
+  2/5
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -13692,7 +16188,19 @@
   app
   "'(eval\n  (app\n   cons\n   (-> (app append (app xargs n) (app nil)) <-)\n   (app cons (app cons (app cons ...) (app append ...)) (app nil)))\n  (env ((□? (n)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -13743,7 +16251,19 @@
   app
   "'(eval (app append (-> (app xargs n) <-) (app nil)) (env ((□? (n)))))"
   #f
-  #f)
+  56
+  23
+  15
+  18
+  3
+  3
+  6
+  1
+  3/17
+  9
+  #f
+  9/23
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -13752,7 +16272,19 @@
   ref-or-constructor
   "'(eval (app xargs (-> n <-)) (env ((□? (n)))))"
   #f
-  #f)
+  32
+  10
+  9
+  13
+  2
+  2
+  4
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -14748,7 +17280,19 @@
   app
   "'(eval\n  (app\n   cons\n   (app cons (app cons 'h (app cons ...)) (app cons 'F (app nil ...)))\n   (-> (app append (app xargs n) (app nil)) <-))\n  (env ((□? (n)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -14799,7 +17343,19 @@
   app
   "'(eval (app append (-> (app xargs n) <-) (app nil)) (env ((□? (n)))))"
   #f
-  #f)
+  56
+  23
+  15
+  18
+  3
+  3
+  6
+  1
+  3/17
+  9
+  #f
+  9/23
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -14808,7 +17364,19 @@
   ref-or-constructor
   "'(eval (app xargs (-> n <-)) (env ((□? (n)))))"
   #f
-  #f)
+  32
+  10
+  9
+  13
+  2
+  2
+  4
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -15216,7 +17784,19 @@
   app
   "'(eval\n  (app\n   cons\n   (-> (app append (app xargs n) (app nil)) <-)\n   (app cons (app cons (app cons ...) (app append ...)) (app nil)))\n  (env ((□? (n)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -15267,7 +17847,19 @@
   app
   "'(eval (app append (-> (app xargs n) <-) (app nil)) (env ((□? (n)))))"
   #f
-  #f)
+  56
+  23
+  15
+  18
+  3
+  3
+  6
+  1
+  3/17
+  9
+  #f
+  9/23
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -15276,7 +17868,19 @@
   ref-or-constructor
   "'(eval (app xargs (-> n <-)) (env ((□? (n)))))"
   #f
-  #f)
+  32
+  10
+  9
+  13
+  2
+  2
+  4
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -15966,7 +18570,19 @@
   app
   "'(eval\n  (app\n   cons\n   (app string->symbol (app string-append \"x\" (app number->string ...)))\n   (-> (app xargs (app - n 1)) <-))\n  (env ((□? (n)))))"
   #f
-  #f)
+  175
+  136
+  15
+  24
+  75
+  3
+  78
+  1
+  8/23
+  53
+  #f
+  53/136
+  (19 19 0))
 '(clean-cache
   scheme2java
   3
@@ -15975,7 +18591,19 @@
   app
   "'(eval (app xargs (-> (app - n 1) <-)) (env ((□? (n)))))"
   #f
-  #f)
+  133
+  89
+  15
+  29
+  29
+  3
+  32
+  1
+  25/128
+  28
+  #f
+  28/89
+  (14 14 0))
 '(clean-cache
   scheme2java
   3
@@ -16005,7 +18633,19 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (n)))))"
   #f
-  #f)
+  132
+  88
+  15
+  29
+  29
+  3
+  32
+  1
+  289/1472
+  27
+  #f
+  27/88
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -16095,7 +18735,19 @@
   ref-or-constructor
   "'(eval (app number->string (-> n <-)) (env ((□? (n)))))"
   #f
-  #f)
+  132
+  88
+  15
+  29
+  29
+  3
+  32
+  1
+  581/3128
+  27
+  #f
+  27/88
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -16239,7 +18891,19 @@
   ref-or-constructor
   "'(eval (app <= (-> n <-) 0) (env ((□? (n)))))"
   #f
-  #f)
+  132
+  88
+  15
+  29
+  29
+  3
+  32
+  1
+  581/3128
+  27
+  #f
+  27/88
+  (13 13 0))
 '(clean-cache
   scheme2java
   3
@@ -16290,7 +18954,19 @@
   app
   "'(eval\n  (λ (lam) (-> (app length (app lambda->formals lam)) <-))\n  (env ((□? (lam)))))"
   #f
-  #f)
+  96
+  22
+  40
+  34
+  9
+  6
+  15
+  1
+  15/38
+  14
+  #f
+  7/11
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -16299,7 +18975,19 @@
   app
   "'(eval (app length (-> (app lambda->formals lam) <-)) (env ((□? (lam)))))"
   #f
-  #f)
+  78
+  17
+  33
+  28
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -16308,7 +18996,19 @@
   ref-or-constructor
   "'(eval (app lambda->formals (-> lam <-)) (env ((□? (lam)))))"
   #f
-  #f)
+  78
+  16
+  35
+  27
+  5
+  6
+  11
+  1
+  7/26
+  10
+  #f
+  5/8
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -16380,7 +19080,19 @@
   match
   "'(eval (λ (exp) (-> (match (app let? exp) ...) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  43
+  13
+  12
+  18
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -16410,7 +19122,19 @@
   app
   "'(eval\n  (let (... vars (args (-> (app map cadr (app let->bindings exp)) <-)) () ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -16419,7 +19143,19 @@
   app
   "'(eval (app map cadr (-> (app let->bindings exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -16500,7 +19236,19 @@
   app
   "'(eval\n  (let (... () (vars (-> (app map car (app let->bindings exp)) <-)) args ...)\n    ...)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -16509,7 +19257,19 @@
   app
   "'(eval (app map car (-> (app let->bindings exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -16674,7 +19434,19 @@
   app
   "'(eval\n  (app\n   cons\n   (app cons 'lambda (app cons (app append ...) (app cons ...)))\n   (-> (app append args (app nil)) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -16725,7 +19497,19 @@
   ref-or-constructor
   "'(eval (app append (-> args <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  39
+  10
+  12
+  17
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -16860,7 +19644,19 @@
   app
   "'(eval (app cons (-> (app let->exp exp) <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  77
+  17
+  33
+  27
+  8
+  5
+  13
+  1
+  13/28
+  12
+  #f
+  12/17
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -16920,7 +19716,19 @@
   app
   "'(eval\n  (app\n   cons\n   (-> (app append vars (app nil)) <-)\n   (app cons (app let->exp exp) (app nil)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  40
+  11
+  12
+  17
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -16971,7 +19779,19 @@
   ref-or-constructor
   "'(eval (app append (-> vars <-) (app nil)) (env ((□? (exp)))))"
   #f
-  #f)
+  39
+  10
+  12
+  17
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -17115,7 +19935,19 @@
   app
   "'(eval (match (-> (app let? exp) <-) (#f) _) (env ((□? (exp)))))"
   #f
-  #f)
+  42
+  12
+  12
+  18
+  5
+  1
+  6
+  1
+  5/12
+  6
+  #f
+  1/2
+  (1 1 0))
 '(clean-cache
   scheme2java
   3
@@ -17175,7 +20007,19 @@
   app
   "'(eval (λ (exp) (-> (app caddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -17235,7 +20079,19 @@
   app
   "'(eval (λ (exp) (-> (app cadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -17295,7 +20151,19 @@
   app
   "'(eval (λ (exp) (-> (app tagged-list? 'set! exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -17436,7 +20304,19 @@
   app
   "'(eval (λ (exp) (-> (app tagged-list? 'begin exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -18315,7 +21195,19 @@
   app
   "'(eval (λ (exp) (-> (app cadddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18375,7 +21267,19 @@
   app
   "'(eval (λ (exp) (-> (app caddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -18435,7 +21339,19 @@
   app
   "'(eval (λ (exp) (-> (app cadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18495,7 +21411,19 @@
   app
   "'(eval (λ (exp) (-> (app tagged-list? 'if exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -18576,7 +21504,19 @@
   app
   "'(eval (λ (exp) (-> (app caddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18636,7 +21576,19 @@
   app
   "'(eval (λ (exp) (-> (app cadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18696,7 +21648,19 @@
   app
   "'(eval (λ (exp) (-> (app tagged-list? 'lambda exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -18777,7 +21741,19 @@
   app
   "'(eval (λ (exp) (-> (app caddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18837,7 +21813,19 @@
   app
   "'(eval (λ (exp) (-> (app caadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -18897,7 +21885,19 @@
   match
   "'(eval\n  (λ (exp) (-> (match (app tagged-list? 'letrec exp) ...) <-))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  39
+  10
+  12
+  17
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -18906,7 +21906,19 @@
   match
   "'(eval\n  (match\n   (app tagged-list? 'letrec exp)\n   (#f)\n   (_ (-> (match (app = (app length ...) 1) ...) <-)))\n  (env ((□? (exp)))))"
   #f
-  #f)
+  95
+  22
+  40
+  33
+  6
+  6
+  12
+  1
+  9/38
+  13
+  #f
+  13/22
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -18999,7 +22011,19 @@
   app
   "'(eval\n  (match (-> (app = (app length (app cadr ...)) 1) <-) (#f) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  94
+  21
+  40
+  33
+  6
+  6
+  12
+  1
+  1/4
+  13
+  #f
+  13/21
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -19029,7 +22053,19 @@
   app
   "'(eval (app = (-> (app length (app cadr exp)) <-) 1) (env ((□? (exp)))))"
   #f
-  #f)
+  92
+  19
+  40
+  33
+  6
+  6
+  12
+  1
+  9/32
+  12
+  #f
+  12/19
+  (3 3 0))
 '(clean-cache
   scheme2java
   3
@@ -19038,7 +22074,19 @@
   app
   "'(eval (app length (-> (app cadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -19161,7 +22209,19 @@
   app
   "'(eval\n  (match (-> (app tagged-list? 'letrec exp) <-) (#f) _)\n  (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -19242,7 +22302,19 @@
   app
   "'(eval (λ (exp) (-> (app caddr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -19302,7 +22374,19 @@
   app
   "'(eval (λ (exp) (-> (app cadr exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  74
+  14
+  33
+  27
+  5
+  5
+  10
+  1
+  7/22
+  10
+  #f
+  5/7
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -19362,7 +22446,19 @@
   app
   "'(eval (λ (exp) (-> (app tagged-list? 'let exp) <-)) (env ((□? (exp)))))"
   #f
-  #f)
+  38
+  9
+  12
+  17
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -19563,10 +22659,10 @@
   app
   "'(eval\n  (λ (n) (-> (app string->list (app number->string n)) <-))\n  (env ((□? (n)))))"
   #f
-  21
+  23
   14
   3
-  4
+  6
   1
   0
   1
@@ -20268,10 +23364,10 @@
   letrec*
   "'(eval (λ (s) (-> (letrec* (f) ...) <-)) (env ((□? (s)))))"
   #f
-  17
+  18
   11
   3
-  3
+  4
   0
   0
   0
@@ -20319,10 +23415,10 @@
   0
   1
   0
-  39
+  45
   #f
-  87/65
-  (6 6 0))
+  81/65
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -20352,19 +23448,19 @@
   app
   "'(eval\n  (app cons (app string-ref s i) (-> (app f (app + i 1)) <-))\n  (env ((□? (i)) (□? (s)))))"
   #f
-  77
+  78
   68
   3
-  6
+  7
   0
   0
   0
   1
   0
-  40
+  46
   #f
-  20/17
-  (6 6 0))
+  37/34
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -20382,10 +23478,10 @@
   0
   1
   0
-  17
+  21
   #f
-  41/29
-  (3 3 0))
+  37/29
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -20424,10 +23520,10 @@
   0
   1
   0
-  17
+  21
   #f
-  41/29
-  (3 3 0))
+  37/29
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -20508,10 +23604,10 @@
   0
   1
   0
-  17
+  21
   #f
-  43/30
-  (3 3 0))
+  13/10
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -20622,10 +23718,10 @@
   0
   1
   0
-  39
+  45
   #f
-  3/2
-  (5 5 0))
+  81/58
+  (4 4 0))
 '(clean-cache
   scheme2java
   3
@@ -20694,10 +23790,10 @@
   0
   1
   0
-  17
+  21
   #f
-  43/30
-  (3 3 0))
+  13/10
+  (2 2 0))
 '(clean-cache
   scheme2java
   3
@@ -20727,10 +23823,10 @@
   app
   "'(eval (letrec* (f) (-> (app f 0) <-)) (env ((□? (s)))))"
   #f
-  16
+  17
   10
   3
-  3
+  4
   0
   0
   0
@@ -20820,7 +23916,19 @@
   ref-or-constructor
   "'(eval\n  (match (app not (app pair? lst1)) (#f) (_ (-> lst2 <-)))\n  (env ((□? (lst1 lst2)))))"
   #f
-  #f)
+  83
+  47
+  11
+  25
+  9
+  2
+  11
+  1
+  33/575
+  39
+  #t
+  39/47
+  (8 8 0))
 '(clean-cache
   scheme2java
   3
@@ -20850,7 +23958,19 @@
   app
   "'(eval\n  (app cons (app car lst1) (-> (app append (app cdr lst1) lst2) <-))\n  (env ((□? (lst1 lst2)))))"
   #f
-  #f)
+  39
+  11
+  12
+  16
+  2
+  1
+  3
+  1
+  2/11
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -20859,7 +23979,19 @@
   ref-or-constructor
   "'(eval (app append (app cdr lst1) (-> lst2 <-)) (env ((□? (lst1 lst2)))))"
   #f
-  #f)
+  82
+  46
+  11
+  25
+  9
+  2
+  11
+  1
+  3/50
+  38
+  #t
+  19/23
+  (6 6 0))
 '(clean-cache
   scheme2java
   3
@@ -21108,7 +24240,19 @@
   app
   "'(eval\n  (app cons (app f (app car lst)) (-> (app map f (app cdr lst)) <-))\n  (env ((□? (f lst)))))"
   #f
-  #f)
+  37
+  9
+  12
+  16
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -21165,10 +24309,10 @@
   11
   1
   73/220
-  15
+  27
   #f
-  63/31
-  (8 8 0))
+  39/31
+  (5 5 0))
 '(clean-cache
   scheme2java
   3
@@ -21255,10 +24399,10 @@
   11
   1
   73/242
-  15
+  27
   #f
-  33/16
-  (9 9 0))
+  21/16
+  (6 6 0))
 '(clean-cache
   scheme2java
   3
@@ -22341,7 +25485,19 @@
   let
   "'(eval (letrec* (car ... input-program) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  28
+  20
+  3
+  5
+  20
+  1
+  21
+  1
+  1
+  11
+  #f
+  11/20
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -22350,7 +25506,19 @@
   app
   "'(eval\n  (let (...\n        ()\n        (_ (-> (app analyze-mutable-variables input-program) <-))\n        ()\n        ...)\n    ...)\n  (env ()))"
   #f
-  #f)
+  17
+  10
+  3
+  4
+  10
+  1
+  11
+  1
+  1
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -22401,7 +25569,19 @@
   app
   "'(eval\n  (let (_) (-> (app display (app java-compile-program input-program)) <-))\n  (env ()))"
   #f
-  #f)
+  27
+  19
+  3
+  5
+  19
+  1
+  20
+  1
+  1
+  11
+  #f
+  11/19
+  (0 0 0))
 '(clean-cache
   scheme2java
   3
@@ -22410,7 +25590,19 @@
   app
   "'(eval (app display (-> (app java-compile-program input-program) <-)) (env ()))"
   #f
-  #f)
+  25
+  17
+  3
+  5
+  17
+  1
+  18
+  1
+  1
+  10
+  #f
+  10/17
+  (0 0 0))
 '(clean-cache
   scheme2java
   3

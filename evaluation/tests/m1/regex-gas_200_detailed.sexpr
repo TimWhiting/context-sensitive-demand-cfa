@@ -213,10 +213,10 @@
   app
   "'(eval\n  (app regex-match (app d/dc pattern (app car data)) (-> (app cdr data) <-))\n  (env ((□? (pattern data)))))"
   #f
-  32
+  33
   21
   8
-  3
+  4
   18
   3
   21
@@ -234,10 +234,10 @@
   ref-or-constructor
   "'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -285,10 +285,10 @@
   app
   "'(eval (app d/dc pattern (-> (app car data) <-)) (env ((□? (pattern data)))))"
   #f
-  50
+  52
   29
   15
-  6
+  8
   26
   4
   30
@@ -306,10 +306,10 @@
   ref-or-constructor
   "'(eval (app car (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -399,10 +399,10 @@
   app
   "'(eval (match (-> (app null? data) <-) (#f) _) (env ((□? (pattern data)))))"
   #f
-  45
+  47
   32
   10
-  3
+  5
   29
   4
   33
@@ -420,10 +420,10 @@
   ref-or-constructor
   "'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  30
+  31
   19
   8
-  3
+  4
   18
   3
   21
@@ -513,10 +513,10 @@
   app
   "'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))"
   #f
-  5
+  6
   4
   0
-  1
+  2
   2
   0
   2
@@ -6087,10 +6087,10 @@
   match
   "'(eval (λ (null?-v) (-> (match null?-v ...) <-)) (env ((□? (null?-v)))))"
   #f
-  44
+  45
   30
   10
-  4
+  5
   25
   4
   29
@@ -6192,10 +6192,10 @@
   ref-or-constructor
   "'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))"
   #f
-  36
+  37
   22
   10
-  4
+  5
   20
   4
   24

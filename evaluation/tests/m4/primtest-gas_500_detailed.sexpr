@@ -6,7 +6,19 @@
   letrec*
   "'(eval ((top) letrec* (square ... byte-size) ...) (env ()))"
   #f
-  #f)
+  23
+  18
+  2
+  3
+  18
+  1
+  19
+  1
+  1
+  7
+  #f
+  7/18
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -180,7 +192,19 @@
   app
   "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  24
+  17
+  2
+  5
+  2
+  1
+  3
+  1
+  2/17
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -261,7 +285,19 @@
   match
   "'(eval\n  (match\n   (app not (app is-trivial-composite? n))\n   (#f)\n   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  121
+  104
+  10
+  7
+  84
+  4
+  88
+  1
+  201/250
+  55
+  #f
+  55/104
+  (4 4 0))
 '(clean-cache
   primtest
   4
@@ -354,7 +390,19 @@
   app
   "'(eval\n  (match (-> (app is-fermat-prime? n iterations) <-) (#f) _)\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  115
+  98
+  10
+  7
+  79
+  4
+  83
+  1
+  289/360
+  55
+  #f
+  55/98
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -843,7 +891,19 @@
   app
   "'(eval (app / (-> (app log n) <-) (app log 2)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  100
+  86
+  6
+  8
+  60
+  3
+  63
+  1
+  49/66
+  37
+  #f
+  135/86
+  (9 9 0))
 '(clean-cache
   primtest
   4
@@ -864,7 +924,7 @@
   19
   #f
   81/50
-  (8 8 0))
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -954,7 +1014,19 @@
   app
   "'(eval\n  (app is-fermat-prime? n (-> (app - iterations 1) <-))\n  (env ((□? (n iterations)))))"
   #f
-  #f)
+  99
+  85
+  6
+  8
+  56
+  3
+  59
+  1
+  113/144
+  75
+  #f
+  19/17
+  (9 9 0))
 '(clean-cache
   primtest
   4
@@ -984,7 +1056,19 @@
   ref-or-constructor
   "'(eval (app - (-> iterations <-) 1) (env ((□? (n iterations)))))"
   #f
-  #f)
+  97
+  83
+  6
+  8
+  56
+  3
+  59
+  1
+  1943/2448
+  73
+  #f
+  93/83
+  (8 8 0))
 '(clean-cache
   primtest
   4
@@ -1026,7 +1110,7 @@
   19
   #f
   79/49
-  (7 7 0))
+  (5 5 0))
 '(clean-cache
   primtest
   4
@@ -1149,7 +1233,7 @@
   19
   #f
   81/50
-  (8 8 0))
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1158,7 +1242,19 @@
   app
   "'(eval (app modulo-power a (-> (app - n 1) <-) n) (env ((□? (n iterations)))))"
   #f
-  #f)
+  118
+  104
+  6
+  8
+  71
+  3
+  74
+  1
+  79/108
+  55
+  #f
+  153/104
+  (10 10 0))
 '(clean-cache
   primtest
   4
@@ -1200,7 +1296,7 @@
   19
   #f
   81/50
-  (8 8 0))
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1311,7 +1407,19 @@
   ref-or-constructor
   "'(eval (app <= (-> iterations <-) 0) (env ((□? (n iterations)))))"
   #f
-  #f)
+  97
+  83
+  6
+  8
+  56
+  3
+  59
+  1
+  977/1377
+  73
+  #f
+  93/83
+  (9 9 0))
 '(clean-cache
   primtest
   4
@@ -1629,7 +1737,7 @@
   135
   #f
   301/218
-  (7 7 0))
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1692,7 +1800,7 @@
   111
   #f
   245/178
-  (6 6 0))
+  (5 5 0))
 '(clean-cache
   primtest
   4
@@ -1818,7 +1926,7 @@
   65
   #f
   127/96
-  (4 4 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -1923,7 +2031,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -1965,7 +2073,7 @@
   31
   #f
   69/50
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2217,7 +2325,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2364,7 +2472,7 @@
   43
   #f
   93/68
-  (2 2 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2511,7 +2619,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2805,7 +2913,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2952,7 +3060,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3099,7 +3207,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3825,7 +3933,19 @@
   app
   "'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))"
   #f
-  #f)
+  22
+  17
+  2
+  3
+  17
+  1
+  18
+  1
+  1
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   primtest
   4

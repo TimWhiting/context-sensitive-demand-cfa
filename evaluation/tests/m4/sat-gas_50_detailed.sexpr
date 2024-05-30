@@ -6,7 +6,19 @@
   letrec*
   "'(eval ((top) letrec* (phi ... sat-solve-4) ...) (env ()))"
   #f
-  #f)
+  21
+  10
+  5
+  6
+  10
+  1
+  11
+  1
+  1
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   sat
   4
@@ -36,7 +48,19 @@
   app
   "'(eval (λ (p) (-> (app try (λ (n1) ...)) <-)) (env ((□? (p)))))"
   #f
-  #f)
+  26
+  12
+  5
+  9
+  1
+  1
+  2
+  1
+  1/9
+  5
+  #f
+  5/12
+  (0 0 0))
 '(clean-cache
   sat
   4
@@ -165,10 +189,10 @@
   ref-or-constructor
   "'(eval\n  (app p n1 n2 n3 (-> n4 <-))\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))"
   #f
-  16
+  17
   7
   3
-  6
+  7
   1
   0
   1
@@ -186,10 +210,10 @@
   ref-or-constructor
   "'(eval\n  (app p n1 n2 (-> n3 <-) n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))"
   #f
-  16
+  17
   7
   3
-  6
+  7
   1
   0
   1
@@ -207,10 +231,10 @@
   ref-or-constructor
   "'(eval\n  (app p n1 (-> n2 <-) n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))"
   #f
-  16
+  17
   7
   3
-  6
+  7
   1
   0
   1
@@ -228,10 +252,10 @@
   ref-or-constructor
   "'(eval\n  (app p (-> n1 <-) n2 n3 n4)\n  (env ((□? (n4)) (□? (n3)) (□? (n2)) (□? (n1)) (□? (p)))))"
   #f
-  16
+  17
   7
   3
-  6
+  7
   1
   0
   1
@@ -1545,7 +1569,19 @@
   app
   "'(eval (letrec* (phi ... sat-solve-4) (-> (app sat-solve-4 phi) <-)) (env ()))"
   #f
-  #f)
+  20
+  9
+  5
+  6
+  9
+  1
+  10
+  1
+  1
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   sat
   4

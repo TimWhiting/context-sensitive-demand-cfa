@@ -144,10 +144,10 @@
   ref-or-constructor
   "'(eval (app z (-> x1 <-) x2) (env (() () ())))"
   #f
-  9
+  10
   6
   3
-  0
+  1
   6
   3
   9

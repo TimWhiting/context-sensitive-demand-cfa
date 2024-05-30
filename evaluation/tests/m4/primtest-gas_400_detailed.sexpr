@@ -6,7 +6,19 @@
   letrec*
   "'(eval ((top) letrec* (square ... byte-size) ...) (env ()))"
   #f
-  #f)
+  23
+  18
+  2
+  3
+  18
+  1
+  19
+  1
+  1
+  7
+  #f
+  7/18
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -180,7 +192,19 @@
   app
   "'(eval\n  (match\n   (match (app not (app is-trivial-composite? ...)) ...)\n   ((#f) (-> (app generate-fermat-prime byte-size iterations) <-))\n   _)\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  24
+  17
+  2
+  5
+  2
+  1
+  3
+  1
+  2/17
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -261,7 +285,19 @@
   match
   "'(eval\n  (match\n   (app not (app is-trivial-composite? n))\n   (#f)\n   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  121
+  104
+  10
+  7
+  84
+  4
+  88
+  1
+  201/250
+  55
+  #f
+  55/104
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -354,7 +390,19 @@
   app
   "'(eval\n  (match (-> (app is-fermat-prime? n iterations) <-) (#f) _)\n  (env ((□? (byte-size iterations)))))"
   #f
-  #f)
+  115
+  98
+  10
+  7
+  79
+  4
+  83
+  1
+  289/360
+  55
+  #f
+  55/98
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -852,7 +900,19 @@
   ref-or-constructor
   "'(eval (app log (-> n <-)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  64
+  50
+  6
+  8
+  38
+  3
+  41
+  1
+  125/162
+  19
+  #f
+  81/50
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1014,7 +1074,7 @@
   19
   #f
   79/49
-  (6 6 0))
+  (5 5 0))
 '(clean-cache
   primtest
   4
@@ -1125,7 +1185,19 @@
   ref-or-constructor
   "'(eval (app modulo-power a (app - n 1) (-> n <-)) (env ((□? (n iterations)))))"
   #f
-  #f)
+  64
+  50
+  6
+  8
+  38
+  3
+  41
+  1
+  125/162
+  19
+  #f
+  81/50
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1164,7 +1236,19 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (n iterations)))))"
   #f
-  #f)
+  64
+  50
+  6
+  8
+  38
+  3
+  41
+  1
+  125/162
+  19
+  #f
+  81/50
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -2598,7 +2682,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2682,7 +2766,7 @@
   19
   #f
   45/32
-  (1 1 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2745,7 +2829,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2892,7 +2976,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3039,7 +3123,7 @@
   43
   #f
   93/68
-  (3 3 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3765,7 +3849,19 @@
   app
   "'(eval\n  (letrec*\n   (square ... byte-size)\n   (-> (app generate-fermat-prime byte-size iterations) <-))\n  (env ()))"
   #f
-  #f)
+  22
+  17
+  2
+  3
+  17
+  1
+  18
+  1
+  1
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   primtest
   4

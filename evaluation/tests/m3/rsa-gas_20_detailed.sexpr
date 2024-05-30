@@ -24,7 +24,19 @@
   app
   "'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))"
   #f
-  #f)
+  20
+  10
+  5
+  5
+  10
+  1
+  11
+  1
+  1
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   3
@@ -54,7 +66,19 @@
   ref-or-constructor
   "'(eval (app decrypt ciphertext (-> d <-) n) (env ()))"
   #f
-  #f)
+  18
+  13
+  2
+  3
+  13
+  1
+  14
+  1
+  1
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   rsa
   3
@@ -207,7 +231,19 @@
   app
   "'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))"
   #f
-  #f)
+  17
+  12
+  2
+  3
+  12
+  1
+  13
+  1
+  1
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   3
@@ -3729,7 +3765,19 @@
   ref-or-constructor
   "'(eval (app display (-> decrypted-ciphertext <-)) (env ()))"
   #f
-  #f)
+  21
+  11
+  5
+  5
+  11
+  1
+  12
+  1
+  1
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   rsa
   3
@@ -3942,7 +3990,19 @@
   ref-or-constructor
   "'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))"
   #f
-  #f)
+  21
+  11
+  5
+  5
+  11
+  1
+  12
+  1
+  1
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   rsa
   3

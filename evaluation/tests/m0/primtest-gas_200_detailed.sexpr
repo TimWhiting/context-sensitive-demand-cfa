@@ -261,10 +261,10 @@
   match
   "'(eval\n  (match\n   (app not (app is-trivial-composite? n))\n   (#f)\n   (_ (-> (match (app is-fermat-prime? n iterations) ...) <-)))\n  (env (())))"
   #f
-  121
+  124
   109
   12
-  0
+  3
   109
   12
   121
@@ -366,10 +366,10 @@
   app
   "'(eval (match (-> (app is-fermat-prime? n iterations) <-) (#f) _) (env (())))"
   #f
-  116
+  119
   104
   12
-  0
+  3
   104
   12
   116
@@ -492,10 +492,10 @@
   app
   "'(eval\n  (match (-> (app not (app is-trivial-composite? n)) <-) (#f) _)\n  (env (())))"
   #f
-  111
+  112
   106
   5
-  0
+  1
   106
   5
   111
@@ -513,10 +513,10 @@
   app
   "'(eval (app not (-> (app is-trivial-composite? n) <-)) (env (())))"
   #f
-  107
+  108
   102
   5
-  0
+  1
   102
   5
   107
@@ -618,10 +618,10 @@
   match
   "'(eval (λ (n iterations) (-> (match (app <= iterations 0) ...) <-)) (env (())))"
   #f
-  114
+  117
   102
   12
-  0
+  3
   102
   12
   114
@@ -681,10 +681,10 @@
   match
   "'(eval\n  (match\n   (app <= iterations 0)\n   ((#f) (-> (match (let* (byte-size ... a) ...) ...) <-))\n   _)\n  (env (())))"
   #f
-  114
+  117
   102
   12
-  0
+  3
   102
   12
   114
@@ -786,10 +786,10 @@
   let*
   "'(eval (match (-> (let* (byte-size ... a) ...) <-) (#f) _) (env (())))"
   #f
-  114
+  117
   102
   12
-  0
+  3
   102
   12
   114
@@ -1080,10 +1080,10 @@
   match
   "'(eval\n  (let* (byte-size ... a) (-> (match (app = (app modulo-power ...) 1) ...) <-))\n  (env (())))"
   #f
-  114
+  117
   102
   12
-  0
+  3
   102
   12
   114
@@ -1101,10 +1101,10 @@
   app
   "'(eval\n  (match\n   (app = (app modulo-power a (app - ...) n) 1)\n   (#f)\n   (_ (-> (app is-fermat-prime? n (app - iterations 1)) <-)))\n  (env (())))"
   #f
-  114
+  117
   102
   12
-  0
+  3
   102
   12
   114
@@ -1290,10 +1290,10 @@
   app
   "'(eval\n  (match (-> (app = (app modulo-power a (app - ...) n) 1) <-) (#f) _)\n  (env (())))"
   #f
-  87
+  89
   75
   12
-  0
+  2
   75
   12
   87
@@ -1332,10 +1332,10 @@
   app
   "'(eval (app = (-> (app modulo-power a (app - n 1) n) <-) 1) (env (())))"
   #f
-  84
+  86
   72
   12
-  0
+  2
   72
   12
   84
@@ -3579,10 +3579,10 @@
   match
   "'(eval (λ (base exp n) (-> (match (app = exp 0) ...) <-)) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3621,10 +3621,10 @@
   match
   "'(eval\n  (match (app = exp 0) ((#f) (-> (match (app odd? exp) ...) <-)) _)\n  (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3642,10 +3642,10 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   (#f)\n   (_ (-> (app modulo (app * base (app modulo-power ...)) n) <-)))\n  (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3684,10 +3684,10 @@
   app
   "'(eval\n  (app modulo (-> (app * base (app modulo-power base (app - ...) n)) <-) n)\n  (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3705,10 +3705,10 @@
   app
   "'(eval (app * base (-> (app modulo-power base (app - exp 1) n) <-)) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3936,10 +3936,10 @@
   app
   "'(eval\n  (match\n   (app odd? exp)\n   ((#f) (-> (app modulo (app square (app modulo-power ...)) n) <-))\n   _)\n  (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3978,10 +3978,10 @@
   app
   "'(eval\n  (app modulo (-> (app square (app modulo-power base (app / ...) n)) <-) n)\n  (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -3999,10 +3999,10 @@
   app
   "'(eval (app square (-> (app modulo-power base (app / exp 2) n) <-)) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -4377,10 +4377,10 @@
   app
   "'(eval (λ (x) (-> (app * x x) <-)) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -4398,10 +4398,10 @@
   ref-or-constructor
   "'(eval (app * x (-> x <-)) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82
@@ -4419,10 +4419,10 @@
   ref-or-constructor
   "'(eval (app * (-> x <-) x) (env (())))"
   #f
-  82
+  84
   70
   12
-  0
+  2
   70
   12
   82

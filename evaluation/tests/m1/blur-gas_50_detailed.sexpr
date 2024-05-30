@@ -93,10 +93,10 @@
   app
   "'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))"
   #f
-  24
+  27
   11
   12
-  1
+  4
   4
   4
   8
@@ -156,10 +156,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -219,10 +219,10 @@
   app
   "'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))"
   #f
-  24
+  27
   11
   12
-  1
+  4
   4
   4
   8
@@ -282,10 +282,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -393,10 +393,10 @@
   ref-or-constructor
   "'(eval (app - (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  24
+  25
   13
   10
-  1
+  2
   12
   6
   18
@@ -435,10 +435,10 @@
   ref-or-constructor
   "'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))"
   #f
-  25
+  28
   12
   12
-  1
+  4
   4
   4
   8
@@ -456,10 +456,10 @@
   app
   "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -570,10 +570,10 @@
   ref-or-constructor
   "'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))"
   #f
-  24
+  25
   13
   10
-  1
+  2
   12
   6
   18

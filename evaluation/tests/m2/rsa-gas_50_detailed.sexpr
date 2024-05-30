@@ -6,7 +6,19 @@
   lettypes
   "'(eval ((top) lettypes (cons ... error) ...) (env ()))"
   #f
-  #f)
+  39
+  29
+  5
+  5
+  29
+  1
+  30
+  1
+  1
+  9
+  #f
+  9/29
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -15,7 +27,19 @@
   letrec*
   "'(eval\n  (lettypes cons ... error (letrec* (car ... decrypted-ciphertext) ...))\n  (env ()))"
   #f
-  #f)
+  38
+  28
+  5
+  5
+  28
+  1
+  29
+  1
+  1
+  9
+  #f
+  9/28
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -24,7 +48,19 @@
   app
   "'(eval\n  (letrec*\n   (...\n    ciphertext\n    (decrypted-ciphertext (-> (app decrypt ciphertext d n) <-))\n    ()\n    ...)\n   ...)\n  (env ()))"
   #f
-  #f)
+  20
+  10
+  5
+  5
+  10
+  1
+  11
+  1
+  1
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -54,7 +90,19 @@
   ref-or-constructor
   "'(eval (app decrypt ciphertext (-> d <-) n) (env ()))"
   #f
-  #f)
+  18
+  13
+  2
+  3
+  13
+  1
+  14
+  1
+  1
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -63,7 +111,19 @@
   ref-or-constructor
   "'(eval (app decrypt (-> ciphertext <-) d n) (env ()))"
   #f
-  #f)
+  37
+  25
+  7
+  5
+  25
+  3
+  28
+  1
+  1
+  18
+  #f
+  18/25
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -93,7 +153,19 @@
   app
   "'(eval\n  (letrec*\n   (...\n    plaintext\n    (ciphertext (-> (app encrypt plaintext e n) <-))\n    decrypted-ciphertext\n    ...)\n   ...)\n  (env ()))"
   #f
-  #f)
+  36
+  24
+  7
+  5
+  24
+  3
+  27
+  1
+  1
+  18
+  #f
+  3/4
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -207,7 +279,19 @@
   app
   "'(eval\n  (letrec* (... e (d (-> (app private-exponent e p q) <-)) plaintext ...) ...)\n  (env ()))"
   #f
-  #f)
+  17
+  12
+  2
+  3
+  12
+  1
+  13
+  1
+  1
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -498,7 +582,19 @@
   ref-or-constructor
   "'(eval (app modulo-power c (-> d <-) n) (env ((□? (c d n)))))"
   #f
-  #f)
+  22
+  14
+  4
+  4
+  13
+  3
+  16
+  1
+  13/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -507,7 +603,19 @@
   ref-or-constructor
   "'(eval (app modulo-power (-> c <-) d n) (env ((□? (c d n)))))"
   #f
-  #f)
+  40
+  26
+  9
+  5
+  25
+  5
+  30
+  1
+  25/26
+  18
+  #f
+  9/13
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -837,7 +945,19 @@
   app
   "'(eval\n  (match\n   (app is-legal-public-exponent? e p q)\n   (#f)\n   (_ (-> (app modulo-inverse e (app totient p q)) <-)))\n  (env ((□? (e p q)))))"
   #f
-  #f)
+  19
+  10
+  3
+  6
+  4
+  1
+  5
+  1
+  2/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3321,7 +3441,19 @@
   let
   "'(eval (letrec* (car ... decrypted-ciphertext) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  37
+  27
+  5
+  5
+  27
+  1
+  28
+  1
+  1
+  9
+  #f
+  1/3
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3393,7 +3525,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  36
+  26
+  5
+  5
+  26
+  1
+  27
+  1
+  1
+  9
+  #f
+  9/26
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3465,7 +3609,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  35
+  25
+  5
+  5
+  25
+  1
+  26
+  1
+  1
+  9
+  #f
+  9/25
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3516,7 +3672,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  34
+  24
+  5
+  5
+  24
+  1
+  25
+  1
+  1
+  9
+  #f
+  3/8
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3588,7 +3756,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  33
+  23
+  5
+  5
+  23
+  1
+  24
+  1
+  1
+  9
+  #f
+  9/23
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3597,7 +3777,19 @@
   app
   "'(eval (let (... () (_ (-> (app display ciphertext) <-)) () ...) ...) (env ()))"
   #f
-  #f)
+  39
+  27
+  7
+  5
+  27
+  3
+  30
+  1
+  1
+  19
+  #f
+  19/27
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3606,7 +3798,19 @@
   ref-or-constructor
   "'(eval (app display (-> ciphertext <-)) (env ()))"
   #f
-  #f)
+  37
+  25
+  7
+  5
+  25
+  3
+  28
+  1
+  1
+  18
+  #f
+  18/25
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3636,7 +3840,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  32
+  22
+  5
+  5
+  22
+  1
+  23
+  1
+  1
+  9
+  #f
+  9/22
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3687,7 +3903,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  31
+  21
+  5
+  5
+  21
+  1
+  22
+  1
+  1
+  9
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3759,7 +3987,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  30
+  20
+  5
+  5
+  20
+  1
+  21
+  1
+  1
+  9
+  #f
+  9/20
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3768,7 +4008,19 @@
   app
   "'(eval\n  (let (... () (_ (-> (app display decrypted-ciphertext) <-)) () ...) ...)\n  (env ()))"
   #f
-  #f)
+  23
+  13
+  5
+  5
+  13
+  1
+  14
+  1
+  1
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3777,7 +4029,19 @@
   ref-or-constructor
   "'(eval (app display (-> decrypted-ciphertext <-)) (env ()))"
   #f
-  #f)
+  21
+  11
+  5
+  5
+  11
+  1
+  12
+  1
+  1
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3807,7 +4071,19 @@
   let
   "'(eval (let (_) (-> (let (_) ...) <-)) (env ()))"
   #f
-  #f)
+  29
+  19
+  5
+  5
+  19
+  1
+  20
+  1
+  1
+  9
+  #f
+  9/19
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3858,7 +4134,19 @@
   match
   "'(eval (let (_) (-> (match (app not (app = ...)) ...) <-)) (env ()))"
   #f
-  #f)
+  28
+  18
+  5
+  5
+  18
+  1
+  19
+  1
+  1
+  9
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3972,7 +4260,19 @@
   app
   "'(eval\n  (match (-> (app not (app = plaintext decrypted-ciphertext)) <-) (#f) _)\n  (env ()))"
   #f
-  #f)
+  27
+  17
+  5
+  5
+  17
+  1
+  18
+  1
+  1
+  9
+  #f
+  9/17
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3981,7 +4281,19 @@
   app
   "'(eval (app not (-> (app = plaintext decrypted-ciphertext) <-)) (env ()))"
   #f
-  #f)
+  25
+  15
+  5
+  5
+  15
+  1
+  16
+  1
+  1
+  8
+  #f
+  8/15
+  (0 0 0))
 '(clean-cache
   rsa
   2
@@ -3990,7 +4302,19 @@
   ref-or-constructor
   "'(eval (app = plaintext (-> decrypted-ciphertext <-)) (env ()))"
   #f
-  #f)
+  21
+  11
+  5
+  5
+  11
+  1
+  12
+  1
+  1
+  5
+  #f
+  5/11
+  (0 0 0))
 '(clean-cache
   rsa
   2

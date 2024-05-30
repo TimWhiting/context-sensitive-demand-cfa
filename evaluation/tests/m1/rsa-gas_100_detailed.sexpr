@@ -846,10 +846,10 @@
   app
   "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
   #f
-  30
+  31
   22
   6
-  2
+  3
   18
   3
   21
@@ -1167,10 +1167,10 @@
   match
   "'(eval\n  (match\n   (app < e (app totient p q))\n   (#f)\n   (_ (-> (match (app = 1 (app gcd ...)) ...) <-)))\n  (env ((□? (e p q)))))"
   #f
-  54
+  55
   44
   8
-  2
+  3
   32
   4
   36
@@ -1272,10 +1272,10 @@
   app
   "'(eval\n  (match (-> (app = 1 (app gcd e (app totient ...))) <-) (#f) _)\n  (env ((□? (e p q)))))"
   #f
-  49
+  50
   39
   8
-  2
+  3
   29
   4
   33
@@ -1284,7 +1284,7 @@
   39
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   1
@@ -1293,10 +1293,10 @@
   app
   "'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env ((□? (e p q)))))"
   #f
-  43
+  44
   33
   8
-  2
+  3
   26
   4
   30
@@ -1314,10 +1314,10 @@
   app
   "'(eval (app gcd e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
   #f
-  36
+  37
   26
   8
-  2
+  3
   20
   4
   24
@@ -1524,10 +1524,10 @@
   app
   "'(eval (match (-> (app < e (app totient p q)) <-) (#f) _) (env ((□? (e p q)))))"
   #f
-  43
+  44
   33
   8
-  2
+  3
   26
   4
   30
@@ -1545,10 +1545,10 @@
   app
   "'(eval (app < e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
   #f
-  36
+  37
   26
   8
-  2
+  3
   20
   4
   24
@@ -2649,10 +2649,10 @@
   ref-or-constructor
   "'(eval\n  (app modulo (app car (app extended-gcd a n)) (-> n <-))\n  (env ((□? (a n)))))"
   #f
-  35
+  36
   24
   8
-  3
+  4
   19
   4
   23
@@ -2679,10 +2679,10 @@
   app
   "'(eval (app car (-> (app extended-gcd a n) <-)) (env ((□? (a n)))))"
   #f
-  58
+  60
   43
   11
-  4
+  6
   37
   5
   42
@@ -2700,10 +2700,10 @@
   ref-or-constructor
   "'(eval (app extended-gcd a (-> n <-)) (env ((□? (a n)))))"
   #f
-  35
+  36
   24
   8
-  3
+  4
   19
   4
   23

@@ -846,10 +846,10 @@
   app
   "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -1035,10 +1035,10 @@
   app
   "'(eval (match (-> (app is-legal-public-exponent? e p q) <-) (#f) _) (env (())))"
   #f
-  59
+  61
   51
   8
-  0
+  2
   51
   8
   59
@@ -1047,7 +1047,7 @@
   51
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -1161,10 +1161,10 @@
   match
   "'(eval (λ (e p q) (-> (match (app < 1 e) ...) <-)) (env (())))"
   #f
-  56
+  57
   48
   8
-  0
+  1
   48
   8
   56
@@ -1173,7 +1173,7 @@
   48
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -1182,10 +1182,10 @@
   match
   "'(eval\n  (match (app < 1 e) (#f) (_ (-> (match (app < e (app totient ...)) ...) <-)))\n  (env (())))"
   #f
-  51
+  52
   43
   8
-  0
+  1
   43
   8
   51
@@ -1203,10 +1203,10 @@
   match
   "'(eval\n  (match\n   (app < e (app totient p q))\n   (#f)\n   (_ (-> (match (app = 1 (app gcd ...)) ...) <-)))\n  (env (())))"
   #f
-  45
+  46
   37
   8
-  0
+  1
   37
   8
   45
@@ -1308,10 +1308,10 @@
   app
   "'(eval\n  (match (-> (app = 1 (app gcd e (app totient ...))) <-) (#f) _)\n  (env (())))"
   #f
-  42
+  43
   34
   8
-  0
+  1
   34
   8
   42
@@ -1329,10 +1329,10 @@
   app
   "'(eval (app = 1 (-> (app gcd e (app totient p q)) <-)) (env (())))"
   #f
-  39
+  40
   31
   8
-  0
+  1
   31
   8
   39
@@ -1350,10 +1350,10 @@
   app
   "'(eval (app gcd e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -1560,10 +1560,10 @@
   app
   "'(eval (match (-> (app < e (app totient p q)) <-) (#f) _) (env (())))"
   #f
-  39
+  40
   31
   8
-  0
+  1
   31
   8
   39
@@ -1581,10 +1581,10 @@
   app
   "'(eval (app < e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -2733,10 +2733,10 @@
   ref-or-constructor
   "'(eval (app modulo (app car (app extended-gcd a n)) (-> n <-)) (env (())))"
   #f
-  36
+  37
   26
   10
-  0
+  1
   26
   10
   36
@@ -2763,10 +2763,10 @@
   app
   "'(eval (app car (-> (app extended-gcd a n) <-)) (env (())))"
   #f
-  64
+  66
   51
   13
-  0
+  2
   51
   13
   64
@@ -2784,10 +2784,10 @@
   ref-or-constructor
   "'(eval (app extended-gcd a (-> n <-)) (env (())))"
   #f
-  36
+  37
   26
   10
-  0
+  1
   26
   10
   36
@@ -2910,10 +2910,10 @@
   match
   "'(eval (λ (a b) (-> (match (app = (app modulo ...) 0) ...) <-)) (env (())))"
   #f
-  61
+  62
   48
   13
-  0
+  1
   48
   13
   61
@@ -3045,10 +3045,10 @@
   ref-or-constructor
   "'(eval (app cdr (-> x:y <-)) (env (())))"
   #f
-  65
+  67
   52
   13
-  0
+  2
   52
   13
   65
@@ -3096,10 +3096,10 @@
   ref-or-constructor
   "'(eval (app car (-> x:y <-)) (env (())))"
   #f
-  65
+  67
   52
   13
-  0
+  2
   52
   13
   65
@@ -3138,10 +3138,10 @@
   app
   "'(eval\n  (let* (... () (x:y (-> (app extended-gcd b (app modulo a b)) <-)) x ...) ...)\n  (env (())))"
   #f
-  64
+  66
   51
   13
-  0
+  2
   51
   13
   64
@@ -3159,10 +3159,10 @@
   app
   "'(eval (app extended-gcd b (-> (app modulo a b) <-)) (env (())))"
   #f
-  48
+  49
   35
   13
-  0
+  1
   35
   13
   48
@@ -3180,10 +3180,10 @@
   ref-or-constructor
   "'(eval (app modulo a (-> b <-)) (env (())))"
   #f
-  48
+  49
   35
   13
-  0
+  1
   35
   13
   48
@@ -3201,10 +3201,10 @@
   ref-or-constructor
   "'(eval (app modulo (-> a <-) b) (env (())))"
   #f
-  48
+  49
   35
   13
-  0
+  1
   35
   13
   48
@@ -3213,7 +3213,7 @@
   31
   #f
   39/35
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -3243,10 +3243,10 @@
   ref-or-constructor
   "'(eval (app extended-gcd (-> b <-) (app modulo a b)) (env (())))"
   #f
-  48
+  49
   35
   13
-  0
+  1
   35
   13
   48
@@ -3324,10 +3324,10 @@
   app
   "'(eval (app * y (-> (app quotient a b) <-)) (env (())))"
   #f
-  52
+  53
   39
   13
-  0
+  1
   39
   13
   52
@@ -3336,7 +3336,7 @@
   32
   #f
   46/39
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -3345,10 +3345,10 @@
   ref-or-constructor
   "'(eval (app quotient a (-> b <-)) (env (())))"
   #f
-  49
+  50
   36
   13
-  0
+  1
   36
   13
   49
@@ -3366,10 +3366,10 @@
   ref-or-constructor
   "'(eval (app quotient (-> a <-) b) (env (())))"
   #f
-  49
+  50
   36
   13
-  0
+  1
   36
   13
   49
@@ -3498,10 +3498,10 @@
   app
   "'(eval (match (-> (app = (app modulo a b) 0) <-) (#f) _) (env (())))"
   #f
-  55
+  56
   42
   13
-  0
+  1
   42
   13
   55
@@ -3510,7 +3510,7 @@
   34
   #f
   25/21
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -3540,10 +3540,10 @@
   app
   "'(eval (app = (-> (app modulo a b) <-) 0) (env (())))"
   #f
-  52
+  53
   39
   13
-  0
+  1
   39
   13
   52
@@ -3552,7 +3552,7 @@
   32
   #f
   46/39
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -3561,10 +3561,10 @@
   ref-or-constructor
   "'(eval (app modulo a (-> b <-)) (env (())))"
   #f
-  49
+  50
   36
   13
-  0
+  1
   36
   13
   49
@@ -3573,7 +3573,7 @@
   31
   #f
   41/36
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   rsa
   0
@@ -3582,10 +3582,10 @@
   ref-or-constructor
   "'(eval (app modulo (-> a <-) b) (env (())))"
   #f
-  49
+  50
   36
   13
-  0
+  1
   36
   13
   49
@@ -3684,10 +3684,10 @@
   ref-or-constructor
   "'(eval (match (-> cdr-v <-) (cons cdr-c cdr-d)) (env (())))"
   #f
-  68
+  70
   53
   15
-  0
+  2
   53
   15
   68
@@ -3744,10 +3744,10 @@
   ref-or-constructor
   "'(eval (match (-> car-v <-) (cons car-c car-d)) (env (())))"
   #f
-  71
+  73
   55
   16
-  0
+  2
   55
   16
   71

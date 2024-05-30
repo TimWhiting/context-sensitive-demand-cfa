@@ -846,10 +846,10 @@
   app
   "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env ((□? (e p q)))))"
   #f
-  30
+  31
   22
   6
-  2
+  3
   18
   3
   21

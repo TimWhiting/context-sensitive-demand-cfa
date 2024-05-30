@@ -148,8 +148,8 @@
   (show-envs-simple #t)
   (show-envs #f)
   (define do-run-demand #t)
-  (define do-run-exhaustive #t)
-  (define do-analysis #f)
+  (define do-run-exhaustive #f)
+  (define do-analysis #t)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
 
   (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
@@ -160,11 +160,11 @@
   (define reachability-bench '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex))
   (define mcfa-bench '(eta map sat regex scheme2java meta-circ scheme-2-c))
   ; (define programs reachability-bench)
-  (define programs reachability-bench)
+  (define programs '(scheme2java))
   (define programloc all-benchmarks)
   ; (define programloc all-examples)
   (if do-run-exhaustive
-      (for ([m (in-range 5 5)])
+      (for ([m (in-range 0 5)])
         (current-m m)
         (for ([example (get-examples programs programloc)])
           (match-let ([`(example ,name ,exp) example])
@@ -183,7 +183,7 @@
       '()
       )
   (if do-run-demand
-      (for ([m (in-range 0 1)])
+      (for ([m (in-range 0 5)])
         (let ([basic-cost 0]
               [num-queries 0])
           (current-m m)

@@ -6,7 +6,19 @@
   lettypes
   "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
   #f
-  #f)
+  25
+  17
+  4
+  4
+  17
+  3
+  20
+  1
+  1
+  7
+  #f
+  7/17
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -15,7 +27,19 @@
   letrec*
   "'(eval (lettypes cons ... nil (letrec* (car ... check-expect) ...)) (env ()))"
   #f
-  #f)
+  24
+  16
+  4
+  4
+  16
+  3
+  19
+  1
+  1
+  7
+  #f
+  7/16
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -45,7 +69,19 @@
   app
   "'(eval\n  (λ (check expect) (-> (app equal? check expect) <-))\n  (env ((□? (check expect)))))"
   #f
-  #f)
+  22
+  14
+  4
+  4
+  11
+  3
+  14
+  1
+  5/6
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -75,7 +111,19 @@
   ref-or-constructor
   "'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))"
   #f
-  #f)
+  18
+  10
+  4
+  4
+  9
+  3
+  12
+  1
+  9/10
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -135,7 +183,19 @@
   app
   "'(eval\n  (match\n   (app null? data)\n   (#f)\n   (_ (-> (app regex-empty? (app regex-empty pattern)) <-)))\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  32
+  15
+  7
+  10
+  2
+  1
+  3
+  1
+  1/6
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -144,7 +204,19 @@
   app
   "'(eval\n  (app regex-empty? (-> (app regex-empty pattern) <-))\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  26
+  10
+  7
+  9
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -153,7 +225,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pattern <-)) (env ((□? (pattern data)))))"
   #f
-  #f)
+  49
+  32
+  10
+  7
+  31
+  3
+  34
+  1
+  14/15
+  15
+  #t
+  15/32
+  (1 1 0))
 '(clean-cache
   regex
   3
@@ -204,7 +288,19 @@
   app
   "'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (-> (app regex-match (app d/dc pattern (app car ...)) (app cdr data)) <-))\n   _)\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  16
+  9
+  2
+  5
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -222,10 +318,10 @@
   ref-or-constructor
   "'(eval (app cdr (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  41
+  42
   30
   8
-  3
+  4
   29
   3
   32
@@ -264,7 +360,19 @@
   app
   "'(eval\n  (app regex-match (-> (app d/dc pattern (app car data)) <-) (app cdr data))\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  28
+  12
+  7
+  9
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -282,10 +390,10 @@
   ref-or-constructor
   "'(eval (app car (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  41
+  42
   30
   8
-  3
+  4
   29
   3
   32
@@ -324,7 +432,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pattern <-) (app car data)) (env ((□? (pattern data)))))"
   #f
-  #f)
+  49
+  32
+  10
+  7
+  31
+  3
+  34
+  1
+  14/15
+  15
+  #t
+  15/32
+  (1 1 0))
 '(clean-cache
   regex
   3
@@ -384,10 +504,10 @@
   ref-or-constructor
   "'(eval (app null? (-> data <-)) (env ((□? (pattern data)))))"
   #f
-  41
+  42
   30
   8
-  3
+  4
   29
   3
   32
@@ -477,10 +597,10 @@
   app
   "'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))"
   #f
-  6
+  7
   4
   0
-  2
+  3
   1
   0
   1
@@ -639,7 +759,19 @@
   match
   "'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -648,7 +780,19 @@
   ref-or-constructor
   "'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -657,7 +801,19 @@
   match
   "'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -666,7 +822,19 @@
   ref-or-constructor
   "'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -675,7 +843,19 @@
   match
   "'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-rep re (λ (pat) ...)) ...) <-))\n   c-x)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -684,7 +864,19 @@
   ref-or-constructor
   "'(eval\n  (match (app match-rep re (λ (pat) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re c)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -714,7 +906,19 @@
   app
   "'(eval\n  (match (-> (app match-rep re (λ (pat) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  26
+  13
+  4
+  9
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -744,7 +948,19 @@
   app
   "'(eval\n  (λ (pat) (-> (app seq (app d/dc pat c) (app rep pat)) <-))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -753,7 +969,19 @@
   app
   "'(eval\n  (app seq (app d/dc pat c) (-> (app rep pat) <-))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -762,7 +990,19 @@
   ref-or-constructor
   "'(eval (app rep (-> pat <-)) (env ((□? (pat)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -792,7 +1032,19 @@
   app
   "'(eval\n  (app seq (-> (app d/dc pat c) <-) (app rep pat))\n  (env ((□? (pat)) (□? (re c)))))"
   #f
-  #f)
+  29
+  12
+  7
+  10
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -810,7 +1062,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pat <-) c) (env ((□? (pat)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -891,7 +1155,19 @@
   app
   "'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  26
+  13
+  4
+  9
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -921,7 +1197,19 @@
   app
   "'(eval\n  (λ (pat1 pat2) (-> (app alt (app d/dc pat1 c) (app d/dc pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -930,7 +1218,19 @@
   app
   "'(eval\n  (app alt (app d/dc pat1 c) (-> (app d/dc pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  29
+  12
+  7
+  10
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -948,7 +1248,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pat2 <-) c) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -978,7 +1290,19 @@
   app
   "'(eval\n  (app alt (-> (app d/dc pat1 c) <-) (app d/dc pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  29
+  12
+  7
+  10
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -996,7 +1320,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pat1 <-) c) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1077,7 +1413,19 @@
   app
   "'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re c)))))"
   #f
-  #f)
+  26
+  13
+  4
+  9
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1107,7 +1455,19 @@
   app
   "'(eval\n  (λ (pat1 pat2)\n    (->\n     (app\n      alt\n      (app seq (app d/dc ...) pat2)\n      (app seq (app regex-empty ...) (app d/dc ...)))\n     <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1116,7 +1476,19 @@
   app
   "'(eval\n  (app\n   alt\n   (app seq (app d/dc pat1 c) pat2)\n   (-> (app seq (app regex-empty pat1) (app d/dc pat2 c)) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1125,7 +1497,19 @@
   app
   "'(eval\n  (app seq (app regex-empty pat1) (-> (app d/dc pat2 c) <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  29
+  12
+  7
+  10
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1143,7 +1527,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pat2 <-) c) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1173,7 +1569,19 @@
   app
   "'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app d/dc pat2 c))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  27
+  10
+  7
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1182,7 +1590,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1233,7 +1653,19 @@
   app
   "'(eval\n  (app\n   alt\n   (-> (app seq (app d/dc pat1 c) pat2) <-)\n   (app seq (app regex-empty pat1) (app d/dc pat2 c)))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1242,7 +1674,19 @@
   ref-or-constructor
   "'(eval\n  (app seq (app d/dc pat1 c) (-> pat2 <-))\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1251,7 +1695,19 @@
   app
   "'(eval\n  (app seq (-> (app d/dc pat1 c) <-) pat2)\n  (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  29
+  12
+  7
+  10
+  3
+  1
+  4
+  1
+  1/4
+  6
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1269,7 +1725,19 @@
   ref-or-constructor
   "'(eval (app d/dc (-> pat1 <-) c) (env ((□? (pat1 pat2)) (□? (re c)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1710,7 +2178,19 @@
   match
   "'(eval\n  (match\n   (app regex-atom? re)\n   ((#f) (-> (match (app match-seq re (λ (pat1 pat2) ...)) ...) <-))\n   _)\n  (env ((□? (re)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1719,7 +2199,19 @@
   ref-or-constructor
   "'(eval\n  (match (app match-seq re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1728,7 +2220,19 @@
   match
   "'(eval\n  (match\n   (app match-seq re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app match-alt re (λ (pat1 pat2) ...)) ...) <-))\n   c-x)\n  (env ((□? (re)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1737,7 +2241,19 @@
   ref-or-constructor
   "'(eval\n  (match (app match-alt re (λ (pat1 pat2) ...)) (#f) (c-x (-> c-x <-)))\n  (env ((□? (re)))))"
   #f
-  #f)
+  27
+  14
+  4
+  9
+  5
+  1
+  6
+  1
+  5/14
+  6
+  #f
+  3/7
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1746,7 +2262,19 @@
   match
   "'(eval\n  (match\n   (app match-alt re (λ (pat1 pat2) ...))\n   ((#f) (-> (match (app regex-rep? re) ...) <-))\n   c-x)\n  (env ((□? (re)))))"
   #f
-  #f)
+  22
+  10
+  4
+  8
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1839,7 +2367,19 @@
   app
   "'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re)))))"
   #f
-  #f)
+  21
+  9
+  4
+  8
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1878,7 +2418,19 @@
   app
   "'(eval\n  (match (-> (app match-alt re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))"
   #f
-  #f)
+  26
+  13
+  4
+  9
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1908,7 +2460,19 @@
   app
   "'(eval\n  (λ (pat1 pat2)\n    (-> (app alt (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1917,7 +2481,19 @@
   app
   "'(eval\n  (app alt (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  27
+  10
+  7
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1926,7 +2502,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1956,7 +2544,19 @@
   app
   "'(eval\n  (app alt (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  27
+  10
+  7
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -1965,7 +2565,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2046,7 +2658,19 @@
   app
   "'(eval\n  (match (-> (app match-seq re (λ (pat1 pat2) ...)) <-) (#f) c-x)\n  (env ((□? (re)))))"
   #f
-  #f)
+  26
+  13
+  4
+  9
+  5
+  1
+  6
+  1
+  5/13
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2076,7 +2700,19 @@
   app
   "'(eval\n  (λ (pat1 pat2)\n    (-> (app seq (app regex-empty pat1) (app regex-empty pat2)) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  28
+  10
+  8
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2085,7 +2721,19 @@
   app
   "'(eval\n  (app seq (app regex-empty pat1) (-> (app regex-empty pat2) <-))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  27
+  10
+  7
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2094,7 +2742,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pat2 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2124,7 +2784,19 @@
   app
   "'(eval\n  (app seq (-> (app regex-empty pat1) <-) (app regex-empty pat2))\n  (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  27
+  10
+  7
+  10
+  2
+  1
+  3
+  1
+  1/5
+  5
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2133,7 +2805,19 @@
   ref-or-constructor
   "'(eval (app regex-empty (-> pat1 <-)) (env ((□? (pat1 pat2)) (□? (re)))))"
   #f
-  #f)
+  33
+  11
+  9
+  13
+  5
+  1
+  6
+  1
+  5/11
+  6
+  #f
+  6/11
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2496,7 +3180,19 @@
   ref-or-constructor
   "'(eval (app cons (-> pat <-) (app nil)) (env ((□? (pat)))))"
   #f
-  #f)
+  40
+  13
+  11
+  16
+  5
+  2
+  7
+  1
+  5/12
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2577,7 +3273,19 @@
   ref-or-constructor
   "'(eval (app regex-empty? (-> pat <-)) (env ((□? (pat)))))"
   #f
-  #f)
+  40
+  13
+  11
+  16
+  5
+  2
+  7
+  1
+  5/12
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -2616,7 +3324,19 @@
   ref-or-constructor
   "'(eval (app regex-null? (-> pat <-)) (env ((□? (pat)))))"
   #f
-  #f)
+  40
+  13
+  11
+  16
+  5
+  2
+  7
+  1
+  5/12
+  6
+  #f
+  6/13
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3489,7 +4209,19 @@
   match
   "'(eval (λ (re f) (-> (match (app regex-rep? re) ...) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  22
+  10
+  4
+  8
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3498,7 +4230,19 @@
   match
   "'(eval\n  (match\n   (app regex-rep? re)\n   (#f)\n   (_ (-> (match (app f (app cadr ...)) ...) <-)))\n  (env ((□? (re f)))))"
   #f
-  #f)
+  44
+  21
+  10
+  13
+  8
+  2
+  10
+  1
+  13/28
+  10
+  #f
+  10/21
+  (1 1 0))
 '(clean-cache
   regex
   3
@@ -3591,7 +4335,19 @@
   app
   "'(eval (match (-> (app f (app cadr re)) <-) (#f) _) (env ((□? (re f)))))"
   #f
-  #f)
+  42
+  19
+  10
+  13
+  8
+  2
+  10
+  1
+  1/2
+  10
+  #f
+  10/19
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3600,7 +4356,19 @@
   app
   "'(eval (app f (-> (app cadr re) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  26
+  8
+  7
+  11
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3702,7 +4470,19 @@
   app
   "'(eval (match (-> (app regex-rep? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
-  #f)
+  21
+  9
+  4
+  8
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3762,7 +4542,19 @@
   match
   "'(eval (λ (re f) (-> (match (app regex-alt? re) ...) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  22
+  10
+  4
+  8
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3873,7 +4665,19 @@
   app
   "'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  26
+  8
+  7
+  11
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -3912,7 +4716,19 @@
   app
   "'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))"
   #f
-  #f)
+  26
+  8
+  7
+  11
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -4014,7 +4830,19 @@
   app
   "'(eval (match (-> (app regex-alt? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
-  #f)
+  21
+  9
+  4
+  8
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -4074,7 +4902,19 @@
   match
   "'(eval (λ (re f) (-> (match (app regex-seq? re) ...) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  22
+  10
+  4
+  8
+  2
+  1
+  3
+  1
+  1/5
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -4185,7 +5025,19 @@
   app
   "'(eval (app f (app cadr re) (-> (app caddr re) <-)) (env ((□? (re f)))))"
   #f
-  #f)
+  26
+  8
+  7
+  11
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -4224,7 +5076,19 @@
   app
   "'(eval (app f (-> (app cadr re) <-) (app caddr re)) (env ((□? (re f)))))"
   #f
-  #f)
+  26
+  8
+  7
+  11
+  2
+  1
+  3
+  1
+  1/4
+  4
+  #f
+  1/2
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -4326,7 +5190,19 @@
   app
   "'(eval (match (-> (app regex-seq? re) <-) (#f) _) (env ((□? (re f)))))"
   #f
-  #f)
+  21
+  9
+  4
+  8
+  2
+  1
+  3
+  1
+  2/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -6144,10 +7020,10 @@
   ref-or-constructor
   "'(eval (match (-> null?-v <-) (nil) _) (env ((□? (null?-v)))))"
   #f
-  50
+  51
   35
   10
-  5
+  6
   33
   4
   37
@@ -6384,7 +7260,19 @@
   app
   "'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app check-expect (app regex-match (app cons ...) (app cons ...)) (app #f))\n    <-))\n  (env ()))"
   #f
-  #f)
+  23
+  15
+  4
+  4
+  15
+  3
+  18
+  1
+  1
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   regex
   3
@@ -6435,7 +7323,19 @@
   app
   "'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app cons 'seq (app cons ...))\n     (app cons 'foo (app cons ...)))\n    <-)\n   (app #f))\n  (env ()))"
   #f
-  #f)
+  14
+  9
+  2
+  3
+  9
+  1
+  10
+  1
+  1
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   3

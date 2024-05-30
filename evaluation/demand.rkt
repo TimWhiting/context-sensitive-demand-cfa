@@ -301,10 +301,10 @@
                  [(cons _ `(λ ,y ,C))
                   (>>= (bod-enter Ce′ Ce ρ ρ′)
                        (λ (Ce p)
-                         ;  (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
-                         ;       (λ _
+                          (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                               (λ _
                          (eval Ce p))
-                       ; ))
+                       ))
                        )
                   ]
                  ; Constructors just return the application. We need the context to further resolve demand queries for arguments
@@ -510,10 +510,10 @@
                 [(⊑-cc cc₁ cc₀)
                  (>>= (put-refines (menv (cons (callc cc₁) ρ₀)) ρ) (λ _ ⊥)) ; strictly refines because of above
                  ]
-                [(⊑-cc cc₀ cc₁)
-                 ;  (pretty-print `(refine-x))
-                 (unit Cee ρee)
-                 ]
+                ; [(⊑-cc cc₀ cc₁)
+                ;  ;  (pretty-print `(refine-x))
+                ;  (unit Cee ρee)
+                ;  ]
                 [else ⊥]))))]
     )
   )
@@ -555,11 +555,11 @@
                         [(cons C `(λ ,xs ,e)) ; It is a lambda
                          (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
                               (λ (Ce ρ) ; Find where the parameter is used
-                                ; (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
-                                ;      (λ _
+                                (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
+                                     (λ _
                                 (>>= ((find (car (drop xs arg-offset))) Ce ρ)
                                      expr)))
-                         ; ))
+                         ))
                          ]
                         [(cons C `(app ,(? symbol? x) ,@es)) ; Constructors
                          (>>= (expr Cee ρee) ; Find the deconstruction sites

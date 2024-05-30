@@ -75,7 +75,19 @@
   ref-or-constructor
   "'(eval (app equal? (-> check <-) expect) (env ((□? (check expect)))))"
   #f
-  #f)
+  18
+  10
+  4
+  4
+  9
+  3
+  12
+  1
+  9/10
+  4
+  #f
+  2/5
+  (0 0 0))
 '(clean-cache
   regex
   2
@@ -204,7 +216,19 @@
   app
   "'(eval\n  (match\n   (app null? data)\n   ((#f)\n    (-> (app regex-match (app d/dc pattern (app car ...)) (app cdr data)) <-))\n   _)\n  (env ((□? (pattern data)))))"
   #f
-  #f)
+  15
+  9
+  2
+  4
+  4
+  1
+  5
+  1
+  4/9
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   2
@@ -441,10 +465,10 @@
   app
   "'(eval\n  (let (... () (_ (-> (app debug-trace) <-)) () ...) ...)\n  (env ((□? (re c)))))"
   #f
-  6
+  7
   4
   0
-  2
+  3
   1
   0
   1
@@ -6336,7 +6360,19 @@
   app
   "'(eval\n  (letrec*\n   (car ... check-expect)\n   (->\n    (app check-expect (app regex-match (app cons ...) (app cons ...)) (app #f))\n    <-))\n  (env ()))"
   #f
-  #f)
+  23
+  15
+  4
+  4
+  15
+  3
+  18
+  1
+  1
+  7
+  #f
+  7/15
+  (0 0 0))
 '(clean-cache
   regex
   2
@@ -6387,7 +6423,19 @@
   app
   "'(eval\n  (app\n   check-expect\n   (->\n    (app\n     regex-match\n     (app cons 'seq (app cons ...))\n     (app cons 'foo (app cons ...)))\n    <-)\n   (app #f))\n  (env ()))"
   #f
-  #f)
+  14
+  9
+  2
+  3
+  9
+  1
+  10
+  1
+  1
+  4
+  #f
+  4/9
+  (0 0 0))
 '(clean-cache
   regex
   2

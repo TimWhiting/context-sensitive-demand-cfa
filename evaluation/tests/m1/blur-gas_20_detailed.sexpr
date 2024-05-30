@@ -144,10 +144,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -258,10 +258,10 @@
   app
   "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4
@@ -408,10 +408,10 @@
   app
   "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
   #f
-  11
+  12
   6
   4
-  1
+  2
   3
   1
   4

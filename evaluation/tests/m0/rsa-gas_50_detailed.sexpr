@@ -846,10 +846,10 @@
   app
   "'(eval (app modulo-inverse e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -1278,10 +1278,10 @@
   app
   "'(eval (app gcd e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -1497,10 +1497,10 @@
   app
   "'(eval (app < e (-> (app totient p q) <-)) (env (())))"
   #f
-  33
+  34
   25
   8
-  0
+  1
   25
   8
   33
@@ -2649,10 +2649,10 @@
   ref-or-constructor
   "'(eval (app modulo (app car (app extended-gcd a n)) (-> n <-)) (env (())))"
   #f
-  36
+  37
   26
   10
-  0
+  1
   26
   10
   36
@@ -2688,10 +2688,10 @@
   ref-or-constructor
   "'(eval (app extended-gcd a (-> n <-)) (env (())))"
   #f
-  36
+  37
   26
   10
-  0
+  1
   26
   10
   36
