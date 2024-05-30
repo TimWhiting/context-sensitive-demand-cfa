@@ -1,0 +1,7 @@
+'(demand-time-all-queries blur 1 100 946 (36 37 0))
+'(demand-time-all-queries blur 1 200 989 (49 50 0))
+'(demand-time-all-queries blur 1 300 1032 (48 49 0))
+'(demand-time-all-queries blur 1 400 1075 (50 52 0))
+'(demand-time-all-queries blur 1 500 1118 (49 50 0))
+'(demand-time-all-queries blur 1 600 1161 (52 53 0))
+'(demand-time-all-queries blur 1 700 1204 (50 51 0))

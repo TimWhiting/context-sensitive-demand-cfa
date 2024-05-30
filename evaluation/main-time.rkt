@@ -7,7 +7,7 @@
 
 (define max-context-length 2)
 
-(define (run-mcfa name kind kindstring query exp m out-time gas)
+(define (run-mcfa name kind kindstring query exp m out-time)
   (define result-hash (hash))
   (define timed-result
     (run/catch
@@ -15,15 +15,15 @@
      m kind 'mcfa
      (match-let-values
       ([((list hash-new) cpu real gc)
-        (time-apply (lambda () (run-get-hash query (hash) gas))
+        (time-apply (lambda () (run-get-hash query (hash) -1))
                     '())])
-      (match-let ([(state-gas hnew _) hash-new])
+      (match-let ([(state-gas hnew gas) hash-new])
         (set! result-hash hnew)
-        (list cpu real gc))
+        (list cpu real gc gas))
       )))
   (match timed-result
-    [`(#f ,err) (pretty-print `(,kind ,name ,m ,gas #f ,err) out-time)]
-    [_
+    [`(#f ,err) (pretty-print `(,kind ,name ,m #f ,err) out-time)]
+    [(list cpu real gc gas)
      (define eval-subqueries (filter (lambda (q) (match q [(meval Ce p) (not (is-instant-query (list Ce p)))] [_ #f])) (hash-keys result-hash)))
      (define eval-results-x (filter (lambda (q) (match q [(cons (meval Ce p) _) (not (is-instant-query (list Ce p)))] [_ #f])) (hash->list result-hash)))
      (define eval-subqueries-instant (filter (lambda (q) (match q [(meval Ce p) (is-instant-query (list Ce p))] [_ #f])) (hash-keys result-hash)))
@@ -40,6 +40,7 @@
          (set! eval-instant-results-hash (hash-update eval-instant-results-hash Ce (λ (oldres) (join oldres res)) (from-value res)))
          )
        )
+
      (define eval-results (hash->list eval-results-hash))
      (define eval-instant-results (hash->list eval-instant-results-hash))
      (define store-keys (filter (lambda (q) (match q [(store _) #t] [_ #f])) (hash-keys result-hash)))
@@ -49,17 +50,17 @@
      (define singletons (count is-singleton-val eval-results))
      (define singletons-instant (count is-singleton-val eval-instant-results))
      (define avg-precision (/ (apply + (map result-size-val eval-results)) (length eval-results)))
-     (pretty-print `(,kind ,name ,m ,gas ,num-instant-eval-subqueries ,num-eval-subqueries ,num-store-values ,singletons-instant ,singletons ,avg-precision ,timed-result) out-time)
+     (pretty-print `(,kind ,name ,m ,gas ,num-instant-eval-subqueries ,num-eval-subqueries ,num-store-values ,singletons-instant ,singletons ,avg-precision ,(list cpu real gc)) out-time)
      ]
     )
   result-hash
   )
 
-(define (run-rebind name exp m out-time gas)
-  (run-mcfa name 'rebinding "rebind" (meval (cons `(top) exp) (flatenv '())) exp m out-time gas))
+(define (run-rebind name exp m out-time)
+  (run-mcfa name 'rebinding "rebind" (meval (cons `(top) exp) (flatenv '())) exp m out-time))
 
-(define (run-expm name exp m out-time gas)
-  (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m out-time gas))
+(define (run-expm name exp m out-time)
+  (run-mcfa name 'exponential "expm" (meval (cons `(top) exp) (expenv '())) exp m out-time))
 
 
 (define (is-expr-determined q)
@@ -147,8 +148,8 @@
   (show-envs-simple #t)
   (show-envs #f)
   (define do-run-demand #t)
-  (define do-run-exhaustive #f)
-  (define do-analysis #t)
+  (define do-run-exhaustive #t)
+  (define do-analysis #f)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
 
   (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
@@ -163,33 +164,33 @@
   (define programloc all-benchmarks)
   ; (define programloc all-examples)
   (if do-run-exhaustive
-    (for ([m (in-range 0 5)])
-      (current-m m)
-      (for ([example (get-examples programs programloc)])
-        (match-let ([`(example ,name ,exp) example])
-          (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a.sexpr" m name) #:exists 'replace))
-          (for ([gas gases])
-            (define qbs (basic-queries exp))
-            (define total-gas (* gas (length qbs)))
-            (pretty-print `(mcfa ,m ,name))
-            (run-rebind name exp m out-time-exhaustive total-gas)
-            (pretty-print `(mcfae ,m ,name))
-            (run-expm name exp m out-time-exhaustive total-gas)
-            )
-          (close-output-port out-time-exhaustive) 
-          ))
-        )
-    '()
-    )
-  (if do-run-demand
-    (for ([m (in-range 0 5)])
-      (let ([basic-cost 0]
-            [num-queries 0])
+      (for ([m (in-range 0 5)])
         (current-m m)
         (for ([example (get-examples programs programloc)])
           (match-let ([`(example ,name ,exp) example])
-             (define out-time (open-output-file (format "tests/m~a/~a.sexpr" m name) #:exists 'replace))
-             (for ([gas gases])
+            (define out-time-exhaustive (open-output-file (format "tests/m~a/exhaustive_~a.sexpr" m name) #:exists 'replace))
+            ; (for ([gas gases])
+            (define qbs (basic-queries exp))
+            ; (define total-gas (* gas (length qbs)))
+            (pretty-print `(mcfa ,m ,name))
+            (run-rebind name exp m out-time-exhaustive)
+            (pretty-print `(mcfae ,m ,name))
+            (run-expm name exp m out-time-exhaustive)
+            ;)
+            (close-output-port out-time-exhaustive)
+            ))
+        )
+      '()
+      )
+  (if do-run-demand
+      (for ([m (in-range 0 5)])
+        (let ([basic-cost 0]
+              [num-queries 0])
+          (current-m m)
+          (for ([example (get-examples programs programloc)])
+            (match-let ([`(example ,name ,exp) example])
+              (define out-time (open-output-file (format "tests/m~a/~a.sexpr" m name) #:exists 'replace))
+              (for ([gas gases])
                 (pretty-print `(demand-mcfa m: ,m program: ,name gas: ,gas))
                 (define qbs (basic-queries exp))
                 (set! num-queries (+ num-queries (length qbs)))
@@ -222,7 +223,7 @@
                       ))
                 )
 
-                (close-output-port out-time)
+              (close-output-port out-time)
               )))
         )
       '()

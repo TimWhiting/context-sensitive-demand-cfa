@@ -18,7 +18,7 @@
   26
   #t
   1
-  (1 1 0))
+  (2 2 0))
 '(clean-cache
   mj09
   3
@@ -26,7 +26,7 @@
   33
   lambda
   "'(eval (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -68,7 +68,7 @@
   33
   lambda
   "'(eval (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ((□? (b)))))"
-  (lambda number char string quoted constructor)
+  #t
   2
   1
   0
@@ -123,7 +123,7 @@
   73
   #f
   34/29
-  (9 9 0))
+  (19 71 0))
 '(clean-cache
   mj09
   3
@@ -131,7 +131,7 @@
   33
   lambda
   "'(eval (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ((□? (b)))))"
-  (lambda number char string quoted constructor)
+  #t
   2
   1
   0
@@ -165,7 +165,7 @@
   45
   #f
   54/53
-  (6 6 0))
+  (13 38 0))
 '(clean-cache
   mj09
   3
@@ -186,7 +186,7 @@
   9
   #t
   1
-  (1 1 0))
+  (1 5 0))
 '(clean-cache
   mj09
   3
@@ -194,7 +194,7 @@
   33
   number
   "'(eval (app k (-> 1 <-)) (env ((□? (k)) (□? (b)))))"
-  (number char string quoted constructor)
+  #t
   3
   1
   0
@@ -228,7 +228,7 @@
   2
   #t
   1
-  (0 0 0))
+  (0 2 0))
 '(clean-cache
   mj09
   3
@@ -249,7 +249,7 @@
   9
   #t
   1
-  (1 1 0))
+  (2 6 0))
 '(clean-cache
   mj09
   3
@@ -257,7 +257,7 @@
   33
   number
   "'(eval (app k (-> 2 <-)) (env ((□? (k)) (□? (b)))))"
-  (number char string quoted constructor)
+  #t
   3
   1
   0
@@ -312,7 +312,7 @@
   4
   #f
   6/5
-  (0 0 0))
+  (0 1 0))
 '(clean-cache
   mj09
   3
@@ -333,7 +333,7 @@
   71
   #f
   7/6
-  (9 9 0))
+  (14 17 0))
 '(clean-cache
   mj09
   3
@@ -354,7 +354,7 @@
   55
   #f
   35/32
-  (8 9 0))
+  (13 14 0))
 '(clean-cache
   mj09
   3
@@ -362,7 +362,7 @@
   33
   lambda
   "'(eval (app f (-> (λ (x) ...) <-)) (env ((□? (b)))))"
-  (lambda number char string quoted constructor)
+  #t
   2
   1
   0
@@ -404,7 +404,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> f <-) (λ (x) ...)) (env ((□? (b)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -438,7 +438,7 @@
   69
   #f
   94/81
-  (9 9 0))
+  (13 14 0))
 '(clean-cache
   mj09
   3
@@ -459,7 +459,7 @@
   57
   #f
   74/67
-  (7 8 0))
+  (11 11 0))
 '(clean-cache
   mj09
   3
@@ -467,7 +467,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> g <-) y) (env ((□? (b)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -522,7 +522,7 @@
   23
   #t
   1
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   mj09
   3
@@ -551,7 +551,7 @@
   33
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  (constructor)
+  #t
   1
   1
   0
@@ -572,7 +572,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> h <-) (app #f)) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0
@@ -606,7 +606,7 @@
   23
   #t
   1
-  (1 1 0))
+  (1 2 0))
 '(clean-cache
   mj09
   3
@@ -635,7 +635,7 @@
   33
   constructor
   "'(eval (app (-> #t <-)) (env ()))"
-  (constructor)
+  #t
   1
   1
   0
@@ -656,7 +656,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> h <-) (app #t)) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0

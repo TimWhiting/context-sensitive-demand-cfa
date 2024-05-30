@@ -45,8 +45,6 @@
     (sort-by-key
      (map (lambda (x)
             (match x [(cons (meval Ce p) v)
-
-
                       (cons (pretty-format `(query: ,(show-simple-ctx Ce) ,(show-simple-env p))) v)]))
           evals)))
   (define store-new-key

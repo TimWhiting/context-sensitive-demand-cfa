@@ -39,14 +39,14 @@
                    ,eval-groups-avg-size ,eval-sub-avg-determined ,singletons ,is-precise ,avg-precision
                    ,time-result) (average-or-false time-result)]
     ; Regular mCFA
-    [`(,kind ,name ,m ,gas #f) #f]
+    [`(,kind ,name ,m #f) #f]
     [`(,kind ,name ,m ,gas ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res) (average-or-false time-res)]
     ))
 
 (define ((num-singletons instant) line)
   (match line
     ; Demand shuffled (cached)
-    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) 0]
+    [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) #f]
     [`(shuffled-cache ,shufflen ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant
                       ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                       ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
@@ -55,9 +55,9 @@
                                      (if instant
                                          (and is-instant is-precise)
                                          (and (not is-instant) is-precise)
-                                         ) 1 0)]
+                                         ) #t #f)]
     ; Demand no cache
-    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) 0]
+    [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant #f) #f]
     [`(clean-cache ,name ,m ,gas ,num-queries ,query-kind ,query ,is-instant
                    ,num-entries ,num-eval-subqueries ,num-expr-subqueries ,num-refines
                    ,num-eval-determined ,num-expr-determined, num-fully-determined-subqueries
@@ -65,9 +65,9 @@
                    ,time-result) (if (if instant
                                          (and is-instant is-precise)
                                          (and (not is-instant) is-precise)
-                                         ) 1 0)]
+                                         ) #t #f)]
     ; Regular mCFA
-    [`(,kind ,name ,m ,gas #f) 0]
+    [`(,kind ,name ,m #f) 0]
     [`(,kind ,name ,m ,gas ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res)
      (if instant
          instant-singletons
@@ -125,12 +125,24 @@
 (define (gas-amount line)
   (match line
     [`(clean-cache ,name ,m ,gas ,@_) gas]
-  ))
+    ))
+
+(define (get-singletons-gas-increase lines [instant #f])
+  (define results (map (lambda (g) (list g (count (num-singletons instant) (filter (filter-gas g) lines)))) gases))
+  (pretty-print results)
+  results
+  )
+
+(define (get-mcfa-num-singletons lines [instant #f])
+  (define results ((num-singletons instant) (car lines)))
+  (pretty-print results)
+  results
+  )
 
 (define (get-points lines)
   ; (pretty-print lines)
-  (map (lambda (g) (list g (/ (count is-result (filter (filter-gas g) lines)) (length lines)))) gases)
-)
+  (map (lambda (g) (list g (* 100 (/ (count is-result (filter (filter-gas g) lines)) (length (filter (filter-gas g) lines)))))) gases)
+  )
 
 (define (step-n lines m-value [do-sort #t])
   (define avg (avg-time-res m-value))
@@ -165,7 +177,10 @@
               [`(shuffled-cache ,shufflen ,name ,@_) (and (equal? name prog) (equal? shufflen iter)) ]
               ))
           values))
-(define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (kcfa2 37) (mj09 33) (tak 41) (blur 43) (loop2-1 45) (kcfa-3 45) (kcfa3 45) (facehugger 47) (sat-1 58) (cpstak 59) (sat 94) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211) (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
+(define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (kcfa2 37) (mj09 33) (tak 41)
+                                         (blur 43) (loop2-1 45) (kcfa-3 45) (kcfa3 45) (facehugger 47) (sat-1 58) (cpstak 59)
+                                         (sat 94) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211)
+                                         (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
@@ -224,57 +239,57 @@
   (plot-legend-font-size 10)
   ; (pretty-print all-results)
   (for ([out (list "pdf" "png")])
-    (map 
-      (lambda (m h) 
-        (pretty-print `(plot ,m))
-        (plot
-          (map (λ (i p) 
-                (pretty-print `(plot ,p ,i))
-                (lines 
-                  (get-points (find-prog p (hash-ref h "dmcfa-b")))
-                  #:color i
-                  #:label (format "~a" p)
-                )
-               )
-            (range (length all-programs)) all-programs)
+    (map
+     (λ (p)
+       (plot
+        (map (lambda (m h)
+               (lines
+                (get-points (find-prog p (hash-ref h "dmcfa-b")))
+                #:label (format "m=~a" m)
+                #:color m
+                ))
+             (range (length hashes)) hashes
+             )
         #:x-label "Gas"
         #:y-label "Percent Answered Queries"
         #:width plot-width
         #:height plot-height
-        #:out-file (format "plots/total-queries-answered_~a.~a" m out)
+        #:out-file (format "plots/total-queries-answered_~a.~a" p out)
         )
 
-        (plot
-          (map (λ (i p) 
-                (pretty-print `(plot ,p ,i))
-                (lines 
-                  (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
-                  #:color i
-                  #:label (format "~a" p)
-                )
-               )
-            (range (length all-programs)) all-programs)
-          (map (λ (i p) 
-                (pretty-print `(plot ,p ,i))
-                (lines 
-                  (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
-                  #:color i
-                  #:label (format "~a" p)
-                )
-               )
-            (range (length all-programs) (* 2 (length all-programs))) all-programs)
+       (plot
+        (apply
+         append
+         (map
+          (lambda (m h)
+            (list
+             (lines
+              (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
+              #:color m
+              #:label (format "m=~a Demand m-CFA" m)
+              )
+
+             (lines
+              (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r"))))) gases)
+              #:color m
+              #:style 'long-dash
+              #:label (format "m=~a m-CFA" m)
+              )
+             ))
+          (range (length hashes)) hashes
+          ))
         #:x-label "Gas"
-        #:y-label "Percent Answered Queries"
+        #:y-label "Number Singleton Queries"
         #:width plot-width
         #:height plot-height
-        #:out-file (format "plots/total-queries-answered_~a.~a" m out)
+        #:out-file (format "plots/important-queries-answered_~a.~a" p out)
+
         )
+       )
+     all-programs
 
-
-      ) 
-      (range (length hashes)) hashes)
-    ; (parameterize ([plot-y-transform log-transform])
-  
+     )
+    )
   )
-)
 
+; (parameterize ([plot-y-transform log-transform])

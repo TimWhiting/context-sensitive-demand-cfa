@@ -26,7 +26,7 @@
   33
   lambda
   "'(eval (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -68,7 +68,7 @@
   33
   lambda
   "'(eval (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env (())))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -102,7 +102,7 @@
   11
   #f
   27/19
-  (0 0 0))
+  (1 1 0))
 '(clean-cache
   mj09
   0
@@ -131,7 +131,7 @@
   33
   lambda
   "'(eval (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env (())))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -165,7 +165,7 @@
   11
   #f
   21/16
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   mj09
   0
@@ -194,7 +194,7 @@
   33
   number
   "'(eval (app k (-> 1 <-)) (env (() ())))"
-  (number char string quoted constructor)
+  #t
   1
   1
   0
@@ -257,7 +257,7 @@
   33
   number
   "'(eval (app k (-> 2 <-)) (env (() ())))"
-  (number char string quoted constructor)
+  #t
   1
   1
   0
@@ -354,7 +354,7 @@
   11
   #f
   23/17
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   mj09
   0
@@ -362,7 +362,7 @@
   33
   lambda
   "'(eval (app f (-> (λ (x) ...) <-)) (env (())))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -404,7 +404,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> f <-) (λ (x) ...)) (env (())))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0
@@ -438,7 +438,7 @@
   13
   #f
   31/22
-  (0 1 0))
+  (1 1 0))
 '(clean-cache
   mj09
   0
@@ -459,7 +459,7 @@
   11
   #f
   25/18
-  (0 0 0))
+  (1 2 0))
 '(clean-cache
   mj09
   0
@@ -467,7 +467,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> g <-) y) (env (())))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0
@@ -501,7 +501,7 @@
   15
   #f
   3/2
-  (1 2 0))
+  (1 1 0))
 '(clean-cache
   mj09
   0
@@ -522,7 +522,7 @@
   15
   #f
   41/28
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   mj09
   0
@@ -551,7 +551,7 @@
   33
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  (constructor)
+  #t
   1
   1
   0
@@ -572,7 +572,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> h <-) (app #f)) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0
@@ -635,7 +635,7 @@
   33
   constructor
   "'(eval (app (-> #t <-)) (env ()))"
-  (constructor)
+  #t
   1
   1
   0
@@ -656,7 +656,7 @@
   33
   ref-or-constructor
   "'(eval (app (-> h <-) (app #t)) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0

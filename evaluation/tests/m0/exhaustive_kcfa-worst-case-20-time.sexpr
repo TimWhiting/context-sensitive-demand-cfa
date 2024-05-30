@@ -1,2 +1,0 @@
-'(rebinding kcfa-worst-case-20 0 10000 #f)
-'(exponential kcfa-worst-case-20 0 10000 #f)

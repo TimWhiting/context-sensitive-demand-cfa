@@ -1,7 +1,0 @@
-'(rebinding cpstak 3 1000 134 252 130 23 3 113/36 (217 222 4))
-'(exponential
-  cpstak
-  3
-  1000
-  #f
-  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")

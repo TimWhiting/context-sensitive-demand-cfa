@@ -1,2 +1,0 @@
-'(rebinding solovay-strassen 3 10000 #f)
-'(exponential solovay-strassen 3 10000 #f)

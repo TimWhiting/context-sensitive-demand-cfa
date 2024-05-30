@@ -1,0 +1,7 @@
+'(demand-time-all-queries regex 4 100 5609 (1425 1548 15))
+'(demand-time-all-queries regex 4 200 6059 (2551 2622 31))
+'(demand-time-all-queries regex 4 300 6509 (3597 3679 49))
+'(demand-time-all-queries regex 4 400 6959 (4557 4652 74))
+'(demand-time-all-queries regex 4 500 7409 (5563 5709 92))
+'(demand-time-all-queries regex 4 600 7859 (6979 7304 126))
+'(demand-time-all-queries regex 4 700 8309 (8366 8770 162))

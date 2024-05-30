@@ -30,12 +30,15 @@
 
 
 \begin{abstract}
-By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
+By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve 
+only those segments of flows it determines necessary to resolve a given query.
 Thus, it presents a much more flexible interface and pricing model for CFA, making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA and find that Demand $m$-CFA resolves many non-trivial control flows in constant time regardless of program size, which make it what we term a \emph{demand-scalable} analysis.
-We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{exponential} formulation of $m$-CFA, but in constant time. 
+This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, 
+based on the top-$m$-stack-frames abstraction of $m$-CFA.
+We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA.
+We also show that in the case of singleton flow sets, 
+Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{exponential} formulation of $m$-CFA, but with tunable effort. 
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))

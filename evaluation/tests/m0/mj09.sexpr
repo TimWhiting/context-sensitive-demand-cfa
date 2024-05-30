@@ -1,0 +1,7 @@
+'(demand-time-all-queries mj09 0 100 33 (19 20 0))
+'(demand-time-all-queries mj09 0 200 66 (18 19 0))
+'(demand-time-all-queries mj09 0 300 99 (28 30 0))
+'(demand-time-all-queries mj09 0 400 132 (17 18 0))
+'(demand-time-all-queries mj09 0 500 165 (24 39 0))
+'(demand-time-all-queries mj09 0 600 198 (16 17 0))
+'(demand-time-all-queries mj09 0 700 231 (16 16 0))

@@ -1,2 +1,0 @@
-'(rebinding kcfa-worst-case-8 4 10000 116 262 248 34 33 40/19 ((110 110 2)))
-'(exponential kcfa-worst-case-8 4 10000 #f)

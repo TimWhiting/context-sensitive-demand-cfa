@@ -17,194 +17,194 @@
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (-> (app blur id) <-) (app #t))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (-> (app blur lp) <-) s (app - n 1))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (app blur id) (-> (app #f) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (app blur id) (-> (app #t) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (app blur lp) (-> s <-) (app - n 1))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app (app blur lp) s (-> (app - n 1) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥)
+literals: '(1 ⊥ ⊥ ⊥)
 
 '(query:
   (app - (-> n <-) 1)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥)
+literals: '(2 ⊥ ⊥ ⊥)
 
 '(query:
   (app <= (-> n <-) 1)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥)
+literals: '(1 ⊥ ⊥ ⊥)
 
 '(query:
   (app <= (-> n <-) 1)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥)
+literals: '(2 ⊥ ⊥ ⊥)
 
 '(query:
   (app id (-> a <-))
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (app not (-> (app (app blur lp) s (app - n 1)) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (let* (r ... s) (-> (app not (app (app blur ...) s (app - ...))) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (match (-> (app <= n 1) <-) (#f) _)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (match (-> (app <= n 1) <-) (#f) _)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (match (app <= n 1) (#f) (_ (-> (app id a) <-)))
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (λ (a n) (-> (match (app <= n 1) ...) <-))
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (λ (a n) (-> (match (app <= n 1) ...) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (λ (x) (-> x <-))
   (env ((let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (λ (x) (-> x <-))
   (env ((let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query:
   (λ (x) (-> x <-))
   (env ((match (app <= n 1) (#f) (_ (-> (app id a) <-))))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: ((top) letrec (id ... lp) ...) (env ()))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (app lp (-> (app #f) <-) 2) (env ()))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (λ (y) (-> y <-)) (env ((app (-> (app blur id) <-) (app #f)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (λ (y) (-> y <-)) (env ((app (-> (app blur id) <-) (app #t)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(query: (λ (y) (-> y <-)) (env ((app (-> (app blur lp) <-) s (app - n 1)))))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   a
@@ -212,7 +212,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   a
@@ -220,7 +220,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   blur
@@ -228,7 +228,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   blur
@@ -236,7 +236,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   id
@@ -244,7 +244,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   id
@@ -252,7 +252,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   lp
@@ -260,7 +260,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   lp
@@ -268,21 +268,21 @@ literals: '(⊥ ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   n
   (λ (a n) (-> (match (app <= n 1) ...) <-))
   (env ((app not (-> (app (app blur lp) s (app - n 1)) <-)))))
 clos/con: ⊥
-literals: '(1 ⊥ ⊥)
+literals: '(1 ⊥ ⊥ ⊥)
 
 '(store:
   n
   (λ (a n) (-> (match (app <= n 1) ...) <-))
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con: ⊥
-literals: '(2 ⊥ ⊥)
+literals: '(2 ⊥ ⊥ ⊥)
 
 '(store:
   r
@@ -290,7 +290,7 @@ literals: '(2 ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   s
@@ -298,7 +298,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((letrec (id ... lp) (-> (app lp (app #f) 2) <-)))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   x
@@ -306,7 +306,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...))))
 clos/con:
 	'((con #t) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   x
@@ -314,7 +314,7 @@ literals: '(⊥ ⊥ ⊥)
   (env ((let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store:
   x
@@ -322,34 +322,34 @@ literals: '(⊥ ⊥ ⊥)
   (env ((match (app <= n 1) (#f) (_ (-> (app id a) <-))))))
 clos/con:
 	'((con #f) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: blur (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
 clos/con:
 	'((letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: id (letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: lp (letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: y (λ (y) (-> y <-)) (env ((app (-> (app blur id) <-) (app #f)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: y (λ (y) (-> y <-)) (env ((app (-> (app blur id) <-) (app #t)))))
 clos/con:
 	'((letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)
 
 '(store: y (λ (y) (-> y <-)) (env ((app (-> (app blur lp) <-) s (app - n 1)))))
 clos/con:
 	'((letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))
-literals: '(⊥ ⊥ ⊥)
+literals: '(⊥ ⊥ ⊥ ⊥)

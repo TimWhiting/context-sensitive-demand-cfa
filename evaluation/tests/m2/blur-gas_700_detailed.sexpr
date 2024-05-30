@@ -18,7 +18,7 @@
   91
   #f
   11/9
-  (15 16 1))
+  (16 16 0))
 '(clean-cache
   blur
   2
@@ -26,7 +26,7 @@
   43
   lambda
   "'(eval (letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -60,7 +60,7 @@
   87
   #f
   115/101
-  (7 7 0))
+  (8 9 0))
 '(clean-cache
   blur
   2
@@ -110,7 +110,7 @@
   43
   ref-or-constructor
   "'(eval (app (-> id <-) a) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -144,7 +144,7 @@
   92
   #f
   154/123
-  (16 16 0))
+  (17 17 0))
 '(clean-cache
   blur
   2
@@ -165,7 +165,7 @@
   11
   #t
   1
-  (0 0 0))
+  (1 1 0))
 '(clean-cache
   blur
   2
@@ -194,7 +194,7 @@
   43
   constructor
   "'(eval (app (-> #f <-)) (env ((□? (a n)))))"
-  (constructor)
+  #t
   2
   1
   0
@@ -236,7 +236,7 @@
   43
   ref-or-constructor
   "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -257,7 +257,7 @@
   43
   ref-or-constructor
   "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -320,7 +320,7 @@
   43
   constructor
   "'(eval (app (-> #t <-)) (env ((□? (a n)))))"
-  (constructor)
+  #t
   2
   1
   0
@@ -362,7 +362,7 @@
   43
   ref-or-constructor
   "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -383,7 +383,7 @@
   43
   ref-or-constructor
   "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -417,7 +417,7 @@
   92
   #f
   150/121
-  (15 16 0))
+  (16 16 0))
 '(clean-cache
   blur
   2
@@ -438,7 +438,7 @@
   90
   #f
   16/13
-  (15 16 0))
+  (16 16 0))
 '(clean-cache
   blur
   2
@@ -467,7 +467,7 @@
   43
   number
   "'(eval (app - n (-> 1 <-)) (env ((□? (a n)))))"
-  (number char string quoted constructor)
+  #t
   2
   1
   0
@@ -501,7 +501,7 @@
   15
   #f
   7/6
-  (1 1 0))
+  (2 2 0))
 '(clean-cache
   blur
   2
@@ -543,7 +543,7 @@
   12
   #t
   1
-  (0 0 0))
+  (1 1 0))
 '(clean-cache
   blur
   2
@@ -572,7 +572,7 @@
   43
   ref-or-constructor
   "'(eval (app blur (-> lp <-)) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -593,7 +593,7 @@
   43
   ref-or-constructor
   "'(eval (app (-> blur <-) lp) (env ((□? (a n)))))"
-  (lambda number char string quoted constructor)
+  #t
   3
   2
   0
@@ -656,7 +656,7 @@
   43
   number
   "'(eval (app <= n (-> 1 <-)) (env ((□? (a n)))))"
-  (number char string quoted constructor)
+  #t
   2
   1
   0
@@ -690,7 +690,7 @@
   15
   #f
   7/6
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   blur
   2
@@ -719,7 +719,7 @@
   43
   lambda
   "'(eval (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -761,7 +761,7 @@
   43
   lambda
   "'(eval (letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   1
   1
   0
@@ -795,7 +795,7 @@
   52
   #f
   54/53
-  (8 8 0))
+  (9 9 0))
 '(clean-cache
   blur
   2
@@ -824,7 +824,7 @@
   43
   number
   "'(eval (app lp (app #f) (-> 2 <-)) (env ()))"
-  (number char string quoted constructor)
+  #t
   1
   1
   0
@@ -866,7 +866,7 @@
   43
   constructor
   "'(eval (app (-> #f <-)) (env ()))"
-  (constructor)
+  #t
   1
   1
   0
@@ -887,7 +887,7 @@
   43
   ref-or-constructor
   "'(eval (app (-> lp <-) (app #f) 2) (env ()))"
-  (lambda number char string quoted constructor)
+  #t
   2
   2
   0

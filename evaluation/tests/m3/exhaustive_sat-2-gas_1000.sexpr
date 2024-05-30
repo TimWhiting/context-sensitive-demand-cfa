@@ -1,7 +1,0 @@
-'(rebinding sat-2 3 1000 190 354 226 61 38 103/49 (253 281 6))
-'(exponential
-  sat-2
-  3
-  1000
-  #f
-  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")

@@ -1,2 +1,0 @@
-'(rebinding solovay-strassen 0 10000 221 287 43 221 62 528/287 ((7 7 0)))
-'(exponential solovay-strassen 0 10000 221 287 43 221 62 528/287 ((6 6 0)))

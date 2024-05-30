@@ -1,0 +1,7 @@
+'(demand-time-all-queries eta 4 100 245 (0 0 0))
+'(demand-time-all-queries eta 4 200 259 (0 0 0))
+'(demand-time-all-queries eta 4 300 273 (0 0 0))
+'(demand-time-all-queries eta 4 400 287 (0 0 0))
+'(demand-time-all-queries eta 4 500 301 (0 0 0))
+'(demand-time-all-queries eta 4 600 315 (0 0 0))
+'(demand-time-all-queries eta 4 700 329 (0 0 0))
