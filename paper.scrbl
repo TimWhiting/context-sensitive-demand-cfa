@@ -1293,6 +1293,7 @@ where
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
+@;{
 \section{Implementation}
 \label{sec:implementation}
 
@@ -1353,24 +1354,12 @@ a monadic and open recursive style (so that the analyzer can intercept recursive
 The result of the analysis is a map with four types of keys, one corresponding to evaluation queries through \texttt{eval}, one to trace queries through \texttt{expr}, one to uses of \texttt{call}, and one to refinements for each \ensuremath{\mathit{\rho}} encountered in the analysis.
 Keys locate the results of the query;
 if the key is present in the map, then the results it locates are sound with respect to the query.
-
-
-\subsection{Pushdown Precision}
-
-An important property of an analyzer is whether its search over the control-flow graph respects CFL reachability.
-In the CFA literature, such analyses are often described as ``pushdown'' since they construct a pushdown model of control flow (e.g. @~cite{local:p4f}).
-One of the features of the ADI approach to analysis construction is that the analyzer's search is disciplined by the continuation of the defining language, which induces a pushdown model naturally.
-
-Demand $m$-CFA exhibits pushdown precision with respect to two different semantics.
-First, it is pushdown precise with respect to the demand semantics given in \S~\ref{sec:demand-mcfa}, defined as big-step relations, by virtue of its implementation using the ADI technique.
-Second, it is pushdown precise with respect the the direct semantics as well.
-The reason here is a result of the insight of @citet{local:p4f}: a continuation address which consists of a target (function body) expression and its environment is distinct enough to perfectly correspond calls and returns (but not needlessly distinct to increase analysis complexity).
-In Demand $m$-CFA, the @|mcfa-call-name| relation serves as a kind of continuation store relating a target body and its environment to caller configurations.
-Because the @|mcfa-call-name| relation is used to access caller configurations both to access arguments and return results (via tracing), it fulfills each call and return aspect of control flow.
-
+}
 
 \section{Evaluation}
 \label{sec:evaluation}
+
+%We have implemented Demand $m$-CFA using the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}.
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
 mutually-recursive definitions and a few dozen primitives. 
 We also implemented support for algebraic datatypes and matching on those datatypes, which is a particularly elegant extension to the formalism. 
@@ -1462,9 +1451,9 @@ Increasing to $m=2$ however times out after several minutes.
 In constrast Demand $m$-CFA over the $1376$ eval queries given the same amount of overall gas as
 exhaustive CFA could use $291$ gas per query at $m=1$. 
 While this doesn't get all the information as the respective exhaustive CFA 
-we see that over 60% of the information could be gained at a cost of $10$ per query (over $29x$ faster than exhaustive CFA).
+we see that over 60\% of the information could be gained at a cost of $10$ per query (over $29x$ faster than exhaustive CFA).
 
-Additionally we can get 75% of the information at a higher context sensitivity within a cost of $100$ even though
+Additionally we can get 75\% of the information at a higher context sensitivity within a cost of $100$ even though
 exhaustive CFA doesn't finish in reasonable time.
 
 
