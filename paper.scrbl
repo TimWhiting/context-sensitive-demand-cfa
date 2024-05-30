@@ -839,10 +839,14 @@ x C[λy.e] ρ F Cx[x] ρ-x
 \label{fig:mcfa-resolution}
 \end{figure}
 
-Demand $m$-CFA augments Demand 0CFA with environments and environment-instantiation mechanisms which together provide context sensitivity.
+Demand $m$-CFA augments Demand 0CFA with environments and a mechanism to instantiate contexts within environments, which together provide context sensitivity.
 The addition of environments pervades @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-find-name| which are otherwise identical to their Demand 0CFA counterparts;
 these enriched relations are presented in Figure~\ref{fig:mcfa-resolution}.
+The mechanism is located in @|mcfa-call-name|, which is significantly elaborated relative to its Demand 0CFA counterpart.
 
+In Demand $m$-CFA, environments are constructed when the analysis follows evaluation forward, such as entering a call, and instantiated when the analysis follows it backward, such as when the caller of an entry configuration is sought.
+
+\subsection{Following Evaluation Forwards}
 
 When a call is entered, which occurs in the @clause-label{App} and @clause-label{Rand} rules, a new environment is synthesized using the @|mcfa-time-succ-name| metafunction which determines the binding context of the call as 
 \[
@@ -852,19 +856,62 @@ where $\lfloor\cdot\rfloor_{m}$ is defined
 \begin{align*}
 \lfloor @(mcfa-cc) \rfloor_0 = \square & & \lfloor ?_{@(var 'x)} \rfloor_m = ?_{@(var 'x)} & & \lfloor @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc)) \rfloor_m = @(:: (cursor (app (e 0) (e 1)) (∘e)) (list "\\lfloor " (mcfa-cc) "\\rfloor_{m-1}"))
 \end{align*}
-The @|mcfa-bind-name| metafunction, which locates the binding configuration of a variable reference, is lifted to accommodate environments as well;
-its definition is presented in Figure~\ref{fig:mcfa-bind}.
 
-However, the @|mcfa-call-name| relation changes substantially.
+\subsection{Following Evaluation Backwards}
 
-The particular changes to the @|mcfa-call-name| require us to make the reachability relation @|mcfa-reach-name| explicit.
-We define reachability over queries themselves;
+When the value of a reference is demanded, Demand $m$-CFA first uses he @|mcfa-bind-name| metafunction to locate its binding configuration.
+Its definition, presented in Figure~\ref{fig:mcfa-bind}, is lifted from Demand 0CFA's to accommodate environments.
+
+With the binding configuration in hand, Demand $m$-CFA issues a call query to resolve calls which enter that configuration.
+The @|mcfa-call-name| relation resolves such queries.
+As in Demand 0CFA, @|mcfa-call-name| defers to @|mcfa-expr-name| to determine the call configurations at which a particular closure is applied.
+In the presence of contexts, however, there are two possibilities when a call configuration is resolved.
+The first possibility is that the call entry context computed from that configuration precisely matches that of the binding configuration, in which case the call configuration is a caller of the binding configuration;
+we refer to this as the @clause-label{Known-Call} case.
+The second possibility is that the call entry context refines the binding configuration's context, in which case the refined context and environment should be instantiated to the refining context and environment;
+we refer to this as the @clause-label{Unknown-Call} case.
+
+\subsection{Discovering Callers}
+
+We now describe how @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}, handles each of these cases.
+\begin{figure}
+@mathpar[mcfa-parse-judgement]{
+Known-Call
+q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
+——
+C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
+
+Unknown-Call
+q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
+——
+ctx₀::ρ R ctx₁::ρ
+
+}
+\caption{Demand $m$-CFA Call Discovery}
+\label{fig:mcfa-call-reachability}
+\end{figure}
+Each case is handled by a corresponding rule.
+Each rule is predicated on the \emph{reachability} of the call query, which we discuss shortly, and resolution of the corresponding trace query.
+The @clause-label{Known-Call} rule says that, if the call entry context of the delivered call matches the binding configuration's,
+then the delivered call is a known call---\emph{known} because the caller query has the context of the call already in its environment.
+If @(≠ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
+In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
+Formally, the refinement relation $\sqsubset$ is defined as the least relation satisfying
+\begin{align*}
+@(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) \sqsubset\; ?_{@(cursor (e) (∘e))} & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
+\end{align*}
+If @(mcfa-cc 1) refines @(mcfa-cc 0), @clause-label{Unknown-Call} does not conclude a @|mcfa-call-name| judgement, but rather an \emph{instantiation} judgement @(mcfa-instantiation (:: (mcfa-cc 0) (mcfa-ρ)) (:: (mcfa-cc 1) (mcfa-ρ))) which denotes that \emph{any} environment @(:: (mcfa-cc 0) (mcfa-ρ)) may be instantiated to @(:: (mcfa-cc 1) (mcfa-ρ)).
+It is by this instantiation that @clause-label{Known-Call} will be triggered.
+When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignored which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
+
+The @|mcfa-call-name| relation relies on a reachability relation @|mcfa-reach-name| which establishes which queries are (transitively) issued in the course of resolving a top-level query.
+This relation allows @|mcfa-call-name| to instantiate only seen queries with refinement results.
+This relation is defined over queries themselves;
 the judgment @(mcfa-reach "q" "q'") captures that, if query $q$ is reachable in analysis, then $q'$ is also, where $q$ is of the form
 \[
 \mathit{Query} \ni q ::= \mathsf{eval}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{expr}(@(cursor (e) (∘e)),@(mcfa-ρ)) \,|\, \mathsf{call}(@(cursor (e) (∘e)),@(mcfa-ρ))
 \]
 Figure~\ref{fig:demand-mcfa-reachability} presents a formal definition of @|mcfa-reach-name|.
-
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Reflexivity
@@ -925,24 +972,6 @@ q ⇑ ex C'[(e₀ e₁)] ρ'
 \caption{Demand $m$-CFA Reachability}
 \label{fig:demand-mcfa-reachability}
 \end{figure}
-
-\begin{figure}
-@mathpar[mcfa-parse-judgement]{
-Known-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₀ = ctx₁
-——
-C[λx.[e]] ctx₀::ρ ⇐ C'[(e₀ e₁)] ρ'
-
-Unknown-Call
-q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ ⊏ ctx₀
-——
-ctx₀::ρ R ctx₁::ρ
-
-}
-\caption{Demand $m$-CFA Call Discovery}
-\label{fig:mcfa-call-reachability}
-\end{figure}
-
 The @clause-label{Reflexivity} rule ensures that the top-level query is considered reachable.
 The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish reachability corresponding to the @clause-label{Ref} rule of @|mcfa-eval-name|:
 @clause-label{Ref-Caller} makes the caller query reachable and, if it succeeds, @clause-label{Ref-Argument} makes the ensuing evaluation query reachable.
@@ -952,26 +981,7 @@ The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish re
 if a caller is found, @clause-label{Body-Caller-Trace} makes the trace query of that caller reachable.
 Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosing $\lambda$ of a caller query is reachable.
 
-Now we are in a position to discuss the definition of @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}.
-
-Unlike @|mcfa-eval-name| and @|mcfa-expr-name|, @|mcfa-call-name| is defined in terms of reachability.
-The @clause-label{Known-Call} rule says that the resultant caller of a trace query 
-is also a result of a caller query if 
-\begin{enumerate*} \item the caller query is reachable,
-\item the ensuing trace query of its enclosing $\lambda$ yields a caller, 
-\item the discovered call and caller query's binding contexts are the same\end{enumerate*}.
-The call is \emph{known} because the caller query has the context of the call already in its environment.
-If @(≠ (mcfa-cc 1) (mcfa-cc 0)), however, then the result constitutes an \emph{unknown} caller.
-In this case, @clause-label{Unknown-Call} considers whether @(mcfa-cc 1) refines @(mcfa-cc 0) in the sense that @(mcfa-cc 0) can be instantiated to form @(mcfa-cc 1).
-Formally, the refinement relation $\sqsubset$ is defined as the least relation satisfying
-\begin{align*}
-@(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) \sqsubset\; ?_{@(cursor (e) (∘e))} & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
-\end{align*}
-If @(mcfa-cc 1) refines @(mcfa-cc 0), @clause-label{Unknown-Call} does not conclude a @|mcfa-call-name| judgement, but rather an \emph{instantiation} judgement @(mcfa-instantiation (:: (mcfa-cc 0) (mcfa-ρ)) (:: (mcfa-cc 1) (mcfa-ρ))) which denotes that \emph{any} environment @(:: (mcfa-cc 0) (mcfa-ρ)) may be instantiated to @(:: (mcfa-cc 1) (mcfa-ρ)).
-It is by this instantiation that @clause-label{Known-Call} will be triggered.
-When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignored which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
-
-Figure~\ref{fig:demand-mcfa-instantiation} presents an extension of @|mcfa-reach-name| which propagates instantiations to all reachable queries.
+Figure~\ref{fig:demand-mcfa-instantiation} presents an extension of @|mcfa-reach-name| which propagates instantiations to evaluation and trace queries.
 \begin{figure}
 @mathpar[mcfa-parse-judgement]{
 Instantiate-Reachable-Eval
