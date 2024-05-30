@@ -129,13 +129,13 @@
 
 (define (get-singletons-gas-increase lines [instant #f])
   (define results (map (lambda (g) (list g (count (num-singletons instant) (filter (filter-gas g) lines)))) gases))
-  (pretty-print results)
+  ; (pretty-print results)
   results
   )
 
 (define (get-mcfa-num-singletons lines [instant #f])
   (define results ((num-singletons instant) (car lines)))
-  (pretty-print results)
+  ; (pretty-print results)
   results
   )
 
@@ -194,6 +194,9 @@
 
 ; (define all-programs (sort '(eta blur loop2-1 sat-1 sat-2 regex map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
+(define plot-height 250)
+(define plot-width 250)
+
 (define all-results
   (let ([results (list)])
     (for ([m (range 5)])
@@ -212,6 +215,132 @@
     )
   )
 
+(define (plot-total-queries p hashes out)
+  (plot
+   (map (lambda (m h)
+          (lines
+           (get-points (find-prog p (hash-ref h "dmcfa-b")))
+           #:label (format "m=~a" m)
+           #:color m
+           ))
+        (range (length hashes)) hashes
+        )
+   #:x-label #f
+   #:y-label #f
+   #:width plot-width
+   #:height plot-height
+   #:y-min 0
+   #:y-max 100
+   #:title (symbol->string p)
+   #:aspect-ratio 1
+   #:legend-anchor 'no-legend
+   #:out-file (format "plots/total-queries-answered_~a.~a" p out)
+   )
+
+  (parameterize ([plot-x-ticks no-ticks]
+                 [plot-y-ticks no-ticks])
+    (plot
+    (map (lambda (m) 
+      (lines 
+        (list (list 0 0))
+        #:label (format "m=~a" m)
+              #:color m
+      )) (range (length hashes))) 
+    #:x-label #f
+    #:y-label #f
+    #:width plot-width
+    #:height plot-height
+    #:y-min 0
+    #:y-max 100
+    #:x-min (apply min gases)
+    #:x-max (apply max gases)
+    #:title "legend"
+    #:legend-anchor 'outside-global-top
+    #:aspect-ratio 1
+    #:out-file (format "plots/total-queries-answered_legend.~a" out)
+    )
+  )
+)
+
+(define (plot-important p hashes out)
+  (plot
+   (apply
+    append
+    (map
+     (lambda (m h)
+       (list
+        (lines
+         (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
+         #:color m
+         #:label (format "m=~a Demand m-CFA" m)
+         )
+
+        (lines
+         (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r"))))) gases)
+         #:color m
+         #:style 'long-dash
+         #:label (format "m=~a m-CFA" m)
+         )
+        ))
+     (range (length hashes)) hashes
+     ))
+   #:x-label #f
+   #:y-label #f
+   #:aspect-ratio 1
+   #:y-min 0
+   #:y-max (* 1.1 (apply
+                   max
+                   (apply
+                    append
+                    (map
+                     (lambda (h)
+                       (cons
+                        (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
+                        (map cadr (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
+                        ))
+                     hashes))))
+   #:width plot-width
+   #:height plot-height
+   #:title (symbol->string p)
+   #:legend-anchor 'no-legend
+   #:out-file (format "plots/important-queries-answered_~a.~a" p out)
+
+   )
+
+  (parameterize ([plot-x-ticks no-ticks]
+                  [plot-y-ticks no-ticks])
+    (plot
+    (apply append 
+      (map (lambda (m) 
+        (list 
+          (lines 
+            (list (list 0 0))
+            #:label (format "m=~a Demand" m)
+            #:color m
+          )
+          (lines 
+            (list (list 0 0))
+            #:style 'long-dash
+            #:label (format "m=~a m-CFA" m)
+            #:color m
+          )
+        )) 
+      (range (length hashes))))
+    #:x-label #f
+    #:y-label #f
+    #:width (+ 50 plot-width)
+    #:height (+ 50 plot-height)
+    #:y-min 0
+    #:y-max 100
+    #:x-min (apply min gases)
+    #:x-max (apply max gases)
+    #:title "legend"
+    #:legend-anchor 'outside-global-top
+    #:aspect-ratio 1
+    #:out-file (format "plots/important-queries-answered_legend.~a" out)
+    )
+  )
+)
 (let* ([ms (list 0 1 2 3 4)]
        [expm-res (filter (filter-kind 'exponential) all-results)]
        [rebind-res (filter (filter-kind 'rebinding) all-results)]
@@ -234,78 +363,29 @@
         ]
        )
   (define num-programs (length all-programs))
-  (define plot-height 250)
-  (define plot-width 250)
   (plot-legend-font-size 10)
   ; (pretty-print all-results)
+  (plot-inset 1)
   (for ([out (list "pdf" "png")])
     (map
-     (λ (p)
-       (plot
-        (map (lambda (m h)
-               (lines
-                (get-points (find-prog p (hash-ref h "dmcfa-b")))
-                #:label (format "m=~a" m)
-                #:color m
-                ))
-             (range (length hashes)) hashes
+     (λ (i p)
+       (pretty-print p)
+       (if (equal? i 0)
+           (begin
+             (plot-total-queries p hashes out)
+             (plot-important p hashes out)
              )
-        #:x-label #f
-        #:y-label #f
-        #:width plot-width
-        #:height plot-height
-        #:y-min 0
-        #:y-max 100
-        #:aspect-ratio 1
-        #:legend-anchor 'no-legend
-        #:out-file (format "plots/total-queries-answered_~a.~a" p out)
-        )
+           (parameterize ()
+             ;  ([plot-x-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)]
+             ;   [plot-y-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)])
+             (plot-total-queries p hashes out)
+             (plot-important p hashes out)
+             )
+           )
 
-       (plot
-        (apply
-         append
-         (map
-          (lambda (m h)
-            (list
-             (lines
-              (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
-              #:color m
-              #:label (format "m=~a Demand m-CFA" m)
-              )
-
-             (lines
-              (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r"))))) gases)
-              #:color m
-              #:style 'long-dash
-              #:label (format "m=~a m-CFA" m)
-              )
-             ))
-          (range (length hashes)) hashes
-          ))
-        #:x-label #f
-        #:y-label #f
-        #:aspect-ratio 1
-        #:y-min 0
-        #:y-max (* 1.1 (apply
-                        max
-                        (apply
-                         append
-                         (map
-                          (lambda (h)
-                            (cons
-                             (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
-                             (map cadr (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
-                             ))
-                          hashes))))
-        #:width plot-width
-        #:height plot-height
-        #:legend-anchor 'no-legend
-        #:out-file (format "plots/important-queries-answered_~a.~a" p out)
-
-        )
        )
+     (range (length all-programs))
      all-programs
-
      )
     )
   )
