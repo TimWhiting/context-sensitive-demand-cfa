@@ -1,0 +1,457 @@
+'(clean-cache mj09 3 10 33 let "'(eval ((top) let (h) ...) (env ()))" #f #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  lambda
+  "'(eval (let (... () (h (-> (λ (b) ...) <-)) () ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  let
+  "'(eval (λ (b) (-> (let (g) ...) <-)) (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  lambda
+  "'(eval (let (... () (g (-> (λ (z) ...) <-)) () ...) ...) (env ((□? (b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (λ (z) (-> z <-)) (env ((□? (z)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  let
+  "'(eval (let (g) (-> (let (f) ...) <-)) (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  lambda
+  "'(eval (let (... () (f (-> (λ (k) ...) <-)) () ...) ...) (env ((□? (b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  match
+  "'(eval (λ (k) (-> (match b ...) <-)) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (match b (#f) (_ (-> (app k 1) <-))) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  number
+  "'(eval (app k (-> 1 <-)) (env ((□? (k)) (□? (b)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> k <-) 1) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (match b ((#f) (-> (app k 2) <-)) _) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  number
+  "'(eval (app k (-> 2 <-)) (env ((□? (k)) (□? (b)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> k <-) 2) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (match (-> b <-) (#f) _) (env ((□? (k)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  let
+  "'(eval (let (f) (-> (let (y) ...) <-)) (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval\n  (let (... () (y (-> (app f (λ (x) ...)) <-)) () ...) ...)\n  (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  lambda
+  "'(eval (app f (-> (λ (x) ...) <-)) (env ((□? (b)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (λ (x) (-> x <-)) (env ((□? (x)) (□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> f <-) (λ (x) ...)) (env ((□? (b)))))"
+  #t
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (let (y) (-> (app g y) <-)) (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app g (-> y <-)) (env ((□? (b)))))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> g <-) y) (env ((□? (b)))))"
+  #t
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  let
+  "'(eval (let (h) (-> (let (x ... y) ...) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (let (... x (y (-> (app h (app #f)) <-)) () ...) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (app h (-> (app #f) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  constructor
+  "'(eval (app (-> #f <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> h <-) (app #f)) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (let (... () (x (-> (app h (app #t)) <-)) y ...) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  app
+  "'(eval (app h (-> (app #t) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  constructor
+  "'(eval (app (-> #t <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (app (-> h <-) (app #t)) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  mj09
+  3
+  10
+  33
+  ref-or-constructor
+  "'(eval (let (x ... y) (-> y <-)) (env ()))"
+  #f
+  #f)

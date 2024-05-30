@@ -20,7 +20,7 @@
         (run/parameters
          name
          m kind
-         (match-let ([(state-gas hash-new g) (run-get-hash query (hash) 5000)])
+         (match-let ([(state-gas hash-new g) (run-get-hash query (hash) -1)])
            (set! hash-result hash-new)
            )
          )])
@@ -58,32 +58,38 @@
   (if to-out
       (pretty-print `(query: ,(show-simple-ctx Ce) ,(show-simple-env p)) out)
       '())
-  (match-let
-      ([(cons res t)
-        (run/parameters
-         name
-         m kind
-         (match-let
-             ([(state-gas hash-new g) (run-get-hash query hashed 700)])
-           (set! hash-result hash-new)
-           (from-hash query hash-result)
-           ))])
-    (if (and to-out (is-bottom res))
-        (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind (show-simple-ctx Ce)))
-        '()
-        )
-    ; (pretty-display (format "finished ~a in ~a ms, result:\n~a\n" (show-simple-ctx Ce) t (show-simple-results res)))
-    (if to-out (pretty-result-out out (from-hash query hash-result)) '())
-    hash-result
+
+  (match (run/catch
+          name
+          m kind 'demand
+          (match-let
+              ([(state-gas hash-new g) (run-get-hash query hashed 700)])
+            (set! hash-result hash-new)
+            (from-hash query hash-result)
+            ))
+    [`(#f ,err)
+     (pretty-print `(error-in-query ,(show-simple-ctx Ce) ,err))
+     (hash)]
+    [res
+     (if
+      (and to-out (is-bottom res))
+      (pretty-display (format "running ~a, m=~a kind=~a info=~a resulted in bottom" name m kind (show-simple-ctx Ce)))
+      '()
+      )
+     ; (pretty-display (format "finished ~a in ~a ms, result:\n~a\n" (show-simple-ctx Ce) t (show-simple-results res)))
+     (if to-out (pretty-result-out out (from-hash query hash-result)) '())
+     hash-result
+     ]
     )
   )
+
 
 (module+ main
   (show-envs-simple #t)
   (show-envs #f)
   ; (trace 1)
   (trace #f)
-  (for ([m (in-range 0 2)])
+  (for ([m (in-range 0 1)])
     (let ([basic-cost 0]
           [rebind-cost 0]
           [expm-cost 0]
@@ -103,7 +109,7 @@
       (define requires-set '(loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
       ; (for ([example (get-examples all-examples)])
-      (for ([example (get-examples '(blur))])
+      (for ([example (get-examples '(loop2) all-benchmarks)])
         ; (for ([example (get-examples '(sat) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])
@@ -113,26 +119,26 @@
           ; (show-envs #t)
           ; (trace 1)
 
-          (define rebindhash (run-rebind name exp m))
-          (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
+          ; (define rebindhash (run-rebind name exp m))
+          ; (set! rebind-cost (+ rebind-cost (hash-num-keys rebindhash)))
           ; (define expmhash (run-expm name exp m))
           ; (set! expm-cost (+ expm-cost (hash-num-keys expmhash)))
 
           ; (pretty-print "Finished regular mcfa")
-          ; (define qbs (basic-queries exp))
-          ; (set! num-queries (+ num-queries (length qbs)))
-          ; (define h1 (hash))
-          ; (pretty-display (format "running ~a, m=~a kind=basic" name m))
-          ; (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
-          ; (for ([file (list out-basic)])
-          ;   (pretty-print `(expression: ,exp) file))
-          ; (for ([qs qbs])
-          ;   (match-let ([(list cb pb) qs])
-          ;     (pretty-tracen 0 "Running query ")
-          ;     (define h2 (run-demand name (length qbs) 'basic m cb pb out-basic (hash) #t))
-          ;     (set! basic-cost (+ basic-cost (hash-num-keys h2)))
-          ;     )
-          ;   )
+          (define qbs (basic-queries exp))
+          (set! num-queries (+ num-queries (length qbs)))
+          (define h1 (hash))
+          (pretty-display (format "running ~a, m=~a kind=basic" name m))
+          (define out-basic (open-output-file (string-append "tests/m" (number->string (current-m)) "/" (symbol->string name) "-basic-results.rkt") #:exists 'replace))
+          (for ([file (list out-basic)])
+            (pretty-print `(expression: ,exp) file))
+          (for ([qs qbs])
+            (match-let ([(list cb pb) qs])
+              (pretty-tracen 0 "Running query ")
+              (define h2 (run-demand name (length qbs) 'basic m cb pb out-basic (hash) #t))
+              (set! basic-cost (+ basic-cost (hash-num-keys h2)))
+              )
+            )
           )
         )
       (pretty-print `(current-m: ,(current-m)))

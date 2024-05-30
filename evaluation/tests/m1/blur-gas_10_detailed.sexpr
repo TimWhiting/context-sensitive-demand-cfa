@@ -1,0 +1,663 @@
+'(clean-cache
+  blur
+  1
+  10
+  43
+  letrec
+  "'(eval ((top) letrec (id ... lp) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  lambda
+  "'(eval (letrec (... blur (lp (-> (λ (a n) ...) <-)) () ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  match
+  "'(eval (λ (a n) (-> (match (app <= n 1) ...) <-)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (match (app <= n 1) (#f) (_ (-> (app id a) <-))) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app id (-> a <-)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> id <-) a) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  let*
+  "'(eval\n  (match (app <= n 1) ((#f) (-> (let* (r ... s) ...) <-)) _)\n  (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval\n  (let* (... r (s (-> (app (app blur id) (app #f)) <-)) () ...) ...)\n  (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (app blur id) (-> (app #f) <-)) (env ((□? (a n)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  constructor
+  "'(eval (app (-> #f <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (-> (app blur id) <-) (app #f)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval\n  (let* (... () (r (-> (app (app blur id) (app #t)) <-)) s ...) ...)\n  (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (app blur id) (-> (app #t) <-)) (env ((□? (a n)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  constructor
+  "'(eval (app (-> #t <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (-> (app blur id) <-) (app #t)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> id <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) id) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval\n  (let* (r ... s) (-> (app not (app (app blur ...) s (app - ...))) <-))\n  (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app not (-> (app (app blur lp) s (app - n 1)) <-)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (app blur lp) s (-> (app - n 1) <-)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  number
+  "'(eval (app - n (-> 1 <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app - (-> n <-) 1) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> - <-) n 1) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (app blur lp) (-> s <-) (app - n 1)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app (-> (app blur lp) <-) s (app - n 1)) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app blur (-> lp <-)) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> blur <-) lp) (env ((□? (a n)))))"
+  #t
+  3
+  2
+  0
+  1
+  1
+  0
+  1
+  1
+  1/2
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> not <-) (app (app blur lp) s (app - n 1))) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (match (-> (app <= n 1) <-) (#f) _) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  number
+  "'(eval (app <= n (-> 1 <-)) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app <= (-> n <-) 1) (env ((□? (a n)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> <= <-) n 1) (env ((□? (a n)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  lambda
+  "'(eval (letrec (... id (blur (-> (λ (y) ...) <-)) lp ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (λ (y) (-> y <-)) (env ((□? (y)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  lambda
+  "'(eval (letrec (... () (id (-> (λ (x) ...) <-)) blur ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (λ (x) (-> x <-)) (env ((□? (x)))))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (letrec (id ... lp) (-> (app lp (app #f) 2) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  blur
+  1
+  10
+  43
+  number
+  "'(eval (app lp (app #f) (-> 2 <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  app
+  "'(eval (app lp (-> (app #f) <-) 2) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  constructor
+  "'(eval (app (-> #f <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  blur
+  1
+  10
+  43
+  ref-or-constructor
+  "'(eval (app (-> lp <-) (app #f) 2) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))

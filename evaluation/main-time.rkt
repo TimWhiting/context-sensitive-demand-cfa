@@ -15,7 +15,7 @@
      m kind 'mcfa
      (match-let-values
       ([((list hash-new) cpu real gc)
-        (time-apply (lambda () (run-get-hash query (hash) -1))
+        (time-apply (lambda () (run-get-hash query (hash) 1000000))
                     '())])
       (match-let ([(state-gas hnew gas) hash-new])
         (set! result-hash hnew)
@@ -157,14 +157,14 @@
   (define kcfas-mega '(kcfa-worst-case-40 kcfa-worst-case-64 kcfa-worst-case-80 kcfa-worst-case-128 kcfa-worst-case-160 kcfa-worst-case-256))
   (define benchmarks '(map-pattern rsa sat-brute simple-id solovay-strassen indirect-hol fermat))
   (define more-bench '(primtest blur eta kcfa2 kcfa3 mj09 sat facehugger initial-example))
-  (define reachability-bench '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex)) ; scheme2java
+  (define reachability-bench '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex))
   (define mcfa-bench '(eta map sat regex scheme2java meta-circ scheme-2-c))
   ; (define programs reachability-bench)
-  (define programs (remove 'loop2 reachability-bench ))
+  (define programs reachability-bench)
   (define programloc all-benchmarks)
   ; (define programloc all-examples)
   (if do-run-exhaustive
-      (for ([m (in-range 0 5)])
+      (for ([m (in-range 5 5)])
         (current-m m)
         (for ([example (get-examples programs programloc)])
           (match-let ([`(example ,name ,exp) example])
@@ -183,7 +183,7 @@
       '()
       )
   (if do-run-demand
-      (for ([m (in-range 0 5)])
+      (for ([m (in-range 0 1)])
         (let ([basic-cost 0]
               [num-queries 0])
           (current-m m)

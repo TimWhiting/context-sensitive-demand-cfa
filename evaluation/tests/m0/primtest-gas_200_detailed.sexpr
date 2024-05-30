@@ -201,7 +201,7 @@
   3
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -273,7 +273,7 @@
   57
   #f
   161/109
-  (9 10 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -378,7 +378,7 @@
   53
   #f
   155/104
-  (11 12 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -504,7 +504,7 @@
   66
   #f
   73/53
-  (6 7 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -525,7 +525,7 @@
   63
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -630,7 +630,7 @@
   52
   #f
   76/51
-  (9 10 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -693,7 +693,7 @@
   52
   #f
   76/51
-  (8 10 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -798,7 +798,7 @@
   52
   #f
   76/51
-  (11 11 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -819,7 +819,7 @@
   12
   #f
   10/7
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -840,7 +840,7 @@
   11
   #f
   27/19
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -882,7 +882,7 @@
   11
   #f
   25/18
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -903,7 +903,7 @@
   10
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -987,7 +987,7 @@
   6
   #f
   16/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1008,7 +1008,7 @@
   5
   #f
   13/9
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1092,7 +1092,7 @@
   52
   #f
   76/51
-  (9 12 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -1113,7 +1113,7 @@
   52
   #f
   76/51
-  (10 11 0))
+  (2 2 0))
 '(clean-cache
   primtest
   0
@@ -1134,7 +1134,7 @@
   6
   #f
   5/4
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1176,7 +1176,7 @@
   6
   #f
   5/4
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1218,7 +1218,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1302,7 +1302,7 @@
   34
   #f
   116/75
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1344,7 +1344,7 @@
   32
   #f
   14/9
-  (6 7 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1365,7 +1365,7 @@
   5
   #f
   13/9
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1386,7 +1386,7 @@
   7
   #f
   17/12
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1428,7 +1428,7 @@
   5
   #f
   13/9
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1470,7 +1470,7 @@
   12
   #f
   16/11
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1533,7 +1533,7 @@
   8
   #f
   4/3
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1575,7 +1575,7 @@
   6
   #f
   4/3
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1638,7 +1638,7 @@
   61
   #f
   137/99
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1701,7 +1701,7 @@
   55
   #f
   123/89
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1764,7 +1764,7 @@
   49
   #f
   109/79
-  (3 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1827,7 +1827,7 @@
   43
   #f
   95/69
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -1890,7 +1890,7 @@
   37
   #f
   81/59
-  (3 3 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -1953,7 +1953,7 @@
   31
   #f
   67/49
-  (3 3 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2016,7 +2016,7 @@
   25
   #f
   53/39
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2079,7 +2079,7 @@
   19
   #f
   39/29
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2142,7 +2142,7 @@
   13
   #f
   25/19
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2247,7 +2247,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2289,7 +2289,7 @@
   7
   #f
   15/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2331,7 +2331,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2394,7 +2394,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2541,7 +2541,7 @@
   9
   #f
   19/14
-  (0 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2583,7 +2583,7 @@
   7
   #f
   15/11
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2625,7 +2625,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2688,7 +2688,7 @@
   9
   #f
   19/14
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2730,7 +2730,7 @@
   7
   #f
   15/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2772,7 +2772,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2835,7 +2835,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2877,7 +2877,7 @@
   7
   #f
   15/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -2982,7 +2982,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3129,7 +3129,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3171,7 +3171,7 @@
   7
   #f
   15/11
-  (0 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3276,7 +3276,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3360,7 +3360,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3423,7 +3423,7 @@
   9
   #f
   19/14
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3465,7 +3465,7 @@
   7
   #f
   15/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3507,7 +3507,7 @@
   5
   #f
   11/8
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3591,7 +3591,7 @@
   31
   #f
   109/70
-  (7 7 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3633,7 +3633,7 @@
   31
   #f
   109/70
-  (5 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3654,7 +3654,7 @@
   31
   #f
   109/70
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3675,7 +3675,7 @@
   5
   #f
   19/12
-  (2 3 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3696,7 +3696,7 @@
   31
   #f
   109/70
-  (5 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3717,7 +3717,7 @@
   31
   #f
   109/70
-  (6 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3738,7 +3738,7 @@
   5
   #f
   17/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3759,7 +3759,7 @@
   11
   #f
   29/20
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3801,7 +3801,7 @@
   11
   #f
   29/20
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3843,7 +3843,7 @@
   12
   #f
   3/2
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3885,7 +3885,7 @@
   12
   #f
   38/25
-  (3 4 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3948,7 +3948,7 @@
   31
   #f
   109/70
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -3969,7 +3969,7 @@
   5
   #f
   19/12
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -3990,7 +3990,7 @@
   31
   #f
   109/70
-  (6 7 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -4011,7 +4011,7 @@
   31
   #f
   109/70
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -4032,7 +4032,7 @@
   5
   #f
   17/11
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4053,7 +4053,7 @@
   11
   #f
   29/20
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4095,7 +4095,7 @@
   11
   #f
   29/20
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4137,7 +4137,7 @@
   12
   #f
   3/2
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4221,7 +4221,7 @@
   12
   #f
   34/23
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4242,7 +4242,7 @@
   11
   #f
   31/21
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4284,7 +4284,7 @@
   13
   #f
   35/24
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4326,7 +4326,7 @@
   11
   #f
   31/21
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   0
@@ -4389,7 +4389,7 @@
   31
   #f
   109/70
-  (7 9 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -4410,7 +4410,7 @@
   31
   #f
   109/70
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0
@@ -4431,7 +4431,7 @@
   31
   #f
   109/70
-  (7 9 0))
+  (1 1 0))
 '(clean-cache
   primtest
   0

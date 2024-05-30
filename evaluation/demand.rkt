@@ -159,8 +159,8 @@
   (>>= (is-truthy ρ C a1)
        (λ (t)
          (match t
-           [#f (true C ρ)]
-           [#t (false C ρ)]
+           [#f (true)]
+           [#t (false)]
            )
          )))
 
@@ -168,8 +168,8 @@
   (>>= (is-demand-bool ρ C a1)
        (λ (t)
          (match t
-           [#t (false C ρ)]
-           [#f (true C ρ)]
+           [#t (false)]
+           [#f (true)]
            )
          )))
 
@@ -208,130 +208,138 @@
         (define f-lit (for-lit ρ C))
         (bool-result (f-lit i1 i2 =) (f-lit c1 c2 char=?) (f-lit s1 s2 eq?) (f-lit sy1 sy2 eq?) C ρ)
         ]
-       [_ (false C ρ)] ; Primitive != Clos/Con
+       [_ (false)] ; Primitive != Clos/Con
        )]
-    [(product/set (list _ `(λ ,_ ,@_))) (each (true C ρ) (false C ρ))]; Closures can actually be equal according to scheme
-    [(product/set (list _ _)) (each (true C ρ) (false C ρ))] ; Constructors need refinement for equal? - not eq?
+    [(product/set (list _ `(λ ,_ ,@_))) (each (true) (false))]; Closures can actually be equal according to scheme
+    [(product/set (list _ _)) (each (true) (false))] ; Constructors need refinement for equal? - not eq?
     ))
 
 ; demand evaluation
 (define-key (eval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
- (>>= (get-refines* `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
-  (λ (ρ)
-    ;  (print-eval-result
-    ;   `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-    ;   (λ ()
-          ; (pretty-print `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
-    (match Ce
-      [(cons C #t) (truecon C ρ)]
-      [(cons C #f) (falsecon C ρ)]
-      [(cons _ (? char? c)) (lit (litchar c))]
-      [(cons _ (? string? s)) (lit (litstring s))]
-      [(cons _ (? number? x)) (lit (litnum x))]
-      [(cons _ `',x) (if (symbol? x) (lit (litsym x)) (error 'non-symbol-quoted-item))]
-      [(cons _ (? symbol? x))
-      (if (eq? x 'set!)
-        (error 'do-not-support-setted-vars)
-        '()
-      )
-      (>>= ((bind x) Ce ρ)
-            (λ (Cex ρ i)
-              (if (match-let ([(list Ce p) (out-e Ce ρ)]) ((is-setted-var x) Ce p))
+  (>>= (get-refines* `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
+       (λ (ρ)
+         ;  (print-eval-result
+         ;   `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+         ;   (λ ()
+         ; (pretty-print `(eval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
+         (match Ce
+           [(cons C #t) (truecon)]
+           [(cons C #f) (falsecon)]
+           [(cons _ (? char? c)) (lit (litchar c))]
+           [(cons _ (? string? s)) (lit (litstring s))]
+           [(cons _ (? number? x)) (lit (litnum x))]
+           [(cons _ `',x) (if (symbol? x) (lit (litsym x)) (error 'non-symbol-quoted-item))]
+           [(cons _ (? symbol? x))
+            (if (eq? x 'set!)
                 (error 'do-not-support-setted-vars)
                 '()
-              )
-              ; (pretty-print `(binding ,(show-simple-ctx Cex) ,(show-simple-env ρ) ,i))
-              (match Cex
-                [(cons `(bod ,xs ,C) e)
-                (>>= (call C xs e ρ)
-                      (λ (Ce ρ)
-                        (if (equal? (length xs) (length (args-e Ce)))
-                            (>>= ((ran i) Ce ρ) eval)
-                            ⊥)))
-
-                ]
-                [(cons `(let-bod ,_ ,_ ,_) _)
-                (>>= (>>= (out Cex ρ)
-                          (bin i))
-                      eval)
-                ]
-                [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
-                (>>= (>>= (out Cex ρ)
-                          (bin i))
-                      eval)
-                ]
-                [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
-                (>>= (out Cex ρ)
-                      (λ (Ce ρ)
-                        (>>=eval (>>= (focus-match Ce ρ) eval)
-                                (eval-match-binding m i Ce ρ)
-                                (eval-match-binding-lit i)
-                                )))
-                ]
-                [(? symbol? x)
-                (match (lookup-demand-primitive x)
-                  [#f
-                    ; (pretty-print `(constructor? ,x))
-                    (clos Ce ρ)]
-                  [Ce (clos Ce ρ)]
-                  )]
-                )))]
-      [(cons _ `(λ ,_ ,_))
-      (clos Ce ρ)]
-      [(cons C `(app ,f ,@args))
-      (>>=clos
-        (>>= (rat Ce ρ) eval)
-        (λ (Ce′ ρ′)
-          ; (pretty-trace `(got closure or primitive ,Ce′))
-          (match Ce′
-            [`(prim ,_ ,_)
-            (>>= (eval* (map
-                          (λ (i) ((ran i) Ce ρ))
-                          (range (length args))))
-                  (λ (args)
-                    (apply-primitive Ce′ C ρ args)))]
-            [(cons _ `(λ ,y ,C))
-            (>>= (bod-enter Ce′ Ce ρ ρ′)
-                  (λ (Ce p)
-                  ;  (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
-                  ;       (λ _
-                          (eval Ce p))
-                          ; ))
-                          )
-            ]
-            ; Constructors just return the application. We need the context to further resolve demand queries for arguments
-            [(cons _ con)
-            (if (or (equal? con #t) (equal? con #f) (symbol? con))
-                (if (= (length args) 0)
-                    (clos (cons `(top) `(app ,con ,@args)) (top-env))
-                    (clos Ce ρ))
-                ⊥ ; (error 'invalid-rator (format "~a" con))
                 )
+            (>>= ((bind x) Ce ρ)
+                 (λ (Cex ρ i)
+                   ; (pretty-print `(binding ,(show-simple-ctx Cex) ,(show-simple-env ρ) ,i))
+                   (match Cex
+                     [(cons `(bod ,xs ,C) e)
+                      (if ((is-setted-var x) Cex ρ)
+                          (error 'do-not-support-setted-vars)
+                          '()
+                          )
+                      (>>= (call C xs e ρ)
+                           (λ (Ce ρ)
+                             (if (equal? (length xs) (length (args-e Ce)))
+                                 (>>= ((ran i) Ce ρ) eval)
+                                 ⊥)))
 
+                      ]
+                     [(cons `(let-bod ,_ ,_ ,_) _)
+                      (if (match-let ([(list Ce p) (out-e Cex ρ)]) (or ((is-setted-var x) Cex ρ) ((is-setted-var x) Ce p)))
+                          (error 'do-not-support-setted-vars)
+                          '()
+                          )
+                      (>>= (>>= (out Cex ρ)
+                                (bin i))
+                           eval)
+                      ]
+                     [(cons `(bin ,_ ,_ ,_ ,_ ,_ ,_) _)
+                      (if (match-let ([(list Ce p) (out-e Cex ρ)]) (or ((is-setted-var x) Cex ρ) ((is-setted-var x) Ce p)))
+                          (error 'do-not-support-setted-vars)
+                          '()
+                          )
+                      (>>= (>>= (out Cex ρ)
+                                (bin i))
+                           eval)
+                      ]
+                     [(cons `(match-clause ,m ,_ ,_ ,_ ,_) _)
+                      (>>= (out Cex ρ)
+                           (λ (Ce ρ)
+                             (>>=eval (>>= (focus-match Ce ρ) eval)
+                                      (eval-match-binding m i Ce ρ)
+                                      (eval-match-binding-lit i)
+                                      )))
+                      ]
+                     [(? symbol? x)
+                      (match (lookup-demand-primitive x)
+                        [#f
+                         ; (pretty-print `(constructor? ,x))
+                         (clos Ce ρ)]
+                        [Ce (clos Ce ρ)]
+                        )]
+                     )))]
+           [(cons _ `(λ ,_ ,_))
+            (clos Ce ρ)]
+           [(cons C `(app ,f ,@args))
+            (>>=clos
+             (>>= (rat Ce ρ) eval)
+             (λ (Ce′ ρ′)
+               ; (pretty-trace `(got closure or primitive ,Ce′))
+               (match Ce′
+                 [`(prim ,_ ,_)
+                  (>>= (eval* (map
+                               (λ (i) ((ran i) Ce ρ))
+                               (range (length args))))
+                       (λ (args)
+                         (apply-primitive Ce′ C ρ args)))]
+                 [(cons _ `(λ ,y ,C))
+                  (>>= (bod-enter Ce′ Ce ρ ρ′)
+                       (λ (Ce p)
+                         ;  (>>= (put-refines p (menv (cons (callc `(□? ,y ,C)) (env-list ρ′))))
+                         ;       (λ _
+                         (eval Ce p))
+                       ; ))
+                       )
+                  ]
+                 ; Constructors just return the application. We need the context to further resolve demand queries for arguments
+                 [(cons _ con)
+                  (if (or (equal? con #t) (equal? con #f) (symbol? con))
+                      (if (= (length args) 0)
+                          (clos (cons `(top) `(app ,con ,@args)) (top-env))
+                          (clos Ce ρ))
+                      (errorv "invalid-rator")
+                      )
+
+                  ]
+                 )
+               ))
             ]
-            )
-          ))
-      ]
-      [(cons _ `(lettypes ,_ ,_))
-      (>>= (bod Ce ρ) eval)]
-      [(cons _ `(let ,_ ,_))
-      (>>= (bod Ce ρ) eval)]
-      [(cons _ `(let* ,_ ,_))
-      (>>= (bod Ce ρ) eval)]
-      [(cons _ `(letrec ,_ ,_))
-      (>>= (bod Ce ρ) eval)]
-      [(cons _ `(letrec* ,_ ,_))
-      (>>= (bod Ce ρ) eval)]
-      [(cons _ `(match ,_ ,@clauses))
-      (>>= (focus-match Ce ρ)
-            (λ (Cm ρm)
-              (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
-              ))]
-      [(cons C e) (error 'eval (pretty-format `(can not eval expression: ,(show-simple-expr e) in context ,C)))]
-      )
-    )
-  ; #t))
-  )
+           [(cons _ `(lettypes ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(let ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(let* ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(letrec ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(letrec* ,_ ,_))
+            (>>= (bod Ce ρ) eval)]
+           [(cons _ `(match ,_ ,@clauses))
+            (>>= (focus-match Ce ρ)
+                 (λ (Cm ρm)
+                   (>>=eval (eval Cm ρm) (eval-clausecon Ce ρ clauses 0) (eval-clauselit Ce ρ clauses 0))
+                   ))]
+           [(cons C e) (error 'eval (pretty-format `(cannot-eval: ,(show-simple-expr e) in context ,C)))]
+           )
+         )
+       ; #t))
+       )
   )
 
 
@@ -514,152 +522,152 @@
 
 (define-key (expr Ce ρ)
   (>>= (get-refines* `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ)) ρ)
-    (λ (ρ)
-      ;  (print-result
-      ;   `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-      ;   (λ ()
-      (match Ce
-        [(cons `(top) _) ⊥] ; No application / deconstruction if we reached the top
-        [(cons `(match-e ,mchs ,_) _)
-        (apply each (cons (out Ce ρ)
-                          (map (λ (index mch)
-                                  (match mch
-                                    [`(_ ,_) ⊥] ; Underscore doesn't bind
-                                    [`(,(? symbol? x) ,_) ((match-clause index) Ce ρ)]
-                                    ; Subpatterns mean we have deconstructed instead of propagating
-                                    [_ ⊥]
-                                    )
+       (λ (ρ)
+         ;  (print-result
+         ;   `(expr ,(show-simple-ctx Ce) ,(show-simple-env ρ))
+         ;   (λ ()
+         (match Ce
+           [(cons `(top) _) ⊥] ; No application / deconstruction if we reached the top
+           [(cons `(match-e ,mchs ,_) _)
+            (apply each (cons (out Ce ρ)
+                              (map (λ (index mch)
+                                     (match mch
+                                       [`(_ ,_) ⊥] ; Underscore doesn't bind
+                                       [`(,(? symbol? x) ,_) ((match-clause index) Ce ρ)]
+                                       ; Subpatterns mean we have deconstructed instead of propagating
+                                       [_ ⊥]
+                                       )
+                                     )
+                                   (range (length mchs)) mchs)))]; The struct is used at this deconstruction site; TODO Also all rebindings
+           [(cons `(rat ,_ ,_) _) (out Ce ρ)]; The lambda is used at this application site
+           ; Lambda is returned from body (find callers of it) (TODO: Does this need adjustment for constructors?)
+           [(cons `(bod ,xs ,C) e) (>>= (call C xs e ρ) expr)]
+           ; lambda / struct is returned from let body (i.e. )
+           [(cons `(let-bod ,_ ,_ ,_) _) (>>= (out Ce ρ) expr)]
+           [(cons `(ran ,bound ,before ,_ ,_) _); An argument to a constructor or lambda
+            (define arg-offset (length before))
+            (>>= (out Ce ρ)
+                 (λ (Cee ρee)
+                   (>>=clos ; Evaluate the lambda or constructor
+                    (>>= (rat Cee ρee) eval)
+                    (λ (Cλx.e ρλx.e)
+                      (match Cλx.e
+                        [(cons C `(λ ,xs ,e)) ; It is a lambda
+                         (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
+                              (λ (Ce ρ) ; Find where the parameter is used
+                                ; (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
+                                ;      (λ _
+                                (>>= ((find (car (drop xs arg-offset))) Ce ρ)
+                                     expr)))
+                         ; ))
+                         ]
+                        [(cons C `(app ,(? symbol? x) ,@es)) ; Constructors
+                         (>>= (expr Cee ρee) ; Find the deconstruction sites
+                              (λ (Cem ρem)
+                                (match Cem
+                                  ; Flows to a match deconstructor
+                                  [(cons _ `(match ,_ ,@mchs))
+                                   ; For match in mchs get the nth binding of any match that has an outer x constructor
+                                   ; And find all usages of that binding
+                                   (apply each
+                                          (map (λ (index m)
+                                                 (match m
+                                                   [`((,con ,@args) ,e)
+                                                    (define bind (car (drop args arg-offset)))
+                                                    (if (equal? con x)
+                                                        (match bind
+                                                          [(? symbol? _)
+                                                           (>>= ((match-clause index) Cem ρem)
+                                                                (λ (Cec ρec) (>>= ((find bind) Cec ρec) expr)))]
+
+                                                          [`(,con1 ,@args1) ; Subpattern
+                                                           (>>= ((match-clause index) Cem ρem)
+                                                                (λ (Cec ρec) (unit `(con-subpat ,bind ,Cec) ρec)))
+                                                           ]
+                                                          [_ ⊥]; Constructor parameters do not flow from literals
+                                                          )
+                                                        ⊥
+                                                        )
+                                                    ]
+                                                   [_ ⊥]
+                                                   )) (range (length mchs)) mchs))
+                                   ]
+                                  ; Flows to a subpattern deconstructor
+                                  [`(con-subpat (,con ,@bound-args) ,Cec)
+                                   (define bind (car (drop bound-args arg-offset)))
+                                   (if (equal? con x)
+                                       (match bind
+                                         [(? symbol? _)
+                                          (>>= ((find bind) Cec ρem) expr)]
+                                         [`(,con2 ,@args2) (unit `(con-param ,bind ,Cec) ρem)]
+                                         [_ ⊥]
+                                         )
+                                       ⊥
+                                       )]
                                   )
-                                (range (length mchs)) mchs)))]; The struct is used at this deconstruction site; TODO Also all rebindings
-        [(cons `(rat ,_ ,_) _) (out Ce ρ)]; The lambda is used at this application site
-        ; Lambda is returned from body (find callers of it) (TODO: Does this need adjustment for constructors?)
-        [(cons `(bod ,xs ,C) e) (>>= (call C xs e ρ) expr)]
-        ; lambda / struct is returned from let body (i.e. )
-        [(cons `(let-bod ,_ ,_ ,_) _) (>>= (out Ce ρ) expr)]
-        [(cons `(ran ,bound ,before ,_ ,_) _); An argument to a constructor or lambda
-        (define arg-offset (length before))
-        (>>= (out Ce ρ)
-              (λ (Cee ρee)
-                (>>=clos ; Evaluate the lambda or constructor
-                (>>= (rat Cee ρee) eval)
-                (λ (Cλx.e ρλx.e)
-                  (match Cλx.e
-                    [(cons C `(λ ,xs ,e)) ; It is a lambda
-                      (>>= (bod-enter Cλx.e Cee ρee ρλx.e)
-                          (λ (Ce ρ) ; Find where the parameter is used
-                            ; (>>= (put-refines ρ (menv (cons (callc `(□? ,xs ,C)) (env-list ρλx.e))))
-                            ;      (λ _
-                                    (>>= ((find (car (drop xs arg-offset))) Ce ρ)
-                                        expr)))
-                            ; ))
-                      ]
-                    [(cons C `(app ,(? symbol? x) ,@es)) ; Constructors
-                      (>>= (expr Cee ρee) ; Find the deconstruction sites
-                          (λ (Cem ρem)
-                            (match Cem
-                              ; Flows to a match deconstructor
-                              [(cons _ `(match ,_ ,@mchs))
-                                ; For match in mchs get the nth binding of any match that has an outer x constructor
-                                ; And find all usages of that binding
-                                (apply each
-                                      (map (λ (index m)
-                                              (match m
-                                                [`((,con ,@args) ,e)
-                                                (define bind (car (drop args arg-offset)))
-                                                (if (equal? con x)
-                                                    (match bind
-                                                      [(? symbol? _)
-                                                        (>>= ((match-clause index) Cem ρem)
-                                                            (λ (Cec ρec) (>>= ((find bind) Cec ρec) expr)))]
 
-                                                      [`(,con1 ,@args1) ; Subpattern
-                                                        (>>= ((match-clause index) Cem ρem)
-                                                            (λ (Cec ρec) (unit `(con-subpat ,bind ,Cec) ρec)))
-                                                        ]
-                                                      [_ ⊥]; Constructor parameters do not flow from literals
-                                                      )
-                                                    ⊥
-                                                    )
-                                                ]
-                                                [_ ⊥]
-                                                )) (range (length mchs)) mchs))
-                                ]
-                              ; Flows to a subpattern deconstructor
-                              [`(con-subpat (,con ,@bound-args) ,Cec)
-                                (define bind (car (drop bound-args arg-offset)))
-                                (if (equal? con x)
-                                    (match bind
-                                      [(? symbol? _)
-                                      (>>= ((find bind) Cec ρem) expr)]
-                                      [`(,con2 ,@args2) (unit `(con-param ,bind ,Cec) ρem)]
-                                      [_ ⊥]
-                                      )
-                                    ⊥
-                                    )]
+                                )
                               )
-
-                            )
-                          )
-                      ; Constructor, see where the constructor flows
-                      ]
-                      [Ce (pretty-print (show-simple-ctx Ce)) (error 'no-match-expr)]
-                    )))) )]
-        ; lambda / struct is bound by let binding with name ,x
-        [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) _)
-        (>>= (out Ce ρ)
-              (λ (Cex ρe)
-                (apply each
-                      (cons (>>= (bod Cex ρe)
-                                  (λ (Cee ρee)
-                                    (>>= ((find x) Cee ρee)
-                                        (λ (Cee ρee)
-                                          (expr Cee ρee)))))
-                            (match let-kind
-                              ['letrec
-                                ; x could be referenced in all of the bindings as well
-                                (map (λ (i)
-                                      (>>= ((bin i) Cex ρe)
+                         ; Constructor, see where the constructor flows
+                         ]
+                        [Ce (pretty-print (show-simple-ctx Ce)) (error 'no-match-expr)]
+                        )))) )]
+           ; lambda / struct is bound by let binding with name ,x
+           [(cons `(bin ,let-kind ,x ,_ ,before ,after ,_) _)
+            (>>= (out Ce ρ)
+                 (λ (Cex ρe)
+                   (apply each
+                          (cons (>>= (bod Cex ρe)
+                                     (λ (Cee ρee)
+                                       (>>= ((find x) Cee ρee)
                                             (λ (Cee ρee)
-                                              (>>= ((find x) Cee ρee)
-                                                  (λ (Cee ρee)
-                                                    (expr Cee ρee))))))
-                                    (range (+ 1 (length before) (length after))))]
-                              ['letrec*
-                                ; x could be referenced in all of the bindings after as well as it's own
-                                (map (λ (i)
-                                      (>>= ((bin i) Cex ρe)
-                                            (λ (Cee ρee)
-                                              (>>= ((find x) Cee ρee)
-                                                  (λ (Cee ρee)
-                                                    (expr Cee ρee))))))
-                                    (range (+ 1 (length before) (length after))))]
-                              ['let* ; x could be referenced in all following bindings
-                                ; (pretty-print `(looking-for-x ,x ,(length after) ,(+ 1 (length before)) ,(+ 1 (length before) (length after)) ,(show-simple-ctx Cex)))
-                                (if (< 1 (length after))
-                                    (map (λ (i)
+                                              (expr Cee ρee)))))
+                                (match let-kind
+                                  ['letrec
+                                   ; x could be referenced in all of the bindings as well
+                                   (map (λ (i)
                                           (>>= ((bin i) Cex ρe)
-                                                (λ (Cee ρee)
-                                                  ; (pretty-print `(looking-for-x-in ,x ,(show-simple-ctx Cee)))
-                                                  (>>= ((find x) Cee ρee) expr))))
-                                        (range (+ 1 (length before)) (+ 1 (length before) (length after))))
-                                    '())]
-                              [_ '()]
-                              )
-                            )
-                      )))]
-        [(cons C e) (error 'expr (pretty-format `(can not eval expression: ,Ce ,(show-simple-ctx Ce))))]
-        ))
+                                               (λ (Cee ρee)
+                                                 (>>= ((find x) Cee ρee)
+                                                      (λ (Cee ρee)
+                                                        (expr Cee ρee))))))
+                                        (range (+ 1 (length before) (length after))))]
+                                  ['letrec*
+                                   ; x could be referenced in all of the bindings after as well as it's own
+                                   (map (λ (i)
+                                          (>>= ((bin i) Cex ρe)
+                                               (λ (Cee ρee)
+                                                 (>>= ((find x) Cee ρee)
+                                                      (λ (Cee ρee)
+                                                        (expr Cee ρee))))))
+                                        (range (+ 1 (length before) (length after))))]
+                                  ['let* ; x could be referenced in all following bindings
+                                   ; (pretty-print `(looking-for-x ,x ,(length after) ,(+ 1 (length before)) ,(+ 1 (length before) (length after)) ,(show-simple-ctx Cex)))
+                                   (if (< 1 (length after))
+                                       (map (λ (i)
+                                              (>>= ((bin i) Cex ρe)
+                                                   (λ (Cee ρee)
+                                                     ; (pretty-print `(looking-for-x-in ,x ,(show-simple-ctx Cee)))
+                                                     (>>= ((find x) Cee ρee) expr))))
+                                            (range (+ 1 (length before)) (+ 1 (length before) (length after))))
+                                       '())]
+                                  [_ '()]
+                                  )
+                                )
+                          )))]
+           [(cons C e) (error 'expr (pretty-format `(cannot-expr: ,(show-simple-ctx Ce))))]
+           ))
 
-    ; #t))
-  ))
+       ; #t))
+       ))
 
 
 
 (define ((is-setted-var x) Ce ρ)
-  (define (check-rec comp) 
+  (define (check-rec comp)
     (match comp
       [(list Ce p) ((is-setted-var x) Ce p)])
-  )
+    )
   ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
   (define (handle-let binds)
     (ormap id
@@ -669,11 +677,11 @@
                  (map (λ (i)
                         (match ((bin-e i) Ce ρ)
                           [(list Ce ρ)
-                            (match Ce
-                              [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) #f ((is-setted-var x) Ce ρ))]
-                              [_ ((is-setted-var x) Ce ρ)])
-                          ]
-                        ))
+                           (match Ce
+                             [(cons `(bin ,_ ,y ,_ ,_ ,_ ,_) _) (if (equal? x y) #f ((is-setted-var x) Ce ρ))]
+                             [_ ((is-setted-var x) Ce ρ)])
+                           ]
+                          ))
                       (range (length binds))))))
   (match Ce
     [(cons _ #t) #f]
@@ -685,26 +693,26 @@
     [(cons _ (? integer?)) #f]
     [(cons _ `(match ,_ ,@ms))
      (ormap id
-        (cons (check-rec (focus-match-e Ce ρ))
-              (map (λ (i) (check-rec ((match-clause-e i) Ce ρ)))
-                   (range (length ms)))))]
+            (cons (check-rec (focus-match-e Ce ρ))
+                  (map (λ (i) (check-rec ((match-clause-e i) Ce ρ)))
+                       (range (length ms)))))]
     [(cons C `(λ ,ys ,e))
      (if (ors (map (λ (y) (equal? x y)) ys))
          #f ; Shadowed
          (check-rec (bod-e Ce ρ)))]
     [(cons _ `(app set! ,v ,@es))
-     (if (eq? v x) 
+     (if (eq? v x)
          #t
          (ormap id
-          (map (λ (i) (check-rec ((ran-e i) Ce ρ)))
-               (range 1 (length es)))
-            ))]
+                (map (λ (i) (check-rec ((ran-e i) Ce ρ)))
+                     (range 1 (length es)))
+                ))]
     [(cons _ `(app ,_ ,@es))
      (ormap id
-        (cons (check-rec (rat-e Ce ρ))
-              (map (λ (i) (check-rec ((ran-e i) Ce ρ)))
-                   (range (length es))))
-        )]
+            (cons (check-rec (rat-e Ce ρ))
+                  (map (λ (i) (check-rec ((ran-e i) Ce ρ)))
+                       (range (length es))))
+            )]
     ; Different let versions are handled in expr, once inside the definition we avoid all further shadowing
     [(cons _ `(let (,@binds) ,_))    (handle-let binds)]
     [(cons _ `(letrec (,@binds) ,_)) (handle-let binds)]

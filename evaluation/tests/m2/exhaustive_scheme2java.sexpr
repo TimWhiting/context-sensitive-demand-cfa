@@ -1,0 +1,10 @@
+'(rebinding
+  scheme2java
+  2
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")
+'(exponential
+  scheme2java
+  2
+  #f
+  "#(struct:exn:fail error: ran-out-of-gas #<continuation-mark-set>)")

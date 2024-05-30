@@ -55,28 +55,8 @@ Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{expo
 \begin{CCSXML}
 <ccs2012>
    <concept>
-       <concept_id>10011007.10010940.10010941.10010942.10010943</concept_id>
-       <concept_desc>Software and its engineering~Interpreters</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
        <concept_id>10011007.10010940.10010992.10010998.10011000</concept_id>
        <concept_desc>Software and its engineering~Automated static analysis</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10011007.10011006.10011008.10011009.10011012</concept_id>
-       <concept_desc>Software and its engineering~Functional languages</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10011007.10011006.10011008.10011024.10011027</concept_id>
-       <concept_desc>Software and its engineering~Control structures</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10003752.10003753.10010622</concept_id>
-       <concept_desc>Theory of computation~Abstract machines</concept_desc>
        <concept_significance>500</concept_significance>
    </concept>
    <concept>
@@ -87,18 +67,38 @@ Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{expo
    <concept>
        <concept_id>10003752.10010124.10010138.10010139</concept_id>
        <concept_desc>Theory of computation~Invariants</concept_desc>
-       <concept_significance>500</concept_significance>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10010940.10010941.10010942.10010943</concept_id>
+       <concept_desc>Software and its engineering~Interpreters</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011008.10011009.10011012</concept_id>
+       <concept_desc>Software and its engineering~Functional languages</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011008.10011024.10011027</concept_id>
+       <concept_desc>Software and its engineering~Control structures</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10003752.10003753.10010622</concept_id>
+       <concept_desc>Theory of computation~Abstract machines</concept_desc>
+       <concept_significance>300</concept_significance>
    </concept>
  </ccs2012>
 \end{CCSXML}
 
-\ccsdesc[500]{Software and its engineering~Interpreters}
 \ccsdesc[500]{Software and its engineering~Automated static analysis}
-\ccsdesc[500]{Software and its engineering~Functional languages}
-\ccsdesc[500]{Software and its engineering~Control structures}
-\ccsdesc[500]{Theory of computation~Abstract machines}
 \ccsdesc[500]{Theory of computation~Program analysis}
-\ccsdesc[500]{Theory of computation~Invariants}
+\ccsdesc[300]{Theory of computation~Invariants}
+\ccsdesc[300]{Software and its engineering~Interpreters}
+\ccsdesc[300]{Software and its engineering~Functional languages}
+\ccsdesc[300]{Software and its engineering~Control structures}
+\ccsdesc[300]{Theory of computation~Abstract machines}
 \section{Getting into the Flow}
 
 \keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
@@ -1361,20 +1361,69 @@ Because the @|mcfa-call-name| relation is used to access caller configurations b
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
 mutually-recursive definitions and a few dozen primitives. 
 We also implemented support for algebraic datatypes and matching on those datatypes, which is a particularly elegant extension to the formalism. 
-In fact, the representation of closures and constructors are isomorphic due to the fact that they both have introduction forms 
-which can be represented as a syntactic context (i.e. lambda, or application of the constructor) paired with an environment.
-Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| discovering introduction forms (binding configurations of the constructors) 
-that flow to the scrutinee and evaluating the appropriate clause based on the discriminant. 
+The representation of closures and constructors both utilize a syntactic context (i.e. lambda, or application of the constructor) paired with an environment.
+Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| discovering introduction forms (applications of the constructors) 
+that flow to the scrutinee and evaluating the appropriate clause based on the discriminant and the pattern order. 
 We reuse support for constructors and matching to desugar \texttt{if}, \texttt{cond}, \texttt{and} and \texttt{or} expressions.
 
-We benchmarked on the selection of R6RS benchmarks used in $m$-CFA@~cite{dvanhorn:Might2010Resolving} and ``Pushdown flow analysis with abstract garbage collection''@~cite{johnson:earl:dvanhorn:PushdownGarbage}
+We benchmarked on the selection of standard R6RS benchmarks used in ``Pushdown flow analysis with abstract garbage collection''@~cite{johnson:earl:dvanhorn:PushdownGarbage}
+and commonly used in other literature on control flow analysis
+@;{in the evaluation of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.}
 
 We evaluate Demand $m$-CFA with respect to the following:
 \begin{enumerate}
 \item Is the implementation cost of Demand $m$-CFA comparable to an exhaustive analysis?
-\item Is Demand $m$-CFA \emph{demand-scalable}?
+\item What fraction of information is Demand $m$-CFA able to get with different levels of constant effort?
 \item How does the precision compare to an exhaustive $m$-CFA?
 \end{enumerate}
+
+\subsection{Implementation cost}
+Using the ADI framework to implement both analyses we found that the amount of code needed is on the same order of magnitude.
+Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, without supporting functions shared between the two.
+Demand $m$-CFA requires additional lines of code due to the fact that it has to be able to not only evaluate, but also trace flow of values.
+Due to the ability of Demand $m$-CFA to work on smaller subsections of programs it can fail on unknown primitives, 
+and still give information for queries that don't interact with those primitives. 
+This is in contrast to $m$-CFA's soundness which requires that the full program be analyzable. 
+
+Primitives have to be done slightly different for constructors which are lazily evaluted using Demand $m$-CFA. 
+
+\subsection{Demand $m$-CFA scalability}
+Demand $m$-CFA introduces a different paradigm for context sensitive analyses, due to the ability to set the effort per program point instead of
+a global timeout.
+
+Utilizing ADI, we add an effort parameter called gas which at each (mutually) recursive call reduces the amount of gas left. 
+When the gas runs out the analysis reports an error and bails out early.
+
+
+\begin{figure}[t]
+\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_blur.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_eta.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_kcfa2.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_kcfa3.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth} \\
+\includegraphics{total-queries-answered_loop2.pdf} 
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_mj09.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_primtest.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_regex.pdf} \\
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_rsa.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_sat.pdf}
+\end{subfigure}\begin{subfigure}[t]{.25\textwidth}
+\includegraphics{total-queries-answered_scheme2java.pdf}
+\end{subfigure}
+\caption{The percent of queries answered given different effort}
+\label{fig:dmcfa-scalability}
+\end{figure}
+
+
 
 @omit{
 

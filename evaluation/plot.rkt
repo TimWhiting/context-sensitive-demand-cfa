@@ -67,7 +67,7 @@
                                          (and (not is-instant) is-precise)
                                          ) #t #f)]
     ; Regular mCFA
-    [`(,kind ,name ,m #f) 0]
+    [`(,kind ,name ,m #f ,err) 0]
     [`(,kind ,name ,m ,gas ,num-instant ,num-eval ,num-store ,instant-singletons ,singletons ,avg-precision ,time-res)
      (if instant
          instant-singletons
@@ -179,14 +179,14 @@
           values))
 (define program-size '((indirect-hol 17) (eta 23) (ack 40) (kcfa-2 32) (kcfa2 37) (mj09 33) (tak 41)
                                          (blur 43) (loop2-1 45) (kcfa-3 45) (kcfa3 45) (facehugger 47) (sat-1 58) (cpstak 59)
-                                         (sat 94) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211)
+                                         (loop2 70) (sat 94) (sat-2 96) (map 97) (sat-3 100) (flatten 103) (primtest 180) (rsa 211)
                                          (fermat 246) (deriv 257) (regex 421) (tic-tac-toe 569) (scheme2java 1311)))
 (define (get-program-size p [pgs program-size])
   (match pgs
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
-(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur sat primtest rsa regex)) ; loop2 scheme2java))
+(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur sat primtest rsa regex loop2 scheme2java))
 
 ; (define all-programs (map car program-size))
 
@@ -234,8 +234,8 @@
         ]
        )
   (define num-programs (length all-programs))
-  (define plot-height 400)
-  (define plot-width 900)
+  (define plot-height 250)
+  (define plot-width 250)
   (plot-legend-font-size 10)
   ; (pretty-print all-results)
   (for ([out (list "pdf" "png")])
@@ -250,10 +250,14 @@
                 ))
              (range (length hashes)) hashes
              )
-        #:x-label "Gas"
-        #:y-label "Percent Answered Queries"
+        #:x-label #f
+        #:y-label #f
         #:width plot-width
         #:height plot-height
+        #:y-min 0
+        #:y-max 100
+        #:aspect-ratio 1
+        #:legend-anchor 'no-legend
         #:out-file (format "plots/total-queries-answered_~a.~a" p out)
         )
 
@@ -278,10 +282,24 @@
              ))
           (range (length hashes)) hashes
           ))
-        #:x-label "Gas"
-        #:y-label "Number Singleton Queries"
+        #:x-label #f
+        #:y-label #f
+        #:aspect-ratio 1
+        #:y-min 0
+        #:y-max (* 1.1 (apply
+                        max
+                        (apply
+                         append
+                         (map
+                          (lambda (h)
+                            (cons
+                             (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
+                             (map cadr (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
+                             ))
+                          hashes))))
         #:width plot-width
         #:height plot-height
+        #:legend-anchor 'no-legend
         #:out-file (format "plots/important-queries-answered_~a.~a" p out)
 
         )

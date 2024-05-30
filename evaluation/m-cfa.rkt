@@ -126,9 +126,9 @@
     [#f
      (match ((lookup-constructor x) Ce) ; Check if it is a constructor
        [#f (store-lookup x Ce ρ)] ; Otherwise lookup in the store / environment
-       [Ce 
+       [Ce
         ; (pretty-print `(constructor-found ,x ,(show-simple-ctx Ce)))
-       (clos Ce (top-env))] ; Is constructor
+        (clos Ce (top-env))] ; Is constructor
        )
      ]
     [Ce (clos Ce (top-env))] ; Primitives return the primitive in this environment
@@ -187,144 +187,144 @@
   ; (print-eval-result
   ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
   ;  (λ ()
-     ;  (pretty-print Ce)
-    ;  (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
-     (check-result 
-      assert-right-value-mcfa
-      (match Ce
-       [(cons _ #t) (truecon Ce ρ)] ; Return a true value
-       [(cons _ #f) (falsecon Ce ρ)] ; Return a false value
-       [(cons _ (? number? x)) (lit (litnum x))] ; Return a literal number
-       [(cons _ (? string? x)) (lit (litstring x))] ; Return a literal string
-       [(cons _ (? char? x)) (lit (litchar x))] ; Return a literal string
-       [(cons _ (? symbol? x)) (symbol-lookup x Ce ρ)] ; Lookup the symbol uniquely identified by it's binding context and environment
-       [(cons _ `(λ ,_ ,_)) (clos Ce ρ)] ; Return a closure value
-       [(cons _ `',x) 
-       (if (symbol? x) 
-           (lit (litsym x))
-           (error 'quoted-non-symbol (pretty-display `',x)))
-       ] ; Return a quoted value
-       [(cons _ `(lettypes ,_ ,_)) (>>= (bod Ce ρ) meval)] ; Evaluate the body of a lettypes declaration
-       [(cons _ `(let ,binds ,_))
-        (define bin-ce-p (bins Ce ρ binds))
-        ; Evaluate the arguments
-        (>>= (eval* bin-ce-p)
-             (λ (evaled-binds)
-               ; Then bind the arguments to their bindings in this environment
-               (>>= (bind-args (map car binds) (map car bin-ce-p) ρ evaled-binds)
-                    (λ (_) ; Then evaluate the body
-                      (>>= (bod Ce ρ) meval)))))]
-       [(cons _ `(letrec ,binds ,_))
-        (define bin-ce-p (bins Ce ρ binds))
-        ; Scheme rules state that the recursive definitions should not depend on order
-        ; and shouldn't reference each other until they have all been initialized
-        ; (as is often the case with recursive lambdas), as such we treat just like normal let
-        ; Only the bind rule changes
-        (>>= (eval* bin-ce-p)
-             (λ (evaled-binds)
-               (>>= (bind-args (map car binds) (map car bin-ce-p) ρ evaled-binds)
-                    (λ (_)
-                      (>>= (bod Ce ρ) meval)))))]
-       [(cons _ `(let* ,binds ,_))
-        (define bin-ce-p (bins Ce ρ binds))
-        (>>= (evalbind* ; Evaluate the bindings in order binding in the environment as you go
-              (map car binds)
-              (map car bin-ce-p)
-              ρ
-              bin-ce-p)
-             (λ (_) ; Then evaluate the body
-               (>>= (bod Ce ρ) meval)))]
-       [(cons _ `(letrec* ,binds ,_))
-        (define bin-ce-p (bins Ce ρ binds))
-        ; Evaluate the bindings in order binding in the environment as you go
-        (>>= (evalbind*
-              (map car binds)
-              (map car bin-ce-p)
-              ρ
-              bin-ce-p)
-             (λ (_)
-               (>>= (bod Ce ρ) meval)))]
-       ; For match clauses
-       [(cons _ `(match ,_ ,@clauses))
-        (>>=eval (>>= (focus-match Ce ρ) meval) ; Evaluate the scrutinee
-                 (eval-con-clause Ce ρ clauses 0) ; For closure/con results match constructors
-                 (eval-lit-clause Ce ρ clauses 0))] ; Otherwise match literal clauses
-       [(cons C `(app set! ,var ,_)) ; For setting a variable
-        (>>= (lookup-addr var Ce ρ) ; Lookup the variable binding address
-             (λ (var bindVarCe px)
-               (define rhs (car ((ran-e 1) Ce ρ)))
-               (>>= (meval rhs ρ) ; Evaluate the rhs
-                    (λ (res)
-                      ;  (pretty-print (show-simple-ctx bindVarCe))
-                      ; Add the result to the store at the binding
-                      (>>= (extend-store var bindVarCe px res)
-                           (λ (_) ; Return void
-                             (voidv Ce ρ)
-                             ))))))
-        ]
-       [(cons C `(app ,f ,@as)) ; For an application
-        (>>=clos ; TODO: Could this result in a symbol representing a top level application?
-         (>>= (rat Ce ρ) meval) ; Evaluate the operator
-         (λ (lam lamρ)
-           ;  (pretty-print 'before-args)
-           (define args-ce-p (f-args Ce ρ as)) ; Get the arguments
-           ;  (pretty-print 'after-args)
-           (>>= (eval* args-ce-p) ; Evaluate the arguments
-                (λ (evaled-args)
-                  (match lam
-                    [`(prim ,_ ,_) ; If the operator is a primitive apply it
-                     (apply-primitive lam C ρ evaled-args)]
-                    [(cons _ `(λ ,xs ,bod)) ; If it is a lambda
-                     ; (pretty-print `(lam ,xs ,(show-simple-ctx lam)))
-                     (>>= (bod-enter lam Ce ρ lamρ)
-                          (λ (bodCe ρ-new) ; Get the body
-                            (>>=
-                             ; Bind the arguments to the lambda variables
-                             (bind-args xs (repeat bodCe (length xs)) ρ-new evaled-args)
-                             (λ (_)
-                               (match (analysis-kind)
-                                 ; If it is exponential just evaluate the body in the new environment
-                                 ['exponential (meval bodCe ρ-new)]
-                                 ; Otherwise we need to also bind the free variables by looking them up in the lambda's environment
-                                 ; and rebinding in the new extended environment?
-                                 ['rebinding
-                                  ; Free variables are the freevars of the body, minus the bound variables, primitives, and constructors
-                                  (define frees (set->list (set-subtract (free-vars `(λ ,xs ,bod)) (apply set xs) primitive-set (constructors bodCe ρ-new))))
-                                  (>>= (rebind-vars frees bodCe lamρ ρ-new)
-                                       (λ (_); Then evaluate the body
-                                         (meval bodCe ρ-new)))]
-                                 ))))
-                          )]
-                    [(cons C `(typedef (,con ,@conargs))) ; For constructors
-                      ; (pretty-print `(constructor? ,con ,conargs))
-                     (if (or (equal? con #t) (equal? con #f) (symbol? con)) ; Ensure the constructor is a #t #f or symbol
-                         (if (= (length as) 0) ; If the constructor has no arguments
-                             (clos `(con ,con) (top-env)) ; Just return the constructor in the top-env
-                             ; Otherwise bind the constructor arguments using their unique syntactic contexts
-                             (>>= (bind-args (repeat 'con (length as)) (map car args-ce-p) ρ evaled-args)
-                                  (λ (_)
-                                    ;  (pretty-print `(returning-con ,con ,(show-simple-ctx Ce)))
-                                    (clos `(con ,con ,Ce) ρ)))
-                             )
-                         ⊥ ; (error 'invalid-rator (pretty-format `(invalid-rator ,(show-simple-ctx Ce) ,(show-simple-ctx lam))))
-                         )
-                     ]
-                     [`(con ,con ,@Ce)
-                        ;(pretty-print (show-simple-ctx Ce))
-                        ⊥ ;(error 'invalid-rator)
-                      ]
-                     [_
-                      (pretty-print (show-simple-ctx Ce))
-                      (error 'invalid-rator)
-                     ]
-                    ))))
+  ;  (pretty-print Ce)
+  ;  (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
+  (check-result
+   assert-right-value-mcfa
+   (match Ce
+     [(cons _ #t) (truecon)] ; Return a true value
+     [(cons _ #f) (falsecon)] ; Return a false value
+     [(cons _ (? number? x)) (lit (litnum x))] ; Return a literal number
+     [(cons _ (? string? x)) (lit (litstring x))] ; Return a literal string
+     [(cons _ (? char? x)) (lit (litchar x))] ; Return a literal string
+     [(cons _ (? symbol? x)) (symbol-lookup x Ce ρ)] ; Lookup the symbol uniquely identified by it's binding context and environment
+     [(cons _ `(λ ,_ ,_)) (clos Ce ρ)] ; Return a closure value
+     [(cons _ `',x)
+      (if (symbol? x)
+          (lit (litsym x))
+          (error 'quoted-non-symbol (pretty-display `',x)))
+      ] ; Return a quoted value
+     [(cons _ `(lettypes ,_ ,_)) (>>= (bod Ce ρ) meval)] ; Evaluate the body of a lettypes declaration
+     [(cons _ `(let ,binds ,_))
+      (define bin-ce-p (bins Ce ρ binds))
+      ; Evaluate the arguments
+      (>>= (eval* bin-ce-p)
+           (λ (evaled-binds)
+             ; Then bind the arguments to their bindings in this environment
+             (>>= (bind-args (map car binds) (map car bin-ce-p) ρ evaled-binds)
+                  (λ (_) ; Then evaluate the body
+                    (>>= (bod Ce ρ) meval)))))]
+     [(cons _ `(letrec ,binds ,_))
+      (define bin-ce-p (bins Ce ρ binds))
+      ; Scheme rules state that the recursive definitions should not depend on order
+      ; and shouldn't reference each other until they have all been initialized
+      ; (as is often the case with recursive lambdas), as such we treat just like normal let
+      ; Only the bind rule changes
+      (>>= (eval* bin-ce-p)
+           (λ (evaled-binds)
+             (>>= (bind-args (map car binds) (map car bin-ce-p) ρ evaled-binds)
+                  (λ (_)
+                    (>>= (bod Ce ρ) meval)))))]
+     [(cons _ `(let* ,binds ,_))
+      (define bin-ce-p (bins Ce ρ binds))
+      (>>= (evalbind* ; Evaluate the bindings in order binding in the environment as you go
+            (map car binds)
+            (map car bin-ce-p)
+            ρ
+            bin-ce-p)
+           (λ (_) ; Then evaluate the body
+             (>>= (bod Ce ρ) meval)))]
+     [(cons _ `(letrec* ,binds ,_))
+      (define bin-ce-p (bins Ce ρ binds))
+      ; Evaluate the bindings in order binding in the environment as you go
+      (>>= (evalbind*
+            (map car binds)
+            (map car bin-ce-p)
+            ρ
+            bin-ce-p)
+           (λ (_)
+             (>>= (bod Ce ρ) meval)))]
+     ; For match clauses
+     [(cons _ `(match ,_ ,@clauses))
+      (>>=eval (>>= (focus-match Ce ρ) meval) ; Evaluate the scrutinee
+               (eval-con-clause Ce ρ clauses 0) ; For closure/con results match constructors
+               (eval-lit-clause Ce ρ clauses 0))] ; Otherwise match literal clauses
+     [(cons C `(app set! ,var ,_)) ; For setting a variable
+      (>>= (lookup-addr var Ce ρ) ; Lookup the variable binding address
+           (λ (var bindVarCe px)
+             (define rhs (car ((ran-e 1) Ce ρ)))
+             (>>= (meval rhs ρ) ; Evaluate the rhs
+                  (λ (res)
+                    ;  (pretty-print (show-simple-ctx bindVarCe))
+                    ; Add the result to the store at the binding
+                    (>>= (extend-store var bindVarCe px res)
+                         (λ (_) ; Return void
+                           (voidv)
+                           ))))))
+      ]
+     [(cons C `(app ,f ,@as)) ; For an application
+      (>>=clos ; TODO: Could this result in a symbol representing a top level application?
+       (>>= (rat Ce ρ) meval) ; Evaluate the operator
+       (λ (lam lamρ)
+         ;  (pretty-print 'before-args)
+         (define args-ce-p (f-args Ce ρ as)) ; Get the arguments
+         ;  (pretty-print 'after-args)
+         (>>= (eval* args-ce-p) ; Evaluate the arguments
+              (λ (evaled-args)
+                (match lam
+                  [`(prim ,_ ,_) ; If the operator is a primitive apply it
+                   (apply-primitive lam C ρ evaled-args)]
+                  [(cons _ `(λ ,xs ,bod)) ; If it is a lambda
+                   ; (pretty-print `(lam ,xs ,(show-simple-ctx lam)))
+                   (>>= (bod-enter lam Ce ρ lamρ)
+                        (λ (bodCe ρ-new) ; Get the body
+                          (>>=
+                           ; Bind the arguments to the lambda variables
+                           (bind-args xs (repeat bodCe (length xs)) ρ-new evaled-args)
+                           (λ (_)
+                             (match (analysis-kind)
+                               ; If it is exponential just evaluate the body in the new environment
+                               ['exponential (meval bodCe ρ-new)]
+                               ; Otherwise we need to also bind the free variables by looking them up in the lambda's environment
+                               ; and rebinding in the new extended environment?
+                               ['rebinding
+                                ; Free variables are the freevars of the body, minus the bound variables, primitives, and constructors
+                                (define frees (set->list (set-subtract (free-vars `(λ ,xs ,bod)) (apply set xs) primitive-set (constructors bodCe ρ-new))))
+                                (>>= (rebind-vars frees bodCe lamρ ρ-new)
+                                     (λ (_); Then evaluate the body
+                                       (meval bodCe ρ-new)))]
+                               ))))
+                        )]
+                  [(cons C `(typedef (,con ,@conargs))) ; For constructors
+                   ; (pretty-print `(constructor? ,con ,conargs))
+                   (if (or (equal? con #t) (equal? con #f) (symbol? con)) ; Ensure the constructor is a #t #f or symbol
+                       (if (= (length as) 0) ; If the constructor has no arguments
+                           (clos `(con ,con) (top-env)) ; Just return the constructor in the top-env
+                           ; Otherwise bind the constructor arguments using their unique syntactic contexts
+                           (>>= (bind-args (repeat 'con (length as)) (map car args-ce-p) ρ evaled-args)
+                                (λ (_)
+                                  ;  (pretty-print `(returning-con ,con ,(show-simple-ctx Ce)))
+                                  (clos `(con ,con ,Ce) ρ)))
+                           )
+                       ⊥ ; (error 'invalid-rator (pretty-format `(invalid-rator ,(show-simple-ctx Ce) ,(show-simple-ctx lam))))
+                       )
+                   ]
+                  [`(con ,con ,@Ce)
+                   ;(pretty-print (show-simple-ctx Ce))
+                   (errorv "invalid-rator")
+                   ]
+                  [_
+                   (pretty-print (show-simple-ctx Ce))
+                   (errorv "invalid-rator")
+                   ]
+                  ))))
 
-         )
-        ]
-       ; Otherwise throw an error
-       [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
-       )))
-  ;  #t ))
+       )
+      ]
+     ; Otherwise throw an error
+     [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
+     )))
+;  #t ))
 
 ; Looks up the constructor values requested in a match statement
 ; Ces represents the binding site of each argument of the constructor application that flowed to this location
@@ -426,22 +426,22 @@
                                    ]))
                               ))))))
         ]
-        [_ ⊥] ; Symbol or other non-constructors
-      ;   [(cons C `',x) ; A quoted symbol match?
-      ;   (unit (and (eq? 0 (length subpats)) (eq? `',x con)))
-      ;   ]
-      ;  [Ce
-      ;   (if (equal? pattern `(#t)); Truthy
-      ;       (unit #t); if Ce is a constructor it would be caught earlier
-      ;       (if (equal? pattern `(#f)) ; Falsey
-      ;           (unit #f) ; if Ce is a constructor it would be caught earlier
-      ;           ⊥
-      ;           ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
-      ;           ))]
+       [_ ⊥] ; Symbol or other non-constructors
+       ;   [(cons C `',x) ; A quoted symbol match?
+       ;   (unit (and (eq? 0 (length subpats)) (eq? `',x con)))
+       ;   ]
+       ;  [Ce
+       ;   (if (equal? pattern `(#t)); Truthy
+       ;       (unit #t); if Ce is a constructor it would be caught earlier
+       ;       (if (equal? pattern `(#f)) ; Falsey
+       ;           (unit #f) ; if Ce is a constructor it would be caught earlier
+       ;           ⊥
+       ;           ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
+       ;           ))]
        )]
     [`',x (unit #f)] ; symbols are matched by literals not constructors
     [(? symbol? x)
-    ;  (pretty-print (show-simple-ctx Ce))
+     ;  (pretty-print (show-simple-ctx Ce))
      (if (eq? x '_) ; If the symbols match and x is a wildcard don't bind anything
          (unit #t)
          ; Otherwise bind the symbol x to the value wrapped back up as a closure

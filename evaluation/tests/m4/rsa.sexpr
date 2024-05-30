@@ -1,7 +1,0 @@
-'(demand-time-all-queries rsa 4 100 3647 (751 767 4))
-'(demand-time-all-queries rsa 4 200 3899 (1195 1285 7))
-'(demand-time-all-queries rsa 4 300 4151 (1591 1634 13))
-'(demand-time-all-queries rsa 4 400 4403 (2066 2123 22))
-'(demand-time-all-queries rsa 4 500 4655 (2569 2645 31))
-'(demand-time-all-queries rsa 4 600 4907 (3002 3087 37))
-'(demand-time-all-queries rsa 4 700 5159 (3454 3548 41))

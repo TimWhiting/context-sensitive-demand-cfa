@@ -99,7 +99,7 @@
   13
   #f
   15/14
-  (1 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -120,7 +120,7 @@
   6
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -171,7 +171,7 @@
   13
   #f
   23/18
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -375,7 +375,7 @@
   6
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -396,7 +396,7 @@
   13
   #f
   23/18
-  (2 3 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -498,7 +498,7 @@
   13
   #f
   23/18
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   2
@@ -855,7 +855,7 @@
   20
   #f
   66/43
-  (9 9 0))
+  (3 3 0))
 '(clean-cache
   primtest
   2
@@ -876,7 +876,7 @@
   13
   #f
   45/29
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -978,7 +978,7 @@
   29
   #f
   45/37
-  (7 7 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1020,7 +1020,7 @@
   27
   #f
   43/35
-  (7 7 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1062,7 +1062,7 @@
   13
   #f
   43/28
-  (5 5 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1185,7 +1185,7 @@
   13
   #f
   45/29
-  (7 7 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1236,7 +1236,7 @@
   13
   #f
   45/29
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1359,7 +1359,7 @@
   27
   #f
   43/35
-  (7 7 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1830,7 +1830,7 @@
   43
   #f
   85/64
-  (7 8 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -1935,7 +1935,7 @@
   29
   #f
   63/46
-  (5 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -1977,7 +1977,7 @@
   21
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2019,7 +2019,7 @@
   13
   #f
   31/22
-  (2 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2082,7 +2082,7 @@
   29
   #f
   63/46
-  (5 5 0))
+  (2 2 0))
 '(clean-cache
   primtest
   2
@@ -2124,7 +2124,7 @@
   21
   #f
   47/34
-  (4 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2166,7 +2166,7 @@
   13
   #f
   31/22
-  (2 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2229,7 +2229,7 @@
   29
   #f
   63/46
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2271,7 +2271,7 @@
   21
   #f
   47/34
-  (4 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2313,7 +2313,7 @@
   13
   #f
   31/22
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2376,7 +2376,7 @@
   29
   #f
   63/46
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2418,7 +2418,7 @@
   21
   #f
   47/34
-  (4 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2460,7 +2460,7 @@
   13
   #f
   31/22
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2523,7 +2523,7 @@
   29
   #f
   63/46
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2565,7 +2565,7 @@
   21
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2607,7 +2607,7 @@
   13
   #f
   31/22
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2670,7 +2670,7 @@
   29
   #f
   63/46
-  (6 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2712,7 +2712,7 @@
   21
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2754,7 +2754,7 @@
   13
   #f
   31/22
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2817,7 +2817,7 @@
   29
   #f
   63/46
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2859,7 +2859,7 @@
   21
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2901,7 +2901,7 @@
   13
   #f
   31/22
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -2964,7 +2964,7 @@
   29
   #f
   63/46
-  (6 6 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -3006,7 +3006,7 @@
   21
   #f
   47/34
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -3048,7 +3048,7 @@
   13
   #f
   31/22
-  (2 2 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -3111,7 +3111,7 @@
   29
   #f
   63/46
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -3153,7 +3153,7 @@
   21
   #f
   47/34
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2
@@ -3195,7 +3195,7 @@
   13
   #f
   31/22
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   2

@@ -1,0 +1,930 @@
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  lettypes
+  "'(eval ((top) lettypes (cons ... nil) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (lettypes cons ... nil (let (lp1) ...)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () (lp1 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)\n  (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (app cons 'unspecified (-> (app nil) <-)) (env ()))"
+  #f
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  quoted
+  "'(eval (app cons (-> 'unspecified <-) (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 'unspecified (app nil)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (let (lp1) (-> (let (a) ...) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () (a (-> (app set! lp1 (λ (i x) ...)) <-)) () ...) ...)\n  (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  lambda
+  "'(eval (app set! lp1 (-> (λ (i x) ...) <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (λ (i x) (-> (let (a) ...) <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (let (... () (a (-> (app = 0 i) <-)) () ...) ...) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app = 0 (-> i <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app = (-> 0 <-) i) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> = <-) 0 i) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  match
+  "'(eval (let (a) (-> (match a ...) <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (match a (#f) (_ (-> x <-))) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (match a ((#f) (-> (let (lp2) ...) <-)) _) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () (lp2 (-> (app cons 'unspecified (app nil)) <-)) () ...) ...)\n  (env ((□? (i x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (app cons 'unspecified (-> (app nil) <-)) (env ((□? (i x)))))"
+  #f
+  3
+  2
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> nil <-)) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  quoted
+  "'(eval (app cons (-> 'unspecified <-) (app nil)) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> cons <-) 'unspecified (app nil)) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (let (lp2) (-> (let (b) ...) <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () (b (-> (app set! lp2 (λ (j f y) ...)) <-)) () ...) ...)\n  (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  lambda
+  "'(eval (app set! lp2 (-> (λ (j f y) ...) <-)) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval (λ (j f y) (-> (let (b) ...) <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () (b (-> (app = 0 j) <-)) () ...) ...)\n  (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app = 0 (-> j <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app = (-> 0 <-) j) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> = <-) 0 j) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  match
+  "'(eval (let (b) (-> (match b ...) <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (match b (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app lp1 (app - i 1) (-> y <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (app lp1 (-> (app - i 1) <-) y) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app - i (-> 1 <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app - (-> i <-) 1) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> - <-) i 1) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> lp1 <-) (app - i 1) y) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  let
+  "'(eval\n  (match b ((#f) (-> (let ($tmp$3) ...) <-)) _)\n  (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let (... () ($tmp$3 (-> (app f y) <-)) () ...) ...)\n  (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app f (-> y <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> f <-) y) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval\n  (let ($tmp$3) (-> (app lp2 (app - j 1) f $tmp$3) <-))\n  (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app lp2 (app - j 1) f (-> $tmp$3 <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app lp2 (app - j 1) (-> f <-) $tmp$3) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (app lp2 (-> (app - j 1) <-) f $tmp$3) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app - j (-> 1 <-)) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app - (-> j <-) 1) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> - <-) j 1) (env ((□? (j f y)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> lp2 <-) (app - j 1) f $tmp$3) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (match (-> b <-) (#f) _) (env ((□? (j f y)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app set! (-> lp2 <-) (λ (j f y) ...)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> set! <-) lp2 (λ (j f y) ...)) (env ((□? (i x)))))"
+  #t
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (let (b) (-> (app lp2 10 (λ (n) ...) x) <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  lambda
+  "'(eval (app lp2 10 (-> (λ (n) ...) <-) x) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (λ (n) (-> (app + n i) <-)) (env ((□? (n)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app + n (-> i <-)) (env ((□? (n)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app + (-> n <-) i) (env ((□? (n)) (□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> + <-) n i) (env ((□? (n)) (□? (i x)))))"
+  #t
+  3
+  1
+  0
+  2
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app lp2 (-> 10 <-) (λ (n) ...) x) (env ((□? (i x)))))"
+  #t
+  2
+  1
+  0
+  1
+  0
+  0
+  0
+  1
+  0
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> lp2 <-) 10 (λ (n) ...) x) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (match (-> a <-) (#f) _) (env ((□? (i x)))))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app set! (-> lp1 <-) (λ (i x) ...)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> set! <-) lp1 (λ (i x) ...)) (env ()))"
+  #t
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  app
+  "'(eval (let (a) (-> (app lp1 10 0) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app lp1 10 (-> 0 <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  number
+  "'(eval (app lp1 (-> 10 <-) 0) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2
+  2
+  500
+  70
+  ref-or-constructor
+  "'(eval (app (-> lp1 <-) 10 0) (env ()))"
+  #f
+  #f)

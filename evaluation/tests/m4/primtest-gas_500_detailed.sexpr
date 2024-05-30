@@ -99,7 +99,7 @@
   19
   #f
   21/20
-  (2 2 0))
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -120,7 +120,7 @@
   8
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -171,7 +171,7 @@
   19
   #f
   33/26
-  (2 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -201,7 +201,7 @@
   8
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -222,7 +222,7 @@
   8
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -375,7 +375,7 @@
   8
   #t
   1
-  (1 1 0))
+  (0 0 0))
 '(clean-cache
   primtest
   4
@@ -396,7 +396,7 @@
   19
   #f
   33/26
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -498,7 +498,7 @@
   19
   #f
   33/26
-  (3 3 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -864,7 +864,7 @@
   19
   #f
   81/50
-  (24 25 0))
+  (8 8 0))
 '(clean-cache
   primtest
   4
@@ -1026,7 +1026,7 @@
   19
   #f
   79/49
-  (20 21 0))
+  (7 7 0))
 '(clean-cache
   primtest
   4
@@ -1149,7 +1149,7 @@
   19
   #f
   81/50
-  (24 25 0))
+  (8 8 0))
 '(clean-cache
   primtest
   4
@@ -1200,7 +1200,7 @@
   19
   #f
   81/50
-  (24 25 0))
+  (8 8 0))
 '(clean-cache
   primtest
   4
@@ -1629,7 +1629,7 @@
   135
   #f
   301/218
-  (22 25 0))
+  (7 7 0))
 '(clean-cache
   primtest
   4
@@ -1692,7 +1692,7 @@
   111
   #f
   245/178
-  (17 17 0))
+  (6 6 0))
 '(clean-cache
   primtest
   4
@@ -1755,7 +1755,7 @@
   88
   #f
   94/69
-  (14 15 0))
+  (5 5 0))
 '(clean-cache
   primtest
   4
@@ -1818,7 +1818,7 @@
   65
   #f
   127/96
-  (11 12 0))
+  (4 4 0))
 '(clean-cache
   primtest
   4
@@ -1923,7 +1923,7 @@
   43
   #f
   93/68
-  (9 9 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -1965,7 +1965,7 @@
   31
   #f
   69/50
-  (7 7 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2007,7 +2007,7 @@
   19
   #f
   45/32
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2070,7 +2070,7 @@
   43
   #f
   93/68
-  (7 8 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2112,7 +2112,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2154,7 +2154,7 @@
   19
   #f
   45/32
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2217,7 +2217,7 @@
   43
   #f
   93/68
-  (9 9 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2259,7 +2259,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2301,7 +2301,7 @@
   19
   #f
   45/32
-  (4 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2364,7 +2364,7 @@
   43
   #f
   93/68
-  (7 8 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2406,7 +2406,7 @@
   31
   #f
   69/50
-  (7 8 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2448,7 +2448,7 @@
   19
   #f
   45/32
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2511,7 +2511,7 @@
   43
   #f
   93/68
-  (8 8 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2553,7 +2553,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2595,7 +2595,7 @@
   19
   #f
   45/32
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2658,7 +2658,7 @@
   43
   #f
   93/68
-  (8 8 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2700,7 +2700,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2742,7 +2742,7 @@
   19
   #f
   45/32
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2805,7 +2805,7 @@
   43
   #f
   93/68
-  (8 9 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2847,7 +2847,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -2889,7 +2889,7 @@
   19
   #f
   45/32
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -2952,7 +2952,7 @@
   43
   #f
   93/68
-  (7 7 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -2994,7 +2994,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3036,7 +3036,7 @@
   19
   #f
   45/32
-  (4 4 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
@@ -3099,7 +3099,7 @@
   43
   #f
   93/68
-  (8 8 0))
+  (3 3 0))
 '(clean-cache
   primtest
   4
@@ -3141,7 +3141,7 @@
   31
   #f
   69/50
-  (6 6 0))
+  (2 2 0))
 '(clean-cache
   primtest
   4
@@ -3183,7 +3183,7 @@
   19
   #f
   45/32
-  (5 5 0))
+  (1 1 0))
 '(clean-cache
   primtest
   4
