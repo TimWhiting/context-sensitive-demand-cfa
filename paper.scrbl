@@ -1415,7 +1415,7 @@ When the gas runs out the analysis reports an error and bails out early.
 \includegraphics[width=\linewidth]{total-queries-answered_kcfa3.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{.23\linewidth}
-\includegraphics[width=\linewidth]{total-queries-answered_loop2.pdf} 
+\includegraphics[width=\linewidth]{total-queries-answered_loop2-1.pdf} 
 \end{subfigure}
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_mj09.pdf}
@@ -1442,12 +1442,10 @@ When the gas runs out the analysis reports an error and bails out early.
 Figure~\ref{fig:dmcfa-scalability} shows the percent of queries answered for a given amount of effort allotted.
 
 As can be seen, the graphs trend upward and to the right, regardless of our choice of $m$. 
-Notable exceptions include the \texttt{loop2} \texttt{regex}, and \texttt{scheme2java} programs.
-\texttt{loop2} is small and utilizes the \texttt{set!} form to initialize a recursive function.
-In this case we are able to obtain all information that is possible to obtain near instantly.
-\texttt{scheme2java} and \texttt{regex} are both larger programs, and significantly improve when explored
-at higher $m$ which exemplifies a known phenomenon from exhaustive CFA that increasing precision can actually
-decrease the state space due to fewer spurious flows. 
+Notable exceptions include the \texttt{regex}, and \texttt{scheme2java} programs.
+\texttt{scheme2java} and \texttt{regex} are both larger programs, and \texttt{scheme2java} uses \texttt{set!}.
+Both significantly improve when explored at higher $m$ which exemplifies a known phenomenon
+from exhaustive CFA that increasing precision can actually decrease the state space due to fewer spurious flows. 
 Of notable interest is that at $m=0$ an exhaustive $m$-CFA of \texttt{scheme2java}
 requires an effort (gas) of $726764$ while at $m=1$ it requires $400517$, both 
 Increasing to $m=2$ however times out after several minutes.
@@ -1477,7 +1475,7 @@ exhaustive CFA doesn't finish in reasonable time.
 \includegraphics[width=\linewidth]{important-queries-answered_kcfa3.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{.23\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_loop2.pdf}
+\includegraphics[width=\linewidth]{important-queries-answered_loop2-1.pdf}
 \end{subfigure} 
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{important-queries-answered_mj09.pdf}

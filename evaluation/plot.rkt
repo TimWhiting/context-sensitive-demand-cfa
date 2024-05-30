@@ -186,7 +186,7 @@
     [(cons (list p1 size) rst) (if (equal? p p1) size (get-program-size p rst))]
     )
   )
-(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur sat primtest rsa regex loop2 scheme2java))
+(define reachability-bench-programs '(mj09 eta kcfa2 kcfa3 blur sat primtest rsa regex loop2-1 scheme2java))
 
 ; (define all-programs (map car program-size))
 

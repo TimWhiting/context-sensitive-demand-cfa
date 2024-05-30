@@ -109,7 +109,7 @@
       (define requires-set '(loop2 scheme-to-c scheme2java))
       ; Just missing meta-circ right now....
       ; (for ([example (get-examples all-examples)])
-      (for ([example (get-examples '(kcfa3) all-benchmarks)])
+      (for ([example (get-examples '(loop2-1) all-benchmarks)])
         ; (for ([example (get-examples '(sat) all-benchmarks)])
         ; (for ([example test-examples])
         (match-let ([`(example ,name ,exp) example])

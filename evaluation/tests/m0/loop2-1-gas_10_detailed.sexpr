@@ -1,0 +1,645 @@
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  letrec
+  "'(eval ((top) letrec (lp1) ...) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  lambda
+  "'(eval (letrec (... () (lp1 (-> (λ (i x) ...) <-)) () ...) ...) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  match
+  "'(eval (λ (i x) (-> (match (app = 0 i) ...) <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (match (app = 0 i) (#f) (_ (-> x <-))) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  letrec
+  "'(eval (match (app = 0 i) ((#f) (-> (letrec (lp2) ...) <-)) _) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  lambda
+  "'(eval (letrec (... () (lp2 (-> (λ (j f y) ...) <-)) () ...) ...) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  match
+  "'(eval (λ (j f y) (-> (match (app = 0 j) ...) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval\n  (match (app = 0 j) (#f) (_ (-> (app lp1 (app - i 1) y) <-)))\n  (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app lp1 (app - i 1) (-> y <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (app lp1 (-> (app - i 1) <-) y) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app - i (-> 1 <-)) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app - (-> i <-) 1) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> - <-) i 1) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> lp1 <-) (app - i 1) y) (env (() ())))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval\n  (match (app = 0 j) ((#f) (-> (app lp2 (app - j 1) f (app f y)) <-)) _)\n  (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (app lp2 (app - j 1) f (-> (app f y) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app f (-> y <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> f <-) y) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app lp2 (app - j 1) (-> f <-) (app f y)) (env (() ())))"
+  #f
+  5
+  2
+  3
+  0
+  2
+  3
+  5
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (app lp2 (-> (app - j 1) <-) f (app f y)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app - j (-> 1 <-)) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app - (-> j <-) 1) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> - <-) j 1) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> lp2 <-) (app - j 1) f (app f y)) (env (() ())))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (match (-> (app = 0 j) <-) (#f) _) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app = 0 (-> j <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app = (-> 0 <-) j) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> = <-) 0 j) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (letrec (lp2) (-> (app lp2 10 (λ (n) ...) x) <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app lp2 10 (λ (n) ...) (-> x <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  lambda
+  "'(eval (app lp2 10 (-> (λ (n) ...) <-) x) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (λ (n) (-> (app + n i) <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app + n (-> i <-)) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app + (-> n <-) i) (env (() ())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> + <-) n i) (env (() ())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app lp2 (-> 10 <-) (λ (n) ...) x) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> lp2 <-) 10 (λ (n) ...) x) (env (())))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (match (-> (app = 0 i) <-) (#f) _) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app = 0 (-> i <-)) (env (())))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app = (-> 0 <-) i) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> = <-) 0 i) (env (())))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  app
+  "'(eval (letrec (lp1) (-> (app lp1 10 0) <-)) (env ()))"
+  #f
+  #f)
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app lp1 10 (-> 0 <-)) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  number
+  "'(eval (app lp1 (-> 10 <-) 0) (env ()))"
+  #t
+  1
+  1
+  0
+  0
+  1
+  0
+  1
+  1
+  1
+  1
+  #t
+  1
+  (0 0 0))
+'(clean-cache
+  loop2-1
+  0
+  10
+  45
+  ref-or-constructor
+  "'(eval (app (-> lp1 <-) 10 0) (env ()))"
+  #t
+  2
+  2
+  0
+  0
+  2
+  0
+  2
+  1
+  1
+  2
+  #t
+  1
+  (0 0 0))

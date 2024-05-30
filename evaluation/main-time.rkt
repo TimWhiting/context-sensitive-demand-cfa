@@ -148,8 +148,8 @@
   (show-envs-simple #t)
   (show-envs #f)
   (define do-run-demand #t)
-  (define do-run-exhaustive #f)
-  (define do-analysis #t)
+  (define do-run-exhaustive #t)
+  (define do-analysis #f)
   (define all-programs '(ack blur cpstak tak eta flatten map facehugger kcfa-2 kcfa-3 loop2-1 mj09 primtest sat-1 sat-2 sat-3 regex rsa deriv tic-tac-toe))
 
   (define kcfas '(kcfa-worst-case-1 kcfa-worst-case-2 kcfa-worst-case-3 kcfa-worst-case-4 kcfa-worst-case-5 kcfa-worst-case-6 kcfa-worst-case-7 kcfa-worst-case-8 kcfa-worst-case-9 kcfa-worst-case-10))
@@ -160,7 +160,7 @@
   (define reachability-bench '(mj09 eta kcfa2 kcfa3 blur loop2 sat primtest rsa regex))
   (define mcfa-bench '(eta map sat regex scheme2java meta-circ scheme-2-c))
   ; (define programs reachability-bench)
-  (define programs '(scheme2java))
+  (define programs '(loop2-1))
   (define programloc all-benchmarks)
   ; (define programloc all-examples)
   (if do-run-exhaustive
