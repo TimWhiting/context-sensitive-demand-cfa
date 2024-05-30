@@ -859,7 +859,7 @@ where $\lfloor\cdot\rfloor_{m}$ is defined
 
 \subsection{Following Evaluation Backwards}
 
-When the value of a reference is demanded, Demand $m$-CFA first uses he @|mcfa-bind-name| metafunction to locate its binding configuration.
+When the value of a reference is demanded, Demand $m$-CFA first uses the @|mcfa-bind-name| metafunction to locate its binding configuration.
 Its definition, presented in Figure~\ref{fig:mcfa-bind}, is lifted from Demand 0CFA's to accommodate environments.
 
 With the binding configuration in hand, Demand $m$-CFA issues a call query to resolve calls which enter that configuration.
