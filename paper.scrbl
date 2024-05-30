@@ -1361,41 +1361,47 @@ if the key is present in the map, then the results it locates are sound with res
 
 %We have implemented Demand $m$-CFA using the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}.
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
-mutually-recursive definitions and a few dozen primitives. 
-We also implemented support for algebraic datatypes and matching on those datatypes, which is a particularly elegant extension to the formalism. 
-The representation of closures and constructors both utilize a syntactic context (i.e. lambda, or application of the constructor) paired with an environment.
-Pattern matching alternates between @|mcfa-expr-name| and @|mcfa-eval-name| discovering introduction forms (applications of the constructors) 
-that flow to the scrutinee and evaluating the appropriate clause based on the discriminant and the pattern order. 
+mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters. 
 We reuse support for constructors and matching to desugar \texttt{if}, \texttt{cond}, \texttt{and} and \texttt{or} expressions.
 
 We benchmarked on the selection of standard R6RS benchmarks used in ``Pushdown flow analysis with abstract garbage collection''@~cite{johnson:earl:dvanhorn:PushdownGarbage}
 and commonly used in other literature on control flow analysis
 @;{in the evaluation of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.}
 
+We also implemented Demand $m$-CFA for the Koka language compiler, and integrated it with the language server
+to provide additional flow information on hover. 
+However, we did not implement a corresponding exhaustive analysis for Koka which would require 
+whole program transformations, and implementing a whole host of primitives.
+
 We evaluate Demand $m$-CFA with respect to the following:
 \begin{enumerate}
 \item Is the implementation cost of Demand $m$-CFA comparable to an exhaustive analysis?
 \item What fraction of information is Demand $m$-CFA able to get with different levels of constant effort?
-\item How does the precision compare to an exhaustive $m$-CFA?
+\item Can we still obtain precise information about singleton flow sets?
 \end{enumerate}
 
 \subsection{Implementation cost}
-Using the ADI framework to implement both analyses we found that the amount of code needed is on the same order of magnitude.
-Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, without supporting functions shared between the two.
+Using the ADI framework to implement $m$-CFA and Demand $m$-CFA analyses for the scheme language we found that the amount of code needed is on the same order of magnitude.
+Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, without counting the supporting functions shared between the two.
 Demand $m$-CFA requires additional lines of code due to the fact that it has to be able to not only evaluate, but also trace flow of values.
-Due to the ability of Demand $m$-CFA to work on smaller subsections of programs it can fail on unknown primitives, 
-and still give information for queries that don't interact with those primitives. 
-This is in contrast to $m$-CFA's soundness which requires that the full program be analyzable. 
 
 Primitives have to be done slightly different for constructors which are lazily evaluted using Demand $m$-CFA. 
 
+Our implementation for the Koka compiler and language server is about 652 lines of Haskell code for the core analysis,
+with an additional 2364 lines of supporting code for primitives, the fixpoint and ADI framework, 
+and mapping the core syntax to the user syntax for showing results.
+The queries respond interactively when hovering over an identifier in VSCode.
+
 \subsection{Demand $m$-CFA scalability}
-Demand $m$-CFA introduces a different paradigm for context sensitive analyses, due to the ability to set the effort per program point instead of
-a global timeout.
+Demand $m$-CFA provides a different interface to analysis than is typical for control flow analyses.
+With it's ability to be embedded into a language server and work on subportions of programs, 
+one of the most important criteria to evaluate is how well it does at resolving queries given limited amount of effort.
 
-Utilizing ADI, we add an effort parameter called gas which at each (mutually) recursive call reduces the amount of gas left. 
+Utilizing ADI's fixpoint, 
+we added an effort parameter called gas which at each (mutually) recursive call gets reduced by one. 
 When the gas runs out the analysis reports an error and bails out early.
-
+In the language server for Koka we still report the normal hover info (type information and documentation)
+when additional semantic precision is not obtainable due to lack of supporting primitives or running out of gas.
 
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
@@ -1421,7 +1427,7 @@ When the gas runs out the analysis reports an error and bails out early.
 \end{subfigure}
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_primtest.pdf}
-\end{subfigure}
+\end{subfigure} 
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_regex.pdf}
 \end{subfigure}
@@ -1434,28 +1440,33 @@ When the gas runs out the analysis reports an error and bails out early.
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis).}
+\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis) to Demand $m$-CFA.
+Each figure has a line for each setting of $m$.
+Many trivial queries ($40\%$-$60\%$) are answered given very little effort.
+In order to answer more queries sometimes it is enough to give the analysis more gas, 
+while larger examples like scheme2java and regex require more context sensitivity 
+to appropriately distinguish unrelated flows to avoid exploring the full control flow graph.
+}
 \label{fig:dmcfa-scalability}
 \end{figure}
 
 Figure~\ref{fig:dmcfa-scalability} shows the percent of queries answered for a given amount of effort allotted.
 
-As can be seen, the graphs trend upward and to the right, regardless of our choice of $m$. 
-Notable exceptions include the \texttt{regex}, and \texttt{scheme2java} programs.
-\texttt{scheme2java} and \texttt{regex} are both larger programs, and \texttt{scheme2java} uses \texttt{set!}.
+The graphs trend upward and to the right, regardless of our choice of $m$. 
+Notable exceptions include \texttt{regex}, and \texttt{scheme2java} which are both larger programs, 
+and \texttt{scheme2java} uses \texttt{set!} which we do not support.
 Both significantly improve when explored at higher $m$ which exemplifies a known phenomenon
 from exhaustive CFA that increasing precision can actually decrease the state space due to fewer spurious flows. 
-Of notable interest is that at $m=0$ an exhaustive $m$-CFA of \texttt{scheme2java}
-requires an effort (gas) of $726764$ while at $m=1$ it requires $400517$, both 
-Increasing to $m=2$ however times out after several minutes.
-In constrast Demand $m$-CFA over the $1376$ eval queries given the same amount of overall gas as
-exhaustive CFA could use $291$ gas per query at $m=1$. 
-While this doesn't get all the information as the respective exhaustive CFA 
-we see that over 60\% of the information could be gained at a cost of $10$ per query (over $29x$ faster than exhaustive CFA).
 
-Additionally we can get 75\% of the information at a higher context sensitivity within a cost of $100$ even though
-exhaustive CFA doesn't finish in reasonable time.
+Any flow result for a particular program point can help IDE users
+narrow down where null values or other bugs could flow into their program, even
+if the result is not entirely precise, and could be one of several functions, lambdas or constructors.
 
+However, a compiler has to have more guarantees in order to perform
+constant propagation, inlining, or other optimizations.
+The invariants required differ due to the environment problem for closures@~cite{dvanhorn:Might:2006:GammaCFA},
+but a commonality is knowing that the flow set of a particular variable is limited in some way.
+We call these flow sets singleton flow sets.
 
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
@@ -1494,13 +1505,23 @@ exhaustive CFA doesn't finish in reasonable time.
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The number of interesting results returned compared to exhasutive analysis}
+\caption{
+The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given limited effort (x-axis).
+Dashed lines represent the baseline number of singleton flow sets found by an exhaustive analysis with a 10 minute timeout, regardless of effort.
+\texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
+}
 \label{fig:dmcfa-answers}
 \end{figure}
 
-What fraction of the collected data represents highly useful data (singleton flow sets) 
-which can be used for higher order function inlining or constant propagation / evaluation?
-Figure~\ref{fig:dmcfa-answers}.
+Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain a singleton flow set.
+$m$-CFA results are dashed and are represented as a straight line, whereas Demand $m$-CFA results are graphed as a function of effort.
+\texttt{scheme2java} doesn't have results for exhaustive analysis beyond $m=1$ due to timing out.
+Due to the nature of Demand $m$-CFA in some cases we explore areas of the program that are dead code in a full-program analysis, 
+which results in more singleton sets than the corresponding exhaustive analysis. 
+
+
+
+
 
 
 @omit{
@@ -1753,8 +1774,8 @@ This paper presented one strategy for achieving context-sensitive demand CFA, ba
 This strategy leads to the Demand $m$-CFA hierarchy which exhibits pushdown precision
 (1) with respect to the demand semantics, by virtue of using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation approach, and
 (2) with respect to the direct semantics, by virtue of using the continuation address identified in \emph{Pushdown for Free}@~cite{local:p4f}.
-This leads to the Demand $m$-CFA hierarchy, which, for many singleton flow sets, offers the precision of context sensitivity at a constant price, regardless of program size, which we claim makes 
-Demand $m$-CFA a \emph{demand-scalable} analysis.
+This leads to the Demand $m$-CFA hierarchy, which offers context sensitivity in a constant effort cost model, 
+and is able to return many of the same singleton flow sets as the corresponding exhaustive analysis at low cost.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{paper}

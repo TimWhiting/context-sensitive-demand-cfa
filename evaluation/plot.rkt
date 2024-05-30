@@ -215,27 +215,33 @@
     )
   )
 
+(define percent-tick (lambda (min max) (map (lambda (t) (pre-tick (* 10 t) (even? t))) (range 0 11))))
+
+(define format-percent (lambda (min max ticks) (map (lambda (t) (format "~a%" (* 10 t))) (range 0 11))))
+
 (define (plot-total-queries p hashes out)
-  (plot
-   (map (lambda (m h)
-          (lines
-           (get-points (find-prog p (hash-ref h "dmcfa-b")))
-           #:label (format "m=~a" m)
-           #:color m
-           ))
-        (range (length hashes)) hashes
-        )
-   #:x-label #f
-   #:y-label #f
-   #:width plot-width
-   #:height plot-height
-   #:y-min 0
-   #:y-max 100
-   #:title (symbol->string p)
-   #:aspect-ratio 1
-   #:legend-anchor 'no-legend
-   #:out-file (format "plots/total-queries-answered_~a.~a" p out)
-   )
+  (parameterize ([plot-y-ticks (ticks percent-tick format-percent)])
+    (plot
+    (map (lambda (m h)
+            (lines
+            (get-points (find-prog p (hash-ref h "dmcfa-b")))
+            #:label (format "m=~a" m)
+            #:color m
+            ))
+          (range (length hashes)) hashes
+          )
+    #:x-label #f
+    #:y-label #f
+    #:width plot-width
+    #:height plot-height
+    #:y-min 0
+    #:y-max 100
+    #:title (symbol->string p)
+    #:aspect-ratio 1
+    #:legend-anchor 'no-legend
+    #:out-file (format "plots/total-queries-answered_~a.~a" p out)
+    )
+  )
 
   (parameterize ([plot-x-ticks no-ticks]
                  [plot-y-ticks no-ticks])
