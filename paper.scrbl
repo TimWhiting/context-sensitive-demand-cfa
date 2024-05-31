@@ -1563,11 +1563,15 @@ Demand $m$-CFA can be positioned similarly where the low-budget environments are
 \label{sec:conclusion}
 
 This paper presented one strategy for achieving context-sensitive demand CFA, based on the top-$m$-stack-frames context abstraction of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
+@;{
 This strategy leads to the Demand $m$-CFA hierarchy which exhibits pushdown precision
 (1) with respect to the demand semantics, by virtue of using the \emph{Abstracting Definitional Interpreters}@~cite{darais2017abstracting} implementation approach, and
 (2) with respect to the direct semantics, by virtue of using the continuation address identified in \emph{Pushdown for Free}@~cite{local:p4f}.
-This leads to the Demand $m$-CFA hierarchy, which offers context sensitivity in a constant effort cost model, 
-and is able to return many of the same singleton flow sets as the corresponding exhaustive analysis at low cost.
+}
+This leads to the Demand $m$-CFA hierarchy, which offers context sensitivity with tunable runtime costs.
+We reported the required effort to implement the analysis for Pure Scheme as well as the Koka language server.
+We also provided empirical results showing that Demand $m$-CFA provides a large percentage of control flow information and 
+a similar number of singleton flow sets as the corresponding exhaustive analysis but at low cost.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{paper}
