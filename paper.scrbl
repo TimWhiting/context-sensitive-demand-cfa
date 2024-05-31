@@ -36,9 +36,9 @@ Thus, it presents a much more flexible interface and pricing model for CFA, maki
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, 
 based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the scalability of Demand $m$-CFA in contrast to the scalability of $m$-CFA.
-We also show that in the case of singleton flow sets, 
-Demand $m$-CFA resolves a similar number of singleton flow sets as an \emph{exponential} formulation of $m$-CFA, but with tunable effort. 
+We evaluate the scalability and precision of Demand $m$-CFA.
+We also show that in the case of singleton flow sets, Demand $m$-CFA resolves a similar number of singleton flow sets 
+as an \emph{exponential} formulation of $m$-CFA, but with tunable effort. 
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
@@ -1359,7 +1359,6 @@ if the key is present in the map, then the results it locates are sound with res
 \section{Evaluation}
 \label{sec:evaluation}
 
-%We have implemented Demand $m$-CFA using the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}.
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, and \texttt{letrec} binding forms;
 mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters. 
 We reuse support for constructors and matching to desugar \texttt{if}, \texttt{cond}, \texttt{and} and \texttt{or} expressions.
@@ -1381,26 +1380,29 @@ We evaluate Demand $m$-CFA with respect to the following:
 \end{enumerate}
 
 \subsection{Implementation cost}
-Using the ADI framework to implement $m$-CFA and Demand $m$-CFA analyses for the scheme language we found that the amount of code needed is on the same order of magnitude.
+We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting} to implement $m$-CFA and Demand $m$-CFA analyses for the scheme language.
+The amount of code needed to implement each analysis is on the same order of magnitude.
 Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, without counting the supporting functions shared between the two.
-Demand $m$-CFA requires additional lines of code due to the fact that it has to be able to not only evaluate, but also trace flow of values.
-
-Primitives have to be done slightly different for constructors which are lazily evaluted using Demand $m$-CFA. 
+Demand $m$-CFA requires additional lines of code due to the fact that in addition to evaluation, it also traces the flow of values.
 
 Our implementation for the Koka compiler and language server is about 652 lines of Haskell code for the core analysis,
 with an additional 2364 lines of supporting code for primitives, the fixpoint and ADI framework, 
 and mapping the core syntax to the user syntax for showing results.
 The queries respond interactively when hovering over an identifier in VSCode.
 
-\subsection{Demand $m$-CFA scalability}
-Demand $m$-CFA provides a different interface to analysis than is typical for control flow analyses.
-With it's ability to be embedded into a language server and work on subportions of programs, 
+Our experience tells us that implementing Demand $m$-CFA and integrating it into a compiler is straightforward,
+especially when considering that primitives don't all have to be supported up front.
+
+\subsection{Demand $m$-CFA Scalability}
+Demand $m$-CFA provides a different interface to analysis than is typical for most control flow analyses.
+Since its cost framework provides a different utility model 
+% and therefore ability to be embedded into a language server and work on subportions of programs, 
 one of the most important criteria to evaluate is how well it does at resolving queries given limited amount of effort.
 
 Utilizing ADI's fixpoint, 
-we added an effort parameter called gas which at each (mutually) recursive call gets reduced by one. 
-When the gas runs out the analysis reports an error and bails out early.
-In the language server for Koka we still report the normal hover info (type information and documentation)
+we added an effort parameter we call gas which at each (mutually) recursive call gets reduced by one. 
+When the gas runs out the analysis returns from the fixpoint computation reporting an error.
+In the language server for Koka we still report the normal hover info (type information / documentation)
 when additional semantic precision is not obtainable due to lack of supporting primitives or running out of gas.
 
 \begin{figure}[t]
@@ -1440,7 +1442,7 @@ when additional semantic precision is not obtainable due to lack of supporting p
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis) to Demand $m$-CFA.
+\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis) to Demand $m$-CFA per query.
 Each figure has a line for each setting of $m$.
 Many trivial queries ($40\%$-$60\%$) are answered given very little effort.
 In order to answer more queries sometimes it is enough to give the analysis more gas, 
@@ -1450,23 +1452,31 @@ to appropriately distinguish unrelated flows to avoid exploring the full control
 \label{fig:dmcfa-scalability}
 \end{figure}
 
-Figure~\ref{fig:dmcfa-scalability} shows the percent of queries answered for a given amount of effort allotted.
+Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depending on the gas allotted.
 
 The graphs trend upward and to the right, regardless of our choice of $m$. 
-Notable exceptions include \texttt{regex}, and \texttt{scheme2java} which are both larger programs, 
-and \texttt{scheme2java} uses \texttt{set!} which we do not support.
-Both significantly improve when explored at higher $m$ which exemplifies a known phenomenon
-from exhaustive CFA that increasing precision can actually decrease the state space due to fewer spurious flows. 
+Notable exceptions include \texttt{regex}, and \texttt{scheme2java} which both contain highly connected control flow graphs. 
+Additionally \texttt{scheme2java} uses \texttt{set!} which we do not support.
+Both significantly improve when explored at higher $m$ which exemplifies the known paradox of precision 
+from exhaustive CFA, in which increasing precision can sometimes decrease the state space due to fewer spurious flows.
+Our results show that this phenomenon holds even for subportions of programs.
+We hypothesize that this paradox might be more useful in the demand context 
+due to not exploring undemanded or unrelevant portions of the program with higher sensitivity.
+
+From the experimental results, we claim that Demand $m$-CFA is in fact scalable, both with increasing context sensitivity and with program size.
+
+\subsection{Demand $m$-CFA Precision}
 
 Any flow result for a particular program point can help IDE users
-narrow down where null values or other bugs could flow into their program, even
-if the result is not entirely precise, and could be one of several functions, lambdas or constructors.
+narrow down where bad values can flow into their program, 
+or start to understand a complex code base---even if the result is not entirely precise.
 
-However, a compiler has to have more guarantees in order to perform
+However, a compiler needs more guarantees in order to soundly perform
 constant propagation, inlining, or other optimizations.
 The invariants required differ due to the environment problem for closures@~cite{dvanhorn:Might:2006:GammaCFA},
 but a commonality is knowing that the flow set of a particular variable is limited in some way.
-We call these flow sets singleton flow sets.
+In particular when a single syntactic lambda, or constant value or constructor flows to a particular program
+point we call the resulting flow set a singleton flow set.
 
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
@@ -1507,46 +1517,53 @@ We call these flow sets singleton flow sets.
 \end{subfigure}
 \caption{
 The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given limited effort (x-axis).
-Dashed lines represent the baseline number of singleton flow sets found by an exhaustive analysis with a 10 minute timeout, regardless of effort.
+Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout, regardless of effort.
 \texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
 }
 \label{fig:dmcfa-answers}
 \end{figure}
 
-Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain a singleton flow set.
-$m$-CFA results are dashed and are represented as a straight line, whereas Demand $m$-CFA results are graphed as a function of effort.
-\texttt{scheme2java} doesn't have results for exhaustive analysis beyond $m=1$ due to timing out.
-Due to the nature of Demand $m$-CFA in some cases we explore areas of the program that are dead code in a full-program analysis, 
-which results in more singleton sets than the corresponding exhaustive analysis. 
+Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singleton flow sets.
+Exhaustive $m$-CFA results are dashed and are represented as a straight line, whereas Demand $m$-CFA results are graphed as a function of effort.
+\texttt{scheme2java} doesn't have results for exhaustive analysis beyond $m=1$ due to timing out after 10 minutes.
 
-In the example of \texttt{kcfa2} and \texttt{kcfa3} we actually get more precision than the corresponding exhaustive analysis
-precisely because we only evaluate what is demanded for the results. 
-For example intermediate let bindings do not get evaluated unless they are needed.
+% Due to the nature of Demand $m$-CFA in some cases we issue queries and explore areas of the program that are dead code in a full-program analysis, 
+% which results in more singleton sets than the corresponding exhaustive analysis. 
+
+Occassionally Demand $m$-CFA finds more singleton flow sets than $m$-CFA,
+this is typically due to Demand $m$-CFA returning results on parts of the state space
+which correspond to unexplored dead code in the exhaustive analysis. 
+In these benchmarks, we believe this happens only infrequently.
 
 In other cases Demand $m$-CFA does not find as many singleton flow sets. 
-This can occasionally be attributed to the analysis running out of gas for some queries.
+For some queries that involve a large portion of the overall flow, this can be attributed to the analysis running out of gas.
 However we believe that more often it is due to Demand $m$-CFA making reachability assumptions which can decrease its precision.
-For instance, if Demand $m$-CFA is tracing the caller of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can evaluate the argument,
+For instance, if Demand $m$-CFA is finding the callers of \texttt{f} in the expression \texttt{(λ (g) (f 42))} so that it can discover arguments to \texttt{f},
 it assumes that \texttt{(f 42)} is reachable---i.e., it assumes that \texttt{(λ (g) (f 42))} is called.
 If that assumption is false, then the argument \texttt{42} does not actually contribute to the value that Demand $m$-CFA is resolving, 
-and its inclusion is manifest imprecision.
-In other words, since it sometimes analyzes dead code, sometimes that dead code contributes to imprecision.
-We believe this to be the case for several of the benchmarks. 
+and its inclusion is manifest as imprecision. We believe this to be the case for several of the benchmarks, in particular the blur benchmark.
 
-\subsection{Future Work}
+The graphs show that Demand $m$-CFA generally finds close to the same amount of singleton value flows, and does it at a low constant cost.
+This matches our intuition that if a flow is precise then it does not get mixed up with other flows, and should be quickly resolvable.
+As such, we can confidently claim that Demand $m$-CFA acheives similar precision to the exhaustive $m$-CFA (with exponential environments). 
 
-Future work should investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model including
+\subsection{Future Work} 
+
+While the current work is promising both from a theoretical and practical standpoint, 
+further work needs to be done in order to expand the theory to accommodate more language features, and common requirements of static analyses.
+
+In particular, future work is needed to:
 \begin{enumerate*}
-\item exploring other criteria for terminating queries early,
-\item and incrementally running queries with higher context-sensitivity as needed
+\item improve precision by addressing the reachability assumption,
+\item develop theories for language features including mutation, exceptions, and continuations,
+\item determine how to reuse fixpoint caches between queries while keeping environments as indeterminate as possible to create an incremental analysis@~cite{stein_demanded_2021,vanDerPlas:incremental},
+\item consider how selective context sensitivity@~cite{li2020principled} could be realized given the indeterminate environments of our approach
 \end{enumerate*}.
 
-Future work is also needed to
+Future work should also investigate interesting tradeoffs exposed by Demand $m$-CFA's cost model including:
 \begin{enumerate*}
-\item develop theories for language features including mutation, exceptions, and continuations,
-\item improve precision by addressing the reachability assumption
-\item determine how to reuse fixpoint caches between queries while keeping environments as indeterminate as possible
-\item consider how selective context sensitivity@~cite{li2020principled} could be realized given the indeterminate environments of our approach
+\item exploring different criteria for terminating queries early,
+\item and incrementally running queries with higher context-sensitivity as needed
 \end{enumerate*}.
 
 \section{Related Work}
@@ -1580,6 +1597,17 @@ Several other ``demand-driven'' analyses exist for functional programs.
 @citet{biswas1997demand} presents a demand analysis that takes a similar approach to ``demand-driven 0-CFA'' to analyze first-order functional programs.
 These analyses are certainly ``demand-driven'' in the sense the authors intend, but not in the sense that we use it, as a descriptor for generic demand CFA.
 Demand CFA can be considered a loose extension in spirit which analyzes only those parts of a \emph{higher-order} functional program on which \emph{a selected expression}'s result depends.
+
+@citet{nicolay_effect-driven_2019} produce a flow analysis where new information is propagated between interprocedural and intraprocedural parts of the program via the store.
+As such they incrementally build a reactive control flow graph on demand. 
+In addition to read and write dependency tracking their analysis explicitly tracks call effects which triggers a demand for functions stored at that point in the store to be evaluated interprocedurally with new arguments.
+However, while they present the theory for a context sensitive analysis, they do not present results for context sensitivity,
+and while their approach could be adapted to a demand based setting, their focus is on full program analysis.
+
+@;{Additionally, several incremental analyses have been presented which allow for result invalidation at certain boundaries such as function boundaries.
+@citet{stein_demanded_2021}, present one such analysis, however, it requires an initial control flow graph up front and only handles first order functions.
+@citet{vanDerPlas:incremental}, present a framework for building modular dependency driven analyses, that incrementally incorporate updates from changes to the source code. 
+}
 
 @citet{dvanhorn:heintze-mcallester-pldi97} describe the ``demand-driven'' subtransitive CFA which computes an underapproximation of control flow in linear time and can be transitively closed for an additional quadratic cost.
 Their analysis exploits type structure and applies to typed programs with bounded type, whereas our formulation neither considers nor requires types.

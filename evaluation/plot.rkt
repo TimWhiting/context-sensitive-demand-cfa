@@ -282,7 +282,7 @@
          )
 
         (lines
-         (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r"))))) gases)
+         (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e"))))) gases)
          #:color m
          #:style 'long-dash
          #:label (format "m=~a m-CFA" m)
@@ -301,7 +301,7 @@
                     (map
                      (lambda (h)
                        (cons
-                        (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-r")))
+                        (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e")))
                         (map cadr (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
                         ))
                      hashes))))
