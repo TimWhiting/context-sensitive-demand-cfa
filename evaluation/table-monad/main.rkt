@@ -32,12 +32,12 @@
   (match-let ([(state-gas s g) sgi])
     (match (hash-ref s nm #f)
       [#f
-        (state-gas (hash-set s nm (powerset-node (list k) (set))) g)]
+       (state-gas (hash-set s nm (powerset-node (list k) (set))) g)]
       [(powerset-node ks xss)
-        (define sg (state-gas (hash-set s nm (powerset-node (cons k ks) xss)) g))
-        (for/fold ([sg sg])
-                  ([xs (in-set xss)])
-          ((apply k xs) sg))])))
+       (define sg (state-gas (hash-set s nm (powerset-node (cons k ks) xss)) g))
+       (for/fold ([sg sg])
+                 ([xs (in-set xss)])
+         ((apply k xs) sg))])))
 
 (define ((node-depend/lattice nm k) sgi)
   (match-let ([(state-gas s g) sgi])
@@ -67,18 +67,18 @@
   (match-let ([(state-gas s g) sgi])
     (match (hash-ref s nm #f)
       [#f
-      ;  (pretty-print `(new-refine ,nm))
-        ((k #f) (state-gas s g))]
+       ;  (pretty-print `(new-refine ,nm))
+       ((k #f) (state-gas s g))]
       [(powerset-node _ s1)
-        (define empty (set-empty? s1))
-        (if empty
-            ((k #f) (state-gas s g))
-            ((k #t) (state-gas s g))
-            )
-      ]
+       (define empty (set-empty? s1))
+       (if empty
+           ((k #f) (state-gas s g))
+           ((k #t) (state-gas s g))
+           )
+       ]
       [_ ((k #t) (state-gas s g))]
       ))
-    )
+  )
 
 (define ((node-absorb/powerset nm xs) sgi)
   ; (pretty-print `(absorb-set ,xs))
@@ -87,9 +87,9 @@
       [#f
        (state-gas (hash-set s nm (powerset-node (list) (set xs))) g)]
       [(powerset-node ks xss)
-      (if (set-member? xss xs)
-          (state-gas s g)
-          (foldl (λ (k sg) ((apply k xs) sg)) (state-gas (hash-set s nm (powerset-node ks (set-add xss xs))) g) ks))])))
+       (if (set-member? xss xs)
+           (state-gas s g)
+           (foldl (λ (k sg) ((apply k xs) sg)) (state-gas (hash-set s nm (powerset-node ks (set-add xss xs))) g) ks))])))
 
 (define ((node-absorb/lattice nm n) sgi)
   (match-let ([(state-gas s g) sgi])
@@ -105,24 +105,24 @@
     ; (pretty-print `(node-absorb-prod ,nm ,i))
     (match (hash-ref s nm #f)
       [(product-node ks xss n₀ ⊥ ⊑ ⊔)
-        (match i
-          [(product/lattice n)
-            (if (⊑ n n₀)
-                (state-gas s g)
-                (let* ([n-new (⊔ n₀ n)]
-                       [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
-                  (foldl (λ (k sg) ((k (product/lattice n-new)) sg)) (state-gas (hash-set s nm new-node) g) ks)))]
-          [(product/set xs) 
-            (if (set-member? xss xs)
-                (state-gas s g)
-                (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
-                  (foldl (λ (k sg) ((k (product/set xs)) sg)) (state-gas (hash-set s nm new-node) g) ks)))]
-          )]
+       (match i
+         [(product/lattice n)
+          (if (⊑ n n₀)
+              (state-gas s g)
+              (let* ([n-new (⊔ n₀ n)]
+                     [new-node (product-node ks xss n-new ⊥ ⊑ ⊔)])
+                (foldl (λ (k sg) ((k (product/lattice n-new)) sg)) (state-gas (hash-set s nm new-node) g) ks)))]
+         [(product/set xs)
+          (if (set-member? xss xs)
+              (state-gas s g)
+              (let ([new-node (product-node ks (set-add xss xs) n₀ ⊥ ⊑ ⊔)])
+                (foldl (λ (k sg) ((k (product/set xs)) sg)) (state-gas (hash-set s nm new-node) g) ks)))]
+         )]
       [#f
-        (match i
-          [(product/lattice n) (state-gas (hash-set s nm (product-node (list) (list) n ⊥ ⊑ ⊔)) g)]
-          [(product/set xs) (state-gas (hash-set s nm (product-node (list) (set xs) ⊥ ⊥ ⊑ ⊔)) g)]
-          )]
+       (match i
+         [(product/lattice n) (state-gas (hash-set s nm (product-node (list) (list) n ⊥ ⊑ ⊔)) g)]
+         [(product/set xs) (state-gas (hash-set s nm (product-node (list) (set xs) ⊥ ⊥ ⊑ ⊔)) g)]
+         )]
       )))
 
 (provide node-absorb/powerset
@@ -141,10 +141,10 @@
   ; (pretty-print 'memo-set)
   (match-let ([(state-gas s g) sgi])
     (if (= g 0)
-      (error 'ran-out-of-gas)
-      (if (hash-has-key? s nm)
-          ((node-depend/powerset nm k) (state-gas s (- g 1)))
-          (((f nm) (id-κ/powerset nm)) (state-gas (hash-set s nm (powerset-node (list k) (set))) (- g 1)))))))
+        (error 'ran-out-of-gas)
+        (if (hash-has-key? s nm)
+            ((node-depend/powerset nm k) (state-gas s (- g 1)))
+            (((f nm) (id-κ/powerset nm)) (state-gas (hash-set s nm (powerset-node (list k) (set))) (- g 1)))))))
 
 (define ((memoize/lattice nm ⊥ ⊑ ⊔ k f) sgi)
   (match-let ([(state-gas s g) sgi])
@@ -156,13 +156,13 @@
   ; (pretty-print 'memo-product)
   (match-let ([(state-gas s g) sgi])
     (if (= g 0)
-      (error 'ran-out-of-gas)
-      (if (hash-has-key? s nm)
-          ((node-depend/product nm k) (state-gas s (- g 1)))
-          (begin
-            (let ([initial-hash (state-gas (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔)) (- g 1))])
-              (((f nm) ((id-κ/product ⊥ ⊑ ⊔) nm)) initial-hash))))))
-    )
+        (error 'ran-out-of-gas)
+        (if (hash-has-key? s nm)
+            ((node-depend/product nm k) (state-gas s (- g 1)))
+            (begin
+              (let ([initial-hash (state-gas (hash-set s nm (product-node (list k) (set) ⊥ ⊥ ⊑ ⊔)) (- g 1))])
+                (((f nm) ((id-κ/product ⊥ ⊑ ⊔) nm)) initial-hash))))))
+  )
 
 (define-syntax define-key
   (syntax-rules ()

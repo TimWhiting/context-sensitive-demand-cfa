@@ -18,6 +18,7 @@
     ["C[i]" (cursor (i) (∘e))]
     ["C[e₁]" (cursor (e 1) (∘e))]
     ["C[λx.e]" (cursor (lam (var 'x) (e)) (∘e))]
+    ["C[λy.e]" (cursor (lam (var 'y) (e)) (∘e))]
     ["C[(letrec (x e₀) e₁)]" (cursor (letr (var 'x) (e 0) (e 1)) (∘e))]
     ["C[(let (x e₀) e₁)]" (cursor (letb (var 'x) (e 0) (e 1)) (∘e))]
     ["C[(letboth (x e₀) e₁)]" (cursor (letboth (var 'x) (e 0) (e 1)) (∘e))]

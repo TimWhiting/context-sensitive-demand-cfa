@@ -14,6 +14,10 @@ plots: evaluation/plot.rkt $(wildcard evaluation/tests/*)
 %.tex: %.scrbl base.rkt bib.rkt
 	racket $< > $@ || (rm %.tex && false)
 
+paper: paper.scrbl
+	racket paper.scrbl > paper.tex
+	make paper.pdf
+
 clean:
 	-rm -f *.tex
 	-rm -f *.pdf

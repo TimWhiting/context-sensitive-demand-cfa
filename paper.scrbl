@@ -336,8 +336,8 @@ $q_2$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} \texttt{(f 42)} \textsf{in
 $q_4$ & @evq{x} \textsf{in} $\langle\texttt{(f 42)}\rangle$ \\
 $q_5$ & @evq{42} \textsf{in} $\langle\rangle$ \\
       & $\Rightarrow$ $42$ \textsf{in} $\langle\rangle$ \\
-$q_3$ & \phantom{XX} @exq{f} \textsf{in} \texttt{(f 35)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
+$q_3$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} \texttt{(f 35)} \textsf{in} $\langle\rangle$ \\
+      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$  \\
 $q_6$ & @evq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$ \\
 $q_7$ & @evq{35} \textsf{in} $\langle\rangle$ \\
       & $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
@@ -352,7 +352,7 @@ As before, Demand $m$-CFA dispatches a trace query $q_1$ which then traces occur
 This query locates the call sites \texttt{(f 42)} \textsf{in} $\langle\rangle$ and \texttt{(f 35)} \textsf{in} $\langle\rangle$.
 Once $q_2$ delivers the result \texttt{(f 42)} \textsf{in} $\langle\rangle$ to $q_1$ and then $q_0'$, Demand $m$-CFA \emph{instantiates} $q_0$ with this newly-discovered caller to form $q_4$, whose result is $q_0$'s also.
 After creating $q_3$, it continues with its resolution by issuing $q_4$ to evaluate the argument \texttt{42} \textsf{in} $\langle\rangle$.
-Its result of $42$ propagates from $q_4$ to $q_3$ to $q_0$;
+Its result of $42$ propagates from $q_4$ to $q_0$;
 from $q_0$, one can see all instantiations of it as well every result of those instantiations.
 The instantiation from $q_3$ proceeds similarly.
 
