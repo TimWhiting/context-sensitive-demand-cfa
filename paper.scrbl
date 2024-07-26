@@ -417,7 +417,7 @@ C'[e-x] = bind(x,C[x])  C'[e-x] ⇐ C''[(e₀ e₁)]  C''[(e₀ [e₁])] ⇓ Cv[
 C[x] ⇓ Cv[λx.e]
 
 
-Rator
+Operator
 ——
 C[([e₀] e₁)] ⇒ C[(e₀ e₁)]
 
@@ -426,7 +426,7 @@ C[λx.[e]] ⇐ C'[(e₀ e₁)]  C'[(e₀ e₁)] ⇒ C''[(e₂ e₃)]
 ——
 C[λx.[e]] ⇒ C''[(e₂ e₃)] 
 
-Rand
+Operand
 C[([e₀] e₁)] ⇓ C'[λx.e]  x C'[λx.[e]] F Cx[x]  Cx[x] ⇒ C'[(e₂ e₃)] 
 ——
 C[(e₀ [e₁])] ⇒ C'[(e₂ e₃)]
@@ -441,12 +441,12 @@ Find-Ref
 ——
 x C[x] F C[x]
 
-Find-Rator
+Find-Operator
 x C[([e₀] e₁)] F Cx[x]
 ——
 x C[(e₀ e₁)] F Cx[x]
 
-Find-Rand
+Find-Operand
 x C[(e₀ [e₁])] F Cx[x]
 ——
 x C[(e₀ e₁)] F Cx[x]
@@ -504,14 +504,14 @@ In demand 0CFA, this relation is only a thin wrapper over @|0cfa-expr-name|, but
 
 A judgement @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the value of the expression @(e) is applied at @(app (e 0) (e 1)).
 Demand 0CFA arrives at such a judgement by considering the type of the syntactic context to which the value flows.
-The @clause-label{Rator} rule captures the intuition that, if @(lam (var 'x) (e)) flows to ope\emph{rator} position @(e 0) of @(app (e 0) (e 1)), it is applied by @(app (e 0) (e 1)).
+The @clause-label{Operator} rule captures the intuition that, if @(lam (var 'x) (e)) flows to operator position @(e 0) of @(app (e 0) (e 1)), it is applied by @(app (e 0) (e 1)).
 The @clause-label{Body} rule captures the intuition that if a value flows to the body of a $\lambda$ term, then it flows to each of its callers as well.
-The @clause-label{Rand} rule captures the intuition that a value in ope\emph{rand} position is bound by the formal parameter of each operator value and hence to each reference to the formal parameter in the operator's body.
+The @clause-label{Operand} rule captures the intuition that a value in operand position is bound by the formal parameter of each operator value and hence to each reference to the formal parameter in the operator's body.
 If the operator @(e "_f") evaluates to @(lam (var 'x) (e)), then the value of @(e "_a") flows to each reference to @(var 'x) in @(e).
 
 The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(e) with each reference to @(var 'x) in @(e).
 @clause-label{Find-Ref} finds @(e) itself if @(e) is a reference to @(var 'x).
-@clause-label{Find-Rator} and @clause-label{Find-Rand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the ope\emph{rator} @(e 0) and ope\emph{rand} @(e 1), respectively.
+@clause-label{Find-Operator} and @clause-label{Find-Operand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the operator @(e 0) and operand @(e 1), respectively.
 @clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it does not find shadowed references.
 
 @;{
@@ -773,7 +773,7 @@ Lam
 C[λx.e] ρ ⇓ C[λx.e] ρ
 
 
-Rator
+Operator
 ——
 C[([e₀] e₁)] ρ ⇒ C[(e₀ e₁)] ρ
 
@@ -789,7 +789,7 @@ C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ):
 C[(e₀ e₁)] ρ ⇓ Cv[λx.e-v] ρ-v
 
 
-Rand
+Operand
 C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' F Cx[x] ρ-x  Cx[x] ρ-x ⇒ C''[(e₂ e₃)] ρ''
 ——
 C[(e₀ [e₁])] ρ ⇒ C''[(e₂ e₃)] ρ''
@@ -803,12 +803,12 @@ Find-Ref
 ——
 x C[x] ρ F C[x] ρ
 
-Find-Rator
+Find-Operator
 x C[([e₀] e₁)] ρ F Cx[x] ρ-x
 ——
 x C[(e₀ e₁)] ρ F Cx[x] ρ-x
 
-Find-Rand
+Find-Operand
 x C[(e₀ [e₁])] ρ F Cx[x] ρ-x
 ——
 x C[(e₀ e₁)] ρ F Cx[x] ρ-x
@@ -832,7 +832,7 @@ In Demand $m$-CFA, environments are constructed when the analysis follows evalua
 
 \subsection{Following Evaluation Forwards}
 
-When a call is entered, which occurs in the @clause-label{App} and @clause-label{Rand} rules, a new environment is synthesized using the @|mcfa-time-succ-name| metafunction which determines the binding context of the call as 
+When a call is entered, which occurs in the @clause-label{App} and @clause-label{Operand} rules, a new environment is synthesized using the @|mcfa-time-succ-name| metafunction which determines the binding context of the call as 
 \[
 @(mcfa-time-succ (cursor (app (e 0) (e 1)) (∘e)) (:: (mcfa-cc) (mcfa-ρ))) = \lfloor @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc)) \rfloor_m
 \]
@@ -931,12 +931,12 @@ q ⇑ ca C[λx.[e]] ctx::ρ
 q ⇑ ex C[λx.e] ρ
 
 
-Rand-Operator
+Operand-Operator
 q ⇑ ex C[(e₀ [e₁])] ρ
 ——
 q ⇑ ev C[([e₀] e₁)] ρ
 
-Rand-Body
+Operand-Body
 q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'  x C'[λx.[e]] time-succ(C[(e₀ e₁)],ρ)::ρ' F Cx[x] ρ-x
 ——
 q ⇑ ex Cx[x] ρ-x
@@ -960,7 +960,7 @@ The @clause-label{Reflexivity} rule ensures that the top-level query is consider
 The @clause-label{Ref-Caller} and @clause-label{Ref-Argument} rules establish reachability corresponding to the @clause-label{Ref} rule of @|mcfa-eval-name|:
 @clause-label{Ref-Caller} makes the caller query reachable and, if it succeeds, @clause-label{Ref-Argument} makes the ensuing evaluation query reachable.
 @clause-label{App-Operator} and @clause-label{App-Body} do the same for the @clause-label{App} rule of @|mcfa-eval-name|, making, respectively, the operator evaluation query reachable and, if it yields a value, the body evaluation query reachable.
-@clause-label{Rand-Operator} makes the evaluation query of the @clause-label{Rand} rule reachable and @clause-label{Rand-Body} makes the trace query of any references in the operator body reachable.
+@clause-label{Operand-Operator} makes the evaluation query of the @clause-label{Operand} rule reachable and @clause-label{Operand-Body} makes the trace query of any references in the operator body reachable.
 @clause-label{Body-Caller-Find} makes the caller query of @clause-label{Body} reachable;
 if a caller is found, @clause-label{Body-Caller-Trace} makes the trace query of that caller reachable.
 Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosing $\lambda$ of a caller query is reachable.
@@ -1005,7 +1005,7 @@ q ⇑ ev C[(e₀ e₁)] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
 ——
 ?C'[λx.[e]]::ρ' R time-succ(C[(e₀ e₁)],ρ)::ρ'
 
-Rand-Body-Instantiation
+Operand-Body-Instantiation
 q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
 ——
 ?C'[λx.[e]]::ρ' R time-succ(C[(e₀ e₁)],ρ)::ρ'
@@ -1017,8 +1017,8 @@ q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
 The @clause-label{Instantiate-Reachable-*} rules ensure that if a query of any kind is reachable, then its instantiation is too.
 When an instantiation @(mcfa-instantiation (mcfa-ρ 0) (mcfa-ρ 1)) does not apply (so that @(mcfa-ρ) is unchanged), each rule reduces to a trivial inference.
 The counterpart @clause-label{Instantiate-*} rules, also present in Figure~\ref{fig:demand-mcfa-instantiation}, each extend one of @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| so that, if an instantiated query of that type yields a result, the original, uninstantiated query yields that same result.
-As discussed at the beginning of this section, Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Rand} rules.
-The @clause-label{App-Body-Instantiation} and @clause-label{Rand-Body-Instantiation} rules capture these cases.
+As discussed at the beginning of this section, Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Operand} rules.
+The @clause-label{App-Body-Instantiation} and @clause-label{Operand-Body-Instantiation} rules capture these cases.
 
 The definition of Demand $m$-CFA in terms of an ``evaluation'' relation (which includes evaluation, trace, and caller resolution) and a reachability relation follows the full formal approach of \emph{Abstracting Definitional Interpreters} by @citet{darais2017diss}.
 From this correspondence, we can define the Demand $m$-CFA resolution of a given query as the least fixed point of these relations, effectively computable with the algorithm @citet{darais2017diss} provides.
@@ -1111,7 +1111,7 @@ Lam
 C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
 
 
-Rator
+Operator
 ——
 C[([e₀] e₁)] ρ σ ⇒ C[(e₀ e₁)] ρ σ
 
@@ -1127,7 +1127,7 @@ C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  C'
 C[(e₀ e₁)] ρ σ₀ ⇓ Cv[λx.e-v] ρ-v σ₃
 
 
-Rand
+Operand
 C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] F Cx[x] ρ-x σ₃  Cx[x] ρ-x σ₃ ⇒ C''[(e₂ e₃)] ρ'' σ₄
 ——
 C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
@@ -1141,12 +1141,12 @@ Find-Ref
 ——
 x C[x] ρ σ F C[x] ρ σ
 
-Find-Rator
+Find-Operator
 x C[([e₀] e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
 ——
 x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
 
-Find-Rand
+Find-Operand
 x C[(e₀ [e₁])] ρ σ₀ F Cx[x] ρ-x σ₁
 ——
 x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
