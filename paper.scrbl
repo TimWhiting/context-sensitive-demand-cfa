@@ -19,6 +19,9 @@
 \graphicspath{evaluation/plots}
 \usepackage{subcaption}
 
+\bibliographystyle{splncs04nat}
+\begin{document}
+
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
 
 \maketitle
@@ -42,7 +45,6 @@ We demonstrate that Demand $m$-CFA \begin{enumerate*}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
 
-\begin{document}
 
 \section{Getting into the Flow}
 
@@ -85,13 +87,10 @@ In this example, a supporting demand CFA works backwards from the reference to \
 The interface and pricing model demand CFA offers make many useful applications practical.
 @citet{horwitz1995demand} identify several ways this practicality is realized:
 \begin{enumerate}
-\item
-One can restrict analysis to a program's critical path or only where certain features are used.
-\item
-One can analyze more often, and interleave analysis with other tools.
-For example, a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
-\item
-One can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
+\item One can restrict analysis to a program's critical path or only where certain features are used.
+\item One can analyze more often, and interleave analysis with other tools. For example, 
+a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
+\item One can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
 We have implemented the demand CFA we present in this paper in Visual Studio Code for the Koka language@~cite{koka2019}.
 \end{enumerate}
 
@@ -1531,7 +1530,6 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \item and incrementally running queries with higher context-sensitivity as needed
 \end{enumerate*}.
 }
-\bibliographystyle{splncs04}
 
 \bibliography{paper}
 
