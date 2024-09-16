@@ -4,7 +4,8 @@
           "bib.rkt"
           "mathpar.rkt")
 @(define-syntax-rule (omit . rst) (void))
-\documentclass[10pt,acmsmall,timestamp,screen,anonymous,review]{acmart}
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
 
 \usepackage{mathpartir}
 \usepackage{natbib}
@@ -14,20 +15,13 @@
 \usepackage{wrapfig}
 \usepackage{alltt}
 \usepackage[inline]{enumitem}
-\graphicspath{
-    {evaluation/plots}
-}
+\usepackage{graphicx}
+\graphicspath{evaluation/plots}
 \usepackage{subcaption}
-\acmJournal{PACMPL}
-\acmVolume{ICFP}
-\acmYear{2024}
-\acmArticleType{Research}
-\citestyle{acmauthoryear}
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
 
-\acmConference[ICFP '24]{International Conference on Functional Programming}{Sept 2024}{Milan, Italy}
-
+\maketitle
 
 \begin{abstract}
 By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
@@ -41,85 +35,33 @@ We demonstrate that Demand $m$-CFA \begin{enumerate*}
 \item can resolve as many singleton value flows as a formulation of $m$-CFA with full environment precision, and
 \item can be implemented cheaply and integrated into interactive tools such as language servers.
 \end{enumerate*}
+
+\keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
+
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
 
 \begin{document}
 
-
-\maketitle
-\def\labelitemi{\normalfont\bfseries{--}}
-\def\labelitemii{\(\ast\)}
-\def\labelitemiii{\(\cdot\)}
-
-
-\begin{CCSXML}
-<ccs2012>
-   <concept>
-       <concept_id>10011007.10010940.10010992.10010998.10011000</concept_id>
-       <concept_desc>Software and its engineering~Automated static analysis</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10003752.10010124.10010138.10010143</concept_id>
-       <concept_desc>Theory of computation~Program analysis</concept_desc>
-       <concept_significance>500</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10003752.10010124.10010138.10010139</concept_id>
-       <concept_desc>Theory of computation~Invariants</concept_desc>
-       <concept_significance>300</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10011007.10010940.10010941.10010942.10010943</concept_id>
-       <concept_desc>Software and its engineering~Interpreters</concept_desc>
-       <concept_significance>300</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10011007.10011006.10011008.10011009.10011012</concept_id>
-       <concept_desc>Software and its engineering~Functional languages</concept_desc>
-       <concept_significance>300</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10011007.10011006.10011008.10011024.10011027</concept_id>
-       <concept_desc>Software and its engineering~Control structures</concept_desc>
-       <concept_significance>300</concept_significance>
-   </concept>
-   <concept>
-       <concept_id>10003752.10003753.10010622</concept_id>
-       <concept_desc>Theory of computation~Abstract machines</concept_desc>
-       <concept_significance>300</concept_significance>
-   </concept>
- </ccs2012>
-\end{CCSXML}
-
-\ccsdesc[500]{Software and its engineering~Automated static analysis}
-\ccsdesc[500]{Theory of computation~Program analysis}
-\ccsdesc[300]{Theory of computation~Invariants}
-\ccsdesc[300]{Software and its engineering~Interpreters}
-\ccsdesc[300]{Software and its engineering~Functional languages}
-\ccsdesc[300]{Software and its engineering~Control structures}
-\ccsdesc[300]{Theory of computation~Abstract machines}
 \section{Getting into the Flow}
-
-\keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
 
 Conventional control-flow analysis is tactless---unthinking and inconsiderate.
 
-To illustrate, consider the program fragment on the right which defines the recursive \texttt{fold} function.
-As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments 
-to \texttt{fold} itself. The values of \texttt{f} and \texttt{g} flow in parallel
+To illustrate, consider the program fragment on the right which defines 
 \begin{wrapfigure}[6]{r}{0.65\textwidth}
-\vspace{-1em}
+\vspace{-2.75em}
 \begin{verbatim}
 (letrec ([fold (λ (f g n a)
-                  (if (zero? n)
-                    a
-                    (fold f g (f n) (g f n a))))])
+          (if (zero? n)
+            a
+            (fold f g (f n) (g f n a))))])
   (fold sub1 h 42 1))
 \end{verbatim}
 \end{wrapfigure}
+the recursive \texttt{fold} function.
+As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments 
+to \texttt{fold} itself. The values of \texttt{f} and \texttt{g} flow in parallel
 within the fold itself, each
 (1)~being bound in the initial call,
 (2)~flowing to its corresponding parameter, and
@@ -1589,8 +1531,8 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \item and incrementally running queries with higher context-sensitivity as needed
 \end{enumerate*}.
 }
+\bibliographystyle{splncs04}
 
-\bibliographystyle{ACM-Reference-Format}
 \bibliography{paper}
 
 \end{document}
