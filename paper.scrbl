@@ -19,6 +19,11 @@
 \graphicspath{evaluation/plots}
 \usepackage{subcaption}
 
+\newcommand{\highlight}[1]{%
+  \colorbox{grey!10}{$\displaystyle#1$}}
+\newcommand{\highlight2}[1]{%
+  \colorbox{white!10}{$\displaystyle#1$}}
+  
 \bibliographystyle{splncs04nat}
 \begin{document}
 
@@ -91,7 +96,7 @@ The interface and pricing model demand CFA offers make many useful applications 
 \item One can analyze more often, and interleave analysis with other tools. For example, 
 a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 \item One can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
-We have implemented the demand CFA we present in this paper in Visual Studio Code for the Koka language@~cite{koka2019}.
+We have implemented our context-sensitive demand CFA in Visual Studio Code for the Koka language@~cite{koka2019}.
 \end{enumerate}
 
 \subsection{Adding Context Sensitivity to Demand CFA}
@@ -459,7 +464,7 @@ The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(
 \subsection{Reachability}
 \label{sec:reachability}
 
-All but the most na\"ive exhaustive CFAs compute reachability at the same time as control flow.
+All but the most naive exhaustive CFAs compute reachability at the same time as control flow.
 For instance, when analyzing the program @(app (lam (var 'x) (lam (var 'y) (ref (var 'x)))) (lam (var 'z) (ref (var 'z)))),
 such CFAs do not evaluate the reference @(ref (var 'x)) as it occurs in @(lam (var 'y) (ref (var 'x))) which is never applied.
 
