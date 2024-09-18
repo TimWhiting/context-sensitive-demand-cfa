@@ -20,8 +20,8 @@
   (list (meta "C" ℓ)
         (match e
           [#f (list)]
-          [(list "[" e "]") (list "[" "\\highlight{" e "}]")]
-          [e                (list "[" "\\highlight{" e "}]")])))
+          [(list "[" e "]") (list "[" e "]")]
+          [e                (list "[" e "]")])))
 
 (define ((rat e₁ ∘e) e₀) (∘e (app e₀ e₁)))
 (define ((ran e₀ ∘e) e₁) (∘e (app e₀ e₁)))
@@ -29,6 +29,6 @@
 (define ((top) e) e)
 
 
-(define (cursor e ∘e) (∘e (list "[" e "]")))
+(define (cursor e ∘e) (append (list "\\highlightout{") (∘e (list "[" (list "\\highlightin{" e "}") "]")) (list "}")))
 
 (provide (all-defined-out))

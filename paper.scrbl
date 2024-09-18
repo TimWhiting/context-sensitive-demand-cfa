@@ -7,6 +7,7 @@
 \documentclass[runningheads]{llncs}
 \usepackage[T1]{fontenc}
 
+\usepackage{amsmath}
 \usepackage{mathpartir}
 \usepackage{natbib}
 \usepackage{xcolor}
@@ -19,10 +20,11 @@
 \graphicspath{evaluation/plots}
 \usepackage{subcaption}
 
-\newcommand{\highlight}[1]{%
-  \colorbox{grey!10}{$\displaystyle#1$}}
-\newcommand{\highlight2}[1]{%
-  \colorbox{white!10}{$\displaystyle#1$}}
+\setlength\fboxsep{1pt}
+\newcommand{\highlightout}[1]{%
+  \colorbox{gray!20}{$\strut\displaystyle#1$}}
+\newcommand{\highlightin}[1]{%
+  \colorbox{white}{$\strut\displaystyle#1$}}
   
 \bibliographystyle{splncs04nat}
 \begin{document}
