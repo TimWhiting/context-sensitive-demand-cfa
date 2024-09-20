@@ -8,6 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{mathpartir}
 \usepackage{natbib}
 \usepackage{xcolor}
@@ -51,7 +52,6 @@ We demonstrate that Demand $m$-CFA \begin{enumerate*}
 \end{abstract}
 
 @(define (clause-label label) (list "\\textit{" label "}"))
-
 
 \section{Getting into the Flow}
 
@@ -180,6 +180,13 @@ which is written in Pure Scheme (i.e. purely-functional Scheme).
 
 \subsection{Without Context Sensitivity}
 
+As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\emph{in}sensitive embodiment of demand CFA, resolves queries.
+
+Suppose that a user submits an evaluation query $q_0$ on the expression \texttt{(f 35)}.
+Since \texttt{(f 35)} is a function application, demand 0CFA issues a subquery $q_1$ to evaluate the operator \texttt{f}.
+For each procedure value of \texttt{f}, demand 0CFA will issue a subquery to determine the value of its body as the value of $q_0$.
+To the left is a trace of the queries that follow $q_0$.
+
 \begin{wrapfigure}{l}{0.3\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \\
@@ -198,12 +205,6 @@ $q_8$ & @evq{35} \\
       & $\Rightarrow$ $35$
 \end{tabular}
 \end{wrapfigure}
-As many readers are likely unfamiliar with demand CFA, we'll first look at how demand 0CFA, the context-\emph{in}sensitive embodiment of demand CFA, resolves queries.
-
-Suppose that a user submits an evaluation query $q_0$ on the expression \texttt{(f 35)}.
-Since \texttt{(f 35)} is a function application, demand 0CFA issues a subquery $q_1$ to evaluate the operator \texttt{f}.
-For each procedure value of \texttt{f}, demand 0CFA will issue a subquery to determine the value of its body as the value of $q_0$.
-To the left is a trace of the queries that follow $q_0$.
 Indented queries denote subqueries whose results are used to continue resolution of the superquery.
 A subsequent query at the same indentation level is a query in ``tail position'', whose results are those of a preceding query.
 A query often issues multiple queries in tail position, as this example demonstrates.
@@ -220,16 +221,6 @@ For each result, $q_3$ issues a subquery---$q_7$ and $q_8$---to evaluate the arg
 Each query propagates its results to $q_3$ which propagates them to $q_0$ which returns them to the user.
 Thus, demand 0CFA concludes that \texttt{(f 35)} may evaluate to $42$ or $35$.
 \subsection{With Context Sensitivity}
-
-We'll now look at how Demand $m$-CFA, a context-sensitive demand CFA, resolves queries.
-As is typical, Demand $m$-CFA uses an environment to record the binding context of each in-scope variable.
-Hence, in this setting, queries and results include not only expressions, but environments as well.
-We will also see that Demand $m$-CFA does not need a timestamp to record the ``current'' context, a fact we discuss further in \S\ref{sec:whence-timestamp}.
-
-@(define (evqcs e ρ) (list "\\textsf{evaluate}\\," "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
-@(define (exqcs e ρ) (list "\\textsf{trace}\\," "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
-@(define (caqcs e ρ) (list "\\textsf{caller}\\," "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
-@(define (rescs e ρ) (list (ensuremath "\\Rightarrow") " " "\\texttt{" e  "}" " " "\\textsf{in}" " " (ensuremath ρ)))
 
 \begin{wrapfigure}{r}{0.4\textwidth}
 \begin{tabular}{cl}
@@ -251,6 +242,10 @@ $q_8$ & @evq{35} \textsf{in} $\langle\rangle$\\
 \end{tabular}
 \end{wrapfigure}
 
+We'll now look at how Demand $m$-CFA, a context-sensitive demand CFA, resolves queries.
+As is typical, Demand $m$-CFA uses an environment to record the binding context of each in-scope variable.
+Hence, in this setting, queries and results include not only expressions, but environments as well.
+We will also see that Demand $m$-CFA does not need a timestamp to record the ``current'' context, a fact we discuss further in \S\ref{sec:whence-timestamp}.
 Let's consider the same evaluation query $q_0$ over \texttt{(f 35)}, this time in the top-level environment $\langle\rangle$.
 Like Demand 0CFA, Demand $m$-CFA issues the subquery $q_1$ to determine the operator \texttt{f}, also in $\langle\rangle$.
 After it discovers \texttt{(λ (x) x)} to be the binding expression of \texttt{f}, it issues an evaluation query over it ($q_2$) again in $\langle\rangle$.
@@ -308,9 +303,12 @@ The instantiation from $q_3$ proceeds similarly.
 \label{sec:notation}
 
 We present Demand $m$-CFA over the unary $\lambda$ calculus.
-It is straightforward to extend it to multiple-arity functions, data structures, constants, primitives, conditionals, and recursive forms---which we have in our implementations---but this small language suffices to discuss the essential aspects of context sensitivity.
+It is straightforward to extend it to multiple-arity functions, data structures, constants, primitives, conditionals, 
+and recursive forms---which we have in our implementations---but this small language suffices to discuss the essential aspects of context sensitivity.
 
-In order to keep otherwise-identical expressions distinct, many CFA presentations uniquely label program sub-expressions.\footnote{Others operate over a form which itself names all intermediate results, such as CPS or $\mathcal{A}$-normal form, and identify each expression by its associated (unique) name.}
+In order to keep otherwise-identical expressions distinct, 
+many CFA presentations uniquely label program sub-expressions.\footnote{Others operate over a form which itself names all intermediate results, 
+such as CPS or $\mathcal{A}$-normal form, and identify each expression by its associated (unique) name.}
 This approach would be used, for example, to disambiguate the two references to \texttt{f} in the program in \S\ref{sec:intuition}.
 We instead use the syntactic context of each expression, which uniquely determines it, as a de-facto label, since Demand $m$-CFA consults it extensively.
 
@@ -348,6 +346,11 @@ These modes are essentially dual and reflect the dual perspective of exhaustive 
 (2) the @(app (e 0) (e 1)) at which a given @(lam (var 'x) (e)) may be applied. % [find citation].
 However, in contrast to exhaustive CFA, demand 0CFA is designed to resolve evaluation queries over arbitrary program expressions.
 (It is also able to resolve trace queries over arbitrary program expressions, but exhaustive CFAs have no counterpart to this functionality.)
+\begin{align*}
+\mathit{Cursor} @|0cfa-eval-name| \mathit{Cursor} \qquad \mathit{Cursor} @|0cfa-expr-name| \mathit{Cursor} \qquad \mathit{Cursor} @|0cfa-call-name| \mathit{Cursor} \\
+\mathit{Var} \times \mathit{Cursor} @|0cfa-find-name| \mathit{Cursor} \qquad \quad @|0cfa-bind-name|(\mathit{Var} \times \mathit{Cursor}) \Rightarrow \mathit{Cursor}
+\end{align*}
+
 \begin{figure}
 @mathpar[0cfa-parse-judgement]{
 Lam
@@ -431,7 +434,7 @@ Figure~\ref{fig:0cfa-bind} presents its definition, and we note the absence of a
 
 \begin{figure}
 \[
-@|0cfa-bind-name| : \mathit{Var} \times \mathit{Exp} \rightarrow \mathit{Exp}
+@|0cfa-bind-name| : \mathit{Var} \times \mathit{Cursor} \rightarrow \mathit{Cursor}
 \]
 @(align (list (list (0cfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))))
                     (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
@@ -501,7 +504,7 @@ We can extend @|0cfa-eval-name| and @|0cfa-expr-name| trivially to relate config
 
 A key constraint in the demand setting is that a client-issued query is typically issued in a completely indeterminate context.
 The expectation is that the analysis will both determine the context to the extent necessary to resolve the query (but no more) and also respect the context so that the analysis is in fact context-sensitive.
-One implication of this expecation is that queries over expressions which are evaluated in multiple contexts should produce multiple results, one for each context.
+One implication of this expectation is that queries over expressions which are evaluated in multiple contexts should produce multiple results, one for each context.
 To operate under this constraint, we extend @|0cfa-call-name| to instantiate the context and ensure that the analysis respects it.
 
 @;{
@@ -618,7 +621,9 @@ although the selection of contours differs in the same way as $m$-CFA.
 }
 
 Given this environment representation, we make one final tweak to the definition of contexts:
-we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, which is unique even if the program is not alpha-converted.}
+we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, 
+and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, 
+which is unique even if the program is not alpha-converted.}
 This way, an environment of even completely indeterminate contexts still determines the expression it closes.
 For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ (x) ((λ (y) y) (λ (z) z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
 which is distinct from the indeterminate environment of \texttt{z}, which we represent by $\langle ?_{\mathtt{z}},?_{\mathtt{x}}\rangle$, even though they have the same shape.
@@ -699,7 +704,7 @@ we are now ready to define Demand $m$-CFA.
 
 \begin{figure}
 \[
-@|mcfa-bind-name| : \mathit{Var} \times \mathit{Exp} \times \mathit{Env} \rightarrow \mathit{Exp} \times \mathit{Env}
+@|mcfa-bind-name| : \mathit{Var} \times \mathit{Cursor} \times \mathit{Env} \rightarrow \mathit{Cursor} \times \mathit{Env}
 \]
 @(align (list (list (mcfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))) (mcfa-ρ))
                     (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
@@ -964,8 +969,11 @@ q ⇑ ex C[(e₀ [e₁])] ρ  C[([e₀] e₁)] ρ ⇓ C'[λx.e] ρ'
 \end{figure}
 The @clause-label{Instantiate-Reachable-*} rules ensure that if a query of any kind is reachable, then its instantiation is too.
 When an instantiation @(mcfa-instantiation (mcfa-ρ 0) (mcfa-ρ 1)) does not apply (so that @(mcfa-ρ) is unchanged), each rule reduces to a trivial inference.
-The counterpart @clause-label{Instantiate-*} rules, also present in Figure~\ref{fig:demand-mcfa-instantiation}, each extend one of @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| so that, if an instantiated query of that type yields a result, the original, uninstantiated query yields that same result.
-As discussed at the beginning of this section, Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Operand} rules.
+The counterpart @clause-label{Instantiate-*} rules, also present in Figure~\ref{fig:demand-mcfa-instantiation}, 
+each extend one of @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name| so that, 
+if an instantiated query of that type yields a result, the original, uninstantiated query yields that same result.
+As discussed at the beginning of this section, 
+Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Operand} rules.
 The @clause-label{App-Body-Instantiation} and @clause-label{Operand-Body-Instantiation} rules capture these cases.
 
 The definition of Demand $m$-CFA in terms of an ``evaluation'' relation (which includes evaluation, trace, and caller resolution) and a reachability relation follows the full formal approach of \emph{Abstracting Definitional Interpreters} by @citet{darais2017diss}.
@@ -1257,7 +1265,7 @@ and mapping the core syntax to the user syntax for showing results.
 
 Our experience is that integrating Demand $m$-CFA into a compiler or language server is in some cases \emph{more} tractable than an exhaustive analysis, since not all language features or primitives need to be implemented to get at least some utility.
 @;{and integrating it into a compiler is straightforward, 
-and that implementation costs are minimal and unintrusive.}
+and that implementation costs are minimal and non-intrusive.}
 
 \subsection{Query complexity distribution}
 Like an exhaustive analysis, a demand analysis is subject to client-imposed resource constraints.
@@ -1422,7 +1430,7 @@ and its inclusion is manifest as imprecision.
 The results show that Demand $m$-CFA generally finds a similar amount of singleton value flows as exhaustive $m$-CFA, and does it with a low effort bound.
 @;{
 This matches our intuition that if a flow is precise then it does not get mixed up with other flows, and should be quickly resolvable.
-As such, we can confidently claim that Demand $m$-CFA acheives similar precision to the exhaustive $m$-CFA (with exponential environments). 
+As such, we can confidently claim that Demand $m$-CFA achieves similar precision to the exhaustive $m$-CFA (with exponential environments). 
 }
 
 \section{Related Work}
@@ -1524,7 +1532,7 @@ its primary limitation is its inability to reason about higher-order effectful c
 To address this limitation, we intend to develop a general operational framework in which a variety of effects can be expressed.
 We also intend to
 \begin{enumerate*}
-\item investigate the tradeoff between precision and the nondetection of dead code within the analysis (occurring during binding resolution);
+\item investigate the tradeoff between precision and the non-detection of dead code within the analysis (occurring during binding resolution);
 @;\item develop theories for language features including mutation, exceptions, and continuations,
 \item determine how to reuse fixpoint caches between queries while keeping environments as indeterminate as possible to create an incremental analysis@~cite{stein_demanded_2021,vanDerPlas:incremental},
 \item consider how selective context sensitivity@~cite{li2020principled} could be realized given the indeterminate environments of our approach
