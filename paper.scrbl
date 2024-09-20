@@ -10,7 +10,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathpartir}
-\usepackage{natbib}
 \usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.8}
 \usepackage{textgreek}
@@ -18,7 +17,7 @@
 \usepackage{alltt}
 \usepackage[inline]{enumitem}
 \usepackage{graphicx}
-\graphicspath{evaluation/plots}
+\graphicspath{{evaluation/plots}}
 \usepackage{subcaption}
 
 \setlength\fboxsep{1pt}
@@ -27,7 +26,6 @@
 \newcommand{\highlightin}[1]{%
   \colorbox{white}{$\strut\displaystyle#1$}}
   
-\bibliographystyle{splncs04nat}
 \begin{document}
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
@@ -54,21 +52,20 @@ We demonstrate that Demand $m$-CFA \begin{enumerate*}
 @(define (clause-label label) (list "\\textit{" label "}"))
 
 \section{Getting into the Flow}
-
-Conventional control-flow analysis is tactless---unthinking and inconsiderate.
-
-To illustrate, consider the program fragment on the right which defines 
-\begin{wrapfigure}[6]{r}{0.65\textwidth}
+Conventional control-flow analysis is tactless --- unthinking and inconsiderate.
+\begin{wrapfigure}[7]{r}{0.55\textwidth}
 \vspace{-2.75em}
 \begin{verbatim}
-(letrec ([fold (λ (f g n a)
-          (if (zero? n)
-            a
-            (fold f g (f n) (g f n a))))])
+(letrec ([fold 
+    (λ (f g n a)
+      (if (zero? n)
+        a
+        (fold f g (f n) (g f n a))))])
   (fold sub1 h 42 1))
 \end{verbatim}
 \end{wrapfigure}
-the recursive \texttt{fold} function.
+To illustrate, consider the program fragment on the right 
+which defines the recursive \texttt{fold} function.
 As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments 
 to \texttt{fold} itself. The values of \texttt{f} and \texttt{g} flow in parallel
 within the fold itself, each
@@ -82,7 +79,9 @@ and
 
 Now consider a tool focused on the call \texttt{(f n)} and seeking the value of \texttt{f} in order to, say, expand \texttt{f} inline.
 Only the three flow segments identified above respective to \texttt{f} are needed to fully determine this value---and know that it is fully-determined.
-Yet conventional control-flow analysis (CFA) is \emph{exhaustive}, insistent on determining every segment of every flow, starting from the program's entry point.\footnote{Exhaustive CFA can be made to work with program components where free variables are treated specially (e.g. using Shivers' escape technique@~cite["Ch. 3"]{dvanhorn:Shivers:1991:CFA}). This special treatment does not change the fundamental \emph{exhaustive} nature of the analysis nor bridge the shortcomings we describe.}
+Yet conventional control-flow analysis (CFA) is \emph{exhaustive}, insistent on determining every segment of every flow, 
+starting from the program's entry point.\footnote{Exhaustive CFA can be made to work with program components where free variables are treated specially (e.g. using Shivers' escape technique@~cite["Ch. 3"]{dvanhorn:Shivers:1991:CFA}). 
+This special treatment does not change the fundamental \emph{exhaustive} nature of the analysis nor bridge the shortcomings we describe.}
 In the account it produces, the segmentation of individual flows and independence of distinct flows are completely implicit.
 To obtain \texttt{f}'s value with a conventional CFA, the user must be willing to pay for \texttt{g}'s---and any other values incidental to it---as well.
 
@@ -108,7 +107,7 @@ Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019de
 However, context sensitivity would endow demand CFA with the same benefits that it does analyses at large:
 increased precision and, in some cases, a reduced workload@~cite{dvanhorn:Might:2006:GammaCFA} (which we discuss at an intuitive level in \S\ref{sec:intuition}).
 
-However, the demand setting presents a particular challenge for adding context sensitivity:
+However, the demand setting presents a particular challenge for adding context sensitivity: // TODO: Tim fix challenge framing
 unlike exhaustive analyses in which the context is fully determined at each point in analysis,
 a demand analysis is deployed on an arbitrary program point in an undetermined context.
 Thus, the task of a context-sensitive demand CFA is not only to respect the context as far as it is known, but also to determine unknown contexts as they are discovered relevant to analysis.
@@ -486,7 +485,7 @@ However, it is possible for Demand 0CFA to include, e.g., dead references in its
 We empirically investigate the extent to which precision is compromised in \S\ref{sec:evaluation}.
 }
 
-\section{Adding Context Sensitivity}
+\section{Adding Context Sensitivity} // TODO: Reframe the challeng here?
 \label{sec:progression}
 
 A context-\emph{insensitive} CFA is characterized by each program variable having a single entry in the store, shared by all bindings to it.
@@ -520,7 +519,7 @@ Demand CFA thus requires a choice of context, context representation, and enviro
 In this section, we examine each of these choices in turn.
 }
 
-\subsection{Choosing the context}
+\subsection{Choosing the context} // TODO: Challenge 1: Choosing a context
 
 To formulate context-sensitive demand CFA in the most general setting possible, we will avoid sensitivities to properties not present in our semantics, such as types.
 Since we focus on an untyped $\lambda$ calculus, the most straightforward choice is call-site sensitivity.
@@ -587,7 +586,7 @@ Formally, we have
 With the context representation chosen, we can now turn to the environment representation.
 
 
-\subsection{More-Orderly Environments}
+\subsection{More-Orderly Environments} // TODO: Challenge 2: Representing indeterminate contexts
 \label{sec:more-orderly}
 
 In a lexically-scoped language, the environment at the reference \texttt{x} in the fragment
@@ -976,8 +975,10 @@ As discussed at the beginning of this section,
 Demand $m$-CFA also discovers instantiations when it extends the environment in the @clause-label{App} and @clause-label{Operand} rules.
 The @clause-label{App-Body-Instantiation} and @clause-label{Operand-Body-Instantiation} rules capture these cases.
 
-The definition of Demand $m$-CFA in terms of an ``evaluation'' relation (which includes evaluation, trace, and caller resolution) and a reachability relation follows the full formal approach of \emph{Abstracting Definitional Interpreters} by @citet{darais2017diss}.
-From this correspondence, we can define the Demand $m$-CFA resolution of a given query as the least fixed point of these relations, effectively computable with the algorithm @citet{darais2017diss} provides.
+The definition of Demand $m$-CFA in terms of an ``evaluation'' relation (which includes evaluation, trace, and caller resolution) 
+and a reachability relation follows the full formal approach of \emph{Abstracting Definitional Interpreters} by @citet{darais2017diss}.
+From this correspondence, we can define the Demand $m$-CFA resolution of a given query as the least fixed point of these relations, 
+effectively computable with the algorithm @citet{darais2017diss} provides.
 We discuss this implementation in more depth in \S\ref{sec:evaluation}.
 
 
@@ -1245,7 +1246,8 @@ We evaluate Demand $m$-CFA with respect to the following questions:
 \item What is the distribution of required analysis effort to resolve queries?
 \item How does the precision compare to a typical CFA?
 \end{enumerate}
-To answer performance questions, we evaluate Demand $m$-CFA on the set of R6RS programs used by @citet{johnson:earl:dvanhorn:PushdownGarbage}, which is standard within the literature.
+To answer performance questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
+used by @citet{johnson:earl:dvanhorn:PushdownGarbage}, which is standard within the literature.
 
 
 \subsection{Implementation cost}
@@ -1505,7 +1507,7 @@ However, closures are not merely code pointers, but environments too, and we hav
 They combine an incremental and demand-driven approach to update the points-to model in response to changes in the program.
 Our work is similar in that it may be possible to cast it as a logic program and thereby combine an initial exhaustive CFA with an incremental, demand-driven CFA to keep the model synchronized with a changing program.
 
-More recently, \citet{sui2016supa} developed \textsc{Supa}, an on-demand analyzer for C programs which refines value flows during analysis.
+More recently, @citet{sui2016supa} developed \textsc{Supa}, an on-demand analyzer for C programs which refines value flows during analysis.
 \textsc{Supa} is designed for low-budget environments and its evaluation explicitly weighs its ultimate precision against its initial budget.
 Demand $m$-CFA can be positioned similarly where the low-budget environments are compilers and IDEs for functional programs.
 
@@ -1545,6 +1547,8 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \item and incrementally running queries with higher context-sensitivity as needed
 \end{enumerate*}.
 }
+
+\bibliographystyle{splncs04}
 
 \bibliography{paper}
 
