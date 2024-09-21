@@ -33,12 +33,12 @@
 \maketitle
 
 \begin{abstract}
-By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows it determines necessary to resolve a given query.
+By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows determined necessary to resolve a given query.
 Thus, it presents an interface and pricing model much more flexible than typical CFA, making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-This paper presents a context-sensitive demand CFA hierarchy, Demand $m$-CFA, 
-based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We evaluate the implementation effort, scalability, and precision of Demand $m$-CFA.
+Typical mechanisms for adding context sensitivity are not compatible with the demand setting because demand queries are issued at arbitrary program points in partially or indeterminate contexts.
+We overcome the challenge by choosing a suitable context and environment representations engineered to work well in partially determined or indeterminate contexts.
+We present a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
 We demonstrate that Demand $m$-CFA \begin{enumerate*} 
 \item resolves a large percent of queries quickly even when we increase context sensitivity and program size,
 \item can resolve as many singleton value flows as a formulation of $m$-CFA with full environment precision, and
@@ -107,7 +107,7 @@ Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019de
 However, context sensitivity would endow demand CFA with the same benefits that it does analyses at large:
 increased precision and, in some cases, a reduced workload@~cite{dvanhorn:Might:2006:GammaCFA} (which we discuss at an intuitive level in \S\ref{sec:intuition}).
 
-However, the demand setting presents a particular challenge for adding context sensitivity: // TODO: Tim fix challenge framing
+However, the demand setting presents a challenge for adding context sensitivity: // TODO: Tim fix challenge framing
 unlike exhaustive analyses in which the context is fully determined at each point in analysis,
 a demand analysis is deployed on an arbitrary program point in an undetermined context.
 Thus, the task of a context-sensitive demand CFA is not only to respect the context as far as it is known, but also to determine unknown contexts as they are discovered relevant to analysis.
@@ -493,10 +493,9 @@ A context-sensitive CFA considers the context in which each variable is bound an
 By extension, a context-sensitive CFA evaluates an expression under a particular environment, which identifies the context in which free variables within the expression are bound.
 (Like Demand 0CFA, our context-sensitive demand CFA will not materialize the store in the semantics, but it can be recovered if desired.)
 
-From this point, we must determine
-(1) the appropriate choice of context,
-(2) its representation, and
-(3) the appropriate representation of environments which record the context,
+At this point, we must determine
+(1) the appropriate choice of context including its representation, and
+(2) the appropriate representation of environments which record the context,
 which we do in this section.
 Once these are determined, we combine each expression and its enclosing environment to form a \emph{configuration}.\footnote{Configurations in exhaustive CFAs include a timestamp as well. We discuss its omission from demand CFA configurations in \S\ref{sec:whence-timestamp}.}
 We can extend @|0cfa-eval-name| and @|0cfa-expr-name| trivially to relate configurations rather than mere expressions.
@@ -519,7 +518,7 @@ Demand CFA thus requires a choice of context, context representation, and enviro
 In this section, we examine each of these choices in turn.
 }
 
-\subsection{Choosing the context} // TODO: Challenge 1: Choosing a context
+\subsection{Challenge 1: Designing the Context Representation} // TODO: Challenge 1: Choosing a context
 
 To formulate context-sensitive demand CFA in the most general setting possible, we will avoid sensitivities to properties not present in our semantics, such as types.
 Since we focus on an untyped $\lambda$ calculus, the most straightforward choice is call-site sensitivity.
@@ -586,7 +585,7 @@ Formally, we have
 With the context representation chosen, we can now turn to the environment representation.
 
 
-\subsection{More-Orderly Environments} // TODO: Challenge 2: Representing indeterminate contexts
+\subsection{Challenge 2: Designing Indeterminate Environments}
 \label{sec:more-orderly}
 
 In a lexically-scoped language, the environment at the reference \texttt{x} in the fragment
