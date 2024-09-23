@@ -33,11 +33,13 @@
 \maketitle
 
 \begin{abstract}
-By decoupling and decomposing control flows, demand control-flow analysis (CFA) is able to resolve only those segments of flows determined necessary to resolve a given query.
-Thus, it presents an interface and pricing model much more flexible than typical CFA, making many useful applications practical.
+By decoupling and decomposing control flows, 
+demand control-flow analysis (CFA) is able to resolve only those segments of flows determined necessary to resolve a given query.
+Thus, it presents a much more flexible interface and pricing model than typical CFA, 
+making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-Typical mechanisms for adding context sensitivity are not compatible with the demand setting because demand queries are issued at arbitrary program points in partially or indeterminate contexts.
-We overcome the challenge by choosing a suitable context and environment representations engineered to work well in partially determined or indeterminate contexts.
+Typical mechanisms for adding context sensitivity are not compatible with the demand setting because demand queries are issued at arbitrary program points without well-defined contexts.
+We overcome this challenge by designing a suitable context and environment representations to work well in partially determined or indeterminate contexts.
 We present a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
 We demonstrate that Demand $m$-CFA \begin{enumerate*} 
 \item resolves a large percent of queries quickly even when we increase context sensitivity and program size,
@@ -107,13 +109,13 @@ Presently, the only realization of demand CFA is Demand 0CFA@~cite{germane2019de
 However, context sensitivity would endow demand CFA with the same benefits that it does analyses at large:
 increased precision and, in some cases, a reduced workload@~cite{dvanhorn:Might:2006:GammaCFA} (which we discuss at an intuitive level in \S\ref{sec:intuition}).
 
-However, the demand setting presents a challenge for adding context sensitivity: // TODO: Tim fix challenge framing
+However, the demand setting presents a challenge for adding context sensitivity: 
 unlike exhaustive analyses in which the context is fully determined at each point in analysis,
 a demand analysis is deployed on an arbitrary program point in an undetermined context.
 Thus, the task of a context-sensitive demand CFA is not only to respect the context as far as it is known, but also to determine unknown contexts as they are discovered relevant to analysis.
 Achieving this task requires a compatible choice of context, context representation, and even environment representation, as we discuss in \S\ref{sec:progression}.
 
-After overcoming this challenge, we arrive at Demand $m$-CFA (\S\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA.@;{
+After addressing these challenges, we arrive at Demand $m$-CFA (\S\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA.@;{
 At a high level, Demand $m$-CFA achieves context sensitivity by permitting indeterminate contexts, which stand for any context, and instantiating them when further information is discovered.
 It then uses instantiated contexts to filter its resolution of control flow to ensure that its view of evaluation remains consistent with respect to context.
 (We offer intuition about these operations in \S\ref{sec:intuition} as well.)}
@@ -485,7 +487,7 @@ However, it is possible for Demand 0CFA to include, e.g., dead references in its
 We empirically investigate the extent to which precision is compromised in \S\ref{sec:evaluation}.
 }
 
-\section{Adding Context Sensitivity} // TODO: Reframe the challeng here?
+\section{Adding Context Sensitivity}
 \label{sec:progression}
 
 A context-\emph{insensitive} CFA is characterized by each program variable having a single entry in the store, shared by all bindings to it.
@@ -622,7 +624,7 @@ Given this environment representation, we make one final tweak to the definition
 we will qualify an indeterminate context $?$ with the parameter of the function whose context it represents, 
 and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, 
 which is unique even if the program is not alpha-converted.}
-This way, an environment of even completely indeterminate contexts still determines the expression it closes.
+This way, even an environment of completely indeterminate contexts still determines the expression it closes.
 For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ (x) ((λ (y) y) (λ (z) z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
 which is distinct from the indeterminate environment of \texttt{z}, which we represent by $\langle ?_{\mathtt{z}},?_{\mathtt{x}}\rangle$, even though they have the same shape.
 
@@ -1481,7 +1483,7 @@ and while their approach could be adapted to a demand based setting, their focus
 Their analysis exploits type structure and applies to typed programs with bounded type, whereas our formulation neither considers nor requires types.
 
 \emph{Points-to} analysis is the analogue of CFA in an object-oriented setting in the sense that both are fundamental analyses that provide the necessary support for higher-level analysis.
-Many context-sensitive demand-driven points-to analyses (e.g.~\citet{spath2016boomerang,lu2013incremental,su2014parallel,shang2012demand}) exist, formulated for Java.
+Many context-sensitive demand-driven points-to analyses (e.g.~@citet{spath2016boomerang,lu2013incremental,su2014parallel,shang2012demand}) exist, formulated for Java.
 Though both points-to analysis and CFA target higher-order programs, @citet{dvanhorn:Might2010Resolving} observed that
 the explicit object creation in the object-oriented setting induces flat closures
 whereas
