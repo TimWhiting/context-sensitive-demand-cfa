@@ -1061,73 +1061,8 @@ n \in \mathit{Addr}              &= \mathbb{N}
 A store is a pair consisting of a map from addresses to calls and the next address to use;
 the initial store is $(\bot,0)$.
 
-Figure~\ref{fig:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
-\begin{figure}
-@mathpar[demand-parse-judgement]{
-Lam
-———
-C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
+Appendix~\ref{appendix:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
 
-
-Operator
-——
-C[([e₀] e₁)] ρ σ ⇒ C[(e₀ e₁)] ρ σ
-
-
-Ref
-(Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ [e₁])] ρ' σ₁ ⇓ Cv[λx.e] ρ-v σ₂
-———
-C[x] ρ σ₀ ⇓ Cv[λx.e] ρ-v σ₂
-
-App
-C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] ⇓ Cv[λx.e-v] ρ-v σ₃
-———
-C[(e₀ e₁)] ρ σ₀ ⇓ Cv[λx.e-v] ρ-v σ₃
-
-
-Operand
-C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] F Cx[x] ρ-x σ₃  Cx[x] ρ-x σ₃ ⇒ C''[(e₂ e₃)] ρ'' σ₄
-——
-C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
-
-Body
-C[λx.[e]] ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ e₁)] ρ' σ₁ ⇒ C''[(e₂ e₃)] ρ'' σ₂
-——
-C[λx.[e]] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₂
-
-Find-Ref
-——
-x C[x] ρ σ F C[x] ρ σ
-
-Find-Operator
-x C[([e₀] e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
-——
-x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
-
-Find-Operand
-x C[(e₀ [e₁])] ρ σ₀ F Cx[x] ρ-x σ₁
-——
-x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
-
-Find-Body
-x ≠ y  (n,σ₁) := fresh(σ₀)  x C[λy.[e]] n::ρ σ₁ F Cx[x] ρ-x σ₂
-——
-x C[λy.e] ρ σ₀ F Cx[x] ρ-x σ₂
-
-Unknown-Call
-σ₀(n) = ⊥  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ' σ₁  σ₂ := σ₁[n ↦ (C'[(e₀ e₁)],ρ')]
-——
-C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₂
-
-Known-Call
-σ₀(n) = (C[(e₀ e₁)],ρ')  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ'' σ₁  ρ' ≡σ₁ ρ''  σ₂ := σ₁[ρ''/ρ']
-——
-C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ'' σ₂
-
-}
-\caption{Demand Evaluation}
-\label{fig:demand-evaluation}
-\end{figure}
 Most rules are unchanged from Demand $m$-CFA modulo the addition of stores.
 Instantiation in Demand Evaluation is captured by creating a mapping in the store.
 For instance, Demand $m$-CFA's @clause-label{App} rule ``discovers'' the caller of the entered call, which effects an instantiation via @clause-label{App-Body-Instantiation}.
@@ -1155,7 +1090,6 @@ This rule corresponds directly to the instantiation relation of Demand $m$-CFA.
 
 \subsection{Demand Evaluation Equivalence}
 
-@(require (prefix-in combined- "combined.rkt"))
 
 In order to show a correspondence between Demand $\infty$-CFA and Demand Evaluation,
 we establish a correspondence between the environments of the former and the environment--store pairs of the latter, captured by the judgement @combined-parse-judgement{ρ ⇓ ρ σ} defined by the following rules.
@@ -1552,5 +1486,259 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \bibliographystyle{splncs04}
 
 \bibliography{paper}
+
+\appendix
+
+\section{Demand $m$-CFA Correctness}
+\label{sec:demand-mcfa-correctness}
+
+Demand $m$-CFA is a hierarchy of demand CFA.
+Instances higher in the hierarchy naturally have larger state spaces.
+The size $|@|mcfa-eval-name||$ of the @|mcfa-eval-name| relation satisfies the inequality
+\[
+|@|mcfa-eval-name|| \le |\mathit{Config} \times \mathit{Config}| = |\mathit{Config}|^{2} = |\mathit{Exp} \times \mathit{Env}|^{2} = |\mathit{Exp}|^{2}|\mathit{Env}|^{2} = n^2|\mathit{Env}|^{2}
+\]
+where $n$ is the size of the program.
+We then have
+\[
+|\mathit{Env}| \le |\mathit{Ctx}|^{n} \le (|\mathit{Call}|+1)^{mn} \le n^{mn}
+\]
+since the size of environments is statically bound and may be indeterminate.
+Thus, $|@|mcfa-eval-name|| \le n^{mn+2}$;
+the state space of @|mcfa-eval-name| is finite but with an exponential bound;
+the state spaces of @|mcfa-expr-name| and @|mcfa-call-name| behave similarly.
+
+\subsection{Demand $m$-CFA Refinement}
+
+Instances higher in the hierarchy are also more precise, which we formally express with the following theorems.
+\begin{theorem}[Evaluation Refinement]
+If
+@mcfa-parse-judgement{C[e] ρ₀ ⇓m+1 Cv[λx.e-v] ρ₀'}
+where
+@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+then
+@mcfa-parse-judgement{C[e] ρ₁ ⇓ Cv[λx.e-v] ρ₁'}
+where
+@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+\end{theorem}
+\begin{theorem}[Trace Refinement]
+If
+@mcfa-parse-judgement{C[e] ρ₀ ⇒m+1 C'[(e₀ e₁)] ρ₀'}
+where
+@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+then
+@mcfa-parse-judgement{C[e] ρ₁ ⇒ C'[(e₀ e₁)] ρ₁'}
+where
+@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+\end{theorem}
+\begin{theorem}[Caller Refinement]
+If
+@mcfa-parse-judgement{C[e] ρ₀ ⇐m+1 C'[(e₀ e₁)] ρ₀'}
+where
+@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+then
+@mcfa-parse-judgement{C[e] ρ₁ ⇐ C'[(e₀ e₁)] ρ₁'}
+where
+@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+\end{theorem}
+These theorems state that refining configurations submitted to Demand $m$-CFA and its successor Demand $m$+1-CFA yield refining configurations.
+The proof proceeds directly (if laboriously) by induction on the derivations of the relations.
+
+\subsection{Demand $\infty$-CFA and Demand Evaluation}
+
+@(require (prefix-in demand- "demand-evaluation.rkt"))
+
+To show that Demand $m$-CFA is sound with respect to a standard call-by-value (CBV) semantics, we consider the limit of the hierarchy, Demand $\infty$-CFA, in which context lengths are unbounded.
+From here, we bridge Demand $\infty$-CFA to a CBV semantics with a concrete form of demand analysis called \emph{Demand Evaluation}.
+Our strategy will be to show that the Demand $\infty$-CFA semantics is equivalent to Demand Evaluation which itself is sound with respect to a standard CBV semantics.
+
+Demand Evaluation is defined in terms of relations @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name| which are counterpart to @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name|, respectively.
+Like their counterparts, @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name| relate configurations to configurations.
+However, a Demand Evaluation configuration includes a store @(demand-σ) from addresses $n$ to calls consisting of a call site and its environment.
+Demand Evaluation environments, rather than being a sequence of contexts, are sequences of addresses.
+Like contexts, an address may denote an indeterminate context (i.e. call) which manifests as an address which is not mapped in the store.
+Formally, the components of stores and environments are defined
+\begin{align*}
+(s,n), @(demand-σ) \in \mathit{Store}   &= (\mathit{Addr} \rightarrow \mathit{Call}) \times \mathit{Addr} &
+@(demand-ρ) \in \mathit{Env}     &= \mathit{Addr}^{*} \\
+@(demand-cc) \in \mathit{Call} &= \mathit{App} \times \mathit{Env} &
+n \in \mathit{Addr}              &= \mathbb{N}
+\end{align*}
+A store is a pair consisting of a map from addresses to calls and the next address to use;
+the initial store is $(\bot,0)$.
+
+Figure~\ref{fig:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
+\begin{figure}
+@mathpar[demand-parse-judgement]{
+Lam
+———
+C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
+
+
+Operator
+——
+C[([e₀] e₁)] ρ σ ⇒ C[(e₀ e₁)] ρ σ
+
+
+Ref
+(Cx[e-x],ρ-x) = bind(x,C[x],ρ)  Cx[e-x] ρ-x σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ [e₁])] ρ' σ₁ ⇓ Cv[λx.e] ρ-v σ₂
+———
+C[x] ρ σ₀ ⇓ Cv[λx.e] ρ-v σ₂
+
+App
+C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] ⇓ Cv[λx.e-v] ρ-v σ₃
+———
+C[(e₀ e₁)] ρ σ₀ ⇓ Cv[λx.e-v] ρ-v σ₃
+
+
+Operand
+C[([e₀] e₁)] ρ σ₀ ⇓ C'[λx.e] ρ' σ₁  (n,σ₂) := fresh(σ₁)  x C'[λx.[e]] n::ρ' σ₂[n ↦ (C[(e₀ e₁)],ρ)] F Cx[x] ρ-x σ₃  Cx[x] ρ-x σ₃ ⇒ C''[(e₂ e₃)] ρ'' σ₄
+——
+C[(e₀ [e₁])] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₄
+
+Body
+C[λx.[e]] ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₁  C'[(e₀ e₁)] ρ' σ₁ ⇒ C''[(e₂ e₃)] ρ'' σ₂
+——
+C[λx.[e]] ρ σ₀ ⇒ C''[(e₂ e₃)] ρ'' σ₂
+
+Find-Ref
+——
+x C[x] ρ σ F C[x] ρ σ
+
+Find-Operator
+x C[([e₀] e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+——
+x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+
+Find-Operand
+x C[(e₀ [e₁])] ρ σ₀ F Cx[x] ρ-x σ₁
+——
+x C[(e₀ e₁)] ρ σ₀ F Cx[x] ρ-x σ₁
+
+Find-Body
+x ≠ y  (n,σ₁) := fresh(σ₀)  x C[λy.[e]] n::ρ σ₁ F Cx[x] ρ-x σ₂
+——
+x C[λy.e] ρ σ₀ F Cx[x] ρ-x σ₂
+
+Unknown-Call
+σ₀(n) = ⊥  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ' σ₁  σ₂ := σ₁[n ↦ (C'[(e₀ e₁)],ρ')]
+——
+C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ' σ₂
+
+Known-Call
+σ₀(n) = (C[(e₀ e₁)],ρ')  C[λx.e] ρ σ₀ ⇒ C'[(e₀ e₁)] ρ'' σ₁  ρ' ≡σ₁ ρ''  σ₂ := σ₁[ρ''/ρ']
+——
+C[λx.[e]] n::ρ σ₀ ⇐ C'[(e₀ e₁)] ρ'' σ₂
+
+}
+\caption{Demand Evaluation}
+\label{fig:demand-evaluation}
+\end{figure}
+Most rules are unchanged from Demand $m$-CFA modulo the addition of stores.
+Instantiation in Demand Evaluation is captured by creating a mapping in the store.
+For instance, Demand $m$-CFA's @clause-label{App} rule ``discovers'' the caller of the entered call, which effects an instantiation via @clause-label{App-Body-Instantiation}.
+In contrast, Demand Evaluation's @clause-label{App} rule allocates a fresh address $n$ using @|demand-fresh-name|, maps it to the caller in the store, and extends the environment of the body with it.
+The @|demand-fresh-name| metafunction extracts the unused address and returns a store with the next one.
+Store extension is simply lifted over the next unused address.
+Formally, they are defined as follows.
+\begin{align*}
+@|demand-fresh-name|((s,n)) := (n,(s,n+1)) & & (s,n)[n_0 \mapsto @(demand-cc)] := (s[n_0 \mapsto @(demand-cc)],n)
+\end{align*}
+@clause-label{Unknown-Call} applies when the address $n$ is unmapped in the store.
+It instantiates the environment by mapping $n$ with the discovered caller.
+@clause-label{Known-Call} uses @|demand-≡σ-name| to ensure that the known and discovered environments are isomorphic in the store.
+The @|demand-≡σ-name| relation is defined on addresses and lifted elementwise to environments.
+We have
+@(demand-≡σ (demand-σ) "n_0" "n_1")
+if and only if
+$\sigma(n_0) = \bot = \sigma(n_1)$
+or
+$\sigma(n_0)=(@(cursor (app (e 0) (e 1)) (∘e)),@(demand-ρ 0))$,
+$\sigma(n_1)=(@(cursor (app (e 0) (e 1)) (∘e)),@(demand-ρ 1))$, and
+@(demand-≡σ (demand-σ) (demand-ρ 0) (demand-ρ 1)).
+If the environments are isomorphic, then all instances of the known environment are substituted with the discovered environment in the store, ensuring that queries in terms of the known are kept up to date.
+This rule corresponds directly to the instantiation relation of Demand $m$-CFA.
+
+\subsection{Demand Evaluation Equivalence}
+
+
+In order to show a correspondence between Demand $\infty$-CFA and Demand Evaluation,
+we establish a correspondence between the environments of the former and the environment--store pairs of the latter, captured by the judgement @combined-parse-judgement{ρ ⇓ ρ σ} defined by the following rules.
+\begin{mathpar}
+\inferrule
+{ @combined-parse-judgement{cc-1 F n-1 σ} \\
+  \dots \\
+  @combined-parse-judgement{cc-k F n-k σ}
+  }
+{ @combined-parse-judgement{ρ-is ⇓ ρ-is σ}
+  }
+
+
+\inferrule
+{ }
+{ @combined-parse-judgement{() R () σ}
+  }
+
+\inferrule
+{ @combined-parse-judgement{app::cc F n σ}
+  }
+{ @combined-parse-judgement{app::cc R n::ρ σ}
+  }
+
+\inferrule
+{ @combined-parse-judgement{σ(n) = ⊥}
+  }
+{ @combined-parse-judgement{? F n σ}
+  }
+
+\inferrule
+{ @combined-parse-judgement{σ(n) = (app,ρ)} \\
+  @combined-parse-judgement{cc R ρ σ}
+  }
+{ @combined-parse-judgement{app::cc F n σ}
+  }
+
+\end{mathpar}
+This judgement ensures that each context in the Demand $\infty$-CFA environment matches precisely with the corresponding address with respect to the store:
+if the context is indeterminate, the address must not be mapped in the store;
+otherwise, if the heads of the context are the same, the relation recurs.
+
+Now it is straightforward to express the equivalence between the Demand $\infty$-CFA relations and Demand Evaluation.
+
+@(require (prefix-in combined- "combined.rkt"))
+\begin{theorem}[Evaluation Equivalence]
+If
+@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+then
+@mcfa-parse-judgement{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
+if and only if
+@demand-parse-judgement{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
+where
+@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+\end{theorem}
+
+\begin{theorem}[Trace Equivalence]
+If
+@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+then
+@mcfa-parse-judgement{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
+if and only if
+@demand-parse-judgement{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
+where
+@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+\end{theorem}
+
+\begin{theorem}[Caller Equivalence]
+If
+@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+then
+@mcfa-parse-judgement{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
+if and only if
+@demand-parse-judgement{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
+where
+@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+\end{theorem}
+
+These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
 \end{document}
