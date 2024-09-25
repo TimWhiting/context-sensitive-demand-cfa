@@ -628,7 +628,7 @@ we will qualify an indeterminate context $?$ with the parameter of the function 
 and assume programs are alphatized.\footnote{In practice, we use the syntactic context of the body instead of the parameter, 
 which is unique even if the program is not alpha-converted.}
 This way, even an environment of completely indeterminate contexts still determines the expression it closes.
-For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ (x) ((λ (y) y) (λ (z) z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
+For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ~(x)~((λ~(y)~y)~(λ~(z)~z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
 which is distinct from the indeterminate environment of \texttt{z}, which we represent by $\langle ?_{\mathtt{z}},?_{\mathtt{x}}\rangle$, even though they have the same shape.
 As explained in the next section, this distinction is crucial when considering instantiating indeterminate contexts.
 
@@ -670,7 +670,7 @@ which do not correspond to any environment which arises in an exhaustive analysi
 
 The issue is that blindly instantiating indeterminate contexts ignores the evaluation path taken to arrive at the call site.
 In particular, it ignores where the nesting $\lambda$ is applied, which must be applied first (as we observed in the previous section).
-In this example, we must consider the context of \texttt{(λ (f) (λ (x) (f x)))} before we instantiate the context of \texttt{(λ (x) (f x))}.
+In this example, we must consider the context of \texttt{(λ~(f)~(λ~(x)~(f~x)))} before we instantiate the context of \texttt{(λ (x) (f x))}.
 
 The solution, then, is to not substitute a indeterminate context with a more-determined context, but an entire environment headed by an indeterminate context with that same environment headed by the more-determined one.
 This policy would, in this example, lead to all occurrences of
@@ -684,7 +684,8 @@ and
 and no others, which is precisely what we would hope.
 
 This policy is effective even when the result of the function does not depend on both values.
-For instance, when Demand $m$-CFA evaluates \texttt{x} in \texttt{(λ (f) (λ (x) x))}, it must still determine the caller of \texttt{(λ (f) (λ (x) x))} to determine the downstream caller of \texttt{(λ (x) x)}.
+For instance, when Demand $m$-CFA evaluates \texttt{x} in\\ 
+\texttt{(λ~(f)~(λ~(x)~x))}, it must still determine the caller of \texttt{(λ~(f)~(λ~(x)~x))} to determine the downstream caller of \texttt{(λ (x) x)}.
 
 Crucially, we need the indeterminate contexts to be qualified by the parameter of the function whose context it represents as mentioned previously. 
 Without this distinction, we could instantiate both 
