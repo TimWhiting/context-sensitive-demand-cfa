@@ -167,15 +167,18 @@ In essence, it is asking where values flow from a given expression.
 \end{enumerate}
 To resolve all but trivial queries, the analysis issues subqueries---of one type or the other---to resolve flows on which the original query depends.
 
+@(define simplam (list "(λ~(x)~x)"))
+@(define simplamt (list "\\texttt{(λ~(x)~x)}"))
+
 We illustrate the operation of a demand CFA considering queries over the program
 \begin{verbatim}
 (let ([f (λ (x) x)]) (+ (f 42) (f 35)))
 \end{verbatim}
 which is written in Pure Scheme (i.e. purely-functional Scheme).
 
-@(define (evq e) (list "\\textsf{evaluate}\\," "\\texttt{" e  "}"))
-@(define (exq e) (list "\\textsf{trace}\\," "\\texttt{" e  "}"))
-@(define (caq e) (list "\\textsf{caller}\\," "\\texttt{" e  "}"))
+@(define (evq e) (list "\\textsf{evaluate}\\,\\," "\\texttt{" e  "}"))
+@(define (exq e) (list "\\textsf{trace}\\,\\," "\\texttt{" e  "}"))
+@(define (caq e) (list "\\textsf{caller}\\,\\," "\\texttt{" e  "}"))
 \setlength\intextsep{0pt}
 
 \subsection{Without Context Sensitivity}
@@ -190,17 +193,17 @@ To the left is a trace of the queries that follow $q_0$.
 \begin{wrapfigure}{l}{0.3\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \\
-$q_1$ & \phantom{XX} @evq{f} \\
-$q_2$ & \phantom{XX} @evq{(λ (x) x)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \\
+$q_1$ & \phantom{X} @evq{f} \\
+$q_2$ & \phantom{X} @evq{@simplam} \\
+      & \phantom{X} $\Rightarrow$ @simplamt \\
 $q_3$ & @evq{x} \\
-$q_4$ & \phantom{XX} @exq{(λ (x) x)} \\
-$q_5$ & \phantom{XX} @exq{f} in \texttt{(f 42)} \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \\
+$q_4$ & \phantom{X} @exq{@simplam} \\
+$q_5$ & \phantom{X} @exq{f} in \texttt{(f 42)} \\
+      & \phantom{X} $\Rightarrow$ \texttt{(f 42)} \\
 $q_7$ & @evq{42} \\
       & $\Rightarrow$ $42$ \\
-$q_6$ & \phantom{XX} @exq{f} in \texttt{(f 35)}\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \\
+$q_6$ & \phantom{X} @exq{f} in \texttt{(f 35)}\\
+      & \phantom{X} $\Rightarrow$ \texttt{(f 35)} \\
 $q_8$ & @evq{35} \\
       & $\Rightarrow$ $35$
 \end{tabular}
@@ -210,11 +213,11 @@ A subsequent query at the same indentation level is a query in ``tail position''
 A query often issues multiple queries in tail position, as this example demonstrates.
 The operator \texttt{f} is a reference, so demand 0CFA walks the syntax to find where \texttt{f} is bound.
 Upon finding it bound by a \texttt{let} expression, demand 0CFA issues a subquery $q_2$ to evaluate its bound expression \texttt{(λ~(x)~x)}.
-The expression \texttt{(λ~(x)~x)} is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
+The expression @simplamt is a $\lambda$ term---a value---which $q_2$ propagates directly to $q_1$.
 Once $q_1$ receives it, demand 0CFA issues a subquery $q_3$ for the evaluation of its body.
 Its body \texttt{x} is a reference, so demand 0CFA walks the syntax to discover that it is $\lambda$-bound and therefore that its value is the value of the argument at the application of \texttt{(λ (x) x)}.
-That this call to \texttt{(λ~(x)~x)} originated at \texttt{(f 35)} is contextual information, to which demand 0CFA is insensitive.
-Consequently, demand 0CFA issues a trace query $q_4$ to find all the application sites of \texttt{(λ (x) x)}.
+That this call to @simplamt originated at \texttt{(f 35)} is contextual information, to which demand 0CFA is insensitive.
+Consequently, demand 0CFA issues a trace query $q_4$ to find all the application sites of \\texttt{@simplam}.
 Because it is an expression bound to \texttt{f}, demand 0CFA issues a subqueries $q_5$ and $q_6$ to find the use sites of both references to $f$.
 Each of these subqueries resolves immediately since each of the references is in operator position and their results are propagated to $q_4$.
 For each result, $q_3$ issues a subquery---$q_7$ and $q_8$---to evaluate the arguments, each of which is a numeric literal, whose value is immediately known.
@@ -225,18 +228,18 @@ Thus, demand 0CFA concludes that \texttt{(f 35)} may evaluate to $42$ or $35$.
 \begin{wrapfigure}{r}{0.4\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{(f 35)} \textsf{in} $\langle\rangle$\\
-$q_1$ & \phantom{XX} @evq{f} \textsf{in} $\langle\rangle$\\
-$q_2$ & \phantom{XX} @evq{(λ (x) x)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(λ (x) x)} \textsf{in} $\langle\rangle$\\
+$q_1$ & \phantom{X} @evq{f} \textsf{in} $\langle\rangle$\\
+$q_2$ & \phantom{X} @evq{@simplam} \textsf{in} $\langle\rangle$\\
+      & \phantom{X} $\Rightarrow$ @simplamt \textsf{in} $\langle\rangle$\\
 $q_3$ & @evq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$\\
-$q_3'$ & \phantom{XX} @caq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$\\
-$q_4$ & \phantom{XX} \phantom{XX} @exq{(λ (x) x)} \textsf{in} $\langle\rangle$\\
-$q_5$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \textit{fail}\\
-$q_6$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
+$q_3'$ & \phantom{X} @caq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$\\
+$q_4$ & \phantom{X} \phantom{X} @exq{@simplam} \textsf{in} $\langle\rangle$\\
+$q_5$ & \phantom{X} \phantom{X} @exq{f} \textsf{in} $\langle\rangle$\\
+      & \phantom{X} \phantom{X} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$\\
+      & \phantom{X} $\Rightarrow$ \textit{fail}\\
+$q_6$ & \phantom{X} \phantom{X} @exq{f} \textsf{in} $\langle\rangle$\\
+      & \phantom{X} \phantom{X} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
+      & \phantom{X} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$\\
 $q_8$ & @evq{35} \textsf{in} $\langle\rangle$\\
       & $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
 \end{tabular}
@@ -248,11 +251,11 @@ Hence, in this setting, queries and results include not only expressions, but en
 We will also see that Demand $m$-CFA does not need a timestamp to record the ``current'' context, a fact we discuss further in \S\ref{sec:whence-timestamp}.
 Let's consider the same evaluation query $q_0$ over \texttt{(f 35)}, this time in the top-level environment $\langle\rangle$.
 Like Demand 0CFA, Demand $m$-CFA issues the subquery $q_1$ to determine the operator \texttt{f}, also in $\langle\rangle$.
-After it discovers \texttt{(λ (x) x)} to be the binding expression of \texttt{f}, it issues an evaluation query over it ($q_2$) again in $\langle\rangle$.
-The result of $q_2$ is \texttt{(λ (x) x)} in $\langle\rangle$, essentially a closure.
+After it discovers @simplamt to be the binding expression of \texttt{f}, it issues an evaluation query over it ($q_2$) again in $\langle\rangle$.
+The result of $q_2$ is @simplamt in $\langle\rangle$, essentially a closure.
 As before, this result is passed first to $q_1$ and then to $q_0$ at which point Demand $m$-CFA constructs $q_3$, an evaluation query over its body.
 The query's environment $\langle\texttt{(f 35)}\rangle$ records the context in which the parameter \texttt{x} was bound.
-In order to evaluate \texttt{x}, Demand $m$-CFA issues a \emph{caller} query $q_3'$ to determine the caller of \texttt{(λ (x) x)} that yielded the environment $\langle\texttt{(f 35)}\rangle$.
+In order to evaluate \texttt{x}, Demand $m$-CFA issues a \emph{caller} query $q_3'$ to determine the caller of @simplamt that yielded the environment $\langle\texttt{(f 35)}\rangle$.
 It then issues the trace query $q_4$, this time subordinate to $q_3'$, which issues $q_5$ and $q_6$ and results in the same two applications of \texttt{f}.
 However, when $q_3'$ receives a caller from $q_4$, Demand $m$-CFA ensures that the caller could produce the binding context of the parameter in $q_3'$'s environment.
 If so, $q_3'$ yields the result to $q_3$; if not, it cuts off the resolution process for that path.
@@ -268,25 +271,26 @@ This behavior is an example of the well-known phenomenon of high precision keepi
 
 Each environment in the previous section was fully determined.
 Typically, Demand $m$-CFA resolves queries and produces results with environments that are---at least partially---indeterminate.
-\begin{wrapfigure}{l}{0.40\textwidth}
+For instance, to obtain all of the values
+\begin{wrapfigure}{l}{0.38\textwidth}
 \begin{tabular}{cl}
 $q_0$ & @evq{x} \textsf{in} $\langle ?\rangle$ \\
-$q_0'$ & \phantom{XX} @caq{x} \textsf{in} $\langle ?\rangle$ \\
-$q_1$ & \phantom{XX} \phantom{XX} @exq{(λ (x) x)} \textsf{in} $\langle\rangle$ \\
-$q_2$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
-      & \phantom{XX} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
+$q_0'$ & \phantom{X} @caq{x} \textsf{in} $\langle ?\rangle$ \\
+$q_1$ & \phantom{X} \phantom{X} @exq{(λ (x) x)} \textsf{in} $\langle\rangle$ \\
+$q_2$ & \phantom{X} \phantom{X} @exq{f} \textsf{in} \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
+      & \phantom{X} \phantom{X} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
+      & \phantom{X} $\Rightarrow$ \texttt{(f 42)} \textsf{in} $\langle\rangle$ \\
 $q_4$ & @evq{x} \textsf{in} $\langle\texttt{(f 42)}\rangle$ \\
 $q_5$ & @evq{42} \textsf{in} $\langle\rangle$ \\
       & $\Rightarrow$ $42$ \textsf{in} $\langle\rangle$ \\
-$q_3$ & \phantom{XX} \phantom{XX} @exq{f} \textsf{in} \texttt{(f 35)} \textsf{in} $\langle\rangle$ \\
-      & \phantom{XX} \phantom{XX} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$  \\
+$q_3$ & \phantom{X} \phantom{X} @exq{f} \textsf{in} \texttt{(f 35)} \textsf{in} $\langle\rangle$ \\
+      & \phantom{X} \phantom{X} $\Rightarrow$ \texttt{(f 35)} \textsf{in} $\langle\rangle$  \\
 $q_6$ & @evq{x} \textsf{in} $\langle\texttt{(f 35)}\rangle$ \\
 $q_7$ & @evq{35} \textsf{in} $\langle\rangle$ \\
       & $\Rightarrow$ $35$ \textsf{in} $\langle\rangle$
 \end{tabular}
 \end{wrapfigure}
-For instance, to obtain all of the values to which \texttt{x}, the body of \texttt{(λ (x) x)}, may evaluate,
+ to which \texttt{x}, the body of \texttt{(λ (x) x)}, may evaluate,
 a user may issue the query @evq{x} \textsf{in} $\langle ?\rangle$ ($q_0$ at left) where $?$ is a ``wildcard'' context to be instantiated with each context the analyzer discovers.
 (Though each context in the environment is indeterminate, the shape of the environment itself is determined by the lexical binding structure, which we discuss further in \S\ref{sec:more-orderly}.)
 Once issued, resolution of \texttt{x}'s evaluation again depends on a caller query $q_0'$.
@@ -296,7 +300,6 @@ This query locates the call sites \texttt{(f 42)} \textsf{in} $\langle\rangle$ a
 Once $q_2$ delivers the result \texttt{(f 42)} \textsf{in} $\langle\rangle$ to $q_1$ and then $q_0'$, Demand $m$-CFA \emph{instantiates} $q_0$ with this newly-discovered caller to form $q_4$, whose result is $q_0$'s also.
 After creating $q_3$, it continues with its resolution by issuing $q_4$ to evaluate the argument \texttt{42} \textsf{in} $\langle\rangle$.
 Its result of $42$ propagates from $q_4$ to $q_0$;
-from $q_0$, one can see all instantiations of it as well every result of those instantiations.
 The instantiation from $q_3$ proceeds similarly.
 
 \section{Language and Notation}
@@ -460,7 +463,8 @@ The @clause-label{Body} rule captures the intuition that if a value flows to the
 The @clause-label{Operand} rule captures the intuition that a value in operand position is bound by the formal parameter of each operator value and hence to each reference to the formal parameter in the operator's body.
 If the operator @(e "_f") evaluates to @(lam (var 'x) (e)), then the value of @(e "_a") flows to each reference to @(var 'x) in @(e).
 
-The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(e) with each reference to @(var 'x) in @(e).
+The @|0cfa-find-name| relation associates a variable @(var 'x) and expression @(e) with each reference to @(var 'x) in @(e). 
+It's purpose is to determine where values flow locally within an expression by using and enforcing lexical scope.
 @clause-label{Find-Ref} finds @(e) itself if @(e) is a reference to @(var 'x).
 @clause-label{Find-Operator} and @clause-label{Find-Operand} find references to @(var 'x) in @(app (e 0) (e 1)) by searching the operator @(e 0) and operand @(e 1), respectively.
 @clause-label{Find-Body} finds references to @(var 'x) in @(lam (var 'x) (e)) taking care that @(≠ (var 'x) (var 'y)) so that it does not find shadowed references.
@@ -626,10 +630,11 @@ which is unique even if the program is not alpha-converted.}
 This way, even an environment of completely indeterminate contexts still determines the expression it closes.
 For instance, we represent the indeterminate environment of \texttt{y} in \texttt{(λ (x) ((λ (y) y) (λ (z) z)))} by $\langle ?_{\mathtt{y}},?_{\mathtt{x}}\rangle$
 which is distinct from the indeterminate environment of \texttt{z}, which we represent by $\langle ?_{\mathtt{z}},?_{\mathtt{x}}\rangle$, even though they have the same shape.
+As explained in the next section, this distinction is crucial when considering instantiating indeterminate contexts.
 
 \subsection{Instantiating Contexts}
 
-Demand $m$-CFA, at certain points during resolution, discovers information about the context in which the resolved flow occurs, and must instantiate relevant environments with that information.
+Demand $m$-CFA, at certain points during resolution, discovers information about the context in which the resolved flow occurs, and must instantiate \emph{relevant} environments with that information.
 For instance, in the program
 \begin{verbatim}
 (let ([apply (λ (f) (λ (x) (f x)))])
@@ -670,16 +675,21 @@ In this example, we must consider the context of \texttt{(λ (f) (λ (x) (f x)))
 The solution, then, is to not substitute a indeterminate context with a more-determined context, but an entire environment headed by an indeterminate context with that same environment headed by the more-determined one.
 This policy would, in this example, lead to all occurrences of
 \begin{align*}
-\langle ?_{\mathtt{x}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle & & \text{being substituted with} & & \langle \mathtt{((apply\,add1)\,42)}::?_{\mathit{tl}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle
+\langle ?_{\mathtt{x}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle & & \text{substituted with} & & \langle \mathtt{((apply\,add1)\,42)}::?_{\mathit{tl}}, \mathtt{(apply\,add1)}::?_{\mathit{tl}}\rangle
 \end{align*}
 and            
 \begin{align*}
-\langle ?_{\mathtt{x}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle & & \text{being substituted with} & & \langle \mathtt{((apply\,sub1)\,35)}::?_{\mathit{tl}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle
+\langle ?_{\mathtt{x}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle & & \text{substituted with} & & \langle \mathtt{((apply\,sub1)\,35)}::?_{\mathit{tl}}, \mathtt{(apply\,sub1)}::?_{\mathit{tl}}\rangle
 \end{align*}
 and no others, which is precisely what we would hope.
 
 This policy is effective even when the result of the function does not depend on both values.
 For instance, when Demand $m$-CFA evaluates \texttt{x} in \texttt{(λ (f) (λ (x) x))}, it must still determine the caller of \texttt{(λ (f) (λ (x) x))} to determine the downstream caller of \texttt{(λ (x) x)}.
+
+Crucially, we need the indeterminate contexts to be qualified by the parameter of the function whose context it represents as mentioned previously. 
+Without this distinction, we could instantiate both 
+$\mathtt{?_{\mathit{x}}}$ and $\mathtt{?_{\mathit{f}}}$ with contexts that are are only statically possible for the other. 
+This is a clear win in terms of precision and performance, and does not distinguish more contexts than necessary due to the fact that the indeterminate variables in closure environments can be uniquely derived from their lambda.
 
 \subsection{Whence the timestamp?}
 \label{sec:whence-timestamp}
@@ -1093,8 +1103,10 @@ Appendix~\ref{appendix:demand-soundness} presents Demand $\infty$-CFA and demand
 
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, \texttt{letrec} binding forms,
 mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters.
+We call this language Pure Scheme. Although our analysis does not handle imperative constructs, the analysis can still be deployed in programs with imperative features.
+It will produce sound results for flows that don't experience imperative update and soundly detect when flows do.
 
-We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}(ADI) to implement $m$-CFA and Demand $m$-CFA analyses for the Pure Scheme language.
+We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}(ADI) to implement $m$-CFA and Demand $m$-CFA analyses for Pure Scheme.
 
 The results of the analysis are obtained through ADI's memoized fixpoint cache. 
 This cache gives control flow results for each segment of control flow independently keyed by the query / subquery.

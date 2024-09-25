@@ -5,6 +5,7 @@
 *.out
 paper.tex
 !paper.pdf
+!esop25-paper16.pdf
 *.pdf
 compiled
 *.rkt~

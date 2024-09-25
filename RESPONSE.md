@@ -24,26 +24,15 @@ Both of these works present analyses that analyze the full program. They are dem
 > B: The analysis is defined for a pure functional language and cannot handle imperative constructs, which limits its applicability.
 
 It is true that the presented analysis does not handle imperative constructs, and this is future work we intend to pursue. However, the presented analysis can still be deployed in programs with imperative constructs. It will produce sound results for flows that don’t experience imperative update and soundly detect when flows do, and alert appropriately. We will make sure this aspect of the analysis is clear in the paper.
+I've added this to the Evaluation section. It probably could use a few more looks.
 
-> B: L55 says "can reuse the result in any flow which contains the segment." L91 says "offers information to the analysis client regarding which aspects of the context are relevant to a particular analysis question, which the client can use ...." Where are these advantages discussed in the technical sections?
-
-These advantages come along with the memoized fixpoint of ADI, and its resulting cache. We will make this more clear.
-
-> B: L110: Consider defining f's body to be something other than x (e.g., x+1). This distinction can help the reader differentiate between the use of x as the parameter of f and its use as its body.
+> B: L110: Consider defining f's body to be something other than x (e.g., x+1). This distinction can help the reader differentiate between the use of x as the parameter of f and its use as its body. 
 
 This is a good point; we will change the example accordingly.
-
-> B: L190: Should not q_3 have the same indentation as q_1?
-
-Yes, thank you; we will fix this.
+THIS DOES NOT WORK WELL WITH THE FLOW / SPACE, maybe we should use superscripts for the intuition section
 
 > B: L199: How does q_4 propagate information to q_3? These queries consider different calling contexts.
-
-Yes, thank you; we will fix this.
-
-> B: L267: Rule FIND_BODY: The transitions in the premise and the conclusions are the same. Is this correct?
-
-It is not correct; we will fix the conclusion and remove the inner nested context.
+FIXED, and reworded, because the old version was really confusing.
 
 > B: L419: Please explain how the use of distinct indeterminate contexts (e.g., ?_x) benefits the analysis.
 
@@ -55,20 +44,16 @@ the rules would cause all queries with <?> to be refined by <call_1> even for th
 In other words the evaluation of the body of `z` would be run in the environment of <call_1> even though that is not statically possible, and would not be attempted when
 using <?_y> and <?_z>. This is a clear win in terms of precision and performance, and does not distinguish more contexts than necessary (i.e. does not increase the number of distinguished abstract values), due to the fact that the indeterminate variables in closure environments can be uniquely derived from their lambda.
 
+I added a few things to the discussion on designing indeterminate environments and instantiating contexts.
+
+
 > C: I found figures 9 and 10 almost impossible to read.
 
 We will improve the presentation of figures 9 and 10. In particular, we will make the unit of the x-axis more clear (the amount of gas the analysis is given: see section 8.2) and to what set of queries each statistic corresponds.
 
 > - C: Please state the forms of all the judgments.  For example, does ⇒exp  in Fig. 1 take two expressions, two contexts and two expressions, one context and two expressions?  What does ⇒find do? It takes a variable and an expression and returns a context?
 
-We will do this. All relations in 0-CFA both take and return a cursor or zipper structure (which includes the focused expression and context). The find and bind relations additionally take a variable to search for. 
-In some parts of the rules we show the parent context as well to match against it and allow for ascent to the parent expression, but the innermost context is where the cursor is at.
-
-> C: I cannot parse the rules FIND-RATOR, FIND-RAND, FIND-BODY (and I also don't understand their necessity given FIND-REF).
-
-We will clearly discuss each rule and the overall purpose of the `find` relation, which in essence descends down the syntactic context, finding (via FIND-REF) unshadowed references to a variable.
-
-
+Is this needed with the new highlighting? Explicitly stating the forms takes up quite a bit of room, when all the judgements are almost identical.
 
 
 
