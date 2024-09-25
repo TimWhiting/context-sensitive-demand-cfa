@@ -1046,7 +1046,6 @@ From here, we bridge Demand $\infty$-CFA to a CBV semantics with a concrete form
 Our strategy is to show that the Demand $\infty$-CFA semantics is equivalent to Demand Evaluation which itself is sound with respect to a standard CBV semantics.
 Demand Evaluation environments, rather than being a sequence of contexts, are sequences of addresses.
 Like contexts, an address may denote an indeterminate context (i.e. call) which manifests as an address which is not mapped in the store.
-
 A store is a pair consisting of a map from addresses to calls and the next address to use;
 the initial store is $(\bot,0)$.
 
@@ -1087,7 +1086,7 @@ where
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
-Appendix~\ref{appendix:demand-evaluation} presents demand evaluation more formally and the proof of equivalence.
+Appendix~\ref{appendix:demand-soundness} presents Demand $\infty$-CFA and demand evaluation formally.
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -1412,6 +1411,7 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \appendix
 
 \section{Demand $m$-CFA Correctness}
+\label{appendix:demand-soundness}
 \subsection{Demand $\infty$-CFA and Demand Evaluation}
 
 @(require (prefix-in demand- "demand-evaluation.rkt"))
