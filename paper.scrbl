@@ -34,17 +34,17 @@
 
 \begin{abstract}
 By decoupling and decomposing control flows, 
-demand control-flow analysis (CFA) is able to resolve only those segments of flows determined necessary to resolve a given query.
+demand control-flow analysis (CFA) resolves only the flow segments determined necessary to resolve a given query.
 Thus, it presents a much more flexible interface and pricing model than typical CFA, 
 making many useful applications practical.
 At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
 Typical mechanisms for adding context sensitivity are not compatible with the demand setting because demand queries are issued at arbitrary program points without well-defined contexts.
-We overcome this challenge by designing a suitable context and environment representations to work well in partially determined or indeterminate contexts.
-We present a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA.
-We demonstrate that Demand $m$-CFA \begin{enumerate*} 
-\item resolves a large percent of queries quickly even when we increase context sensitivity and program size,
+We overcome this challenge by designing a suitable context and environment representation to work well in partially determined or indeterminate contexts.
+Next, we present a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA utilizing our design of contexts and environments.
+Finally, we demonstrate that Demand $m$-CFA \begin{enumerate*} 
+\item resolves a large percent of queries quickly even when increasing context sensitivity and program size,
 \item can resolve as many singleton value flows as a formulation of $m$-CFA with full environment precision, and
-\item can be implemented cheaply and integrated into interactive tools such as language servers.
+\item is cheap to implement and integrate into interactive tools such as language servers.
 \end{enumerate*}
 
 \keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
@@ -55,6 +55,13 @@ We demonstrate that Demand $m$-CFA \begin{enumerate*}
 
 \section{Getting into the Flow}
 Conventional control-flow analysis is tactless --- unthinking and inconsiderate.
+To illustrate, consider the program fragment below
+which defines a recursive \texttt{fold} function.
+As the function iterates, it updates the index \texttt{n} and accumulator \texttt{a} using the functions \texttt{f} and \texttt{g} respectively. 
+The values of \texttt{f} and \texttt{g} flow in parallel within fold, each
+(1)~being bound in the initial call,
+(2)~flowing to its corresponding parameter, and
+(3)~being directly called once per iteration.
 \begin{wrapfigure}[7]{r}{0.55\textwidth}
 \vspace{-2.75em}
 \begin{verbatim}
@@ -66,21 +73,13 @@ Conventional control-flow analysis is tactless --- unthinking and inconsiderate.
   (fold sub1 h 42 1))
 \end{verbatim}
 \end{wrapfigure}
-To illustrate, consider the program fragment on the right 
-which defines the recursive \texttt{fold} function.
-As this function iterates, it evolves the index \texttt{n} using the function \texttt{f} and the accumulator \texttt{a} using the function \texttt{g}, all arguments 
-to \texttt{fold} itself. The values of \texttt{f} and \texttt{g} flow in parallel
-within the fold itself, each
-(1)~being bound in the initial call,
-(2)~flowing to its corresponding parameter, and
-(3)~being called directly once per iteration.
-But their flows don't completely overlap:
-\texttt{f}'s value's flow begins at \texttt{sub1} whereas \texttt{g}'s value's comes from a reference to \texttt{h}
-and
-\texttt{f}'s value's flow branches into the call to \texttt{g}.
+But the flows of \texttt{f} and \texttt{g} don't completely overlap:
+\texttt{f}'s value's flow begins at \texttt{sub1} and branches into the call to \texttt{g} 
+whereas \texttt{g}'s value's comes from a reference to \texttt{h} and only is applied within \texttt{fold}.
+
 
 Now consider a tool focused on the call \texttt{(f n)} and seeking the value of \texttt{f} in order to, say, expand \texttt{f} inline.
-Only the three flow segments identified above respective to \texttt{f} are needed to fully determine this value---and know that it is fully-determined.
+Only the flow segments identified above respective to \texttt{f} are needed to fully determine this value---and know that it is fully-determined.
 Yet conventional control-flow analysis (CFA) is \emph{exhaustive}, insistent on determining every segment of every flow, 
 starting from the program's entry point.\footnote{Exhaustive CFA can be made to work with program components where free variables are treated specially (e.g. using Shivers' escape technique@~cite["Ch. 3"]{dvanhorn:Shivers:1991:CFA}). 
 This special treatment does not change the fundamental \emph{exhaustive} nature of the analysis nor bridge the shortcomings we describe.}
@@ -89,8 +88,8 @@ To obtain \texttt{f}'s value with a conventional CFA, the user must be willing t
 
 Inspired by demand dataflow analysis@~cite{duesterwald1997practical}, a \emph{demand} CFA does not determine every segment of every flow 
 but only those segments which contribute to the values of specified program points.
-Moreover, because its segmentation of flows is explicit, it only need analyze each segment once and can reuse the result in any flow which contains the segment.
-In this example, a supporting demand CFA works backwards from the reference to \texttt{f} to determine its value, and considers only the three flow segments identified above to do so.
+Moreover, because its segmentation of flows is explicit, it only need analyze each segment once and can reuse the results in any flow which contains the segment.
+In the \texttt{fold} example, a supporting demand CFA works backwards from the reference to \texttt{f} to determine its value, and considers only the three flow segments identified above to do so.
 
 The interface and pricing model demand CFA offers make many useful applications practical.
 @citet{horwitz1995demand} identify several ways this practicality is realized:
@@ -99,7 +98,7 @@ The interface and pricing model demand CFA offers make many useful applications 
 \item One can analyze more often, and interleave analysis with other tools. For example, 
 a demand analysis does not need to worry about optimizing transformations invalidating analysis results since one can simply re-analyze the transformed points.
 \item One can let a user drive the analysis, even interactively, to enhance, e.g., an IDE experience.
-We have implemented our context-sensitive demand CFA in Visual Studio Code for the Koka language@~cite{koka2019}.
+We have implemented our context-sensitive demand CFA in Visual Studio Code for a subset of the Koka language@~cite{koka2019}.
 \end{enumerate}
 
 \subsection{Adding Context Sensitivity to Demand CFA}
@@ -1044,93 +1043,12 @@ The proof proceeds directly (if laboriously) by induction on the derivations of 
 
 To show that Demand $m$-CFA is sound with respect to a standard call-by-value (CBV) semantics, we consider the limit of the hierarchy, Demand $\infty$-CFA, in which context lengths are unbounded.
 From here, we bridge Demand $\infty$-CFA to a CBV semantics with a concrete form of demand analysis called \emph{Demand Evaluation}.
-Our strategy will be to show that the Demand $\infty$-CFA semantics is equivalent to Demand Evaluation which itself is sound with respect to a standard CBV semantics.
-
-Demand Evaluation is defined in terms of relations @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name| which are counterpart to @|mcfa-eval-name|, @|mcfa-expr-name|, and @|mcfa-call-name|, respectively.
-Like their counterparts, @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name| relate configurations to configurations.
-However, a Demand Evaluation configuration includes a store @(demand-σ) from addresses $n$ to calls consisting of a call site and its environment.
+Our strategy is to show that the Demand $\infty$-CFA semantics is equivalent to Demand Evaluation which itself is sound with respect to a standard CBV semantics.
 Demand Evaluation environments, rather than being a sequence of contexts, are sequences of addresses.
 Like contexts, an address may denote an indeterminate context (i.e. call) which manifests as an address which is not mapped in the store.
-Formally, the components of stores and environments are defined
-\begin{align*}
-(s,n), @(demand-σ) \in \mathit{Store}   &= (\mathit{Addr} \rightarrow \mathit{Call}) \times \mathit{Addr} &
-@(demand-ρ) \in \mathit{Env}     &= \mathit{Addr}^{*} \\
-@(demand-cc) \in \mathit{Call} &= \mathit{App} \times \mathit{Env} &
-n \in \mathit{Addr}              &= \mathbb{N}
-\end{align*}
+
 A store is a pair consisting of a map from addresses to calls and the next address to use;
 the initial store is $(\bot,0)$.
-
-Appendix~\ref{appendix:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
-
-Most rules are unchanged from Demand $m$-CFA modulo the addition of stores.
-Instantiation in Demand Evaluation is captured by creating a mapping in the store.
-For instance, Demand $m$-CFA's @clause-label{App} rule ``discovers'' the caller of the entered call, which effects an instantiation via @clause-label{App-Body-Instantiation}.
-In contrast, Demand Evaluation's @clause-label{App} rule allocates a fresh address $n$ using @|demand-fresh-name|, maps it to the caller in the store, and extends the environment of the body with it.
-The @|demand-fresh-name| metafunction extracts the unused address and returns a store with the next one.
-Store extension is simply lifted over the next unused address.
-Formally, they are defined as follows.
-\begin{align*}
-@|demand-fresh-name|((s,n)) := (n,(s,n+1)) & & (s,n)[n_0 \mapsto @(demand-cc)] := (s[n_0 \mapsto @(demand-cc)],n)
-\end{align*}
-@clause-label{Unknown-Call} applies when the address $n$ is unmapped in the store.
-It instantiates the environment by mapping $n$ with the discovered caller.
-@clause-label{Known-Call} uses @|demand-≡σ-name| to ensure that the known and discovered environments are isomorphic in the store.
-The @|demand-≡σ-name| relation is defined on addresses and lifted elementwise to environments.
-We have
-@(demand-≡σ (demand-σ) "n_0" "n_1")
-if and only if
-$\sigma(n_0) = \bot = \sigma(n_1)$
-or
-$\sigma(n_0)=(@(cursor (app (e 0) (e 1)) (∘e)),@(demand-ρ 0))$,
-$\sigma(n_1)=(@(cursor (app (e 0) (e 1)) (∘e)),@(demand-ρ 1))$, and
-@(demand-≡σ (demand-σ) (demand-ρ 0) (demand-ρ 1)).
-If the environments are isomorphic, then all instances of the known environment are substituted with the discovered environment in the store, ensuring that queries in terms of the known are kept up to date.
-This rule corresponds directly to the instantiation relation of Demand $m$-CFA.
-
-\subsection{Demand Evaluation Equivalence}
-
-
-In order to show a correspondence between Demand $\infty$-CFA and Demand Evaluation,
-we establish a correspondence between the environments of the former and the environment--store pairs of the latter, captured by the judgement @combined-parse-judgement{ρ ⇓ ρ σ} defined by the following rules.
-\begin{mathpar}
-\inferrule
-{ @combined-parse-judgement{cc-1 F n-1 σ} \\
-  \dots \\
-  @combined-parse-judgement{cc-k F n-k σ}
-  }
-{ @combined-parse-judgement{ρ-is ⇓ ρ-is σ}
-  }
-
-
-\inferrule
-{ }
-{ @combined-parse-judgement{() R () σ}
-  }
-
-\inferrule
-{ @combined-parse-judgement{app::cc F n σ}
-  }
-{ @combined-parse-judgement{app::cc R n::ρ σ}
-  }
-
-\inferrule
-{ @combined-parse-judgement{σ(n) = ⊥}
-  }
-{ @combined-parse-judgement{? F n σ}
-  }
-
-\inferrule
-{ @combined-parse-judgement{σ(n) = (app,ρ)} \\
-  @combined-parse-judgement{cc R ρ σ}
-  }
-{ @combined-parse-judgement{app::cc F n σ}
-  }
-
-\end{mathpar}
-This judgement ensures that each context in the Demand $\infty$-CFA environment matches precisely with the corresponding address with respect to the store:
-if the context is indeterminate, the address must not be mapped in the store;
-otherwise, if the heads of the context are the same, the relation recurs.
 
 Now it is straightforward to express the equivalence between the Demand $\infty$-CFA relations and Demand Evaluation.
 
@@ -1139,7 +1057,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
@@ -1150,7 +1068,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
@@ -1161,7 +1079,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
@@ -1169,40 +1087,44 @@ where
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
+Appendix~\ref{appendix:demand-evaluation} presents demand evaluation more formally and the proof of equivalence.
+
 \section{Evaluation}
 \label{sec:evaluation}
 
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, \texttt{letrec} binding forms,
 mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters.
 
+We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}(ADI) to implement $m$-CFA and Demand $m$-CFA analyses for the Pure Scheme language.
+
+The results of the analysis are obtained through ADI's memoized fixpoint cache. 
+This cache gives control flow results for each segment of control flow independently keyed by the query / subquery.
+Additionally the cache also has a key for each environment which maps to each discovered environment instantiation relevant to the top level query.
+
 We evaluate Demand $m$-CFA with respect to the following questions:
 \begin{enumerate}
 \item How does the implementation cost compare to a typical CFA?
-\item What is the distribution of required analysis effort to resolve queries?
+\item What is the distribution of analysis effort to resolve queries?
 \item How does the precision compare to a typical CFA?
 \end{enumerate}
 To answer performance questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
 used by @citet{johnson:earl:dvanhorn:PushdownGarbage}, which is standard within the literature.
 
-
-\subsection{Implementation cost}
-We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting} to implement $m$-CFA and Demand $m$-CFA analyses for the Pure Scheme language.
+\subsection{Implementation Cost}
 The amount of code needed to implement each analysis is on the same order of magnitude.
-Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, without counting the supporting functions shared between the two.
-Demand $m$-CFA requires additional lines of code due to the fact that in addition to evaluation, it also traces the flow of values.
+Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, omitting the supporting functions shared between the two.
+Demand $m$-CFA requires additional lines of code partly due to the fact that in addition to evaluation, it also traces the flow of values.
+
+Our implementation for Koka is around 652 lines of Haskell code for the core analysis,
+with an additional 2364 lines of supporting code for primitives, the fixpoint ADI framework, 
+and mapping the core syntax to more user friendly syntax for showing results.
 
 We also implemented Demand $m$-CFA for the Koka language compiler and language server to provide analyzer interaction within the editor (e.g. providing control flow information on hover).
-Many queries resolve at interactive latencies, providing the user with near-real-time control flow information.
-We did not implement a corresponding exhaustive analysis for Koka which would require whole program transformations and many more primitives.
+For the subset of programs we support in Koka, many queries resolve at interactive latencies, providing the user with near-real-time control flow information.
+However, we did not implement a corresponding exhaustive analysis for Koka which would require whole program transformations, many more primitives, and supporting more language features.
 
-Our implementation for Koka is about 652 lines of Haskell code for the core analysis,
-with an additional 2364 lines of supporting code for primitives, the fixpoint ADI framework, 
-and mapping the core syntax to the user syntax for showing results.
-%The queries respond interactively when hovering over an identifier in VSCode.
-
-Our experience is that integrating Demand $m$-CFA into a compiler or language server is in some cases \emph{more} tractable than an exhaustive analysis, since not all language features or primitives need to be implemented to get at least some utility.
-@;{and integrating it into a compiler is straightforward, 
-and that implementation costs are minimal and non-intrusive.}
+Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a compiler or language server is at least in some cases \emph{more} tractable than an exhaustive analysis, 
+since not all language features or primitives need to be supported before getting useful and actionable results.
 
 \subsection{Query complexity distribution}
 Like an exhaustive analysis, a demand analysis is subject to client-imposed resource constraints.
@@ -1490,60 +1412,6 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \appendix
 
 \section{Demand $m$-CFA Correctness}
-\label{sec:demand-mcfa-correctness}
-
-Demand $m$-CFA is a hierarchy of demand CFA.
-Instances higher in the hierarchy naturally have larger state spaces.
-The size $|@|mcfa-eval-name||$ of the @|mcfa-eval-name| relation satisfies the inequality
-\[
-|@|mcfa-eval-name|| \le |\mathit{Config} \times \mathit{Config}| = |\mathit{Config}|^{2} = |\mathit{Exp} \times \mathit{Env}|^{2} = |\mathit{Exp}|^{2}|\mathit{Env}|^{2} = n^2|\mathit{Env}|^{2}
-\]
-where $n$ is the size of the program.
-We then have
-\[
-|\mathit{Env}| \le |\mathit{Ctx}|^{n} \le (|\mathit{Call}|+1)^{mn} \le n^{mn}
-\]
-since the size of environments is statically bound and may be indeterminate.
-Thus, $|@|mcfa-eval-name|| \le n^{mn+2}$;
-the state space of @|mcfa-eval-name| is finite but with an exponential bound;
-the state spaces of @|mcfa-expr-name| and @|mcfa-call-name| behave similarly.
-
-\subsection{Demand $m$-CFA Refinement}
-
-Instances higher in the hierarchy are also more precise, which we formally express with the following theorems.
-\begin{theorem}[Evaluation Refinement]
-If
-@mcfa-parse-judgement{C[e] ρ₀ ⇓m+1 Cv[λx.e-v] ρ₀'}
-where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
-then
-@mcfa-parse-judgement{C[e] ρ₁ ⇓ Cv[λx.e-v] ρ₁'}
-where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
-\end{theorem}
-\begin{theorem}[Trace Refinement]
-If
-@mcfa-parse-judgement{C[e] ρ₀ ⇒m+1 C'[(e₀ e₁)] ρ₀'}
-where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
-then
-@mcfa-parse-judgement{C[e] ρ₁ ⇒ C'[(e₀ e₁)] ρ₁'}
-where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
-\end{theorem}
-\begin{theorem}[Caller Refinement]
-If
-@mcfa-parse-judgement{C[e] ρ₀ ⇐m+1 C'[(e₀ e₁)] ρ₀'}
-where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
-then
-@mcfa-parse-judgement{C[e] ρ₁ ⇐ C'[(e₀ e₁)] ρ₁'}
-where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
-\end{theorem}
-These theorems state that refining configurations submitted to Demand $m$-CFA and its successor Demand $m$+1-CFA yield refining configurations.
-The proof proceeds directly (if laboriously) by induction on the derivations of the relations.
-
 \subsection{Demand $\infty$-CFA and Demand Evaluation}
 
 @(require (prefix-in demand- "demand-evaluation.rkt"))
@@ -1650,7 +1518,7 @@ It instantiates the environment by mapping $n$ with the discovered caller.
 The @|demand-≡σ-name| relation is defined on addresses and lifted elementwise to environments.
 We have
 @(demand-≡σ (demand-σ) "n_0" "n_1")
-if and only if
+iff\,
 $\sigma(n_0) = \bot = \sigma(n_1)$
 or
 $\sigma(n_0)=(@(cursor (app (e 0) (e 1)) (∘e)),@(demand-ρ 0))$,
@@ -1711,7 +1579,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
@@ -1722,7 +1590,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
@@ -1733,7 +1601,7 @@ If
 @combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
 then
 @mcfa-parse-judgement{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
-if and only if
+iff\,
 @demand-parse-judgement{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
 where
 @combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
