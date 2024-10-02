@@ -1210,12 +1210,10 @@ Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depe
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The percent of queries answered (y-axis) given the gas allocated (x-axis) to Demand $m$-CFA per query.
-Each figure has a line for each setting of $m$.
-Many trivial queries ($40\%$-$60\%$) are answered given very little effort.
-In order to answer more queries sometimes it is enough to give the analysis more gas, 
-while larger examples like scheme2java and regex require more context sensitivity 
-to appropriately distinguish unrelated flows to avoid exploring the full control flow graph.
+\caption{The percent of queries answered (y-axis) given the per-query gas allocated to Demand $m$-CFA (x-axis).
+Many trivial queries ($40\%$-$60\%$) are answered given very little effort, as seen by the immediate jump.
+Some additional queries are answered with more effort, but some non-trivial queries are answered with less effort by increasing the context sensitivity parameter $m$ (as seen in the larger \texttt{regex} and \texttt{scheme2java} example programs).
+Increasing context sensitivity thus helps the analysis distinguish context-irrelevant flows and avoid spending gas on unrelated parts of the program.
 }
 \label{fig:dmcfa-scalability}
 \end{figure}
@@ -1285,7 +1283,9 @@ Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singlet
 \includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
 \end{subfigure}
 \caption{
-The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated (x-axis).
+  XXX Fix this, after investigation of KCFA-3 and decreasing results for larger context sensitivity in exhaustive analysis. Also consider using percentage of corresponding level of $m$-CFA rather than horizontal lines (which are confusing).
+  Also consider choosing some of the more interesting benchmarks, and moving the rest to an appendix.
+The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated per query (x-axis).
 Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout.
 \texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
 }

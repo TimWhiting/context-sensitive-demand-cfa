@@ -83,7 +83,7 @@
 
   (for ([m (in-range 2 3)])
     (current-m m)
-    (for ([example (get-examples '(sat-small))])
+    (for ([example (get-examples '(kcfa-2))])
       (match-let ([`(example ,name ,exp) example])
         (define exp-hash (run-expm name exp m))
         (define out '())
