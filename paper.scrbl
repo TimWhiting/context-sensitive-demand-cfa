@@ -1166,12 +1166,12 @@ Since its cost framework provides a different utility model
 it is important to evaluate how well it resolves queries given a limited amount of effort.
 
 Utilizing ADI's fixpoint
-we added an effort parameter we call gas, which at each (mutually) recursive call gets reduced by one. 
+we added an effort parameter (gas), which at each (mutually) recursive call gets reduced by one. 
 When the gas runs out the analysis returns from the fixpoint computation by reporting an error.
 In the language server for Koka we still report the normal hover info (type information / documentation)
 when additional semantic precision is not obtainable due to lack of supporting primitives or running out of gas.
 }
-Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depending on the gas allotted.
+Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depending on the effort allotted.
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_legendx.png}
@@ -1209,7 +1209,7 @@ Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depe
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_scheme2java.pdf}
 \end{subfigure}
-\caption{The percent of queries answered (y-axis) given the effort allocated (x-axis) to Demand $m$-CFA per query.
+\caption{The percent of queries answered (y-axis) given the gas allocated (x-axis) to Demand $m$-CFA per query.
 Each figure has a line for each setting of $m$.
 Many trivial queries ($40\%$-$60\%$) are answered given very little effort.
 In order to answer more queries sometimes it is enough to give the analysis more gas, 
@@ -1284,8 +1284,8 @@ Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singlet
 \includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
 \end{subfigure}
 \caption{
-The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given limited effort (x-axis).
-Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout, regardless of effort.
+The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated (x-axis).
+Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout.
 \texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
 }
 \label{fig:dmcfa-answers}
