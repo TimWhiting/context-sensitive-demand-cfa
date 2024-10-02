@@ -551,8 +551,8 @@ A natural fit, it turns out, is $m$-CFA's call-site sensitivity which models the
 \subsubsection{$m$-CFA's context abstraction}
 
 The $m$-CFA hierarchy@~cite{dvanhorn:Might2010Resolving} is the result of an investigation into the polynomial character of $k$-CFA in an object-oriented setting versus its exponential character in a functional setting.
-The crucial discovery of that investigation was that OO-oriented $k$-CFA induces flat environments whereas functional-oriented $k$-CFA induces nested environments.
-Specifically, OO-oriented $k$-CFA re-binds object (closure) variables in the allocation context which collapses the exponential environment space to a polynomial size.
+The crucial discovery of that investigation was that object-oriented (OO) $k$-CFA induces flat environments whereas functional-oriented $k$-CFA induces nested environments.
+Specifically, OO $k$-CFA re-binds object (closure) variables in the allocation context which collapses the exponential environment space to a polynomial size.
 From this insight they derive $m$-CFA, which simulates the OO binding discipline even when analyzing functional programs;
 that is, when applied, $m$-CFA binds a closure's arguments and rebinds its environment's bindings all in the binding context of the application.
 Under this policy, within a given environment, all bindings are in the same context and, consequently, the analysis can represent that environment simply as that binding context.
@@ -572,6 +572,7 @@ Hence, when control reaches \texttt{(g x)} in $[m=2]$-CFA analysis, the binding 
 
 Because we're using $m$-CFA's top-$m$-stack-frames context abstraction, we call our context-sensitive demand CFA \emph{Demand $m$-CFA}.
 It is important to keep in mind, however, that we do \emph{not} adopt its re-binding policy. @;, which is the essence of $m$-CFA.
+This is due to the fact that re-binding is defined in terms of a central store, which demand CFA does not explicitly model. 
 
 \subsection{Challenge 2: Representing (Indeterminate) Contexts}
 
@@ -1409,6 +1410,7 @@ To address this limitation, we intend to develop a general operational framework
 We also intend to
 \begin{enumerate*}
 \item investigate the tradeoff between precision and the non-detection of dead code within the analysis (occurring during binding resolution);
+\item determine whether $m$-CFA's re-binding policy could be adopted to a demand setting, and whether demand $m$-CFA could benefit from it.
 @;\item develop theories for language features including mutation, exceptions, and continuations,
 \item determine how to reuse fixpoint caches between queries while keeping environments as indeterminate as possible to create an incremental analysis@~cite{stein_demanded_2021,vanDerPlas:incremental},
 \item consider how selective context sensitivity@~cite{li2020principled} could be realized given the indeterminate environments of our approach

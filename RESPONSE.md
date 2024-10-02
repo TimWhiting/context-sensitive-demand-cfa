@@ -6,10 +6,23 @@ Dear authors,
 
 We invite you to revise your paper and resubmit it by October 10th. The revised version will be re-reviewed by the same reviewers and either accepted or rejected.  In the revised version, we ask you to:
 
-- Format your paper as 25 LNCS pages, since this is the format for the camera-ready version. (Done though we need to maybe add more to the appendix)
-- Improve the framing of the challenge presented and the specific choices made to overcome it. (Done?)
-- Clearly and correctly state the forms of the judgments and functions (e.g., bind). In particular, in places where a cursor/zipper data structure is used, the formal model should have a pair of a context and an expression. While you may use the syntax $C[e]$ to represent such pairs, we note that it is ambiguous because $C[C'[e]]$ could either mean $(C[C'], e)$ or $(C, C'[e])$.  We therefore suggest (but not require) that you use different syntax. (Done as far as highlighting goes, but the forms of the judgements are not always stated, and we need to make sure it includes the consideration of contexts).
-- Address all other reviewer comments. (WIP: See below)
+- Format your paper as 25 LNCS pages, since this is the format for the camera-ready version.
+DONE: though we need to maybe add more to the appendix, and clean up the presentation of the appendix?
+
+- Improve the framing of the challenge presented and the specific choices made to overcome it.
+DONE: ? We framed it. It was mostly already there, but signposts are more clear now
+
+- Clearly and correctly state the forms of the judgments and functions (e.g., bind). In particular, in places where a cursor/zipper data structure is used, the formal model should have a pair of a context and an expression. While you may use the syntax $C[e]$ to represent such pairs, we note that it is ambiguous because $C[C'[e]]$ could either mean $(C[C'], e)$ or $(C, C'[e])$.  We therefore suggest (but not require) that you use different syntax.
+DONE: as far as highlighting goes, but the forms of the judgements are not always stated, and we need to make sure it includes the consideration of contexts
+
+- Address all other reviewer comments.
+
+WIP: See below
+
+-------
+
+TIM ADDITIONAL NOTES:
+Should we have a specific name for Exhasutive Exponential $m$-CFA (i.e. EE-$m$-CFA)? We repeat it quite a few times in the result section, and occasionally drop the expoential bit when we shouldn't.
 
 -------
 
@@ -34,7 +47,7 @@ We have addressed the other technical comments and questions individually below:
 
 m-CFA includes a variable rebinding step at each function application which is necessary to achieve flat environments giving it its polynomial complexity. Variable rebinding is defined in terms of a central store which demand CFA does not explicitly model. We see interesting future work in determining whether demand m-CFA would benefit from decreased complexity and whether the m-CFA tactic to achieve it is possible to apply.
 
-FIXME: Do we integrate something here in the introduction, discussion on m-CFA or future work?
+FIXED: Added to $m$-CFA discussion, and conclusion the reasons why rebinding is difficult and future work. However, I don't talk about why we start from Demand 0CFA and not $m$-CFA.
 
 > A: The related work list some other « demand-driven » approaches like [Midtgaard and Jensen 2008] and Biswas [1997]. Could explain again what is their definition of demand-driven and why yours is different. I did not find this part completely clear.
 
@@ -46,7 +59,7 @@ FIXED: Added a few more emphases, and a few small parentheticals.
 
 It is true that the presented analysis does not handle imperative constructs, and this is future work we intend to pursue. However, the presented analysis can still be deployed in programs with imperative constructs. It will produce sound results for flows that don’t experience imperative update and soundly detect when flows do, and alert appropriately. We will make sure this aspect of the analysis is clear in the paper.
 
-FIXME: I've added this to the Evaluation section. It probably could use another read through and slight adjustments.
+FIXED: I've added this to the Evaluation section. It probably could use another read through and slight adjustments.
 
 > B: L110: Consider defining f's body to be something other than x (e.g., x+1). This distinction can help the reader differentiate between the use of x as the parameter of f and its use as its body. 
 
@@ -74,7 +87,7 @@ FIXED: I added a few things to the discussion on designing indeterminate environ
 
 We will improve the presentation of figures 9 and 10. In particular, we will make the unit of the x-axis more clear (the amount of gas the analysis is given: see section 8.2) and to what set of queries each statistic corresponds.
 
-FIXED: I added in the captions explicit references to what each axis measures. 
+FIXED: I added in the captions explicit references to what each axis measures. We probably need more work to make the figures more readable and understandable.
 
 > - C: Please state the forms of all the judgments.  For example, does ⇒exp  in Fig. 1 take two expressions, two contexts and two expressions, one context and two expressions?  What does ⇒find do? It takes a variable and an expression and returns a context?
 
