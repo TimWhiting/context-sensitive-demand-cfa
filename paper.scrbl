@@ -1324,18 +1324,10 @@ The original inspiration for demand CFA is demand dataflow analysis@~cite{horwit
 Demand CFA refers to a class of algorithms with those same characteristics which operate in the presence of first-class functions.
 This work extends Demand 0CFA@~cite{germane2019demand}, currently the sole embodiment of demand CFA, with context sensitivity using a context abstraction similar to that of $m$-CFA@~cite{dvanhorn:Might2010Resolving}.
 
-The most-closely related work is that of @citet{schoepe2023lifting} which utilizes first-order solvers to construct call graphs on demand to effect higher-order analysis.
+The most-closely related work is that of @citet{schoepe2023lifting} which utilizes first-order forward and backward analyses to construct call graphs on demand to compose a higher-order analysis.
 Although it treats control with context sensitivity, it does not model or track the environment structure of higher-order objects.
 Our work has a similar goal---to achieve demand-driven analysis of higher-order programs---but it has sought to provide a concise analysis which models both the control and environment structure of evaluation with equal facility.
 
-@;{
-Most closely related is the technique developed in Lifting On-Demand Analysis to Higher-Order Languages.
-The approach developed meets all of our criteria above, including context sensitivity, 
-but relegates the context sensitivity to the underlying analyses, 
-and requires multiple demand-driven analyses for the language in question. 
-Our work differs in two major ways: first, it does not require the existence of pre-existing first-order demand-driven forward and backwards analyses, 
-and second, it directly addresses context sensitivity of variables bound in higher order and nested lexical closure environments.
-}
 
 DDPA@~cite{palmer2016higher} is nominally a context-sensitive, demand-driven analysis for higher-order programs.
 However, before resolving any on-demand queries, DDPA must bootstrap a global control-flow graph to support them.
@@ -1344,10 +1336,10 @@ DDPA does not provide the pricing model expected of a demand analysis.
 @;and does not make the kinds of applications targeted by demand analysis practical.
 
 Several other ``demand-driven'' analyses exist for functional programs.
-@citet{midtgaard2008calculational} present a ``demand-driven 0-CFA'' derived via a calculational approach which analyzes only those parts of the program on which the program's result depends.
-@citet{biswas1997demand} presents a demand analysis that takes a similar approach to ``demand-driven 0-CFA'' to analyze first-order functional programs.
-These analyses are certainly ``demand-driven'' in the sense the authors intend, but not in the sense that we use it, as a descriptor for generic demand CFA.
-Demand CFA can be considered a loose extension in spirit which analyzes only those parts of a \emph{higher-order} functional program on which \emph{a selected expression}'s result depends.
+@citet{midtgaard2008calculational} present a ``demand-driven 0-CFA'' derived via a calculational approach which analyzes only those parts of the program on which the \emph{program}'s result depends.
+@citet{biswas1997demand} presents a demand analysis that takes a similar approach to ``demand-driven 0-CFA'' to analyze \emph{first-order} functional programs.
+These analyses are certainly ``demand-driven'' in the sense the authors intend (demanded by the full program), but not in the sense that we use it, as a descriptor for generic demand CFA.
+Our Demand CFA can be considered a loose extension in spirit which analyzes only those parts of a \emph{higher-order} functional program on which \emph{a selected expression}'s result depends.
 
 @citet{nicolay_effect-driven_2019} produce a flow analysis where new information is propagated between interprocedural and intraprocedural parts of the program via the store.
 As such they incrementally build a reactive control flow graph on demand. 

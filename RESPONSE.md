@@ -40,7 +40,7 @@ FIXME: Do we integrate something here in the introduction, discussion on m-CFA o
 
 Both of these works present analyses that analyze the full program. They are demand-driven in the sense that they only analyze program points if they are demanded by other program points, working backwards to discover dependencies required by the end result of the program. Ours on the other hand is demand driven in the sense that it embodies a combination of backwards and forwards flow analysis. This approach is needed to start at arbitrary program points (i.e. for queries from an IDE), and allows for finer grained partial program analysis.
 
-FIXME: Need to re-address this, and improve the presentation in related work.
+FIXED: Added a few more emphases, and a few small parentheticals.
 
 > B: The analysis is defined for a pure functional language and cannot handle imperative constructs, which limits its applicability.
 
