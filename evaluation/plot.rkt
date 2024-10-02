@@ -133,6 +133,13 @@
   results
   )
 
+(define (get-singletons-gas-increase-percent lines exhaustive [instant #f])
+  (define results (map (lambda (g) (list g (/ (* 100 (count (num-singletons instant) (filter (filter-gas g) lines))) 
+                                              (get-mcfa-num-singletons exhaustive instant)))) gases))
+  ; (pretty-print results)
+  results
+  )
+
 (define (get-mcfa-num-singletons lines [instant #f])
   (define results ((num-singletons instant) (car lines)))
   ; (pretty-print results)
@@ -268,6 +275,84 @@
   )
 )
 
+(define (plot-important-old p hashes out)
+  (plot
+   (apply
+    append
+    (map
+     (lambda (m h)
+       (list
+        (lines
+          (reverse (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e"))))) gases))
+          #:color m
+          #:style 'long-dash
+          #:label (format "m=~a m-CFA" m)
+          )
+        (lines
+         (reverse (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
+         #:color m
+         #:label (format "m=~a Demand m-CFA" m)
+         )
+        ))
+     (range (length hashes)) hashes
+     ))
+   #:x-label #f
+   #:y-label #f
+   #:aspect-ratio 1
+   #:y-min 0
+   #:y-max (* 1.1 (apply
+                   max
+                   (apply
+                    append
+                    (map
+                     (lambda (h)
+                       (cons
+                        (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e")))
+                        (map cadr (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b"))))
+                        ))
+                     hashes))))
+   #:width plot-width
+   #:height plot-height
+   #:title (symbol->string p)
+   #:legend-anchor 'no-legend
+   #:out-file (format "plots/important-queries-answered_~a.~a" p out)
+
+   )
+
+  (parameterize ([plot-x-ticks no-ticks]
+                  [plot-y-ticks no-ticks])
+    (plot
+    (apply append 
+      (map (lambda (m) 
+        (list 
+          (lines 
+            (list (list 0 0))
+            #:label (format "m=~a Demand" m)
+            #:color m
+          )
+          (lines 
+            (list (list 0 0))
+            #:style 'long-dash
+            #:label (format "m=~a m-CFA" m)
+            #:color m
+          )
+        )) 
+      (range (length hashes))))
+    #:x-label #f
+    #:y-label #f
+    #:width (+ 50 plot-width)
+    #:height (+ 50 plot-height)
+    #:y-min 0
+    #:y-max 100
+    #:x-min (apply min gases)
+    #:x-max (apply max gases)
+    #:title "legend"
+    #:legend-anchor 'outside-global-top
+    #:aspect-ratio 1
+    #:out-file (format "plots/important-queries-answered_legend.~a" out)
+    )
+  )
+)
 (define (plot-important p hashes out)
   (plot
    (apply
@@ -276,12 +361,12 @@
      (lambda (m h)
        (list
         (lines
-         (get-singletons-gas-increase (find-prog p (hash-ref h "dmcfa-b")))
+         (get-singletons-gas-increase-percent (find-prog p (hash-ref h "dmcfa-b")) (find-prog p (hash-ref h "mcfa-e")))
          #:color m
          #:label (format "m=~a Demand m-CFA" m)
          )
 
-        (lines
+        #;(lines
          (map (lambda (g) (list g (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e"))))) gases)
          #:color m
          #:style 'long-dash
@@ -294,7 +379,7 @@
    #:y-label #f
    #:aspect-ratio 1
    #:y-min 0
-   #:y-max (* 1.1 (apply
+   #:y-max 101 #;(* 1.1 (apply
                    max
                    (apply
                     append
@@ -379,13 +464,13 @@
        (if (equal? i 0)
            (begin
              (plot-total-queries p hashes out)
-             (plot-important p hashes out)
+             (plot-important-old p hashes out)
              )
            (parameterize ()
              ;  ([plot-x-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)]
              ;   [plot-y-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)])
              (plot-total-queries p hashes out)
-             (plot-important p hashes out)
+             (plot-important-old p hashes out)
              )
            )
 
