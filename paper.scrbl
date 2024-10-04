@@ -1220,6 +1220,8 @@ We hypothesize that this paradox might be more useful in the demand context beca
 To measure the precision of Demand $m$-CFA, we focus on the singleton flow sets that it is able to identify.
 Singleton flow sets represent actionable flow information;
 for example, they enable compilers to proceed with constant propagation and procedure inlining.@;{
+Note that we include structurally identical constructors and integers also in singleton flow sets (which is why our numbers are higher than some other papers)
+
 Any flow result for a particular program point can help IDE users
 narrow down where bad values might flow into their program, 
 or start to understand a complex code base---even if the result is not entirely precise.
