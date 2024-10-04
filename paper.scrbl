@@ -1130,7 +1130,7 @@ Additionally the cache also has a key for each indeterminate environment which m
 We evaluate Demand $m$-CFA with respect to the following questions:
 \begin{enumerate}
 \item How does the implementation cost compare to a typical CFA?
-\item How does the changing $m$ and effort (gas available) affect the number of resolved queries?
+\item How does the changing $m$ and effort affect the number of resolved queries?
 \item How does the precision compare to exhaustive exponential $m$-CFA?
 \end{enumerate}
 To answer the last two questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
