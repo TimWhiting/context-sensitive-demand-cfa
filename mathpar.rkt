@@ -79,7 +79,7 @@
                                                            (make-k label (string-split antecedent-line "  "))))))))))))
 
 
-(define (mathpar parse-judgement . ss)
+(define (mathpar parse-judgment . ss)
   (list "\\begin{mathpar}\n"
         (add-between
          (map
@@ -88,10 +88,10 @@
              ;  (pretty-print `(label ,label antecedents ,antecedents consequent ,consequent))
              (list (list "\\inferrule" "[" label "]" "\n")
                    (list "{ ")
-                   (add-between (map parse-judgement antecedents) (list " " "\\\\" "\n"))
+                   (add-between (map parse-judgment antecedents) (list " " "\\\\" "\n"))
                    (list " }" "\n")
                    (list "{ ")
-                   (parse-judgement consequent)
+                   (parse-judgment consequent)
                    (list " }" "\n"))])
           (inference-rule* ss (λ (rules ss) (if (null? ss) rules (fail)))))
          (list "\n"))

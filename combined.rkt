@@ -80,7 +80,7 @@
     [(regexp #px"^(.*) (\\S+)$" (list _ Ce ρ))
      (list (parse-cursor Ce) (parse-ρ ρ))]))
 
-(define parse-judgement
+(define parse-judgment
   (match-lambda
     [(⇓ ρ ρ×σ)
      (spread envirostoreρρ (list (mcfa-parse-ρ ρ)) (parse-ρ×σ ρ×σ))]

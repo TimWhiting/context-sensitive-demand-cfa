@@ -34,18 +34,21 @@
 
 \begin{abstract}
 By decoupling and decomposing control flows, 
-demand control-flow analysis (CFA) resolves only the flow segments determined necessary to resolve a given query.
-Thus, it presents a much more flexible interface and pricing model than typical CFA, 
+demand control-flow analysis (CFA) resolves only the flow segments determined necessary to produce a specified control-flow fact.
+It therefore presents a more flexible interface and pricing model than typical CFA, 
 making many useful applications practical.
-At present, the only realization of demand CFA is demand 0CFA, which is context-insensitive.
-Typical mechanisms for adding context sensitivity are not compatible with the demand setting because demand queries are issued at arbitrary program points without well-defined contexts.
-We overcome this challenge by designing a suitable context and environment representation to work well in partially determined or indeterminate contexts.
-Next, we present a context-sensitive demand CFA hierarchy, Demand $m$-CFA, based on the top-$m$-stack-frames abstraction of $m$-CFA utilizing our design of contexts and environments.
-Finally, we demonstrate that Demand $m$-CFA \begin{enumerate*} 
-\item resolves a large percent of queries quickly even when increasing context sensitivity and program size,
-\item can resolve as many singleton value flows as a formulation of $m$-CFA with full environment precision, and
-\item is cheap to implement and integrate into interactive tools such as language servers.
-\end{enumerate*}
+At present, the only realization of demand CFA is the context-insensitive Demand 0CFA.
+Typical mechanisms for adding context sensitivity are not compatible with the demand setting because the analyzer is dispatched at arbitrary program points in indeterminate contexts.
+We overcome this challenge by identifying a context suitable for a demand analysis and designing a representation thereof that allows it to model incomplete knowledge of the context.
+On top of this design, we construct Demand $m$-CFA, a context-sensitive demand CFA hierarchy.
+With
+the attractive pricing model of demand analysis
+and
+the precision offered by context sensitivity,
+we show that Demand $m$-CFA can
+replace its exhaustive counterpart in compiler backends
+and
+integrate into interactive tools such as language servers.
 
 \keywords{Demand CFA, m-CFA, Context-Sensitivity, Control Flow Analysis}
 
@@ -348,23 +351,28 @@ For example, we use @(cursor (ref (var 'x)) (rat (ref (var 'x)) (∘e))) to focu
 \section{Demand 0CFA}
 \label{sec:demand-0cfa}
 @(require (prefix-in 0cfa- "demand-0cfa.rkt"))
-Demand 0CFA has two modes of operation, \emph{evaluation} and \emph{tracing}, which users access by submitting evaluation or trace queries, respectively.
-A query designates a program expression over which the query should be resolved.
-An evaluation query resolves the values to which the designated expression may evaluate and a trace query resolves the sites which may apply the value of the designated expression.
-These modes are essentially dual and reflect the dual perspective of exhaustive CFA as either
-(1) the @(lam (var 'x) (e)) which may be applied at a given site @(app (e 0) (e 1)), or
-(2) the @(app (e 0) (e 1)) at which a given @(lam (var 'x) (e)) may be applied. % [find citation].
-However, in contrast to exhaustive CFA, Demand 0CFA is designed to resolve evaluation queries over arbitrary program expressions.
-(It is also able to resolve trace queries over arbitrary program expressions, but exhaustive CFAs have no counterpart to this functionality.)
+Demand 0CFA has two modes of operation, \emph{evaluation} and \emph{tracing}, which users access by submitting evaluation and trace queries, respectively.
+An evaluation query resolves the values to which a designated expression may evaluate and a trace query resolves the sites which may apply the value of the designated expression.
+These modes are essentially dual and reflect the dual perspective of exhaustive CFA as an account of either
+(1) the $\lambda$ terms @(lam (var 'x) (e)) which may be applied at each application site @(app (e 0) (e 1)), or
+(2) the application sites @(app (e 0) (e 1)) at which each $\lambda$ term @(lam (var 'x) (e)) may be applied. % [find citation].
+However, in contrast to exhaustive CFA, Demand 0CFA resolves evaluation queries over individual expressions with a straightforward way to share work across the resolution of related queries.
+(It also resolves trace queries over individual expressions, but exhaustive CFAs have no counterpart to this functionality.)
+
 @(define var-domain "\\mathsf{Var}")
 @(define exp-domain "\\mathsf{Exp}")
+The evaluation and trace modes of operation are effected by the big-step relations
+$@|0cfa-eval-name|, @|0cfa-expr-name| \subseteq @|exp-domain| \times @|exp-domain|$, which are defined mutually inductively.
+These relations are respectively supported by the auxiliary metafunction $@|0cfa-bind-name| \in @|var-domain| \times @|exp-domain| \rightarrow @|exp-domain|$ and relation $@|0cfa-find-name| \subseteq @|var-domain| \times @|exp-domain| \times @|exp-domain|$, which connect references to bindings and vice versa.
+Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in terms of the relation $@|0cfa-call-name| \subseteq @|exp-domain| \times @|exp-domain|$, which we discuss below.
+Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 \begin{align*}
-@|exp-domain| @|0cfa-eval-name| @|exp-domain| \qquad @|exp-domain| @|0cfa-expr-name| @|exp-domain| \qquad @|exp-domain| @|0cfa-call-name| @|exp-domain| \\
-@|var-domain| \times @|exp-domain| @|0cfa-find-name| @|exp-domain| \qquad \quad @|0cfa-bind-name|(@|var-domain| \times @|exp-domain|) \Rightarrow @|exp-domain|
+@|0cfa-eval-name|, @|0cfa-expr-name|, @|0cfa-call-name| \subseteq @|exp-domain| \times @|exp-domain| & &
+@|0cfa-find-name| \subseteq @|var-domain| \times @|exp-domain| \times @|exp-domain|
 \end{align*}
 
 \begin{figure}
-@mathpar[0cfa-parse-judgement]{
+@mathpar[0cfa-parse-judgment]{
 Lam
 ———
 C[λx.e] ⇓ C[λx.e]
@@ -423,14 +431,9 @@ x C[λy.e] F Cx[x]
 \caption{Demand 0CFA evaluation and trace relations}
 \label{fig:demand-0cfa}
 \end{figure}
-The evaluation and trace modes of operation are effected by the big-step relations @|0cfa-eval-name| and @|0cfa-expr-name|, respectively, which are defined mutually inductively.
-These relations are respectively supported by the auxiliary metafunction @|0cfa-bind-name| and relation @|0cfa-find-name|, which concern variable bindings and are also dual to each other.
-Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in terms of the relation @|0cfa-call-name|, which we discuss below.
-Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
-
-The judgement @(0cfa-eval (cursor (e) (∘e)) (cursor (lam (var 'x) (e "_v")) (∘e "_v"))) denotes that the expression @(e) (residing in syntactic context @((∘e) #f)) evaluates to (a closure over) @(lam (var 'x) (e "_v")).
+The judgment @(0cfa-eval (cursor (e) (∘e)) (cursor (lam (var 'x) (e "_v")) (∘e "_v"))) denotes that the expression @(e) (residing in syntactic context @((∘e) #f)) evaluates to (a closure over) @(lam (var 'x) (e "_v")).
 (In a context-insensitive analysis, we may represent a closure by the $\lambda$ term itself.) 
-Demand 0CFA arrives at such a judgement, as an interpreter does, by considering the type of expression being evaluated.
+Demand 0CFA arrives at such a judgment, as an interpreter does, by considering the type of expression being evaluated.
 The @clause-label{Lam} rule captures the intuition that a $\lambda$ term immediately evaluates to itself.
 The @clause-label{App} rule captures the intuition that an application evaluates to whatever the body of its operator does.
 Hence, if the operator @(e 0) evaluates to @(lam (var 'x) (e)), and @(e) evaluates to @(lam (var 'y) (e "_v")), then the application @(app (e 0) (e 1)) evaluates to @(lam (var 'y) (e "_v")) as well.
@@ -461,12 +464,12 @@ Figure~\ref{fig:0cfa-bind} presents its definition, and we note the absence of a
 \label{fig:0cfa-bind}
 \end{figure}
 
-A judgement @(0cfa-call (cursor (e) (bod (var 'x) (∘e))) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the application @(app (e 0) (e 1)) applies @(lam (var 'x) (e)), thereby binding @(var 'x).
+A judgment @(0cfa-call (cursor (e) (bod (var 'x) (∘e))) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the application @(app (e 0) (e 1)) applies @(lam (var 'x) (e)), thereby binding @(var 'x).
 Demand 0CFA arrives at this judgment by the @clause-label{Call} rule which uses the @|0cfa-expr-name| relation to determine it.
 In Demand 0CFA, this relation is only a thin wrapper over @|0cfa-expr-name|, but becomes more involved with the addition of context sensitivity.
 
-A judgement @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the value of the expression @(e) is applied at @(app (e 0) (e 1)).
-Demand 0CFA arrives at such a judgement by considering the type of the syntactic context to which the value flows.
+A judgment @(0cfa-expr (cursor (e) (∘e)) (cursor (app (e 0) (e 1)) (∘e "'"))) denotes that the value of the expression @(e) is applied at @(app (e 0) (e 1)).
+Demand 0CFA arrives at such a judgment by considering the type of the syntactic context to which the value flows.
 The @clause-label{Operator} rule captures the intuition that, if @(lam (var 'x) (e)) flows to operator position @(e 0) of @(app (e 0) (e 1)), it is applied by @(app (e 0) (e 1)).
 The @clause-label{Body} rule captures the intuition that if a value flows to the body of a $\lambda$ term, then it flows to each of its callers as well.
 The @clause-label{Operand} rule captures the intuition that a value in operand position is bound by the formal parameter of each operator value and hence to each reference to the formal parameter in the operator's body.
@@ -507,34 +510,17 @@ In contrast, a context-sensitive CFA considers the context in which each variabl
 By extension, a context-sensitive CFA evaluates an expression under a particular environment, which identifies the context in which free variables within the expression are bound.
 (Like Demand 0CFA, our context-sensitive demand CFA will not materialize the store in the semantics, but it can be recovered if desired.)
 
-At this point, we must determine
-(1) a choice of context appropriate to demand CFA,
-(2) an appropriate represenation of that context, and
-(2) an appropriate representation of environments which record the context,
-which we do in this section.
-From this determination, in the next section, we combine each expression and its enclosing environment to form a \emph{configuration}\footnote{Configurations in exhaustive CFAs include a timestamp as well. We discuss its omission from demand CFA configurations in \S\ref{sec:whence-timestamp}.}
-and
-extend @|0cfa-eval-name| and @|0cfa-expr-name| to relate configurations rather than mere expressions.
-
 A key constraint in the demand setting is that queries may be (and typically are) issued with incomplete context information.
 The analysis is expected both to determine the context to the extent necessary to resolve the query (but no more) and also respect the context so that the analysis is in fact context-sensitive.
 One implication of this expectation is that queries over expressions which are evaluated in multiple contexts should qualify results by the contexts in which they occur.
-To satisfy this expectation, we extend @|0cfa-call-name| to instantiate the context and ensure that the analysis respects it.
 
-@;{
-However, unlike in exhaustive CFA, in demand CFA, differs from exhaustive CFA in that the precise environment in which an expression is evaluated or traced may not be completely determined.
-That is, the context in which each environment variable is bound may not be fully known.
-For instance,
-users typically
-want control-flow information about an expression which is sound with respect to all its evaluations
-and
-so indicate in queries by leaving the environment completely indeterminate.
-In this case, demand CFA should instantiate the environment (only) as necessary to distinguish evaluations in different contexts.
-Demand CFA thus requires a choice of context, context representation, and environment representation which support its ability to do so.
-In this section, we examine each of these choices in turn.
-}
+To achieve context-sensitive CFA, we must
+(1) identify a notion of context compatible with the demand CFA,
+(2) determine a representation of that context which can account for fully- or partially-indeterminate contexts, and
+(3) determine an appropriate representation of environments which record the context,
+which we do in this section.
 
-\subsection{Challenge 1: Choosing an Appropriate Context}
+\subsection{Challenge 1: An Appropriate Notion of Context}
 
 To formulate context-sensitive demand CFA in the most general setting possible, we will avoid sensitivities to properties not present in our semantics, such as types.
 Since we focus on an untyped $\lambda$ calculus, the most straightforward choice is call-site sensitivity.
@@ -542,11 +528,11 @@ Since we focus on an untyped $\lambda$ calculus, the most straightforward choice
 The canonical call-site sensitivity is that of $k$-CFA@~cite{dvanhorn:Shivers:1991:CFA} which sensitizes each binding to the last $k$ call sites encountered in evaluation.
 However, this form of call-site sensitivity works against the parsimonious nature of demand CFA.
 To make this concrete, consider that, in the fragment \texttt{(begin (f x) (g y))}, 
-the binding of \texttt{g}'s parameter under a last $k$ call-site sensitivity will depend on the particular calls made during the evaluation of \texttt{(f x)}.
+the binding of \texttt{g}'s parameter under a last-$k$-call-site sensitivity will depend on the particular calls made during the evaluation of \texttt{(f x)}.
 If the value of \texttt{(f x)} is not otherwise demanded, this dependence either provokes demand analysis to discover more of the context or requires that the portion of the context contributed by \texttt{(f x)} be left indeterminate, thereby sacrificing precision.
 
-A more fitting call-site sensitivity would allow demand CFA to discover more of the context through its course of operation.
-A natural fit, it turns out, is $m$-CFA's call-site sensitivity which models the top-$m$ stack frames.
+A better form of call-site sensitivity would allow demand CFA to discover the context through its natural course of operation.
+Such a form, it turns out, is the top-$m$-stack-frames sensitivity offered by $m$-CFA.
 
 \subsubsection{$m$-CFA's context abstraction}
 
@@ -576,13 +562,10 @@ This is due to the fact that re-binding is defined in terms of a central store, 
 
 \subsection{Challenge 2: Representing (Indeterminate) Contexts}
 
-XXX go over this section
-
 Now that we have identified a context abstraction, we must choose a representation for it which will allow us to model incomplete knowledge.
-XXX make a bigger deal in the intro discussion of Demand m-CFA that it needs to be able to model its state of knowledge about the context in addition to respecting it
-XXX make sure the genesis of the following idea is present
-One choice would be an $m$-length vector of possibly-indeterminate call sites which Demand $m$-CFA could fill in as it discovers contexts.
-However, this representation fails to capture a useful invariant.
+As a fully-determined context in $m$-CFA is an $m$-length sequence of call sites,
+a straightforward choice would be an $m$-length vector of possibly-indeterminate call sites which Demand $m$-CFA could fill in as it discovers them.
+However, this representation fails to capture the useful invariant that call sites within a context are always discovered in sequence from the first (representing the top frame on the stack) to the last.
 
 To illustrate, suppose we are evaluating \texttt{x} in the function \texttt{(λ (x) x)} and that we have no knowledge about the binding context of \texttt{x}.
 In order to determine \texttt{x}'s value, we must determine the sites that call \texttt{(λ (x) x)}.
@@ -718,6 +701,27 @@ and
 our environment representation makes accessing their binding context straightforward as well.
 Thus, under such an abstraction, the environment uniquely determines the timestamp, and we can omit timestamps from configurations with no loss of information.
 
+@;{
+XXX
+From this determination, in the next section, we combine each expression and its enclosing environment to form a \emph{configuration}\footnote{Configurations in exhaustive CFAs include a timestamp as well. We discuss its omission from demand CFA configurations in \S\ref{sec:whence-timestamp}.}
+and
+extend @|0cfa-eval-name| and @|0cfa-expr-name| to relate configurations rather than mere expressions.
+[this expectation] = respecting the context so far as it is known
+To satisfy this expectation, we extend @|0cfa-call-name| to instantiate the context and ensure that the analysis respects it.
+}
+@;{
+However, unlike in exhaustive CFA, in demand CFA, differs from exhaustive CFA in that the precise environment in which an expression is evaluated or traced may not be completely determined.
+That is, the context in which each environment variable is bound may not be fully known.
+For instance,
+users typically
+want control-flow information about an expression which is sound with respect to all its evaluations
+and
+so indicate in queries by leaving the environment completely indeterminate.
+In this case, demand CFA should instantiate the environment (only) as necessary to distinguish evaluations in different contexts.
+Demand CFA thus requires a choice of context, context representation, and environment representation which support its ability to do so.
+In this section, we examine each of these choices in turn.
+}
+
 With the context, its representation, and the environment's representation identified,
 we are now ready to define Demand $m$-CFA.
 
@@ -744,7 +748,7 @@ we are now ready to define Demand $m$-CFA.
 \end{figure}
 
 \begin{figure}
-@mathpar[mcfa-parse-judgement]{
+@mathpar[mcfa-parse-judgment]{
 Lam
 ———
 C[λx.e] ρ ⇓ C[λx.e] ρ
@@ -836,7 +840,7 @@ we refer to this as the @clause-label{Unknown-Call} case.
 
 We now describe how @|mcfa-call-name|, presented in Figure~\ref{fig:mcfa-call-reachability}, handles each of these cases.
 \begin{figure}
-@mathpar[mcfa-parse-judgement]{
+@mathpar[mcfa-parse-judgment]{
 Known-Call
 q ⇑ ca C[λx.[e]] ctx₀::ρ  C[λx.e] ρ ⇒ C'[(e₀ e₁)] ρ'  ctx₁ := time-succ(C'[(e₀ e₁)],ρ')  ctx₁ = ctx₀
 ——
@@ -861,7 +865,7 @@ Formally, the refinement relation $\sqsubset$ is defined as the least relation s
 \begin{align*}
 @(:: (cursor (app (e 0) (e 1)) (∘e "'")) (mcfa-cc)) \sqsubset\; ?_{@(cursor (e) (∘e))} & & @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 1)) \sqsubset @(:: (cursor (app (e 0) (e 1)) (∘e)) (mcfa-cc 0))\Longleftarrow @(mcfa-cc 1) \sqsubset @(mcfa-cc 0)
 \end{align*}
-If @(mcfa-cc 1) refines @(mcfa-cc 0), @clause-label{Unknown-Call} does not conclude a @|mcfa-call-name| judgement, but rather an \emph{instantiation} judgement @(mcfa-instantiation (:: (mcfa-cc 0) (mcfa-ρ)) (:: (mcfa-cc 1) (mcfa-ρ))) which denotes that \emph{any} environment @(:: (mcfa-cc 0) (mcfa-ρ)) may be instantiated to @(:: (mcfa-cc 1) (mcfa-ρ)).
+If @(mcfa-cc 1) refines @(mcfa-cc 0), @clause-label{Unknown-Call} does not conclude a @|mcfa-call-name| judgment, but rather an \emph{instantiation} judgment @(mcfa-instantiation (:: (mcfa-cc 0) (mcfa-ρ)) (:: (mcfa-cc 1) (mcfa-ρ))) which denotes that \emph{any} environment @(:: (mcfa-cc 0) (mcfa-ρ)) may be instantiated to @(:: (mcfa-cc 1) (mcfa-ρ)).
 It is by this instantiation that @clause-label{Known-Call} will be triggered.
 When @(mcfa-cc 1) does not refine @(mcfa-cc 0), the resultant caller is ignored which, in effect, filters the callers to only those which are compatible and ensures that Demand $m$-CFA is indeed context-sensitive.
 
@@ -874,7 +878,7 @@ the judgment @(mcfa-reach "q" "q'") captures that, if query $q$ is reachable in 
 \]
 Figure~\ref{fig:demand-mcfa-reachability} presents a formal definition of @|mcfa-reach-name|.
 \begin{figure}
-@mathpar[mcfa-parse-judgement]{
+@mathpar[mcfa-parse-judgment]{
 Reflexivity
 ——
 q ⇑ q
@@ -944,7 +948,7 @@ Finally, @clause-label{Call-Trace} makes sure that the trace query of an enclosi
 
 Figure~\ref{fig:demand-mcfa-instantiation} presents an extension of @|mcfa-reach-name| which propagates instantiations to evaluation and trace queries.
 \begin{figure}
-@mathpar[mcfa-parse-judgement]{
+@mathpar[mcfa-parse-judgment]{
 Instantiate-Reachable-Eval
 q ⇑ ev C[e] ρ  ρ₀ R ρ₁
 ——
@@ -1031,33 +1035,33 @@ the state spaces of @|mcfa-expr-name| and @|mcfa-call-name| behave similarly.
 Instances higher in the hierarchy are also more precise, which we formally express with the following theorems.
 \begin{theorem}[Evaluation Refinement]
 If
-@mcfa-parse-judgement{C[e] ρ₀ ⇓m+1 Cv[λx.e-v] ρ₀'}
+@mcfa-parse-judgment{C[e] ρ₀ ⇓m+1 Cv[λx.e-v] ρ₀'}
 where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+@mcfa-parse-judgment{ρ₀ ⊑ ρ₁}
 then
-@mcfa-parse-judgement{C[e] ρ₁ ⇓ Cv[λx.e-v] ρ₁'}
+@mcfa-parse-judgment{C[e] ρ₁ ⇓ Cv[λx.e-v] ρ₁'}
 where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+@mcfa-parse-judgment{ρ₀' ⊑ ρ₁'}.
 \end{theorem}
 \begin{theorem}[Trace Refinement]
 If
-@mcfa-parse-judgement{C[e] ρ₀ ⇒m+1 C'[(e₀ e₁)] ρ₀'}
+@mcfa-parse-judgment{C[e] ρ₀ ⇒m+1 C'[(e₀ e₁)] ρ₀'}
 where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+@mcfa-parse-judgment{ρ₀ ⊑ ρ₁}
 then
-@mcfa-parse-judgement{C[e] ρ₁ ⇒ C'[(e₀ e₁)] ρ₁'}
+@mcfa-parse-judgment{C[e] ρ₁ ⇒ C'[(e₀ e₁)] ρ₁'}
 where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+@mcfa-parse-judgment{ρ₀' ⊑ ρ₁'}.
 \end{theorem}
 \begin{theorem}[Caller Refinement]
 If
-@mcfa-parse-judgement{C[e] ρ₀ ⇐m+1 C'[(e₀ e₁)] ρ₀'}
+@mcfa-parse-judgment{C[e] ρ₀ ⇐m+1 C'[(e₀ e₁)] ρ₀'}
 where
-@mcfa-parse-judgement{ρ₀ ⊑ ρ₁}
+@mcfa-parse-judgment{ρ₀ ⊑ ρ₁}
 then
-@mcfa-parse-judgement{C[e] ρ₁ ⇐ C'[(e₀ e₁)] ρ₁'}
+@mcfa-parse-judgment{C[e] ρ₁ ⇐ C'[(e₀ e₁)] ρ₁'}
 where
-@mcfa-parse-judgement{ρ₀' ⊑ ρ₁'}.
+@mcfa-parse-judgment{ρ₀' ⊑ ρ₁'}.
 \end{theorem}
 These theorems state that refining configurations submitted to Demand $m$-CFA and its successor Demand $m$+1-CFA yield refining configurations.
 The proof proceeds directly (if laboriously) by induction on the derivations of the relations.
@@ -1078,35 +1082,35 @@ Now it is straightforward to express the equivalence between the Demand $\infty$
 
 \begin{theorem}[Evaluation Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 \begin{theorem}[Trace Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 \begin{theorem}[Caller Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
@@ -1458,7 +1462,7 @@ the initial store is $(\bot,0)$.
 
 Figure~\ref{fig:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
 \begin{figure}
-@mathpar[demand-parse-judgement]{
+@mathpar[demand-parse-judgment]{
 Lam
 ———
 C[λx.e] ρ σ ⇓ C[λx.e] ρ σ
@@ -1552,43 +1556,43 @@ This rule corresponds directly to the instantiation relation of Demand $m$-CFA.
 
 
 In order to show a correspondence between Demand $\infty$-CFA and Demand Evaluation,
-we establish a correspondence between the environments of the former and the environment--store pairs of the latter, captured by the judgement @combined-parse-judgement{ρ ⇓ ρ σ} defined by the following rules.
+we establish a correspondence between the environments of the former and the environment--store pairs of the latter, captured by the judgment @combined-parse-judgment{ρ ⇓ ρ σ} defined by the following rules.
 \begin{mathpar}
 \inferrule
-{ @combined-parse-judgement{cc-1 F n-1 σ} \\
+{ @combined-parse-judgment{cc-1 F n-1 σ} \\
   \dots \\
-  @combined-parse-judgement{cc-k F n-k σ}
+  @combined-parse-judgment{cc-k F n-k σ}
   }
-{ @combined-parse-judgement{ρ-is ⇓ ρ-is σ}
+{ @combined-parse-judgment{ρ-is ⇓ ρ-is σ}
   }
 
 
 \inferrule
 { }
-{ @combined-parse-judgement{() R () σ}
+{ @combined-parse-judgment{() R () σ}
   }
 
 \inferrule
-{ @combined-parse-judgement{app::cc F n σ}
+{ @combined-parse-judgment{app::cc F n σ}
   }
-{ @combined-parse-judgement{app::cc R n::ρ σ}
-  }
-
-\inferrule
-{ @combined-parse-judgement{σ(n) = ⊥}
-  }
-{ @combined-parse-judgement{? F n σ}
+{ @combined-parse-judgment{app::cc R n::ρ σ}
   }
 
 \inferrule
-{ @combined-parse-judgement{σ(n) = (app,ρ)} \\
-  @combined-parse-judgement{cc R ρ σ}
+{ @combined-parse-judgment{σ(n) = ⊥}
   }
-{ @combined-parse-judgement{app::cc F n σ}
+{ @combined-parse-judgment{? F n σ}
+  }
+
+\inferrule
+{ @combined-parse-judgment{σ(n) = (app,ρ)} \\
+  @combined-parse-judgment{cc R ρ σ}
+  }
+{ @combined-parse-judgment{app::cc F n σ}
   }
 
 \end{mathpar}
-This judgement ensures that each context in the Demand $\infty$-CFA environment matches precisely with the corresponding address with respect to the store:
+This judgment ensures that each context in the Demand $\infty$-CFA environment matches precisely with the corresponding address with respect to the store:
 if the context is indeterminate, the address must not be mapped in the store;
 otherwise, if the heads of the context are the same, the relation recurs.
 
@@ -1597,35 +1601,35 @@ Now it is straightforward to express the equivalence between the Demand $\infty$
 @(require (prefix-in combined- "combined.rkt"))
 \begin{theorem}[Evaluation Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇓∞ C'[λx.e] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇓ C'[λx.e] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 \begin{theorem}[Trace Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇒∞ C'[(e₀ e₁)] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇒ C'[(e₀ e₁)] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 \begin{theorem}[Caller Equivalence]
 If
-@combined-parse-judgement{ρ₀ ⇓ ρ₀ σ₀}
+@combined-parse-judgment{ρ₀ ⇓ ρ₀ σ₀}
 then
-@mcfa-parse-judgement{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
+@mcfa-parse-judgment{C[e] ρ₀ ⇐∞ C'[(e₀ e₁)] ρ₁}
 iff\,
-@demand-parse-judgement{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
+@demand-parse-judgment{C[e] ρ₀ σ₀ ⇐ C'[(e₀ e₁)] ρ₁ σ₁}
 where
-@combined-parse-judgement{ρ₁ ⇓ ρ₁ σ₁}.
+@combined-parse-judgment{ρ₁ ⇓ ρ₁ σ₁}.
 \end{theorem}
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.

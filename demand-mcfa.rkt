@@ -129,7 +129,7 @@
      (match-let ([(list Ce ρ) (parse-config cfg)])
        (ensuremath "\\mathsf{call}" "(" Ce "," ρ ")"))]))
 
-(define parse-judgement
+(define parse-judgment
   (match-lambda
     [(⇓ cfg₀ cfg₁)
      (spread eval (parse-config cfg₀) (parse-config cfg₁))]

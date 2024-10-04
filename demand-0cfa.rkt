@@ -22,8 +22,8 @@
 
 (require "parse.rkt")
 
-(define (parse-judgement judgement)
-  (match judgement
+(define (parse-judgment judgment)
+  (match judgment
     [(matches! Ce-0 Ce-1)
      (matches!math (parse-cursors Ce-0) (parse-cursor Ce-1))]
     [(matches Ce-0 Ce-1)

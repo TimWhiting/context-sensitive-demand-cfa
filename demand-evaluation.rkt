@@ -139,7 +139,7 @@
     [(regexp #px"^(.*) (\\S+)$" (list _ Ce ρ))
      (list (parse-cursor Ce) (parse-ρ ρ))]))
 
-(define parse-judgement
+(define parse-judgment
   (match-lambda
     [(⇓ cfg₀ cfg₁)
      (spread eval (parse-config cfg₀) (parse-config cfg₁))]
