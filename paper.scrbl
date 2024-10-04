@@ -1129,50 +1129,13 @@ Additionally the cache also has a key for each indeterminate environment which m
 
 We evaluate Demand $m$-CFA with respect to the following questions:
 \begin{enumerate}
-\item How does the implementation cost compare to a typical CFA?
-\item How does the changing $m$ and effort affect the number of resolved queries?
+\item How does changing $m$ and effort allocated affect the number of resolved queries?
 \item How does the precision compare to exhaustive exponential $m$-CFA?
+\item How does the implementation cost compare to a typical CFA?
 \end{enumerate}
-To answer the last two questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
+To answer the first two questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
 used by @citet{johnson:earl:dvanhorn:PushdownGarbage}, which is standard within the literature.
 
-\subsection{Implementation Cost}
-The amount of code needed to implement each analysis is on the same order of magnitude.
-Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, omitting the supporting functions shared between the two.
-Demand $m$-CFA requires additional lines of code partly due to the fact that in addition to forwards evaluation, it also traces the flow of values backwards.
-
-Our implementation for the Koka language is around 652 lines of Haskell code for the core analysis,
-with an additional 2364 lines of supporting code for primitives, the fixpoint ADI framework, 
-and mapping the core syntax to more user friendly syntax for showing results.
-
-As part of our implementation for Koka we provide language server integration, which allows interaction with the analyzer from within the editor (e.g. providing control flow information on hover).
-For the subset of programs we support in Koka, many queries resolve at interactive latencies, providing the user with near-real-time control flow information.
-However, we did not implement a corresponding exhaustive analysis for Koka which would require whole program transformations, many more primitives, and supporting more language features.
-
-Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a compiler or language server is at least in some cases \emph{more} tractable than an exhaustive analysis, 
-since not all language features or primitives need to be supported before getting useful and actionable results.
-
-\subsection{Query complexity distribution}
-Like an exhaustive analysis, a demand analysis is subject to client-imposed resource constraints.
-However, unlike with exhaustive analysis, failure in a demand analysis is not catastrophic:
-because analysis information is sought selectively and independently through queries,
-the client can increase the budget and reissue the query or proceed without control flow information.
-
-We evaluate the proportion of queries that Demand $m$-CFA is able to resolve within specific effort limits and at different context sensitivity levels.
-Effort is measured in gas, where each subquery consumes one unit.@;{
-(Because flow information is offered allows clients to specify 
-Demand $m$-CFA provides a different interface to analysis than is typical for most control flow analyses.
-Since its cost framework provides a different utility model 
-% and therefore ability to be embedded into a language server and work on subportions of programs, 
-it is important to evaluate how well it resolves queries given a limited amount of effort.
-
-Utilizing ADI's fixpoint
-we added an effort parameter (gas), which at each (mutually) recursive call gets reduced by one. 
-When the gas runs out the analysis returns from the fixpoint computation by reporting an error.
-In the language server for Koka we still report the normal hover info (type information / documentation)
-when additional semantic precision is not obtainable due to lack of supporting primitives or running out of gas.
-}
-Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depending on the effort allotted.
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{total-queries-answered_legendx.png}
@@ -1217,6 +1180,29 @@ Increasing context sensitivity can sometime help the analysis distinguish contex
 }
 \label{fig:dmcfa-scalability}
 \end{figure}
+
+\subsection{Query complexity distribution}
+Like an exhaustive analysis, a demand analysis is subject to client-imposed resource constraints.
+However, unlike with exhaustive analysis, failure in a demand analysis is not catastrophic:
+because analysis information is sought selectively and independently through queries,
+the client can increase the budget and reissue the query or proceed without control flow information.
+
+We evaluate the proportion of queries that Demand $m$-CFA is able to resolve within specific effort limits and at different context sensitivity levels.
+Effort is measured in gas, where each subquery consumes one unit.@;{
+(Because flow information is offered allows clients to specify 
+Demand $m$-CFA provides a different interface to analysis than is typical for most control flow analyses.
+Since its cost framework provides a different utility model 
+% and therefore ability to be embedded into a language server and work on subportions of programs, 
+it is important to evaluate how well it resolves queries given a limited amount of effort.
+
+Utilizing ADI's fixpoint
+we added an effort parameter (gas), which at each (mutually) recursive call gets reduced by one. 
+When the gas runs out the analysis returns from the fixpoint computation by reporting an error.
+In the language server for Koka we still report the normal hover info (type information / documentation)
+when additional semantic precision is not obtainable due to lack of supporting primitives or running out of gas.
+}
+
+Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depending on the effort allotted.
 The graphs trend upward and to the right, regardless of our choice of $m$. 
 Notable exceptions include \texttt{regex}, and \texttt{scheme2java} which both contain highly connected control flow graphs. 
 Additionally \texttt{scheme2java} uses \texttt{set!} which we do not support, so queries interacting with \texttt{set!}ed variables will fail.
@@ -1313,6 +1299,23 @@ indicating that most static information relevant to optimizations such as inlini
 This matches our intuition that if a flow is precise then it does not get mixed up with other flows, and should be quickly resolvable.
 As such, we can confidently claim that Demand $m$-CFA achieves similar precision to the exhaustive $m$-CFA (with exponential environments). 
 }
+
+\subsection{Implementation Cost}
+The amount of code needed to implement each analysis is on the same order of magnitude.
+Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, omitting the supporting functions shared between the two.
+Demand $m$-CFA requires additional lines of code partly due to the fact that in addition to forwards evaluation, it also traces the flow of values backwards.
+
+Our implementation for the Koka language is around 652 lines of Haskell code for the core analysis,
+with an additional 2364 lines of supporting code for primitives, the fixpoint ADI framework, 
+and mapping the core syntax to more user friendly syntax for showing results.
+
+As part of our implementation for Koka we provide language server integration, which allows interaction with the analyzer from within the editor (e.g. providing control flow information on hover).
+For the subset of programs we support in Koka, many queries resolve at interactive latencies, providing the user with near-real-time control flow information.
+However, we did not implement a corresponding exhaustive analysis for Koka which would require whole program transformations, many more primitives, and supporting more language features.
+
+Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a compiler or language server is at least in some cases \emph{more} tractable than an exhaustive analysis, 
+since not all language features or primitives need to be supported before getting useful and actionable results.
+
 
 \section{Related Work}
 \label{sec:related-work}
