@@ -164,7 +164,7 @@
   (define programloc all-benchmarks)
   ; (define programloc all-examples)
   (if do-run-exhaustive
-      (for ([m (in-range 0 5)])
+      (for ([m (in-range 2 5)])
         (current-m m)
         (for ([example (get-examples programs programloc)])
           (match-let ([`(example ,name ,exp) example])
