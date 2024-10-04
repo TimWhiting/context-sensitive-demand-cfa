@@ -1119,33 +1119,33 @@ Appendix~\ref{appendix:demand-soundness} presents Demand $\infty$-CFA and demand
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, \texttt{letrec} binding forms,
 mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters.
 We call this language Pure Scheme. Although our analysis does not handle imperative constructs, the analysis can still be deployed in programs with imperative features.
-It will produce sound results for flows that don't experience imperative update and soundly detect when flows do.
+It can produce sound results for flows that don't experience imperative update and soundly detect when flows do.
 
 We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}(ADI) to implement $m$-CFA and Demand $m$-CFA analyses for Pure Scheme.
 
 The results of the analysis are obtained through ADI's memoized fixpoint cache. 
-This cache gives control flow results for each segment of control flow independently keyed by the query / subquery.
-Additionally the cache also has a key for each environment which maps to each discovered environment instantiation relevant to the top level query.
+This cache gives control flow results for each segment of control flow independently keyed by the query or subquery.
+Additionally the cache also has a key for each indeterminate environment which maps to each discovered environment instantiation reachable from the top level query.
 
 We evaluate Demand $m$-CFA with respect to the following questions:
 \begin{enumerate}
 \item How does the implementation cost compare to a typical CFA?
-\item What is the distribution of analysis effort to resolve queries?
-\item How does the precision compare to a typical CFA?
+\item How does the level of context sensitivity affect analysis effort to resolve queries?
+\item How does the precision compare to exhaustive exponential $m$-CFA?
 \end{enumerate}
-To answer performance questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
+To answer the last two questions, we evaluate Demand $m$-CFA on the set of R6RS programs 
 used by @citet{johnson:earl:dvanhorn:PushdownGarbage}, which is standard within the literature.
 
 \subsection{Implementation Cost}
 The amount of code needed to implement each analysis is on the same order of magnitude.
 Demand $m$-CFA requires 630 lines of code while $m$-CFA uses 450 lines of code, omitting the supporting functions shared between the two.
-Demand $m$-CFA requires additional lines of code partly due to the fact that in addition to evaluation, it also traces the flow of values.
+Demand $m$-CFA requires additional lines of code partly due to the fact that in addition to forwards evaluation, it also traces the flow of values backwards.
 
-Our implementation for Koka is around 652 lines of Haskell code for the core analysis,
+Our implementation for the Koka language is around 652 lines of Haskell code for the core analysis,
 with an additional 2364 lines of supporting code for primitives, the fixpoint ADI framework, 
 and mapping the core syntax to more user friendly syntax for showing results.
 
-We also implemented Demand $m$-CFA for the Koka language compiler and language server to provide analyzer interaction within the editor (e.g. providing control flow information on hover).
+As part of our implementation for Koka we provide language server integration, which allows interaction with the analyzer from within the editor (e.g. providing control flow information on hover).
 For the subset of programs we support in Koka, many queries resolve at interactive latencies, providing the user with near-real-time control flow information.
 However, we did not implement a corresponding exhaustive analysis for Koka which would require whole program transformations, many more primitives, and supporting more language features.
 
@@ -1158,7 +1158,7 @@ However, unlike with exhaustive analysis, failure in a demand analysis is not ca
 because analysis information is sought selectively and independently through queries,
 the client can increase the budget and reissue the query or proceed without control flow information.
 
-We evaluate the proportion of queries that Demand $m$-CFA is able to resolve for different effort limits and at different context sensitivity levels.
+We evaluate the proportion of queries that Demand $m$-CFA is able to resolve within specific effort limits and at different context sensitivity levels.
 Effort is measured in gas, where each subquery consumes one unit.@;{
 (Because flow information is offered allows clients to specify 
 Demand $m$-CFA provides a different interface to analysis than is typical for most control flow analyses.
@@ -1213,18 +1213,19 @@ Figure~\ref{fig:dmcfa-scalability} displays the percent of queries answered depe
 \caption{The percent of queries answered (y-axis) given the per-query gas allocated to Demand $m$-CFA (x-axis).
 Many trivial queries ($40\%$-$60\%$) are answered given very little effort, as seen by the immediate jump.
 Some additional queries are answered with more effort, but some non-trivial queries are answered with less effort by increasing the context sensitivity parameter $m$ (as seen in the larger \texttt{regex} and \texttt{scheme2java} example programs).
-Increasing context sensitivity thus helps the analysis distinguish context-irrelevant flows and avoid spending gas on unrelated parts of the program.
+Increasing context sensitivity can sometime help the analysis distinguish context-irrelevant flows and avoid spending gas on unrelated parts of the program.
 }
 \label{fig:dmcfa-scalability}
 \end{figure}
 The graphs trend upward and to the right, regardless of our choice of $m$. 
 Notable exceptions include \texttt{regex}, and \texttt{scheme2java} which both contain highly connected control flow graphs. 
-Additionally \texttt{scheme2java} uses \texttt{set!} which we do not support.
+Additionally \texttt{scheme2java} uses \texttt{set!} which we do not support, so queries interacting with \texttt{set!}ed variables will fail.
 Both significantly improve when explored at higher $m$ which exemplifies the known paradox of precision 
-from exhaustive CFA, in which increasing precision can sometimes decrease the state space due to fewer spurious flows.
+from exhaustive CFA, in which increasing precision can sometimes decrease the state space due to fewer spurious flows being merged.
 Our results show that this phenomenon holds even for subportions of programs.
-We hypothesize that this paradox might be more useful in the demand context 
-due to not exploring undemanded or unrelevant portions of the program with higher sensitivity.
+We hypothesize that this paradox might be more useful in the demand context because demand $m$-CFA 
+(1) does not attempt to explore undemanded (and therefore query-irrelevant) parts of the program at high levels of context-sensitivity and cost, and 
+(2) only explores the environment instantiations that are required to answer the query, leaving as much of the context indeterminate as possible.
 
 @;From the experimental results, we claim that Demand $m$-CFA is in fact scalable, both with increasing context sensitivity and with program size.
 
@@ -1232,7 +1233,7 @@ due to not exploring undemanded or unrelevant portions of the program with highe
 
 To measure the precision of Demand $m$-CFA, we focus on the singleton flow sets that it is able to identify.
 Singleton flow sets represent actionable flow information;
-for instance, they enable compilers to proceed with constant propagation and procedure inlining.@;{
+for example, they enable compilers to proceed with constant propagation and procedure inlining.@;{
 Any flow result for a particular program point can help IDE users
 narrow down where bad values might flow into their program, 
 or start to understand a complex code base---even if the result is not entirely precise.
@@ -1244,7 +1245,7 @@ but a commonality is knowing that the flow set of a particular variable is limit
 In particular when a single syntactic lambda, or constant value or constructor flows to a particular program
 point we call the resulting flow set a singleton flow set.
 }
-Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singleton flow sets.
+
 \begin{figure}[t]
 \begin{subfigure}[t]{.23\linewidth}
 \includegraphics[width=\linewidth]{important-queries-answered_legendx.png}
@@ -1292,18 +1293,14 @@ Dashed lines represent the baseline number of singleton flow sets found by an ex
 }
 \label{fig:dmcfa-answers}
 \end{figure}
-Exhaustive $m$-CFA results are dashed and are represented as a straight line, whereas Demand $m$-CFA results are graphed as a function of effort.
+Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singleton flow sets.
+Exhaustive $m$-CFA results are dashed and are represented as a straight line (disregarding effort), whereas Demand $m$-CFA results are graphed as a function of effort.
 \texttt{scheme2java} doesn't have results for exhaustive analysis beyond $m=1$ due to timing out after 10 minutes.
 
 In some cases, Demand $m$-CFA finds singleton flow sets that exhaustive $m$-CFA doesn't,
-explained by the fact that some of the code on which Demand $m$-CFA is dispatched is dead.
-@;{on dead code due to the fac
-Occasionally Demand $m$-CFA finds more singleton flow sets than $m$-CFA,
-which is typically due to Demand $m$-CFA returning results on parts of the state space
-which correspond to unexplored dead code in the exhaustive analysis. 
-In these benchmarks, we believe this happens only infrequently.}
-In some cases, Demand $m$-CFA doesn't find singleton flow sets that exhaustive $m$-CFA does.
-These cases are explained by reachability assumptions Demand $m$-CFA makes when resolving bindings.@;{
+explained by the fact that some of the code on which Demand $m$-CFA queries are dispatched are in fact dead code.
+In other cases, Demand $m$-CFA doesn't find singleton flow sets that exhaustive $m$-CFA does.
+These cases are explained by the reachability assumptions Demand $m$-CFA makes when resolving bindings.@;{
 In other cases Demand $m$-CFA does not find as many singleton flow sets. 
 For some queries that involve a large portion of the overall flow, this can be attributed to the analysis running out of gas.
 However we believe that more often it is due to Demand $m$-CFA making reachability assumptions which can decrease its precision.}
@@ -1313,7 +1310,8 @@ If that assumption is false, then the argument \texttt{42} does not actually con
 and its inclusion is manifest as imprecision.
 @;We believe this to be the case for several of the benchmarks, in particular the blur benchmark.
 
-The results show that Demand $m$-CFA generally finds a similar amount of singleton value flows as exhaustive $m$-CFA, and does it with a low effort bound.
+The results show that Demand $m$-CFA generally finds a similar amount of singleton value flows as exhaustive $m$-CFA, and does it with a low effort bound, 
+indicating that most static information relevant to optimizations such as inlining is available with a small amount of effort.
 @;{
 This matches our intuition that if a flow is precise then it does not get mixed up with other flows, and should be quickly resolvable.
 As such, we can confidently claim that Demand $m$-CFA achieves similar precision to the exhaustive $m$-CFA (with exponential environments). 
