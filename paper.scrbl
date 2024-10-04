@@ -1284,9 +1284,6 @@ point we call the resulting flow set a singleton flow set.
 \includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
 \end{subfigure}
 \caption{
-  XXX Fix this, after investigation of KCFA-3 and decreasing results for larger context sensitivity in exhaustive analysis. Also consider using percentage of corresponding level of $m$-CFA rather than horizontal lines (which are confusing).
-  Also consider choosing some of the more interesting benchmarks, and moving the rest to an appendix.
-  XXX If I keep it this way I need to make sure the lines are ordered so the topmost is the higher m.
 The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated per query (x-axis).
 Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout.
 \texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
