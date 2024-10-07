@@ -8,6 +8,10 @@ paper.pdf: # plots
 	pdflatex --interaction=nonstopmode paper.tex || \
 	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
+cover-letter.pdf: cover-letter.tex
+	pdflatex --interaction=nonstopmode cover-letter.tex || \
+	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+
 plots: evaluation/plot.rkt $(wildcard evaluation/tests/*)
 	cd evaluation && racket plot.rkt
 
