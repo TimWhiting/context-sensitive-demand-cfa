@@ -329,9 +329,9 @@ expressions @(e) adhere to the grammar on the left
 and
 syntactic contexts @(meta "C" #f) adhere to the grammar on the right.
 \begin{align*}
-@(e) & ::= @(ref (var 'x)) \,|\, @(lam (var 'x) (e)) \,|\, @(app (e) (e))
+\mathsf{Exp} \ni @(e) & ::= @(ref (var 'x)) \,|\, @(lam (var 'x) (e)) \,|\, @(app (e) (e))
 &
-@(meta "C" #f) & ::= @(lam (var 'x) (meta "C" #f)) \,|\, @(app (meta "C" #f) (e)) \,|\, @(app (e) (meta "C" #f)) \,|\, @|□|.
+\mathsf{SynCtx} \ni @(meta "C" #f) & ::= @(lam (var 'x) (meta "C" #f)) \,|\, @(app (meta "C" #f) (e)) \,|\, @(app (e) (meta "C" #f)) \,|\, @|□|.
 \end{align*}
 
 The syntactic context @(meta "C" #f) of an instance of an expression @(e) within a program $\mathit{pr}$ is $\mathit{pr}$ itself with a hole @|□| in place of the selected instance of @(e).
@@ -339,12 +339,13 @@ For example, the program @(lam (var 'x) (app (ref (var 'x)) (ref (var 'x)))) con
 one with syntactic context @(lam (var 'x) (app □ (ref (var 'x))))
 and the other with @(lam (var 'x) (app (ref (var 'x)) □)).
 
-The composition @(cursor (e) (∘e)) of a syntactic context @(meta "C" #f) with an expression @(e) consists of @(meta "C" #f) with @|□| replaced by @(e).
-In other words, @(cursor (e) (∘e)) denotes the program itself but with a focus on @(e).
+The composition @(cursor (e) (∘e)) of a syntactic context @(meta "C" #f) with an expression @(e) consists of @(meta "C" #f) with @|□| replaced by @(e),
+so that @(cursor (e) (∘e)) denotes the program with a focus on @(e).
 For example, we focus on the reference to @(var 'x) in operator position in the program @(lam (var 'x) (app (ref (var 'x)) (ref (var 'x)))) with @(cursor (ref (var 'x)) (rat (ref (var 'x)) (bod (var 'x) (top)))).
 To aid visual parsing, we also shade the context to distinguish it from the focused expression.
 
-We typically leave the context unspecified, referring to, e.g., a reference to @(var 'x) by @(cursor (ref (var 'x)) (∘e)) and two distinct references to @(var 'x) by @(cursor (ref (var 'x)) (∘e 0)) and @(cursor (ref (var 'x)) (∘e 1)) (where $@((∘e 0) #f) \ne @((∘e 1) #f)$).
+The composition of a context and expression is a cursor, drawn from the space $\mathsf{Cursor} := \mathsf{Exp} \times \mathsf{SynCtx}$.
+In a cursor, we typically leave the context unspecified, referring to, e.g., a reference to @(var 'x) by @(cursor (ref (var 'x)) (∘e)) and two distinct references to @(var 'x) by @(cursor (ref (var 'x)) (∘e 0)) and @(cursor (ref (var 'x)) (∘e 1)) (where $@((∘e 0) #f) \ne @((∘e 1) #f)$).
 The immediate syntactic context of an expression is often relevant, however, and we make it explicit by a double composition @(cursor (cursor (e) (∘e 1)) (∘e 0)).
 For example, we use @(cursor (ref (var 'x)) (rat (ref (var 'x)) (∘e))) to focus on the expression @(ref (var 'x)) in the operator context @(app □ (ref (var 'x))) in the context @(meta "C" #f).
 
@@ -360,18 +361,17 @@ However, in contrast to exhaustive CFA, Demand 0CFA resolves evaluation queries 
 (It also resolves trace queries over individual expressions, but exhaustive CFAs have no counterpart to this functionality.)
 
 @(define var-domain "\\mathsf{Var}")
-@(define exp-domain "\\mathsf{Exp}")
+@(define cursor-domain "\\mathsf{Cursor}")
 The evaluation and trace modes of operation are effected by the big-step relations
-$@|0cfa-eval-name|, @|0cfa-expr-name| \subseteq @|exp-domain| \times @|exp-domain|$, which are defined mutually inductively.
-These relations are respectively supported by the auxiliary metafunction $@|0cfa-bind-name| \in @|var-domain| \times @|exp-domain| \rightarrow @|exp-domain|$ and relation $@|0cfa-find-name| \subseteq @|var-domain| \times @|exp-domain| \times @|exp-domain|$, which connect references to bindings and vice versa.
-Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in terms of the relation $@|0cfa-call-name| \subseteq @|exp-domain| \times @|exp-domain|$, which we discuss below.
+$@|0cfa-eval-name|, @|0cfa-expr-name| \subseteq @|cursor-domain| \times @|cursor-domain|$, which are defined mutually inductively.
+These relations are respectively supported by the auxiliary metafunction $@|0cfa-bind-name| \in @|var-domain| \times @|cursor-domain| \rightarrow @|cursor-domain|$ and relation $@|0cfa-find-name| \subseteq @|var-domain| \times @|cursor-domain| \times @|cursor-domain|$, which connect references to bindings and vice versa.
+Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in terms of the relation $@|0cfa-call-name| \subseteq @|cursor-domain| \times @|cursor-domain|$, which we discuss below.
 Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
-\begin{align*}
-@|0cfa-eval-name|, @|0cfa-expr-name|, @|0cfa-call-name| \subseteq @|exp-domain| \times @|exp-domain| & &
-@|0cfa-find-name| \subseteq @|var-domain| \times @|exp-domain| \times @|exp-domain|
-\end{align*}
-
 \begin{figure}
+\begin{align*}
+@|0cfa-eval-name|, @|0cfa-expr-name|, @|0cfa-call-name| \subseteq @|cursor-domain| \times @|cursor-domain| & &
+@|0cfa-find-name| \subseteq @|var-domain| \times @|cursor-domain| \times @|cursor-domain|
+\end{align*}
 @mathpar[0cfa-parse-judgment]{
 Lam
 ———
@@ -449,7 +449,7 @@ Figure~\ref{fig:0cfa-bind} presents its definition, and we note the absence of a
 
 \begin{figure}
 \[
-@|0cfa-bind-name| : @|var-domain| \times @|exp-domain| \rightarrow @|exp-domain|
+@|0cfa-bind-name| : @|var-domain| \times @|cursor-domain| \rightarrow @|cursor-domain|
 \]
 @(align (list (list (0cfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))))
                     (list "=" (0cfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)))))
@@ -514,11 +514,11 @@ A key constraint in the demand setting is that queries may be (and typically are
 The analysis is expected both to determine the context to the extent necessary to resolve the query (but no more) and also respect the context so that the analysis is in fact context-sensitive.
 One implication of this expectation is that queries over expressions which are evaluated in multiple contexts should qualify results by the contexts in which they occur.
 
-To achieve context-sensitive CFA, we must
+To achieve context-sensitive CFA, we must overcome three challenges:
 (1) identify a notion of context compatible with the demand CFA,
 (2) determine a representation of that context which can account for fully- or partially-indeterminate contexts, and
-(3) determine an appropriate representation of environments which record the context,
-which we do in this section.
+(3) determine an appropriate representation of environments which record the context.
+We meet each challenge in this section.
 
 \subsection{Challenge 1: An Appropriate Notion of Context}
 
@@ -729,10 +729,12 @@ we are now ready to define Demand $m$-CFA.
 \label{sec:demand-mcfa}
 
 @(require (rename-in (prefix-in mcfa- "demand-mcfa.rkt")))
+@(define env-domain "\\mathit{Env}")
+
 
 \begin{figure}
 \[
-@|mcfa-bind-name| : @|var-domain| \times @|exp-domain| \times \mathit{Env} \rightarrow @|exp-domain| \times \mathit{Env}
+@|mcfa-bind-name| : @|var-domain| \times @|cursor-domain| \times @|env-domain| \rightarrow @|cursor-domain| \times @|env-domain|
 \]
 @(align (list (list (mcfa-bind (var 'x) (cursor (e 0) (rat (e 1) (∘e))) (mcfa-ρ))
                     (list "=" (mcfa-bind (var 'x) (cursor (app (e 0) (e 1)) (∘e)) (mcfa-ρ))))
@@ -748,6 +750,11 @@ we are now ready to define Demand $m$-CFA.
 \end{figure}
 
 \begin{figure}
+\begin{align*}
+@|mcfa-eval-name|, @|mcfa-expr-name|, @|mcfa-call-name| \subseteq @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain| \\
+@|mcfa-find-name| \subseteq @|var-domain| \times @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain|
+\end{align*}
+
 @mathpar[mcfa-parse-judgment]{
 Lam
 ———
@@ -1018,12 +1025,12 @@ Demand $m$-CFA is a hierarchy of demand CFA.
 Instances higher in the hierarchy naturally have larger state spaces.
 The size $|@|mcfa-eval-name||$ of the @|mcfa-eval-name| relation satisfies the inequality
 \[
-|@|mcfa-eval-name|| \le |\mathit{Config} \times \mathit{Config}| = |\mathit{Config}|^{2} = |\mathit{Exp} \times \mathit{Env}|^{2} = |\mathit{Exp}|^{2}|\mathit{Env}|^{2} = n^2|\mathit{Env}|^{2}
+|@|mcfa-eval-name|| \le |\mathit{Config} \times \mathit{Config}| = |\mathit{Config}|^{2} = |\mathit{Exp} \times @|env-domain||^{2} = |\mathit{Exp}|^{2}|@|env-domain||^{2} = n^2|@|env-domain||^{2}
 \]
 where $n$ is the size of the program.
 We then have
 \[
-|\mathit{Env}| \le |\mathit{Ctx}|^{n} \le (|\mathit{Call}|+1)^{mn} \le n^{mn}
+|@|env-domain|| \le |\mathit{Ctx}|^{n} \le (|\mathit{Call}|+1)^{mn} \le n^{mn}
 \]
 since the size of environments is statically bound and may be indeterminate.
 Thus, $|@|mcfa-eval-name|| \le n^{mn+2}$;
@@ -1453,8 +1460,8 @@ Like contexts, an address may denote an indeterminate context (i.e. call) which 
 Formally, the components of stores and environments are defined
 \begin{align*}
 (s,n), @(demand-σ) \in \mathit{Store}   &= (\mathit{Addr} \rightarrow \mathit{Call}) \times \mathit{Addr} &
-@(demand-ρ) \in \mathit{Env}     &= \mathit{Addr}^{*} \\
-@(demand-cc) \in \mathit{Call} &= \mathit{App} \times \mathit{Env} &
+@(demand-ρ) \in @|env-domain|     &= \mathit{Addr}^{*} \\
+@(demand-cc) \in \mathit{Call} &= \mathit{App} \times @|env-domain| &
 n \in \mathit{Addr}              &= \mathbb{N}
 \end{align*}
 A store is a pair consisting of a map from addresses to calls and the next address to use;
