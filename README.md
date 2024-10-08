@@ -18,10 +18,3 @@ Make sure texlive is installed `sudo apt install texlive-full` and `racket` (htt
 make
 ```
 
-## Results
-
-
-
-
-### Scalability
-### Precision

@@ -133,6 +133,12 @@
   results
   )
 
+(define (get-singletons-gas gas lines [instant #f])
+  (define results (count (num-singletons instant) (filter (filter-gas gas) lines)))
+  ; (pretty-print results)
+  results
+  )
+
 (define (get-singletons-gas-increase-percent lines exhaustive [instant #f])
   (define results (map (lambda (g) (list g (/ (* 100 (count (num-singletons instant) (filter (filter-gas g) lines))) 
                                               (get-mcfa-num-singletons exhaustive instant)))) gases))
@@ -141,8 +147,9 @@
   )
 
 (define (get-mcfa-num-singletons lines [instant #f])
+  (pretty-print `(,lines))
   (define results ((num-singletons instant) (car lines)))
-  ; (pretty-print results)
+  (pretty-print "Lines2")
   results
   )
 
@@ -353,6 +360,102 @@
     )
   )
 )
+
+(define (aggregate-gas results)
+aggregate-gas
+)
+
+
+(define (plot-important-new programs hashes out)
+  (plot
+   (append 
+    (apply
+      append
+      (map
+        (lambda (m h)
+          (define dmcfas
+            (lines
+              (map (lambda (g)
+                      (list g (sum (map (lambda (p) 
+                                            (get-singletons-gas g (find-prog p (hash-ref h "dmcfa-b")))) 
+                                        programs)))) 
+                    gases)
+              #:color m
+              #:label (format "m=~a Demand m-CFA" m)
+            ))
+          (if (> m 2)
+              (list dmcfas)
+              (let ()
+                (define mcfas-values (sum (map (lambda (p) (get-mcfa-num-singletons (find-prog p (hash-ref h "mcfa-e")))) programs)))
+                (define mcfas 
+                  (lines
+                    (map (lambda (g) (list g mcfas-values)) gases)
+                    #:color m
+                    #:style 'long-dash
+                    #:label (format "m=~a m-CFA" m)
+                    ))
+                (list mcfas dmcfas))
+            ))
+        (range 5) hashes
+      ))
+   )
+   #:x-label #f
+   #:y-label #f
+   #:aspect-ratio 1
+   #:y-min 0
+   #:y-max 500 #;(* 1.1 (sum
+                   (apply
+                    append
+                    (map
+                     (lambda (h)
+                       (map (lambda (g) 
+                                (list g (sum (map (lambda (p) 
+                                                      (get-singletons-gas g (find-prog p (hash-ref h "dmcfa-b")))) 
+                                                  programs)))) 
+                              gases))
+                     hashes))))
+   #:width plot-width
+   #:height plot-height
+   #:title "Important Queries"
+   #:legend-anchor 'no-legend
+   #:out-file (format "plots/important-queries-answered.~a" out)
+   )
+
+  (parameterize ([plot-x-ticks no-ticks]
+                  [plot-y-ticks no-ticks])
+    (plot
+      (apply append 
+        (map (lambda (m) 
+          (list 
+            (lines 
+              (list (list 0 0))
+              #:label (format "m=~a Demand" m)
+              #:color m
+            )
+            (lines 
+              (list (list 0 0))
+              #:style 'long-dash
+              #:label (format "m=~a m-CFA" m)
+              #:color m
+            )
+          )) 
+        (range (length hashes))))
+      #:x-label #f
+      #:y-label #f
+      #:width (+ 50 plot-width)
+      #:height (+ 50 plot-height)
+      #:y-min 0
+      #:y-max 100
+      #:x-min (apply min gases)
+      #:x-max (apply max gases)
+      #:title "legend"
+      #:legend-anchor 'outside-global-top
+      #:aspect-ratio 1
+      #:out-file (format "plots/important-queries-answered_legend.~a" out)
+    )
+  )
+)
+
 (define (plot-important p hashes out)
   (plot
    (apply
@@ -458,19 +561,20 @@
   ; (pretty-print all-results)
   (plot-inset 1)
   (for ([out (list "pdf" "png")])
+    
+    (plot-important-new all-programs hashes out)
     (map
      (λ (i p)
        (pretty-print p)
        (if (equal? i 0)
            (begin
              (plot-total-queries p hashes out)
-             (plot-important-old p hashes out)
              )
            (parameterize ()
              ;  ([plot-x-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)]
              ;   [plot-y-ticks (ticks (linear-ticks-layout #:number 10) no-ticks-format)])
              (plot-total-queries p hashes out)
-             (plot-important-old p hashes out)
+            ;  (plot-important-new all-programs hashes out)
              )
            )
 
