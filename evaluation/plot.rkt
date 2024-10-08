@@ -209,8 +209,8 @@
 
 ; (define all-programs (sort '(eta blur loop2-1 sat-1 sat-2 regex map flatten primtest rsa deriv tic-tac-toe) (λ (p1 p2) (< (get-program-size p1) (get-program-size p2)))))
 
-(define plot-height 250)
-(define plot-width 250)
+(define plot-height 150)
+(define plot-width 150)
 
 (define all-results
   (let ([results (list)])
@@ -369,7 +369,7 @@ aggregate-gas
 
 (define (plot-important-new programs hashes out)
 
-  (line-width 1.5)
+  (line-width 1)
   (plot-legend-font-size 15)
   (plot
    (append 

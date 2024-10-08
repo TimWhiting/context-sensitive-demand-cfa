@@ -1247,12 +1247,13 @@ point we call the resulting flow set a singleton flow set.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=.7\linewidth]{important-queries-answered.png}
+\includegraphics[width=.5\linewidth]{important-queries-answered.pdf}
 \end{center}
 \caption{
 The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given the gas allocated per query (x-axis) aggregated across programs.
 Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis.
 Dashed lines above $m=2$ are not shown because \texttt{scheme2java} timed out for $m>=2$ exhaustive $m$-CFA.
+The dashed line for $m=1$ is underneath $m=2$.
 }
 \label{fig:dmcfa-answers}
 \end{figure}
@@ -1388,7 +1389,7 @@ Having established context sensitivity for Demand CFA,
 its primary limitation is its inability to reason about higher-order effectful computation.
 To address this limitation, we intend to develop a general operational framework in which a variety of effects can be expressed.
 We also intend to
-\begin{enumerate*}
+\begin{enumerate*}[label=(\arabic*)]
 \item investigate the tradeoff between precision and the non-detection of dead code within the analysis (occurring during binding resolution);
 \item determine whether $m$-CFA's re-binding policy could be adopted to a demand setting, and whether demand $m$-CFA could benefit from it.
 @;\item develop theories for language features including mutation, exceptions, and continuations,
