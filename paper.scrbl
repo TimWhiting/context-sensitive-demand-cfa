@@ -548,7 +548,7 @@ Consider a $[k=2]$CFA analysis of a call to \texttt{f} defined by
 \begin{verbatim}
 (define (f x) (log "called f") (g x))
 \end{verbatim}
-and suppose that \texttt{log} doesn't itself make any calls.
+and suppose that \texttt{log} itself does not make any calls.
 When control reaches \texttt{(g x)}, the most-recent call is always \texttt{(log "called f")} so the binding context of \texttt{g}'s parameter, the most-recent two calls \texttt{(log "called f")} and \texttt{(g x)}, determine only one point in the program---the body of \texttt{f}.
 In $k$-CFA, only \texttt{g}'s parameter binding suffers this abbreviated precision; the bindings in \texttt{g}'s closure environment refer to the context in which they were introduced into it.
 In $m$-CFA, however, the bindings of \texttt{g}'s closure environment are re-bound in the context of \texttt{g}'s application as \texttt{g} is applied and once-distinct bindings are merged together in a semi-degenerate context.
@@ -1130,7 +1130,7 @@ Appendix~\ref{appendix:demand-soundness} presents Demand $\infty$-CFA and demand
 We implemented Demand $m$-CFA for a subset of R6RS Scheme@~cite{dvanhorn:Sperber2010Revised} including \texttt{let}, \texttt{let*}, \texttt{letrec} binding forms,
 mutually-recursive definitions and a few dozen primitives. We also implemented support for constructors, numbers, symbols, strings, and characters.
 We call this language Pure Scheme. Although our analysis does not handle imperative constructs, the analysis can still be deployed in programs with imperative features.
-It can produce sound results for flows that don't experience imperative update and soundly detect when flows do.
+It can produce sound results for flows that do not experience imperative update and soundly detect when flows do.
 
 We used the \emph{Abstracting Definitional Interpreters} approach@~cite{darais2017abstracting}(ADI) to implement $m$-CFA and Demand $m$-CFA analyses for Pure Scheme.
 
@@ -1246,56 +1246,24 @@ point we call the resulting flow set a singleton flow set.
 }
 
 \begin{figure}[t]
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_legendx.png}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_blur.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_eta.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_kcfa2.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_kcfa3.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_loop2-1.pdf}
-\end{subfigure} 
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_mj09.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_primtest.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_regex.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_rsa.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_sat.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{.245\linewidth}
-\includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
-\end{subfigure}
+\begin{center}
+\includegraphics[width=.7\linewidth]{important-queries-answered.png}
+\end{center}
 \caption{
-The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated per query (x-axis).
-Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout.
-\texttt{scheme2java} doesn't have results for $m>=1$ exhaustive $m$-CFA due to timing out.
+The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given the gas allocated per query (x-axis) aggregated across programs.
+Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis.
+Dashed lines above $m=2$ are not shown because \texttt{scheme2java} timed out for $m>=2$ exhaustive $m$-CFA.
 }
 \label{fig:dmcfa-answers}
 \end{figure}
+
 Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singleton flow sets.
 Exhaustive $m$-CFA results are dashed and are represented as a straight line (disregarding effort), whereas Demand $m$-CFA results are graphed as a function of effort.
-\texttt{scheme2java} doesn't have results for exhaustive analysis beyond $m=1$ due to timing out after 10 minutes.
+\texttt{scheme2java} does not have results for exhaustive analysis beyond $m=2$ due to timing out after 1 day
 
-In some cases, Demand $m$-CFA finds singleton flow sets that exhaustive $m$-CFA doesn't,
+In some cases, Demand $m$-CFA finds singleton flow sets that exhaustive $m$-CFA does not,
 explained by the fact that some of the code on which Demand $m$-CFA queries are dispatched are in fact dead code.
-In other cases, Demand $m$-CFA doesn't find singleton flow sets that exhaustive $m$-CFA does.
+In other cases, Demand $m$-CFA does not find singleton flow sets that exhaustive $m$-CFA does.
 These cases are explained by the reachability assumptions Demand $m$-CFA makes when resolving bindings.@;{
 In other cases Demand $m$-CFA does not find as many singleton flow sets. 
 For some queries that involve a large portion of the overall flow, this can be attributed to the analysis running out of gas.
@@ -1640,5 +1608,52 @@ where
 \end{theorem}
 
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
+
+\section{Detailed Precision Results}
+
+\begin{figure}[t]
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_legendx.png}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_blur.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_eta.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_kcfa2.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_kcfa3.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_loop2-1.pdf}
+\end{subfigure} 
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_mj09.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_primtest.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_regex.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_rsa.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_sat.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{.245\linewidth}
+\includegraphics[width=\linewidth]{important-queries-answered_scheme2java.pdf}
+\end{subfigure}
+\caption{
+The number of singleton flow sets (y-axis) found by a Demand $m$-CFA analysis given gas allocated per query (x-axis).
+Dashed lines represent the baseline number of singleton flow sets found by an exhaustive exponential $m$-CFA analysis with a 10 minute timeout.
+\texttt{scheme2java} does not have results for $m>=2$ exhaustive $m$-CFA due to timing out.
+}
+\label{fig:dmcfa-detailed-answers}
+\end{figure}
 
 \end{document}

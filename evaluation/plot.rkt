@@ -3,6 +3,7 @@
          racket/set
          racket/list
          racket/port
+         racket/math
          racket/pretty
          plot
          "config.rkt"
@@ -367,6 +368,9 @@ aggregate-gas
 
 
 (define (plot-important-new programs hashes out)
+
+  (line-width 1.5)
+  (plot-legend-font-size 15)
   (plot
    (append 
     (apply
@@ -399,8 +403,8 @@ aggregate-gas
         (range 5) hashes
       ))
    )
-   #:x-label #f
-   #:y-label #f
+   #:x-label "Gas"
+   #:y-label "Number of Singletons"
    #:aspect-ratio 1
    #:y-min 0
    #:y-max 500 #;(* 1.1 (sum
@@ -414,46 +418,12 @@ aggregate-gas
                                                   programs)))) 
                               gases))
                      hashes))))
-   #:width plot-width
-   #:height plot-height
-   #:title "Important Queries"
-   #:legend-anchor 'no-legend
+   #:width (exact-truncate (* plot-width 2))
+   #:height (exact-truncate (* plot-height 2))
+   #:title #f
+   #:legend-anchor 'bottom-right
    #:out-file (format "plots/important-queries-answered.~a" out)
    )
-
-  (parameterize ([plot-x-ticks no-ticks]
-                  [plot-y-ticks no-ticks])
-    (plot
-      (apply append 
-        (map (lambda (m) 
-          (list 
-            (lines 
-              (list (list 0 0))
-              #:label (format "m=~a Demand" m)
-              #:color m
-            )
-            (lines 
-              (list (list 0 0))
-              #:style 'long-dash
-              #:label (format "m=~a m-CFA" m)
-              #:color m
-            )
-          )) 
-        (range (length hashes))))
-      #:x-label #f
-      #:y-label #f
-      #:width (+ 50 plot-width)
-      #:height (+ 50 plot-height)
-      #:y-min 0
-      #:y-max 100
-      #:x-min (apply min gases)
-      #:x-max (apply max gases)
-      #:title "legend"
-      #:legend-anchor 'outside-global-top
-      #:aspect-ratio 1
-      #:out-file (format "plots/important-queries-answered_legend.~a" out)
-    )
-  )
 )
 
 (define (plot-important p hashes out)
@@ -561,8 +531,8 @@ aggregate-gas
   ; (pretty-print all-results)
   (plot-inset 1)
   (for ([out (list "pdf" "png")])
-    
     (plot-important-new all-programs hashes out)
+    (plot-legend-font-size 10)
     (map
      (λ (i p)
        (pretty-print p)
