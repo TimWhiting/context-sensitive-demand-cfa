@@ -1667,9 +1667,9 @@ Dashed lines represent the baseline number of singleton flow sets found by an ex
 Figure~\ref{fig:dmcfa-detailed-answers} shows the number of singleton flow sets found by Demand $m$-CFA for each program individually.
 As can be seen, the majority of programs reach the corresponding exhaustive $m$-CFA results at low effort. 
 Notably, increasing $m$ doesn't drastically increase the cost. 
-This demonstrates that, due to its cost model, demand $m$-CFA can run at much higher levels of $m$ than is practical in exhaustive analyses, obtaining more precise results.
-\texttt{primtest}, and to a lesser degree \texttt{rsa} both have a some queries that act on dead code, which is why it results in more singleton flow sets than the exhaustive analysis.
-In cases like \texttt{blur}, we have determined that the precision loss is due to the reachability assumption explained previously in the results section.
-We plan to investigate ways to overcome this limitation in future work.
+This demonstrates that, due to its cost model, Demand $m$-CFA can run at much higher levels of $m$ than is practical in exhaustive analyses, obtaining more precise results.
+On \texttt{primtest}, and to a lesser degree \texttt{rsa}, Demand $m$-CFA issues queries on pieces of dead code, resulting in additional singleton flow sets.
+Additionally, due to the reachability assumption explained previously in the results section, we see precision loss in cases like \textt{blur}
+We plan to investigate ways to overcome these limitations in future work.
 
 \end{document}
