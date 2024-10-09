@@ -130,7 +130,7 @@ After addressing this challenge, we arrive at Demand $m$-CFA (\S\ref{sec:demand-
 Demand $m$-CFA determines the context only to the extent necessary to soundly answer analysis questions, as opposed to determining the entire context, which we illustrate in \S\ref{sec:intuition}.
 This parsimony not only allows Demand $m$-CFA to avoid analysis work, it informs the analysis client which aspects of the context are relevant to the posed analysis question, which the client can feed into its formulation of subsequent questions.
 
-Demand $m$-CFA is sound with respect to a concrete albeit demand semantics called \emph{demand evaluation} (\S\ref{sec:demand-mcfa-correctness}), which is itself sound with respect to a standard call-by-value semantics.
+Demand $m$-CFA is sound with respect to a concrete albeit demand semantics called \emph{demand evaluation} (Appendix \ref{appendix:demand-evaluation}), which is itself sound with respect to a standard call-by-value semantics.
 
 We have implemented Demand $m$-CFA in several settings using the \emph{Abstracting Definitional Interpreters} (ADI) technique@~cite{darais2017abstracting}.
 We evaluate the implementation cost and performance to empirically assess Demand $m$-CFA (\S\ref{sec:evaluation}).
@@ -156,7 +156,7 @@ However, as we discuss in \S\ref{sec:implementation}, Demand $m$-CFA satisfies t
 This paper makes the following contributions:
 \begin{itemize}
 \item a new formalism for Demand 0CFA which can be implemented straightforwardly using contemporary techniques@~cite{darais2017abstracting,wei2018refunctionalization} (\S\ref{sec:demand-0cfa});
-\item Demand $m$-CFA (\S\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (\S\ref{sec:demand-mcfa-correctness}); and
+\item Demand $m$-CFA (\S\ref{sec:demand-mcfa}), a hierarchy of context-sensitive demand CFA and a proof of its soundness (Appendix \ref{appendix:demand-evaluation}); and
 \item an empirical evaluation of the scalability and precision of Demand $m$-CFA (\S\ref{sec:evaluation}).
 \end{itemize}
 }
@@ -369,8 +369,8 @@ Anticipating the addition of context sensitivity, we define @|0cfa-eval-name| in
 Figure~\ref{fig:demand-0cfa} presents the definitions of all of these relations.
 \begin{figure}
 \begin{align*}
-@|0cfa-eval-name|, @|0cfa-expr-name|, @|0cfa-call-name| \subseteq @|cursor-domain| \times @|cursor-domain| & &
-@|0cfa-find-name| \subseteq @|var-domain| \times @|cursor-domain| \times @|cursor-domain|
+@|0cfa-eval-name|, @|0cfa-expr-name|, @|0cfa-call-name|\; \subseteq @|cursor-domain| \times @|cursor-domain| & &
+@|0cfa-find-name|\; \subseteq @|var-domain| \times @|cursor-domain| \times @|cursor-domain|
 \end{align*}
 @mathpar[0cfa-parse-judgment]{
 Lam
@@ -751,8 +751,8 @@ we are now ready to define Demand $m$-CFA.
 
 \begin{figure}
 \begin{align*}
-@|mcfa-eval-name|, @|mcfa-expr-name|, @|mcfa-call-name| \subseteq @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain| \\
-@|mcfa-find-name| \subseteq @|var-domain| \times @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain|
+@|mcfa-eval-name|, @|mcfa-expr-name|, @|mcfa-call-name|\; \subseteq @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain| \\
+@|mcfa-find-name|\; \subseteq @|var-domain| \times @|cursor-domain| \times @|env-domain| \times @|cursor-domain| \times @|env-domain|
 \end{align*}
 
 @mathpar[mcfa-parse-judgment]{
@@ -1260,7 +1260,7 @@ The dashed line for $m=1$ is underneath $m=2$.
 
 Figure~\ref{fig:dmcfa-answers}, shows the number of results that contain singleton flow sets.
 Exhaustive $m$-CFA results are dashed and are represented as a straight line (disregarding effort), whereas Demand $m$-CFA results are graphed as a function of effort.
-\texttt{scheme2java} does not have results for exhaustive analysis beyond $m=2$ due to timing out after 1 day
+\texttt{scheme2java} does not have results for exhaustive analysis beyond $m=2$ due to timing out after 1 day. A breakdown of results per program is given in Appendix \ref{appendix:results}.
 
 In some cases, Demand $m$-CFA finds singleton flow sets that exhaustive $m$-CFA does not,
 explained by the fact that some of the code on which Demand $m$-CFA queries are dispatched are in fact dead code.
@@ -1277,6 +1277,8 @@ and its inclusion is manifest as imprecision.
 
 The results show that Demand $m$-CFA generally finds a similar amount of singleton value flows as exhaustive $m$-CFA, and does it with a low effort bound, 
 indicating that most static information relevant to optimizations such as inlining is available with a small amount of effort.
+Additionally, we see that Demand $m$-CFA can scale to high context sensitivity levels, without a significant increase in effort.
+This is due to Demand $m$-CFA's ability to not instantiate indeterminate aspects of environments when they are not relevant, and therefore drastically reduce the state space.
 @;{
 This matches our intuition that if a flow is precise then it does not get mixed up with other flows, and should be quickly resolvable.
 As such, we can confidently claim that Demand $m$-CFA achieves similar precision to the exhaustive $m$-CFA (with exponential environments). 
@@ -1412,7 +1414,7 @@ Future work should also investigate interesting tradeoffs exposed by Demand $m$-
 \appendix
 
 \section{Demand $m$-CFA Correctness}
-\label{appendix:demand-soundness}
+\label{appendix:demand-evaluation}
 \subsection{Demand $\infty$-CFA and Demand Evaluation}
 
 @(require (prefix-in demand- "demand-evaluation.rkt"))
@@ -1437,6 +1439,10 @@ A store is a pair consisting of a map from addresses to calls and the next addre
 the initial store is $(\bot,0)$.
 
 Figure~\ref{fig:demand-evaluation} presents the definitions of @|demand-eval-name|, @|demand-expr-name|, and @|demand-call-name|.
+\begin{align*}
+@|demand-eval-name|, @|demand-expr-name|, @|demand-call-name|\; \subseteq @|cursor-domain| \times @|env-domain| \times @(demand-σ) \times @|cursor-domain| \times @|env-domain| \times @(demand-σ) \\
+@|demand-find-name|\; \subseteq @|var-domain| \times @|cursor-domain| \times @|env-domain| \times @(demand-σ) \times @|cursor-domain| \times @|env-domain| \times @(demand-σ)
+\end{align*}
 \begin{figure}
 @mathpar[demand-parse-judgment]{
 Lam
@@ -1611,6 +1617,7 @@ where
 These theorems are proved by induction on the derivations, corresponding instantiation of environments on the Demand $\infty$-CFA side with mapping an address on the Demand Evaluation side.
 
 \section{Detailed Precision Results}
+\label{appendix:results}
 
 \begin{figure}[t]
 \begin{subfigure}[t]{.245\linewidth}
@@ -1656,5 +1663,13 @@ Dashed lines represent the baseline number of singleton flow sets found by an ex
 }
 \label{fig:dmcfa-detailed-answers}
 \end{figure}
+
+Figure~\ref{fig:dmcfa-detailed-answers} shows the number of singleton flow sets found by Demand $m$-CFA for each program individually.
+As can be seen, the majority of programs reach the corresponding exhaustive $m$-CFA results at low effort. 
+Notably, increasing $m$ doesn't drastically increase the cost. 
+This demonstrates that, due to its cost model, demand $m$-CFA can run at much higher levels of $m$ than is practical in exhaustive analyses, obtaining more precise results.
+\texttt{primtest}, and to a lesser degree \texttt{rsa} both have a some queries that act on dead code, which is why it results in more singleton flow sets than the exhaustive analysis.
+In cases like \texttt{blur}, we have determined that the precision loss is due to the reachability assumption explained previously in the results section.
+We plan to investigate ways to overcome this limitation in future work.
 
 \end{document}

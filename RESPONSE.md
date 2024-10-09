@@ -25,12 +25,6 @@ WIP: See below
 
 + Cover page
 
-+ In Syntax Section define the space of Cursors as Expressions with Context (Labeled Expressions).
-Cursor ::= Exp x Context
-+ Add Signatures for $m$-CFA relations
-
-+ Make sure references to the appendix use Appendix instead of Section
-+ Plot
 
 TIM ADDITIONAL NOTES:
 Should we have a specific name for Exhaustive Exponential $m$-CFA (i.e. EE-$m$-CFA)? We repeat it quite a few times in the result section, and occasionally drop the exponential bit when we shouldn't.
