@@ -1280,8 +1280,6 @@ This highlights a strength of Demand $m$-CFA that, despite being implemented for
 For example, we integrated it into a language server which is able to provide low-latency control flow information to clients.
 In contrast, to implement an exhaustive analysis for the same purpose, one must implement the full set of Koka features.
 While exhaustive analyses support mutation without issue, support for algebraic effect handlers is not currently tractable.
-
-While mutation would not be an issue for an exhaustive analysis, a practical treatment of algebraic effect handlers currently would be.
 Our implementation, written in Haskell, consists of approximately 3000 lines of code. 
 
 Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a real-world compiler or 
