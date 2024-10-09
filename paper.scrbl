@@ -1266,24 +1266,27 @@ The data indicate, that in practice, this reduction is less than 5\% across the 
 
 \subsection{Implementation Cost}
 
-There are two notions of cost that we examine in this section. 
-The first is the raw cost of implementation. 
-The second is the actual cost of implementing an analysis for a real-world language.
+There are two notions of cost that we examine in this section:
+(1) the raw cost of implementation on a small core language relative to a corresponding exhaustive analysis,
+and
+(2) the actual cost of implementation for a real-world language.
 
 To evaluate the first notion of cost, we implemented both exhaustive and Demand $m$-CFA for Pure Scheme. 
 The codebases shared approximately 1000 lines of code. Exhaustive $m$-CFA required approximately 450 lines of additional code.
 Demand $m$-CFA required approximately 630 lines of additional code.
 For Pure Scheme the total cost of implementing Demand $m$-CFA is not significantly higher than that of exhaustive $m$-CFA.
 
-To evaluate the second notion of cost, we implemented Demand $m$-CFA for the subset of the Koka language that does not include algebraic effect handlers or mutation.
-An exhaustive analysis would be required to handle the full set of features of Koka.
-While mutation would not be an issue for an exhaustive analysis, a practical treatment of algebraic effect handlers currently would be.
+To evaluate the second notion of cost, we implemented Demand $m$-CFA for the subset of the Koka language that does not include algebraic effect handlers and mutation.
 This highlights a strength of Demand $m$-CFA that, despite being implemented for only a subset of Koka, our implementation is still useful. 
 For example, we integrated it into a language server which is able to provide low-latency control flow information to clients.
+In contrast, to implement an exhaustive analysis for the same purpose, one must implement the full set of Koka features.
+While exhaustive analyses support mutation without issue, support for algebraic effect handlers is not currently tractable.
+
+While mutation would not be an issue for an exhaustive analysis, a practical treatment of algebraic effect handlers currently would be.
 Our implementation, written in Haskell, consists of approximately 3000 lines of code. 
 
 Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a real-world compiler or 
-language server is at least in some cases \emph{more} tractable than an exhaustive analysis, 
+language server is in some cases more tractable than an exhaustive analysis, 
 since not all language features or primitives need to be supported before getting useful and actionable results.
 
 \section{Related Work}
