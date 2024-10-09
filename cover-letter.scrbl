@@ -28,7 +28,7 @@ The visual parsing of cursors, which consist of a context and expression, is mad
 
 \item
 In the evaluation (Section 8), we replaced per-program plots with an aggregate plot which we believe is both easier to read and conveys the high-level performance of Demand m-CFA more clearly.
-The per-program plots and their analysis is preserved in the appendix.
+The per-program plots and their analysis are preserved in the appendix.
 We have also clarified individual subsections and captions throughout the entire section.
 
 \end{enumerate}
