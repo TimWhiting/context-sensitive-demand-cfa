@@ -3,6 +3,7 @@
 (require racket/match racket/pretty)
 (provide (all-defined-out))
 
+; The monad distinguishes between set and lattice values (which lets us use fine-grained dependency tracking and propagation of set members, while propagating the lattice values for integers separately)
 (define ((clos Ce p) k) (k (product/set (list Ce p))))
 (define ((lit x) k) (k (product/lattice x)))
 
@@ -17,8 +18,8 @@
 (define ((>>=clos m f) k) ((>>=eval m f (λ (_) ⊥)) k))
 
 ; abstract values
-(struct literal (litLattices) #:transparent)
-(struct flat-lattice () #:transparent)
+(struct literal (litLattices) #:transparent); Literal lattice is a list of lattices for numbers, chars, strings and symbols
+(struct flat-lattice () #:transparent); bottom value top
 (struct top flat-lattice () #:transparent)
 (struct bottom flat-lattice () #:transparent)
 (struct singleton flat-lattice (x) #:transparent)

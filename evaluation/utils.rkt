@@ -4,12 +4,6 @@
 
 (define (hash-num-keys h) (length (hash-keys h)))
 
-(define-syntax-rule (zip l ...)
-  (map list l ...))
-
-(define (intersperse n l)
-  (add-between l n))
-
 (define (ors xs)
   (match xs
     [(list) #f]
@@ -39,10 +33,6 @@
     [(cons _ ccs) ccs]
     [(list) (list)]
     ))
-
-(define (assert tv msg)
-  (if tv '() (error 'assertion-failed msg))
-  )
 
 (module+ main
   (require rackunit)

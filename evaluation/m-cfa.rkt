@@ -37,7 +37,6 @@
 ; in environment `env` with the value `val`
 (define (((extend-store x bindCe env val) k) s)
   (assert-right-value-mcfa val)
-  ; (pretty-print `(extend-store ,x ,(show-simple-ctx bindCe) ,(show-simple-env env)))
   ((k #f) ((product-absorb-lit (store (list x bindCe env)) val) s))
   )
 
@@ -105,7 +104,6 @@
 ; Same as above but inline the (get-rebindce from get-store-val instead of actually looking it up)
 ; Only used for set!
 (define (lookup-addr x Ce ρ)
-  ; (pretty-print `(lookup-addr ,x ,(show-simple-ctx Ce)))
   (>>=
    (get-binding-context x Ce ρ) ; Find what x is bound to
    (λ (Cex ρx i)
@@ -121,13 +119,11 @@
 
 ; Looks up a symbol
 (define (symbol-lookup x Ce ρ)
-  ; (pretty-print `(lookup ,(show-simple-ctx Ce) ,x ,(show-simple-env ρ)))
   (match (lookup-primitive x) ; See if it is a primitive
     [#f
      (match ((lookup-constructor x) Ce) ; Check if it is a constructor
        [#f (store-lookup x Ce ρ)] ; Otherwise lookup in the store / environment
        [Ce
-        ; (pretty-print `(constructor-found ,x ,(show-simple-ctx Ce)))
         (clos Ce (top-env))] ; Is constructor
        )
      ]
@@ -141,7 +137,6 @@
 
 ; Evaluates a sequence of arguments, while rebinding in a new environment and binding location
 (define (evalbind* vars binds ρnew args)
-  ; (pretty-print `(evalbind ,vars ,(show-simple-env ρnew)))
   (seql (map (λ (var bind arg)
                (>>= (apply meval arg)
                     (λ (res)
@@ -151,7 +146,6 @@
 
 ; Binds the bindings `bindsCe` with variable identifiers `vars` in the environment `ρ` to the corresponding values from `vals`
 (define (bind-args vars bindsCe ρ vals)
-  ; (pretty-print `(bind-args ,vars ,(show-simple-env ρ)))
   (if (and (equal? (length vars) (length vals)) (equal? (length vars) (length bindsCe)))
       (seql (map
              (λ (var bind val)
@@ -161,7 +155,6 @@
       ))
 
 (define (rebind-vars vars Ce ρ ρnew)
-  ; (pretty-print `(rebind-vars ,(show-simple-ctx Ce) ,vars ,(show-simple-env ρ) ,(show-simple-env ρnew)))
   (seql
    (map
     (λ (var)
@@ -184,11 +177,6 @@
 
 ; demand evaluation
 (define-key (meval Ce ρ) #:⊥ litbottom #:⊑ lit-lte #:⊔ lit-union #:product
-  ; (print-eval-result
-  ;  `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ))
-  ;  (λ ()
-  ;  (pretty-print Ce)
-  ;  (pretty-print `(meval ,(show-simple-ctx Ce) ,(show-simple-env ρ)))
   (check-result
    assert-right-value-mcfa
    (match Ce
@@ -266,16 +254,13 @@
       (>>=clos ; TODO: Could this result in a symbol representing a top level application?
        (>>= (rat Ce ρ) meval) ; Evaluate the operator
        (λ (lam lamρ)
-         ;  (pretty-print 'before-args)
          (define args-ce-p (f-args Ce ρ as)) ; Get the arguments
-         ;  (pretty-print 'after-args)
          (>>= (eval* args-ce-p) ; Evaluate the arguments
               (λ (evaled-args)
                 (match lam
                   [`(prim ,_ ,_) ; If the operator is a primitive apply it
                    (apply-primitive lam C ρ evaled-args)]
                   [(cons _ `(λ ,xs ,bod)) ; If it is a lambda
-                   ; (pretty-print `(lam ,xs ,(show-simple-ctx lam)))
                    (>>= (bod-enter lam Ce ρ lamρ)
                         (λ (bodCe ρ-new) ; Get the body
                           (>>=
@@ -296,17 +281,15 @@
                                ))))
                         )]
                   [(cons C `(typedef (,con ,@conargs))) ; For constructors
-                   ; (pretty-print `(constructor? ,con ,conargs))
                    (if (or (equal? con #t) (equal? con #f) (symbol? con)) ; Ensure the constructor is a #t #f or symbol
                        (if (= (length as) 0) ; If the constructor has no arguments
                            (clos `(con ,con) (top-env)) ; Just return the constructor in the top-env
                            ; Otherwise bind the constructor arguments using their unique syntactic contexts
                            (>>= (bind-args (repeat 'con (length as)) (map car args-ce-p) ρ evaled-args)
                                 (λ (_)
-                                  ;  (pretty-print `(returning-con ,con ,(show-simple-ctx Ce)))
                                   (clos `(con ,con ,Ce) ρ)))
                            )
-                       ⊥ ; (error 'invalid-rator (pretty-format `(invalid-rator ,(show-simple-ctx Ce) ,(show-simple-ctx lam))))
+                       ⊥ 
                        )
                    ]
                   [`(con ,con ,@Ce)
@@ -324,7 +307,6 @@
      ; Otherwise throw an error
      [(cons C e) (error 'meval (pretty-format `(can not eval expression: ,e in context ,C)))]
      )))
-;  #t ))
 
 ; Looks up the constructor values requested in a match statement
 ; Ces represents the binding site of each argument of the constructor application that flowed to this location
@@ -427,21 +409,9 @@
                               ))))))
         ]
        [_ ⊥] ; Symbol or other non-constructors
-       ;   [(cons C `',x) ; A quoted symbol match?
-       ;   (unit (and (eq? 0 (length subpats)) (eq? `',x con)))
-       ;   ]
-       ;  [Ce
-       ;   (if (equal? pattern `(#t)); Truthy
-       ;       (unit #t); if Ce is a constructor it would be caught earlier
-       ;       (if (equal? pattern `(#f)) ; Falsey
-       ;           (unit #f) ; if Ce is a constructor it would be caught earlier
-       ;           ⊥
-       ;           ; (error 'pattern-con-match (format "no-matching-pattern for ~a" (show-simple-ctx Ce)))
-       ;           ))]
        )]
     [`',x (unit #f)] ; symbols are matched by literals not constructors
     [(? symbol? x)
-     ;  (pretty-print (show-simple-ctx Ce))
      (if (eq? x '_) ; If the symbols match and x is a wildcard don't bind anything
          (unit #t)
          ; Otherwise bind the symbol x to the value wrapped back up as a closure
