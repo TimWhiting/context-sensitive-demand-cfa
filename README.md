@@ -18,3 +18,11 @@ Make sure texlive is installed `sudo apt install texlive-full` and `racket` (htt
 make
 ```
 
+
+
+Cleanup TODO:
+- Remove unused examples / benchmarks - put them in a common folder - remove references to unused benchmarks
+- Remove unused code in plot.rkt
+- Remove one-off / irrelevant test files
+- Make it runnable on Docker?
+

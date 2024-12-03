@@ -89,13 +89,12 @@
      (match-let-values
       ([((list hash-new) cpu real gc)
         (time-apply (lambda ()
-                      (for/and ([trial (range acc-trials)])
-                        (run-get-hash query old-hash g)))
+                      (run-get-hash query old-hash g))
                     '())])
       (match hash-new
         [(state-gas st ga)
          (set! hash-result st)
-         (list (/ cpu acc-trials) (/ real acc-trials) (/ gc acc-trials))
+         (list cpu real gc)
          ]))))
   (values hash-result time-result)
   )
