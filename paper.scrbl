@@ -30,6 +30,16 @@
 
 \title{Context-Sensitive Demand-Driven Control-Flow Analysis}
 
+\author{
+      Tim Whiting\orcidID{0000-0003-4016-1071} \and Kimball Germane
+}
+
+\institute{
+Brigham Young University, Provo UT 84601, USA\\
+\email{tim@"@"whitings.org}\\
+\email{kimball@"@"cs.byu.edu}
+}
+
 \maketitle
 
 \begin{abstract}
@@ -1284,7 +1294,9 @@ Our implementation, written in Haskell, consists of approximately 3000 lines of 
 
 Our experience with the Koka compiler indicates that integrating Demand $m$-CFA into a real-world compiler or 
 language server is in some cases more tractable than an exhaustive analysis, 
-since not all language features or primitives need to be supported before getting useful and actionable results.
+since not all language features or primitives need to be supported before getting useful and actionable results.\footnote{
+The Pure Scheme and Koka implementations are available on GitHub: (https://github.com/TimWhiting/context-sensitive-demand-cfa, https://github.com/TimWhiting/koka/tree/esop-2025)
+}
 
 \section{Related Work}
 \label{sec:related-work}
