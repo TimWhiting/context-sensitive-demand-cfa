@@ -8,6 +8,14 @@ paper.pdf: # plots
 	pdflatex --interaction=nonstopmode paper.tex || \
 	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
+techreport.pdf: techreport.tex paper.bib
+techreport.pdf: # plots
+	pdflatex --interaction=nonstopmode techreport.tex || \
+	bibtex techreport || \
+	pdflatex --interaction=nonstopmode techreport.tex && \
+	pdflatex --interaction=nonstopmode techreport.tex || \
+	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+
 cover-letter.pdf: cover-letter.tex
 	pdflatex --interaction=nonstopmode cover-letter.tex || \
 	echo '\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!! ERROR WHEN RUNNING LATEX OR BIBTEX !!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
